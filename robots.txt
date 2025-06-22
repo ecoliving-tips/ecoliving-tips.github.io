@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://[YOUR-GITHUB-USERNAME].github.io/ecoliving-tips/sitemap.xml
