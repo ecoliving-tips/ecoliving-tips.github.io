@@ -1,51 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-<channel>
-  <title>EcoLiving Tips - Sustainable Living Made Simple</title>
-  <link>https://[YOUR-GITHUB-USERNAME].github.io/ecoliving-tips/</link>
+<channel>  <title>EcoLiving Tips - Sustainable Living Made Simple</title>
+  <link>https://ecoliving-tips.github.io/</link>
   <description>Discover actionable eco-friendly tips and sustainable living practices to reduce your carbon footprint. Simple, practical advice for a greener lifestyle in 2025.</description>
   <language>en-us</language>
   <pubDate>Sun, 22 Jun 2025 12:00:00 GMT</pubDate>
   <lastBuildDate>Sun, 22 Jun 2025 12:00:00 GMT</lastBuildDate>
-  <atom:link href="https://[YOUR-GITHUB-USERNAME].github.io/ecoliving-tips/feed.xml" rel="self" type="application/rss+xml" />
-  
-  <item>
+  <atom:link href="https://ecoliving-tips.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
     <title>Reduce Single-Use Plastics: Simple Swaps for a Cleaner Planet</title>
-    <link>https://[YOUR-GITHUB-USERNAME].github.io/ecoliving-tips/#tips</link>
+    <link>https://ecoliving-tips.github.io/#tips</link>
     <pubDate>Sun, 22 Jun 2025 10:00:00 GMT</pubDate>
-    <guid>https://[YOUR-GITHUB-USERNAME].github.io/ecoliving-tips/#tips-plastic</guid>
+    <guid>https://ecoliving-tips.github.io/#tips-plastic</guid>
     <description>Switch to reusable water bottles, shopping bags, and food containers to significantly reduce plastic waste. Learn about effective alternatives to common single-use plastic items.</description>
   </item>
   
   <item>
     <title>Start Composting: Turn Kitchen Waste into Garden Gold</title>
-    <link>https://[YOUR-GITHUB-USERNAME].github.io/ecoliving-tips/#tips</link>
+    <link>https://ecoliving-tips.github.io/#tips</link>
     <pubDate>Sun, 22 Jun 2025 09:00:00 GMT</pubDate>
-    <guid>https://[YOUR-GITHUB-USERNAME].github.io/ecoliving-tips/#tips-compost</guid>
+    <guid>https://ecoliving-tips.github.io/#tips-compost</guid>
     <description>Turn kitchen scraps and yard waste into nutrient-rich soil for your garden and reduce landfill waste. We explain how to start composting even in small spaces.</description>
   </item>
-  
-  <item>
+    <item>
     <title>Energy-Efficient Lighting: Brighten Your Home While Saving Energy</title>
-    <link>https://[YOUR-GITHUB-USERNAME].github.io/ecoliving-tips/#tips</link>
+    <link>https://ecoliving-tips.github.io/#tips</link>
     <pubDate>Sun, 22 Jun 2025 08:00:00 GMT</pubDate>
-    <guid>https://[YOUR-GITHUB-USERNAME].github.io/ecoliving-tips/#tips-lighting</guid>
+    <guid>https://ecoliving-tips.github.io/#tips-lighting</guid>
     <description>Replace traditional bulbs with LED lights to save energy and reduce your electricity bill. Learn about the different options and how to choose the right lighting for each room.</description>
   </item>
   
   <item>
     <title>Water Conservation: Simple Habits for a Sustainable Future</title>
-    <link>https://[YOUR-GITHUB-USERNAME].github.io/ecoliving-tips/#tips</link>
+    <link>https://ecoliving-tips.github.io/#tips</link>
     <pubDate>Sun, 22 Jun 2025 07:00:00 GMT</pubDate>
-    <guid>https://[YOUR-GITHUB-USERNAME].github.io/ecoliving-tips/#tips-water</guid>
+    <guid>https://ecoliving-tips.github.io/#tips-water</guid>
     <description>Install low-flow fixtures and be mindful of water usage to preserve this essential resource. Discover practical ways to reduce water consumption without sacrificing comfort.</description>
   </item>
-  
-  <item>
+    <item>
     <title>Eat Local and Seasonal: Supporting Farmers and the Environment</title>
-    <link>https://[YOUR-GITHUB-USERNAME].github.io/ecoliving-tips/#tips</link>
+    <link>https://ecoliving-tips.github.io/#tips</link>
     <pubDate>Sun, 22 Jun 2025 06:00:00 GMT</pubDate>
-    <guid>https://[YOUR-GITHUB-USERNAME].github.io/ecoliving-tips/#tips-food</guid>
+    <guid>https://ecoliving-tips.github.io/#tips-food</guid>
     <description>Support local farmers and reduce transportation emissions by choosing locally grown, seasonal produce. We share tips for finding and preparing seasonal foods.</description>
   </item>
 </channel>
