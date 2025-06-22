@@ -16,7 +16,7 @@ A fast-loading, mobile-responsive static website focused on sustainable living a
 1. Fork this repository
 2. Go to Settings > Pages
 3. Set the source to the main branch
-4. Your site will be published at https://ecoliving-tips.github.io/
+4. Your site will be published at https://yourusername.github.io/repository-name/
 
 ## Customizing the Site
 
