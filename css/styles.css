@@ -27,13 +27,23 @@ body {
 }
 
 a {
-    text-decoration: none;
+    text-decoration: underline;
+    text-decoration-color: transparent;
     color: var(--primary-color);
     transition: var(--transition);
+    border-bottom: 1px solid transparent;
 }
 
 a:hover {
     color: var(--dark-color);
+    text-decoration-color: var(--dark-color);
+    border-bottom-color: var(--dark-color);
+}
+
+a:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+    text-decoration-color: var(--primary-color);
 }
 
 img {
@@ -90,10 +100,12 @@ p {
     color: white;
     padding: 12px 24px;
     border-radius: var(--border-radius);
-    border: none;
+    border: 2px solid var(--primary-color);
     cursor: pointer;
     transition: var(--transition);
     font-weight: 500;
+    text-decoration: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .btn-small {
@@ -106,6 +118,14 @@ p {
     background-color: var(--dark-color);
     color: white;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    border-color: var(--dark-color);
+    transform: translateY(-1px);
+}
+
+.btn:focus,
+.btn-small:focus {
+    outline: 3px solid rgba(76, 175, 80, 0.4);
+    outline-offset: 2px;
 }
 
 /* Header & Navigation */
@@ -151,6 +171,10 @@ nav ul li a {
     font-weight: 500;
     padding: 5px 0;
     position: relative;
+    text-decoration: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 8px 12px;
 }
 
 nav ul li a::after {
@@ -164,8 +188,20 @@ nav ul li a::after {
     transition: var(--transition);
 }
 
+nav ul li a:hover {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    background-color: rgba(76, 175, 80, 0.1);
+}
+
 nav ul li a:hover::after {
     width: 100%;
+}
+
+nav ul li a:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+    border-color: var(--primary-color);
 }
 
 /* Hero Section */
@@ -232,6 +268,12 @@ nav ul li a:hover::after {
     position: relative;
     color: var(--primary-color);
     cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    border: 1px solid transparent;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: var(--transition);
 }
 
 .read-more::after {
@@ -242,12 +284,22 @@ nav ul li a:hover::after {
     width: 15px;
 }
 
+.read-more:hover {
+    color: var(--dark-color);
+    text-decoration-color: var(--dark-color);
+    border-color: var(--dark-color);
+    background-color: rgba(46, 125, 50, 0.1);
+}
+
 .read-more:hover::after {
     transform: translateX(5px);
 }
 
-.read-more:hover {
-    color: var(--dark-color);
+.read-more:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+    text-decoration-color: var(--primary-color);
+    border-color: var(--primary-color);
 }
 
 .read-more-placeholder {
@@ -380,10 +432,22 @@ footer {
 
 .footer-links ul li a {
     color: #ddd;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    border-bottom: 1px solid transparent;
+    transition: var(--transition);
 }
 
 .footer-links ul li a:hover {
     color: var(--accent-color);
+    text-decoration-color: var(--accent-color);
+    border-bottom-color: var(--accent-color);
+}
+
+.footer-links ul li a:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+    text-decoration-color: var(--accent-color);
 }
 
 .footer-newsletter p {
