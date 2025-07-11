@@ -16,42 +16,31 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Form submission handling
-    const contactForm = document.querySelector('.contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-              // Get form data
-            const formData = new FormData(contactForm);
-            let formValues = {};
-            
-            for (let [key, value] of formData.entries()) {
-                formValues[key] = value;
-            }
-            
-            // Reset the form
-            contactForm.reset();
-            
-            // Show success message (in a real implementation)
-            alert('Thank you for your message! We will get back to you soon.');
-        });
+    // Form submission success handling
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('success') === 'true') {
+        showSuccessMessage();
     }
 
-    // Newsletter subscription handling
-    const newsletterForm = document.querySelector('.newsletter-form');
-    if (newsletterForm) {
-        newsletterForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const emailInput = newsletterForm.querySelector('input[type="email"]');            const email = emailInput.value;
-            
-            if (email) {
-                // Reset the form
-                newsletterForm.reset();
-                
-                // Show success message (in a real implementation)
-                alert('Thank you for subscribing to our newsletter!');
+    function showSuccessMessage() {
+        const successDiv = document.createElement('div');
+        successDiv.className = 'form-success-message';
+        successDiv.innerHTML = `
+            <div class="success-content">
+                <h3>✅ Message Sent Successfully!</h3>
+                <p>Thank you for reaching out! Your message has been sent directly to almighty33one@gmail.com and you'll receive a personal response within 24-48 hours.</p>
+                <p>🎵 In the meantime, feel free to explore our <a href="https://www.youtube.com/@almightyone8205" target="_blank">YouTube tutorials</a>!</p>
+                <button onclick="this.parentElement.parentElement.remove()" class="btn btn-small">Close</button>
+            </div>
+        `;
+        
+        document.body.insertBefore(successDiv, document.body.firstChild);
+        
+        // Auto-remove after 10 seconds
+        setTimeout(() => {
+            if (successDiv.parentElement) {
+                successDiv.remove();
             }
-        });
+        }, 10000);
     }
 });
