@@ -1,48 +1,49 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-<channel>  <title>EcoLiving Tips - Sustainable Living Made Simple</title>
+<channel>
+  <title>Mindful Living and Devotional Music - Malayalam Christian Keyboard Tutorials</title>
   <link>https://ecoliving-tips.github.io/</link>
-  <description>Discover actionable eco-friendly tips and sustainable living practices to reduce your carbon footprint. Simple, practical advice for a greener lifestyle in 2025.</description>
+  <description>Learn Malayalam Christian devotional songs on keyboard with easy tutorials. Discover mindful living through music, spirituality, and sustainable practices for a peaceful lifestyle.</description>
   <language>en-us</language>
-  <pubDate>Sun, 22 Jun 2025 12:00:00 GMT</pubDate>
-  <lastBuildDate>Sun, 22 Jun 2025 12:00:00 GMT</lastBuildDate>
+  <pubDate>Sat, 12 Jul 2025 12:00:00 GMT</pubDate>
+  <lastBuildDate>Sat, 12 Jul 2025 12:00:00 GMT</lastBuildDate>
   <atom:link href="https://ecoliving-tips.github.io/feed.xml" rel="self" type="application/rss+xml" />
     <item>
-    <title>Reduce Single-Use Plastics: Simple Swaps for a Cleaner Planet</title>
-    <link>https://ecoliving-tips.github.io/#tips</link>
-    <pubDate>Sun, 22 Jun 2025 10:00:00 GMT</pubDate>
-    <guid>https://ecoliving-tips.github.io/#tips-plastic</guid>
-    <description>Switch to reusable water bottles, shopping bags, and food containers to significantly reduce plastic waste. Learn about effective alternatives to common single-use plastic items.</description>
+    <title>Syro Malabar Holy Mass Songs: Traditional Liturgical Music</title>
+    <link>https://ecoliving-tips.github.io/#songs</link>
+    <pubDate>Sat, 12 Jul 2025 10:00:00 GMT</pubDate>
+    <guid>https://ecoliving-tips.github.io/#songs-liturgical</guid>
+    <description>Learn beautiful Malayalam Syro Malabar liturgical songs with keyboard tutorials. Perfect for church worship and devotional practice.</description>
   </item>
   
   <item>
-    <title>Start Composting: Turn Kitchen Waste into Garden Gold</title>
-    <link>https://ecoliving-tips.github.io/#tips</link>
-    <pubDate>Sun, 22 Jun 2025 09:00:00 GMT</pubDate>
-    <guid>https://ecoliving-tips.github.io/#tips-compost</guid>
-    <description>Turn kitchen scraps and yard waste into nutrient-rich soil for your garden and reduce landfill waste. We explain how to start composting even in small spaces.</description>
+    <title>Malayalam Christian Keyboard Lessons: Beginner to Advanced</title>
+    <link>https://ecoliving-tips.github.io/#tutorials</link>
+    <pubDate>Sat, 12 Jul 2025 09:00:00 GMT</pubDate>
+    <guid>https://ecoliving-tips.github.io/#tutorials-keyboard</guid>
+    <description>Step-by-step keyboard tutorials for Malayalam Christian songs. Learn chord progressions, playing techniques, and background music for worship.</description>
   </item>
     <item>
-    <title>Energy-Efficient Lighting: Brighten Your Home While Saving Energy</title>
-    <link>https://ecoliving-tips.github.io/#tips</link>
-    <pubDate>Sun, 22 Jun 2025 08:00:00 GMT</pubDate>
-    <guid>https://ecoliving-tips.github.io/#tips-lighting</guid>
-    <description>Replace traditional bulbs with LED lights to save energy and reduce your electricity bill. Learn about the different options and how to choose the right lighting for each room.</description>
+    <title>Mindful Living Through Devotional Music</title>
+    <link>https://ecoliving-tips.github.io/#mindful-living</link>
+    <pubDate>Sat, 12 Jul 2025 08:00:00 GMT</pubDate>
+    <guid>https://ecoliving-tips.github.io/#mindful-living-music</guid>
+    <description>Discover how devotional music and spiritual practices can enhance your daily life and create a peaceful, mindful environment.</description>
   </item>
   
   <item>
-    <title>Water Conservation: Simple Habits for a Sustainable Future</title>
-    <link>https://ecoliving-tips.github.io/#tips</link>
-    <pubDate>Sun, 22 Jun 2025 07:00:00 GMT</pubDate>
-    <guid>https://ecoliving-tips.github.io/#tips-water</guid>
-    <description>Install low-flow fixtures and be mindful of water usage to preserve this essential resource. Discover practical ways to reduce water consumption without sacrificing comfort.</description>
+    <title>Popular Malayalam Christian Songs for Keyboard</title>
+    <link>https://ecoliving-tips.github.io/#songs</link>
+    <pubDate>Sat, 12 Jul 2025 07:00:00 GMT</pubDate>
+    <guid>https://ecoliving-tips.github.io/#songs-popular</guid>
+    <description>Learn the most beloved Malayalam Christian songs on keyboard with detailed tutorials and chord charts for worship and personal devotion.</description>
   </item>
     <item>
-    <title>Eat Local and Seasonal: Supporting Farmers and the Environment</title>
-    <link>https://ecoliving-tips.github.io/#tips</link>
-    <pubDate>Sun, 22 Jun 2025 06:00:00 GMT</pubDate>
-    <guid>https://ecoliving-tips.github.io/#tips-food</guid>
-    <description>Support local farmers and reduce transportation emissions by choosing locally grown, seasonal produce. We share tips for finding and preparing seasonal foods.</description>
+    <title>Creating a Sacred Space for Music Practice</title>
+    <link>https://ecoliving-tips.github.io/#mindful-living</link>
+    <pubDate>Sat, 12 Jul 2025 06:00:00 GMT</pubDate>
+    <guid>https://ecoliving-tips.github.io/#practice-space</guid>
+    <description>Tips for setting up a peaceful practice environment for learning devotional music and maintaining a consistent spiritual practice.</description>
   </item>
 </channel>
 </rss>
