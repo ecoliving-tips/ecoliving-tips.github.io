@@ -22,12 +22,17 @@
     <!-- Google Fonts Optimization -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"></noscript>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+        as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap">
+    </noscript>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <!-- RSS Feed -->
-    <link rel="alternate" type="application/rss+xml" title="Mindful Living & Devotional Music" href="feed.xml" /> <!-- Google AdSense -->
+    <link rel="alternate" type="application/rss+xml" title="Mindful Living & Devotional Music" href="feed.xml" />
+    <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7438590583270235"
         crossorigin="anonymous"></script>
     <meta name="google-adsense-account" content="ca-pub-7438590583270235">
@@ -69,9 +74,18 @@
 <body>
     <header>
         <div class="container">
-            <h1>Mindful Living & Devotional Music</h1>
-            <p class="tagline">Malayalam Christian Keyboard Tutorials & Spiritual Living</p>
-            <nav>
+            <div class="header-top">
+                <div class="header-content">
+                    <h1>Mindful Living & Devotional Music</h1>
+                    <p class="tagline">Malayalam Christian Keyboard Tutorials & Spiritual Living</p>
+                </div>
+                <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </div>
+            <nav class="mobile-nav">
                 <ul>
                     <li><a href="#home">Home</a></li>
                     <li><a href="#tutorials">Keyboard Tutorials</a></li>
@@ -90,10 +104,13 @@
             <div class="container">
                 <div class="hero-content">
                     <h2>Learn Syro Malabar Holy Mass Songs</h2>
-                    <p>Master beautiful Malayalam Syro Malabar liturgical songs on keyboard with our easy-to-follow tutorials. 
-                        Learn traditional holy mass songs with chord progressions, playing techniques, and background music for church worship.</p>
+                    <p>Master beautiful Malayalam Syro Malabar liturgical songs on keyboard with our easy-to-follow
+                        tutorials.
+                        Learn traditional holy mass songs with chord progressions, playing techniques, and background
+                        music for church worship.</p>
                     <div class="hero-buttons">
-                        <a href="https://www.youtube.com/@almightyone8205" target="_blank" rel="noopener noreferrer" class="btn youtube-btn">
+                        <a href="https://www.youtube.com/@almightyone8205" target="_blank" rel="noopener noreferrer"
+                            class="btn youtube-btn">
                             🎵 Watch Tutorials on YouTube
                         </a>
                         <a href="#songs" class="btn btn-secondary">Browse Holy Mass Songs</a>
@@ -109,38 +126,50 @@
                     <article class="tutorial-card">
                         <div class="tutorial-icon">⛪</div>
                         <h3>Essential Holy Mass Songs</h3>
-                        <p>Learn the most important Syro Malabar liturgical songs with traditional Ernakulam tune arrangements and chord progressions.</p>
-                        <a href="https://www.youtube.com/@almightyone8205" target="_blank" rel="noopener noreferrer" class="read-more">Watch Essential Songs</a>
+                        <p>Learn the most important Syro Malabar liturgical songs with traditional Ernakulam tune
+                            arrangements and chord progressions.</p>
+                        <a href="https://www.youtube.com/@almightyone8205" target="_blank" rel="noopener noreferrer"
+                            class="read-more">Watch Essential Songs</a>
                     </article>
                     <article class="tutorial-card">
                         <div class="tutorial-icon">🎹</div>
                         <h3>Chord Progressions & Techniques</h3>
-                        <p>Master keyboard techniques with detailed chord charts, finger positioning, and playing methods for authentic liturgical music.</p>
-                        <a href="https://www.youtube.com/@almightyone8205" target="_blank" rel="noopener noreferrer" class="read-more">Learn Techniques</a>
+                        <p>Master keyboard techniques with detailed chord charts, finger positioning, and playing
+                            methods for authentic liturgical music.</p>
+                        <a href="https://www.youtube.com/@almightyone8205" target="_blank" rel="noopener noreferrer"
+                            class="read-more">Learn Techniques</a>
                     </article>
                     <article class="tutorial-card">
                         <div class="tutorial-icon">🎵</div>
                         <h3>Background Music & Midi</h3>
-                        <p>Complete arrangements with background music tracks and midi karaoke for authentic Syro Malabar Holy Mass experience.</p>
-                        <a href="https://www.youtube.com/@almightyone8205" target="_blank" rel="noopener noreferrer" class="read-more">Explore Arrangements</a>
+                        <p>Complete arrangements with background music tracks and midi karaoke for authentic Syro
+                            Malabar Holy Mass experience.</p>
+                        <a href="https://www.youtube.com/@almightyone8205" target="_blank" rel="noopener noreferrer"
+                            class="read-more">Explore Arrangements</a>
                     </article>
                     <article class="tutorial-card">
                         <div class="tutorial-icon">🙏</div>
                         <h3>Liturgical Practice</h3>
-                        <p>Perfect your holy mass accompaniment skills for church services with proper timing, rhythm, and liturgical understanding.</p>
-                        <a href="https://www.youtube.com/@almightyone8205" target="_blank" rel="noopener noreferrer" class="read-more">Practice Liturgy</a>
+                        <p>Perfect your holy mass accompaniment skills for church services with proper timing, rhythm,
+                            and liturgical understanding.</p>
+                        <a href="https://www.youtube.com/@almightyone8205" target="_blank" rel="noopener noreferrer"
+                            class="read-more">Practice Liturgy</a>
                     </article>
                     <article class="tutorial-card">
                         <div class="tutorial-icon">🎼</div>
                         <h3>Traditional Ernakulam Tune</h3>
-                        <p>Authentic traditional arrangements following the classic Ernakulam archdiocese musical traditions and styles.</p>
-                        <a href="https://www.youtube.com/@almightyone8205" target="_blank" rel="noopener noreferrer" class="read-more">Traditional Styles</a>
+                        <p>Authentic traditional arrangements following the classic Ernakulam archdiocese musical
+                            traditions and styles.</p>
+                        <a href="https://www.youtube.com/@almightyone8205" target="_blank" rel="noopener noreferrer"
+                            class="read-more">Traditional Styles</a>
                     </article>
                     <article class="tutorial-card">
                         <div class="tutorial-icon">�</div>
                         <h3>Notes & Chord Charts</h3>
-                        <p>Detailed musical notes and chord progressions displayed during tutorials for easy learning and practice reference.</p>
-                        <a href="https://www.youtube.com/@almightyone8205" target="_blank" rel="noopener noreferrer" class="read-more">View Chord Charts</a>
+                        <p>Detailed musical notes and chord progressions displayed during tutorials for easy learning
+                            and practice reference.</p>
+                        <a href="https://www.youtube.com/@almightyone8205" target="_blank" rel="noopener noreferrer"
+                            class="read-more">View Chord Charts</a>
                     </article>
                 </div>
             </div>
@@ -149,59 +178,75 @@
         <section id="songs" class="songs-section">
             <div class="container">
                 <h2>Popular Syro Malabar Holy Mass Songs</h2>
-                <p class="section-intro">Learn these essential Malayalam Syro Malabar liturgical songs with our step-by-step keyboard tutorials featuring chords, playing techniques, and background music.</p>
-                
+                <p class="section-intro">Learn these essential Malayalam Syro Malabar liturgical songs with our
+                    step-by-step keyboard tutorials featuring chords, playing techniques, and background music.</p>
+
                 <!-- Featured Video Section -->
                 <div class="featured-video">
                     <h3>🎥 Featured Tutorial - Anna Pesaha Thirunalil</h3>
                     <div class="video-container">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/CGfSjeFkL-0?si=BcO1csZz-LVc14C9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <iframe width="560" height="315"
+                            src="https://www.youtube.com/embed/CGfSjeFkL-0?si=BcO1csZz-LVc14C9"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     </div>
-                    <p class="video-description">Our most popular tutorial with complete chord progressions and background music arrangement for the Syro Malabar Holy Mass.</p>
+                    <p class="video-description">Our most popular tutorial with complete chord progressions and
+                        background music arrangement for the Syro Malabar Holy Mass.</p>
                 </div>
 
                 <div class="songs-grid">
                     <article class="song-card">
                         <h3>Anna Pesaha Thirunalil</h3>
-                        <p>Essential Syro Malabar Holy Mass song with complete keyboard arrangement, chords, and background music. Perfect for church liturgy.</p>
+                        <p>Essential Syro Malabar Holy Mass song with complete keyboard arrangement, chords, and
+                            background music. Perfect for church liturgy.</p>
                         <div class="song-details">
                             <span class="difficulty">Most Popular</span>
                             <span class="duration">43K views</span>
                         </div>
-                        <a href="https://youtu.be/CGfSjeFkL-0" target="_blank" rel="noopener noreferrer" class="song-link">Watch Tutorial</a>
+                        <a href="https://youtu.be/CGfSjeFkL-0" target="_blank" rel="noopener noreferrer"
+                            class="song-link">Watch Tutorial</a>
                     </article>
                     <article class="song-card">
                         <h3>Swargasthithanam Thatha Nin</h3>
-                        <p>Beautiful liturgical song with traditional Ernakulam tune arrangement. Includes chord progressions and playing techniques.</p>
+                        <p>Beautiful liturgical song with traditional Ernakulam tune arrangement. Includes chord
+                            progressions and playing techniques.</p>
                         <div class="song-details">
                             <span class="difficulty">Traditional</span>
                             <span class="duration">12K views</span>
                         </div>
-                        <a href="https://youtu.be/fhoQUSP5ETQ" target="_blank" rel="noopener noreferrer" class="song-link">Watch Tutorial</a>
+                        <a href="https://youtu.be/fhoQUSP5ETQ" target="_blank" rel="noopener noreferrer"
+                            class="song-link">Watch Tutorial</a>
                     </article>
                     <article class="song-card">
                         <h3>Shabdam Uyarthi Padiduvin</h3>
-                        <p>Essential Syro Malabar mass song with keyboard tutorial featuring midi karaoke and Ernakulam tune.</p>
+                        <p>Essential Syro Malabar mass song with keyboard tutorial featuring midi karaoke and Ernakulam
+                            tune.</p>
                         <div class="song-details">
                             <span class="difficulty">Liturgical</span>
                             <span class="duration">9K views</span>
                         </div>
-                        <a href="https://youtu.be/qmjximp0bNI" target="_blank" rel="noopener noreferrer" class="song-link">Watch Tutorial</a>
+                        <a href="https://youtu.be/qmjximp0bNI" target="_blank" rel="noopener noreferrer"
+                            class="song-link">Watch Tutorial</a>
                     </article>
                     <article class="song-card">
                         <h3>More Holy Mass Songs</h3>
-                        <p>Explore our complete collection of 33 Syro Malabar Holy Mass keyboard tutorials with detailed chord charts and arrangements.</p>
+                        <p>Explore our complete collection of 33 Syro Malabar Holy Mass keyboard tutorials with detailed
+                            chord charts and arrangements.</p>
                         <div class="song-details">
                             <span class="difficulty">Complete Library</span>
                             <span class="duration">33 videos</span>
                         </div>
-                        <a href="https://www.youtube.com/@almightyone8205" target="_blank" rel="noopener noreferrer" class="song-link">View All Videos</a>
+                        <a href="https://www.youtube.com/@almightyone8205" target="_blank" rel="noopener noreferrer"
+                            class="song-link">View All Videos</a>
                     </article>
                 </div>
                 <div class="songs-cta">
                     <h3>Want to Learn These Songs?</h3>
-                    <p>Subscribe to our YouTube channel for complete tutorials with chord charts, rhythm patterns, and playing tips!</p>
-                    <a href="https://www.youtube.com/@almightyone8205" target="_blank" rel="noopener noreferrer" class="btn youtube-btn">
+                    <p>Subscribe to our YouTube channel for complete tutorials with chord charts, rhythm patterns, and
+                        playing tips!</p>
+                    <a href="https://www.youtube.com/@almightyone8205" target="_blank" rel="noopener noreferrer"
+                        class="btn youtube-btn">
                         🎹 Subscribe for More Tutorials
                     </a>
                 </div>
@@ -213,15 +258,22 @@
                 <h2>Mindful Living Through Music & Faith</h2>
                 <div class="mindful-content">
                     <div class="mindful-text">
-                        <p>Music has the power to transform not just our worship experience, but our entire approach to life. When we learn and play devotional music, we cultivate mindfulness, peace, and a deeper connection with our faith.</p>
-                        
+                        <p>Music has the power to transform not just our worship experience, but our entire approach to
+                            life. When we learn and play devotional music, we cultivate mindfulness, peace, and a deeper
+                            connection with our faith.</p>
+
                         <h3>Benefits of Learning Devotional Music</h3>
                         <ul>
-                            <li><strong>Spiritual Growth:</strong> Playing worship songs deepens your connection with God and enhances prayer life</li>
-                            <li><strong>Stress Relief:</strong> Music practice provides a peaceful escape from daily pressures and anxiety</li>
-                            <li><strong>Community Service:</strong> Use your skills to serve in church worship teams and community events</li>
-                            <li><strong>Cultural Heritage:</strong> Preserve and share beautiful Malayalam Christian musical traditions</li>
-                            <li><strong>Family Bonding:</strong> Create meaningful worship experiences at home with loved ones</li>
+                            <li><strong>Spiritual Growth:</strong> Playing worship songs deepens your connection with
+                                God and enhances prayer life</li>
+                            <li><strong>Stress Relief:</strong> Music practice provides a peaceful escape from daily
+                                pressures and anxiety</li>
+                            <li><strong>Community Service:</strong> Use your skills to serve in church worship teams and
+                                community events</li>
+                            <li><strong>Cultural Heritage:</strong> Preserve and share beautiful Malayalam Christian
+                                musical traditions</li>
+                            <li><strong>Family Bonding:</strong> Create meaningful worship experiences at home with
+                                loved ones</li>
                         </ul>
 
                         <div class="learning-journey">
@@ -230,29 +282,34 @@
                                 <div class="step">
                                     <span class="step-number">1</span>
                                     <h4>Start with Basics</h4>
-                                    <p>Learn fundamental chords and finger positioning with our beginner-friendly tutorials</p>
+                                    <p>Learn fundamental chords and finger positioning with our beginner-friendly
+                                        tutorials</p>
                                 </div>
                                 <div class="step">
                                     <span class="step-number">2</span>
                                     <h4>Practice Simple Songs</h4>
-                                    <p>Begin with easy Malayalam Christian songs to build confidence and muscle memory</p>
+                                    <p>Begin with easy Malayalam Christian songs to build confidence and muscle memory
+                                    </p>
                                 </div>
                                 <div class="step">
                                     <span class="step-number">3</span>
                                     <h4>Develop Your Style</h4>
-                                    <p>Learn different arrangements and techniques to create your unique worship expression</p>
+                                    <p>Learn different arrangements and techniques to create your unique worship
+                                        expression</p>
                                 </div>
                                 <div class="step">
                                     <span class="step-number">4</span>
                                     <h4>Share Your Gift</h4>
-                                    <p>Use your skills to bless others in church, family gatherings, and community events</p>
+                                    <p>Use your skills to bless others in church, family gatherings, and community
+                                        events</p>
                                 </div>
                             </div>
                         </div>
 
                         <div class="sustainable-practice">
                             <h3>Creating a Sustainable Practice Space</h3>
-                            <p>As you develop your musical journey, consider creating an eco-friendly practice environment:</p>
+                            <p>As you develop your musical journey, consider creating an eco-friendly practice
+                                environment:</p>
                             <ul>
                                 <li>Use energy-efficient LED lighting for sheet music reading</li>
                                 <li>Choose sustainable materials for music stands and accessories</li>
@@ -293,9 +350,17 @@
             <div class="container">
                 <h2>About Our Syro Malabar Music Ministry</h2>
                 <div class="about-content">
-                    <p>Welcome to our specialized community dedicated to learning Syro Malabar Holy Mass songs and cultivating mindful living through sacred liturgical music. We believe that sacred music is one of God's greatest gifts, and learning to play Holy Mass songs enriches both our spiritual life and worship experience.</p>
-                    <p>Our YouTube channel provides comprehensive keyboard tutorials specifically for Malayalam Syro Malabar liturgical songs, focusing on traditional Ernakulam tune arrangements. Each tutorial includes detailed chord progressions, playing techniques, background music, and musical notes for complete learning.</p>
-                    <p>Beyond music education, we embrace the connection between sacred liturgical practices and mindful living. When we cultivate inner peace through Holy Mass music, we naturally develop greater spiritual awareness and deeper connection with our liturgical traditions.</p>
+                    <p>Welcome to our specialized community dedicated to learning Syro Malabar Holy Mass songs and
+                        cultivating mindful living through sacred liturgical music. We believe that sacred music is one
+                        of God's greatest gifts, and learning to play Holy Mass songs enriches both our spiritual life
+                        and worship experience.</p>
+                    <p>Our YouTube channel provides comprehensive keyboard tutorials specifically for Malayalam Syro
+                        Malabar liturgical songs, focusing on traditional Ernakulam tune arrangements. Each tutorial
+                        includes detailed chord progressions, playing techniques, background music, and musical notes
+                        for complete learning.</p>
+                    <p>Beyond music education, we embrace the connection between sacred liturgical practices and mindful
+                        living. When we cultivate inner peace through Holy Mass music, we naturally develop greater
+                        spiritual awareness and deeper connection with our liturgical traditions.</p>
                     <div class="mission-stats">
                         <div class="stat">
                             <h3>33</h3>
@@ -320,27 +385,39 @@
                 <div class="faq-grid">
                     <div class="faq-item">
                         <h3>Do I need prior keyboard experience to start learning?</h3>
-                        <p>Not at all! Our tutorials are designed for complete beginners. We start with basic finger positioning, simple chords, and gradually progress to more complex songs. Many of our students had never touched a keyboard before starting their journey with us.</p>
+                        <p>Not at all! Our tutorials are designed for complete beginners. We start with basic finger
+                            positioning, simple chords, and gradually progress to more complex songs. Many of our
+                            students had never touched a keyboard before starting their journey with us.</p>
                     </div>
                     <div class="faq-item">
                         <h3>What equipment do I need to get started?</h3>
-                        <p>You'll need a keyboard or piano (acoustic or digital), and access to our YouTube tutorials. We recommend starting with a basic 61-key keyboard if you're purchasing new equipment. No expensive software or additional accessories are required.</p>
+                        <p>You'll need a keyboard or piano (acoustic or digital), and access to our YouTube tutorials.
+                            We recommend starting with a basic 61-key keyboard if you're purchasing new equipment. No
+                            expensive software or additional accessories are required.</p>
                     </div>
                     <div class="faq-item">
                         <h3>How often should I practice to see improvement?</h3>
-                        <p>Consistent practice is key! Even 15-20 minutes daily will show significant improvement within a few weeks. We recommend starting with short, focused practice sessions rather than long, infrequent ones. Quality over quantity always wins.</p>
+                        <p>Consistent practice is key! Even 15-20 minutes daily will show significant improvement within
+                            a few weeks. We recommend starting with short, focused practice sessions rather than long,
+                            infrequent ones. Quality over quantity always wins.</p>
                     </div>
                     <div class="faq-item">
                         <h3>Can I request specific Malayalam Christian songs?</h3>
-                        <p>Absolutely! We love hearing from our community about which songs they'd like to learn. Use our contact section to request specific songs, and we'll prioritize popular requests for future video tutorials. Your input helps shape our content.</p>
+                        <p>Absolutely! We love hearing from our community about which songs they'd like to learn. Use
+                            our contact section to request specific songs, and we'll prioritize popular requests for
+                            future video tutorials. Your input helps shape our content.</p>
                     </div>
                     <div class="faq-item">
                         <h3>Are the tutorials suitable for children?</h3>
-                        <p>Yes! Our step-by-step approach works well for children aged 8 and above. Many families use our tutorials for home worship and music education. We include songs that are perfect for family singing and children's programs.</p>
+                        <p>Yes! Our step-by-step approach works well for children aged 8 and above. Many families use
+                            our tutorials for home worship and music education. We include songs that are perfect for
+                            family singing and children's programs.</p>
                     </div>
                     <div class="faq-item">
                         <h3>How does music connect with mindful living?</h3>
-                        <p>Playing devotional music naturally cultivates mindfulness, reduces stress, and deepens spiritual connection. It encourages present-moment awareness, gratitude, and creates peaceful environments that support overall well-being and conscious living.</p>
+                        <p>Playing devotional music naturally cultivates mindfulness, reduces stress, and deepens
+                            spiritual connection. It encourages present-moment awareness, gratitude, and creates
+                            peaceful environments that support overall well-being and conscious living.</p>
                     </div>
                 </div>
             </div>
@@ -349,7 +426,8 @@
         <section id="contact" class="contact-section">
             <div class="container">
                 <h2>Contact Us</h2>
-                <p>Have questions about sustainable living, eco-friendly practices, or Malayalam Christian keyboard music? Send us an email!</p>
+                <p>Have questions about sustainable living, eco-friendly practices, or Malayalam Christian keyboard
+                    music? Send us an email!</p>
                 <div class="contact-simple">
                     <div class="email-info">
                         <h3>📧 Send us an email</h3>
@@ -358,7 +436,9 @@
                     </div>
                 </div>
                 <div class="youtube-promotion">
-                    <p>� Don't forget to subscribe to our <a href="https://www.youtube.com/@almightyone8205" target="_blank" rel="noopener noreferrer">YouTube channel</a> for the latest Malayalam Christian keyboard tutorials!</p>
+                    <p>� Don't forget to subscribe to our <a href="https://www.youtube.com/@almightyone8205"
+                            target="_blank" rel="noopener noreferrer">YouTube channel</a> for the latest Malayalam
+                        Christian keyboard tutorials!</p>
                 </div>
 
             </div>
@@ -394,9 +474,11 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Mindful Living & Devotional Music. All Rights Reserved. <a href="privacy-policy.html">Privacy Policy</a></p>
+                <p>&copy; 2025 Mindful Living & Devotional Music. All Rights Reserved. <a
+                        href="privacy-policy.html">Privacy Policy</a></p>
                 <div class="footer-social">
-                    <a href="https://www.youtube.com/@almightyone8205" target="_blank" rel="noopener noreferrer" aria-label="YouTube">🎵 YouTube Channel</a>
+                    <a href="https://www.youtube.com/@almightyone8205" target="_blank" rel="noopener noreferrer"
+                        aria-label="YouTube">🎵 YouTube Channel</a>
                     <span aria-label="Facebook">Facebook</span>
                     <span aria-label="Instagram">Instagram</span>
                 </div>

@@ -139,15 +139,60 @@ header {
 }
 
 header .container {
+    position: relative;
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-content {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .tagline {
     color: var(--light-text-color);
     font-size: 1.1rem;
     margin-top: -5px;
+}
+
+/* Mobile menu toggle button */
+.mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 101;
+}
+
+.hamburger-line {
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-color);
+    border-radius: 2px;
+    transition: var(--transition);
+    transform-origin: center;
+}
+
+.mobile-menu-toggle.active .hamburger-line:first-child {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.mobile-menu-toggle.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-toggle.active .hamburger-line:last-child {
+    transform: rotate(-45deg) translate(6px, -6px);
 }
 
 nav {
@@ -202,6 +247,102 @@ nav ul li a:focus {
     outline: 2px solid var(--primary-color);
     outline-offset: 2px;
     border-color: var(--primary-color);
+}
+
+/* Mobile Navigation Styles */
+@media (max-width: 768px) {
+    .header-top {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+    
+    .header-content {
+        align-items: flex-start;
+    }
+    
+    .header-content h1 {
+        font-size: 1.8rem;
+        margin-bottom: 0;
+    }
+    
+    .tagline {
+        font-size: 0.9rem;
+        margin-top: 2px;
+    }
+    
+    .mobile-menu-toggle {
+        display: flex;
+        margin-top: 5px;
+    }
+    
+    nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: white;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        margin-top: 0;
+        border-top: 1px solid #eee;
+    }
+    
+    nav.mobile-nav-open {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    nav ul {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 20px 0;
+        margin: 0;
+    }
+    
+    nav ul li {
+        margin: 0;
+        border-bottom: 1px solid #f5f5f5;
+    }
+    
+    nav ul li:last-child {
+        border-bottom: none;
+    }
+    
+    nav ul li a {
+        display: block;
+        padding: 15px 20px;
+        text-align: center;
+        border: none;
+        border-radius: 0;
+        font-size: 1.1rem;
+    }
+    
+    nav ul li a::after {
+        display: none;
+    }
+    
+    nav ul li a:hover {
+        background-color: var(--light-color);
+        border-color: transparent;
+    }
+}
+
+/* Ensure proper spacing for larger screens */
+@media (min-width: 769px) {
+    .header-top {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .header-content {
+        align-items: center;
+        text-align: center;
+    }
 }
 
 /* Hero Section */
@@ -989,10 +1130,19 @@ nav .active {
     background-color: white;
 }
 
+.privacy-section h2 {
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
 .privacy-content {
     max-width: 800px;
     margin: 0 auto;
     line-height: 1.7;
+    padding: 0 20px;
 }
 
 .privacy-content h3 {
@@ -1000,21 +1150,54 @@ nav .active {
     margin-top: 30px;
     margin-bottom: 15px;
     font-size: 1.3rem;
+    text-align: left;
 }
 
 .privacy-content p {
     margin-bottom: 20px;
     color: var(--text-color);
+    text-align: left;
 }
 
 .privacy-content ul {
     margin: 15px 0;
     padding-left: 25px;
+    text-align: left;
 }
 
 .privacy-content li {
     margin-bottom: 8px;
     line-height: 1.6;
+}
+
+/* Mobile responsive styles for privacy policy */
+@media (max-width: 768px) {
+    .privacy-section {
+        padding: 40px 0;
+    }
+    
+    .privacy-section h2 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+    
+    .privacy-content {
+        padding: 0 15px;
+    }
+    
+    .privacy-content h3 {
+        font-size: 1.2rem;
+        margin-top: 25px;
+    }
+    
+    .privacy-content p {
+        font-size: 0.95rem;
+    }
+    
+    .privacy-content ul {
+        padding-left: 20px;
+    }
 }
 
 /* Footer */
