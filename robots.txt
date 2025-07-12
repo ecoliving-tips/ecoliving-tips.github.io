@@ -1,3 +1,13 @@
 User-agent: *
 Allow: /
+Disallow: /assets/
+Allow: /assets/*.png
+Allow: /assets/*.svg
+Allow: /css/
+Allow: /js/
+
+# Sitemaps
 Sitemap: https://ecoliving-tips.github.io/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1
