@@ -1,0 +1,39 @@
+{
+  "name": "Malayalam Christian Keyboard Tutorials",
+  "short_name": "Malayalam Keys",
+  "description": "Learn Syro Malabar Holy Mass songs on keyboard with step-by-step tutorials",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#4A90E2",
+  "theme_color": "#4A90E2",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "assets/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["music", "education", "religion"],
+  "lang": "en",
+  "screenshots": [
+    {
+      "src": "assets/eco-living-og.png",
+      "sizes": "1200x630",
+      "type": "image/png"
+    }
+  ]
+}
