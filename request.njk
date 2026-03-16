@@ -1,0 +1,276 @@
+---
+layout: base.njk
+title: Request a Song
+description: Request a Malayalam Christian song you'd like to learn. We'll add it to our tutorial list!
+---
+
+<style>
+.request-hero {
+    background-color: var(--light-color);
+    padding: 60px 0;
+    text-align: center;
+}
+
+.request-form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 40px;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: var(--border-radius);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form-note {
+    font-size: 0.9rem;
+    color: var(--light-text-color);
+    margin-top: 5px;
+}
+
+.form-success {
+    display: none;
+    padding: 20px;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    border-radius: var(--border-radius);
+    color: #155724;
+    margin-bottom: 20px;
+}
+
+.form-success.show {
+    display: block;
+}
+
+.form-error {
+    display: none;
+    padding: 20px;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: var(--border-radius);
+    color: #721c24;
+    margin-bottom: 20px;
+}
+
+.form-error.show {
+    display: block;
+}
+
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+</style>
+
+<section class="request-hero">
+    <div class="container">
+        <h1>Request a Song</h1>
+        <p>Can't find the song you're looking for? Let us know and we'll add it to our tutorial list!</p>
+    </div>
+</section>
+
+<section class="request-form-section">
+    <div class="container">
+        <div class="request-form-container">
+            <div id="success-message" class="form-success">
+                <h3>✅ Request Submitted Successfully!</h3>
+                <p>Thank you for your request! We'll review it and add the song to our tutorial list. You'll receive an email notification when it's available.</p>
+            </div>
+            
+            <div id="error-message" class="form-error">
+                <h3>❌ Error Submitting Request</h3>
+                <p>Something went wrong. Please try again or email us directly.</p>
+            </div>
+
+            <form id="song-request-form">
+                <div class="form-group">
+                    <label for="songTitle">Song Title (Malayalam or English) *</label>
+                    <input type="text" id="songTitle" name="songTitle" required 
+                           placeholder="e.g., Anna Pesaha Thirunalil or When He Was Born">
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" name="category">
+                        <option value="">Select a category...</option>
+                        <option value="essential-songs">Essential Holy Mass Songs</option>
+                        <option value="chord-progressions">Chord Progressions & Techniques</option>
+                        <option value="background-music">Background Music & Midi</option>
+                        <option value="liturgical-practice">Liturgical Practice</option>
+                        <option value="traditional-ernakulam">Traditional Ernakulam Tune</option>
+                        <option value="devotional">Devotional Songs</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="name">Your Name *</label>
+                    <input type="text" id="name" name="name" required 
+                           placeholder="Enter your name">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required 
+                           placeholder="Enter your email">
+                    <p class="form-note">We'll notify you when the tutorial is available.</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Additional Details (Optional)</label>
+                    <textarea id="message" name="message" 
+                              placeholder="Any specific part you'd like to learn? Your skill level?"></textarea>
+                </div>
+
+                <button type="submit" class="btn" id="submit-btn">Submit Request</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<section class="recent-requests">
+    <div class="container">
+        <h2>Recently Added Songs</h2>
+        <p>Check out songs we've added based on community requests</p>
+        <div id="requested-songs-grid" class="songs-grid">
+            <!-- Dynamic content loaded from database -->
+        </div>
+    </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('song-request-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const successMessage = document.getElementById('success-message');
+    const errorMessage = document.getElementById('error-message');
+
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Add loading state
+        submitBtn.classList.add('loading');
+        submitBtn.textContent = 'Submitting...';
+        
+        const formData = {
+            songTitle: document.getElementById('songTitle').value,
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            message: document.getElementById('message').value
+        };
+
+        try {
+            // Try to submit to Supabase if configured
+            if (typeof SongRequestAPI !== 'undefined' && SongRequestAPI) {
+                await SongRequestAPI.submitRequest(formData);
+                // Show success message only if submission succeeded
+                successMessage.classList.add('show');
+                errorMessage.classList.remove('show');
+                form.reset();
+            } else {
+                // Supabase not configured - show error
+                throw new Error('Supabase not configured');
+            }
+        } catch (error) {
+            console.error('Error submitting request:', error);
+            // Show error message since Supabase is not configured or failed
+            successMessage.classList.remove('show');
+            errorMessage.classList.add('show');
+        } finally {
+            submitBtn.classList.remove('loading');
+            submitBtn.textContent = 'Submit Request';
+        }
+    });
+
+    // Load recent requested songs
+    loadRequestedSongs();
+});
+
+async function loadRequestedSongs() {
+    const grid = document.getElementById('requested-songs-grid');
+    if (!grid) return;
+
+    // If Supabase is configured, load songs
+    if (typeof SongAPI !== 'undefined') {
+        try {
+            const songs = await SongAPI.getSongs();
+            if (songs && songs.length > 0) {
+                // Use safe DOM creation to prevent XSS
+                const fragment = document.createDocumentFragment();
+                songs.slice(0, 6).forEach(song => {
+                    const article = document.createElement('article');
+                    article.className = 'song-card';
+                    
+                    const h3 = document.createElement('h3');
+                    h3.textContent = song.title || 'Untitled';
+                    article.appendChild(h3);
+                    
+                    const p = document.createElement('p');
+                    p.textContent = song.category || 'Malayalam Christian Song';
+                    article.appendChild(p);
+                    
+                    const detailsDiv = document.createElement('div');
+                    detailsDiv.className = 'song-details';
+                    
+                    const difficultySpan = document.createElement('span');
+                    difficultySpan.className = 'difficulty';
+                    difficultySpan.textContent = song.difficulty || 'All Levels';
+                    detailsDiv.appendChild(difficultySpan);
+                    
+                    const viewsSpan = document.createElement('span');
+                    viewsSpan.className = 'duration';
+                    viewsSpan.textContent = (song.views || 0).toLocaleString() + ' views';
+                    detailsDiv.appendChild(viewsSpan);
+                    
+                    article.appendChild(detailsDiv);
+                    
+                    const link = document.createElement('a');
+                    link.href = '/songs/' + encodeURIComponent(song.id || '') + '/';
+                    link.className = 'song-link';
+                    link.textContent = 'View Tutorial';
+                    article.appendChild(link);
+                    
+                    fragment.appendChild(article);
+                });
+                grid.innerHTML = '';
+                grid.appendChild(fragment);
+            }
+        } catch (error) {
+            console.log('Using static fallback content');
+        }
+    }
+}
+</script>

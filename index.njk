@@ -1,0 +1,256 @@
+---
+layout: base.njk
+title: Home
+description: Learn Malayalam Christian devotional songs on keyboard with easy step-by-step tutorials. Master Syro Malabar Holy Mass songs with chord progressions, playing techniques, and background music arrangements for church worship.
+---
+
+    <main>
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Learn Syro Malabar Holy Mass Songs</h2>
+                    <p>Master beautiful Malayalam Syro Malabar liturgical songs on keyboard with our easy-to-follow
+                        tutorials.
+                        Learn traditional holy mass songs with chord progressions, playing techniques, and background
+                        music for church worship.</p>
+                    <div class="hero-buttons">
+                        <a href="https://www.youtube.com/@almightyone8205" target="_blank" rel="noopener noreferrer"
+                            class="btn youtube-btn">
+                            🎵 Watch Tutorials on YouTube
+                        </a>
+                        <a href="/songs/" class="btn btn-secondary">Browse Holy Mass Songs</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AdSense Ad Unit -->
+        <div class="adsense-banner">
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-7438590583270235"
+                data-ad-slot="1234567890"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+        </div>
+
+        <section id="tutorials" class="tutorials-section">
+            <div class="container">
+                <h2>Syro Malabar Holy Mass Tutorial Categories</h2>
+                <div class="tutorials-grid">
+                    {% for category in metadata.categories %}
+                    <article class="tutorial-card">
+                        <div class="tutorial-icon">{{ category.icon }}</div>
+                        <h3>{{ category.name }}</h3>
+                        <p>{{ category.description }}</p>
+                        <a href="/songs/?category={{ category.id }}"
+                            class="read-more">Browse {{ category.name }}</a>
+                    </article>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <!-- AdSense Ad Unit -->
+        <div class="adsense-banner">
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-7438590583270235"
+                data-ad-slot="1234567890"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+        </div>
+
+        <section id="songs" class="songs-section">
+            <div class="container">
+                <h2>Popular Syro Malabar Holy Mass Songs</h2>
+                <p class="section-intro">Learn these essential Malayalam Syro Malabar liturgical songs with our
+                    step-by-step keyboard tutorials featuring chords, playing techniques, and background music.</p>
+
+                <!-- Featured Video Section -->
+                <div class="featured-video">
+                    <h3>🎥 Featured Tutorial - {{ metadata.featuredSongs[0].title }}</h3>
+                    <div class="video-container">
+                        <iframe width="560" height="315"
+                            src="https://www.youtube.com/embed/{{ metadata.featuredSongs[0].youtubeId }}?si=BcO1csZz-LVc14C9"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                    <p class="video-description">Our most popular tutorial with complete chord progressions and
+                        background music arrangement for the Syro Malabar Holy Mass.</p>
+                </div>
+
+                <div id="songs-grid" class="songs-grid">
+                    <!-- Songs will be loaded dynamically from database -->
+                    <!-- Static fallback content -->
+                    <article class="song-card">
+                        <h3>Anna Pesaha Thirunalil</h3>
+                        <p>Essential Syro Malabar Holy Mass song with complete keyboard arrangement, chords, and
+                            background music. Perfect for church liturgy.</p>
+                        <div class="song-details">
+                            <span class="difficulty">Most Popular</span>
+                            <span class="duration">43K views</span>
+                        </div>
+                        <a href="https://youtu.be/CGfSjeFkL-0" target="_blank" rel="noopener noreferrer"
+                            class="song-link">Watch Tutorial</a>
+                    </article>
+                    <article class="song-card">
+                        <h3>KaiyILE Pithaveedu</h3>
+                        <p>Traditional Syro Malabar song with keyboard chords and background music arrangement for
+                            church worship.</p>
+                        <div class="song-details">
+                            <span class="difficulty">Intermediate</span>
+                            <span class="duration">12K views</span>
+                        </div>
+                        <a href="https://youtu.be/placeholder1" target="_blank" rel="noopener noreferrer"
+                            class="song-link">Watch Tutorial</a>
+                    </article>
+                    <article class="song-card">
+                        <h3>Pranayagathi</h3>
+                        <p>Popular Syro Malabar devotional song with complete keyboard arrangement and chord charts.</p>
+                        <div class="song-details">
+                            <span class="difficulty">Intermediate</span>
+                            <span class="duration">15K views</span>
+                        </div>
+                        <a href="https://youtu.be/placeholder3" target="_blank" rel="noopener noreferrer"
+                            class="song-link">Watch Tutorial</a>
+                    </article>
+                    <article class="song-card">
+                        <h3>Madhuram Yesuve</h3>
+                        <p>Sweet Malayalam Christian song with keyboard tutorial, chords, and background music.</p>
+                        <div class="song-details">
+                            <span class="difficulty">Beginner</span>
+                            <span class="duration">22K views</span>
+                        </div>
+                        <a href="https://youtu.be/placeholder4" target="_blank" rel="noopener noreferrer"
+                            class="song-link">Watch Tutorial</a>
+                    </article>
+                    <article class="song-card">
+                        <h3>Thantine Aaraadhikunnundo</h3>
+                        <p>Traditional Syro Malabar Holy Mass song with detailed keyboard tutorial and chord
+                            progressions.</p>
+                        <div class="song-details">
+                            <span class="difficulty">Advanced</span>
+                            <span class="duration">6K views</span>
+                        </div>
+                        <a href="https://youtu.be/placeholder5" target="_blank" rel="noopener noreferrer"
+                            class="song-link">Watch Tutorial</a>
+                    </article>
+                </div>
+
+                <div class="load-more-container">
+                    <a href="/songs/" class="btn">View All Songs</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Donation CTA Section -->
+        <section id="donate" class="donate-section">
+            <div class="container">
+                <div class="donate-cta">
+                    <h2>Support Our Mission</h2>
+                    <p>Help us continue creating free Malayalam Christian keyboard tutorials for the community.
+                        Your support keeps this ministry alive!</p>
+                    <a href="/donate/" class="btn btn-donate">🙏 Donate via UPI</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="mindful-living" class="tips-section">
+            <div class="container">
+                <h2>Mindful Living Resources</h2>
+                <div class="tips-grid">
+                    <article class="tip-card">
+                        <div class="tip-icon">🧘</div>
+                        <h3>Meditation & Prayer</h3>
+                        <p>Resources for spiritual growth and mindful prayer practices rooted in Christian traditions.
+                        </p>
+                        <a href="#" class="read-more">Coming Soon</a>
+                    </article>
+                    <article class="tip-card">
+                        <div class="tip-icon">🌱</div>
+                        <h3>Sustainable Living</h3>
+                        <p>Eco-friendly practices that honor God's creation through mindful stewardship.</p>
+                        <a href="#" class="read-more">Coming Soon</a>
+                    </article>
+                    <article class="tip-card">
+                        <div class="tip-icon">🎵</div>
+                        <h3>Worship Music</h3>
+                        <p>Resources for church musicians and worship leaders in the Malayalam Christian tradition.</p>
+                        <a href="#" class="read-more">Coming Soon</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about-section">
+            <div class="container">
+                <h2>About Mindful Living & Devotional Music</h2>
+                <div class="about-content">
+                    <p>We are dedicated to teaching Malayalam Christian devotional songs on keyboard, preserving the
+                        beautiful Syro Malabar liturgical music tradition. Our tutorials help church musicians,
+                        students, and anyone interested in learning these sacred songs.</p>
+                    <p>Founded with the mission to make keyboard learning accessible to the Malayalam Christian
+                        community worldwide, we provide free tutorials featuring chord progressions, playing techniques,
+                        and background music arrangements.</p>
+                    <p>Subscribe to our YouTube channel <a href="https://www.youtube.com/@almightyone8205"
+                            target="_blank">@almightyone8205</a> for regular tutorials on Syro Malabar Holy Mass songs.</p>
+                    <a href="/about/" class="btn">Learn More About Us</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Song Request CTA -->
+        <section id="request-song" class="request-section">
+            <div class="container">
+                <div class="request-cta">
+                    <h2>Can't Find a Song?</h2>
+                    <p>Request a specific song and we'll add it to our tutorial list!</p>
+                    <a href="/request/" class="btn btn-secondary">Request a Song</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="faq-section">
+            <div class="container">
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-grid">
+                    <article class="faq-card">
+                        <h3>Are these tutorials free?</h3>
+                        <p>Yes! All our keyboard tutorials are completely free. We believe in making music education
+                            accessible to everyone.</p>
+                    </article>
+                    <article class="faq-card">
+                        <h3>Do I need a keyboard to learn?</h3>
+                        <p>While having a keyboard helps, you can also learn the chord progressions and techniques just
+                            by watching our tutorials.</p>
+                    </article>
+                    <article class="faq-card">
+                        <h3>Can I request a specific song?</h3>
+                        <p>Absolutely! Use our song request form to suggest songs you'd like to see tutorials for.</p>
+                    </article>
+                    <article class="faq-card">
+                        <h3>What skill level are these tutorials for?</h3>
+                        <p>We have tutorials for beginners, intermediate, and advanced players. Each tutorial indicates
+                            the difficulty level.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <h2>Contact Us</h2>
+                <div class="contact-content">
+                    <p>Have questions or suggestions? We'd love to hear from you!</p>
+                    <div class="contact-buttons">
+                        <a href="mailto:almighty33one@gmail.com" class="btn">📧 Email Us</a>
+                        <a href="https://www.youtube.com/@almightyone8205" target="_blank" class="btn btn-secondary">
+                            📺 YouTube Channel
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>

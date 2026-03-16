@@ -1,0 +1,67 @@
+{
+  "title": "Mindful Living & Devotional Music",
+  "description": "Learn Malayalam Christian devotional songs on keyboard with easy step-by-step tutorials. Master Syro Malabar Holy Mass songs with chord progressions, playing techniques, and background music arrangements for church worship.",
+  "url": "https://ecoliving-tips.github.io",
+  "author": {
+    "name": "Mindful Living & Devotional Music",
+    "email": "almighty33one@gmail.com"
+  },
+  "youtube": {
+    "channelUrl": "https://www.youtube.com/@almightyone8205",
+    "channelName": "@almightyone8205"
+  },
+  "adsense": {
+    "client": "ca-pub-7438590583270235"
+  },
+  "social": {
+    "youtube": "https://www.youtube.com/@almightyone8205"
+  },
+  "categories": [
+    {
+      "id": "essential-songs",
+      "name": "Essential Holy Mass Songs",
+      "description": "Most important Syro Malabar liturgical songs",
+      "icon": "⛪"
+    },
+    {
+      "id": "chord-progressions",
+      "name": "Chord Progressions & Techniques",
+      "description": "Keyboard techniques with detailed chord charts",
+      "icon": "🎹"
+    },
+    {
+      "id": "background-music",
+      "name": "Background Music & Midi",
+      "description": "Complete arrangements with background tracks",
+      "icon": "🎵"
+    },
+    {
+      "id": "liturgical-practice",
+      "name": "Liturgical Practice",
+      "description": "Perfect your holy mass accompaniment skills",
+      "icon": "🙏"
+    },
+    {
+      "id": "traditional-ernakulam",
+      "name": "Traditional Ernakulam Tune",
+      "description": "Authentic traditional arrangements",
+      "icon": "🎼"
+    },
+    {
+      "id": "notes-chords",
+      "name": "Notes & Chord Charts",
+      "description": "Detailed musical notes and chord progressions",
+      "icon": "📝"
+    }
+  ],
+  "featuredSongs": [
+    {
+      "title": "Anna Pesaha Thirunalil",
+      "titleEnglish": "When He Was Born",
+      "youtubeId": "CGfSjeFkL-0",
+      "category": "essential-songs",
+      "difficulty": "Beginner",
+      "views": 43000
+    }
+  ]
+}

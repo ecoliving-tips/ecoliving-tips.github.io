@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="{% if description %}{{ description }}{% else %}Learn Malayalam Christian devotional songs on keyboard with easy step-by-step tutorials. Master Syro Malabar Holy Mass songs with chord progressions, playing techniques, and background music arrangements for church worship.{% endif %}">
+    <meta name="keywords"
+        content="Malayalam Christian songs, Syro Malabar holy mass songs, Malayalam keyboard tutorials, Christian devotional music, Kerala church music, Malayalam liturgical songs, keyboard lessons Malayalam, Christian music tutorials, Syro Malabar keyboard, Malayalam devotional keyboard, holy mass keyboard tutorials, Christian music Kerala, Malayalam church songs keyboard, devotional music lessons, Syro Malabar music">
+    <meta name="author" content="Mindful Living & Devotional Music">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="{% if title %}{{ title }} - Mindful Living & Devotional Music{% else %}Malayalam Christian Keyboard Tutorials - Mindful Living Through Music{% endif %}">
+    <meta property="og:description"
+        content="{% if description %}{{ description }}{% else %}Learn Malayalam Christian devotional songs on keyboard with easy tutorials. Join our community for mindful living through music and spirituality.{% endif %}">
+    <meta property="og:image" content="{{ '/assets/eco-living-og.png' | absoluteUrl(metadata.url) }}">
+    <meta property="og:url" content="{{ page.url | absoluteUrl(metadata.url) }}">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>{% if title %}{{ title }} - {% endif %}Mindful Living & Devotional Music</title>
+    <link rel="stylesheet" href="{{ '/css/styles.css' | url }}">
+    <!-- Google Fonts Optimization -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+        as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap">
+    </noscript>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="{{ '/assets/favicon.svg' | url }}">
+    <link rel="icon" type="image/png" href="{{ '/assets/favicon.png' | url }}">
+    <link rel="shortcut icon" href="{{ '/favicon.ico' | url }}">
+    <link rel="apple-touch-icon" href="{{ '/assets/favicon.png' | url }}">
+    <link rel="manifest" href="{{ '/manifest.json' | url }}">
+    <!-- RSS Feed -->
+    <link rel="alternate" type="application/rss+xml" title="Mindful Living & Devotional Music" href="{{ '/feed.xml' | absoluteUrl(metadata.url) }}" />
+    <!-- Google AdSense - PRESERVED EXACTLY -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7438590583270235"
+        crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-7438590583270235">
+    <meta name="google-site-verification" content="AuWjb6JxFvHwE1gtb7HD80b7lf6TAMezbsemFTU4sto" />
+    <meta name="msvalidate.01" content="E654601D97F3354D47D224194A3E14DC" />
+    <meta name="yandex-verification" content="ffb2ada760575de1" />
+    
+    <!-- Supabase Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <div class="header-content">
+                    <h1>Mindful Living & Devotional Music</h1>
+                    <p class="tagline">Malayalam Christian Keyboard Tutorials & Spiritual Living</p>
+                </div>
+                <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </div>
+            <nav class="mobile-nav">
+                <ul>
+                    <li><a href="{{ '/' | url }}">Home</a></li>
+                    <li><a href="{{ '/songs/' | url }}">Songs</a></li>
+                    <li><a href="{{ '/tutorials/' | url }}">Tutorials</a></li>
+                    <li><a href="{{ '/request/' | url }}">Request Song</a></li>
+                    <li><a href="{{ '/donate/' | url }}">Support Us</a></li>
+                    <li><a href="{{ '/about/' | url }}">About</a></li>
+                    <li><a href="{{ '/contact/' | url }}">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="{{ '/' | url }}">Home</a></li>
+                        <li><a href="{{ '/songs/' | url }}">Song Chords</a></li>
+                        <li><a href="{{ '/tutorials/' | url }}">Tutorials</a></li>
+                        <li><a href="{{ '/about/' | url }}">About Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="{{ '/donate/' | url }}">Donate</a></li>
+                        <li><a href="{{ '/request/' | url }}">Request a Song</a></li>
+                        <li><a href="{{ '/contact/' | url }}">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="{{ '/privacy/' | url }}">Privacy Policy</a></li>
+                        <li><a href="{{ '/terms/' | url }}">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <div class="social-links">
+                        <a href="https://www.youtube.com/@almightyone8205" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                            📺 YouTube
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Mindful Living & Devotional Music. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Supabase Browser Client -->
+    <script src="{{ '/js/supabase-browser.js' | url }}"></script>
+    <!-- Main JavaScript -->
+    <script src="{{ '/js/main.js' | url }}"></script>
+    
+    {% block scripts %}{% endblock %}
+</body>
+
+</html>

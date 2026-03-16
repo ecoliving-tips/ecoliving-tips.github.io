@@ -1,0 +1,35 @@
+{
+  "name": "ecoliving-tips",
+  "version": "2.0.0",
+  "description": "Malayalam Christian Keyboard Tutorials - Dynamic Platform",
+  "scripts": {
+    "prebuild": "node scripts/build-env.js",
+    "build": "eleventy",
+    "prestart": "node scripts/build-env.js",
+    "start": "eleventy --serve",
+    "dev": "eleventy --serve --port 8080",
+    "clean": "rm -rf _site"
+  },
+  "dependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "@supabase/supabase-js": "^2.45.0",
+    "dotenv": "^16.4.5",
+    "html-minifier": "^4.0.0"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "malayalam",
+    "christian",
+    "devotional",
+    "keyboard",
+    "tutorials",
+    "syro-malabar"
+  ],
+  "author": "Mindful Living & Devotional Music",
+  "license": "MIT"
+}

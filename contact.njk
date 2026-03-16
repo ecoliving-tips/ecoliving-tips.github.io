@@ -1,0 +1,248 @@
+---
+layout: base.njk
+title: Contact Us
+description: Get in touch with Mindful Living & Devotional Music. We'd love to hear from you!
+---
+
+<style>
+.contact-hero {
+    background-color: var(--light-color);
+    padding: 60px 0;
+    text-align: center;
+}
+
+.contact-content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-card {
+    background: white;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 30px;
+}
+
+.contact-card h3 {
+    margin-bottom: 15px;
+    color: var(--dark-color);
+}
+
+.contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.contact-link:hover {
+    color: var(--dark-color);
+}
+
+.response-time {
+    font-size: 0.9rem;
+    color: var(--light-text-color);
+    margin-top: 15px;
+}
+
+.social-section {
+    padding: 60px 0;
+}
+
+.social-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.social-card {
+    background: white;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    text-align: center;
+    text-decoration: none;
+    color: var(--text-color);
+    transition: var(--transition);
+}
+
+.social-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.social-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.form-section {
+    padding: 60px 0;
+    background: var(--light-color);
+}
+
+.contact-form {
+    max-width: 500px;
+    margin: 0 auto;
+    background: white;
+    padding: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: var(--border-radius);
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.form-success {
+    padding: 20px;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    border-radius: var(--border-radius);
+    color: #155724;
+    margin-bottom: 20px;
+    display: none;
+}
+
+.form-success.show {
+    display: block;
+}
+</style>
+
+<section class="contact-hero">
+    <div class="container">
+        <h1>Contact Us</h1>
+        <p class="contact-content">Have questions, suggestions, or just want to say hello? We'd love to hear from you!</p>
+    </div>
+</section>
+
+<section class="form-section">
+    <div class="container">
+        <form class="contact-form" id="contact-form">
+            <div class="form-success" id="form-success">
+                <h3>✅ Message Sent!</h3>
+                <p>Thank you for reaching out! We'll get back to you within 24-48 hours.</p>
+            </div>
+            
+            <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" name="subject" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            
+            <button type="submit" class="btn">Send Message</button>
+        </form>
+    </div>
+</section>
+
+<section class="social-section">
+    <div class="container">
+        <h2 style="text-align: center;">Connect With Us</h2>
+        <p style="text-align: center; margin-bottom: 30px;">Follow us on social media for the latest updates and tutorials</p>
+        
+        <div class="social-grid">
+            <a href="https://www.youtube.com/@almightyone8205" target="_blank" rel="noopener noreferrer" class="social-card">
+                <div class="social-icon">📺</div>
+                <h3>YouTube</h3>
+                <p>Watch our tutorials</p>
+            </a>
+            
+            <a href="mailto:almighty33one@gmail.com" class="social-card">
+                <div class="social-icon">📧</div>
+                <h3>Email</h3>
+                <p>almighty33one@gmail.com</p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="contact-info">
+    <div class="container">
+        <div style="max-width: 600px; margin: 0 auto; text-align: center;">
+            <h2>Other Ways to Reach Us</h2>
+            
+            <div class="contact-card">
+                <h3>💬 Song Requests</h3>
+                <p>Use our song request form for specific tutorial requests</p>
+                <a href="/request/" class="btn btn-small">Request a Song</a>
+            </div>
+            
+            <div class="contact-card">
+                <h3>💝 Support Our Work</h3>
+                <p>Help us continue creating free tutorials</p>
+                <a href="/donate/" class="btn btn-small">Donate</a>
+            </div>
+            
+            <p class="response-time">We typically respond within 24-48 hours. Thank you for your patience!</p>
+        </div>
+    </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('contact-form');
+    const successMessage = document.getElementById('form-success');
+    
+    form?.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Show message that this is a demo
+        // In production, integrate with a backend service
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const subject = document.getElementById('subject').value;
+        const message = document.getElementById('message').value;
+        
+        // For now, open email client with pre-filled message
+        const mailtoLink = `mailto:almighty33one@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\nMessage:\n' + message)}`;
+        window.location.href = mailtoLink;
+        
+        successMessage.classList.add('show');
+        successMessage.innerHTML = '<h3>📧 Email Client Opened</h3><p>Your default email app should open with your message. If not, please email us directly at almighty33one@gmail.com</p>';
+        form.reset();
+        
+        // Scroll to success message
+        successMessage.scrollIntoView({ behavior: 'smooth' });
+    });
+});
+</script>

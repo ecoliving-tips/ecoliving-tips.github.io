@@ -1,0 +1,457 @@
+---
+layout: base.njk
+title: Song Chords
+description: Browse Malayalam Christian devotional songs with keyboard chords and tutorials. Learn Syro Malabar Holy Mass songs.
+---
+
+<style>
+.songs-page-hero {
+    background-color: var(--light-color);
+    padding: 60px 0;
+    text-align: center;
+}
+
+.search-bar {
+    max-width: 600px;
+    margin: 30px auto 0;
+    position: relative;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 15px 50px 15px 20px;
+    border: 2px solid var(--primary-color);
+    border-radius: 30px;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+.search-bar input:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+}
+
+.search-bar button {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.search-bar button:hover {
+    background: var(--dark-color);
+}
+
+.category-filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 30px 0;
+}
+
+.category-btn {
+    padding: 8px 16px;
+    border: 2px solid var(--primary-color);
+    border-radius: 20px;
+    background: white;
+    color: var(--primary-color);
+    cursor: pointer;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.category-btn:hover,
+.category-btn.active {
+    background: var(--primary-color);
+    color: white;
+}
+
+.songs-container {
+    padding: 60px 0;
+}
+
+.songs-count {
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--light-text-color);
+}
+
+.songs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.song-card {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 25px;
+    box-shadow: var(--box-shadow);
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+}
+
+.song-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.song-card h3 {
+    color: var(--dark-color);
+    margin-bottom: 10px;
+}
+
+.song-card p {
+    color: var(--light-text-color);
+    font-size: 0.95rem;
+    flex-grow: 1;
+}
+
+.song-details {
+    display: flex;
+    gap: 15px;
+    margin: 15px 0;
+    font-size: 0.85rem;
+}
+
+.song-details span {
+    background: var(--light-color);
+    padding: 4px 10px;
+    border-radius: 4px;
+    color: var(--dark-color);
+}
+
+.song-link {
+    display: inline-block;
+    text-align: center;
+    background: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.song-link:hover {
+    background: var(--dark-color);
+    color: white;
+}
+
+.load-more-container {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.loading-indicator {
+    text-align: center;
+    padding: 40px;
+    color: var(--light-text-color);
+}
+
+.no-songs {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--light-text-color);
+}
+
+.no-songs h3 {
+    color: var(--dark-color);
+    margin-bottom: 15px;
+}
+</style>
+
+<section class="songs-page-hero">
+    <div class="container">
+        <h1>Malayalam Christian Song Chords</h1>
+        <p>Learn your favorite Syro Malabar Holy Mass songs with keyboard chords and step-by-step tutorials</p>
+        
+        <div class="search-bar">
+            <input type="text" id="song-search" placeholder="Search songs by title...">
+            <button type="button" onclick="searchSongs()">Search</button>
+        </div>
+
+        <div class="category-filters" id="category-filters">
+            <button class="category-btn active" data-category="all">All Songs</button>
+            {% for category in metadata.categories %}
+            <button class="category-btn" data-category="{{ category.id }}">{{ category.icon }} {{ category.name }}</button>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="songs-container">
+    <div class="container">
+        <p class="songs-count" id="songs-count">Showing all songs</p>
+        
+        <div id="songs-grid" class="songs-grid">
+            <!-- Static fallback content - shown when database not connected -->
+            <article class="song-card" data-category="essential-songs">
+                <h3>Anna Pesaha Thirunalil</h3>
+                <p>Essential Syro Malabar Holy Mass song with complete keyboard arrangement, chords, and background music.</p>
+                <div class="song-details">
+                    <span class="difficulty">Most Popular</span>
+                    <span class="views">43K views</span>
+                </div>
+                <a href="https://youtu.be/CGfSjeFkL-0" target="_blank" class="song-link">Watch Tutorial</a>
+            </article>
+            
+            <article class="song-card" data-category="essential-songs">
+                <h3>Kaiyile Pithaveedu</h3>
+                <p>Traditional Syro Malabar song with keyboard chords and background music arrangement.</p>
+                <div class="song-details">
+                    <span class="difficulty">Intermediate</span>
+                    <span class="views">12K views</span>
+                </div>
+                <a href="#" class="song-link">Coming Soon</a>
+            </article>
+            
+            <article class="song-card" data-category="chord-progressions">
+                <h3>Pranayagathi</h3>
+                <p>Popular Syro Malabar devotional song with complete keyboard arrangement and chord charts.</p>
+                <div class="song-details">
+                    <span class="difficulty">Intermediate</span>
+                    <span class="views">15K views</span>
+                </div>
+                <a href="#" class="song-link">Coming Soon</a>
+            </article>
+            
+            <article class="song-card" data-category="notes-chords">
+                <h3>Thyangarayum Neelayudham</h3>
+                <p>Beautiful devotional song with detailed notes and chord progressions.</p>
+                <div class="song-details">
+                    <span class="difficulty">Beginner</span>
+                    <span class="views">10K views</span>
+                </div>
+                <a href="#" class="song-link">Coming Soon</a>
+            </article>
+            
+            <article class="song-card" data-category="essential-songs">
+                <h3>Madhuram Yesuve</h3>
+                <p>Sweet Malayalam Christian song with keyboard tutorial, chords, and background music.</p>
+                <div class="song-details">
+                    <span class="difficulty">Beginner</span>
+                    <span class="views">22K views</span>
+                </div>
+                <a href="#" class="song-link">Coming Soon</a>
+            </article>
+            
+            <article class="song-card" data-category="essential-songs">
+                <h3>Thantine Aaraadhikunnundo</h3>
+                <p>Traditional Syro Malabar Holy Mass song with detailed keyboard tutorial and chord progressions.</p>
+                <div class="song-details">
+                    <span class="difficulty">Advanced</span>
+                    <span class="views">6K views</span>
+                </div>
+                <a href="#" class="song-link">Coming Soon</a>
+            </article>
+            
+            <article class="song-card" data-category="liturgical-practice">
+                <h3>Ennennum Kannukalum</h3>
+                <p>Beautiful liturgical song for church services with step-by-step keyboard tutorial.</p>
+                <div class="song-details">
+                    <span class="difficulty">Beginner</span>
+                    <span class="views">18K views</span>
+                </div>
+                <a href="#" class="song-link">Coming Soon</a>
+            </article>
+        </div>
+
+        <div id="loading" class="loading-indicator" style="display: none;">
+            <p>Loading songs...</p>
+        </div>
+
+        <div id="no-songs" class="no-songs" style="display: none;">
+            <h3>No songs found</h3>
+            <p>Try a different search term or browse categories</p>
+            <a href="/request/" class="btn">Request a Song</a>
+        </div>
+
+        <div class="load-more-container">
+            <button class="btn" id="load-more-btn" style="display: none;">Load More Songs</button>
+        </div>
+    </div>
+</section>
+
+<section class="request-cta">
+    <div class="container">
+        <div class="request-cta-content">
+            <h2>Can't find your song?</h2>
+            <p>We're constantly adding new songs based on user requests</p>
+            <a href="/request/" class="btn">Request a Song</a>
+        </div>
+    </div>
+</section>
+
+<script>
+// Initialize songs data
+let allSongs = [];
+let filteredSongs = [];
+let currentCategory = 'all';
+let searchQuery = '';
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Load songs from database
+    loadSongs();
+    
+    // Setup search
+    const searchInput = document.getElementById('song-search');
+    searchInput?.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            searchSongs();
+        }
+    });
+    
+    // Setup category filters
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    categoryBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Update active state
+            categoryBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Filter by category
+            currentCategory = this.dataset.category;
+            filterSongs();
+        });
+    });
+});
+
+async function loadSongs() {
+    const grid = document.getElementById('songs-grid');
+    const loading = document.getElementById('loading');
+    
+    loading.style.display = 'block';
+    
+    // Try to load from Supabase if configured
+    if (typeof SongAPI !== 'undefined') {
+        try {
+            allSongs = await SongAPI.getSongs();
+            if (allSongs && allSongs.length > 0) {
+                renderSongs(allSongs);
+                return;
+            }
+        } catch (error) {
+            console.log('Using static fallback content');
+        }
+    }
+    
+    // Use static content (fallback)
+    loading.style.display = 'none';
+    console.log('Showing static song content');
+}
+
+function renderSongs(songs) {
+    const grid = document.getElementById('songs-grid');
+    const noSongs = document.getElementById('no-songs');
+    const count = document.getElementById('songs-count');
+    const loading = document.getElementById('loading');
+    
+    loading.style.display = 'none';
+    
+    if (!songs || songs.length === 0) {
+        grid.style.display = 'none';
+        noSongs.style.display = 'block';
+        return;
+    }
+    
+    grid.style.display = 'grid';
+    noSongs.style.display = 'none';
+    
+    count.textContent = `Showing ${songs.length} song${songs.length !== 1 ? 's' : ''}`;
+    
+    // Use DocumentFragment for better performance and XSS prevention
+    const fragment = document.createDocumentFragment();
+    
+    songs.forEach(song => {
+        const article = document.createElement('article');
+        article.className = 'song-card';
+        article.dataset.category = song.category || 'all';
+        
+        // Use textContent to prevent XSS attacks
+        const h3 = document.createElement('h3');
+        h3.textContent = song.title || 'Untitled';
+        article.appendChild(h3);
+        
+        const p = document.createElement('p');
+        p.textContent = song.description || 'Learn this beautiful Malayalam Christian devotional song on keyboard.';
+        article.appendChild(p);
+        
+        const detailsDiv = document.createElement('div');
+        detailsDiv.className = 'song-details';
+        
+        const difficultySpan = document.createElement('span');
+        difficultySpan.className = 'difficulty';
+        difficultySpan.textContent = song.difficulty || 'All Levels';
+        detailsDiv.appendChild(difficultySpan);
+        
+        const viewsSpan = document.createElement('span');
+        viewsSpan.className = 'views';
+        viewsSpan.textContent = formatViews(song.views) + ' views';
+        detailsDiv.appendChild(viewsSpan);
+        
+        article.appendChild(detailsDiv);
+        
+        const link = document.createElement('a');
+        if (song.youtube_video_id) {
+            link.href = 'https://youtu.be/' + encodeURIComponent(song.youtube_video_id);
+            link.target = '_blank';
+            link.className = 'song-link';
+            link.textContent = 'Watch Tutorial';
+        } else {
+            link.href = '/request/';
+            link.className = 'song-link';
+            link.textContent = 'Coming Soon';
+        }
+        article.appendChild(link);
+        
+        fragment.appendChild(article);
+    });
+    
+    grid.innerHTML = '';
+    grid.appendChild(fragment);
+}
+
+function filterSongs() {
+    let songs = allSongs;
+    
+    // Filter by category
+    if (currentCategory !== 'all') {
+        songs = songs.filter(s => s.category === currentCategory);
+    }
+    
+    // Filter by search
+    if (searchQuery) {
+        const query = searchQuery.toLowerCase();
+        songs = songs.filter(s => 
+            (s.title && s.title.toLowerCase().includes(query)) ||
+            (s.title_english && s.title_english.toLowerCase().includes(query))
+        );
+    }
+    
+    renderSongs(songs);
+}
+
+function searchSongs() {
+    const searchInput = document.getElementById('song-search');
+    searchQuery = searchInput.value.trim();
+    filterSongs();
+}
+
+function formatViews(views) {
+    if (!views) return '0';
+    if (views >= 1000) {
+        return (views / 1000).toFixed(0) + 'K';
+    }
+    return views.toString();
+}
+</script>

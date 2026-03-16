@@ -1,0 +1,23 @@
+# Ignore existing static HTML files - we use NJK templates instead
+index.html
+privacy-policy.html
+sitemap.xml
+feed.xml
+robots.txt
+ads.txt
+favicon.ico
+manifest.json
+
+# Build output
+_site/
+
+# Dependencies
+node_modules/
+
+# Git
+.git/
+.github/
+
+# Environment
+.env
+.env.local

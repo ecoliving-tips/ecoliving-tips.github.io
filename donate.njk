@@ -1,0 +1,342 @@
+---
+layout: base.njk
+title: Support Us
+description: Support Mindful Living & Devotional Music with your generous donations. Help us continue creating free Malayalam Christian keyboard tutorials.
+---
+
+<style>
+.donate-hero {
+    background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+    color: white;
+    padding: 80px 0;
+    text-align: center;
+}
+
+.donate-hero h1 {
+    color: white;
+    margin-bottom: 20px;
+}
+
+.donate-hero p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+    opacity: 0.95;
+}
+
+.donate-options {
+    padding: 60px 0;
+    background-color: #FAFAFA;
+}
+
+.donate-card {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 40px;
+    box-shadow: var(--box-shadow);
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.donate-card h2 {
+    color: var(--dark-color);
+    margin-bottom: 20px;
+}
+
+.donate-card p {
+    color: var(--light-text-color);
+    margin-bottom: 30px;
+}
+
+.upi-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #6C63FF 0%, #4A47A3 100%);
+    color: white;
+    padding: 16px 32px;
+    border-radius: var(--border-radius);
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+    min-width: 200px;
+}
+
+.upi-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(108, 99, 255, 0.4);
+    color: white;
+}
+
+.qr-section {
+    margin-top: 40px;
+    padding-top: 40px;
+    border-top: 1px solid #eee;
+}
+
+.qr-section h3 {
+    margin-bottom: 20px;
+}
+
+.qr-code-container {
+    max-width: 250px;
+    margin: 0 auto;
+    padding: 15px;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.qr-code {
+    width: 100%;
+    height: auto;
+    border: none;
+    border-radius: 4px;
+}
+
+.qr-note {
+    font-size: 0.85rem;
+    color: var(--light-text-color);
+    margin-top: 10px;
+}
+
+.upi-id-display {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f5f5f5;
+    border-radius: var(--border-radius);
+    font-family: monospace;
+    font-size: 1.1rem;
+    color: var(--dark-color);
+}
+
+.bank-details {
+    margin-top: 40px;
+    padding-top: 40px;
+    border-top: 1px solid #eee;
+}
+
+.bank-details h3 {
+    margin-bottom: 20px;
+}
+
+.bank-info {
+    text-align: left;
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: var(--border-radius);
+}
+
+.bank-info p {
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+}
+
+.bank-info strong {
+    color: var(--dark-color);
+}
+
+.impact-section {
+    padding: 60px 0;
+}
+
+.impact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.impact-card {
+    text-align: center;
+    padding: 30px;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.impact-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.impact-card h3 {
+    color: var(--dark-color);
+    margin-bottom: 10px;
+}
+
+.thank-you {
+    text-align: center;
+    padding: 40px;
+    background: var(--light-color);
+    border-radius: var(--border-radius);
+    margin-top: 30px;
+}
+
+.thank-you h3 {
+    color: var(--dark-color);
+    margin-bottom: 10px;
+}
+</style>
+
+<section class="donate-hero">
+    <div class="container">
+        <h1>Support Our Mission</h1>
+        <p>Help us continue creating free Malayalam Christian keyboard tutorials for the community. Your support keeps this ministry alive!</p>
+    </div>
+</section>
+
+<section class="donate-options">
+    <div class="container">
+        <div class="donate-card">
+            <h2>🙏 Donate via UPI</h2>
+            <p>UPI is the simplest way to support us - instant, secure, and zero processing fees.</p>
+            
+            <!-- Primary UPI Payment Button -->
+            <button id="upi-pay-btn" class="upi-button" onclick="openUPIPayment()">
+                <span>📱</span> Pay via UPI
+            </button>
+
+            <div class="qr-section">
+                <h3>Or Scan to Pay</h3>
+                <p>Open any UPI app and scan this QR code</p>
+                
+                <!-- QR Code Image - Place in assets/images/ folder -->
+                <!-- Recommended: assets/images/donate-qr.png -->
+                <div class="qr-code-container">
+                    <img 
+                        src="{{ '/assets/images/donate-qr.png' | url }}" 
+                        alt="Scan to pay via UPI" 
+                        class="qr-code"
+                        width="200"
+                        height="200"
+                        loading="lazy"
+                    >
+                </div>
+                
+                <p class="qr-note">Or pay to UPI ID below:</p>
+                
+                <div class="upi-id-display">
+                    <!-- UPI ID is injected from environment variables during build -->
+                    UPI ID: <span id="upi-id">{{ env.UPI_ID | default('yourname@bankname') }}</span>
+                </div>
+            </div>
+
+            <div class="bank-details">
+                <h3>Bank Transfer (Alternative)</h3>
+                <p>You can also transfer directly to our bank account:</p>
+                <div class="bank-info">
+                    <p><strong>Bank Name:</strong> [Your Bank Name]</p>
+                    <p><strong>Account Number:</strong> [Your Account Number]</p>
+                    <p><strong>IFSC Code:</strong> [Your IFSC Code]</p>
+                    <p><strong>Account Name:</strong> Mindful Living & Devotional Music</p>
+                </div>
+            </div>
+
+            <div class="thank-you">
+                <h3>Thank You! 🙏</h3>
+                <p>Every contribution helps us create more tutorials and spread the joy of music!</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="impact-section">
+    <div class="container">
+        <h2>Your Impact</h2>
+        <p style="text-align: center; max-width: 600px; margin: 0 auto 20px;">See how your donation helps us continue our mission</p>
+        
+        <div class="impact-grid">
+            <div class="impact-card">
+                <div class="impact-icon">🎹</div>
+                <h3>More Tutorials</h3>
+                <p>Your support helps us create additional tutorials for more songs</p>
+            </div>
+            <div class="impact-card">
+                <div class="impact-icon">🌍</div>
+                <h3>Free Access</h3>
+                <p>Keep our tutorials free for everyone, everywhere</p>
+            </div>
+            <div class="impact-card">
+                <div class="impact-icon">📱</div>
+                <h3>Better Resources</h3>
+                <p>Improve video quality and add more chord charts</p>
+            </div>
+            <div class="impact-card">
+                <div class="impact-icon">🎵</div>
+                <h3>Community</h3>
+                <p>Support the Malayalam Christian music community</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="faq-section">
+    <div class="container">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-grid">
+            <article class="faq-card">
+                <h3>Is my donation secure?</h3>
+                <p>Yes! UPI payments are secured by your bank's encryption and authentication.</p>
+            </article>
+            <article class="faq-card">
+                <h3>Do you accept international donations?</h3>
+                <p>Currently we accept UPI and bank transfers within India. Contact us for international options.</p>
+            </article>
+            <article class="faq-card">
+                <h3>Can I get a tax deduction?</h3>
+                <p>We're working on 80G certification. Please contact us for details.</p>
+            </article>
+            <article class="faq-card">
+                <h3>How will my donation be used?</h3>
+                <p>All donations go directly to creating more tutorials, improving video quality, and maintaining the website.</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+<script>
+// UPI Payment Configuration - injected from environment at build time
+const UPI_CONFIG = {
+    // UPI ID is injected from environment variables during build
+    upiId: '{{ env.UPI_ID | default("yourname@bankname") }}',
+    merchantName: '{{ env.UPI_MERCHANT_NAME | default("Mindful Living & Devotional Music") }}',
+    transactionNote: 'Support for Malayalam Christian Music Tutorials',
+    currency: 'INR'
+};
+
+function openUPIPayment() {
+    // Get the amount if user has selected one
+    const amount = document.getElementById('donation-amount')?.value || '';
+    
+    // Create UPI payment URL
+    const upiUrl = `upi://pay?pa=${UPI_CONFIG.upiId}&pn=${encodeURIComponent(UPI_CONFIG.merchantName)}&tn=${encodeURIComponent(UPI_CONFIG.transactionNote)}&cu=${UPI_CONFIG.currency}`;
+    
+    // Try to open UPI app
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+        // On mobile, try to open UPI app
+        window.location.href = upiUrl;
+        
+        // If that doesn't work, show manual instructions
+        setTimeout(() => {
+            alert(`Please open your UPI app and pay to:\nUPI ID: ${UPI_CONFIG.upiId}\nAmount: ${amount || 'As you wish'}\nNote: ${UPI_CONFIG.transactionNote}`);
+        }, 1000);
+    } else {
+        // On desktop, show instructions
+        alert(`To donate via UPI:\n\n1. Open your UPI app (PhonePe, Paytm, Google Pay, etc.)\n2. Pay to UPI ID: ${UPI_CONFIG.upiId}\n3. Enter amount: ${amount || 'As you wish'}\n4. Note: ${UPI_CONFIG.transactionNote}\n\nThank you for your support! 🙏`);
+    }
+}
+
+// Track donation clicks (for analytics)
+document.getElementById('upi-pay-btn')?.addEventListener('click', function() {
+    console.log('Donation button clicked');
+    // Add analytics tracking here if needed
+});
+</script>
