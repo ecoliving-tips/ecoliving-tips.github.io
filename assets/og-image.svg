@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0F0B1A"/>
+      <stop offset="100%" style="stop-color:#1A1030"/>
+    </linearGradient>
+    <linearGradient id="glow1" cx="20%" cy="30%" r="40%" fx="20%" fy="30%" gradientUnits="objectBoundingBox">
+      <stop offset="0%" style="stop-color:#6C3CE1;stop-opacity:0.25"/>
+      <stop offset="100%" style="stop-color:#6C3CE1;stop-opacity:0"/>
+    </linearGradient>
+    <linearGradient id="glow2" cx="80%" cy="70%" r="35%" fx="80%" fy="70%" gradientUnits="objectBoundingBox">
+      <stop offset="0%" style="stop-color:#EC4899;stop-opacity:0.15"/>
+      <stop offset="100%" style="stop-color:#EC4899;stop-opacity:0"/>
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FFFFFF"/>
+      <stop offset="50%" style="stop-color:#8B5CF6"/>
+      <stop offset="100%" style="stop-color:#EC4899"/>
+    </linearGradient>
+    <linearGradient id="accentLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#6C3CE1"/>
+      <stop offset="100%" style="stop-color:#EC4899"/>
+    </linearGradient>
+    <radialGradient id="rg1" cx="20%" cy="30%" r="50%">
+      <stop offset="0%" style="stop-color:#6C3CE1;stop-opacity:0.2"/>
+      <stop offset="100%" style="stop-color:#6C3CE1;stop-opacity:0"/>
+    </radialGradient>
+    <radialGradient id="rg2" cx="80%" cy="70%" r="45%">
+      <stop offset="0%" style="stop-color:#EC4899;stop-opacity:0.12"/>
+      <stop offset="100%" style="stop-color:#EC4899;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Ambient glow circles -->
+  <ellipse cx="240" cy="190" rx="400" ry="300" fill="url(#rg1)"/>
+  <ellipse cx="960" cy="440" rx="350" ry="260" fill="url(#rg2)"/>
+
+  <!-- Decorative music notes (subtle) -->
+  <text x="100" y="150" font-family="serif" font-size="80" fill="#6C3CE1" opacity="0.08" transform="rotate(-15 100 150)">&#9835;</text>
+  <text x="1050" y="200" font-family="serif" font-size="100" fill="#EC4899" opacity="0.06" transform="rotate(12 1050 200)">&#9834;</text>
+  <text x="180" y="500" font-family="serif" font-size="60" fill="#8B5CF6" opacity="0.07" transform="rotate(-8 180 500)">&#9833;</text>
+  <text x="950" y="520" font-family="serif" font-size="70" fill="#EC4899" opacity="0.06" transform="rotate(10 950 520)">&#9835;</text>
+
+  <!-- Accent line top -->
+  <rect x="440" y="180" width="320" height="3" rx="2" fill="url(#accentLine)" opacity="0.8"/>
+
+  <!-- Main title -->
+  <text x="600" y="260" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="56" font-weight="700" fill="url(#textGrad)" text-anchor="middle" letter-spacing="-1">Swaram</text>
+
+  <!-- Tagline -->
+  <text x="600" y="320" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="300" fill="#9B8FC2" text-anchor="middle" letter-spacing="1">Free Christian Song Chords for Keyboard &amp; Guitar</text>
+
+  <!-- Accent line bottom -->
+  <rect x="440" y="345" width="320" height="3" rx="2" fill="url(#accentLine)" opacity="0.8"/>
+
+  <!-- Description -->
+  <text x="600" y="400" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="18" fill="#6B5F8A" text-anchor="middle">Syro Malabar Holy Mass Songs  &#8226;  Marian Hymns  &#8226;  Praise &amp; Worship</text>
+
+  <!-- Chord preview boxes -->
+  <g transform="translate(310, 435)">
+    <rect x="0" y="0" width="70" height="42" rx="8" fill="#6C3CE1" opacity="0.15" stroke="#8B5CF6" stroke-width="1" stroke-opacity="0.3"/>
+    <text x="35" y="28" font-family="Courier New, monospace" font-size="18" font-weight="600" fill="#8B5CF6" text-anchor="middle">C</text>
+  </g>
+  <g transform="translate(400, 435)">
+    <rect x="0" y="0" width="70" height="42" rx="8" fill="#6C3CE1" opacity="0.15" stroke="#8B5CF6" stroke-width="1" stroke-opacity="0.3"/>
+    <text x="35" y="28" font-family="Courier New, monospace" font-size="18" font-weight="600" fill="#8B5CF6" text-anchor="middle">Am</text>
+  </g>
+  <g transform="translate(490, 435)">
+    <rect x="0" y="0" width="70" height="42" rx="8" fill="#6C3CE1" opacity="0.15" stroke="#8B5CF6" stroke-width="1" stroke-opacity="0.3"/>
+    <text x="35" y="28" font-family="Courier New, monospace" font-size="18" font-weight="600" fill="#8B5CF6" text-anchor="middle">Em</text>
+  </g>
+  <g transform="translate(580, 435)">
+    <rect x="0" y="0" width="70" height="42" rx="8" fill="#6C3CE1" opacity="0.15" stroke="#8B5CF6" stroke-width="1" stroke-opacity="0.3"/>
+    <text x="35" y="28" font-family="Courier New, monospace" font-size="18" font-weight="600" fill="#8B5CF6" text-anchor="middle">G7</text>
+  </g>
+  <g transform="translate(670, 435)">
+    <rect x="0" y="0" width="70" height="42" rx="8" fill="#6C3CE1" opacity="0.15" stroke="#8B5CF6" stroke-width="1" stroke-opacity="0.3"/>
+    <text x="35" y="28" font-family="Courier New, monospace" font-size="18" font-weight="600" fill="#8B5CF6" text-anchor="middle">F</text>
+  </g>
+  <g transform="translate(760, 435)">
+    <rect x="0" y="0" width="70" height="42" rx="8" fill="#6C3CE1" opacity="0.15" stroke="#8B5CF6" stroke-width="1" stroke-opacity="0.3"/>
+    <text x="35" y="28" font-family="Courier New, monospace" font-size="18" font-weight="600" fill="#8B5CF6" text-anchor="middle">Dm</text>
+  </g>
+
+  <!-- Website URL -->
+  <text x="600" y="555" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="16" fill="#6B5F8A" text-anchor="middle" letter-spacing="2">ecoliving-tips.github.io</text>
+
+  <!-- Border glow -->
+  <rect x="4" y="4" width="1192" height="622" rx="12" fill="none" stroke="url(#accentLine)" stroke-width="1" stroke-opacity="0.2"/>
+</svg>

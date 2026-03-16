@@ -1,21 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-IN">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Browse Malayalam Christian devotional song chords. Learn Syro Malabar Holy Mass songs with chord progressions.">
-    <meta name="keywords" content="Malayalam Christian chords, Syro Malabar songs, chord progressions, Malayalam devotional music">
-    <meta name="author" content="Malayalam Chord Chords">
-    <title>All Songs - Malayalam Chord Chords</title>
+    <meta name="description" content="Browse our full collection of Malayalam Christian song chords. Find easy keyboard and guitar chord charts for Syro Malabar Holy Mass songs, hymns, and worship songs. Search by title or artist.">
+    <meta name="keywords" content="Malayalam Christian song list, all Malayalam chords, Syro Malabar song collection, Malayalam worship song chords, church song chords list">
+    <meta name="author" content="Swaram">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://ecoliving-tips.github.io/songs.html">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="All Malayalam Christian Song Chords - Browse Full Collection">
+    <meta property="og:description" content="Browse our full collection of Malayalam Christian song chords. Easy keyboard and guitar chord charts for Holy Mass songs, hymns, and worship music.">
+    <meta property="og:url" content="https://ecoliving-tips.github.io/songs.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Swaram">
+    <meta property="og:image" content="https://ecoliving-tips.github.io/assets/og-image.svg">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="All Malayalam Christian Song Chords - Full Collection">
+    <meta name="twitter:description" content="Browse our full collection of Malayalam Christian song chords. Easy chord charts for keyboard and guitar.">
+    <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.svg">
+
+    <title>All Malayalam Christian Song Chords - Browse Full Collection | Swaram</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-    <!-- AdSense -->
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="shortcut icon" href="favicon.ico">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7438590583270235" crossorigin="anonymous"></script>
     <meta name="google-adsense-account" content="ca-pub-7438590583270235">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "All Malayalam Christian Song Chords",
+      "description": "Browse our full collection of Malayalam Christian song chords for keyboard and guitar.",
+      "url": "https://ecoliving-tips.github.io/songs.html",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Swaram",
+        "url": "https://ecoliving-tips.github.io/"
+      }
+    }
+    </script>
 </head>
 
 <body>
@@ -23,21 +57,21 @@
         <div class="container">
             <div class="header-top">
                 <div class="header-content">
-                    <h1>🎵 Malayalam Chord Chords</h1>
-                    <p class="tagline">Malayalam Christian Devotional Song Chords</p>
+                    <h1>Swaram</h1>
+                    <p class="tagline">Free Christian Song Chords for Keyboard & Guitar</p>
                 </div>
-                <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">
+                <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
                     <span class="hamburger-line"></span>
                     <span class="hamburger-line"></span>
                     <span class="hamburger-line"></span>
                 </button>
             </div>
-            <nav class="mobile-nav">
+            <nav class="mobile-nav" aria-label="Main navigation">
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="songs.html">All Songs</a></li>
                     <li><a href="request.html">Request Song</a></li>
-                    <li><a href="#" onclick="openUPI(); return false;">💝 Donate</a></li>
+                    <li><a href="#" onclick="openUPI(); return false;">Donate</a></li>
                 </ul>
             </nav>
         </div>
@@ -46,39 +80,32 @@
     <main>
         <section class="songs-header">
             <div class="container">
-                <h2>All Songs</h2>
-                <p>Browse our collection of Malayalam Christian devotional song chords</p>
-                
+                <h2>All Malayalam Christian Song Chords</h2>
+                <p>Browse our growing collection of chord charts for Syro Malabar Holy Mass songs, Marian hymns, and praise & worship music. Every chord chart is free and beginner-friendly.</p>
                 <div class="search-box">
-                    <input type="text" id="search-input" placeholder="🔍 Search songs by title, artist...">
+                    <input type="text" id="search-input" placeholder="Search by song title, artist, or category..." aria-label="Search songs">
                 </div>
-                
-                <p class="song-count">Total Songs: <span id="song-count">0</span></p>
+                <p class="song-count">Songs in our collection: <span id="song-count">0</span></p>
             </div>
         </section>
 
         <section class="songs-section">
             <div class="container">
-                <div id="songs-grid" class="songs-grid">
-                    <!-- Songs will be loaded here -->
-                </div>
-                
+                <div id="songs-grid" class="songs-grid"></div>
                 <div id="no-results" class="no-results" style="display: none;">
-                    <p>No songs found. Try a different search term.</p>
-                    <a href="request.html" class="btn">Request a Song</a>
+                    <p>No songs found matching your search. Try a different term or request the song below.</p>
+                    <a href="request.html" class="btn">Request This Song</a>
                 </div>
             </div>
         </section>
 
         <section class="donate-section">
             <div class="container">
-                <h3>💝 Support Our Work</h3>
-                <p>Help us continue providing free chord charts for Malayalam Christian songs.</p>
+                <h3>Support Free Malayalam Song Chords</h3>
+                <p>We keep every chord chart completely free. Your support helps us add more songs to the collection.</p>
                 <div class="donate-options">
-                    <a href="#" onclick="openUPI(); return false;" class="btn donate-btn">
-                        📱 Pay via UPI
-                    </a>
-                    <img src="assets/donate-qr.png" alt="UPI QR Code" class="qr-code" onclick="openUPI()">
+                    <a href="#" onclick="openUPI(); return false;" class="btn donate-btn">Pay via UPI</a>
+                    <img src="assets/donate-qr.png" alt="Scan this QR code to donate via UPI to Swaram" class="qr-code" onclick="openUPI()">
                 </div>
             </div>
         </section>
@@ -86,8 +113,24 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 Malayalam Chord Chords. All rights reserved.</p>
-            <p>🎵 Learn Malayalam Christian songs with chord progressions</p>
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Swaram</h3>
+                    <p>Free Christian Song Chords for Keyboard & Guitar</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="songs.html">All Songs</a></li>
+                        <li><a href="request.html">Request Song</a></li>
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Swaram. All Rights Reserved.</p>
+            </div>
         </div>
     </footer>
 

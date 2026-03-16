@@ -1,21 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-IN">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="View chord progressions for Malayalam Christian devotional songs.">
-    <meta name="keywords" content="Malayalam Christian chords, chord progressions, song chords">
-    <meta name="author" content="Malayalam Chord Chords">
-    <title>Song Chords - Malayalam Chord Chords</title>
+    <meta name="description" id="meta-description" content="View chord progressions for Malayalam Christian devotional songs. Free keyboard and guitar chord charts with YouTube video tutorials.">
+    <meta name="keywords" content="Malayalam Christian song chords, chord progressions, keyboard chords, guitar chords, devotional song chords">
+    <meta name="author" content="Swaram">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+
+    <!-- Open Graph (dynamically updated by JS) -->
+    <meta property="og:title" id="og-title" content="Song Chords - Swaram">
+    <meta property="og:description" id="og-description" content="View chord progressions for Malayalam Christian devotional songs.">
+    <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/song.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Swaram">
+    <meta property="og:image" content="https://ecoliving-tips.github.io/assets/og-image.svg">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" id="twitter-title" content="Song Chords - Swaram">
+    <meta name="twitter:description" id="twitter-description" content="View chord progressions for Malayalam Christian devotional songs.">
+    <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.svg">
+
+    <title>Song Chords - Swaram</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-    <!-- AdSense -->
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="shortcut icon" href="favicon.ico">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7438590583270235" crossorigin="anonymous"></script>
     <meta name="google-adsense-account" content="ca-pub-7438590583270235">
+
+    <!-- Structured Data (dynamically updated by JS) -->
+    <script type="application/ld+json" id="song-structured-data">
+    {
+      "@context": "https://schema.org",
+      "@type": "MusicComposition",
+      "name": "Song Chords",
+      "url": "https://ecoliving-tips.github.io/song.html",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Swaram",
+        "url": "https://ecoliving-tips.github.io/"
+      }
+    }
+    </script>
 </head>
 
 <body>
@@ -23,21 +55,21 @@
         <div class="container">
             <div class="header-top">
                 <div class="header-content">
-                    <h1>🎵 Malayalam Chord Chords</h1>
-                    <p class="tagline">Malayalam Christian Devotional Song Chords</p>
+                    <h1>Swaram</h1>
+                    <p class="tagline">Free Christian Song Chords for Keyboard & Guitar</p>
                 </div>
-                <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">
+                <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
                     <span class="hamburger-line"></span>
                     <span class="hamburger-line"></span>
                     <span class="hamburger-line"></span>
                 </button>
             </div>
-            <nav class="mobile-nav">
+            <nav class="mobile-nav" aria-label="Main navigation">
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="songs.html">All Songs</a></li>
                     <li><a href="request.html">Request Song</a></li>
-                    <li><a href="#" onclick="openUPI(); return false;">💝 Donate</a></li>
+                    <li><a href="#" onclick="openUPI(); return false;">Donate</a></li>
                 </ul>
             </nav>
         </div>
@@ -46,7 +78,7 @@
     <main>
         <section class="song-detail-header">
             <div class="container">
-                <a href="songs.html" class="back-link">← Back to All Songs</a>
+                <a href="songs.html" class="back-link">&#8592; Back to All Songs</a>
                 <h2 id="song-title">Loading...</h2>
                 <p id="song-artist" class="artist"></p>
             </div>
@@ -55,20 +87,16 @@
         <section class="song-content-section">
             <div class="container">
                 <div class="song-actions">
-                    <button onclick="copyChords()" class="btn">📋 Copy Chords</button>
-                    <a href="#" onclick="openUPI(); return false;" class="btn btn-secondary">💝 Support</a>
+                    <button onclick="copyChords()" class="btn">Copy Chords</button>
+                    <a href="#" onclick="openUPI(); return false;" class="btn btn-secondary">Support Us</a>
                 </div>
-                
-                <div id="song-content" class="chord-content">
-                    <!-- Song chords will be loaded here -->
-                </div>
-                
-                <div id="youtube-embed" class="video-container">
-                    <!-- YouTube embed will be loaded here -->
-                </div>
-                
+
+                <div id="song-content" class="chord-content"></div>
+
+                <div id="youtube-embed" class="video-container"></div>
+
                 <div class="song-navigation">
-                    <a href="songs.html" class="btn">View All Songs</a>
+                    <a href="songs.html" class="btn">Browse All Songs</a>
                     <a href="request.html" class="btn btn-secondary">Request a Song</a>
                 </div>
             </div>
@@ -76,13 +104,11 @@
 
         <section class="donate-section">
             <div class="container">
-                <h3>💝 Support Our Work</h3>
-                <p>Help us continue providing free chord charts for Malayalam Christian songs.</p>
+                <h3>Support Free Malayalam Song Chords</h3>
+                <p>We keep every chord chart completely free. Your support helps us add more songs to the collection.</p>
                 <div class="donate-options">
-                    <a href="#" onclick="openUPI(); return false;" class="btn donate-btn">
-                        📱 Pay via UPI
-                    </a>
-                    <img src="assets/donate-qr.png" alt="UPI QR Code" class="qr-code" onclick="openUPI()">
+                    <a href="#" onclick="openUPI(); return false;" class="btn donate-btn">Pay via UPI</a>
+                    <img src="assets/donate-qr.png" alt="Scan this QR code to donate via UPI to Swaram" class="qr-code" onclick="openUPI()">
                 </div>
             </div>
         </section>
@@ -90,8 +116,24 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 Malayalam Chord Chords. All rights reserved.</p>
-            <p>🎵 Learn Malayalam Christian songs with chord progressions</p>
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Swaram</h3>
+                    <p>Free Christian Song Chords for Keyboard & Guitar</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="songs.html">All Songs</a></li>
+                        <li><a href="request.html">Request Song</a></li>
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Swaram. All Rights Reserved.</p>
+            </div>
         </div>
     </footer>
 

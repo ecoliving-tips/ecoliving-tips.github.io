@@ -8,37 +8,30 @@
   </url>
 
   <url>
-    <loc>https://ecoliving-tips.github.io/#home</loc>
+    <loc>https://ecoliving-tips.github.io/songs.html</loc>
     <lastmod>2025-07-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://ecoliving-tips.github.io/#tutorials</loc>
-    <lastmod>2025-07-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://ecoliving-tips.github.io/#songs</loc>
-    <lastmod>2025-07-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://ecoliving-tips.github.io/#about</loc>
+    <loc>https://ecoliving-tips.github.io/song.html?file=anna-pesaha.md</loc>
     <lastmod>2025-07-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://ecoliving-tips.github.io/privacy-policy.html</loc>
-    <lastmod>2025-07-10</lastmod>
+    <loc>https://ecoliving-tips.github.io/request.html</loc>
+    <lastmod>2025-07-12</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://ecoliving-tips.github.io/privacy-policy.html</loc>
+    <lastmod>2025-07-12</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
 </urlset>

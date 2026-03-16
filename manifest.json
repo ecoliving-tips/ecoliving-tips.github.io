@@ -1,11 +1,11 @@
 {
-  "name": "Malayalam Christian Keyboard Tutorials",
-  "short_name": "Malayalam Keys",
-  "description": "Learn Syro Malabar Holy Mass songs on keyboard with step-by-step tutorials",
+  "name": "Swaram",
+  "short_name": "Swaram",
+  "description": "Malayalam Christian Devotional Song Chords. Learn Syro Malabar Holy Mass songs with chord progressions.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#4A90E2",
-  "theme_color": "#4A90E2",
+  "background_color": "#0F0B1A",
+  "theme_color": "#6C3CE1",
   "orientation": "portrait-primary",
   "icons": [
     {
@@ -28,12 +28,5 @@
     }
   ],
   "categories": ["music", "education", "religion"],
-  "lang": "en",
-  "screenshots": [
-    {
-      "src": "assets/eco-living-og.png",
-      "sizes": "1200x630",
-      "type": "image/png"
-    }
-  ]
+  "lang": "en"
 }

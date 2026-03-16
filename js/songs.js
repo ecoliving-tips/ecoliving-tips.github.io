@@ -1,46 +1,33 @@
 // Song Chords Website - JavaScript
-// Supabase Configuration
-const SUPABASE_URL = 'https://jfnccekkhffonkjkmxyf.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_KJA4VzMAjt2WVEEg0JKMfg_lDrABAZK';
-
-// UPI Payment
 const UPI_ID = '7306025928@upi';
 
-// Load songs index
 let songsList = [];
-let songsData = {};
 
-// Initialize
 document.addEventListener('DOMContentLoaded', function() {
     loadSongsIndex();
-    
-    // Check if we're on song detail page
+
     const urlParams = new URLSearchParams(window.location.search);
     const songFile = urlParams.get('file');
     if (songFile && document.getElementById('song-content')) {
         loadSong(songFile);
     }
-    
-    // Set up search if on songs page
+
     const searchInput = document.getElementById('search-input');
     if (searchInput) {
         searchInput.addEventListener('input', handleSearch);
     }
 });
 
-// Load songs index.json
 async function loadSongsIndex() {
     try {
         const response = await fetch('songs/index.json');
         songsList = await response.json();
-        
-        // Display songs if on songs page
+
         const songsGrid = document.getElementById('songs-grid');
         if (songsGrid) {
             displaySongs(songsList);
         }
-        
-        // Update song count
+
         const songCount = document.getElementById('song-count');
         if (songCount) {
             songCount.textContent = songsList.length;
@@ -50,13 +37,11 @@ async function loadSongsIndex() {
     }
 }
 
-// Display songs in grid
 function displaySongs(songs) {
     const songsGrid = document.getElementById('songs-grid');
     if (!songsGrid) return;
-    
+
     songsGrid.innerHTML = '';
-    
     songs.forEach(song => {
         const card = document.createElement('div');
         card.className = 'song-card';
@@ -70,10 +55,9 @@ function displaySongs(songs) {
     });
 }
 
-// Search songs
 function handleSearch(event) {
     const query = event.target.value.toLowerCase();
-    const filtered = songsList.filter(song => 
+    const filtered = songsList.filter(song =>
         song.title.toLowerCase().includes(query) ||
         (song.artist && song.artist.toLowerCase().includes(query)) ||
         (song.category && song.category.toLowerCase().includes(query))
@@ -81,25 +65,20 @@ function handleSearch(event) {
     displaySongs(filtered);
 }
 
-// Load individual song
 async function loadSong(file) {
     try {
         const response = await fetch('songs/' + file);
         if (!response.ok) {
-            document.getElementById('song-content').innerHTML = '<p>Song not found. Please check back later.</p>';
+            document.getElementById('song-content').innerHTML = '<p>Song not found. Please check back later or <a href="request.html">request this song</a>.</p>';
             return;
         }
         let content = await response.text();
-        
-        // Parse frontmatter
         const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
         let metadata = {};
-        
+
         if (frontmatterMatch) {
-            // Parse YAML-like frontmatter
             const frontmatter = frontmatterMatch[1];
             content = frontmatterMatch[2];
-            
             frontmatter.split('\n').forEach(line => {
                 const [key, ...valueParts] = line.split(':');
                 if (key && valueParts.length) {
@@ -107,115 +86,133 @@ async function loadSong(file) {
                 }
             });
         }
-        
-        // Update page title
+
+        // Update page title and SEO meta tags dynamically
         if (metadata.title) {
-            document.getElementById('song-title').textContent = metadata.title;
-            document.title = metadata.title + ' - Chord Chords';
+            const songTitle = metadata.title;
+            const artist = metadata.artist || 'Traditional';
+            const pageTitle = `${songTitle} Chords - ${artist} | Swaram`;
+            const pageDesc = `Free ${songTitle} chord chart for keyboard and guitar. ${artist} - Malayalam Christian devotional song chord progression with easy notation.`;
+            const pageUrl = `https://ecoliving-tips.github.io/song.html?file=${file}`;
+
+            document.getElementById('song-title').textContent = songTitle;
+            document.title = pageTitle;
+
+            // Update meta description
+            const metaDesc = document.getElementById('meta-description');
+            if (metaDesc) metaDesc.setAttribute('content', pageDesc);
+
+            // Update Open Graph
+            const ogTitle = document.getElementById('og-title');
+            if (ogTitle) ogTitle.setAttribute('content', pageTitle);
+            const ogDesc = document.getElementById('og-description');
+            if (ogDesc) ogDesc.setAttribute('content', pageDesc);
+            const ogUrl = document.getElementById('og-url');
+            if (ogUrl) ogUrl.setAttribute('content', pageUrl);
+
+            // Update Twitter
+            const twTitle = document.getElementById('twitter-title');
+            if (twTitle) twTitle.setAttribute('content', pageTitle);
+            const twDesc = document.getElementById('twitter-description');
+            if (twDesc) twDesc.setAttribute('content', pageDesc);
+
+            // Update structured data
+            const structuredData = document.getElementById('song-structured-data');
+            if (structuredData) {
+                structuredData.textContent = JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "MusicComposition",
+                    "name": songTitle,
+                    "composer": { "@type": "Person", "name": artist },
+                    "musicalKey": "C",
+                    "url": pageUrl,
+                    "description": pageDesc,
+                    "isPartOf": {
+                        "@type": "WebSite",
+                        "name": "Swaram",
+                        "url": "https://ecoliving-tips.github.io/"
+                    }
+                });
+            }
         }
-        
-        // Update artist
+
         if (metadata.artist) {
             document.getElementById('song-artist').textContent = metadata.artist;
         }
-        
-        // Format and display content
-        const formattedContent = formatChordContent(content);
-        document.getElementById('song-content').innerHTML = formattedContent;
-        
-        // YouTube embed
+
+        document.getElementById('song-content').innerHTML = formatChordContent(content);
+
         if (metadata.youtube) {
             const videoId = extractYouTubeId(metadata.youtube);
             if (videoId) {
                 document.getElementById('youtube-embed').innerHTML = `
-                    <iframe width="100%" height="315" 
-                        src="https://www.youtube.com/embed/${videoId}" 
-                        frameborder="0" allowfullscreen>
+                    <iframe width="100%" height="315"
+                        src="https://www.youtube.com/embed/${videoId}"
+                        frameborder="0" allowfullscreen loading="lazy"
+                        title="${metadata.title || 'Song'} - Video Tutorial">
                     </iframe>
                 `;
             }
         }
-        
     } catch (error) {
         console.error('Error loading song:', error);
-        document.getElementById('song-content').innerHTML = '<p>Error loading song. Please try again.</p>';
+        document.getElementById('song-content').innerHTML = '<p>Error loading song. Please try again or <a href="songs.html">browse all songs</a>.</p>';
     }
 }
 
-// Format chord content nicely - handles user's format
 function formatChordContent(content) {
     let html = '';
     const lines = content.split('\n');
-    let inSection = false;
-    let currentSectionTitle = '';
-    
+
     lines.forEach(line => {
         line = line.trim();
-        
-        if (!line) {
-            html += '<br>';
-            return;
-        }
-        
-        // Main section header (# Title)
-        if (line.startsWith('# ')) {
-            html += `<h2>${line.substring(2)}</h2>`;
-            return;
-        }
-        
-        // Subsection header (## Title)
-        if (line.startsWith('## ')) {
-            html += `<h3>${line.substring(3)}</h3>`;
-            return;
-        }
-        
-        // Subsection header (### Title)
-        if (line.startsWith('### ')) {
-            html += `<h4>${line.substring(4)}</h4>`;
-            return;
-        }
-        
-        // Chord progression pattern: || C | C | Am | Am ||
+        if (!line) { html += '<br>'; return; }
+        if (line.startsWith('# ')) { html += `<h2>${line.substring(2)}</h2>`; return; }
+        if (line.startsWith('## ')) { html += `<h3>${line.substring(3)}</h3>`; return; }
+        if (line.startsWith('### ')) { html += `<h4>${line.substring(4)}</h4>`; return; }
+
         if (line.startsWith('||') && line.endsWith('||')) {
-            // Remove || and split by |
             const chordsLine = line.replace(/^\|\||\|\|$/g, '').trim();
             const chords = chordsLine.split('|').map(c => c.trim()).filter(c => c);
-            
             if (chords.length > 0) {
-                html += '<div class="chord-progression">';
-                html += '<div class="chord-line">';
-                chords.forEach(chord => {
-                    html += `<span class="chord">${chord}</span>`;
-                });
+                html += '<div class="chord-progression"><div class="chord-line">';
+                chords.forEach(chord => { html += `<span class="chord">${chord}</span>`; });
                 html += '</div></div>';
             }
             return;
         }
-        
-        // Regular lyrics/text
+
         html += `<p>${line}</p>`;
     });
-    
+
     return html;
 }
 
-// Extract YouTube video ID
 function extractYouTubeId(url) {
     const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/);
     return match ? match[1] : null;
 }
 
-// Copy chords to clipboard
 function copyChords() {
     const songContent = document.getElementById('song-content');
     const text = songContent.innerText;
     navigator.clipboard.writeText(text).then(() => {
-        alert('Chords copied to clipboard!');
+        showToast('Chords copied to clipboard!');
     });
 }
 
-// Open UPI payment
+function showToast(message) {
+    let toast = document.querySelector('.copy-toast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.className = 'copy-toast';
+        document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
 function openUPI() {
-    const upiLink = `upi://pay?pa=${UPI_ID}&pn=Malayalam%20Chord%20Chords`;
-    window.open(upiLink, '_blank');
+    window.open(`upi://pay?pa=${UPI_ID}&pn=Swaram`, '_blank');
 }
