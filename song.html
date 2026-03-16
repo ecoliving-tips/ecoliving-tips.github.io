@@ -92,6 +92,27 @@
 
         <section class="song-content-section">
             <div class="container">
+                <!-- Metadata & Controls Bar -->
+                <div class="song-toolbar">
+                    <div id="song-meta-bar" class="song-meta-bar"></div>
+                    <div class="song-controls">
+                        <div class="transpose-controls">
+                            <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
+                            <span class="transpose-display">Transpose: <strong id="transpose-value">0</strong></span>
+                            <button id="transpose-up" class="ctrl-btn" aria-label="Transpose up">+</button>
+                            <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
+                        </div>
+                        <div class="scroll-controls">
+                            <button id="auto-scroll-btn" class="ctrl-btn ctrl-btn-text" onclick="toggleAutoScroll()">Auto Scroll</button>
+                            <div id="scroll-speed-controls" class="speed-controls">
+                                <button class="speed-btn" onclick="setScrollSpeed(0.8, this)">Slow</button>
+                                <button class="speed-btn active" onclick="setScrollSpeed(1.5, this)">Med</button>
+                                <button class="speed-btn" onclick="setScrollSpeed(3, this)">Fast</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div id="song-content" class="chord-content"></div>
 
                 <div id="youtube-embed" class="video-container"></div>

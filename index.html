@@ -297,7 +297,11 @@
                         card.innerHTML = `
                             <h3>${song.title}</h3>
                             <p class="artist">${song.artist || 'Traditional'}</p>
-                            <p class="category">${song.category || 'General'}</p>
+                            <div class="song-card-meta">
+                                <span class="meta-badge">${song.category || 'General'}</span>
+                                ${song.key ? `<span class="meta-badge meta-key">Key: ${song.key}</span>` : ''}
+                                ${song.time ? `<span class="meta-badge meta-time">${song.time}</span>` : ''}
+                            </div>
                             <a href="song.html?file=${song.file}" class="btn">View Chords</a>
                         `;
                         container.appendChild(card);
@@ -334,10 +338,6 @@
                         resultsContainer.style.display = 'block';
                     }
                 });
-        }
-
-        function openUPI() {
-            window.open('upi://pay?pa=7306025928@upi&pn=Swaram', '_blank');
         }
     </script>
 </body>

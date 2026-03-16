@@ -3,26 +3,24 @@ title: Anna Pesaha Thirunalil
 artist: Traditional Syro Malabar
 youtube: https://youtube.com/watch?v=CGfSjeFkL-0
 category: Holy Mass
+key: C
+time: 3/4
 ---
 
-# Anna Pesaha Thirunalil
+{Intro}
+|| C | C | Am | Am | B | B7 | C | Em | Dm | Dm | A | A7 | Dm | G7 | C | C ||
 
-## Chord Progression
+{Verse 1}
+[C]Anna [Am]Pesaha [Em]Thirunna[Em9]llil
+[G]Karthavaruliya [F]Kalpana[C]pol
+[F]Thirunaa[Dm]mathil [Gsus4]Chernnee[G7]dam
+[C]Orumayo[CM7]dee Bali [F]Arppi[C]kkam
 
-### Intro
-|| C | C | Am | Am | B | B7 | Em | Em | Dm | Dm | A | A7 | Dm | G7 | C | C ||
+{BG}
+|| Am | B | G.Em | F | Dm7 | G | Em.D | G ||
 
-### Verse 1
-|| C | Am | Em | Em |||
-|| G | G | C | C ||
-|| F | Dm | Gsus4 | G ||
-|| C | Em | Am | C ||
-
-### BG
-|| Am | B | G | F | Dm | G | C | C ||
-
-### Verse 2
-|| C | B7 | Em | Em ||
-|| C | Am.E | Am | F ||
-|| G | G | G | D ||
-|| G | F | Am | C ||
+{Verse 2}
+[C]Anuran[B7]jitharaai [G]Theernnee[C]dam
+[Em]Navamoru [Am]Pee[E]damo[Am]rukee[F]dam
+[G]Guruvin [G]Sne[C]hamo[D]deeyagam
+[G]Thiru Mun[F]bakeya[Am]nnachee[C]daam

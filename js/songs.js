@@ -1,7 +1,13 @@
-// Song Chords Website - JavaScript
+// Swaram - Song Chords Website
 const UPI_ID = '7306025928@upi';
+const NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+const FLAT_MAP = { 'Db': 'C#', 'Eb': 'D#', 'Fb': 'E', 'Gb': 'F#', 'Ab': 'G#', 'Bb': 'A#', 'Cb': 'B' };
 
 let songsList = [];
+let currentTranspose = 0;
+let originalKey = '';
+let autoScrollInterval = null;
+let autoScrollSpeed = 1.5;
 
 document.addEventListener('DOMContentLoaded', function () {
     loadSongsIndex();
@@ -48,7 +54,11 @@ function displaySongs(songs) {
         card.innerHTML = `
             <h3>${song.title}</h3>
             <p class="artist">${song.artist || 'Unknown Artist'}</p>
-            <p class="category">${song.category || 'General'}</p>
+            <div class="song-card-meta">
+                <span class="meta-badge">${song.category || 'General'}</span>
+                ${song.key ? `<span class="meta-badge meta-key">Key: ${song.key}</span>` : ''}
+                ${song.time ? `<span class="meta-badge meta-time">${song.time}</span>` : ''}
+            </div>
             <a href="song.html?file=${song.file}" class="btn">View Chords</a>
         `;
         songsGrid.appendChild(card);
@@ -87,6 +97,9 @@ async function loadSong(file) {
             });
         }
 
+        originalKey = metadata.key || 'C';
+        currentTranspose = 0;
+
         // Update page title and SEO meta tags dynamically
         if (metadata.title) {
             const songTitle = metadata.title;
@@ -98,25 +111,19 @@ async function loadSong(file) {
             document.getElementById('song-title').textContent = songTitle;
             document.title = pageTitle;
 
-            // Update meta description
             const metaDesc = document.getElementById('meta-description');
             if (metaDesc) metaDesc.setAttribute('content', pageDesc);
-
-            // Update Open Graph
             const ogTitle = document.getElementById('og-title');
             if (ogTitle) ogTitle.setAttribute('content', pageTitle);
             const ogDesc = document.getElementById('og-description');
             if (ogDesc) ogDesc.setAttribute('content', pageDesc);
             const ogUrl = document.getElementById('og-url');
             if (ogUrl) ogUrl.setAttribute('content', pageUrl);
-
-            // Update Twitter
             const twTitle = document.getElementById('twitter-title');
             if (twTitle) twTitle.setAttribute('content', pageTitle);
             const twDesc = document.getElementById('twitter-description');
             if (twDesc) twDesc.setAttribute('content', pageDesc);
 
-            // Update structured data
             const structuredData = document.getElementById('song-structured-data');
             if (structuredData) {
                 structuredData.textContent = JSON.stringify({
@@ -124,7 +131,7 @@ async function loadSong(file) {
                     "@type": "MusicComposition",
                     "name": songTitle,
                     "composer": { "@type": "Person", "name": artist },
-                    "musicalKey": "C",
+                    "musicalKey": metadata.key || 'C',
                     "url": pageUrl,
                     "description": pageDesc,
                     "isPartOf": {
@@ -140,7 +147,14 @@ async function loadSong(file) {
             document.getElementById('song-artist').textContent = metadata.artist;
         }
 
+        // Render metadata bar
+        renderMetadataBar(metadata);
+
+        // Render song content
         document.getElementById('song-content').innerHTML = formatChordContent(content);
+
+        // Setup transpose controls
+        setupTransposeControls();
 
         if (metadata.youtube) {
             const videoId = extractYouTubeId(metadata.youtube);
@@ -160,33 +174,211 @@ async function loadSong(file) {
     }
 }
 
+function renderMetadataBar(metadata) {
+    const bar = document.getElementById('song-meta-bar');
+    if (!bar) return;
+
+    bar.innerHTML = '';
+    if (metadata.key) {
+        bar.innerHTML += `<span class="meta-pill meta-pill-key"><span class="meta-label">Key</span> <span id="current-key">${metadata.key}</span></span>`;
+    }
+    if (metadata.time) {
+        bar.innerHTML += `<span class="meta-pill meta-pill-time"><span class="meta-label">Time</span> ${metadata.time}</span>`;
+    }
+    if (metadata.category) {
+        bar.innerHTML += `<span class="meta-pill"><span class="meta-label">Genre</span> ${metadata.category}</span>`;
+    }
+}
+
+// ===== Chord Content Parser =====
+
 function formatChordContent(content) {
     let html = '';
     const lines = content.split('\n');
 
-    lines.forEach(line => {
-        line = line.trim();
-        if (!line) { html += '<br>'; return; }
-        if (line.startsWith('# ')) { html += `<h2>${line.substring(2)}</h2>`; return; }
-        if (line.startsWith('## ')) { html += `<h3>${line.substring(3)}</h3>`; return; }
-        if (line.startsWith('### ')) { html += `<h4>${line.substring(4)}</h4>`; return; }
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i].trim();
 
+        // Empty line = spacing
+        if (!line) {
+            html += '<div class="song-spacer"></div>';
+            continue;
+        }
+
+        // Section header: {Verse 1}, {Chorus}, etc.
+        const sectionMatch = line.match(/^\{(.+)\}$/);
+        if (sectionMatch) {
+            html += `<h3 class="section-label">${sectionMatch[1]}</h3>`;
+            continue;
+        }
+
+        // Legacy markdown headings (backwards compat)
+        if (line.startsWith('# ')) { continue; } // skip song title (already in header)
+        if (line.startsWith('## ')) { continue; } // skip "Chord Progression" etc.
+        if (line.startsWith('### ')) {
+            html += `<h3 class="section-label">${line.substring(4)}</h3>`;
+            continue;
+        }
+
+        // Chord-only progression: || C | Am | G ||
         if (line.startsWith('||') && line.endsWith('||')) {
             const chordsLine = line.replace(/^\|\||\|\|$/g, '').trim();
             const chords = chordsLine.split('|').map(c => c.trim()).filter(c => c);
             if (chords.length > 0) {
                 html += '<div class="chord-progression"><div class="chord-line">';
-                chords.forEach(chord => { html += `<span class="chord">${chord}</span>`; });
+                chords.forEach(chord => {
+                    html += `<span class="chord" data-original="${chord}">${chord}</span>`;
+                });
                 html += '</div></div>';
             }
-            return;
+            continue;
         }
 
-        html += `<p>${line}</p>`;
-    });
+        // Chord+lyric line: [C]Anna pesa[Am]ha
+        if (line.includes('[') && line.includes(']')) {
+            html += parseChordLyricLine(line);
+            continue;
+        }
+
+        // Plain lyric line
+        html += `<div class="lyric-only-line">${line}</div>`;
+    }
 
     return html;
 }
+
+function parseChordLyricLine(line) {
+    let html = '<div class="chord-lyric-line">';
+    const regex = /\[([^\]]+)\]([^\[]*)/g;
+    let match;
+
+    // Text before first chord
+    const firstBracket = line.indexOf('[');
+    if (firstBracket > 0) {
+        const textBefore = line.substring(0, firstBracket);
+        if (textBefore.trim()) {
+            html += `<span class="chord-lyric-pair"><span class="chord-name empty"></span><span class="lyric-text">${textBefore}</span></span>`;
+        }
+    }
+
+    while ((match = regex.exec(line)) !== null) {
+        const chord = match[1];
+        const text = match[2];
+        html += `<span class="chord-lyric-pair"><span class="chord-name" data-original="${chord}">${chord}</span><span class="lyric-text">${text || '&nbsp;'}</span></span>`;
+    }
+
+    html += '</div>';
+    return html;
+}
+
+// ===== Transpose =====
+
+function setupTransposeControls() {
+    const transposeDown = document.getElementById('transpose-down');
+    const transposeUp = document.getElementById('transpose-up');
+    const transposeReset = document.getElementById('transpose-reset');
+
+    if (!transposeDown) return;
+
+    transposeDown.addEventListener('click', () => doTranspose(-1));
+    transposeUp.addEventListener('click', () => doTranspose(1));
+    transposeReset.addEventListener('click', () => {
+        currentTranspose = 0;
+        applyTranspose();
+    });
+}
+
+function doTranspose(delta) {
+    currentTranspose = ((currentTranspose + delta) % 12 + 12) % 12;
+    applyTranspose();
+}
+
+function applyTranspose() {
+    // Update all chord elements
+    document.querySelectorAll('[data-original]').forEach(el => {
+        const original = el.getAttribute('data-original');
+        el.textContent = transposeChord(original, currentTranspose);
+    });
+
+    // Update key display
+    const keyEl = document.getElementById('current-key');
+    if (keyEl) {
+        keyEl.textContent = transposeChord(originalKey, currentTranspose);
+    }
+
+    // Update transpose indicator
+    const transposeValue = document.getElementById('transpose-value');
+    if (transposeValue) {
+        const display = currentTranspose === 0 ? '0' : (currentTranspose <= 6 ? `+${currentTranspose}` : `${currentTranspose - 12}`);
+        transposeValue.textContent = display;
+    }
+}
+
+function transposeChord(chord, semitones) {
+    if (semitones === 0) return chord;
+
+    // Handle slash chords like Am/E
+    if (chord.includes('/')) {
+        const parts = chord.split('/');
+        return transposeChord(parts[0], semitones) + '/' + transposeChord(parts[1], semitones);
+    }
+
+    // Handle dot notation like Am.E
+    if (chord.includes('.')) {
+        const parts = chord.split('.');
+        return transposeChord(parts[0], semitones) + '/' + transposeChord(parts[1], semitones);
+    }
+
+    // Extract root note and quality
+    const match = chord.match(/^([A-G][#b]?)(.*)/);
+    if (!match) return chord;
+
+    let root = match[1];
+    const quality = match[2]; // m, 7, sus4, dim, aug, etc.
+
+    // Normalize flats to sharps
+    if (FLAT_MAP[root]) root = FLAT_MAP[root];
+
+    const rootIndex = NOTES.indexOf(root);
+    if (rootIndex === -1) return chord;
+
+    const newIndex = (rootIndex + semitones + 12) % 12;
+    return NOTES[newIndex] + quality;
+}
+
+// ===== Auto-Scroll =====
+
+function toggleAutoScroll() {
+    const btn = document.getElementById('auto-scroll-btn');
+    const controls = document.getElementById('scroll-speed-controls');
+
+    if (autoScrollInterval) {
+        clearInterval(autoScrollInterval);
+        autoScrollInterval = null;
+        btn.textContent = 'Auto Scroll';
+        btn.classList.remove('active');
+        if (controls) controls.classList.remove('visible');
+    } else {
+        autoScrollInterval = setInterval(() => {
+            window.scrollBy({ top: autoScrollSpeed, behavior: 'auto' });
+            // Stop at bottom
+            if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight - 10) {
+                toggleAutoScroll();
+            }
+        }, 30);
+        btn.textContent = 'Stop Scroll';
+        btn.classList.add('active');
+        if (controls) controls.classList.add('visible');
+    }
+}
+
+function setScrollSpeed(speed, el) {
+    autoScrollSpeed = speed;
+    document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
+    if (el) el.classList.add('active');
+}
+
+// ===== Utilities =====
 
 function extractYouTubeId(url) {
     const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/);
