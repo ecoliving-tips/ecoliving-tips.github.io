@@ -119,6 +119,8 @@ async function loadSong(file) {
             if (ogDesc) ogDesc.setAttribute('content', pageDesc);
             const ogUrl = document.getElementById('og-url');
             if (ogUrl) ogUrl.setAttribute('content', pageUrl);
+            const canonicalUrl = document.getElementById('canonical-url');
+            if (canonicalUrl) canonicalUrl.setAttribute('href', pageUrl);
             const twTitle = document.getElementById('twitter-title');
             if (twTitle) twTitle.setAttribute('content', pageTitle);
             const twDesc = document.getElementById('twitter-description');
