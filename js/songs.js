@@ -85,6 +85,10 @@ function handleSearch(event) {
 async function loadSong(file) {
     try {
         const response = await fetch('songs/' + file);
+        if (!response.ok) {
+            document.getElementById('song-content').innerHTML = '<p>Song not found. Please check back later.</p>';
+            return;
+        }
         let content = await response.text();
         
         // Parse frontmatter
