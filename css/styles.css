@@ -1137,31 +1137,6 @@ footer {
     background: var(--primary-light);
 }
 
-/* Copy Toast */
-.copy-toast {
-    position: fixed;
-    bottom: 32px;
-    left: 50%;
-    transform: translateX(-50%) translateY(20px);
-    background: var(--bg-card);
-    color: var(--text);
-    padding: 14px 28px;
-    border-radius: 50px;
-    border: 1px solid rgba(34, 197, 94, 0.3);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-    font-family: var(--font);
-    font-size: 0.9rem;
-    z-index: 9999;
-    opacity: 0;
-    transition: all 0.3s ease;
-    pointer-events: none;
-}
-
-.copy-toast.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-}
-
 /* ===== Animations ===== */
 @keyframes fadeInUp {
     from {

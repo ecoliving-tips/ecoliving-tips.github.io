@@ -3,7 +3,7 @@ const UPI_ID = '7306025928@upi';
 
 let songsList = [];
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     loadSongsIndex();
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -191,26 +191,6 @@ function formatChordContent(content) {
 function extractYouTubeId(url) {
     const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/);
     return match ? match[1] : null;
-}
-
-function copyChords() {
-    const songContent = document.getElementById('song-content');
-    const text = songContent.innerText;
-    navigator.clipboard.writeText(text).then(() => {
-        showToast('Chords copied to clipboard!');
-    });
-}
-
-function showToast(message) {
-    let toast = document.querySelector('.copy-toast');
-    if (!toast) {
-        toast = document.createElement('div');
-        toast.className = 'copy-toast';
-        document.body.appendChild(toast);
-    }
-    toast.textContent = message;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 2500);
 }
 
 function openUPI() {
