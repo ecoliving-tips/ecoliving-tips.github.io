@@ -104,8 +104,9 @@ async function loadSong(file) {
         if (metadata.title) {
             const songTitle = metadata.title;
             const artist = metadata.artist || 'Traditional';
-            const pageTitle = `${songTitle} Chords - ${artist} | Swaram`;
-            const pageDesc = `Free ${songTitle} chord chart for keyboard and guitar. ${artist} - Malayalam Christian devotional song chord progression with easy notation.`;
+            const category = metadata.category || '';
+            const pageTitle = `${songTitle} Chords for Keyboard & Guitar - ${artist} | Swaram`;
+            const pageDesc = `Free ${songTitle} keyboard and guitar chord chart. ${artist} - Malayalam Christian ${category ? category + ' ' : ''}song with chord progression, lyrics, and video tutorial.`;
             const pageUrl = `https://ecoliving-tips.github.io/song.html?file=${file}`;
 
             document.getElementById('song-title').textContent = songTitle;
@@ -113,6 +114,8 @@ async function loadSong(file) {
 
             const metaDesc = document.getElementById('meta-description');
             if (metaDesc) metaDesc.setAttribute('content', pageDesc);
+            const metaKeywords = document.querySelector('meta[name="keywords"]');
+            if (metaKeywords) metaKeywords.setAttribute('content', `${songTitle} chords, ${songTitle} keyboard chords, ${songTitle} guitar chords, ${artist} chords, Malayalam Christian song chords, ${category} song chords`);
             const ogTitle = document.getElementById('og-title');
             if (ogTitle) ogTitle.setAttribute('content', pageTitle);
             const ogDesc = document.getElementById('og-description');
