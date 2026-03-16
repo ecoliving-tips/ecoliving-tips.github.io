@@ -125,6 +125,8 @@
     </footer>
 
     <!-- Supabase Browser Client -->
+    <!-- Environment Configuration (generated at build time) -->
+    {% include "env-config.njk" %}
     <script src="{{ '/js/supabase-browser.js' | url }}"></script>
     <!-- Main JavaScript -->
     <script src="{{ '/js/main.js' | url }}"></script>
