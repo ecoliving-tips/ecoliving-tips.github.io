@@ -7,5 +7,14 @@
     "category": "Holy Mass",
     "key": "C",
     "time": "3/4"
+  },
+  {
+    "id": "krooshakum-meshayil",
+    "title": "Krooshakum Meshayil Sneha Kanalil",
+    "file": "krooshakum-meshayil.md",
+    "artist": "Fr. Binoj Mulavarickal",
+    "category": "Holy Communion",
+    "key": "Cm",
+    "time": "3/4"
   }
 ]
