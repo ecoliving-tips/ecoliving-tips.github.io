@@ -206,7 +206,10 @@ function renderSongCard(song) {
                         ${song.key ? `<span class="meta-badge meta-key">Key: ${escapeHtml(song.key)}</span>` : ''}
                         ${song.time ? `<span class="meta-badge meta-time">${escapeHtml(song.time)}</span>` : ''}
                     </div>
-                    <a href="/songs/${song.id}/" class="btn">View Chords</a>
+                    <div class="song-card-actions">
+                        <a href="/songs/${song.id}/" class="btn">View Chords</a>
+                        <a href="/lyrics/${song.id}/" class="btn btn-secondary">Lyrics</a>
+                    </div>
                 </div>`;
 }
 
@@ -344,7 +347,7 @@ function generateLyricsPage(song, body, templates) {
         "@context": "https://schema.org",
         "@type": "CreativeWork",
         "name": `${songTitle} - Lyrics`,
-        "author": { "@type": "Person", "name": artist },
+        "author": { "@type": artist.toLowerCase().includes('traditional') ? "Organization" : "Person", "name": artist },
         "inLanguage": "ml",
         "url": canonicalUrl,
         "description": pageDesc,

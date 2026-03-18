@@ -72,7 +72,10 @@ function displaySongs(songs) {
                 ${song.key ? `<span class="meta-badge meta-key">Key: ${song.key}</span>` : ''}
                 ${song.time ? `<span class="meta-badge meta-time">${song.time}</span>` : ''}
             </div>
-            <a href="/songs/${song.id}/" class="btn">View Chords</a>
+            <div class="song-card-actions">
+                <a href="/songs/${song.id}/" class="btn">View Chords</a>
+                <a href="/lyrics/${song.id}/" class="btn btn-secondary">Lyrics</a>
+            </div>
         `;
         songsGrid.appendChild(card);
     });

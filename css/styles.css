@@ -522,8 +522,8 @@ header {
     background: rgba(236, 72, 153, 0.1);
 }
 
-.song-card .btn {
-    width: 100%;
+.song-card .btn,
+.song-card-actions .btn {
     justify-content: center;
     padding: 10px 24px;
     font-size: 0.88rem;
@@ -769,6 +769,50 @@ header {
 .song-detail-header .artist {
     color: var(--text-muted);
     font-size: 1.05rem;
+}
+
+.lyrics-link-header {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 5px 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    color: var(--primary-light);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: var(--transition);
+}
+
+.lyrics-link-header:hover {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+}
+
+.song-card-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: auto;
+}
+
+.song-card-actions .btn {
+    flex: 1;
+    justify-content: center;
+    padding: 10px 12px;
+    font-size: 0.85rem;
+}
+
+.song-card-actions .btn-secondary {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--primary-light);
+}
+
+.song-card-actions .btn-secondary:hover {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
 }
 
 .song-content-section {
@@ -1526,7 +1570,7 @@ footer {
     header, footer, .donate-section, .song-toolbar,
     .song-navigation, .video-container, .back-link,
     .lyrics-cta, .lang-toggle, .print-btn,
-    .song-nav-links, .offline-banner,
+    .song-nav-links, .offline-banner, .lyrics-link-header,
     body::before { display: none !important; }
 
     body {
