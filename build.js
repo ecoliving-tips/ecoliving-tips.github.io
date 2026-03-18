@@ -42,6 +42,8 @@ function mkdirp(dir) {
 // ===== Frontmatter Parser =====
 
 function parseFrontmatter(content) {
+    // Normalize Windows \r\n to \n
+    content = content.replace(/\r\n/g, '\n');
     const match = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
     if (!match) return { metadata: {}, body: content };
 
@@ -260,7 +262,7 @@ function generateSongPage(song, body, templates) {
         "@context": "https://schema.org",
         "@type": "MusicComposition",
         "name": songTitle,
-        "composer": { "@type": "Person", "name": artist },
+        "composer": { "@type": artist.toLowerCase().includes('traditional') ? "Organization" : "Person", "name": artist },
         "musicalKey": key,
         "url": canonicalUrl,
         "description": pageDesc,

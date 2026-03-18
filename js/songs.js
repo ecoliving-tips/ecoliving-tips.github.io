@@ -93,6 +93,7 @@ async function loadSong(file) {
             return;
         }
         let content = await response.text();
+        content = content.replace(/\r\n/g, '\n');
         const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
         let metadata = {};
 

@@ -122,9 +122,12 @@
         <div class="container">
             <div class="header-top">
                 <div class="header-content">
-                    <h1>Swaram</h1>
-                    <p class="tagline">Free Christian Song Chords for Keyboard & Guitar</p>
+                    <h1><a href="/" style="color:inherit;text-decoration:none;">Swaram</a></h1>
+                    <p class="tagline" data-i18n="tagline">Free Christian Song Chords for Keyboard & Guitar</p>
                 </div>
+                <button class="lang-toggle" onclick="switchLanguage()" aria-label="Switch language">
+                    <span id="lang-indicator">EN</span>
+                </button>
                 <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
                     <span class="hamburger-line"></span>
                     <span class="hamburger-line"></span>
@@ -133,12 +136,15 @@
             </div>
             <nav class="mobile-nav" aria-label="Main navigation">
                 <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="songs.html">All Songs</a></li>
-                    <li><a href="request.html">Request Song</a></li>
-                    <li><a href="#" onclick="openUPI(); return false;">Donate</a></li>
+                    <li><a href="/" data-i18n="nav_home">Home</a></li>
+                    <li><a href="/songs.html" data-i18n="nav_songs">All Songs</a></li>
+                    <li><a href="/request.html" data-i18n="nav_request">Request Song</a></li>
+                    <li><a href="#" onclick="openUPI(); return false;" data-i18n="nav_donate">Donate</a></li>
                 </ul>
             </nav>
+        </div>
+        <div id="offline-banner" class="offline-banner" style="display:none;">
+            You are offline. Showing cached content.
         </div>
     </header>
 
@@ -271,13 +277,14 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Swaram. All Rights Reserved.</p>
+                <p>&copy; 2026 Swaram. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
 
     <script src="js/main.js"></script>
     <script src="js/songs.js"></script>
+    <script src="js/i18n.js" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             loadFeaturedSongs();
