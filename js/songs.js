@@ -12,10 +12,20 @@ let autoScrollSpeed = 1.5;
 document.addEventListener('DOMContentLoaded', function () {
     loadSongsIndex();
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const songFile = urlParams.get('file');
-    if (songFile && document.getElementById('song-content')) {
-        loadSong(songFile);
+    const songContent = document.getElementById('song-content');
+    const isStaticPage = songContent && songContent.hasAttribute('data-static');
+
+    if (isStaticPage) {
+        // Pre-rendered static page: setup interactive features only
+        originalKey = songContent.getAttribute('data-original-key') || 'C';
+        currentTranspose = 0;
+        setupTransposeControls();
+    } else {
+        const urlParams = new URLSearchParams(window.location.search);
+        const songFile = urlParams.get('file');
+        if (songFile && songContent) {
+            loadSong(songFile);
+        }
     }
 
     const searchInput = document.getElementById('search-input');
@@ -26,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 async function loadSongsIndex() {
     try {
-        const response = await fetch('songs/index.json');
+        const response = await fetch('/songs/index.json');
         songsList = await response.json();
 
         const songsGrid = document.getElementById('songs-grid');
@@ -59,7 +69,7 @@ function displaySongs(songs) {
                 ${song.key ? `<span class="meta-badge meta-key">Key: ${song.key}</span>` : ''}
                 ${song.time ? `<span class="meta-badge meta-time">${song.time}</span>` : ''}
             </div>
-            <a href="song.html?file=${song.file}" class="btn">View Chords</a>
+            <a href="/songs/${song.id}/" class="btn">View Chords</a>
         `;
         songsGrid.appendChild(card);
     });
@@ -77,7 +87,7 @@ function handleSearch(event) {
 
 async function loadSong(file) {
     try {
-        const response = await fetch('songs/' + file);
+        const response = await fetch('/songs/' + file);
         if (!response.ok) {
             document.getElementById('song-content').innerHTML = '<p>Song not found. Please check back later or <a href="request.html">request this song</a>.</p>';
             return;
@@ -107,7 +117,7 @@ async function loadSong(file) {
             const category = metadata.category || '';
             const pageTitle = `${songTitle} Chords for Keyboard & Guitar - ${artist} | Swaram`;
             const pageDesc = `Free ${songTitle} keyboard and guitar chord chart. ${artist} - Malayalam Christian ${category ? category + ' ' : ''}song with chord progression, lyrics, and video tutorial.`;
-            const pageUrl = `https://ecoliving-tips.github.io/song.html?file=${file}`;
+            const pageUrl = `https://ecoliving-tips.github.io/songs/${file.replace('.md', '')}/`;
 
             document.getElementById('song-title').textContent = songTitle;
             document.title = pageTitle;

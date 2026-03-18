@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+
+<head>
+{{HEAD}}
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {{STRUCTURED_DATA}}
+    </script>
+</head>
+
+<body>
+{{HEADER}}
+
+    <main>
+        <section class="song-detail-header">
+            <div class="container">
+                <a href="/songs.html" class="back-link" data-i18n="back_to_songs">&#8592; Back to All Songs</a>
+                <h2 id="song-title">{{SONG_TITLE}}</h2>
+                <p id="song-artist" class="artist">{{ARTIST}}</p>
+                <div class="print-meta">{{SONG_TITLE}} | Artist: {{ARTIST}} | Key: {{KEY}} | Time: {{TIME}} | swaram (ecoliving-tips.github.io)</div>
+            </div>
+        </section>
+
+        <section class="song-content-section">
+            <div class="container">
+                <!-- Metadata & Controls Bar -->
+                <div class="song-toolbar">
+                    <div id="song-meta-bar" class="song-meta-bar">
+                        {{META_BAR}}
+                    </div>
+                    <div class="song-controls">
+                        <div class="transpose-controls">
+                            <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
+                            <span class="transpose-display" data-i18n="transpose">Transpose: <strong id="transpose-value">0</strong></span>
+                            <button id="transpose-up" class="ctrl-btn" aria-label="Transpose up">+</button>
+                            <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
+                        </div>
+                        <div class="scroll-controls">
+                            <button id="auto-scroll-btn" class="ctrl-btn ctrl-btn-text" onclick="toggleAutoScroll()" data-i18n="auto_scroll">Auto Scroll</button>
+                            <div id="scroll-speed-controls" class="speed-controls">
+                                <button class="speed-btn" onclick="setScrollSpeed(0.8, this)" data-i18n="slow">Slow</button>
+                                <button class="speed-btn active" onclick="setScrollSpeed(1.5, this)" data-i18n="med">Med</button>
+                                <button class="speed-btn" onclick="setScrollSpeed(3, this)" data-i18n="fast">Fast</button>
+                            </div>
+                        </div>
+                        <button class="ctrl-btn ctrl-btn-text print-btn" onclick="window.print()" aria-label="Print chord sheet">Print</button>
+                        <button class="setlist-btn-add" data-setlist-id="{{SONG_ID}}" onclick="toggleSetlist('{{SONG_ID}}')" data-i18n="add_setlist">+ Add to Setlist</button>
+                    </div>
+                </div>
+
+                <div id="song-content" class="chord-content" data-static="true" data-original-key="{{KEY}}">
+                    {{CHORD_CONTENT}}
+                </div>
+
+                {{YOUTUBE_EMBED}}
+
+                <div class="song-nav-links">
+                    {{CATEGORY_LINK}}
+                    {{ARTIST_LINK}}
+                </div>
+
+                <div class="song-navigation">
+                    <a href="/songs.html" class="btn" data-i18n="browse_all">Browse All Songs</a>
+                    <a href="/request.html" class="btn btn-secondary" data-i18n="request_song">Request a Song</a>
+                </div>
+            </div>
+        </section>
+
+{{DONATE}}
+    </main>
+
+{{FOOTER}}
+
+    <script src="/js/main.js"></script>
+    <script src="/js/songs.js"></script>
+    <script src="/js/chord-diagrams.js" defer></script>
+    <script src="/js/setlist.js" defer></script>
+    <script src="/js/i18n.js" defer></script>
+</body>
+
+</html>

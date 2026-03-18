@@ -5,5 +5,9 @@ Allow: /assets/*.png
 Allow: /assets/*.svg
 Allow: /css/
 Allow: /js/
+Allow: /songs/
+Allow: /lyrics/
+Allow: /category/
+Allow: /artist/
 
 Sitemap: https://ecoliving-tips.github.io/sitemap.xml

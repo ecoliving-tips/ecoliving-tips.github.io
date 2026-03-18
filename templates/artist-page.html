@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+
+<head>
+{{HEAD}}
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {{STRUCTURED_DATA}}
+    </script>
+</head>
+
+<body>
+{{HEADER}}
+
+    <main>
+        <section class="songs-header">
+            <div class="container">
+                <h2>{{ARTIST_NAME}} - Song Chords</h2>
+                <p>Chord charts for songs by {{ARTIST_NAME}}. Free keyboard and guitar chords for Malayalam Christian devotional songs.</p>
+            </div>
+        </section>
+
+        <section class="songs-section">
+            <div class="container">
+                <div class="songs-grid">
+                    {{SONG_CARDS}}
+                </div>
+            </div>
+        </section>
+
+{{DONATE}}
+    </main>
+
+{{FOOTER}}
+
+    <script src="/js/main.js"></script>
+    <script src="/js/i18n.js" defer></script>
+</body>
+
+</html>

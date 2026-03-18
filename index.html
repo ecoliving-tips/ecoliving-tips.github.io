@@ -285,7 +285,7 @@
 
         async function loadFeaturedSongs() {
             try {
-                const response = await fetch('songs/index.json');
+                const response = await fetch('/songs/index.json');
                 const songs = await response.json();
                 const featured = songs.slice(0, 4);
                 const container = document.getElementById('featured-songs');
@@ -302,7 +302,7 @@
                                 ${song.key ? `<span class="meta-badge meta-key">Key: ${song.key}</span>` : ''}
                                 ${song.time ? `<span class="meta-badge meta-time">${song.time}</span>` : ''}
                             </div>
-                            <a href="song.html?file=${song.file}" class="btn">View Chords</a>
+                            <a href="/songs/${song.id}/" class="btn">View Chords</a>
                         `;
                         container.appendChild(card);
                     });
@@ -319,7 +319,7 @@
                 resultsContainer.style.display = 'none';
                 return;
             }
-            fetch('songs/index.json')
+            fetch('/songs/index.json')
                 .then(res => res.json())
                 .then(songs => {
                     const filtered = songs.filter(song =>
@@ -328,7 +328,7 @@
                     if (filtered.length > 0) {
                         resultsContainer.style.display = 'block';
                         resultsContainer.innerHTML = filtered.map(song => `
-                            <a href="song.html?file=${song.file}" class="search-result-item">
+                            <a href="/songs/${song.id}/" class="search-result-item">
                                 <strong>${song.title}</strong>
                                 <span>${song.category || 'General'}</span>
                             </a>

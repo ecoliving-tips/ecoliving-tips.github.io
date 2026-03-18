@@ -56,4 +56,16 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // Register Service Worker
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').catch(() => {});
+    }
+
+    // Offline indicator
+    const offlineBanner = document.getElementById('offline-banner');
+    if (offlineBanner) {
+        window.addEventListener('online', () => { offlineBanner.style.display = 'none'; });
+        window.addEventListener('offline', () => { offlineBanner.style.display = 'block'; });
+    }
 });

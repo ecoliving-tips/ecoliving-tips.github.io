@@ -1515,3 +1515,445 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
+/* ===== Print Stylesheet ===== */
+
+.print-meta {
+    display: none;
+}
+
+@media print {
+    header, footer, .donate-section, .song-toolbar,
+    .song-navigation, .video-container, .back-link,
+    .lyrics-cta, .lang-toggle, .print-btn,
+    .song-nav-links, .offline-banner,
+    body::before { display: none !important; }
+
+    body {
+        background: #fff !important;
+        color: #000 !important;
+        font-size: 12pt;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .container {
+        max-width: 100% !important;
+        padding: 0 !important;
+    }
+
+    .chord-content, .lyrics-content {
+        background: #fff !important;
+        border: none !important;
+        padding: 0 !important;
+    }
+
+    .chord-name {
+        color: #000 !important;
+        font-weight: 700;
+        text-shadow: none !important;
+    }
+
+    .lyric-text, .lyric-line, .lyric-only-line {
+        color: #000 !important;
+    }
+
+    .section-label {
+        color: #333 !important;
+        border-left-color: #333 !important;
+        background: none !important;
+    }
+
+    .chord {
+        background: #eee !important;
+        color: #000 !important;
+        border: 1px solid #999 !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    .chord-progression {
+        background: none !important;
+        border: none !important;
+    }
+
+    .song-detail-header {
+        padding: 0 !important;
+        background: none !important;
+    }
+
+    .song-detail-header h2 {
+        background: none !important;
+        -webkit-text-fill-color: #000 !important;
+        color: #000 !important;
+        font-size: 18pt;
+    }
+
+    .song-detail-header .artist {
+        color: #333 !important;
+    }
+
+    .song-content-section {
+        padding: 0 !important;
+    }
+
+    .print-meta {
+        display: block !important;
+        margin-bottom: 12pt;
+        padding-bottom: 8pt;
+        border-bottom: 1px solid #999;
+        font-size: 10pt;
+        color: #666;
+    }
+
+    .meta-pill {
+        background: none !important;
+        border: 1px solid #999 !important;
+        color: #000 !important;
+        box-shadow: none !important;
+    }
+
+    .meta-label {
+        color: #666 !important;
+    }
+
+    @page {
+        margin: 1.5cm;
+        size: A4;
+    }
+}
+
+/* ===== Lyrics Page ===== */
+
+.lyric-line {
+    padding: 4px 0;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--text);
+}
+
+.lyrics-content {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    margin: 24px 0;
+}
+
+.lyrics-cta {
+    background: linear-gradient(135deg, rgba(108, 60, 225, 0.15), rgba(236, 72, 153, 0.1));
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    text-align: center;
+    margin: 24px 0;
+}
+
+.lyrics-cta p {
+    margin-bottom: 12px;
+    color: var(--text-muted);
+    font-size: 1.05rem;
+}
+
+/* ===== Category & Artist Pages ===== */
+
+.category-links {
+    padding: 40px 0;
+}
+
+.category-links h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--text);
+}
+
+.category-link-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+}
+
+.category-tag {
+    display: inline-block;
+    padding: 8px 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    color: var(--primary-light);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: var(--transition);
+}
+
+.category-tag:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--primary);
+    color: var(--text);
+}
+
+.song-nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.song-nav-tag {
+    display: inline-block;
+    padding: 6px 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    color: var(--primary-light);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: var(--transition);
+}
+
+.song-nav-tag:hover {
+    background: var(--bg-card-hover);
+    color: var(--text);
+}
+
+/* ===== Language Toggle ===== */
+
+.lang-toggle {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xs);
+    color: var(--primary-light);
+    padding: 4px 10px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: var(--font);
+    margin-right: 8px;
+}
+
+.lang-toggle:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--primary);
+    color: var(--text);
+}
+
+/* ===== Offline Banner ===== */
+
+.offline-banner {
+    background: var(--accent);
+    color: #000;
+    text-align: center;
+    padding: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* ===== Chord Diagram Tooltip ===== */
+
+.chord-diagram-tooltip {
+    position: fixed;
+    z-index: 1000;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    box-shadow: var(--shadow-lg);
+    pointer-events: auto;
+    max-width: 340px;
+}
+
+.chord-diagram-tooltip .tooltip-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+}
+
+.chord-diagram-tooltip .tooltip-header h4 {
+    margin: 0;
+    color: var(--primary-light);
+    font-size: 1.1rem;
+}
+
+.chord-diagram-tooltip .tooltip-close {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0 4px;
+}
+
+.chord-diagram-tooltip .diagram-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.chord-diagram-tooltip .diagram-tab {
+    padding: 4px 12px;
+    border-radius: var(--radius-xs);
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-family: var(--font);
+    font-size: 0.85rem;
+    transition: var(--transition);
+}
+
+.chord-diagram-tooltip .diagram-tab.active {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+}
+
+.chord-diagram-tooltip svg {
+    display: block;
+    margin: 0 auto;
+}
+
+.chord-diagram-tooltip .diagram-panel {
+    display: none;
+}
+
+.chord-diagram-tooltip .diagram-panel.active {
+    display: block;
+}
+
+.chord-diagram-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+}
+
+/* ===== Setlist Page ===== */
+
+.setlist-section {
+    padding: 40px 0;
+}
+
+.setlist-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+}
+
+.setlist-empty p {
+    margin-bottom: 16px;
+    font-size: 1.1rem;
+}
+
+.setlist-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.setlist-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    margin-bottom: 8px;
+    cursor: grab;
+    transition: var(--transition);
+}
+
+.setlist-item:hover {
+    background: var(--bg-card-hover);
+}
+
+.setlist-item.dragging {
+    opacity: 0.5;
+    border-color: var(--primary);
+}
+
+.setlist-item .drag-handle {
+    color: var(--text-dim);
+    font-size: 1.2rem;
+    cursor: grab;
+    user-select: none;
+}
+
+.setlist-item .setlist-info {
+    flex: 1;
+}
+
+.setlist-item .setlist-info h4 {
+    margin: 0 0 4px;
+    font-size: 1rem;
+}
+
+.setlist-item .setlist-info h4 a {
+    color: var(--text);
+    text-decoration: none;
+}
+
+.setlist-item .setlist-info h4 a:hover {
+    color: var(--primary-light);
+}
+
+.setlist-item .setlist-info p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.setlist-item .remove-btn {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    transition: var(--transition);
+}
+
+.setlist-item .remove-btn:hover {
+    color: var(--secondary);
+}
+
+.setlist-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.setlist-btn-add {
+    display: inline-block;
+    padding: 6px 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xs);
+    color: var(--primary-light);
+    cursor: pointer;
+    font-family: var(--font);
+    font-size: 0.85rem;
+    transition: var(--transition);
+}
+
+.setlist-btn-add:hover {
+    background: var(--bg-card-hover);
+}
+
+.setlist-btn-add.in-setlist {
+    background: rgba(108, 60, 225, 0.2);
+    border-color: var(--primary);
+    color: var(--primary-light);
+}
+
+/* ===== Print Button ===== */
+
+.print-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
