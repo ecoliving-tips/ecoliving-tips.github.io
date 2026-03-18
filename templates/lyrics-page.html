@@ -17,7 +17,7 @@
         <section class="song-detail-header">
             <div class="container">
                 <a href="/songs.html" class="back-link" data-i18n="back_to_songs">&#8592; Back to All Songs</a>
-                <h2>{{SONG_TITLE}} - Lyrics</h2>
+                <h2>{{SONG_TITLE}} - <span data-i18n="lyrics_suffix">Lyrics</span></h2>
                 <p class="artist">{{ARTIST}}</p>
             </div>
         </section>
@@ -25,8 +25,8 @@
         <section class="song-content-section">
             <div class="container">
                 <div class="lyrics-cta">
-                    <p>Want to play this song on keyboard or guitar?</p>
-                    <a href="/songs/{{SONG_ID}}/" class="btn">View Chord Chart</a>
+                    <p data-i18n="lyrics_play_cta">Want to play this song on keyboard or guitar?</p>
+                    <a href="/songs/{{SONG_ID}}/" class="btn" data-i18n="view_chord_chart">View Chord Chart</a>
                 </div>
 
                 <div class="lyrics-content">
@@ -36,8 +36,8 @@
                 {{YOUTUBE_EMBED}}
 
                 <div class="lyrics-cta">
-                    <p>Learn to play this song with our free chord chart</p>
-                    <a href="/songs/{{SONG_ID}}/" class="btn">View Chord Chart</a>
+                    <p data-i18n="lyrics_learn_cta">Learn to play this song with our free chord chart</p>
+                    <a href="/songs/{{SONG_ID}}/" class="btn" data-i18n="view_chord_chart">View Chord Chart</a>
                 </div>
 
                 <div class="song-navigation">

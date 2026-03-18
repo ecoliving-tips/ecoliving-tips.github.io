@@ -49,9 +49,12 @@
         <div class="container">
             <div class="header-top">
                 <div class="header-content">
-                    <h1>Swaram</h1>
-                    <p class="tagline">Free Christian Song Chords for Keyboard & Guitar</p>
+                    <h1><a href="/" style="color:inherit;text-decoration:none;" data-i18n="site_title">Swaram</a></h1>
+                    <p class="tagline" data-i18n="tagline">Free Christian Song Chords for Keyboard & Guitar</p>
                 </div>
+                <button class="lang-toggle" onclick="switchLanguage()" aria-label="Switch language">
+                    <span id="lang-indicator">EN</span>
+                </button>
                 <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
                     <span class="hamburger-line"></span>
                     <span class="hamburger-line"></span>
@@ -60,11 +63,11 @@
             </div>
             <nav class="mobile-nav" aria-label="Main navigation">
                 <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="songs.html">All Songs</a></li>
-                    <li><a href="setlist.html">My Setlist</a></li>
-                    <li><a href="request.html">Request Song</a></li>
-                    <li><a href="#" onclick="openUPI(); return false;">Donate</a></li>
+                    <li><a href="/" data-i18n="nav_home">Home</a></li>
+                    <li><a href="/songs.html" data-i18n="nav_songs">All Songs</a></li>
+                    <li><a href="/setlist.html" data-i18n="nav_setlist">My Setlist</a></li>
+                    <li><a href="/request.html" data-i18n="nav_request">Request Song</a></li>
+                    <li><a href="#" onclick="openUPI(); return false;" data-i18n="nav_donate">Donate</a></li>
                 </ul>
             </nav>
         </div>
@@ -73,8 +76,8 @@
     <main>
         <section class="request-header">
             <div class="container">
-                <h2>Request a Malayalam Christian Song</h2>
-                <p>Can't find the chord chart you're looking for? Tell us the song name and we'll work on adding it to
+                <h2 data-i18n="request_title">Request a Malayalam Christian Song</h2>
+                <p data-i18n="request_desc">Can't find the chord chart you're looking for? Tell us the song name and we'll work on adding it to
                     our free collection. We prioritize the most requested songs from our community.</p>
             </div>
         </section>
@@ -83,42 +86,42 @@
             <div class="container">
                 <form id="request-form" class="request-form">
                     <div class="form-group">
-                        <label for="name">Your Name *</label>
-                        <input type="text" id="name" name="name" required placeholder="Enter your name">
+                        <label for="name" data-i18n="label_name">Your Name *</label>
+                        <input type="text" id="name" name="name" required placeholder="Enter your name" data-i18n-placeholder="placeholder_name">
                     </div>
                     <div class="form-group">
-                        <label for="song-title">Song Title *</label>
+                        <label for="song-title" data-i18n="label_song_title">Song Title *</label>
                         <input type="text" id="song-title" name="song_title" required
-                            placeholder="e.g. Anna Pesaha Thirunalil">
+                            placeholder="e.g. Anna Pesaha Thirunalil" data-i18n-placeholder="placeholder_song">
                     </div>
                     <div class="form-group">
-                        <label for="message">Additional Details (Optional)</label>
+                        <label for="message" data-i18n="label_details">Additional Details (Optional)</label>
                         <textarea id="message" name="message" rows="4"
-                            placeholder="Artist name, YouTube link, or any other details that help us find the correct song..."></textarea>
+                            placeholder="Artist name, YouTube link, or any other details that help us find the correct song..." data-i18n-placeholder="placeholder_details"></textarea>
                     </div>
-                    <button type="submit" class="btn" id="submit-btn">Submit Request</button>
+                    <button type="submit" class="btn" id="submit-btn" data-i18n="submit_request">Submit Request</button>
                 </form>
 
                 <div id="success-message" class="success-message" style="display: none;">
-                    <h3>Request Submitted Successfully!</h3>
-                    <p>Thank you! We've received your song request and will work on adding the chord chart to our
+                    <h3 data-i18n="request_success_title">Request Submitted Successfully!</h3>
+                    <p data-i18n="request_success_msg">Thank you! We've received your song request and will work on adding the chord chart to our
                         collection. The most requested songs get added first.</p>
-                    <button onclick="resetForm()" class="btn">Submit Another Request</button>
+                    <button onclick="resetForm()" class="btn" data-i18n="submit_another">Submit Another Request</button>
                 </div>
 
                 <div id="error-message" class="error-message" style="display: none;">
-                    <h3>Something Went Wrong</h3>
-                    <p>We couldn't submit your request. Please check your connection and try again.</p>
+                    <h3 data-i18n="request_error_title">Something Went Wrong</h3>
+                    <p data-i18n="request_error_msg">We couldn't submit your request. Please check your connection and try again.</p>
                 </div>
             </div>
         </section>
 
         <section class="donate-section">
             <div class="container">
-                <h3>Support Free Malayalam Song Chords</h3>
-                <p>We keep every chord chart completely free. Your support helps us add more songs faster.</p>
+                <h3 data-i18n="support_title">Support Free Malayalam Song Chords</h3>
+                <p data-i18n="support_text">We keep every chord chart completely free. Your support helps us add more songs faster.</p>
                 <div class="donate-options">
-                    <a href="#" onclick="openUPI(); return false;" class="btn donate-btn">Pay via UPI</a>
+                    <a href="#" onclick="openUPI(); return false;" class="btn donate-btn" data-i18n="pay_upi">Pay via UPI</a>
                     <img src="assets/donate-qr.png" alt="Scan this QR code to donate via UPI to Swaram" class="qr-code"
                         onclick="openUPI()">
                 </div>
@@ -130,27 +133,28 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <h3>Swaram</h3>
-                    <p>Free Christian Song Chords for Keyboard & Guitar</p>
+                    <h3 data-i18n="site_title">Swaram</h3>
+                    <p data-i18n="tagline">Free Christian Song Chords for Keyboard & Guitar</p>
                 </div>
                 <div class="footer-links">
-                    <h4>Quick Links</h4>
+                    <h4 data-i18n="footer_quick_links">Quick Links</h4>
                     <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="songs.html">All Songs</a></li>
-                        <li><a href="setlist.html">My Setlist</a></li>
-                        <li><a href="request.html">Request Song</a></li>
-                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="/" data-i18n="nav_home">Home</a></li>
+                        <li><a href="/songs.html" data-i18n="nav_songs">All Songs</a></li>
+                        <li><a href="/setlist.html" data-i18n="nav_setlist">My Setlist</a></li>
+                        <li><a href="/request.html" data-i18n="nav_request">Request Song</a></li>
+                        <li><a href="/privacy-policy.html" data-i18n="nav_privacy">Privacy Policy</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Swaram. All Rights Reserved.</p>
+                <p data-i18n="copyright">&copy; 2026 Swaram. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
 
     <script src="js/main.js"></script>
+    <script src="js/i18n.js" defer></script>
     <script>
         const SUPABASE_URL = 'https://jfnccekkhffonkjkmxyf.supabase.co';
         const SUPABASE_KEY = 'sb_publishable_KJA4VzMAjt2WVEEg0JKMfg_lDrABAZK';
@@ -161,7 +165,7 @@
             e.preventDefault();
             const submitBtn = document.getElementById('submit-btn');
             submitBtn.disabled = true;
-            submitBtn.textContent = 'Submitting...';
+            submitBtn.textContent = translations[currentLang]?.submitting || 'Submitting...';
 
             const name = document.getElementById('name').value;
             const songTitle = document.getElementById('song-title').value;
@@ -179,7 +183,7 @@
                 document.getElementById('error-message').style.display = 'block';
             }
             submitBtn.disabled = false;
-            submitBtn.textContent = 'Submit Request';
+            submitBtn.textContent = translations[currentLang]?.submit_request || 'Submit Request';
         });
 
         function resetForm() {

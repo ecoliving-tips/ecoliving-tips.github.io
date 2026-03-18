@@ -82,7 +82,7 @@
         <div class="container">
             <div class="header-top">
                 <div class="header-content">
-                    <h1><a href="/" style="color:inherit;text-decoration:none;">Swaram</a></h1>
+                    <h1><a href="/" style="color:inherit;text-decoration:none;" data-i18n="site_title">Swaram</a></h1>
                     <p class="tagline" data-i18n="tagline">Free Christian Song Chords for Keyboard &amp; Guitar</p>
                 </div>
                 <button class="lang-toggle" onclick="switchLanguage()" aria-label="Switch language">
@@ -104,7 +104,7 @@
                 </ul>
             </nav>
         </div>
-        <div id="offline-banner" class="offline-banner" style="display:none;">
+        <div id="offline-banner" class="offline-banner" style="display:none;" data-i18n="offline_msg">
             You are offline. Showing cached content.
         </div>
     </header>
@@ -115,7 +115,7 @@
                 <a href="/songs.html" class="back-link" data-i18n="back_to_songs">&#8592; Back to All Songs</a>
                 <h2 id="song-title">Anna Pesaha Thirunalil</h2>
                 <p id="song-artist" class="artist">Traditional Syro Malabar</p>
-                <a href="/lyrics/anna-pesaha/" class="lyrics-link-header">View Lyrics Only</a>
+                <a href="/lyrics/anna-pesaha/" class="lyrics-link-header" data-i18n="view_lyrics">View Lyrics Only</a>
                 <div class="print-meta">Anna Pesaha Thirunalil | Artist: Traditional Syro Malabar | Key: C | Time: 3/4 | swaram (ecoliving-tips.github.io)</div>
             </div>
         </section>
@@ -130,9 +130,9 @@
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
-                            <span class="transpose-display" data-i18n="transpose">Transpose: <strong id="transpose-value">0</strong></span>
+                            <span class="transpose-display"><span data-i18n="transpose">Transpose:</span> <strong id="transpose-value">0</strong></span>
                             <button id="transpose-up" class="ctrl-btn" aria-label="Transpose up">+</button>
-                            <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
+                            <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" data-i18n="reset" aria-label="Reset transpose">Reset</button>
                         </div>
                         <div class="scroll-controls">
                             <button id="auto-scroll-btn" class="ctrl-btn ctrl-btn-text" onclick="toggleAutoScroll()" data-i18n="auto_scroll">Auto Scroll</button>
@@ -142,7 +142,7 @@
                                 <button class="speed-btn" onclick="setScrollSpeed(3, this)" data-i18n="fast">Fast</button>
                             </div>
                         </div>
-                        <button class="ctrl-btn ctrl-btn-text print-btn" onclick="window.print()" aria-label="Print chord sheet">Print</button>
+                        <button class="ctrl-btn ctrl-btn-text print-btn" onclick="window.print()" data-i18n="print" aria-label="Print chord sheet">Print</button>
                         <button class="setlist-btn-add" data-setlist-id="anna-pesaha" onclick="toggleSetlist('anna-pesaha')" data-i18n="add_setlist">+ Add to Setlist</button>
                     </div>
                 </div>
@@ -208,25 +208,26 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <h3>Swaram</h3>
+                    <h3 data-i18n="site_title">Swaram</h3>
                     <p data-i18n="tagline">Free Christian Song Chords for Keyboard &amp; Guitar</p>
                 </div>
                 <div class="footer-links">
-                    <h4>Quick Links</h4>
+                    <h4 data-i18n="footer_quick_links">Quick Links</h4>
                     <ul>
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/songs.html">All Songs</a></li>
-                        <li><a href="/setlist.html">My Setlist</a></li>
-                        <li><a href="/request.html">Request Song</a></li>
-                        <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="/" data-i18n="nav_home">Home</a></li>
+                        <li><a href="/songs.html" data-i18n="nav_songs">All Songs</a></li>
+                        <li><a href="/setlist.html" data-i18n="nav_setlist">My Setlist</a></li>
+                        <li><a href="/request.html" data-i18n="nav_request">Request Song</a></li>
+                        <li><a href="/privacy-policy.html" data-i18n="nav_privacy">Privacy Policy</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Swaram. All Rights Reserved.</p>
+                <p data-i18n="copyright">&copy; 2026 Swaram. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
+
 
     <script src="/js/main.js"></script>
     <script src="/js/songs.js"></script>

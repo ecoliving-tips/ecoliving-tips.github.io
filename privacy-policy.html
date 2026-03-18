@@ -37,9 +37,12 @@
         <div class="container">
             <div class="header-top">
                 <div class="header-content">
-                    <h1>Swaram</h1>
-                    <p class="tagline">Free Christian Song Chords for Keyboard & Guitar</p>
+                    <h1><a href="/" style="color:inherit;text-decoration:none;" data-i18n="site_title">Swaram</a></h1>
+                    <p class="tagline" data-i18n="tagline">Free Christian Song Chords for Keyboard & Guitar</p>
                 </div>
+                <button class="lang-toggle" onclick="switchLanguage()" aria-label="Switch language">
+                    <span id="lang-indicator">EN</span>
+                </button>
                 <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
                     <span class="hamburger-line"></span>
                     <span class="hamburger-line"></span>
@@ -48,11 +51,11 @@
             </div>
             <nav class="mobile-nav" aria-label="Main navigation">
                 <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="songs.html">All Songs</a></li>
-                    <li><a href="setlist.html">My Setlist</a></li>
-                    <li><a href="request.html">Request Song</a></li>
-                    <li><a href="#" onclick="openUPI(); return false;">Donate</a></li>
+                    <li><a href="/" data-i18n="nav_home">Home</a></li>
+                    <li><a href="/songs.html" data-i18n="nav_songs">All Songs</a></li>
+                    <li><a href="/setlist.html" data-i18n="nav_setlist">My Setlist</a></li>
+                    <li><a href="/request.html" data-i18n="nav_request">Request Song</a></li>
+                    <li><a href="#" onclick="openUPI(); return false;" data-i18n="nav_donate">Donate</a></li>
                 </ul>
             </nav>
         </div>
@@ -133,27 +136,28 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <h3>Swaram</h3>
-                    <p>Free Christian Song Chords for Keyboard & Guitar</p>
+                    <h3 data-i18n="site_title">Swaram</h3>
+                    <p data-i18n="tagline">Free Christian Song Chords for Keyboard & Guitar</p>
                 </div>
                 <div class="footer-links">
-                    <h4>Quick Links</h4>
+                    <h4 data-i18n="footer_quick_links">Quick Links</h4>
                     <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="songs.html">All Songs</a></li>
-                        <li><a href="setlist.html">My Setlist</a></li>
-                        <li><a href="request.html">Request Song</a></li>
-                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="/" data-i18n="nav_home">Home</a></li>
+                        <li><a href="/songs.html" data-i18n="nav_songs">All Songs</a></li>
+                        <li><a href="/setlist.html" data-i18n="nav_setlist">My Setlist</a></li>
+                        <li><a href="/request.html" data-i18n="nav_request">Request Song</a></li>
+                        <li><a href="/privacy-policy.html" data-i18n="nav_privacy">Privacy Policy</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Swaram. All Rights Reserved.</p>
+                <p data-i18n="copyright">&copy; 2026 Swaram. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
 
     <script src="js/main.js"></script>
+    <script src="js/i18n.js" defer></script>
     <script>
         function openUPI() {
             window.open('upi://pay?pa=7306025928@upi&pn=Swaram', '_blank');

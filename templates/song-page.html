@@ -19,7 +19,7 @@
                 <a href="/songs.html" class="back-link" data-i18n="back_to_songs">&#8592; Back to All Songs</a>
                 <h2 id="song-title">{{SONG_TITLE}}</h2>
                 <p id="song-artist" class="artist">{{ARTIST}}</p>
-                <a href="/lyrics/{{SONG_ID}}/" class="lyrics-link-header">View Lyrics Only</a>
+                <a href="/lyrics/{{SONG_ID}}/" class="lyrics-link-header" data-i18n="view_lyrics">View Lyrics Only</a>
                 <div class="print-meta">{{SONG_TITLE}} | Artist: {{ARTIST}} | Key: {{KEY}} | Time: {{TIME}} | swaram (ecoliving-tips.github.io)</div>
             </div>
         </section>
@@ -34,9 +34,9 @@
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
-                            <span class="transpose-display" data-i18n="transpose">Transpose: <strong id="transpose-value">0</strong></span>
+                            <span class="transpose-display"><span data-i18n="transpose">Transpose:</span> <strong id="transpose-value">0</strong></span>
                             <button id="transpose-up" class="ctrl-btn" aria-label="Transpose up">+</button>
-                            <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
+                            <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" data-i18n="reset" aria-label="Reset transpose">Reset</button>
                         </div>
                         <div class="scroll-controls">
                             <button id="auto-scroll-btn" class="ctrl-btn ctrl-btn-text" onclick="toggleAutoScroll()" data-i18n="auto_scroll">Auto Scroll</button>
@@ -46,7 +46,7 @@
                                 <button class="speed-btn" onclick="setScrollSpeed(3, this)" data-i18n="fast">Fast</button>
                             </div>
                         </div>
-                        <button class="ctrl-btn ctrl-btn-text print-btn" onclick="window.print()" aria-label="Print chord sheet">Print</button>
+                        <button class="ctrl-btn ctrl-btn-text print-btn" onclick="window.print()" data-i18n="print" aria-label="Print chord sheet">Print</button>
                         <button class="setlist-btn-add" data-setlist-id="{{SONG_ID}}" onclick="toggleSetlist('{{SONG_ID}}')" data-i18n="add_setlist">+ Add to Setlist</button>
                     </div>
                 </div>

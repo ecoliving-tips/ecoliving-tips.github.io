@@ -122,7 +122,7 @@
         <div class="container">
             <div class="header-top">
                 <div class="header-content">
-                    <h1><a href="/" style="color:inherit;text-decoration:none;">Swaram</a></h1>
+                    <h1><a href="/" style="color:inherit;text-decoration:none;" data-i18n="site_title">Swaram</a></h1>
                     <p class="tagline" data-i18n="tagline">Free Christian Song Chords for Keyboard & Guitar</p>
                 </div>
                 <button class="lang-toggle" onclick="switchLanguage()" aria-label="Switch language">
@@ -144,7 +144,7 @@
                 </ul>
             </nav>
         </div>
-        <div id="offline-banner" class="offline-banner" style="display:none;">
+        <div id="offline-banner" class="offline-banner" style="display:none;" data-i18n="offline_msg">
             You are offline. Showing cached content.
         </div>
     </header>
@@ -153,11 +153,11 @@
         <section id="home" class="hero">
             <div class="container">
                 <div class="hero-content">
-                    <h2>Free Chord Charts for Malayalam Christian Devotional Songs</h2>
-                    <p>Play your favorite Malayalam Christian songs on keyboard or guitar. We provide easy-to-follow chord progressions for Syro Malabar Holy Mass songs, Marian hymns, praise & worship songs, and more.</p>
+                    <h2 data-i18n="hero_title">Free Chord Charts for Malayalam Christian Devotional Songs</h2>
+                    <p data-i18n="hero_desc">Play your favorite Malayalam Christian songs on keyboard or guitar. We provide easy-to-follow chord progressions for Syro Malabar Holy Mass songs, Marian hymns, praise & worship songs, and more.</p>
                     <div class="hero-buttons">
-                        <a href="songs.html" class="btn">Browse All Songs</a>
-                        <a href="request.html" class="btn btn-secondary">Request a Song</a>
+                        <a href="songs.html" class="btn" data-i18n="hero_browse_all">Browse All Songs</a>
+                        <a href="request.html" class="btn btn-secondary" data-i18n="hero_request">Request a Song</a>
                     </div>
                 </div>
             </div>
@@ -165,9 +165,9 @@
 
         <section class="search-section">
             <div class="container">
-                <h2>Search Malayalam Christian Song Chords</h2>
+                <h2 data-i18n="search_title">Search Malayalam Christian Song Chords</h2>
                 <div class="search-box">
-                    <input type="text" id="home-search" placeholder="Type a song name... e.g. Anna Pesaha" aria-label="Search songs" onkeyup="searchSongs(this.value)">
+                    <input type="text" id="home-search" placeholder="Type a song name... e.g. Anna Pesaha" data-i18n-placeholder="search_home_placeholder" aria-label="Search songs" onkeyup="searchSongs(this.value)">
                 </div>
                 <div id="search-results" class="search-results"></div>
             </div>
@@ -175,38 +175,38 @@
 
         <section class="featured-songs">
             <div class="container">
-                <h2>Popular Malayalam Song Chords</h2>
-                <p class="section-intro">Trending chord charts loved by our community</p>
+                <h2 data-i18n="popular_title">Popular Malayalam Song Chords</h2>
+                <p class="section-intro" data-i18n="popular_subtitle">Trending chord charts loved by our community</p>
                 <div class="songs-grid" id="featured-songs"></div>
                 <div class="songs-cta">
-                    <a href="songs.html" class="btn">View All Songs</a>
+                    <a href="songs.html" class="btn" data-i18n="view_all_songs">View All Songs</a>
                 </div>
             </div>
         </section>
 
         <section class="features-section">
             <div class="container">
-                <h2>Why Choose Swaram?</h2>
+                <h2 data-i18n="why_title">Why Choose Swaram?</h2>
                 <div class="features-grid">
                     <article class="feature-card">
                         <div class="feature-icon">🎹</div>
-                        <h3>Keyboard Chord Charts</h3>
-                        <p>Clear chord progressions laid out for keyboard players. Follow along bar by bar with standard chord notation that's easy to read during practice or worship.</p>
+                        <h3 data-i18n="feature_keyboard_title">Keyboard Chord Charts</h3>
+                        <p data-i18n="feature_keyboard_desc">Clear chord progressions laid out for keyboard players. Follow along bar by bar with standard chord notation that's easy to read during practice or worship.</p>
                     </article>
                     <article class="feature-card">
                         <div class="feature-icon">🎸</div>
-                        <h3>Guitar Chord Progressions</h3>
-                        <p>Every chord chart works for guitar too. Simple open chords and standard voicings that sound great whether you're strumming or fingerpicking.</p>
+                        <h3 data-i18n="feature_guitar_title">Guitar Chord Progressions</h3>
+                        <p data-i18n="feature_guitar_desc">Every chord chart works for guitar too. Simple open chords and standard voicings that sound great whether you're strumming or fingerpicking.</p>
                     </article>
                     <article class="feature-card">
                         <div class="feature-icon">📝</div>
-                        <h3>Community Song Requests</h3>
-                        <p>Can't find your favorite song? Submit a request and our team will create the chord chart. We prioritize the most requested songs from our community.</p>
+                        <h3 data-i18n="feature_request_title">Community Song Requests</h3>
+                        <p data-i18n="feature_request_desc">Can't find your favorite song? Submit a request and our team will create the chord chart. We prioritize the most requested songs from our community.</p>
                     </article>
                     <article class="feature-card">
                         <div class="feature-icon">🎬</div>
-                        <h3>YouTube Video Tutorials</h3>
-                        <p>Many songs include embedded YouTube video tutorials so you can watch and learn alongside the chord chart. See and hear how each chord change sounds.</p>
+                        <h3 data-i18n="feature_video_title">YouTube Video Tutorials</h3>
+                        <p data-i18n="feature_video_desc">Many songs include embedded YouTube video tutorials so you can watch and learn alongside the chord chart. See and hear how each chord change sounds.</p>
                     </article>
                 </div>
             </div>
@@ -214,10 +214,10 @@
 
         <section class="donate-section">
             <div class="container">
-                <h2>Support Free Malayalam Song Chords</h2>
-                <p>We keep every chord chart completely free. Your support helps us add more songs and improve the website for the community.</p>
+                <h2 data-i18n="support_title">Support Free Malayalam Song Chords</h2>
+                <p data-i18n="support_text">We keep every chord chart completely free. Your support helps us add more songs and improve the website for the community.</p>
                 <div class="donate-options">
-                    <a href="#" onclick="openUPI(); return false;" class="btn donate-btn">Pay via UPI</a>
+                    <a href="#" onclick="openUPI(); return false;" class="btn donate-btn" data-i18n="pay_upi">Pay via UPI</a>
                     <img src="assets/donate-qr.png" alt="Scan this QR code to donate via UPI to Swaram" class="qr-code" onclick="openUPI()">
                 </div>
                 <p class="upi-id">UPI ID: <strong>7306025928@upi</strong></p>
@@ -226,34 +226,34 @@
 
         <section class="about-section">
             <div class="container">
-                <h2>About Swaram</h2>
+                <h2 data-i18n="about_title">About Swaram</h2>
                 <div class="about-content">
-                    <p>Swaram is a free resource built for the Malayalam Christian music community. We believe every church musician, worship leader, and music enthusiast should have easy access to accurate chord charts without paying for expensive sheet music.</p>
-                    <p>Our collection focuses on Syro Malabar Holy Mass songs, traditional Malayalam Christian hymns, Marian devotional songs, and contemporary praise & worship music. Whether you play keyboard at your parish, strum guitar at a prayer group, or simply want to learn your favorite devotional songs at home, our chord charts are designed to help you play with confidence.</p>
-                    <p>We are constantly growing our library based on what our community asks for. Every chord chart is carefully written to be accurate and beginner-friendly.</p>
+                    <p data-i18n="about_p1">Swaram is a free resource built for the Malayalam Christian music community. We believe every church musician, worship leader, and music enthusiast should have easy access to accurate chord charts without paying for expensive sheet music.</p>
+                    <p data-i18n="about_p2">Our collection focuses on Syro Malabar Holy Mass songs, traditional Malayalam Christian hymns, Marian devotional songs, and contemporary praise & worship music. Whether you play keyboard at your parish, strum guitar at a prayer group, or simply want to learn your favorite devotional songs at home, our chord charts are designed to help you play with confidence.</p>
+                    <p data-i18n="about_p3">We are constantly growing our library based on what our community asks for. Every chord chart is carefully written to be accurate and beginner-friendly.</p>
                 </div>
             </div>
         </section>
 
         <section class="faq-section">
             <div class="container">
-                <h2>Frequently Asked Questions</h2>
+                <h2 data-i18n="faq_title">Frequently Asked Questions</h2>
                 <div class="faq-grid">
                     <div class="faq-item">
-                        <h3>How do I read the chord notation?</h3>
-                        <p>Our chords use standard Western music notation. Capital letters like C, G, D represent major chords. A lowercase "m" means minor (e.g., Am = A minor). Numbers indicate extended chords like G7 (dominant seventh) or Gsus4 (suspended fourth). The chords are arranged in sequence showing when to change.</p>
+                        <h3 data-i18n="faq_q1">How do I read the chord notation?</h3>
+                        <p data-i18n="faq_a1">Our chords use standard Western music notation. Capital letters like C, G, D represent major chords. A lowercase "m" means minor (e.g., Am = A minor). Numbers indicate extended chords like G7 (dominant seventh) or Gsus4 (suspended fourth). The chords are arranged in sequence showing when to change.</p>
                     </div>
                     <div class="faq-item">
-                        <h3>Can I request a specific song?</h3>
-                        <p>Yes! Visit our <a href="request.html">Request Song</a> page and fill in the song title. We prioritize the most requested songs from our community, especially popular Syro Malabar Holy Mass songs and Malayalam praise & worship songs.</p>
+                        <h3 data-i18n="faq_q2">Can I request a specific song?</h3>
+                        <p data-i18n="faq_a2">Yes! Visit our <a href="request.html">Request Song</a> page and fill in the song title. We prioritize the most requested songs from our community, especially popular Syro Malabar Holy Mass songs and Malayalam praise & worship songs.</p>
                     </div>
                     <div class="faq-item">
-                        <h3>Are these chords suitable for beginners?</h3>
-                        <p>Absolutely! Our chord charts are designed to be beginner-friendly. Most songs use standard chords like C, G, Am, and Em with clear progression patterns that are easy to follow on both keyboard and guitar.</p>
+                        <h3 data-i18n="faq_q3">Are these chords suitable for beginners?</h3>
+                        <p data-i18n="faq_a3">Absolutely! Our chord charts are designed to be beginner-friendly. Most songs use standard chords like C, G, Am, and Em with clear progression patterns that are easy to follow on both keyboard and guitar.</p>
                     </div>
                     <div class="faq-item">
-                        <h3>Do you have Syro Malabar Holy Mass song chords?</h3>
-                        <p>Yes, we specialize in Syro Malabar Holy Mass song chords. Our collection includes traditional liturgical songs, communion hymns, and songs commonly sung during the Syro Malabar Rite. We add more songs regularly based on community requests.</p>
+                        <h3 data-i18n="faq_q4">Do you have Syro Malabar Holy Mass song chords?</h3>
+                        <p data-i18n="faq_a4">Yes, we specialize in Syro Malabar Holy Mass song chords. Our collection includes traditional liturgical songs, communion hymns, and songs commonly sung during the Syro Malabar Rite. We add more songs regularly based on community requests.</p>
                     </div>
                 </div>
             </div>
@@ -264,22 +264,22 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <h3>Swaram</h3>
-                    <p>Free Christian Song Chords for Keyboard & Guitar</p>
+                    <h3 data-i18n="site_title">Swaram</h3>
+                    <p data-i18n="tagline">Free Christian Song Chords for Keyboard & Guitar</p>
                 </div>
                 <div class="footer-links">
-                    <h4>Quick Links</h4>
+                    <h4 data-i18n="footer_quick_links">Quick Links</h4>
                     <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="songs.html">All Songs</a></li>
-                        <li><a href="setlist.html">My Setlist</a></li>
-                        <li><a href="request.html">Request Song</a></li>
-                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="/" data-i18n="nav_home">Home</a></li>
+                        <li><a href="/songs.html" data-i18n="nav_songs">All Songs</a></li>
+                        <li><a href="/setlist.html" data-i18n="nav_setlist">My Setlist</a></li>
+                        <li><a href="/request.html" data-i18n="nav_request">Request Song</a></li>
+                        <li><a href="/privacy-policy.html" data-i18n="nav_privacy">Privacy Policy</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Swaram. All Rights Reserved.</p>
+                <p data-i18n="copyright">&copy; 2026 Swaram. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
