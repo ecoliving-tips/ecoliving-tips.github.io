@@ -48,6 +48,9 @@ async function loadSongsIndex() {
         if (songCount) {
             songCount.textContent = songsList.length;
         }
+
+        // Populate browse-by-category and browse-by-artist tags
+        populateBrowseTags(songsList);
     } catch (error) {
         console.error('Error loading songs:', error);
     }
@@ -403,4 +406,32 @@ function extractYouTubeId(url) {
 
 function openUPI() {
     window.open(`upi://pay?pa=${UPI_ID}&pn=Swaram`, '_blank');
+}
+
+function slugify(text) {
+    return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+}
+
+function populateBrowseTags(songs) {
+    const categoryContainer = document.getElementById('category-tags');
+    const artistContainer = document.getElementById('artist-tags');
+    if (!categoryContainer && !artistContainer) return;
+
+    const categories = new Set();
+    const artists = new Set();
+    songs.forEach(s => {
+        if (s.category) categories.add(s.category);
+        if (s.artist) artists.add(s.artist);
+    });
+
+    if (categoryContainer) {
+        categoryContainer.innerHTML = [...categories].map(c =>
+            `<a href="/category/${slugify(c)}/" class="browse-tag">${c}</a>`
+        ).join('');
+    }
+    if (artistContainer) {
+        artistContainer.innerHTML = [...artists].map(a =>
+            `<a href="/artist/${slugify(a)}/" class="browse-tag">${a}</a>`
+        ).join('');
+    }
 }

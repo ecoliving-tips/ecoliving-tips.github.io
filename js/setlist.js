@@ -50,9 +50,22 @@ function updateSetlistButtons(songId) {
         if (isInSetlist(songId)) {
             btn.textContent = 'In Setlist';
             btn.classList.add('in-setlist');
+            // Show "View Setlist" link next to button
+            if (!btn.nextElementSibling || !btn.nextElementSibling.classList.contains('view-setlist-link')) {
+                const link = document.createElement('a');
+                link.href = '/setlist.html';
+                link.className = 'view-setlist-link';
+                link.textContent = 'View Setlist';
+                btn.parentNode.insertBefore(link, btn.nextSibling);
+            }
         } else {
             btn.textContent = '+ Add to Setlist';
             btn.classList.remove('in-setlist');
+            // Remove "View Setlist" link
+            const link = btn.nextElementSibling;
+            if (link && link.classList.contains('view-setlist-link')) {
+                link.remove();
+            }
         }
     });
 }

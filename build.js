@@ -288,6 +288,7 @@ function generateSongPage(song, body, templates) {
     const artistSlug = slugify(artist);
     const categoryLink = categorySlug ? `<a href="/category/${categorySlug}/" class="song-nav-tag">More ${escapeHtml(category)} songs</a>` : '';
     const artistLink = `<a href="/artist/${artistSlug}/" class="song-nav-tag">More by ${escapeHtml(artist)}</a>`;
+    const lyricsLink = `<a href="/lyrics/${song.id}/" class="song-nav-tag">View Lyrics Only</a>`;
 
     // Chord content
     const chordContent = formatChordContentHTML(body);
@@ -317,6 +318,7 @@ function generateSongPage(song, body, templates) {
         .replace('{{YOUTUBE_EMBED}}', youtubeEmbed)
         .replace('{{CATEGORY_LINK}}', categoryLink)
         .replace('{{ARTIST_LINK}}', artistLink)
+        .replace('{{LYRICS_LINK}}', lyricsLink)
         .replace('{{STRUCTURED_DATA}}', structuredData)
         .replace(/\{\{SONG_ID\}\}/g, song.id);
 
