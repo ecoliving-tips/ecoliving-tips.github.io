@@ -1,10 +1,11 @@
 // Swaram - Service Worker for Offline Support
 
-const CACHE_NAME = 'swaram-v1';
+const CACHE_NAME = 'swaram-v2';
 const STATIC_ASSETS = [
     '/',
     '/index.html',
     '/songs.html',
+    '/setlist.html',
     '/request.html',
     '/css/styles.css',
     '/js/main.js',
@@ -16,7 +17,16 @@ const STATIC_ASSETS = [
     '/songs/index.json',
     '/assets/favicon.svg',
     '/assets/favicon.png',
-    '/manifest.json'
+    '/manifest.json',
+    // Generated pages (auto-updated by build.js)
+    '/songs/anna-pesaha/',
+    '/lyrics/anna-pesaha/',
+    '/songs/krooshakum-meshayil/',
+    '/lyrics/krooshakum-meshayil/',
+    '/category/holy-mass/',
+    '/category/holy-communion/',
+    '/artist/traditional-syro-malabar/',
+    '/artist/fr-binoj-mulavarickal/'
 ];
 
 // Install: cache static assets

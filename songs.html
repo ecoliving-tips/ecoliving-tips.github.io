@@ -93,13 +93,32 @@
                 <div class="search-box">
                     <input type="text" id="search-input" placeholder="Search by song title, artist, or category..." aria-label="Search songs">
                 </div>
-                <p class="song-count">Songs in our collection: <span id="song-count">0</span></p>
+                <p class="song-count">Songs in our collection: <span id="song-count">2</span></p>
             </div>
         </section>
 
         <section class="songs-section">
             <div class="container">
-                <div id="songs-grid" class="songs-grid"></div>
+                <div id="songs-grid" class="songs-grid"><div class="song-card">
+                    <h3>Anna Pesaha Thirunalil</h3>
+                    <p class="artist">Traditional Syro Malabar</p>
+                    <div class="song-card-meta">
+                        <span class="meta-badge">Holy Mass</span>
+                        <span class="meta-badge meta-key">Key: C</span>
+                        <span class="meta-badge meta-time">3/4</span>
+                    </div>
+                    <a href="/songs/anna-pesaha/" class="btn">View Chords</a>
+                </div>
+<div class="song-card">
+                    <h3>Krooshakum Meshayil Sneha Kanalil</h3>
+                    <p class="artist">Fr. Binoj Mulavarickal</p>
+                    <div class="song-card-meta">
+                        <span class="meta-badge">Holy Communion</span>
+                        <span class="meta-badge meta-key">Key: Cm</span>
+                        <span class="meta-badge meta-time">3/4</span>
+                    </div>
+                    <a href="/songs/krooshakum-meshayil/" class="btn">View Chords</a>
+                </div></div>
                 <div id="no-results" class="no-results" style="display: none;">
                     <p>No songs found matching your search. Try a different term or request the song below.</p>
                     <a href="request.html" class="btn">Request This Song</a>
@@ -112,11 +131,13 @@
                 <div class="browse-columns">
                     <div class="browse-col">
                         <h3>Browse by Category</h3>
-                        <div id="category-tags" class="tag-list"></div>
+                        <div id="category-tags" class="tag-list"><a href="/category/holy-mass/" class="browse-tag">Holy Mass</a>
+<a href="/category/holy-communion/" class="browse-tag">Holy Communion</a></div>
                     </div>
                     <div class="browse-col">
                         <h3>Browse by Artist</h3>
-                        <div id="artist-tags" class="tag-list"></div>
+                        <div id="artist-tags" class="tag-list"><a href="/artist/traditional-syro-malabar/" class="browse-tag">Traditional Syro Malabar</a>
+<a href="/artist/fr-binoj-mulavarickal/" class="browse-tag">Fr. Binoj Mulavarickal</a></div>
                     </div>
                 </div>
             </div>

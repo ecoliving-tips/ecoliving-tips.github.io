@@ -1,41 +1,148 @@
 // Swaram - Chord Diagrams (Guitar + Keyboard SVG Renderer)
+// Comprehensive chord dictionary: all 12 roots × 13 types + flat aliases
 
-const CHORD_DIAGRAMS = {
-    // Major chords
-    "C":  { guitar: { frets: [-1,3,2,0,1,0], startFret: 0 }, keys: ["C","E","G"] },
-    "D":  { guitar: { frets: [-1,-1,0,2,3,2], startFret: 0 }, keys: ["D","F#","A"] },
-    "E":  { guitar: { frets: [0,2,2,1,0,0], startFret: 0 }, keys: ["E","G#","B"] },
-    "F":  { guitar: { frets: [1,1,2,3,3,1], startFret: 1, barre: 1 }, keys: ["F","A","C"] },
-    "G":  { guitar: { frets: [3,2,0,0,0,3], startFret: 0 }, keys: ["G","B","D"] },
-    "A":  { guitar: { frets: [-1,0,2,2,2,0], startFret: 0 }, keys: ["A","C#","E"] },
-    "B":  { guitar: { frets: [-1,2,4,4,4,2], startFret: 2, barre: 2 }, keys: ["B","D#","F#"] },
+const CHORD_DIAGRAMS = {};
 
-    // Minor chords
-    "Cm": { guitar: { frets: [-1,3,5,5,4,3], startFret: 3, barre: 3 }, keys: ["C","D#","G"] },
-    "Dm": { guitar: { frets: [-1,-1,0,2,3,1], startFret: 0 }, keys: ["D","F","A"] },
-    "Em": { guitar: { frets: [0,2,2,0,0,0], startFret: 0 }, keys: ["E","G","B"] },
-    "Fm": { guitar: { frets: [1,1,1,3,3,1], startFret: 1, barre: 1 }, keys: ["F","G#","C"] },
-    "Gm": { guitar: { frets: [3,5,5,3,3,3], startFret: 3, barre: 3 }, keys: ["G","A#","D"] },
-    "Am": { guitar: { frets: [-1,0,2,2,1,0], startFret: 0 }, keys: ["A","C","E"] },
-    "Bm": { guitar: { frets: [-1,2,4,4,3,2], startFret: 2, barre: 2 }, keys: ["B","D","F#"] },
+// ===== Chord Generation =====
+(function buildChordDictionary() {
+    const NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+    const FLAT_ALIASES = { 'C#': 'Db', 'D#': 'Eb', 'F#': 'Gb', 'G#': 'Ab', 'A#': 'Bb' };
 
-    // 7th chords
-    "C7":  { guitar: { frets: [-1,3,2,3,1,0], startFret: 0 }, keys: ["C","E","G","A#"] },
-    "D7":  { guitar: { frets: [-1,-1,0,2,1,2], startFret: 0 }, keys: ["D","F#","A","C"] },
-    "E7":  { guitar: { frets: [0,2,0,1,0,0], startFret: 0 }, keys: ["E","G#","B","D"] },
-    "G7":  { guitar: { frets: [3,2,0,0,0,1], startFret: 0 }, keys: ["G","B","D","F"] },
-    "A7":  { guitar: { frets: [-1,0,2,0,2,0], startFret: 0 }, keys: ["A","C#","E","G"] },
-    "B7":  { guitar: { frets: [-1,2,1,2,0,2], startFret: 0 }, keys: ["B","D#","F#","A"] },
+    // Keyboard note intervals (semitones from root)
+    const INTERVALS = {
+        '':     [0, 4, 7],            // Major
+        'm':    [0, 3, 7],            // Minor
+        '7':    [0, 4, 7, 10],        // Dominant 7th
+        'm7':   [0, 3, 7, 10],        // Minor 7th
+        'M7':   [0, 4, 7, 11],        // Major 7th
+        'sus2': [0, 2, 7],            // Suspended 2nd
+        'sus4': [0, 5, 7],            // Suspended 4th
+        'dim':  [0, 3, 6],            // Diminished
+        'aug':  [0, 4, 8],            // Augmented
+        '6':    [0, 4, 7, 9],         // Major 6th
+        'm6':   [0, 3, 7, 9],         // Minor 6th
+        '9':    [0, 4, 7, 10, 14],    // Dominant 9th
+        'm9':   [0, 3, 7, 10, 14],    // Minor 9th
+    };
 
-    // Suspended
-    "Gsus4": { guitar: { frets: [3,3,0,0,1,3], startFret: 0 }, keys: ["G","C","D"] },
-    "Dsus4": { guitar: { frets: [-1,-1,0,2,3,3], startFret: 0 }, keys: ["D","G","A"] },
+    // Guitar barre patterns: E-shape (root on low E string, fret N)
+    // Derived from open E voicings shifted up the neck
+    // Array order: [E, A, D, G, B, e] (low to high)
+    var E = {
+        //                    E     A     D     G     B     e
+        '':     function(n){return [n,  n+2,  n+2,  n+1,  n,    n   ]}, // E major shape
+        'm':    function(n){return [n,  n+2,  n+2,  n,    n,    n   ]}, // E minor shape
+        '7':    function(n){return [n,  n+2,  n,    n+1,  n,    n   ]}, // E7 shape
+        'm7':   function(n){return [n,  n+2,  n,    n,    n,    n   ]}, // Em7 shape
+        'M7':   function(n){return [n,  n+2,  n+1,  n+1,  n,    n   ]}, // Emaj7 shape
+        'sus4': function(n){return [n,  n+2,  n+2,  n+2,  n,    n   ]}, // Esus4 shape
+        '9':    function(n){return [n,  n+2,  n,    n+1,  n,    n+2 ]}, // E9 shape
+        'm9':   function(n){return [n,  n+2,  n,    n,    n,    n+2 ]}, // Em9 shape
+    };
 
-    // Major 7th
-    "CM7":  { guitar: { frets: [-1,3,2,0,0,0], startFret: 0 }, keys: ["C","E","G","B"] },
-    "Dm7":  { guitar: { frets: [-1,-1,0,2,1,1], startFret: 0 }, keys: ["D","F","A","C"] },
-    "Em9":  { guitar: { frets: [0,2,0,0,0,2], startFret: 0 }, keys: ["E","G","B","F#"] },
-};
+    // Guitar barre patterns: A-shape (root on A string, fret N)
+    var A = {
+        //                    E     A     D     G     B     e
+        '':     function(n){return [-1,  n,   n+2,  n+2,  n+2,  n   ]}, // A major shape
+        'm':    function(n){return [-1,  n,   n+2,  n+2,  n+1,  n   ]}, // A minor shape
+        '7':    function(n){return [-1,  n,   n+2,  n,    n+2,  n   ]}, // A7 shape
+        'm7':   function(n){return [-1,  n,   n+2,  n,    n+1,  n   ]}, // Am7 shape
+        'M7':   function(n){return [-1,  n,   n+2,  n+1,  n+2,  n   ]}, // Amaj7 shape
+        'sus2': function(n){return [-1,  n,   n+2,  n+2,  n,    n   ]}, // Asus2 shape
+        'sus4': function(n){return [-1,  n,   n+2,  n+2,  n+3,  n   ]}, // Asus4 shape
+        'dim':  function(n){return [-1,  n,   n+1,  n+2,  n+1,  -1  ]}, // Adim shape
+        'aug':  function(n){return [-1,  n,   n+3,  n+2,  n+2,  -1  ]}, // Aaug shape
+        '6':    function(n){return [-1,  n,   n+2,  n+2,  n+2,  n+2 ]}, // A6 shape
+        'm6':   function(n){return [-1,  n,   n+2,  n+2,  n+1,  n+2 ]}, // Am6 shape
+    };
+
+    // E-string fret for each root note
+    var eFret = { C:8, 'C#':9, D:10, 'D#':11, E:0, F:1, 'F#':2, G:3, 'G#':4, A:5, 'A#':6, B:7 };
+    // A-string fret for each root note
+    var aFret = { C:3, 'C#':4, D:5, 'D#':6, E:7, F:8, 'F#':9, G:10, 'G#':11, A:0, 'A#':1, B:2 };
+
+    function getKeys(rootIdx, intervals) {
+        return intervals.map(function(i) { return NOTES[(rootIdx + i) % 12]; });
+    }
+
+    function makeGuitar(shape, fret) {
+        var frets = shape(fret);
+        var barre = fret > 0 ? fret : undefined;
+        var startFret = fret > 0 ? fret : 0;
+        var result = { frets: frets, startFret: startFret };
+        if (barre) result.barre = barre;
+        return result;
+    }
+
+    // Hand-crafted open voicings (nicer sounding than barre equivalents)
+    var OPEN = {
+        'C':     { frets: [-1,3,2,0,1,0], startFret: 0 },
+        'D':     { frets: [-1,-1,0,2,3,2], startFret: 0 },
+        'G':     { frets: [3,2,0,0,0,3], startFret: 0 },
+        'Dm':    { frets: [-1,-1,0,2,3,1], startFret: 0 },
+        'Em':    { frets: [0,2,2,0,0,0], startFret: 0 },
+        'Am':    { frets: [-1,0,2,2,1,0], startFret: 0 },
+        'C7':    { frets: [-1,3,2,3,1,0], startFret: 0 },
+        'D7':    { frets: [-1,-1,0,2,1,2], startFret: 0 },
+        'E7':    { frets: [0,2,0,1,0,0], startFret: 0 },
+        'G7':    { frets: [3,2,0,0,0,1], startFret: 0 },
+        'A7':    { frets: [-1,0,2,0,2,0], startFret: 0 },
+        'B7':    { frets: [-1,2,1,2,0,2], startFret: 0 },
+        'Dm7':   { frets: [-1,-1,0,2,1,1], startFret: 0 },
+        'CM7':   { frets: [-1,3,2,0,0,0], startFret: 0 },
+        'Em9':   { frets: [0,2,0,0,0,2], startFret: 0 },
+        'Gsus4': { frets: [3,3,0,0,1,3], startFret: 0 },
+        'Dsus4': { frets: [-1,-1,0,2,3,3], startFret: 0 },
+        'Asus2': { frets: [-1,0,2,2,0,0], startFret: 0 },
+        'Dsus2': { frets: [-1,-1,0,2,3,0], startFret: 0 },
+        'Eb':    { frets: [-1,-1,1,3,4,3], startFret: 1 },
+    };
+
+    // Generate all chords
+    for (var rootIdx = 0; rootIdx < 12; rootIdx++) {
+        var root = NOTES[rootIdx];
+
+        for (var quality in INTERVALS) {
+            var name = root + quality;
+            var keys = getKeys(rootIdx, INTERVALS[quality]);
+            var guitar;
+
+            // Use open voicing if available
+            if (OPEN[name]) {
+                guitar = OPEN[name];
+            } else {
+                // Pick best barre shape: prefer lower fret positions
+                var ef = eFret[root];
+                var af = aFret[root];
+                var eShape = E[quality];
+                var aShape = A[quality];
+
+                if (eShape && aShape) {
+                    // Both available: pick whichever gives a lower fret position
+                    guitar = ef <= af ? makeGuitar(eShape, ef) : makeGuitar(aShape, af);
+                } else if (eShape) {
+                    guitar = makeGuitar(eShape, ef);
+                } else if (aShape) {
+                    guitar = makeGuitar(aShape, af);
+                } else {
+                    guitar = null;
+                }
+            }
+
+            if (guitar) {
+                CHORD_DIAGRAMS[name] = { guitar: guitar, keys: keys };
+            } else {
+                CHORD_DIAGRAMS[name] = { keys: keys };
+            }
+
+            // Add flat-name alias
+            var flat = FLAT_ALIASES[root];
+            if (flat) {
+                CHORD_DIAGRAMS[flat + quality] = CHORD_DIAGRAMS[name];
+            }
+        }
+    }
+})();
 
 // All white and black key names for one octave
 const PIANO_KEYS = [
@@ -176,6 +283,10 @@ function showChordDiagram(chordName, anchorEl) {
     tooltip.className = 'chord-diagram-tooltip';
     tooltip.id = 'chord-tooltip';
 
+    const guitarPanel = data.guitar
+        ? renderGuitarSVG(data.guitar)
+        : '<p style="padding:1em;color:#9B8FC2;text-align:center;">No guitar diagram</p>';
+
     tooltip.innerHTML = `
         <div class="tooltip-header">
             <h4>${chordName}</h4>
@@ -186,7 +297,7 @@ function showChordDiagram(chordName, anchorEl) {
             <button class="diagram-tab" onclick="switchDiagramTab('keyboard', this)">Keyboard</button>
         </div>
         <div class="diagram-panel active" id="panel-guitar">
-            ${renderGuitarSVG(data.guitar)}
+            ${guitarPanel}
         </div>
         <div class="diagram-panel" id="panel-keyboard">
             ${renderKeyboardSVG(data.keys)}

@@ -555,6 +555,78 @@ function generateSitemap(songs, categories, artists) {
     fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), xml);
 }
 
+// ===== Service Worker Precache Updater =====
+
+function updateServiceWorkerPrecache(songs, allCategories, allArtists) {
+    const swPath = path.join(ROOT, 'sw.js');
+    let sw = fs.readFileSync(swPath, 'utf-8');
+
+    // Build dynamic page URLs
+    const dynamicPages = [];
+    for (const song of songs) {
+        dynamicPages.push(`'/songs/${song.id}/'`);
+        dynamicPages.push(`'/lyrics/${song.id}/'`);
+    }
+    for (const cat of allCategories) {
+        dynamicPages.push(`'/category/${slugify(cat)}/'`);
+    }
+    for (const artist of allArtists) {
+        dynamicPages.push(`'/artist/${slugify(artist)}/'`);
+    }
+
+    // Remove any previously injected generated pages block
+    sw = sw.replace(/,\r?\n    \/\/ Generated pages \(auto-updated by build\.js\)[\s\S]*?\n\];/, '\n];');
+
+    // Find the closing of STATIC_ASSETS array and inject dynamic pages
+    const marker = "    '/manifest.json'";
+    const dynamicBlock = ',\n    // Generated pages (auto-updated by build.js)\n    ' +
+        dynamicPages.join(',\n    ');
+    sw = sw.replace(marker + '\r\n];', marker + dynamicBlock + '\r\n];');
+    sw = sw.replace(marker + '\n];', marker + dynamicBlock + '\n];');
+
+    fs.writeFileSync(swPath, sw);
+}
+
+// ===== Songs Page Pre-renderer =====
+
+function generateSongsPage(songs, allCategories, allArtists) {
+    const songsHtmlPath = path.join(ROOT, 'songs.html');
+    let html = fs.readFileSync(songsHtmlPath, 'utf-8');
+
+    // Pre-render song cards (replace content between songs-grid tags)
+    const songCards = songs.map(renderSongCard).join('\n');
+    html = html.replace(
+        /(<div id="songs-grid" class="songs-grid">)[\s\S]*?(<\/div>\s*<div id="no-results")/,
+        `$1${songCards}$2`
+    );
+
+    // Pre-render song count
+    html = html.replace(
+        /(<span id="song-count">)[\s\S]*?(<\/span>)/,
+        `$1${songs.length}$2`
+    );
+
+    // Pre-render category tags
+    const categoryTags = allCategories
+        .map(c => `<a href="/category/${slugify(c)}/" class="browse-tag">${escapeHtml(c)}</a>`)
+        .join('\n');
+    html = html.replace(
+        /(<div id="category-tags" class="tag-list">)[\s\S]*?(<\/div>)/,
+        `$1${categoryTags}$2`
+    );
+
+    // Pre-render artist tags
+    const artistTags = allArtists
+        .map(a => `<a href="/artist/${slugify(a)}/" class="browse-tag">${escapeHtml(a)}</a>`)
+        .join('\n');
+    html = html.replace(
+        /(<div id="artist-tags" class="tag-list">)[\s\S]*?(<\/div>)/,
+        `$1${artistTags}$2`
+    );
+
+    fs.writeFileSync(songsHtmlPath, html);
+}
+
 // ===== Main =====
 
 function main() {
@@ -629,6 +701,14 @@ function main() {
     generateSitemap(songs, allCategories, allArtists);
     const totalUrls = 4 + songs.length * 2 + allCategories.length + allArtists.length;
     console.log(`Sitemap generated with ${totalUrls} URLs.`);
+
+    // Pre-render songs.html
+    generateSongsPage(songs, allCategories, allArtists);
+    console.log('Pre-rendered songs.html with song cards, browse tags, and count.');
+
+    // Update sw.js precache with generated pages
+    updateServiceWorkerPrecache(songs, allCategories, allArtists);
+    console.log('Updated sw.js precache list with generated pages.');
 
     // Summary
     console.log('\n--- Build Summary ---');
