@@ -1026,6 +1026,14 @@ header {
     text-align: center;
 }
 
+.bar-group {
+    display: inline-flex;
+    gap: 4px;
+    padding: 3px;
+    border-bottom: 2px solid rgba(139, 92, 246, 0.35);
+    border-radius: 2px;
+}
+
 .chord:hover {
     background: rgba(108, 60, 225, 0.2);
     border-color: var(--primary-light);

@@ -43,6 +43,13 @@
   </url>
 
   <url>
+    <loc>https://ecoliving-tips.github.io/songs/va-va-eeshoye/</loc>
+    <lastmod>2026-03-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://ecoliving-tips.github.io/lyrics/anna-pesaha/</loc>
     <lastmod>2026-03-19</lastmod>
     <changefreq>monthly</changefreq>
@@ -51,6 +58,13 @@
 
   <url>
     <loc>https://ecoliving-tips.github.io/lyrics/krooshakum-meshayil/</loc>
+    <lastmod>2026-03-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://ecoliving-tips.github.io/lyrics/va-va-eeshoye/</loc>
     <lastmod>2026-03-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

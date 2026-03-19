@@ -18,7 +18,7 @@ time: 3/4
 [C]Orumayo[CM7]dee Bali [F]Arppi[C]kkam
 
 {BG}
-|| Am | B | G/Em | F | Dm7 | G | Em/D | G ||
+|| Am | B | G Em | F | Dm7 | G | Em D | G ||
 
 {Verse 2}
 [C]Anuran[B7]jitharaai [G]Theernnee[C]dam

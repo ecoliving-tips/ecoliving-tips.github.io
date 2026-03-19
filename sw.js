@@ -23,6 +23,8 @@ const STATIC_ASSETS = [
     '/lyrics/anna-pesaha/',
     '/songs/krooshakum-meshayil/',
     '/lyrics/krooshakum-meshayil/',
+    '/songs/va-va-eeshoye/',
+    '/lyrics/va-va-eeshoye/',
     '/category/holy-mass/',
     '/category/holy-communion/',
     '/artist/traditional-syro-malabar/',

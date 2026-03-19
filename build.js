@@ -89,8 +89,17 @@ function formatChordContentHTML(content) {
             const chords = chordsLine.split('|').map(c => c.trim()).filter(c => c);
             if (chords.length > 0) {
                 html += '<div class="chord-progression"><div class="chord-line">';
-                chords.forEach(chord => {
-                    html += `<span class="chord" data-original="${escapeHtml(chord)}">${escapeHtml(chord)}</span>`;
+                chords.forEach(bar => {
+                    const subChords = bar.split(/\s+/).filter(c => c);
+                    if (subChords.length > 1) {
+                        html += '<span class="bar-group">';
+                        subChords.forEach(chord => {
+                            html += `<span class="chord" data-original="${escapeHtml(chord)}">${escapeHtml(chord)}</span>`;
+                        });
+                        html += '</span>';
+                    } else {
+                        html += `<span class="chord" data-original="${escapeHtml(bar)}">${escapeHtml(bar)}</span>`;
+                    }
                 });
                 html += '</div></div>\n';
             }
