@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Generate chords from any YouTube video using AI. Paste a YouTube URL and get automatic chord detection synced to the music.">
+    <meta name="keywords"
+        content="AI chord generator, YouTube chord detection, automatic chords, Malayalam song chords, chord recognition">
+    <meta name="author" content="Swaram">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://ecoliving-tips.github.io/generate.html">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="AI Chord Generator - Swaram">
+    <meta property="og:description"
+        content="Generate chords from any YouTube video using AI. Get automatic chord detection synced to the music.">
+    <meta property="og:url" content="https://ecoliving-tips.github.io/generate.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Swaram">
+    <meta property="og:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AI Chord Generator - Swaram">
+    <meta name="twitter:description"
+        content="Generate chords from any YouTube video using AI. Get automatic chord detection synced to the music.">
+    <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
+
+    <title>AI Chord Generator | Generate Chords from YouTube - Swaram</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="manifest" href="manifest.json">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7438590583270235"
+        crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-7438590583270235">
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "AI Chord Generator - Swaram",
+        "url": "https://ecoliving-tips.github.io/generate.html",
+        "description": "Generate chords from any YouTube video using AI. Get automatic chord detection synced to the music.",
+        "applicationCategory": "MusicApplication",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "0"
+        },
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "Swaram",
+            "url": "https://ecoliving-tips.github.io/"
+        }
+    }
+    </script>
+</head>
+
+<body>
+    <!-- SYNC: Keep header in sync with templates/partials/header.html -->
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <div class="header-content">
+                    <h1><a href="/" style="color:inherit;text-decoration:none;" data-i18n="site_title">Swaram</a></h1>
+                    <p class="tagline" data-i18n="tagline">Free Christian Song Chords for Keyboard & Guitar</p>
+                </div>
+                <button class="lang-toggle" onclick="switchLanguage()" aria-label="Switch language">
+                    <span id="lang-indicator">EN</span>
+                </button>
+                <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </div>
+            <nav class="mobile-nav" aria-label="Main navigation">
+                <ul>
+                    <li><a href="/" data-i18n="nav_home">Home</a></li>
+                    <li><a href="/songs.html" data-i18n="nav_songs">All Songs</a></li>
+                    <li><a href="/setlist.html" data-i18n="nav_setlist">My Setlist</a></li>
+                    <li><a href="/generate.html" data-i18n="nav_generate">AI Chord Generator</a></li>
+                    <li><a href="/request.html" data-i18n="nav_request">Request Song</a></li>
+                    <li><a href="#" onclick="openUPI(); return false;" data-i18n="nav_donate">Donate</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div id="offline-banner" class="offline-banner" style="display:none;" data-i18n="offline_msg">
+            You are offline. Showing cached content.
+        </div>
+    </header>
+
+    <main>
+        <section class="generate-header">
+            <div class="container">
+                <h2 data-i18n="generate_title">AI Chord Generator</h2>
+                <p data-i18n="generate_desc">Upload an audio file and our AI will detect the chords automatically. Add a YouTube URL to play along with the video as chords scroll in sync.</p>
+            </div>
+        </section>
+
+        <section class="generate-input-section">
+            <div class="container">
+                <div class="generate-input-container">
+                    <!-- Audio File Upload -->
+                    <div class="form-group">
+                        <label for="audio-file" data-i18n="generate_upload_label">Audio File</label>
+                        <div class="generate-upload-area" id="upload-area">
+                            <input type="file" id="audio-file" accept=".mp3,.wav,.m4a,.ogg,.flac,.aac,.wma,.webm" hidden>
+                            <div class="upload-content" id="upload-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                                <p data-i18n="generate_upload_text">Click or drag an audio file here</p>
+                                <span class="upload-hint" data-i18n="generate_upload_hint">MP3, WAV, M4A, OGG, FLAC (max 30MB)</span>
+                            </div>
+                            <div class="upload-file-info" id="upload-file-info" style="display:none;">
+                                <span id="upload-file-name"></span>
+                                <button type="button" class="upload-remove" id="upload-remove" aria-label="Remove file">&times;</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- YouTube URL (optional, for video sync) -->
+                    <div class="form-group generate-url-group">
+                        <label for="youtube-url" data-i18n="generate_url_label_optional">YouTube URL (optional — for video sync)</label>
+                        <div class="generate-input-row">
+                            <input type="url" id="youtube-url" name="youtube_url"
+                                placeholder="https://www.youtube.com/watch?v=..."
+                                data-i18n-placeholder="generate_url_placeholder">
+                            <button type="button" class="btn" id="generate-btn" data-i18n="generate_button">
+                                Generate Chords
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div id="generate-loading" class="generate-loading" style="display: none;">
+                    <div class="generate-spinner"></div>
+                    <p data-i18n="generate_loading_text">Analyzing audio and detecting chords...</p>
+                </div>
+
+                <!-- Error State -->
+                <div id="generate-error" class="generate-error" style="display: none;">
+                    <p data-i18n="generate_error_msg">Unable to generate chords. Please check the URL and try again.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Player Section (shown after chords loaded) -->
+        <section id="player-section" class="player-section" style="display: none;">
+            <div class="container">
+                <!-- YouTube Player -->
+                <div class="video-container">
+                    <div id="youtube-player"></div>
+                </div>
+
+                <!-- Audio Player (shown when no YouTube URL) -->
+                <div id="audio-player-container" class="audio-player-container" style="display: none;">
+                    <audio id="audio-player" preload="auto"></audio>
+                    <div class="audio-player-controls">
+                        <button id="audio-play-btn" class="audio-play-btn" aria-label="Play/Pause">
+                            <svg id="audio-play-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <polygon points="5,3 19,12 5,21"></polygon>
+                            </svg>
+                            <svg id="audio-pause-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+                                <rect x="5" y="3" width="4" height="18"></rect>
+                                <rect x="15" y="3" width="4" height="18"></rect>
+                            </svg>
+                        </button>
+                        <span id="audio-current-time" class="audio-time">0:00</span>
+                        <div id="audio-seek-bar" class="audio-seek-bar">
+                            <div id="audio-seek-progress" class="audio-seek-progress"></div>
+                            <input type="range" id="audio-seek-input" class="audio-seek-input" min="0" max="100" value="0" step="0.1">
+                        </div>
+                        <span id="audio-duration" class="audio-time">0:00</span>
+                    </div>
+                </div>
+
+                <!-- Song Info & Controls -->
+                <div class="generate-meta-bar">
+                    <div class="generate-meta-left">
+                        <span class="meta-pill meta-pill-key">
+                            <span class="meta-label" data-i18n="generate_key_label">Key</span>
+                            <span id="generate-key">-</span>
+                        </span>
+                        <span class="meta-pill meta-pill-bpm">
+                            <span class="meta-label" data-i18n="generate_bpm_label">BPM</span>
+                            <span id="generate-bpm">-</span>
+                        </span>
+                        <span class="meta-pill meta-pill-time">
+                            <span class="meta-label" data-i18n="generate_time_label">Time</span>
+                            <span id="generate-time">-</span>
+                        </span>
+                    </div>
+                    <div class="generate-meta-right">
+                        <div class="transpose-control">
+                            <span data-i18n="transpose">Transpose:</span>
+                            <button class="transpose-btn" id="transpose-down">-</button>
+                            <span id="transpose-value">0</span>
+                            <button class="transpose-btn" id="transpose-up">+</button>
+                            <button class="transpose-btn transpose-reset" id="transpose-reset" data-i18n="reset">Reset</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chord Timeline -->
+                <div class="chord-timeline-container">
+                    <div class="chord-timeline-header">
+                        <span data-i18n="generate_chord_timeline">Chord Timeline</span>
+                        <span id="current-time" class="timeline-time">0:00</span>
+                    </div>
+                    <div class="chord-timeline-wrapper">
+                        <div id="chord-timeline" class="chord-timeline">
+                            <!-- Chord blocks will be inserted here -->
+                        </div>
+                        <div class="chord-timeline-current-marker"></div>
+                    </div>
+                    <div class="chord-timeline-progress">
+                        <div id="timeline-progress-bar" class="timeline-progress-bar"></div>
+                    </div>
+                </div>
+
+                <!-- Current Chord Display -->
+                <div class="current-chord-display">
+                    <div class="current-chord-label" data-i18n="generate_current_chord">Current Chord</div>
+                    <div id="current-chord" class="current-chord-name">-</div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="generate-actions">
+                    <button class="btn btn-secondary" id="save-song-btn" data-i18n="generate_save_song">Save as Song</button>
+                    <button class="btn btn-secondary" id="share-chords-btn" data-i18n="generate_share">Share</button>
+                    <button class="btn btn-secondary" id="print-chords-btn" data-i18n="print">Print</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="donate-section">
+            <div class="container">
+                <h3 data-i18n="support_title">Support Free Malayalam Song Chords</h3>
+                <p data-i18n="support_text">We keep every chord chart completely free. Your support helps us add more songs faster.</p>
+                <div class="donate-options">
+                    <a href="#" onclick="openUPI(); return false;" class="btn donate-btn" data-i18n="pay_upi">Pay via UPI</a>
+                    <img src="/assets/donate-qr.png" alt="Scan this QR code to donate via UPI to Swaram" class="qr-code"
+                        onclick="openUPI()">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- SYNC: Keep footer in sync with templates/partials/footer.html -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3 data-i18n="site_title">Swaram</h3>
+                    <p data-i18n="tagline">Free Christian Song Chords for Keyboard & Guitar</p>
+                </div>
+                <div class="footer-links">
+                    <h4 data-i18n="footer_quick_links">Quick Links</h4>
+                    <ul>
+                        <li><a href="/" data-i18n="nav_home">Home</a></li>
+                        <li><a href="/songs.html" data-i18n="nav_songs">All Songs</a></li>
+                        <li><a href="/setlist.html" data-i18n="nav_setlist">My Setlist</a></li>
+                        <li><a href="/generate.html" data-i18n="nav_generate">AI Chord Generator</a></li>
+                        <li><a href="/request.html" data-i18n="nav_request">Request Song</a></li>
+                        <li><a href="/privacy-policy.html" data-i18n="nav_privacy">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-i18n="copyright">&copy; 2026 Swaram. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- YouTube IFrame API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="js/main.js"></script>
+    <script src="js/i18n.js" defer></script>
+    <script src="js/chord-diagrams.js"></script>
+    <script src="js/setlist.js" defer></script>
+    <script src="js/generate.js" defer></script>
+</body>
+
+</html>

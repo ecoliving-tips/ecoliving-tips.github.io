@@ -1,0 +1,7 @@
+fastapi==0.115.0
+uvicorn[standard]==0.30.0
+librosa==0.10.2
+numpy<2
+scipy
+pydantic>=2.0
+python-multipart
