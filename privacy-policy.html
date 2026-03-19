@@ -27,6 +27,15 @@
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="assets/favicon.png">
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZHLRN8B07Z"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-ZHLRN8B07Z');
+    </script>
+
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7438590583270235"
         crossorigin="anonymous"></script>
     <meta name="google-adsense-account" content="ca-pub-7438590583270235">
@@ -76,8 +85,18 @@
                     <ul>
                         <li><strong>Song Request Data:</strong> When you submit a song request, we collect your name, the song title, and any optional message you provide. This is stored in our database to help us prioritize which songs to add.</li>
                         <li><strong>Automatically Collected Data:</strong> Like most websites, we automatically receive technical information such as your IP address, browser type, device type, and pages visited. This helps us understand how our site is used and improve it.</li>
-                        <li><strong>Cookies:</strong> We use cookies through Google AdSense and YouTube embeds. These are explained in detail below.</li>
+                        <li><strong>Cookies:</strong> We use cookies through Google Analytics, Google AdSense, and YouTube embeds. These are explained in detail below.</li>
                     </ul>
+
+                    <h3>Google Analytics</h3>
+                    <p>We use Google Analytics 4 (GA4) to understand how visitors interact with our website. Google Analytics collects information such as:</p>
+                    <ul>
+                        <li>Pages you visit and how long you spend on them;</li>
+                        <li>Your approximate geographic location (country/city level);</li>
+                        <li>Your device type, browser, and operating system;</li>
+                        <li>How you found our site (search engine, direct visit, referral).</li>
+                    </ul>
+                    <p>This data is aggregated and anonymous — we cannot identify individual users. Google Analytics uses cookies to distinguish unique visitors. You can opt out by installing the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics Opt-out Browser Add-on</a>.</p>
 
                     <h3>Google AdSense</h3>
                     <p>We display advertisements through Google AdSense to support the free availability of our chord charts. Google uses cookies to serve ads based on your prior visits to our website and other websites on the Internet. Specifically:</p>
@@ -106,7 +125,7 @@
                     <h3>Data Sharing</h3>
                     <p>We do not sell your personal data. Data may be shared with:</p>
                     <ul>
-                        <li><strong>Google:</strong> Through AdSense for advertising and through YouTube for embedded video functionality.</li>
+                        <li><strong>Google:</strong> Through Analytics for website usage data, through AdSense for advertising, and through YouTube for embedded video functionality.</li>
                         <li><strong>Supabase:</strong> For storing song request data.</li>
                         <li><strong>Law enforcement:</strong> If required by law or to protect our legal rights.</li>
                     </ul>
