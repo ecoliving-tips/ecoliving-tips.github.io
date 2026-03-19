@@ -9,7 +9,7 @@ time: 7/8
 
 {Intro}
 || - | - | - | - | - | - | - | - ||
-|| Cm | Cm | Csus4 | F | Bb | Fm | Csus4 | F/G ||
+|| Cm | Cm | Csus4 | F | Bb | Fm | Csus4 | F G ||
 
 {Pallavi}
 [-]Vaa Vaa Eeshoye...

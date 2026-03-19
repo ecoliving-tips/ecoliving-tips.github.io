@@ -269,8 +269,9 @@ function showChordDiagram(chordName, anchorEl) {
     // Close existing tooltip
     closeChordDiagram();
 
-    // Normalize: strip qualities to find base
-    const data = CHORD_DIAGRAMS[chordName];
+    // For slash chords like Cm/A, show diagram for the root chord (Cm)
+    const lookupName = chordName.includes('/') ? chordName.split('/')[0] : chordName;
+    const data = CHORD_DIAGRAMS[lookupName];
     if (!data) return; // No diagram available
 
     // Create overlay
