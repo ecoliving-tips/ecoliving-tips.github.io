@@ -269,8 +269,9 @@ function showChordDiagram(chordName, anchorEl) {
     // Close existing tooltip
     closeChordDiagram();
 
-    // For slash chords like Cm/A, show diagram for the root chord (Cm)
+    // For slash chords like Cm/A, show diagram for the root chord (Cm) with bass note label
     const lookupName = chordName.includes('/') ? chordName.split('/')[0] : chordName;
+    const bassNote = chordName.includes('/') ? chordName.split('/')[1] : null;
     const data = CHORD_DIAGRAMS[lookupName];
     if (!data) return; // No diagram available
 
@@ -288,11 +289,16 @@ function showChordDiagram(chordName, anchorEl) {
         ? renderGuitarSVG(data.guitar)
         : '<p style="padding:1em;color:#9B8FC2;text-align:center;">No guitar diagram</p>';
 
+    const bassLabel = bassNote
+        ? `<p class="slash-chord-bass">Bass note: ${bassNote}</p>`
+        : '';
+
     tooltip.innerHTML = `
         <div class="tooltip-header">
             <h4>${chordName}</h4>
             <button class="tooltip-close" onclick="closeChordDiagram()">&times;</button>
         </div>
+        ${bassLabel}
         <div class="diagram-tabs">
             <button class="diagram-tab active" onclick="switchDiagramTab('guitar', this)">Guitar</button>
             <button class="diagram-tab" onclick="switchDiagramTab('keyboard', this)">Keyboard</button>
