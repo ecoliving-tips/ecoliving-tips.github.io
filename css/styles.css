@@ -1028,10 +1028,22 @@ header {
 
 .bar-group {
     display: inline-flex;
-    gap: 4px;
-    padding: 3px;
-    border-bottom: 2px solid rgba(139, 92, 246, 0.35);
-    border-radius: 2px;
+    gap: 0;
+    background: rgba(108, 60, 225, 0.12);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    border-radius: var(--radius-sm);
+}
+
+.bar-group .chord {
+    border: none;
+    background: none;
+    border-radius: 0;
+    min-width: 40px;
+    padding: 8px 14px;
+}
+
+.bar-group .chord + .chord {
+    border-left: 1px solid rgba(139, 92, 246, 0.3);
 }
 
 .chord:hover {
