@@ -82,7 +82,7 @@ const CHORD_DIAGRAMS = {};
         'Dm':    { frets: [-1,-1,0,2,3,1], startFret: 0 },
         'Em':    { frets: [0,2,2,0,0,0], startFret: 0 },
         'Am':    { frets: [-1,0,2,2,1,0], startFret: 0 },
-        'C7':    { frets: [-1,3,2,3,1,0], startFret: 0 },
+        'C7':    { frets: [3,3,2,3,1,0], startFret: 0 },
         'D7':    { frets: [-1,-1,0,2,1,2], startFret: 0 },
         'E7':    { frets: [0,2,0,1,0,0], startFret: 0 },
         'G7':    { frets: [3,2,0,0,0,1], startFret: 0 },
@@ -265,15 +265,105 @@ function renderKeyboardSVG(activeKeys) {
     return svg;
 }
 
+// Compute guitar voicing for slash chords (e.g., Cm/A = Cm with A as lowest note)
+// Uses hand-crafted voicings for known slash chords, with algorithmic fallback
+function getSlashChordGuitar(originalData, bassNote, chordName) {
+    // Hand-crafted playable voicings for common slash chords
+    // Array order: [E, A, D, G, B, e] — -1 = muted, 0 = open
+    var SLASH_VOICINGS = {
+        'C/E':   { frets: [0, 3, 2, 0, 1, 0], startFret: 0 },
+        'C/G':   { frets: [3, 3, 2, 0, 1, 0], startFret: 0 },
+        'D/F#':  { frets: [2, 0, 0, 2, 3, 2], startFret: 0 },
+        'G/B':   { frets: [-1, 2, 0, 0, 0, 3], startFret: 0 },
+        'G/F#':  { frets: [2, 2, 0, 0, 0, 3], startFret: 0 },
+        'Am/E':  { frets: [0, 0, 2, 2, 1, 0], startFret: 0 },
+        'Am/G':  { frets: [3, 0, 2, 2, 1, 0], startFret: 0 },
+        'Am/C':  { frets: [-1, 3, 2, 2, 1, 0], startFret: 0 },
+        'Em/D':  { frets: [-1, -1, 0, 0, 0, 0], startFret: 0 },
+        'Em/B':  { frets: [-1, 2, 2, 0, 0, 0], startFret: 0 },
+        'Dm/F':  { frets: [1, 0, 0, 2, 3, 1], startFret: 0 },
+        'Dm/C':  { frets: [-1, 3, 0, 2, 3, 1], startFret: 0 },
+        'F/C':   { frets: [-1, 3, 3, 2, 1, 1], startFret: 1 },
+        'F/A':   { frets: [-1, 0, 3, 2, 1, 1], startFret: 0 },
+        'Cm/Bb': { frets: [-1, 1, 1, 0, 1, -1], startFret: 0 },
+        'Cm/Eb': { frets: [-1, -1, 1, 0, 1, 3], startFret: 0 },
+        'Cm/G':  { frets: [3, 3, 5, 5, 4, 3], startFret: 3, barre: 3 },
+        'Cm/A':  { frets: [-1, 0, 1, 0, 1, 3], startFret: 0 },
+    };
+
+    if (SLASH_VOICINGS[chordName]) return SLASH_VOICINGS[chordName];
+
+    // Algorithmic fallback: try to place bass note on E or A string
+    const NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+    const FLAT_TO_SHARP = { 'Db': 'C#', 'Eb': 'D#', 'Gb': 'F#', 'Ab': 'G#', 'Bb': 'A#' };
+    const bass = FLAT_TO_SHARP[bassNote] || bassNote;
+    const bassIdx = NOTES.indexOf(bass);
+    if (bassIdx === -1) return originalData;
+
+    // Open string note indices: E=4, A=9
+    var bassOnE = (bassIdx - 4 + 12) % 12;
+    var bassOnA = (bassIdx - 9 + 12) % 12;
+
+    var frets = originalData.frets.slice();
+    var changed = false;
+
+    if (bassOnE === 0) {
+        frets[0] = 0;
+        changed = true;
+    } else if (bassOnA === 0) {
+        frets[0] = -1;
+        frets[1] = 0;
+        changed = true;
+    } else if (bassOnA <= 3 && frets[0] === -1) {
+        // A string with low fret, E already muted
+        frets[1] = bassOnA;
+        changed = true;
+    }
+
+    if (!changed) return originalData;
+
+    // Check playability: max fret span ≤ 4
+    var playedFrets = frets.filter(function(f) { return f > 0; });
+    if (playedFrets.length === 0) return { frets: frets, startFret: 0 };
+
+    var minFret = Math.min.apply(null, playedFrets);
+    var maxFret = Math.max.apply(null, playedFrets);
+    if (maxFret - minFret > 4) return originalData;
+
+    var startFret = minFret > 3 ? minFret : 0;
+    var result = { frets: frets, startFret: startFret };
+    if (startFret > 0) {
+        var barreCount = frets.filter(function(f) { return f === minFret; }).length;
+        if (barreCount >= 2) result.barre = minFret;
+    }
+    return result;
+}
+
 function showChordDiagram(chordName, anchorEl) {
     // Close existing tooltip
     closeChordDiagram();
 
-    // For slash chords like Cm/A, show diagram for the root chord (Cm) with bass note label
+    // For slash chords like Cm/A, show diagram for the root chord (Cm) with bass note
     const lookupName = chordName.includes('/') ? chordName.split('/')[0] : chordName;
     const bassNote = chordName.includes('/') ? chordName.split('/')[1] : null;
     const data = CHORD_DIAGRAMS[lookupName];
     if (!data) return; // No diagram available
+
+    // Build slash chord data with correct bass note in diagrams
+    let guitarData = data.guitar;
+    let keyboardKeys = data.keys;
+
+    if (bassNote) {
+        // Add bass note to keyboard keys if not already present
+        if (!keyboardKeys.includes(bassNote)) {
+            keyboardKeys = [bassNote].concat(keyboardKeys);
+        }
+
+        // Adjust guitar voicing to include bass note on lowest possible string
+        if (guitarData) {
+            guitarData = getSlashChordGuitar(guitarData, bassNote, chordName);
+        }
+    }
 
     // Create overlay
     const overlay = document.createElement('div');
@@ -285,20 +375,15 @@ function showChordDiagram(chordName, anchorEl) {
     tooltip.className = 'chord-diagram-tooltip';
     tooltip.id = 'chord-tooltip';
 
-    const guitarPanel = data.guitar
-        ? renderGuitarSVG(data.guitar)
+    const guitarPanel = guitarData
+        ? renderGuitarSVG(guitarData)
         : '<p style="padding:1em;color:#9B8FC2;text-align:center;">No guitar diagram</p>';
-
-    const bassLabel = bassNote
-        ? `<p class="slash-chord-bass">Bass note: ${bassNote}</p>`
-        : '';
 
     tooltip.innerHTML = `
         <div class="tooltip-header">
             <h4>${chordName}</h4>
             <button class="tooltip-close" onclick="closeChordDiagram()">&times;</button>
         </div>
-        ${bassLabel}
         <div class="diagram-tabs">
             <button class="diagram-tab active" onclick="switchDiagramTab('guitar', this)">Guitar</button>
             <button class="diagram-tab" onclick="switchDiagramTab('keyboard', this)">Keyboard</button>
@@ -307,7 +392,7 @@ function showChordDiagram(chordName, anchorEl) {
             ${guitarPanel}
         </div>
         <div class="diagram-panel" id="panel-keyboard">
-            ${renderKeyboardSVG(data.keys)}
+            ${renderKeyboardSVG(keyboardKeys)}
         </div>
     `;
 

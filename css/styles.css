@@ -1889,17 +1889,6 @@ footer {
     font-size: 1.1rem;
 }
 
-.slash-chord-bass {
-    margin: 0 0 8px;
-    padding: 4px 10px;
-    background: rgba(245, 158, 11, 0.12);
-    color: var(--accent);
-    border-radius: var(--radius-sm);
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-align: center;
-}
-
 .chord-diagram-tooltip .tooltip-close {
     background: none;
     border: none;
