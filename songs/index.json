@@ -2,36 +2,48 @@
   {
     "id": "anna-pesaha",
     "title": "Anna Pesaha Thirunalil",
+    "title_ml": "അന്നാ പെസഹാ തിരുനാളിൽ",
     "file": "anna-pesaha.md",
     "artist": "Traditional Syro Malabar",
+    "artist_ml": "പരമ്പരാഗത സിറോ മലബാർ",
     "category": "Holy Mass",
+    "category_ml": "വിശുദ്ധ കുർബാന",
     "key": "C",
     "time": "3/4"
   },
   {
     "id": "krooshakum-meshayil",
     "title": "Krooshakum Meshayil",
+    "title_ml": "ക്രൂശാകും മേശയിൽ സ്നേഹ കനലിൽ",
     "file": "krooshakum-meshayil.md",
     "artist": "Fr. Binoj Mulavarickal",
+    "artist_ml": "ഫാ. ബിനോജ് മുളവരിക്കൽ",
     "category": "Holy Communion",
+    "category_ml": "ദിവ്യകാരുണ്യ സ്വീകരണം",
     "key": "Cm",
     "time": "3/4"
   },
   {
     "id": "va-va-eeshoye",
     "title": "Va Va Eeshoye Va Va Hruthil Va",
+    "title_ml": "വാ വാ ഈശോയേ വാ വാ ഹൃത്തിൽ വാ",
     "file": "va-va-eeshoye.md",
     "artist": "Fr. Binoj Mulavarickal",
+    "artist_ml": "ഫാ. ബിനോജ് മുളവരിക്കൽ",
     "category": "Holy Communion",
+    "category_ml": "ദിവ്യകാരുണ്യ സ്വീകരണം",
     "key": "Cm",
     "time": "7/8"
   },
   {
     "id": "uruki-uruki-theernnidam",
     "title": "Uruki Uruki Theernnidaam",
+    "title_ml": "ഉരുകി ഉരുകി തീർന്നിടാം",
     "file": "uruki-uruki-theernnidam.md",
     "artist": "Kester",
+    "artist_ml": "കെസ്റ്റർ",
     "category": "Holy Communion",
+    "category_ml": "ദിവ്യകാരുണ്യ സ്വീകരണം",
     "key": "Fm",
     "time": "7/8"
   }

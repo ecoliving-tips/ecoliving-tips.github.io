@@ -255,6 +255,10 @@ function fillHead(template, partials, headVars) {
     return template.replace('{{HEAD}}', head);
 }
 
+function mlExtraHead(canonicalUrl) {
+    return `<link rel="alternate" hreflang="ml" href="${canonicalUrl}">\n    <meta property="og:locale:alternate" content="ml_IN">`;
+}
+
 // ===== Song Page Generator =====
 
 function generateSongPage(song, body, templates) {
@@ -268,14 +272,17 @@ function generateSongPage(song, body, templates) {
 
     const pageTitle = `${songTitle} Chords for Keyboard & Guitar - ${artist} | Swaram`;
     const pageDesc = `Free ${songTitle} keyboard and guitar chord chart. ${artist} - Malayalam Christian ${category ? category + ' ' : ''}song with chord progression, lyrics, and video tutorial.`;
-    const keywords = `${songTitle} chords, ${songTitle} keyboard chords, ${songTitle} guitar chords, ${artist} chords, Malayalam Christian song chords, ${category} song chords`;
+    const titleMl = song.title_ml || '';
+    const mlKw = titleMl ? `, ${titleMl}, ${titleMl} കോർഡ്, ${titleMl} ഗിറ്റാർ, ${titleMl} കീബോർഡ്` : '';
+    const keywords = `${songTitle} chords, ${songTitle} keyboard chords, ${songTitle} guitar chords, ${artist} chords, Malayalam Christian song chords, ${category} song chords${mlKw}`;
 
-    const structuredData = JSON.stringify({
+    const sdObj = {
         "@context": "https://schema.org",
         "@type": "MusicComposition",
         "name": songTitle,
         "composer": { "@type": artist.toLowerCase().includes('traditional') ? "Organization" : "Person", "name": artist },
         "musicalKey": key,
+        "inLanguage": ["en", "ml"],
         "url": canonicalUrl,
         "description": pageDesc,
         "genre": category,
@@ -284,7 +291,10 @@ function generateSongPage(song, body, templates) {
             "name": "Swaram",
             "url": `${BASE_URL}/`
         }
-    }, null, 2);
+    };
+    if (song.title_ml) sdObj.alternateName = song.title_ml;
+    if (song.artist_ml) sdObj.composer.alternateName = song.artist_ml;
+    const structuredData = JSON.stringify(sdObj, null, 2);
 
     // Build meta bar
     let metaBar = '';
@@ -317,7 +327,7 @@ function generateSongPage(song, body, templates) {
         OG_URL: canonicalUrl,
         TWITTER_TITLE: escapeHtml(pageTitle),
         TWITTER_DESCRIPTION: escapeHtml(pageDesc),
-        EXTRA_HEAD: '',
+        EXTRA_HEAD: mlExtraHead(canonicalUrl),
     });
     page = fillPartials(page, partials);
     page = page
@@ -350,14 +360,16 @@ function generateLyricsPage(song, body, templates) {
 
     const pageTitle = `${songTitle} Lyrics - Malayalam Christian Song | Swaram`;
     const pageDesc = `Read the lyrics of ${songTitle} by ${artist}. Malayalam Christian ${category ? category + ' ' : ''}song lyrics.`;
-    const keywords = `${songTitle} lyrics, ${songTitle} Malayalam lyrics, ${artist} song lyrics, Malayalam Christian song lyrics`;
+    const titleMl = song.title_ml || '';
+    const mlKw = titleMl ? `, ${titleMl}, ${titleMl} വരികൾ` : '';
+    const keywords = `${songTitle} lyrics, ${songTitle} Malayalam lyrics, ${artist} song lyrics, Malayalam Christian song lyrics${mlKw}`;
 
-    const structuredData = JSON.stringify({
+    const sdObj = {
         "@context": "https://schema.org",
         "@type": "CreativeWork",
         "name": `${songTitle} - Lyrics`,
         "author": { "@type": artist.toLowerCase().includes('traditional') ? "Organization" : "Person", "name": artist },
-        "inLanguage": "ml",
+        "inLanguage": ["en", "ml"],
         "url": canonicalUrl,
         "description": pageDesc,
         "isPartOf": {
@@ -365,7 +377,10 @@ function generateLyricsPage(song, body, templates) {
             "name": "Swaram",
             "url": `${BASE_URL}/`
         }
-    }, null, 2);
+    };
+    if (song.title_ml) sdObj.alternateName = `${song.title_ml} - വരികൾ`;
+    if (song.artist_ml) sdObj.author.alternateName = song.artist_ml;
+    const structuredData = JSON.stringify(sdObj, null, 2);
 
     const lyricsContent = stripChordsFromContent(body);
     const youtubeEmbed = song.youtube ? renderYouTubeEmbed(song.youtube, songTitle) : '';
@@ -381,7 +396,7 @@ function generateLyricsPage(song, body, templates) {
         OG_URL: canonicalUrl,
         TWITTER_TITLE: escapeHtml(pageTitle),
         TWITTER_DESCRIPTION: escapeHtml(pageDesc),
-        EXTRA_HEAD: '',
+        EXTRA_HEAD: mlExtraHead(canonicalUrl),
     });
     page = fillPartials(page, partials);
     page = page
@@ -406,21 +421,26 @@ function generateCategoryPage(categoryName, songs, allCategories, templates) {
 
     const pageTitle = `${categoryName} Song Chords - Malayalam Christian Songs | Swaram`;
     const pageDesc = `Browse chord charts for Malayalam Christian ${categoryName} songs. Free keyboard and guitar chords for ${categoryName} songs with video tutorials.`;
-    const keywords = `${categoryName} chords, Malayalam ${categoryName} song chords, Christian ${categoryName} songs keyboard, ${categoryName} guitar chords`;
+    const categoryMl = songs[0]?.category_ml || '';
+    const mlKw = categoryMl ? `, ${categoryMl}, ${categoryMl} കോർഡ്, ${categoryMl} ഗാനങ്ങൾ` : '';
+    const keywords = `${categoryName} chords, Malayalam ${categoryName} song chords, Christian ${categoryName} songs keyboard, ${categoryName} guitar chords${mlKw}`;
 
-    const structuredData = JSON.stringify({
+    const sdObj = {
         "@context": "https://schema.org",
         "@type": "CollectionPage",
         "name": pageTitle,
         "description": pageDesc,
         "url": canonicalUrl,
+        "inLanguage": ["en", "ml"],
         "numberOfItems": songs.length,
         "isPartOf": {
             "@type": "WebSite",
             "name": "Swaram",
             "url": `${BASE_URL}/`
         }
-    }, null, 2);
+    };
+    if (categoryMl) sdObj.alternateName = `${categoryMl} ഗാന കോർഡുകൾ`;
+    const structuredData = JSON.stringify(sdObj, null, 2);
 
     const songCards = songs.map(renderSongCard).join('\n');
 
@@ -441,7 +461,7 @@ function generateCategoryPage(categoryName, songs, allCategories, templates) {
         OG_URL: canonicalUrl,
         TWITTER_TITLE: escapeHtml(pageTitle),
         TWITTER_DESCRIPTION: escapeHtml(pageDesc),
-        EXTRA_HEAD: '',
+        EXTRA_HEAD: mlExtraHead(canonicalUrl),
     });
     page = fillPartials(page, partials);
     page = page
@@ -464,15 +484,19 @@ function generateArtistPage(artistName, songs, templates) {
 
     const pageTitle = `${artistName} - Malayalam Christian Song Chords | Swaram`;
     const pageDesc = `Chord charts for songs by ${artistName}. Free keyboard and guitar chords for Malayalam Christian devotional songs.`;
-    const keywords = `${artistName} chords, ${artistName} songs chords, ${artistName} Malayalam Christian songs`;
+    const artistMl = songs[0]?.artist_ml || '';
+    const mlKw = artistMl ? `, ${artistMl}, ${artistMl} കോർഡ്` : '';
+    const keywords = `${artistName} chords, ${artistName} songs chords, ${artistName} Malayalam Christian songs${mlKw}`;
 
-    const structuredData = JSON.stringify({
+    const sdObj = {
         "@context": "https://schema.org",
         "@type": "MusicGroup",
         "name": artistName,
         "url": canonicalUrl,
         "description": pageDesc
-    }, null, 2);
+    };
+    if (artistMl) sdObj.alternateName = artistMl;
+    const structuredData = JSON.stringify(sdObj, null, 2);
 
     const songCards = songs.map(renderSongCard).join('\n');
 
@@ -487,7 +511,7 @@ function generateArtistPage(artistName, songs, templates) {
         OG_URL: canonicalUrl,
         TWITTER_TITLE: escapeHtml(pageTitle),
         TWITTER_DESCRIPTION: escapeHtml(pageDesc),
-        EXTRA_HEAD: '',
+        EXTRA_HEAD: mlExtraHead(canonicalUrl),
     });
     page = fillPartials(page, partials);
     page = page
@@ -511,55 +535,72 @@ function generateSitemap(songs, categories, artists) {
     ];
 
     let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
-    xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+    xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n';
+    xml += '        xmlns:xhtml="http://www.w3.org/1999/xhtml">\n';
+
+    function sitemapHreflang(fullUrl) {
+        return `    <xhtml:link rel="alternate" hreflang="en" href="${fullUrl}" />\n` +
+               `    <xhtml:link rel="alternate" hreflang="ml" href="${fullUrl}" />\n` +
+               `    <xhtml:link rel="alternate" hreflang="x-default" href="${fullUrl}" />\n`;
+    }
 
     // Static pages
     for (const page of staticPages) {
+        const fullUrl = `${BASE_URL}${page.loc}`;
         xml += `  <url>\n`;
-        xml += `    <loc>${BASE_URL}${page.loc}</loc>\n`;
+        xml += `    <loc>${fullUrl}</loc>\n`;
         xml += `    <lastmod>${today}</lastmod>\n`;
         xml += `    <changefreq>${page.changefreq}</changefreq>\n`;
         xml += `    <priority>${page.priority}</priority>\n`;
+        xml += sitemapHreflang(fullUrl);
         xml += `  </url>\n\n`;
     }
 
     // Song pages
     for (const song of songs) {
+        const fullUrl = `${BASE_URL}/songs/${song.id}/`;
         xml += `  <url>\n`;
-        xml += `    <loc>${BASE_URL}/songs/${song.id}/</loc>\n`;
+        xml += `    <loc>${fullUrl}</loc>\n`;
         xml += `    <lastmod>${today}</lastmod>\n`;
         xml += `    <changefreq>monthly</changefreq>\n`;
         xml += `    <priority>0.8</priority>\n`;
+        xml += sitemapHreflang(fullUrl);
         xml += `  </url>\n\n`;
     }
 
     // Lyrics pages
     for (const song of songs) {
+        const fullUrl = `${BASE_URL}/lyrics/${song.id}/`;
         xml += `  <url>\n`;
-        xml += `    <loc>${BASE_URL}/lyrics/${song.id}/</loc>\n`;
+        xml += `    <loc>${fullUrl}</loc>\n`;
         xml += `    <lastmod>${today}</lastmod>\n`;
         xml += `    <changefreq>monthly</changefreq>\n`;
         xml += `    <priority>0.7</priority>\n`;
+        xml += sitemapHreflang(fullUrl);
         xml += `  </url>\n\n`;
     }
 
     // Category pages
     for (const cat of categories) {
+        const fullUrl = `${BASE_URL}/category/${slugify(cat)}/`;
         xml += `  <url>\n`;
-        xml += `    <loc>${BASE_URL}/category/${slugify(cat)}/</loc>\n`;
+        xml += `    <loc>${fullUrl}</loc>\n`;
         xml += `    <lastmod>${today}</lastmod>\n`;
         xml += `    <changefreq>weekly</changefreq>\n`;
         xml += `    <priority>0.7</priority>\n`;
+        xml += sitemapHreflang(fullUrl);
         xml += `  </url>\n\n`;
     }
 
     // Artist pages
     for (const artist of artists) {
+        const fullUrl = `${BASE_URL}/artist/${slugify(artist)}/`;
         xml += `  <url>\n`;
-        xml += `    <loc>${BASE_URL}/artist/${slugify(artist)}/</loc>\n`;
+        xml += `    <loc>${fullUrl}</loc>\n`;
         xml += `    <lastmod>${today}</lastmod>\n`;
         xml += `    <changefreq>weekly</changefreq>\n`;
         xml += `    <priority>0.6</priority>\n`;
+        xml += sitemapHreflang(fullUrl);
         xml += `  </url>\n\n`;
     }
 
