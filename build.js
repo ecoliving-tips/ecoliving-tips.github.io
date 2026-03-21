@@ -250,17 +250,19 @@ function renderYouTubeEmbed(url, title) {
 // ===== Song Card Generator =====
 
 function renderSongCard(song) {
+    const titleMl = song.title_ml ? `<span class="lang-ml">${escapeHtml(song.title_ml)}</span>` : '';
+    const artistMl = song.artist_ml ? `<span class="lang-ml">${escapeHtml(song.artist_ml)}</span>` : '';
     return `<div class="song-card">
-                    <h3>${escapeHtml(song.title)}</h3>
-                    <p class="artist">${escapeHtml(song.artist || 'Unknown Artist')}</p>
+                    <h3><span class="lang-en">${escapeHtml(song.title)}</span>${titleMl}</h3>
+                    <p class="artist"><span class="lang-en">${escapeHtml(song.artist || 'Unknown Artist')}</span>${artistMl}</p>
                     <div class="song-card-meta">
                         <span class="meta-badge">${escapeHtml(song.category || 'General')}</span>
                         ${song.key ? `<span class="meta-badge meta-key">Key: ${escapeHtml(song.key)}</span>` : ''}
                         ${song.time ? `<span class="meta-badge meta-time">${escapeHtml(song.time)}</span>` : ''}
                     </div>
                     <div class="song-card-actions">
-                        <a href="/songs/${song.id}/" class="btn">View Chords</a>
-                        <a href="/lyrics/${song.id}/" class="btn btn-secondary">Lyrics</a>
+                        <a href="/songs/${song.id}/" class="btn" data-i18n="view_chords_btn">View Chords</a>
+                        <a href="/lyrics/${song.id}/" class="btn btn-secondary" data-i18n="lyrics_btn">Lyrics</a>
                     </div>
                 </div>`;
 }

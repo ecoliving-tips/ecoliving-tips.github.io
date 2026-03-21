@@ -111,7 +111,9 @@
     "sort_default": "Default",
     "sort_title_az": "Title (A-Z)",
     "sort_title_za": "Title (Z-A)",
-    "sort_artist_az": "Artist (A-Z)"
+    "sort_artist_az": "Artist (A-Z)",
+    "view_chords_btn": "View Chords",
+    "lyrics_btn": "Lyrics"
   },
   "ml": {
     "site_title": "സ്വരം",
@@ -225,6 +227,8 @@
     "sort_default": "ഡിഫോൾട്ട്",
     "sort_title_az": "ശീർഷകം (A-Z)",
     "sort_title_za": "ശീർഷകം (Z-A)",
-    "sort_artist_az": "കലാകാരൻ (A-Z)"
+    "sort_artist_az": "കലാകാരൻ (A-Z)",
+    "view_chords_btn": "കോര്‍ഡുകള്‍ കാണുക",
+    "lyrics_btn": "വരികള്‍"
   }
 }
