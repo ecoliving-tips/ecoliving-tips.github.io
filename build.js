@@ -184,6 +184,49 @@ function stripChordsFromContent(content) {
     return html;
 }
 
+/**
+ * Reads <songId>.ml.txt and generates Malayalam lyrics HTML.
+ * Plain Malayalam lyrics — one line per lyric line, blank lines as spacers.
+ * Returns empty string if no .ml.txt file exists.
+ */
+function formatMalayalamLyrics(songId) {
+    const mlPath = path.join(ROOT, 'songs', `${songId}.ml.txt`);
+    if (!fs.existsSync(mlPath)) return '';
+
+    let content = fs.readFileSync(mlPath, 'utf-8').replace(/\r\n/g, '\n');
+    let html = '';
+    const lines = content.split('\n');
+
+    let consecutiveBlanks = 0;
+
+    for (const rawLine of lines) {
+        const line = rawLine.trim();
+
+        if (!line) {
+            consecutiveBlanks++;
+            continue;
+        }
+
+        // Flush accumulated blank lines
+        if (consecutiveBlanks === 1) {
+            html += '<div class="song-spacer"></div>\n';
+        } else if (consecutiveBlanks >= 2) {
+            html += '<div class="song-section-break"></div>\n';
+        }
+        consecutiveBlanks = 0;
+
+        // ----- or more dashes → visual divider
+        if (/^-{3,}$/.test(line)) {
+            html += '<hr class="song-divider">\n';
+            continue;
+        }
+
+        html += `<div class="lyric-line">${escapeHtml(line)}</div>\n`;
+    }
+
+    return html;
+}
+
 // ===== YouTube Helper =====
 
 function extractYouTubeId(url) {
@@ -382,7 +425,17 @@ function generateLyricsPage(song, body, templates) {
     if (song.artist_ml) sdObj.author.alternateName = song.artist_ml;
     const structuredData = JSON.stringify(sdObj, null, 2);
 
-    const lyricsContent = stripChordsFromContent(body);
+    const enLyrics = stripChordsFromContent(body);
+    const mlLyrics = formatMalayalamLyrics(song.id);
+
+    // If Malayalam lyrics exist, wrap both in language containers
+    let lyricsContent;
+    if (mlLyrics) {
+        lyricsContent = `<div class="lang-en">\n${enLyrics}</div>\n<div class="lang-ml">\n${mlLyrics}</div>`;
+    } else {
+        lyricsContent = enLyrics;
+    }
+
     const youtubeEmbed = song.youtube ? renderYouTubeEmbed(song.youtube, songTitle) : '';
 
     let page = lyricsPage;
@@ -401,7 +454,9 @@ function generateLyricsPage(song, body, templates) {
     page = fillPartials(page, partials);
     page = page
         .replace(/\{\{SONG_TITLE\}\}/g, escapeHtml(songTitle))
+        .replace(/\{\{SONG_TITLE_ML\}\}/g, song.title_ml ? escapeHtml(song.title_ml) : '')
         .replace(/\{\{ARTIST\}\}/g, escapeHtml(artist))
+        .replace(/\{\{ARTIST_ML\}\}/g, song.artist_ml ? escapeHtml(song.artist_ml) : '')
         .replace(/\{\{SONG_ID\}\}/g, song.id)
         .replace('{{LYRICS_CONTENT}}', lyricsContent)
         .replace('{{YOUTUBE_EMBED}}', youtubeEmbed)

@@ -69,9 +69,11 @@ function displaySongs(songs) {
     songs.forEach(song => {
         const card = document.createElement('div');
         card.className = 'song-card';
+        const titleMl = song.title_ml || '';
+        const artistMl = song.artist_ml || '';
         card.innerHTML = `
-            <h3>${song.title}</h3>
-            <p class="artist">${song.artist || 'Unknown Artist'}</p>
+            <h3><span class="lang-en">${song.title}</span>${titleMl ? `<span class="lang-ml">${titleMl}</span>` : ''}</h3>
+            <p class="artist"><span class="lang-en">${song.artist || 'Unknown Artist'}</span>${artistMl ? `<span class="lang-ml">${artistMl}</span>` : ''}</p>
             <div class="song-card-meta">
                 <span class="meta-badge">${song.category || 'General'}</span>
                 ${song.key ? `<span class="meta-badge meta-key">Key: ${song.key}</span>` : ''}
@@ -171,8 +173,11 @@ function applyFilters() {
     if (searchQuery) {
         result = result.filter(s =>
             s.title.toLowerCase().includes(searchQuery) ||
+            (s.title_ml && s.title_ml.includes(searchQuery)) ||
             (s.artist && s.artist.toLowerCase().includes(searchQuery)) ||
-            (s.category && s.category.toLowerCase().includes(searchQuery))
+            (s.artist_ml && s.artist_ml.includes(searchQuery)) ||
+            (s.category && s.category.toLowerCase().includes(searchQuery)) ||
+            (s.category_ml && s.category_ml.includes(searchQuery))
         );
     }
 

@@ -1197,9 +1197,39 @@ header {
     margin: 2px 0;
 }
 
-/* Song Spacer (blank lines) */
+/* Language Toggle - Dual Language Content */
+body:not(.lang-ml) .lang-ml { display: none; }
+body.lang-ml .lang-en { display: none; }
+
+/* Malayalam font override — applies site-wide when language is ML */
+body.lang-ml {
+    font-family: 'Manjari', 'Poppins', sans-serif;
+}
+
+body.lang-ml .lyric-text,
+body.lang-ml .lyric-only-line,
+body.lang-ml .lyric-line {
+    font-size: 1.1rem;
+    line-height: 1.9;
+}
+
+/* Song Spacer (single blank line — small gap between stanzas) */
 .song-spacer {
     height: 12px;
+}
+
+/* Song Section Break (double blank line — larger gap between sections) */
+.song-section-break {
+    height: 28px;
+}
+
+/* Song Divider (----- — visual separator between major parts) */
+.song-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 20px auto;
+    width: 60%;
+    opacity: 0.5;
 }
 
 /* YouTube Video */

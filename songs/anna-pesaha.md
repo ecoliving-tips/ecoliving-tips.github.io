@@ -8,7 +8,7 @@ time: 3/4
 ---
 
 {Intro}
-|| C | C | Am | Am | B | B7 | C | Em || 
+|| C | C | Am | Am | B | B7 | C | Em ||
 || Dm | Dm | A | A7 | Dm | G7 | C | C ||
 
 {Verse 1}
