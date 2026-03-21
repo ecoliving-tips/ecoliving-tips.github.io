@@ -25,10 +25,13 @@ const STATIC_ASSETS = [
     '/lyrics/krooshakum-meshayil/',
     '/songs/va-va-eeshoye/',
     '/lyrics/va-va-eeshoye/',
+    '/songs/uruki-uruki-theernnidam/',
+    '/lyrics/uruki-uruki-theernnidam/',
     '/category/holy-mass/',
     '/category/holy-communion/',
     '/artist/traditional-syro-malabar/',
-    '/artist/fr-binoj-mulavarickal/'
+    '/artist/fr-binoj-mulavarickal/',
+    '/artist/kester/'
 ];
 
 // Install: cache static assets

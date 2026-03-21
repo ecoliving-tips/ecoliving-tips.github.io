@@ -23,6 +23,7 @@ const CHORD_DIAGRAMS = {};
         'm6':   [0, 3, 7, 9],         // Minor 6th
         '9':    [0, 4, 7, 10, 14],    // Dominant 9th
         'm9':   [0, 3, 7, 10, 14],    // Minor 9th
+        'm7b5': [0, 3, 6, 10],        // Half-diminished (minor 7 flat 5)
     };
 
     // Guitar barre patterns: E-shape (root on low E string, fret N)
@@ -38,6 +39,7 @@ const CHORD_DIAGRAMS = {};
         'sus4': function(n){return [n,  n+2,  n+2,  n+2,  n,    n   ]}, // Esus4 shape
         '9':    function(n){return [n,  n+2,  n,    n+1,  n,    n+2 ]}, // E9 shape
         'm9':   function(n){return [n,  n+2,  n,    n,    n,    n+2 ]}, // Em9 shape
+        'm7b5': function(n){return [n,  n+1,  n,    n,    n,    -1  ]}, // Em7b5 shape
     };
 
     // Guitar barre patterns: A-shape (root on A string, fret N)
@@ -54,6 +56,7 @@ const CHORD_DIAGRAMS = {};
         'aug':  function(n){return [-1,  n,   n+3,  n+2,  n+2,  -1  ]}, // Aaug shape
         '6':    function(n){return [-1,  n,   n+2,  n+2,  n+2,  n+2 ]}, // A6 shape
         'm6':   function(n){return [-1,  n,   n+2,  n+2,  n+1,  n+2 ]}, // Am6 shape
+        'm7b5': function(n){return [-1,  n,   n+1,  n,    n+1,  -1  ]}, // Am7b5 shape
     };
 
     // E-string fret for each root note
@@ -345,8 +348,9 @@ function showChordDiagram(chordName, anchorEl) {
 
     // For slash chords like Cm/A, show diagram for the root chord (Cm) with bass note
     const lookupName = chordName.includes('/') ? chordName.split('/')[0] : chordName;
+    const normalizedName = lookupName.replace(/[()]/g, '');
     const bassNote = chordName.includes('/') ? chordName.split('/')[1] : null;
-    const data = CHORD_DIAGRAMS[lookupName];
+    const data = CHORD_DIAGRAMS[normalizedName];
     if (!data) return; // No diagram available
 
     // Build slash chord data with correct bass note in diagrams

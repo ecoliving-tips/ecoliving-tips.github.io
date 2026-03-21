@@ -95,8 +95,8 @@
             <div class="container">
                 <form id="request-form" class="request-form">
                     <div class="form-group">
-                        <label for="name" data-i18n="label_name">Your Name *</label>
-                        <input type="text" id="name" name="name" required placeholder="Enter your name" data-i18n-placeholder="placeholder_name">
+                        <label for="email" data-i18n="label_email">Your Email *</label>
+                        <input type="email" id="email" name="email" required placeholder="Enter your email" data-i18n-placeholder="placeholder_email">
                     </div>
                     <div class="form-group">
                         <label for="song-title" data-i18n="label_song_title">Song Title *</label>
@@ -113,8 +113,8 @@
 
                 <div id="success-message" class="success-message" style="display: none;">
                     <h3 data-i18n="request_success_title">Request Submitted Successfully!</h3>
-                    <p data-i18n="request_success_msg">Thank you! We've received your song request and will work on adding the chord chart to our
-                        collection. The most requested songs get added first.</p>
+                    <p data-i18n="request_success_msg">Thank you! We've received your song request and will notify you via email once the chord chart is ready.
+                        The most requested songs get added first.</p>
                     <button onclick="resetForm()" class="btn" data-i18n="submit_another">Submit Another Request</button>
                 </div>
 
@@ -176,14 +176,14 @@
             submitBtn.disabled = true;
             submitBtn.textContent = translations[currentLang]?.submitting || 'Submitting...';
 
-            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
             const songTitle = document.getElementById('song-title').value;
             const message = document.getElementById('message').value;
 
             try {
                 const { data, error } = await supabaseClient
                     .from('song_requests')
-                    .insert([{ name, song_title: songTitle, message, status: 'pending' }]);
+                    .insert([{ email, song_title: songTitle, message, status: 'pending' }]);
                 if (error) throw error;
                 document.getElementById('request-form').style.display = 'none';
                 document.getElementById('success-message').style.display = 'block';
