@@ -186,7 +186,60 @@
             <div class="container">
                 <h2 data-i18n="popular_title">Popular Malayalam Song Chords</h2>
                 <p class="section-intro" data-i18n="popular_subtitle">Trending chord charts loved by our community</p>
-                <div class="songs-grid" id="featured-songs"></div>
+                <div class="songs-grid" id="featured-songs">
+<div class="song-card">
+                    <h3>Anna Pesaha Thirunalil</h3>
+                    <p class="artist">Traditional Syro Malabar</p>
+                    <div class="song-card-meta">
+                        <span class="meta-badge">Holy Mass</span>
+                        <span class="meta-badge meta-key">Key: C</span>
+                        <span class="meta-badge meta-time">3/4</span>
+                    </div>
+                    <div class="song-card-actions">
+                        <a href="/songs/anna-pesaha/" class="btn">View Chords</a>
+                        <a href="/lyrics/anna-pesaha/" class="btn btn-secondary">Lyrics</a>
+                    </div>
+                </div>
+<div class="song-card">
+                    <h3>Krooshakum Meshayil Sneha Kanalil</h3>
+                    <p class="artist">Fr. Binoj Mulavarickal</p>
+                    <div class="song-card-meta">
+                        <span class="meta-badge">Holy Communion</span>
+                        <span class="meta-badge meta-key">Key: Cm</span>
+                        <span class="meta-badge meta-time">3/4</span>
+                    </div>
+                    <div class="song-card-actions">
+                        <a href="/songs/krooshakum-meshayil/" class="btn">View Chords</a>
+                        <a href="/lyrics/krooshakum-meshayil/" class="btn btn-secondary">Lyrics</a>
+                    </div>
+                </div>
+<div class="song-card">
+                    <h3>Va Va Eeshoye Va Va Hruthil Va</h3>
+                    <p class="artist">Fr. Binoj Mulavarickal</p>
+                    <div class="song-card-meta">
+                        <span class="meta-badge">Holy Communion</span>
+                        <span class="meta-badge meta-key">Key: Cm</span>
+                        <span class="meta-badge meta-time">7/8</span>
+                    </div>
+                    <div class="song-card-actions">
+                        <a href="/songs/va-va-eeshoye/" class="btn">View Chords</a>
+                        <a href="/lyrics/va-va-eeshoye/" class="btn btn-secondary">Lyrics</a>
+                    </div>
+                </div>
+<div class="song-card">
+                    <h3>Uruki Uruki Theernnidaam</h3>
+                    <p class="artist">Kester</p>
+                    <div class="song-card-meta">
+                        <span class="meta-badge">Holy Communion</span>
+                        <span class="meta-badge meta-key">Key: Fm</span>
+                        <span class="meta-badge meta-time">7/8</span>
+                    </div>
+                    <div class="song-card-actions">
+                        <a href="/songs/uruki-uruki-theernnidam/" class="btn">View Chords</a>
+                        <a href="/lyrics/uruki-uruki-theernnidam/" class="btn btn-secondary">Lyrics</a>
+                    </div>
+                </div>
+</div>
                 <div class="songs-cta">
                     <a href="songs.html" class="btn" data-i18n="view_all_songs">View All Songs</a>
                 </div>
@@ -302,19 +355,21 @@
         });
 
         async function loadFeaturedSongs() {
+            const container = document.getElementById('featured-songs');
+            // Skip if build.js already pre-rendered cards
+            if (container && container.children.length > 0) return;
+
             try {
                 const response = await fetch('/songs/index.json');
                 const songs = await response.json();
                 const featured = songs.slice(0, 4);
-                const container = document.getElementById('featured-songs');
                 if (container) {
-                    container.innerHTML = '';
                     featured.forEach(song => {
                         const card = document.createElement('div');
                         card.className = 'song-card';
                         card.innerHTML = `
                             <h3>${song.title}</h3>
-                            <p class="artist">${song.artist || 'Traditional'}</p>
+                            <p class="artist">${song.artist || 'Unknown Artist'}</p>
                             <div class="song-card-meta">
                                 <span class="meta-badge">${song.category || 'General'}</span>
                                 ${song.key ? `<span class="meta-badge meta-key">Key: ${song.key}</span>` : ''}

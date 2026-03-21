@@ -639,6 +639,23 @@ function generateSongsPage(songs, allCategories, allArtists) {
     fs.writeFileSync(songsHtmlPath, html);
 }
 
+// ===== Homepage Featured Songs Pre-renderer =====
+
+function generateHomepageFeaturedSongs(songs) {
+    const indexHtmlPath = path.join(ROOT, 'index.html');
+    let html = fs.readFileSync(indexHtmlPath, 'utf-8');
+
+    const featured = songs.slice(0, 4);
+    const songCards = featured.map(renderSongCard).join('\n');
+
+    html = html.replace(
+        /(<div class="songs-grid" id="featured-songs">)[\s\S]*?(<\/div>\s*<div class="songs-cta">)/,
+        `$1\n${songCards}\n$2`
+    );
+
+    fs.writeFileSync(indexHtmlPath, html);
+}
+
 // ===== Main =====
 
 function main() {
@@ -717,6 +734,10 @@ function main() {
     // Pre-render songs.html
     generateSongsPage(songs, allCategories, allArtists);
     console.log('Pre-rendered songs.html with song cards, browse tags, and count.');
+
+    // Pre-render homepage featured songs
+    generateHomepageFeaturedSongs(songs);
+    console.log(`Pre-rendered index.html with ${Math.min(songs.length, 4)} featured song cards.`);
 
     // Update sw.js precache with generated pages
     updateServiceWorkerPrecache(songs, allCategories, allArtists);
