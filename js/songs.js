@@ -80,8 +80,8 @@ function displaySongs(songs) {
                 ${song.time ? `<span class="meta-badge meta-time">${song.time}</span>` : ''}
             </div>
             <div class="song-card-actions">
-                <a href="/songs/${song.id}/" class="btn" data-i18n="view_chords_btn">View Chords</a>
-                <a href="/lyrics/${song.id}/" class="btn btn-secondary" data-i18n="lyrics_btn">Lyrics</a>
+                <a href="/songs/${song.id}/" class="btn">View Chords</a>
+                <a href="/lyrics/${song.id}/" class="btn btn-secondary">Lyrics</a>
             </div>
         `;
         songsGrid.appendChild(card);
@@ -106,7 +106,6 @@ function populateFilters(songs) {
     const allChip = document.createElement('span');
     allChip.className = 'filter-chip active';
     allChip.textContent = 'All';
-    allChip.setAttribute('data-i18n', 'filter_all');
     allChip.addEventListener('click', () => {
         activeCategory = '';
         chipsContainer.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));

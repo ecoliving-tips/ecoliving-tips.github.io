@@ -48,18 +48,18 @@ function toggleSetlist(songId) {
 function updateSetlistButtons(songId) {
     document.querySelectorAll(`[data-setlist-id="${songId}"]`).forEach(btn => {
         if (isInSetlist(songId)) {
-            btn.textContent = 'In Setlist';
+            btn.textContent = t('in_setlist', 'In Setlist');
             btn.classList.add('in-setlist');
             // Show "View Setlist" link next to button
             if (!btn.nextElementSibling || !btn.nextElementSibling.classList.contains('view-setlist-link')) {
                 const link = document.createElement('a');
                 link.href = '/setlist.html';
                 link.className = 'view-setlist-link';
-                link.textContent = 'View Setlist';
+                link.textContent = t('view_setlist', 'View Setlist');
                 btn.parentNode.insertBefore(link, btn.nextSibling);
             }
         } else {
-            btn.textContent = '+ Add to Setlist';
+            btn.textContent = t('add_setlist', '+ Add to Setlist');
             btn.classList.remove('in-setlist');
             // Remove "View Setlist" link
             const link = btn.nextElementSibling;
@@ -88,7 +88,7 @@ function shareSetlist() {
     if (!url) return;
     if (navigator.clipboard) {
         navigator.clipboard.writeText(url).then(() => {
-            showToast('Link copied to clipboard!');
+            showToast(t('link_copied', 'Link copied to clipboard!'));
         });
     } else {
         prompt('Copy this link:', url);
@@ -129,11 +129,12 @@ async function renderSetlistPage() {
     if (list.length === 0) {
         container.innerHTML = `
             <div class="setlist-empty">
-                <p>Your setlist is empty</p>
-                <p>Browse songs and add them to your setlist!</p>
-                <a href="/songs.html" class="btn">Browse Songs</a>
+                <p data-i18n="setlist_empty">Your setlist is empty</p>
+                <p data-i18n="setlist_empty_desc">Browse songs and add them to your setlist!</p>
+                <a href="/songs.html" class="btn" data-i18n="browse_songs">Browse Songs</a>
             </div>
         `;
+        applyLanguage(currentLang);
         return;
     }
 
@@ -148,12 +149,14 @@ async function renderSetlistPage() {
         list.forEach((id, index) => {
             const song = songMap[id];
             if (!song) return;
+            const titleMl = song.title_ml || '';
+            const artistMl = song.artist_ml || '';
             html += `
                 <li class="setlist-item" draggable="true" data-index="${index}" data-id="${id}">
                     <span class="drag-handle">&#9776;</span>
                     <div class="setlist-info">
-                        <h4><a href="/songs/${id}/">${escapeSetlistHtml(song.title)}</a></h4>
-                        <p>${escapeSetlistHtml(song.artist || 'Unknown')} &middot; ${escapeSetlistHtml(song.category || 'General')} &middot; Key: ${escapeSetlistHtml(song.key || '?')}</p>
+                        <h4><a href="/songs/${id}/"><span class="lang-en">${escapeSetlistHtml(song.title)}</span>${titleMl ? `<span class="lang-ml">${escapeSetlistHtml(titleMl)}</span>` : ''}</a></h4>
+                        <p><span class="lang-en">${escapeSetlistHtml(song.artist || 'Unknown')}</span>${artistMl ? `<span class="lang-ml">${escapeSetlistHtml(artistMl)}</span>` : ''} &middot; ${escapeSetlistHtml(song.category || 'General')} &middot; Key: ${escapeSetlistHtml(song.key || '?')}</p>
                     </div>
                     <button class="remove-btn" onclick="removeFromSetlist('${id}')" aria-label="Remove from setlist">&times;</button>
                 </li>
@@ -163,14 +166,15 @@ async function renderSetlistPage() {
 
         html += `
             <div class="setlist-actions">
-                <button class="btn btn-secondary" onclick="shareSetlist()">Share Setlist</button>
-                <button class="btn btn-secondary" onclick="window.print()">Print Setlist</button>
-                <button class="btn btn-secondary" onclick="clearSetlist()">Clear All</button>
+                <button class="btn btn-secondary" onclick="shareSetlist()" data-i18n="share_setlist">Share Setlist</button>
+                <button class="btn btn-secondary" onclick="window.print()" data-i18n="print_setlist">Print Setlist</button>
+                <button class="btn btn-secondary" onclick="clearSetlist()" data-i18n="clear_setlist">Clear All</button>
             </div>
         `;
 
         container.innerHTML = html;
         setupDragAndDrop();
+        applyLanguage(currentLang);
     } catch (e) {
         container.innerHTML = '<p>Error loading setlist. Please try again.</p>';
     }

@@ -261,8 +261,8 @@ function renderSongCard(song) {
                         ${song.time ? `<span class="meta-badge meta-time">${escapeHtml(song.time)}</span>` : ''}
                     </div>
                     <div class="song-card-actions">
-                        <a href="/songs/${song.id}/" class="btn" data-i18n="view_chords_btn">View Chords</a>
-                        <a href="/lyrics/${song.id}/" class="btn btn-secondary" data-i18n="lyrics_btn">Lyrics</a>
+                        <a href="/songs/${song.id}/" class="btn">View Chords</a>
+                        <a href="/lyrics/${song.id}/" class="btn btn-secondary">Lyrics</a>
                     </div>
                 </div>`;
 }

@@ -52,3 +52,9 @@ function applyLanguage(lang) {
         document.body.classList.remove('lang-ml');
     }
 }
+
+// Helper for JS-rendered content: returns translated string or fallback
+function t(key, fallback) {
+    const dict = translations[currentLang];
+    return (dict && dict[key]) || fallback || key;
+}
