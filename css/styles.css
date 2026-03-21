@@ -551,6 +551,104 @@ header {
     margin-top: 24px;
 }
 
+/* ===== Filter Bar (songs.html) ===== */
+.filter-bar {
+    max-width: 700px;
+    margin: 20px auto 0;
+}
+
+.filter-bar .filter-group {
+    margin-bottom: 12px;
+}
+
+.filter-bar .filter-group > label {
+    display: block;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.filter-row .filter-group > label {
+    text-align: left;
+}
+
+.filter-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+}
+
+.filter-chip {
+    display: inline-block;
+    padding: 6px 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.filter-chip:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--primary);
+    color: var(--text);
+}
+
+.filter-chip.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+}
+
+.filter-row {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+
+.filter-row .filter-group {
+    flex: 1;
+    max-width: 220px;
+}
+
+.filter-select {
+    width: 100%;
+    padding: 10px 14px;
+    font-family: var(--font);
+    font-size: 0.85rem;
+    color: var(--text);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: var(--transition);
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%239B8FC2' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 32px;
+}
+
+.filter-select:focus {
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15);
+    outline: none;
+}
+
+@media (max-width: 768px) {
+    .filter-row {
+        flex-direction: column;
+        align-items: center;
+    }
+    .filter-row .filter-group {
+        max-width: 100%;
+        width: 100%;
+    }
+}
+
 /* ===== Features Section ===== */
 .features-section {
     padding: 80px 0;

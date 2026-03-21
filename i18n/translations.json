@@ -102,7 +102,16 @@
     "request_error_title": "Something Went Wrong",
     "request_error_msg": "We couldn't submit your request. Please check your connection and try again.",
     "no_results_search": "No songs found.",
-    "request_this_search": "Request this song"
+    "request_this_search": "Request this song",
+    "filter_category": "Category:",
+    "filter_all": "All",
+    "filter_key": "Key:",
+    "filter_all_keys": "All Keys",
+    "sort_by": "Sort:",
+    "sort_default": "Default",
+    "sort_title_az": "Title (A-Z)",
+    "sort_title_za": "Title (Z-A)",
+    "sort_artist_az": "Artist (A-Z)"
   },
   "ml": {
     "site_title": "സ്വരം",
@@ -207,6 +216,15 @@
     "request_error_title": "എന്തോ പിശക് സംഭവിച്ചു",
     "request_error_msg": "നിങ്ങളുടെ അഭ്യര്‍ഥന സമര്‍പ്പിക്കാന്‍ കഴിഞ്ഞില്ല. കണക്ഷന്‍ പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക.",
     "no_results_search": "ഗാനങ്ങള്‍ കണ്ടെത്തിയില്ല.",
-    "request_this_search": "ഈ ഗാനം അഭ്യര്‍ഥിക്കുക"
+    "request_this_search": "ഈ ഗാനം അഭ്യര്‍ഥിക്കുക",
+    "filter_category": "വിഭാഗം:",
+    "filter_all": "എല്ലാം",
+    "filter_key": "കീ:",
+    "filter_all_keys": "എല്ലാ കീകളും",
+    "sort_by": "ക്രമം:",
+    "sort_default": "ഡിഫോൾട്ട്",
+    "sort_title_az": "ശീർഷകം (A-Z)",
+    "sort_title_za": "ശീർഷകം (Z-A)",
+    "sort_artist_az": "കലാകാരൻ (A-Z)"
   }
 }

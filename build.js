@@ -263,7 +263,7 @@ function mlExtraHead(canonicalUrl) {
 
 function generateSongPage(song, body, templates) {
     const { partials, songPage } = templates;
-    const songTitle = song.title;
+    const songTitle = song.fullTitle;
     const artist = song.artist || 'Traditional';
     const category = song.category || '';
     const key = song.key || 'C';
@@ -353,7 +353,7 @@ function generateSongPage(song, body, templates) {
 
 function generateLyricsPage(song, body, templates) {
     const { partials, lyricsPage } = templates;
-    const songTitle = song.title;
+    const songTitle = song.fullTitle;
     const artist = song.artist || 'Traditional';
     const category = song.category || '';
     const canonicalUrl = `${BASE_URL}/lyrics/${song.id}/`;
@@ -717,8 +717,9 @@ function main() {
         const raw = fs.readFileSync(mdPath, 'utf-8');
         const { metadata, body } = parseFrontmatter(raw);
         return {
-            ...songMeta,
             ...metadata,
+            ...songMeta,
+            fullTitle: metadata.title || songMeta.title,
             body,
         };
     });

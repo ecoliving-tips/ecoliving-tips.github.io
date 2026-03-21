@@ -107,6 +107,31 @@
                 <div class="search-box">
                     <input type="text" id="search-input" placeholder="Search by song title, artist, or category..." data-i18n-placeholder="search_placeholder" aria-label="Search songs">
                 </div>
+                <div class="filter-bar" id="filter-bar" style="display:none">
+                    <div class="filter-group">
+                        <label data-i18n="filter_category">Category:</label>
+                        <div class="filter-chips" id="category-chips">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                    <div class="filter-row">
+                        <div class="filter-group">
+                            <label for="key-filter" data-i18n="filter_key">Key:</label>
+                            <select id="key-filter" class="filter-select">
+                                <option value="" data-i18n="filter_all_keys">All Keys</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="sort-select" data-i18n="sort_by">Sort:</label>
+                            <select id="sort-select" class="filter-select">
+                                <option value="default" data-i18n="sort_default">Default</option>
+                                <option value="title-asc" data-i18n="sort_title_az">Title (A-Z)</option>
+                                <option value="title-desc" data-i18n="sort_title_za">Title (Z-A)</option>
+                                <option value="artist-asc" data-i18n="sort_artist_az">Artist (A-Z)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <p class="song-count"><span data-i18n="songs_count">Songs in our collection:</span> <span id="song-count">4</span></p>
             </div>
         </section>
@@ -127,7 +152,7 @@
                     </div>
                 </div>
 <div class="song-card">
-                    <h3>Krooshakum Meshayil Sneha Kanalil</h3>
+                    <h3>Krooshakum Meshayil</h3>
                     <p class="artist">Fr. Binoj Mulavarickal</p>
                     <div class="song-card-meta">
                         <span class="meta-badge">Holy Communion</span>
