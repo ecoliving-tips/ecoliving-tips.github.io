@@ -274,7 +274,7 @@ header {
 
 /* ===== Hero Section ===== */
 .hero {
-    padding: 100px 0 80px;
+    padding: 70px 0 50px;
     position: relative;
     overflow: hidden;
 }
@@ -341,7 +341,7 @@ header {
 
 /* ===== Search Section ===== */
 .search-section {
-    padding: 60px 0 40px;
+    padding: 40px 0 24px;
 }
 
 .search-section h2 {
@@ -428,7 +428,7 @@ header {
 /* ===== Song Cards & Grid ===== */
 .featured-songs,
 .songs-section {
-    padding: 60px 0;
+    padding: 30px 0;
 }
 
 .featured-songs h2,
@@ -440,7 +440,7 @@ header {
 .songs-header p {
     text-align: center;
     color: var(--text-muted);
-    margin-bottom: 40px;
+    margin-bottom: 24px;
 }
 
 .songs-grid {
@@ -543,7 +543,7 @@ header {
 
 /* ===== Songs Header (songs.html) ===== */
 .songs-header {
-    padding: 80px 0 40px;
+    padding: 60px 0 20px;
     text-align: center;
 }
 
@@ -651,7 +651,7 @@ header {
 
 /* ===== Features Section ===== */
 .features-section {
-    padding: 80px 0;
+    padding: 50px 0;
 }
 
 .features-section h2 {
@@ -699,7 +699,7 @@ header {
 
 /* ===== Donate Section ===== */
 .donate-section {
-    padding: 80px 0;
+    padding: 50px 0;
     text-align: center;
     position: relative;
 }
@@ -776,7 +776,7 @@ header {
 
 /* ===== About Section ===== */
 .about-section {
-    padding: 80px 0;
+    padding: 50px 0;
 }
 
 .about-section h2 {
@@ -797,7 +797,7 @@ header {
 
 /* ===== FAQ Section ===== */
 .faq-section {
-    padding: 80px 0;
+    padding: 50px 0;
 }
 
 .faq-section h2 {
@@ -843,7 +843,7 @@ header {
 
 /* ===== Song Detail Page ===== */
 .song-detail-header {
-    padding: 80px 0 24px;
+    padding: 60px 0 20px;
 }
 
 .back-link {
@@ -1257,7 +1257,7 @@ body.lang-ml .lyric-line {
 
 /* ===== Request Page ===== */
 .request-header {
-    padding: 80px 0 40px;
+    padding: 60px 0 24px;
     text-align: center;
 }
 
@@ -1369,7 +1369,7 @@ body.lang-ml .lyric-line {
 
 /* ===== Privacy Policy ===== */
 .privacy-section {
-    padding: 80px 0;
+    padding: 50px 0;
 }
 
 .privacy-section h2 {
@@ -1597,7 +1597,7 @@ footer {
     }
 
     .hero {
-        padding: 70px 0 50px;
+        padding: 50px 0 36px;
     }
 
     .hero-content h2 {
@@ -1616,7 +1616,7 @@ footer {
     .donate-section,
     .about-section,
     .faq-section {
-        padding: 60px 0;
+        padding: 40px 0;
     }
 
     .chord-content {
@@ -1910,7 +1910,7 @@ footer {
 /* ===== Browse By Section (songs.html) ===== */
 
 .browse-section {
-    padding: 40px 0;
+    padding: 20px 0;
 }
 
 .browse-columns {
@@ -2077,7 +2077,7 @@ footer {
 
 .setlist-empty {
     text-align: center;
-    padding: 60px 20px;
+    padding: 40px 20px;
     color: var(--text-muted);
 }
 
