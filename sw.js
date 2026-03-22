@@ -7,6 +7,8 @@ const STATIC_ASSETS = [
     '/songs.html',
     '/setlist.html',
     '/request.html',
+    '/chord-finder.html',
+    '/js/chord-finder.js',
     '/css/styles.css',
     '/js/main.js',
     '/js/songs.js',

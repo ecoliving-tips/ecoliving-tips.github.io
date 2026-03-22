@@ -4,20 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Create and manage your personal worship setlist. Organize Malayalam Christian song chords for your church service or practice session.">
-    <meta name="keywords" content="worship setlist, church song list, Malayalam Christian song setlist, worship planning">
+    <meta name="description" content="Page not found - Swaram. Find chords for Malayalam Christian devotional songs.">
     <meta name="author" content="Swaram">
-    <meta name="robots" content="noindex, follow">
-    <link rel="canonical" href="https://ecoliving-tips.github.io/setlist.html">
+    <meta name="robots" content="noindex">
 
-    <meta property="og:title" content="My Setlist - Swaram">
-    <meta property="og:description" content="Create and manage your personal worship setlist with Malayalam Christian song chords.">
-    <meta property="og:url" content="https://ecoliving-tips.github.io/setlist.html">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Swaram">
-    <meta property="og:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
-
-    <title>My Setlist - Swaram</title>
+    <title>Page Not Found - Swaram</title>
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,6 +28,43 @@
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7438590583270235" crossorigin="anonymous"></script>
     <meta name="google-adsense-account" content="ca-pub-7438590583270235">
+
+    <style>
+        .error-page {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+        .error-page .error-code {
+            font-size: 6rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        .error-page h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .error-page p {
+            color: var(--text-secondary);
+            max-width: 480px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+        }
+        .error-page .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+    </style>
 </head>
 
 <body>
@@ -50,37 +78,19 @@
                 <button class="lang-toggle" onclick="switchLanguage()" aria-label="Switch language">
                     <span id="lang-indicator">EN</span>
                 </button>
-                <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
-                </button>
             </div>
-            <nav class="mobile-nav" aria-label="Main navigation">
-                <ul>
-                    <li><a href="/" data-i18n="nav_home">Home</a></li>
-                    <li><a href="/chord-finder.html" data-i18n="nav_generate">Chord Finder</a></li>
-                    <li><a href="/songs.html" data-i18n="nav_songs">All Songs</a></li>
-                    <li><a href="/setlist.html" data-i18n="nav_setlist">My Setlist</a></li>
-                    <li><a href="/request.html" data-i18n="nav_request">Request Song</a></li>
-                    <li><a href="#" onclick="openUPI(); return false;" data-i18n="nav_donate">Donate</a></li>
-                </ul>
-            </nav>
         </div>
     </header>
 
     <main>
-        <section class="songs-header">
+        <section class="error-page">
             <div class="container">
-                <h2 data-i18n="my_setlist">My Setlist</h2>
-                <p data-i18n="setlist_desc">Organize your worship songs for practice or church service. Drag to reorder, share with your band.</p>
-            </div>
-        </section>
-
-        <section class="setlist-section">
-            <div class="container">
-                <div id="setlist-container">
-                    <!-- Rendered by JS -->
+                <div class="error-code">404</div>
+                <h2 data-i18n="error_404_title">Page Not Found</h2>
+                <p data-i18n="error_404_msg">Sorry, the page you're looking for doesn't exist or has been moved. Try one of these instead:</p>
+                <div class="cta-buttons">
+                    <a href="/chord-finder.html" class="btn" data-i18n="hero_try_chord_finder">Try Chord Finder</a>
+                    <a href="/songs.html" class="btn btn-secondary" data-i18n="cta_browse_library">Browse Chord Library</a>
                 </div>
             </div>
         </section>
@@ -97,8 +107,8 @@
                     <h4 data-i18n="footer_quick_links">Quick Links</h4>
                     <ul>
                         <li><a href="/" data-i18n="nav_home">Home</a></li>
-                        <li><a href="/chord-finder.html" data-i18n="nav_generate">Chord Finder</a></li>
                         <li><a href="/songs.html" data-i18n="nav_songs">All Songs</a></li>
+                        <li><a href="/chord-finder.html" data-i18n="nav_generate">Chord Finder</a></li>
                         <li><a href="/setlist.html" data-i18n="nav_setlist">My Setlist</a></li>
                         <li><a href="/request.html" data-i18n="nav_request">Request Song</a></li>
                         <li><a href="/privacy-policy.html" data-i18n="nav_privacy">Privacy Policy</a></li>
@@ -112,8 +122,6 @@
     </footer>
 
     <script src="/js/main.js"></script>
-    <script src="/js/songs.js"></script>
-    <script src="/js/setlist.js"></script>
     <script src="/js/i18n.js" defer></script>
 </body>
 

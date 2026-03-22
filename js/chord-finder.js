@@ -1,5 +1,5 @@
 /**
- * Swaram Chord Finder — js/generate.js
+ * Swaram Chord Finder — js/chord-finder.js
  *
  * Handles: file upload, backend API call (HuggingFace Spaces),
  * chord display, HTML5 audio playback sync, and transpose.

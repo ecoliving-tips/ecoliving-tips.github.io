@@ -4,14 +4,6 @@
       <stop offset="0%" style="stop-color:#0F0B1A"/>
       <stop offset="100%" style="stop-color:#1A1030"/>
     </linearGradient>
-    <linearGradient id="glow1" cx="20%" cy="30%" r="40%" fx="20%" fy="30%" gradientUnits="objectBoundingBox">
-      <stop offset="0%" style="stop-color:#6C3CE1;stop-opacity:0.25"/>
-      <stop offset="100%" style="stop-color:#6C3CE1;stop-opacity:0"/>
-    </linearGradient>
-    <linearGradient id="glow2" cx="80%" cy="70%" r="35%" fx="80%" fy="70%" gradientUnits="objectBoundingBox">
-      <stop offset="0%" style="stop-color:#EC4899;stop-opacity:0.15"/>
-      <stop offset="100%" style="stop-color:#EC4899;stop-opacity:0"/>
-    </linearGradient>
     <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" style="stop-color:#FFFFFF"/>
       <stop offset="50%" style="stop-color:#8B5CF6"/>
@@ -21,6 +13,10 @@
       <stop offset="0%" style="stop-color:#6C3CE1"/>
       <stop offset="100%" style="stop-color:#EC4899"/>
     </linearGradient>
+    <linearGradient id="btnGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#6C3CE1"/>
+      <stop offset="100%" style="stop-color:#8B5CF6"/>
+    </linearGradient>
     <radialGradient id="rg1" cx="20%" cy="30%" r="50%">
       <stop offset="0%" style="stop-color:#6C3CE1;stop-opacity:0.2"/>
       <stop offset="100%" style="stop-color:#6C3CE1;stop-opacity:0"/>
@@ -29,6 +25,11 @@
       <stop offset="0%" style="stop-color:#EC4899;stop-opacity:0.12"/>
       <stop offset="100%" style="stop-color:#EC4899;stop-opacity:0"/>
     </radialGradient>
+    <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#6C3CE1;stop-opacity:0.4"/>
+      <stop offset="50%" style="stop-color:#8B5CF6;stop-opacity:0.6"/>
+      <stop offset="100%" style="stop-color:#EC4899;stop-opacity:0.4"/>
+    </linearGradient>
   </defs>
 
   <!-- Background -->
@@ -39,54 +40,94 @@
   <ellipse cx="960" cy="440" rx="350" ry="260" fill="url(#rg2)"/>
 
   <!-- Decorative music notes (subtle) -->
-  <text x="100" y="150" font-family="serif" font-size="80" fill="#6C3CE1" opacity="0.08" transform="rotate(-15 100 150)">&#9835;</text>
-  <text x="1050" y="200" font-family="serif" font-size="100" fill="#EC4899" opacity="0.06" transform="rotate(12 1050 200)">&#9834;</text>
-  <text x="180" y="500" font-family="serif" font-size="60" fill="#8B5CF6" opacity="0.07" transform="rotate(-8 180 500)">&#9833;</text>
-  <text x="950" y="520" font-family="serif" font-size="70" fill="#EC4899" opacity="0.06" transform="rotate(10 950 520)">&#9835;</text>
+  <text x="80" y="130" font-family="serif" font-size="80" fill="#6C3CE1" opacity="0.07" transform="rotate(-15 80 130)">&#9835;</text>
+  <text x="1070" y="180" font-family="serif" font-size="90" fill="#EC4899" opacity="0.06" transform="rotate(12 1070 180)">&#9834;</text>
+  <text x="150" y="530" font-family="serif" font-size="55" fill="#8B5CF6" opacity="0.06" transform="rotate(-8 150 530)">&#9833;</text>
+  <text x="1000" y="540" font-family="serif" font-size="65" fill="#EC4899" opacity="0.05" transform="rotate(10 1000 540)">&#9835;</text>
+
+  <!-- Audio waveform visualization (center, subtle) -->
+  <g transform="translate(250, 148)" opacity="0.3">
+    <rect x="0" y="12" width="4" height="16" rx="2" fill="url(#waveGrad)"/>
+    <rect x="10" y="6" width="4" height="28" rx="2" fill="url(#waveGrad)"/>
+    <rect x="20" y="0" width="4" height="40" rx="2" fill="url(#waveGrad)"/>
+    <rect x="30" y="8" width="4" height="24" rx="2" fill="url(#waveGrad)"/>
+    <rect x="40" y="3" width="4" height="34" rx="2" fill="url(#waveGrad)"/>
+    <rect x="50" y="10" width="4" height="20" rx="2" fill="url(#waveGrad)"/>
+    <rect x="60" y="5" width="4" height="30" rx="2" fill="url(#waveGrad)"/>
+    <rect x="70" y="1" width="4" height="38" rx="2" fill="url(#waveGrad)"/>
+    <rect x="80" y="7" width="4" height="26" rx="2" fill="url(#waveGrad)"/>
+    <rect x="90" y="14" width="4" height="12" rx="2" fill="url(#waveGrad)"/>
+  </g>
+  <g transform="translate(850, 148)" opacity="0.3">
+    <rect x="0" y="14" width="4" height="12" rx="2" fill="url(#waveGrad)"/>
+    <rect x="10" y="7" width="4" height="26" rx="2" fill="url(#waveGrad)"/>
+    <rect x="20" y="1" width="4" height="38" rx="2" fill="url(#waveGrad)"/>
+    <rect x="30" y="5" width="4" height="30" rx="2" fill="url(#waveGrad)"/>
+    <rect x="40" y="10" width="4" height="20" rx="2" fill="url(#waveGrad)"/>
+    <rect x="50" y="3" width="4" height="34" rx="2" fill="url(#waveGrad)"/>
+    <rect x="60" y="8" width="4" height="24" rx="2" fill="url(#waveGrad)"/>
+    <rect x="70" y="0" width="4" height="40" rx="2" fill="url(#waveGrad)"/>
+    <rect x="80" y="6" width="4" height="28" rx="2" fill="url(#waveGrad)"/>
+    <rect x="90" y="12" width="4" height="16" rx="2" fill="url(#waveGrad)"/>
+  </g>
 
   <!-- Accent line top -->
-  <rect x="440" y="180" width="320" height="3" rx="2" fill="url(#accentLine)" opacity="0.8"/>
+  <rect x="420" y="155" width="360" height="3" rx="2" fill="url(#accentLine)" opacity="0.7"/>
 
   <!-- Main title -->
-  <text x="600" y="260" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="56" font-weight="700" fill="url(#textGrad)" text-anchor="middle" letter-spacing="-1">Swaram</text>
+  <text x="600" y="230" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="62" font-weight="700" fill="url(#textGrad)" text-anchor="middle" letter-spacing="-1">Swaram</text>
 
-  <!-- Tagline -->
-  <text x="600" y="320" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="300" fill="#9B8FC2" text-anchor="middle" letter-spacing="1">Free Christian Song Chords for Keyboard &amp; Guitar</text>
+  <!-- Primary tagline -->
+  <text x="600" y="285" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="26" font-weight="400" fill="#E2D9F3" text-anchor="middle" letter-spacing="0.5">Free AI Chord Finder for Any Song</text>
 
   <!-- Accent line bottom -->
-  <rect x="440" y="345" width="320" height="3" rx="2" fill="url(#accentLine)" opacity="0.8"/>
+  <rect x="420" y="308" width="360" height="3" rx="2" fill="url(#accentLine)" opacity="0.7"/>
 
-  <!-- Description -->
-  <text x="600" y="400" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="18" fill="#6B5F8A" text-anchor="middle">Syro Malabar Holy Mass Songs  &#8226;  Marian Hymns  &#8226;  Praise &amp; Worship</text>
+  <!-- Subtitle -->
+  <text x="600" y="360" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="17" fill="#8B80AA" text-anchor="middle" letter-spacing="0.5">Upload audio &#8226; AI detects chords, key &amp; timing &#8226; Play along instantly</text>
 
-  <!-- Chord preview boxes -->
-  <g transform="translate(310, 435)">
-    <rect x="0" y="0" width="70" height="42" rx="8" fill="#6C3CE1" opacity="0.15" stroke="#8B5CF6" stroke-width="1" stroke-opacity="0.3"/>
-    <text x="35" y="28" font-family="Courier New, monospace" font-size="18" font-weight="600" fill="#8B5CF6" text-anchor="middle">C</text>
+  <!-- Chord detection preview mockup -->
+  <g transform="translate(195, 400)">
+    <!-- Upload icon box -->
+    <rect x="0" y="0" width="100" height="60" rx="10" fill="#1A1425" stroke="#6C3CE1" stroke-width="1.5" stroke-opacity="0.4"/>
+    <text x="50" y="30" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="22" fill="#6C3CE1" text-anchor="middle" opacity="0.7">&#9654;</text>
+    <text x="50" y="50" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="9" fill="#6B5F8A" text-anchor="middle">audio.mp3</text>
+
+    <!-- Arrow -->
+    <text x="130" y="35" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="22" fill="#6C3CE1" opacity="0.5">&#8594;</text>
+
+    <!-- Detected chord boxes -->
+    <rect x="165" y="0" width="70" height="60" rx="10" fill="#6C3CE1" opacity="0.15" stroke="#8B5CF6" stroke-width="1.5" stroke-opacity="0.4"/>
+    <text x="200" y="28" font-family="Courier New, monospace" font-size="20" font-weight="700" fill="#8B5CF6" text-anchor="middle">C</text>
+    <text x="200" y="48" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="9" fill="#6B5F8A" text-anchor="middle">0:00</text>
+
+    <rect x="250" y="0" width="70" height="60" rx="10" fill="#6C3CE1" opacity="0.15" stroke="#8B5CF6" stroke-width="1.5" stroke-opacity="0.4"/>
+    <text x="285" y="28" font-family="Courier New, monospace" font-size="20" font-weight="700" fill="#8B5CF6" text-anchor="middle">Am</text>
+    <text x="285" y="48" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="9" fill="#6B5F8A" text-anchor="middle">0:04</text>
+
+    <rect x="335" y="0" width="70" height="60" rx="10" fill="#6C3CE1" opacity="0.15" stroke="#8B5CF6" stroke-width="1.5" stroke-opacity="0.4"/>
+    <text x="370" y="28" font-family="Courier New, monospace" font-size="20" font-weight="700" fill="#EC4899" text-anchor="middle">F</text>
+    <text x="370" y="48" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="9" fill="#6B5F8A" text-anchor="middle">0:08</text>
+
+    <rect x="420" y="0" width="70" height="60" rx="10" fill="#6C3CE1" opacity="0.15" stroke="#8B5CF6" stroke-width="1.5" stroke-opacity="0.4"/>
+    <text x="455" y="28" font-family="Courier New, monospace" font-size="20" font-weight="700" fill="#8B5CF6" text-anchor="middle">G7</text>
+    <text x="455" y="48" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="9" fill="#6B5F8A" text-anchor="middle">0:12</text>
+
+    <rect x="505" y="0" width="70" height="60" rx="10" fill="#6C3CE1" opacity="0.15" stroke="#8B5CF6" stroke-width="1.5" stroke-opacity="0.4"/>
+    <text x="540" y="28" font-family="Courier New, monospace" font-size="20" font-weight="700" fill="#8B5CF6" text-anchor="middle">Em</text>
+    <text x="540" y="48" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="9" fill="#6B5F8A" text-anchor="middle">0:16</text>
+
+    <rect x="590" y="0" width="70" height="60" rx="10" fill="#6C3CE1" opacity="0.15" stroke="#EC4899" stroke-width="1.5" stroke-opacity="0.4"/>
+    <text x="625" y="28" font-family="Courier New, monospace" font-size="20" font-weight="700" fill="#EC4899" text-anchor="middle">Dm</text>
+    <text x="625" y="48" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="9" fill="#6B5F8A" text-anchor="middle">0:20</text>
   </g>
-  <g transform="translate(400, 435)">
-    <rect x="0" y="0" width="70" height="42" rx="8" fill="#6C3CE1" opacity="0.15" stroke="#8B5CF6" stroke-width="1" stroke-opacity="0.3"/>
-    <text x="35" y="28" font-family="Courier New, monospace" font-size="18" font-weight="600" fill="#8B5CF6" text-anchor="middle">Am</text>
-  </g>
-  <g transform="translate(490, 435)">
-    <rect x="0" y="0" width="70" height="42" rx="8" fill="#6C3CE1" opacity="0.15" stroke="#8B5CF6" stroke-width="1" stroke-opacity="0.3"/>
-    <text x="35" y="28" font-family="Courier New, monospace" font-size="18" font-weight="600" fill="#8B5CF6" text-anchor="middle">Em</text>
-  </g>
-  <g transform="translate(580, 435)">
-    <rect x="0" y="0" width="70" height="42" rx="8" fill="#6C3CE1" opacity="0.15" stroke="#8B5CF6" stroke-width="1" stroke-opacity="0.3"/>
-    <text x="35" y="28" font-family="Courier New, monospace" font-size="18" font-weight="600" fill="#8B5CF6" text-anchor="middle">G7</text>
-  </g>
-  <g transform="translate(670, 435)">
-    <rect x="0" y="0" width="70" height="42" rx="8" fill="#6C3CE1" opacity="0.15" stroke="#8B5CF6" stroke-width="1" stroke-opacity="0.3"/>
-    <text x="35" y="28" font-family="Courier New, monospace" font-size="18" font-weight="600" fill="#8B5CF6" text-anchor="middle">F</text>
-  </g>
-  <g transform="translate(760, 435)">
-    <rect x="0" y="0" width="70" height="42" rx="8" fill="#6C3CE1" opacity="0.15" stroke="#8B5CF6" stroke-width="1" stroke-opacity="0.3"/>
-    <text x="35" y="28" font-family="Courier New, monospace" font-size="18" font-weight="600" fill="#8B5CF6" text-anchor="middle">Dm</text>
-  </g>
+
+  <!-- Key badge -->
+  <rect x="525" y="490" width="150" height="30" rx="15" fill="url(#btnGrad)" opacity="0.3"/>
+  <text x="600" y="511" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#E2D9F3" text-anchor="middle" letter-spacing="1">KEY: C Major</text>
 
   <!-- Website URL -->
-  <text x="600" y="555" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="16" fill="#6B5F8A" text-anchor="middle" letter-spacing="2">ecoliving-tips.github.io</text>
+  <text x="600" y="575" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="16" fill="#6B5F8A" text-anchor="middle" letter-spacing="2">ecoliving-tips.github.io</text>
 
   <!-- Border glow -->
   <rect x="4" y="4" width="1192" height="622" rx="12" fill="none" stroke="url(#accentLine)" stroke-width="1" stroke-opacity="0.2"/>
