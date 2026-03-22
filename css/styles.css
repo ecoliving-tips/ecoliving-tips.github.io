@@ -39,6 +39,7 @@
 html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
 }
 
 body {
@@ -927,6 +928,12 @@ header {
     margin: 0 auto;
 }
 
+@media (max-width: 768px) {
+    .how-it-works-section .features-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* ===== Malayalam Section ===== */
 .malayalam-section {
     padding: 50px 0;
@@ -1769,6 +1776,14 @@ footer {
         padding: 40px 0;
     }
 
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .faq-grid {
+        grid-template-columns: 1fr;
+    }
+
     .chord-content {
         padding: 24px 18px;
     }
@@ -1850,14 +1865,6 @@ footer {
     }
 
     .songs-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .features-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .faq-grid {
         grid-template-columns: 1fr;
     }
 
