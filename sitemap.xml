@@ -82,6 +82,16 @@
   </url>
 
   <url>
+    <loc>https://ecoliving-tips.github.io/songs/kurishil-marichavane/</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/songs/kurishil-marichavane/" />
+    <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/songs/kurishil-marichavane/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/songs/kurishil-marichavane/" />
+  </url>
+
+  <url>
     <loc>https://ecoliving-tips.github.io/lyrics/anna-pesaha/</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>monthly</changefreq>
@@ -122,6 +132,16 @@
   </url>
 
   <url>
+    <loc>https://ecoliving-tips.github.io/lyrics/kurishil-marichavane/</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/lyrics/kurishil-marichavane/" />
+    <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/lyrics/kurishil-marichavane/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/lyrics/kurishil-marichavane/" />
+  </url>
+
+  <url>
     <loc>https://ecoliving-tips.github.io/category/holy-mass/</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
@@ -139,6 +159,16 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/category/holy-communion/" />
     <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/category/holy-communion/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/category/holy-communion/" />
+  </url>
+
+  <url>
+    <loc>https://ecoliving-tips.github.io/category/holy-week/</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/category/holy-week/" />
+    <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/category/holy-week/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/category/holy-week/" />
   </url>
 
   <url>
@@ -169,6 +199,16 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/artist/kester/" />
     <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/artist/kester/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/artist/kester/" />
+  </url>
+
+  <url>
+    <loc>https://ecoliving-tips.github.io/artist/way-of-the-cross/</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/artist/way-of-the-cross/" />
+    <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/artist/way-of-the-cross/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/artist/way-of-the-cross/" />
   </url>
 
 </urlset>

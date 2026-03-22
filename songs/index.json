@@ -46,5 +46,17 @@
     "category_ml": "ദിവ്യകാരുണ്യ സ്വീകരണം",
     "key": "Fm",
     "time": "7/8"
+  },
+  {
+    "id": "kurishil-marichavane",
+    "title": "Kurishil Marichavane",
+    "title_ml": "കുരിശിൽ മരിച്ചവനെ",
+    "file": "kurishil-marichavane.md",
+    "artist": "Way of the Cross",
+    "artist_ml": "കുരിശിന്റെ വഴി",
+    "category": "Holy Week",
+    "category_ml": "വിശുദ്ധ വാരം",
+    "key": "B",
+    "time": "3/4"
   }
 ]
