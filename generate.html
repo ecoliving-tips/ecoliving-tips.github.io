@@ -7,7 +7,7 @@
     <meta name="description"
         content="Find chords for any song instantly. Free AI-powered chord recognition for worship music.">
     <meta name="keywords"
-        content="chord generator, AI chord recognition, song chords from YouTube, automatic chord detection, Malayalam Christian song chords">
+        content="chord finder, AI chord recognition, automatic chord detection, song chord transcription, Malayalam Christian song chords">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://ecoliving-tips.github.io/generate.html">
@@ -52,9 +52,6 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7438590583270235"
         crossorigin="anonymous"></script>
     <meta name="google-adsense-account" content="ca-pub-7438590583270235">
-
-    <!-- Supabase client (for caching) -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <!-- Schema.org structured data -->
     <script type="application/ld+json">
@@ -122,19 +119,9 @@
         <section class="generate-input-section">
             <div class="container">
                 <div class="generate-form">
-                    <!-- YouTube URL input -->
+                    <!-- File upload -->
                     <div class="form-group">
-                        <label for="youtube-url" data-i18n="gen_url_label">Paste a YouTube link</label>
-                        <div class="url-input-wrapper">
-                            <input type="url" id="youtube-url" name="youtube_url"
-                                placeholder="Paste YouTube link here..."
-                                data-i18n-placeholder="gen_url_placeholder">
-                        </div>
-                    </div>
-
-                    <!-- File upload (always visible as alternative) -->
-                    <div class="form-group">
-                        <label data-i18n="gen_upload_label">Or drop an audio file</label>
+                        <label data-i18n="gen_upload_label">Drop an audio file</label>
                         <div class="upload-area" id="upload-area">
                             <div class="upload-icon">
                                 <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -165,14 +152,6 @@
             <div class="container">
                 <div class="progress-card">
                     <div class="progress-steps">
-                        <div class="progress-step" id="step-cache">
-                            <div class="step-indicator"></div>
-                            <span data-i18n="gen_step_cache">Checking if we know this one...</span>
-                        </div>
-                        <div class="progress-step" id="step-extract">
-                            <div class="step-indicator"></div>
-                            <span data-i18n="gen_step_extract">Grabbing the audio...</span>
-                        </div>
                         <div class="progress-step" id="step-analyze">
                             <div class="step-indicator"></div>
                             <span data-i18n="gen_step_analyze">Our AI is transcribing the chords for you...</span>
@@ -204,12 +183,7 @@
         <!-- Results Section -->
         <section class="generate-results" id="results-section" style="display:none;">
             <div class="container">
-                <!-- YouTube embed -->
-                <div id="youtube-player-container" class="video-container" style="display:none;">
-                    <div id="youtube-player"></div>
-                </div>
-
-                <!-- Audio player (for file uploads without YouTube URL) -->
+                <!-- Audio player -->
                 <div id="audio-player-container" class="audio-player-container" style="display:none;">
                     <audio id="audio-player" preload="auto"></audio>
                     <div class="audio-controls">
