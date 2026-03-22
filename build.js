@@ -716,7 +716,7 @@ function generateHomepageFeaturedSongs(songs) {
     const indexHtmlPath = path.join(ROOT, 'index.html');
     let html = fs.readFileSync(indexHtmlPath, 'utf-8');
 
-    const featured = songs.slice(0, 4);
+    const featured = songs.slice(0, 3);
     const songCards = featured.map(renderSongCard).join('\n');
 
     html = html.replace(
@@ -809,7 +809,7 @@ function main() {
 
     // Pre-render homepage featured songs
     generateHomepageFeaturedSongs(songs);
-    console.log(`Pre-rendered index.html with ${Math.min(songs.length, 4)} featured song cards.`);
+    console.log(`Pre-rendered index.html with ${Math.min(songs.length, 3)} featured song cards.`);
 
     // Summary
     console.log('\n--- Build Summary ---');
