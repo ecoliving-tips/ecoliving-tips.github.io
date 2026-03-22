@@ -100,7 +100,10 @@
     "request_error_title": "Something Went Wrong",
     "request_error_msg": "We couldn't submit your request. Please check your connection and try again.",
     "no_results_search": "No songs found.",
-    "request_this_search": "Request this song"
+    "request_this_search": "Request this song",
+    "qr_modal_title": "Scan to Donate via UPI",
+    "qr_modal_hint": "Open any UPI app on your phone and scan this QR code",
+    "copy_upi_id": "Copy"
   },
   "ml": {
     "site_title": "സ്വരം",
@@ -203,6 +206,9 @@
     "request_error_title": "എന്തോ പിശക് സംഭവിച്ചു",
     "request_error_msg": "നിങ്ങളുടെ അഭ്യര്‍ഥന സമര്‍പ്പിക്കാന്‍ കഴിഞ്ഞില്ല. കണക്ഷന്‍ പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക.",
     "no_results_search": "ഗാനങ്ങള്‍ കണ്ടെത്തിയില്ല.",
-    "request_this_search": "ഈ ഗാനം അഭ്യര്‍ഥിക്കുക"
+    "request_this_search": "ഈ ഗാനം അഭ്യര്‍ഥിക്കുക",
+    "qr_modal_title": "UPI വഴി സംഭാവന നല്‍കാന്‍ സ്കാന്‍ ചെയ്യുക",
+    "qr_modal_hint": "നിങ്ങളുടെ ഫോണില്‍ ഏതെങ്കിലും UPI ആപ്പ് തുറന്ന് ഈ QR കോഡ് സ്കാന്‍ ചെയ്യുക",
+    "copy_upi_id": "കോപ്പി"
   }
 }
