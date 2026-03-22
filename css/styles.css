@@ -1717,7 +1717,7 @@ footer {
 @media print {
     header, footer, .donate-section, .song-toolbar,
     .song-navigation, .video-container, .back-link,
-    .lyrics-cta, .lang-toggle, .print-btn,
+    .lyrics-cta, .lang-toggle,
     .song-nav-links, .offline-banner, .lyrics-link-header,
     body::before { display: none !important; }
 
@@ -1811,6 +1811,12 @@ footer {
     @page {
         margin: 1.5cm;
         size: A4;
+
+        @bottom-center {
+            content: "ecoliving-tips.github.io — More chords, transpose & auto-scroll online";
+            font-size: 8pt;
+            color: #999;
+        }
     }
 }
 
@@ -2205,9 +2211,5 @@ footer {
 
 /* ===== Print Button ===== */
 
-.print-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-}
+
 

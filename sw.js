@@ -17,21 +17,7 @@ const STATIC_ASSETS = [
     '/songs/index.json',
     '/assets/favicon.svg',
     '/assets/favicon.png',
-    '/manifest.json',
-    // Generated pages (auto-updated by build.js)
-    '/songs/anna-pesaha/',
-    '/lyrics/anna-pesaha/',
-    '/songs/krooshakum-meshayil/',
-    '/lyrics/krooshakum-meshayil/',
-    '/songs/va-va-eeshoye/',
-    '/lyrics/va-va-eeshoye/',
-    '/songs/uruki-uruki-theernnidam/',
-    '/lyrics/uruki-uruki-theernnidam/',
-    '/category/holy-mass/',
-    '/category/holy-communion/',
-    '/artist/traditional-syro-malabar/',
-    '/artist/fr-binoj-mulavarickal/',
-    '/artist/kester/'
+    '/manifest.json'
 ];
 
 // Install: cache static assets
@@ -77,16 +63,12 @@ self.addEventListener('fetch', event => {
         return;
     }
 
-    // HTML pages: network-first, cache visited pages
+    // HTML pages: network-only (ensures ads load), fallback to browse page offline
     if (event.request.mode === 'navigate' || event.request.headers.get('accept').includes('text/html')) {
         event.respondWith(
-            fetch(event.request).then(response => {
-                const clone = response.clone();
-                caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
-                return response;
-            }).catch(() => {
+            fetch(event.request).catch(() => {
                 return caches.match(event.request).then(cached => {
-                    return cached || caches.match('/index.html');
+                    return cached || caches.match('/songs.html');
                 });
             })
         );

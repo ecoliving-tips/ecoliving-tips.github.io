@@ -167,7 +167,6 @@ async function renderSetlistPage() {
         html += `
             <div class="setlist-actions">
                 <button class="btn btn-secondary" onclick="shareSetlist()" data-i18n="share_setlist">Share Setlist</button>
-                <button class="btn btn-secondary" onclick="window.print()" data-i18n="print_setlist">Print Setlist</button>
                 <button class="btn btn-secondary" onclick="clearSetlist()" data-i18n="clear_setlist">Clear All</button>
             </div>
         `;

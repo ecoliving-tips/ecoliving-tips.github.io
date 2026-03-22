@@ -666,36 +666,9 @@ function generateSitemap(songs, categories, artists) {
 }
 
 // ===== Service Worker Precache Updater =====
-
-function updateServiceWorkerPrecache(songs, allCategories, allArtists) {
-    const swPath = path.join(ROOT, 'sw.js');
-    let sw = fs.readFileSync(swPath, 'utf-8');
-
-    // Build dynamic page URLs
-    const dynamicPages = [];
-    for (const song of songs) {
-        dynamicPages.push(`'/songs/${song.id}/'`);
-        dynamicPages.push(`'/lyrics/${song.id}/'`);
-    }
-    for (const cat of allCategories) {
-        dynamicPages.push(`'/category/${slugify(cat)}/'`);
-    }
-    for (const artist of allArtists) {
-        dynamicPages.push(`'/artist/${slugify(artist)}/'`);
-    }
-
-    // Remove any previously injected generated pages block
-    sw = sw.replace(/,\r?\n    \/\/ Generated pages \(auto-updated by build\.js\)[\s\S]*?\n\];/, '\n];');
-
-    // Find the closing of STATIC_ASSETS array and inject dynamic pages
-    const marker = "    '/manifest.json'";
-    const dynamicBlock = ',\n    // Generated pages (auto-updated by build.js)\n    ' +
-        dynamicPages.join(',\n    ');
-    sw = sw.replace(marker + '\r\n];', marker + dynamicBlock + '\r\n];');
-    sw = sw.replace(marker + '\n];', marker + dynamicBlock + '\n];');
-
-    fs.writeFileSync(swPath, sw);
-}
+// NOTE: Song/lyrics/category/artist pages are intentionally NOT precached
+// in sw.js to ensure every page visit requires a network request (for ad impressions).
+// Only app shell assets (CSS, JS, homepage) are cached by the service worker.
 
 // ===== Songs Page Pre-renderer =====
 
@@ -837,10 +810,6 @@ function main() {
     // Pre-render homepage featured songs
     generateHomepageFeaturedSongs(songs);
     console.log(`Pre-rendered index.html with ${Math.min(songs.length, 4)} featured song cards.`);
-
-    // Update sw.js precache with generated pages
-    updateServiceWorkerPrecache(songs, allCategories, allArtists);
-    console.log('Updated sw.js precache list with generated pages.');
 
     // Summary
     console.log('\n--- Build Summary ---');
