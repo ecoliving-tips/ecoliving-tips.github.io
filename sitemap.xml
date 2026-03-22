@@ -92,6 +92,16 @@
   </url>
 
   <url>
+    <loc>https://ecoliving-tips.github.io/songs/kalvari-kunninmel/</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/songs/kalvari-kunninmel/" />
+    <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/songs/kalvari-kunninmel/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/songs/kalvari-kunninmel/" />
+  </url>
+
+  <url>
     <loc>https://ecoliving-tips.github.io/lyrics/anna-pesaha/</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>monthly</changefreq>
@@ -139,6 +149,16 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/lyrics/kurishil-marichavane/" />
     <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/lyrics/kurishil-marichavane/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/lyrics/kurishil-marichavane/" />
+  </url>
+
+  <url>
+    <loc>https://ecoliving-tips.github.io/lyrics/kalvari-kunninmel/</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/lyrics/kalvari-kunninmel/" />
+    <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/lyrics/kalvari-kunninmel/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/lyrics/kalvari-kunninmel/" />
   </url>
 
   <url>
@@ -209,6 +229,16 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/artist/way-of-the-cross/" />
     <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/artist/way-of-the-cross/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/artist/way-of-the-cross/" />
+  </url>
+
+  <url>
+    <loc>https://ecoliving-tips.github.io/artist/fr-vipin-kurishuthara-cmi/</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/artist/fr-vipin-kurishuthara-cmi/" />
+    <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/artist/fr-vipin-kurishuthara-cmi/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/artist/fr-vipin-kurishuthara-cmi/" />
   </url>
 
 </urlset>
