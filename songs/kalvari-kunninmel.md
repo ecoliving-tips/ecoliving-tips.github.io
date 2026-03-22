@@ -14,7 +14,7 @@ time: 7/8
 {Verse 1}
 [Am]Kalvari Kunninmel
 [Dm]En Perkkayi [G]Chinthi Nee
-[Em]Kunjade [Dm]Ninnil [G]Njan
+[Em]Kunjade [Dm]Ninnil Njan
 [G]Kannunnen[Am]tappaye
 
 {Chorus}
