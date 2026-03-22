@@ -968,6 +968,7 @@ header {
     gap: 24px;
     max-width: 900px;
     margin: 0 auto;
+    min-width: 0;
 }
 
 .faq-item {
@@ -976,6 +977,9 @@ header {
     border-radius: var(--radius);
     padding: 28px;
     transition: var(--transition);
+    overflow-wrap: break-word;
+    word-break: break-word;
+    min-width: 0;
 }
 
 .faq-item:hover {
@@ -1782,6 +1786,10 @@ footer {
 
     .faq-grid {
         grid-template-columns: 1fr;
+    }
+
+    .faq-item {
+        padding: 20px;
     }
 
     .chord-content {
