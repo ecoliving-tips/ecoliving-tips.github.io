@@ -179,7 +179,7 @@
     <script src="js/i18n.js" defer></script>
     <script>
         function isMobileDevice() {
-            return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+            return navigator.maxTouchPoints > 0 && window.matchMedia('(pointer: coarse)').matches;
         }
 
         function openUPI() {

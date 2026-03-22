@@ -525,7 +525,7 @@ function extractYouTubeId(url) {
 }
 
 function isMobileDevice() {
-    return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+    return navigator.maxTouchPoints > 0 && window.matchMedia('(pointer: coarse)').matches;
 }
 
 function openUPI() {

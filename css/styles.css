@@ -218,26 +218,46 @@ header {
 .mobile-nav ul {
     display: flex;
     list-style: none;
-    gap: 0;
-    align-items: stretch;
+    gap: 8px;
+    align-items: center;
 }
 
 .mobile-nav ul li a {
-    display: flex;
-    align-items: center;
-    padding: 10px 18px;
-    border-radius: 0;
+    padding: 8px 18px;
+    border-radius: 50px;
     font-size: 0.9rem;
     font-weight: 400;
     color: var(--text-muted);
     transition: var(--transition);
-    border-bottom: 2px solid transparent;
+    border: 1px solid transparent;
 }
 
 .mobile-nav ul li a:hover {
     color: var(--text);
     background: rgba(139, 92, 246, 0.1);
-    border-bottom-color: var(--primary);
+    border-color: var(--border);
+}
+
+/* Desktop nav tab style */
+@media (min-width: 769px) {
+    .mobile-nav ul {
+        gap: 0;
+        align-items: stretch;
+    }
+
+    .mobile-nav ul li a {
+        display: flex;
+        align-items: center;
+        padding: 10px 18px;
+        border-radius: 0;
+        border: none;
+        border-bottom: 2px solid transparent;
+    }
+
+    .mobile-nav ul li a:hover {
+        border-color: transparent;
+        border-bottom-color: var(--primary);
+    }
 }
 
 /* Hamburger */
