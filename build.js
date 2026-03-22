@@ -587,6 +587,7 @@ function generateSitemap(songs, categories, artists) {
     const staticPages = [
         { loc: '/', changefreq: 'weekly', priority: '1.0' },
         { loc: '/songs.html', changefreq: 'weekly', priority: '0.9' },
+        { loc: '/generate.html', changefreq: 'monthly', priority: '0.8' },
         { loc: '/request.html', changefreq: 'monthly', priority: '0.7' },
         { loc: '/privacy-policy.html', changefreq: 'yearly', priority: '0.3' },
     ];
