@@ -910,6 +910,35 @@ header {
     line-height: 1.8;
 }
 
+/* ===== How It Works Section ===== */
+.how-it-works-section {
+    padding: 50px 0;
+    text-align: center;
+}
+
+.how-it-works-section h2 {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+/* ===== Malayalam Section ===== */
+.malayalam-section {
+    padding: 50px 0;
+    text-align: center;
+}
+
+.malayalam-section h2 {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.malayalam-section .songs-cta {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
 /* ===== FAQ Section ===== */
 .faq-section {
     padding: 50px 0;
@@ -922,7 +951,7 @@ header {
 
 .faq-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 24px;
     max-width: 900px;
     margin: 0 auto;
@@ -1820,6 +1849,15 @@ footer {
 
     .features-grid {
         grid-template-columns: 1fr;
+    }
+
+    .faq-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .malayalam-section .songs-cta {
+        flex-direction: column;
+        align-items: center;
     }
 }
 
