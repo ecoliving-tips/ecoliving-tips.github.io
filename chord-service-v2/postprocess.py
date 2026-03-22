@@ -306,9 +306,7 @@ def detect_key(events: list[tuple[float, float, str]]) -> str:
             best_key = f"{PITCH_CLASSES[minor_pc]}m"
 
     # Apply enharmonic normalization for flat keys
-    use_flats = best_key in FLAT_KEYS or best_key.rstrip("m") in [
-        v for v in ENHARMONIC.values()
-    ]
+    use_flats = best_key in FLAT_KEYS or best_key.rstrip("m") in ENHARMONIC
     if use_flats:
         root = best_key.rstrip("m")
         suffix = "m" if best_key.endswith("m") else ""

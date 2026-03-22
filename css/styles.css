@@ -2270,6 +2270,7 @@ footer {
     color: var(--primary-light);
     line-height: 1;
     text-shadow: 0 0 30px var(--glow);
+    cursor: pointer;
 }
 
 /* Chord timeline */

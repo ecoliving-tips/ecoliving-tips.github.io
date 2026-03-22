@@ -348,10 +348,35 @@ function showChordDiagram(chordName, anchorEl) {
 
     // For slash chords like Cm/A, show diagram for the root chord (Cm) with bass note
     const lookupName = chordName.includes('/') ? chordName.split('/')[0] : chordName;
-    const normalizedName = lookupName.replace(/[()]/g, '');
+    // Normalize: strip parens, convert "maj7" → "M7" to match diagram dictionary
+    const normalizedName = lookupName.replace(/[()]/g, '').replace(/maj7$/, 'M7');
     const bassNote = chordName.includes('/') ? chordName.split('/')[1] : null;
     const data = CHORD_DIAGRAMS[normalizedName];
-    if (!data) return; // No diagram available
+    if (!data) {
+        // Show a brief tooltip indicating no diagram is available
+        closeChordDiagram();
+        const overlay = document.createElement('div');
+        overlay.className = 'chord-diagram-overlay';
+        overlay.onclick = closeChordDiagram;
+
+        const tooltip = document.createElement('div');
+        tooltip.className = 'chord-diagram-tooltip';
+        tooltip.id = 'chord-tooltip';
+        tooltip.innerHTML = `
+            <div class="tooltip-header">
+                <h4>${chordName}</h4>
+                <button class="tooltip-close" onclick="closeChordDiagram()">&times;</button>
+            </div>
+            <p style="padding:1.5em;color:#9B8FC2;text-align:center;">No diagram available for this chord</p>
+        `;
+        document.body.appendChild(overlay);
+        document.body.appendChild(tooltip);
+
+        const rect = anchorEl.getBoundingClientRect();
+        tooltip.style.top = (rect.bottom + 8) + 'px';
+        tooltip.style.left = Math.max(8, rect.left) + 'px';
+        return;
+    }
 
     // Build slash chord data with correct bass note in diagrams
     let guitarData = data.guitar;
@@ -442,7 +467,7 @@ document.addEventListener('click', function(e) {
     if (!chordEl) return;
 
     const chordName = chordEl.textContent.trim();
-    if (chordName) {
+    if (chordName && chordName !== '-') {
         showChordDiagram(chordName, chordEl);
     }
 });

@@ -11,6 +11,8 @@
 const API_ENDPOINT = 'https://vineethwilson-swaram-chord-service.hf.space/analyze';
 const MAX_FILE_SIZE = 30 * 1024 * 1024; // 30 MB
 const API_TIMEOUT_MS = 300_000; // 5 minutes
+const SUPABASE_URL = 'https://jfnccekkhffonkjkmxyf.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_KJA4VzMAjt2WVEEg0JKMfg_lDrABAZK';
 
 // ---------------------------------------------------------------------------
 // State
@@ -18,7 +20,10 @@ const API_TIMEOUT_MS = 300_000; // 5 minutes
 let chordData = null;        // Full response from backend
 let currentTranspose = 0;
 let selectedFile = null;     // Uploaded File object
-let syncInterval = null;     // setInterval ID for chord sync
+let syncRafId = null;        // requestAnimationFrame ID for chord sync
+let lastActiveIdx = -1;      // Last highlighted chord index (avoids redundant DOM updates)
+let cachedBlocks = null;     // Cached NodeList of .chord-block elements
+let cachedCurrentChordEl = null; // Cached #current-chord element
 let audioPlayer = null;      // HTML5 Audio element
 let audioObjectUrl = null;   // Blob URL for uploaded file
 let serverWarm = false;      // Whether the HF Space is awake
@@ -174,6 +179,9 @@ async function handleGenerate() {
         setProgressStep('done');
         showResults();
 
+        // Silent analytics — never affects user flow
+        logChordFinderUsage(selectedFile, result);
+
     } catch (err) {
         console.error('Generate failed:', err);
         hideProgress();
@@ -264,19 +272,22 @@ function renderChordTimeline() {
         const chordName = transposeChord(event.chord, currentTranspose);
 
         block.innerHTML = `
-            <span class="chord-block-name chord-name">${chordName}</span>
+            <span class="chord-block-name">${chordName}</span>
             <span class="chord-block-time">${formatTime(event.time)}</span>
         `;
 
-        // Click block to seek
-        block.addEventListener('click', (e) => {
-            // Don't seek if clicking on chord name (that opens diagram)
-            if (e.target.classList.contains('chord-name')) return;
+        // Click block to seek to this chord's position
+        block.addEventListener('click', () => {
             seekTo(event.time);
         });
 
         container.appendChild(block);
     });
+
+    // Cache DOM references for sync loop
+    cachedBlocks = container.querySelectorAll('.chord-block');
+    cachedCurrentChordEl = document.getElementById('current-chord');
+    lastActiveIdx = -1;
 }
 
 // ---------------------------------------------------------------------------
@@ -317,6 +328,20 @@ function initAudioPlayer() {
         document.getElementById('play-icon').style.display = '';
         document.getElementById('pause-icon').style.display = 'none';
     };
+
+    audioPlayer.onended = () => {
+        stopSync();
+        lastActiveIdx = -1;
+        document.getElementById('play-icon').style.display = '';
+        document.getElementById('pause-icon').style.display = 'none';
+        if (cachedCurrentChordEl) cachedCurrentChordEl.textContent = '-';
+        // Clear active/past highlights
+        if (cachedBlocks) {
+            for (let i = 0; i < cachedBlocks.length; i++) {
+                cachedBlocks[i].classList.remove('active', 'past');
+            }
+        }
+    };
 }
 
 function toggleAudioPlayback() {
@@ -328,6 +353,8 @@ function toggleAudioPlayback() {
 function handleAudioSeek(e) {
     if (!audioPlayer?.duration) return;
     audioPlayer.currentTime = (e.target.value / 100) * audioPlayer.duration;
+    lastActiveIdx = -1; // Force sync update
+    updateChordSync();  // Immediate visual feedback
 }
 
 // ---------------------------------------------------------------------------
@@ -335,63 +362,81 @@ function handleAudioSeek(e) {
 // ---------------------------------------------------------------------------
 function startSync() {
     stopSync();
-    syncInterval = setInterval(updateChordSync, 100);
+    lastActiveIdx = -1;
+    function tick() {
+        updateChordSync();
+        syncRafId = requestAnimationFrame(tick);
+    }
+    syncRafId = requestAnimationFrame(tick);
 }
 
 function stopSync() {
-    if (syncInterval) {
-        clearInterval(syncInterval);
-        syncInterval = null;
+    if (syncRafId) {
+        cancelAnimationFrame(syncRafId);
+        syncRafId = null;
     }
 }
 
+/**
+ * Binary search: find the last chord whose start time <= given time.
+ */
+function findActiveChordIndex(time) {
+    const chords = chordData.chords;
+    let lo = 0, hi = chords.length - 1, result = -1;
+    while (lo <= hi) {
+        const mid = (lo + hi) >> 1;
+        if (chords[mid].time <= time) {
+            result = mid;
+            lo = mid + 1;
+        } else {
+            hi = mid - 1;
+        }
+    }
+    // Check if time falls within the found chord's duration
+    if (result >= 0) {
+        const c = chords[result];
+        if (time < c.time + c.duration) return result;
+        // In a gap — keep showing last played chord
+        return result;
+    }
+    return -1;
+}
+
 function updateChordSync() {
-    if (!audioPlayer || !chordData?.chords) return;
+    if (!audioPlayer || !chordData?.chords?.length) return;
     const time = audioPlayer.currentTime;
 
-    // Find active chord (exact match within time+duration)
-    let activeIdx = -1;
-    for (let i = 0; i < chordData.chords.length; i++) {
-        const c = chordData.chords[i];
-        if (time >= c.time && time < c.time + c.duration) {
-            activeIdx = i;
-            break;
-        }
-    }
+    const activeIdx = findActiveChordIndex(time);
 
-    // If in a gap between chords, keep showing the last played chord
-    if (activeIdx < 0) {
-        for (let i = chordData.chords.length - 1; i >= 0; i--) {
-            if (time >= chordData.chords[i].time) {
-                activeIdx = i;
-                break;
-            }
-        }
-    }
+    // Skip DOM updates if nothing changed
+    if (activeIdx === lastActiveIdx) return;
+    lastActiveIdx = activeIdx;
 
     // Update current chord display
-    const currentChordEl = document.getElementById('current-chord');
-    if (currentChordEl && activeIdx >= 0) {
+    if (cachedCurrentChordEl && activeIdx >= 0) {
         const chord = transposeChord(chordData.chords[activeIdx].chord, currentTranspose);
-        currentChordEl.textContent = chord;
+        cachedCurrentChordEl.textContent = chord;
     }
 
     // Highlight active block in timeline
-    const blocks = document.querySelectorAll('.chord-block');
-    blocks.forEach((block, idx) => {
-        block.classList.toggle('active', idx === activeIdx);
-        block.classList.toggle('past', idx < activeIdx);
-    });
+    if (cachedBlocks) {
+        for (let i = 0; i < cachedBlocks.length; i++) {
+            cachedBlocks[i].classList.toggle('active', i === activeIdx);
+            cachedBlocks[i].classList.toggle('past', i < activeIdx);
+        }
+    }
 
     // Auto-scroll active block into view
-    if (activeIdx >= 0 && blocks[activeIdx]) {
-        blocks[activeIdx].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    if (activeIdx >= 0 && cachedBlocks?.[activeIdx]) {
+        cachedBlocks[activeIdx].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     }
 }
 
 function seekTo(time) {
     if (!audioPlayer) return;
     audioPlayer.currentTime = time;
+    lastActiveIdx = -1; // Force sync update
+    updateChordSync();  // Immediate visual feedback
     if (audioPlayer.paused) audioPlayer.play();
 }
 
@@ -514,4 +559,24 @@ function resetGenerator() {
     clearSelectedFile();
     document.getElementById('current-chord').textContent = '-';
     stopSync();
+    cachedBlocks = null;
+    cachedCurrentChordEl = null;
+    lastActiveIdx = -1;
+}
+
+// ---------------------------------------------------------------------------
+// Analytics — silent fire-and-forget logging to Supabase
+// ---------------------------------------------------------------------------
+function logChordFinderUsage(file, result) {
+    try {
+        if (!window.supabase) return;
+        const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        sb.from('chord_finder_logs').insert([{
+            file_name: file.name,
+            file_size_kb: Math.round(file.size / 1024),
+            detected_key: result.key || null,
+            chord_count: result.chords?.length || 0,
+            processing_time_ms: result.processing_time_ms || null,
+        }]).then(() => {}).catch(() => {});
+    } catch { /* never disrupt user flow */ }
 }
