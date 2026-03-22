@@ -921,6 +921,12 @@ header {
     margin-bottom: 48px;
 }
 
+.how-it-works-section .features-grid {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 900px;
+    margin: 0 auto;
+}
+
 /* ===== Malayalam Section ===== */
 .malayalam-section {
     padding: 50px 0;
