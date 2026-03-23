@@ -69,3 +69,65 @@ document.addEventListener('DOMContentLoaded', function() {
         window.addEventListener('offline', () => { offlineBanner.style.display = 'block'; });
     }
 });
+
+// ---------------------------------------------------------------------------
+// UPI Donate — used on all pages via nav + donate section
+// ---------------------------------------------------------------------------
+const UPI_ID = '7306025928@upi';
+
+function isMobileDevice() {
+    return navigator.maxTouchPoints > 0 && window.matchMedia('(pointer: coarse)').matches;
+}
+
+function openUPI() {
+    if (isMobileDevice()) {
+        window.open(`upi://pay?pa=${UPI_ID}&pn=Swaram`, '_blank');
+    } else {
+        showQRModal();
+    }
+}
+
+function closeUPI() {
+    const modal = document.getElementById('upi-modal');
+    if (modal) modal.style.display = 'none';
+    const qrModal = document.getElementById('qr-modal');
+    if (qrModal) qrModal.style.display = 'none';
+}
+
+function showQRModal() {
+    // Use pre-built modal if present (chord-finder, index, etc.)
+    const existing = document.getElementById('upi-modal');
+    if (existing) {
+        existing.style.display = 'flex';
+        return;
+    }
+    // Otherwise check for dynamically created modal
+    if (document.getElementById('qr-modal')) {
+        document.getElementById('qr-modal').style.display = 'flex';
+        return;
+    }
+    // Create modal dynamically
+    const modal = document.createElement('div');
+    modal.id = 'qr-modal';
+    modal.className = 'qr-modal-overlay';
+    modal.innerHTML = `
+        <div class="qr-modal-content">
+            <button class="qr-modal-close" aria-label="Close">&times;</button>
+            <h3 data-i18n="qr_modal_title">Scan to Donate via UPI</h3>
+            <img src="/assets/donate-qr.png" alt="UPI QR Code for donation" class="qr-modal-img">
+            <p class="qr-modal-upi-id">UPI ID: <strong>${UPI_ID}</strong>
+                <button class="qr-modal-copy" onclick="copyUPIId()" data-i18n="copy_upi_id">Copy</button>
+            </p>
+            <p class="qr-modal-hint" data-i18n="qr_modal_hint">Open any UPI app on your phone and scan this QR code</p>
+        </div>`;
+    document.body.appendChild(modal);
+    modal.querySelector('.qr-modal-close').addEventListener('click', () => modal.style.display = 'none');
+    modal.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+}
+
+function copyUPIId() {
+    navigator.clipboard.writeText(UPI_ID).then(() => {
+        const btn = document.querySelector('.qr-modal-copy');
+        if (btn) { btn.textContent = '✓'; setTimeout(() => btn.textContent = 'Copy', 1500); }
+    });
+}

@@ -1,5 +1,4 @@
 // Swaram - Song Chords Website
-const UPI_ID = '7306025928@upi';
 const NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 const FLAT_MAP = { 'Db': 'C#', 'Eb': 'D#', 'Fb': 'E', 'Gb': 'F#', 'Ab': 'G#', 'Bb': 'A#', 'Cb': 'B' };
 
@@ -522,49 +521,6 @@ function setScrollSpeed(speed, el) {
 function extractYouTubeId(url) {
     const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/);
     return match ? match[1] : null;
-}
-
-function isMobileDevice() {
-    return navigator.maxTouchPoints > 0 && window.matchMedia('(pointer: coarse)').matches;
-}
-
-function openUPI() {
-    if (isMobileDevice()) {
-        window.open(`upi://pay?pa=${UPI_ID}&pn=Swaram`, '_blank');
-    } else {
-        showQRModal();
-    }
-}
-
-function showQRModal() {
-    if (document.getElementById('qr-modal')) {
-        document.getElementById('qr-modal').style.display = 'flex';
-        return;
-    }
-    const modal = document.createElement('div');
-    modal.id = 'qr-modal';
-    modal.className = 'qr-modal-overlay';
-    modal.innerHTML = `
-        <div class="qr-modal-content">
-            <button class="qr-modal-close" aria-label="Close">&times;</button>
-            <h3 data-i18n="qr_modal_title">Scan to Donate via UPI</h3>
-            <img src="/assets/donate-qr.png" alt="UPI QR Code for donation" class="qr-modal-img">
-            <p class="qr-modal-upi-id">UPI ID: <strong>${UPI_ID}</strong>
-                <button class="qr-modal-copy" onclick="copyUPIId()" data-i18n="copy_upi_id">Copy</button>
-            </p>
-            <p class="qr-modal-hint" data-i18n="qr_modal_hint">Open any UPI app on your phone and scan this QR code</p>
-        </div>`;
-    document.body.appendChild(modal);
-    modal.querySelector('.qr-modal-close').addEventListener('click', () => modal.style.display = 'none');
-    modal.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
-    if (typeof applyTranslations === 'function') applyTranslations();
-}
-
-function copyUPIId() {
-    navigator.clipboard.writeText(UPI_ID).then(() => {
-        const btn = document.querySelector('.qr-modal-copy');
-        if (btn) { btn.textContent = '✓'; setTimeout(() => btn.textContent = btn.getAttribute('data-i18n-original') || 'Copy', 1500); }
-    });
 }
 
 function slugify(text) {
