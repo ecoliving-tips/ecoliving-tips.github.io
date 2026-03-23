@@ -22,7 +22,6 @@ Zero npm dependencies — the build system uses only Node.js built-ins.
 ├── chord-finder.html     # AI Chord Finder page (primary product)
 ├── generate.html         # Redirect → chord-finder.html (preserves old URLs)
 ├── songs.html            # Song browse page (partially pre-rendered by build)
-├── setlist.html          # User setlist (localStorage, noindex)
 ├── request.html          # Song request form (Supabase backend)
 ├── privacy-policy.html   # Privacy policy
 ├── 404.html              # Custom 404 page (GitHub Pages auto-serves)
@@ -35,8 +34,7 @@ Zero npm dependencies — the build system uses only Node.js built-ins.
 │   ├── chord-finder.js   # Chord Finder UI (upload, API call, results display)
 │   ├── songs.js          # Song loading, search, transpose, auto-scroll
 │   ├── chord-diagrams.js # 221 chords auto-generated, guitar+keyboard SVG
-│   ├── i18n.js           # Language toggle (en/ml), localStorage
-│   └── setlist.js        # Setlist CRUD, drag-and-drop, share URL
+│   └── i18n.js           # Language toggle (en/ml), localStorage
 ├── songs/
 │   ├── index.json        # Song catalog (array of metadata objects)
 │   └── *.md              # Song source files (frontmatter + chord notation)
