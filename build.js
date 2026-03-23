@@ -301,7 +301,7 @@ function fillHead(template, partials, headVars) {
 }
 
 function mlExtraHead(canonicalUrl) {
-    return `<link rel="alternate" hreflang="ml" href="${canonicalUrl}">\n    <meta property="og:locale:alternate" content="ml_IN">`;
+    return `<meta property="og:locale:alternate" content="ml_IN">`;
 }
 
 // ===== Song Page Generator =====
@@ -339,7 +339,18 @@ function generateSongPage(song, body, templates) {
     };
     if (song.title_ml) sdObj.alternateName = song.title_ml;
     if (song.artist_ml) sdObj.composer.alternateName = song.artist_ml;
-    const structuredData = JSON.stringify(sdObj, null, 2);
+
+    const breadcrumbObj = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": `${BASE_URL}/` },
+            { "@type": "ListItem", "position": 2, "name": "Songs", "item": `${BASE_URL}/songs.html` },
+            { "@type": "ListItem", "position": 3, "name": songTitle, "item": canonicalUrl }
+        ]
+    };
+
+    const structuredData = JSON.stringify(sdObj, null, 2) + '\n    </script>\n\n    <script type="application/ld+json">\n    ' + JSON.stringify(breadcrumbObj, null, 2);
 
     // Build meta bar
     let metaBar = '';
@@ -425,7 +436,18 @@ function generateLyricsPage(song, body, templates) {
     };
     if (song.title_ml) sdObj.alternateName = `${song.title_ml} - വരികൾ`;
     if (song.artist_ml) sdObj.author.alternateName = song.artist_ml;
-    const structuredData = JSON.stringify(sdObj, null, 2);
+
+    const breadcrumbObj = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": `${BASE_URL}/` },
+            { "@type": "ListItem", "position": 2, "name": "Songs", "item": `${BASE_URL}/songs.html` },
+            { "@type": "ListItem", "position": 3, "name": `${songTitle} Lyrics`, "item": canonicalUrl }
+        ]
+    };
+
+    const structuredData = JSON.stringify(sdObj, null, 2) + '\n    </script>\n\n    <script type="application/ld+json">\n    ' + JSON.stringify(breadcrumbObj, null, 2);
 
     const enLyrics = stripChordsFromContent(body);
     const mlLyrics = formatMalayalamLyrics(song.id);
@@ -497,7 +519,18 @@ function generateCategoryPage(categoryName, songs, allCategories, templates) {
         }
     };
     if (categoryMl) sdObj.alternateName = `${categoryMl} ഗാന കോർഡുകൾ`;
-    const structuredData = JSON.stringify(sdObj, null, 2);
+
+    const breadcrumbObj = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": `${BASE_URL}/` },
+            { "@type": "ListItem", "position": 2, "name": "Songs", "item": `${BASE_URL}/songs.html` },
+            { "@type": "ListItem", "position": 3, "name": categoryName, "item": canonicalUrl }
+        ]
+    };
+
+    const structuredData = JSON.stringify(sdObj, null, 2) + '\n    </script>\n\n    <script type="application/ld+json">\n    ' + JSON.stringify(breadcrumbObj, null, 2);
 
     const songCards = songs.map(renderSongCard).join('\n');
 
@@ -553,7 +586,17 @@ function generateArtistPage(artistName, songs, templates) {
         "description": pageDesc
     };
     if (artistMl) sdObj.alternateName = artistMl;
-    const structuredData = JSON.stringify(sdObj, null, 2);
+
+    const breadcrumbObj = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": `${BASE_URL}/` },
+            { "@type": "ListItem", "position": 2, "name": artistName, "item": canonicalUrl }
+        ]
+    };
+
+    const structuredData = JSON.stringify(sdObj, null, 2) + '\n    </script>\n\n    <script type="application/ld+json">\n    ' + JSON.stringify(breadcrumbObj, null, 2);
 
     const songCards = songs.map(renderSongCard).join('\n');
 
@@ -585,56 +628,58 @@ function generateArtistPage(artistName, songs, templates) {
 
 function generateSitemap(songs, categories, artists) {
     const staticPages = [
-        { loc: '/', changefreq: 'weekly', priority: '1.0' },
-        { loc: '/songs.html', changefreq: 'weekly', priority: '0.9' },
-        { loc: '/chord-finder.html', changefreq: 'monthly', priority: '0.95' },
-        { loc: '/request.html', changefreq: 'monthly', priority: '0.7' },
-        { loc: '/privacy-policy.html', changefreq: 'yearly', priority: '0.3' },
+        { loc: '/', changefreq: 'weekly', priority: '1.0', file: 'index.html' },
+        { loc: '/songs.html', changefreq: 'weekly', priority: '0.9', file: 'songs.html' },
+        { loc: '/chord-finder.html', changefreq: 'monthly', priority: '0.95', file: 'chord-finder.html' },
+        { loc: '/request.html', changefreq: 'monthly', priority: '0.7', file: 'request.html' },
+        { loc: '/privacy-policy.html', changefreq: 'yearly', priority: '0.3', file: 'privacy-policy.html' },
     ];
 
-    let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
-    xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n';
-    xml += '        xmlns:xhtml="http://www.w3.org/1999/xhtml">\n';
-
-    function sitemapHreflang(fullUrl) {
-        return `    <xhtml:link rel="alternate" hreflang="en" href="${fullUrl}" />\n` +
-               `    <xhtml:link rel="alternate" hreflang="ml" href="${fullUrl}" />\n` +
-               `    <xhtml:link rel="alternate" hreflang="x-default" href="${fullUrl}" />\n`;
+    function getLastmod(filePath) {
+        try {
+            const stat = fs.statSync(path.join(ROOT, filePath));
+            return stat.mtime.toISOString().split('T')[0];
+        } catch {
+            return today;
+        }
     }
+
+    let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
+    xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
 
     // Static pages
     for (const page of staticPages) {
         const fullUrl = `${BASE_URL}${page.loc}`;
+        const lastmod = getLastmod(page.file);
         xml += `  <url>\n`;
         xml += `    <loc>${fullUrl}</loc>\n`;
-        xml += `    <lastmod>${today}</lastmod>\n`;
+        xml += `    <lastmod>${lastmod}</lastmod>\n`;
         xml += `    <changefreq>${page.changefreq}</changefreq>\n`;
         xml += `    <priority>${page.priority}</priority>\n`;
-        xml += sitemapHreflang(fullUrl);
         xml += `  </url>\n\n`;
     }
 
     // Song pages
     for (const song of songs) {
         const fullUrl = `${BASE_URL}/songs/${song.id}/`;
+        const lastmod = getLastmod(`songs/${song.file || song.id + '.md'}`);
         xml += `  <url>\n`;
         xml += `    <loc>${fullUrl}</loc>\n`;
-        xml += `    <lastmod>${today}</lastmod>\n`;
+        xml += `    <lastmod>${lastmod}</lastmod>\n`;
         xml += `    <changefreq>monthly</changefreq>\n`;
         xml += `    <priority>0.8</priority>\n`;
-        xml += sitemapHreflang(fullUrl);
         xml += `  </url>\n\n`;
     }
 
     // Lyrics pages
     for (const song of songs) {
         const fullUrl = `${BASE_URL}/lyrics/${song.id}/`;
+        const lastmod = getLastmod(`songs/${song.file || song.id + '.md'}`);
         xml += `  <url>\n`;
         xml += `    <loc>${fullUrl}</loc>\n`;
-        xml += `    <lastmod>${today}</lastmod>\n`;
+        xml += `    <lastmod>${lastmod}</lastmod>\n`;
         xml += `    <changefreq>monthly</changefreq>\n`;
         xml += `    <priority>0.7</priority>\n`;
-        xml += sitemapHreflang(fullUrl);
         xml += `  </url>\n\n`;
     }
 
@@ -646,7 +691,6 @@ function generateSitemap(songs, categories, artists) {
         xml += `    <lastmod>${today}</lastmod>\n`;
         xml += `    <changefreq>weekly</changefreq>\n`;
         xml += `    <priority>0.7</priority>\n`;
-        xml += sitemapHreflang(fullUrl);
         xml += `  </url>\n\n`;
     }
 
@@ -658,7 +702,6 @@ function generateSitemap(songs, categories, artists) {
         xml += `    <lastmod>${today}</lastmod>\n`;
         xml += `    <changefreq>weekly</changefreq>\n`;
         xml += `    <priority>0.6</priority>\n`;
-        xml += sitemapHreflang(fullUrl);
         xml += `  </url>\n\n`;
     }
 

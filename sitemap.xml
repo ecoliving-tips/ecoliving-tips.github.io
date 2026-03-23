@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ecoliving-tips.github.io/</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/" />
-    <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/" />
   </url>
 
   <url>
@@ -16,9 +12,6 @@
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/songs.html" />
-    <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/songs.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/songs.html" />
   </url>
 
   <url>
@@ -26,9 +19,6 @@
     <lastmod>2026-03-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/chord-finder.html" />
-    <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/chord-finder.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/chord-finder.html" />
   </url>
 
   <url>
@@ -36,9 +26,6 @@
     <lastmod>2026-03-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/request.html" />
-    <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/request.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/request.html" />
   </url>
 
   <url>
@@ -46,9 +33,6 @@
     <lastmod>2026-03-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/privacy-policy.html" />
-    <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/privacy-policy.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/privacy-policy.html" />
   </url>
 
   <url>
@@ -56,9 +40,6 @@
     <lastmod>2026-03-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/songs/anna-pesaha/" />
-    <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/songs/anna-pesaha/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/songs/anna-pesaha/" />
   </url>
 
   <url>
@@ -66,9 +47,6 @@
     <lastmod>2026-03-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/songs/krooshakum-meshayil/" />
-    <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/songs/krooshakum-meshayil/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/songs/krooshakum-meshayil/" />
   </url>
 
   <url>
@@ -76,9 +54,6 @@
     <lastmod>2026-03-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/songs/va-va-eeshoye/" />
-    <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/songs/va-va-eeshoye/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/songs/va-va-eeshoye/" />
   </url>
 
   <url>
@@ -86,9 +61,6 @@
     <lastmod>2026-03-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/songs/uruki-uruki-theernnidam/" />
-    <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/songs/uruki-uruki-theernnidam/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/songs/uruki-uruki-theernnidam/" />
   </url>
 
   <url>
@@ -96,9 +68,6 @@
     <lastmod>2026-03-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/songs/kurishil-marichavane/" />
-    <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/songs/kurishil-marichavane/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/songs/kurishil-marichavane/" />
   </url>
 
   <url>
@@ -106,9 +75,6 @@
     <lastmod>2026-03-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/songs/kalvari-kunninmel/" />
-    <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/songs/kalvari-kunninmel/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/songs/kalvari-kunninmel/" />
   </url>
 
   <url>
@@ -116,9 +82,6 @@
     <lastmod>2026-03-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/lyrics/anna-pesaha/" />
-    <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/lyrics/anna-pesaha/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/lyrics/anna-pesaha/" />
   </url>
 
   <url>
@@ -126,9 +89,6 @@
     <lastmod>2026-03-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/lyrics/krooshakum-meshayil/" />
-    <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/lyrics/krooshakum-meshayil/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/lyrics/krooshakum-meshayil/" />
   </url>
 
   <url>
@@ -136,9 +96,6 @@
     <lastmod>2026-03-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/lyrics/va-va-eeshoye/" />
-    <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/lyrics/va-va-eeshoye/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/lyrics/va-va-eeshoye/" />
   </url>
 
   <url>
@@ -146,9 +103,6 @@
     <lastmod>2026-03-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/lyrics/uruki-uruki-theernnidam/" />
-    <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/lyrics/uruki-uruki-theernnidam/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/lyrics/uruki-uruki-theernnidam/" />
   </url>
 
   <url>
@@ -156,9 +110,6 @@
     <lastmod>2026-03-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/lyrics/kurishil-marichavane/" />
-    <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/lyrics/kurishil-marichavane/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/lyrics/kurishil-marichavane/" />
   </url>
 
   <url>
@@ -166,9 +117,6 @@
     <lastmod>2026-03-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/lyrics/kalvari-kunninmel/" />
-    <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/lyrics/kalvari-kunninmel/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/lyrics/kalvari-kunninmel/" />
   </url>
 
   <url>
@@ -176,9 +124,6 @@
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/category/holy-mass/" />
-    <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/category/holy-mass/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/category/holy-mass/" />
   </url>
 
   <url>
@@ -186,9 +131,6 @@
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/category/holy-communion/" />
-    <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/category/holy-communion/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/category/holy-communion/" />
   </url>
 
   <url>
@@ -196,9 +138,6 @@
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/category/holy-week/" />
-    <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/category/holy-week/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/category/holy-week/" />
   </url>
 
   <url>
@@ -206,9 +145,6 @@
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/artist/traditional-syro-malabar/" />
-    <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/artist/traditional-syro-malabar/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/artist/traditional-syro-malabar/" />
   </url>
 
   <url>
@@ -216,9 +152,6 @@
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/artist/fr-binoj-mulavarickal/" />
-    <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/artist/fr-binoj-mulavarickal/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/artist/fr-binoj-mulavarickal/" />
   </url>
 
   <url>
@@ -226,9 +159,6 @@
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/artist/kester/" />
-    <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/artist/kester/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/artist/kester/" />
   </url>
 
   <url>
@@ -236,9 +166,6 @@
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/artist/way-of-the-cross/" />
-    <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/artist/way-of-the-cross/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/artist/way-of-the-cross/" />
   </url>
 
   <url>
@@ -246,9 +173,6 @@
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ecoliving-tips.github.io/artist/fr-vipin-kurishuthara-cmi/" />
-    <xhtml:link rel="alternate" hreflang="ml" href="https://ecoliving-tips.github.io/artist/fr-vipin-kurishuthara-cmi/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecoliving-tips.github.io/artist/fr-vipin-kurishuthara-cmi/" />
   </url>
 
 </urlset>
