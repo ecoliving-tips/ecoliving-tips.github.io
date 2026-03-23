@@ -2416,6 +2416,125 @@ footer {
     }
 }
 
+/* ===== Share Buttons ===== */
+
+.share-buttons {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 0;
+    margin: 1rem 0;
+    border-top: 1px solid var(--border);
+}
+
+.share-label {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.share-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all var(--transition);
+}
+
+.share-btn:hover {
+    transform: scale(1.1);
+}
+
+.share-whatsapp:hover { background: #25D366; color: #fff; border-color: #25D366; }
+.share-facebook:hover { background: #1877F2; color: #fff; border-color: #1877F2; }
+.share-twitter:hover { background: #000; color: #fff; border-color: #000; }
+.share-copy:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+.share-btn.copied {
+    background: #10b981;
+    color: #fff;
+    border-color: #10b981;
+}
+
+@media (max-width: 480px) {
+    .share-buttons {
+        flex-wrap: wrap;
+    }
+    .share-label {
+        width: 100%;
+    }
+}
+
+/* ===== PWA Install Banner ===== */
+
+.pwa-install-banner {
+    position: fixed;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-card);
+    border: 1px solid var(--primary);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
+    max-width: 420px;
+    width: calc(100% - 2rem);
+    animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+    from { transform: translateX(-50%) translateY(100%); opacity: 0; }
+    to { transform: translateX(-50%) translateY(0); opacity: 1; }
+}
+
+.pwa-install-banner .pwa-text {
+    flex: 1;
+    font-size: 0.85rem;
+    color: var(--text);
+    line-height: 1.4;
+}
+
+.pwa-install-banner .pwa-install-btn {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-xs);
+    padding: 0.4rem 0.9rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background var(--transition);
+}
+
+.pwa-install-banner .pwa-install-btn:hover {
+    background: var(--primary-light);
+}
+
+.pwa-install-banner .pwa-dismiss {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0 0.25rem;
+    line-height: 1;
+}
+
+.pwa-install-banner .pwa-dismiss:hover {
+    color: var(--text);
+}
+
 /* ===== Print Stylesheet ===== */
 
 .print-meta {
@@ -2429,6 +2548,7 @@ footer {
     .song-nav-links, .offline-banner, .lyrics-link-header,
     .generate-input-section, .generate-progress, .generate-error,
     .generate-actions, .audio-player-container, .transpose-controls,
+    .share-buttons, .pwa-install-banner, .chord-finder-cta,
     body::before { display: none !important; }
 
     body {

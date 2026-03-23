@@ -154,7 +154,11 @@
     "home_faq_q3": "How do I read chord notation?",
     "home_faq_a3": "Chords use standard Western music notation. Capital letters like C, G, D represent major chords. A lowercase \"m\" means minor (Am = A minor). Numbers indicate extended chords like G7 (dominant seventh). The chords show when to change during the song.",
     "home_faq_q4": "What songs are in the chord library?",
-    "home_faq_a4": "Our chord library features hand-curated Malayalam Christian devotional songs including Syro Malabar Holy Mass songs, Marian hymns, and praise & worship music. New songs are added regularly based on community requests."
+    "home_faq_a4": "Our chord library features hand-curated Malayalam Christian devotional songs including Syro Malabar Holy Mass songs, Marian hymns, and praise & worship music. New songs are added regularly based on community requests.",
+    "share_song": "Share this song:",
+    "link_copied": "Link copied!",
+    "pwa_install_text": "Install Swaram for quick access — works offline too!",
+    "pwa_install_btn": "Install"
   },
   "ml": {
     "site_title": "സ്വരം",
@@ -311,6 +315,10 @@
     "home_faq_q3": "കോര്‍ഡ് നൊട്ടേഷന്‍ എങ്ങനെ വായിക്കാം?",
     "home_faq_a3": "കോര്‍ഡുകള്‍ സ്റ്റാന്‍ഡേര്‍ഡ് വെസ്റ്റേണ്‍ മ്യൂസിക് നൊട്ടേഷന്‍ ഉപയോഗിക്കുന്നു. C, G, D പോലുള്ള വലിയ അക്ഷരങ്ങള്‍ മേജര്‍ കോര്‍ഡുകളെ പ്രതിനിധീകരിക്കുന്നു. ചെറിയ 'm' മൈനര്‍ എന്നാണ് അര്‍ഥം (Am = A മൈനര്‍). G7 പോലുള്ള അക്കങ്ങള്‍ എക്സ്റ്റന്‍ഡഡ് കോര്‍ഡുകളെ സൂചിപ്പിക്കുന്നു.",
     "home_faq_q4": "കോര്‍ഡ് ലൈബ്രറിയിൽ ഏതൊക്കെ ഗാനങ്ങളുണ്ട്?",
-    "home_faq_a4": "ഞങ്ങളുടെ കോര്‍ഡ് ലൈബ്രറിയിൽ സിറോ മലബാര്‍ കുര്‍ബാന ഗാനങ്ങള്‍, മാതാവിന്റെ കീര്‍ത്തനങ്ങള്‍, സ്തുതിഗാനങ്ങള്‍ ഉള്‍പ്പെടെ ക്യൂറേറ്റ് ചെയ്ത മലയാളം ക്രിസ്തീയ ഭക്തിഗാനങ്ങള്‍ ഉണ്ട്. സമൂഹ അഭ്യര്‍ഥനകളുടെ അടിസ്ഥാനത്തിൽ പുതിയ ഗാനങ്ങള്‍ പതിവായി ചേര്‍ക്കുന്നു."
+    "home_faq_a4": "ഞങ്ങളുടെ കോര്‍ഡ് ലൈബ്രറിയിൽ സിറോ മലബാര്‍ കുര്‍ബാന ഗാനങ്ങള്‍, മാതാവിന്റെ കീര്‍ത്തനങ്ങള്‍, സ്തുതിഗാനങ്ങള്‍ ഉള്‍പ്പെടെ ക്യൂറേറ്റ് ചെയ്ത മലയാളം ക്രിസ്തീയ ഭക്തിഗാനങ്ങള്‍ ഉണ്ട്. സമൂഹ അഭ്യര്‍ഥനകളുടെ അടിസ്ഥാനത്തിൽ പുതിയ ഗാനങ്ങള്‍ പതിവായി ചേര്‍ക്കുന്നു.",
+    "share_song": "ഈ ഗാനം പങ്കിടുക:",
+    "link_copied": "ലിങ്ക് കോപ്പി ചെയ്തു!",
+    "pwa_install_text": "വേഗത്തിലുള്ള ആക്സസിനായി സ്വരം ഇൻസ്റ്റാൾ ചെയ്യുക — ഓഫ്‌ലൈനിലും പ്രവർത്തിക്കും!",
+    "pwa_install_btn": "ഇൻസ്റ്റാൾ"
   }
 }

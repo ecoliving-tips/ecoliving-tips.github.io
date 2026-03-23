@@ -131,3 +131,96 @@ function copyUPIId() {
         if (btn) { btn.textContent = '✓'; setTimeout(() => btn.textContent = 'Copy', 1500); }
     });
 }
+
+// ---------------------------------------------------------------------------
+// Social Share — used on song + lyrics pages
+// ---------------------------------------------------------------------------
+function shareSong(platform) {
+    const url = window.location.href;
+    const container = document.querySelector('.share-buttons');
+    const title = container ? container.dataset.songTitle : document.title;
+    const artist = container ? container.dataset.songArtist : '';
+    const text = artist ? `${title} by ${artist} — Chords on Swaram` : `${title} — Chords on Swaram`;
+
+    switch (platform) {
+        case 'whatsapp':
+            window.open(`https://wa.me/?text=${encodeURIComponent(text + '\n' + url)}`, '_blank');
+            break;
+        case 'facebook':
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+            break;
+        case 'twitter':
+            window.open(`https://x.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
+            break;
+        case 'copy':
+            navigator.clipboard.writeText(url).then(() => {
+                const btn = container ? container.querySelector('.share-copy') : null;
+                if (btn) {
+                    btn.classList.add('copied');
+                    btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+                    setTimeout(() => {
+                        btn.classList.remove('copied');
+                        btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>';
+                    }, 2000);
+                }
+            });
+            break;
+    }
+}
+
+// ---------------------------------------------------------------------------
+// PWA Install Prompt — non-intrusive, one-time
+// ---------------------------------------------------------------------------
+(function () {
+    let deferredPrompt = null;
+
+    window.addEventListener('beforeinstallprompt', function (e) {
+        e.preventDefault();
+        deferredPrompt = e;
+
+        // Don't show if user already dismissed or app is installed
+        if (localStorage.getItem('pwa-install-dismissed')) return;
+        if (window.matchMedia('(display-mode: standalone)').matches) return;
+
+        // Delay showing the banner by 30 seconds so it's not intrusive
+        setTimeout(showInstallBanner, 30000);
+    });
+
+    // If app gets installed, remove banner and mark as installed
+    window.addEventListener('appinstalled', function () {
+        localStorage.setItem('pwa-install-dismissed', '1');
+        const banner = document.getElementById('pwa-install-banner');
+        if (banner) banner.remove();
+    });
+
+    function showInstallBanner() {
+        if (!deferredPrompt) return;
+        if (document.getElementById('pwa-install-banner')) return;
+
+        const banner = document.createElement('div');
+        banner.id = 'pwa-install-banner';
+        banner.className = 'pwa-install-banner';
+        banner.innerHTML =
+            '<span class="pwa-text" data-i18n="pwa_install_text">Install Swaram for quick access — works offline too!</span>' +
+            '<button class="pwa-install-btn" data-i18n="pwa_install_btn">Install</button>' +
+            '<button class="pwa-dismiss" aria-label="Dismiss">&times;</button>';
+        document.body.appendChild(banner);
+
+        banner.querySelector('.pwa-install-btn').addEventListener('click', function () {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then(function (result) {
+                if (result.outcome === 'accepted') {
+                    localStorage.setItem('pwa-install-dismissed', '1');
+                }
+                deferredPrompt = null;
+                banner.remove();
+            });
+        });
+
+        banner.querySelector('.pwa-dismiss').addEventListener('click', function () {
+            localStorage.setItem('pwa-install-dismissed', '1');
+            banner.remove();
+            deferredPrompt = null;
+        });
+    }
+})();
