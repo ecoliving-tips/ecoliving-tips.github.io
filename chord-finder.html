@@ -290,6 +290,7 @@
                     <img src="assets/donate-qr.png" alt="Scan this QR code to donate via UPI to Swaram" class="qr-code"
                         onclick="openUPI()">
                 </div>
+                <p class="upi-id">UPI ID: <strong>7306025928@upi</strong></p>
             </div>
         </section>
     </main>
@@ -320,17 +321,16 @@
     </footer>
 
     <!-- UPI modal (same as other pages) -->
-    <div id="upi-modal" class="upi-modal" style="display:none;" onclick="if(event.target===this)closeUPI()">
-        <div class="upi-modal-content">
-            <button class="upi-modal-close" onclick="closeUPI()" aria-label="Close">&times;</button>
+    <div id="upi-modal" class="qr-modal-overlay" style="display:none;" onclick="if(event.target===this)closeUPI()">
+        <div class="qr-modal-content">
+            <button class="qr-modal-close" onclick="closeUPI()" aria-label="Close">&times;</button>
             <h3 data-i18n="qr_modal_title">Scan to Donate via UPI</h3>
-            <img src="assets/donate-qr.png" alt="UPI QR Code" class="upi-modal-qr">
-            <p class="upi-modal-hint" data-i18n="qr_modal_hint">Open any UPI app on your phone and scan this QR code</p>
-            <div class="upi-id-copy">
-                <span>7306025928@upi</span>
-                <button onclick="navigator.clipboard.writeText('7306025928@upi').then(()=>this.textContent='Copied!')"
+            <img src="assets/donate-qr.png" alt="UPI QR Code" class="qr-modal-img">
+            <p class="qr-modal-upi-id">UPI ID: <strong>7306025928@upi</strong>
+                <button class="qr-modal-copy" onclick="navigator.clipboard.writeText('7306025928@upi').then(()=>{this.textContent='✓';setTimeout(()=>this.textContent='Copy',1500)})"
                     data-i18n="copy_upi_id">Copy</button>
-            </div>
+            </p>
+            <p class="qr-modal-hint" data-i18n="qr_modal_hint">Open any UPI app on your phone and scan this QR code</p>
         </div>
     </div>
 
