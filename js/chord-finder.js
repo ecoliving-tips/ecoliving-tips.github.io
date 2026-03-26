@@ -129,7 +129,7 @@ function findOptimalCapo(chords) {
 
     for (let capo = 0; capo <= 7; capo++) {
         let score = 0;
-        const transposed = uniqueSimplified.map(c => transposeChord(c, -capo));
+        const transposed = uniqueSimplified.map(c => transposeChord(c, -capo + currentTranspose));
         for (const c of transposed) {
             if (BEGINNER_CHORDS.has(c)) score++;
         }
@@ -150,7 +150,7 @@ function computeDifficulty(chords, capo) {
     if (!chords?.length) return 'easy';
     const unique = [...new Set(chords.map(e => {
         const simplified = simplifyChord(e.chord);
-        return transposeChord(simplified, -capo);
+        return transposeChord(simplified, -capo + currentTranspose);
     }))];
     const beginnerCount = unique.filter(c => BEGINNER_CHORDS.has(c)).length;
     const ratio = beginnerCount / unique.length;
@@ -667,6 +667,14 @@ function transposeChord(chord, semitones) {
 function applyTranspose(delta) {
     currentTranspose += delta;
     document.getElementById('transpose-value').textContent = currentTranspose.toString();
+
+    // Recalculate capo & difficulty for the new key
+    if (beginnerMode && chordData?.chords) {
+        capoPosition = findOptimalCapo(chordData.chords).capo;
+        difficultyLevel = computeDifficulty(chordData.chords, capoPosition);
+        updateBeginnerInfo();
+    }
+
     renderChordTimeline();
 }
 
