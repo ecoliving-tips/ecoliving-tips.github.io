@@ -665,7 +665,9 @@ function transposeChord(chord, semitones) {
 }
 
 function applyTranspose(delta) {
-    currentTranspose += delta;
+    const next = currentTranspose + delta;
+    if (next < -11 || next > 11) return;
+    currentTranspose = next;
     document.getElementById('transpose-value').textContent = currentTranspose.toString();
 
     // Recalculate capo & difficulty for the new key
