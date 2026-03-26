@@ -135,8 +135,6 @@
     "cf_why_free_desc": "No account needed, no usage limits, no hidden fees. Upload any song and get chords instantly.",
     "cf_why_any_title": "Works for Any Song",
     "cf_why_any_desc": "Pop, rock, jazz, classical, worship, Bollywood — our AI handles any genre and any language.",
-    "cf_why_instant_title": "Instant Results",
-    "cf_why_instant_desc": "Get chord progressions in seconds. Play along with synced audio and transpose to any key with one click.",
     "cf_formats_title": "Supported Audio Formats",
     "cf_formats_desc": "Upload audio files in MP3, WAV, M4A, OGG, FLAC, AAC, WMA, or WebM format — up to 30 MB. For best chord detection results, use high-quality recordings with clear instrumentation. Our AI chord finder works with studio tracks, live recordings, and acoustic performances alike.",
     "cf_faq_q1": "How does the AI chord finder work?",
@@ -158,7 +156,16 @@
     "share_song": "Share this song:",
     "link_copied": "Link copied!",
     "pwa_install_text": "Install Swaram for quick access — works offline too!",
-    "pwa_install_btn": "Install"
+    "pwa_install_btn": "Install",
+    "gen_mode_original": "Original",
+    "gen_mode_beginner": "Beginner",
+    "gen_capo_prefix": "Capo: Fret",
+    "gen_no_capo": "No Capo Needed",
+    "gen_difficulty_easy": "Easy",
+    "gen_difficulty_moderate": "Moderate",
+    "gen_difficulty_advanced": "Advanced",
+    "cf_why_beginner_title": "Beginner-Friendly",
+    "cf_why_beginner_desc": "Toggle Beginner Mode to auto-simplify complex chords into easy open chords with smart capo suggestions. Perfect for new guitar players."
   },
   "ml": {
     "site_title": "സ്വരം",
@@ -296,8 +303,6 @@
     "cf_why_free_desc": "അക്കൗണ്ട് ആവശ്യമില്ല, ഉപയോഗ പരിധിയില്ല, മറഞ്ഞിരിക്കുന്ന ഫീസില്ല. ഏത് പാട്ടും അപ്‌ലോഡ് ചെയ്ത് തൽക്ഷണം കോര്‍ഡുകള്‍ നേടുക.",
     "cf_why_any_title": "ഏത് പാട്ടിനും പ്രവര്‍ത്തിക്കും",
     "cf_why_any_desc": "പോപ്, റോക്ക്, ജാസ്, ക്ലാസിക്കല്‍, ആരാധന, ബോളിവുഡ് — ഞങ്ങളുടെ AI ഏത് ജനറിലും ഏത് ഭാഷയിലും പ്രവര്‍ത്തിക്കും.",
-    "cf_why_instant_title": "തൽക്ഷണ ഫലങ്ങള്‍",
-    "cf_why_instant_desc": "സെക്കൻഡുകളിൽ കോര്‍ഡ് പ്രോഗ്രഷനുകള്‍ നേടുക. സിങ്ക്ഡ് ഓഡിയോയ്‌ക്കൊപ്പം പ്ലേ ചെയ്യുക, ഒറ്റ ക്ലിക്കിൽ ഏത് കീയിലേക്കും ട്രാൻസ്‌പോസ് ചെയ്യുക.",
     "cf_formats_title": "പിന്തുണയ്ക്കുന്ന ഓഡിയോ ഫോര്‍മാറ്റുകള്‍",
     "cf_formats_desc": "MP3, WAV, M4A, OGG, FLAC, AAC, WMA, അല്ലെങ്കിൽ WebM ഫോര്‍മാറ്റിൽ ഓഡിയോ ഫയലുകള്‍ അപ്‌ലോഡ് ചെയ്യുക — 30 MB വരെ. മികച്ച കോര്‍ഡ് ഡിറ്റക്ഷൻ ഫലങ്ങള്‍ക്ക്, വ്യക്തമായ ഉപകരണസംഗീതമുള്ള ഉയര്‍ന്ന നിലവാരമുള്ള റെക്കോര്‍ഡിങ്ങുകള്‍ ഉപയോഗിക്കുക.",
     "cf_faq_q1": "AI കോര്‍ഡ് ഫൈന്‍ഡര്‍ എങ്ങനെ പ്രവര്‍ത്തിക്കുന്നു?",
@@ -319,6 +324,15 @@
     "share_song": "ഈ ഗാനം പങ്കിടുക:",
     "link_copied": "ലിങ്ക് കോപ്പി ചെയ്തു!",
     "pwa_install_text": "വേഗത്തിലുള്ള ആക്സസിനായി സ്വരം ഇൻസ്റ്റാൾ ചെയ്യുക — ഓഫ്‌ലൈനിലും പ്രവർത്തിക്കും!",
-    "pwa_install_btn": "ഇൻസ്റ്റാൾ"
+    "pwa_install_btn": "ഇൻസ്റ്റാൾ",
+    "gen_mode_original": "ഒറിജിനൽ",
+    "gen_mode_beginner": "തുടക്കക്കാർ",
+    "gen_capo_prefix": "കാപ്പോ: ഫ്രെറ്റ്",
+    "gen_no_capo": "കാപ്പോ ആവശ്യമില്ല",
+    "gen_difficulty_easy": "എളുപ്പം",
+    "gen_difficulty_moderate": "മിതമായ",
+    "gen_difficulty_advanced": "അഡ്വാൻസ്ഡ്",
+    "cf_why_beginner_title": "തുടക്കക്കാർക്ക് അനുയോജ്യം",
+    "cf_why_beginner_desc": "ബിഗിനർ മോഡ് ഓൺ ചെയ്‌ത് സങ്കീർണ്ണ കോർഡുകൾ ലളിതമായ ഓപ്പൺ കോർഡുകളാക്കി മാറ്റുക. സ്മാർട്ട് കാപ്പോ നിർദ്ദേശങ്ങളും ലഭിക്കും."
   }
 }

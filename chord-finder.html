@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Free AI chord finder — upload any song and instantly detect chords and progressions. Works for any genre, any language. No signup needed.">
+        content="Free AI chord finder — upload any song and instantly detect chords. Beginner Mode auto-simplifies complex chords with smart capo suggestions. Works for any genre, any language.">
     <meta name="keywords"
-        content="chord finder, find chords for a song, chord detection online, AI chord transcription, free chord finder, song chord analyzer, what chords are in this song, automatic chord detection, chord recognition">
+        content="chord finder, find chords for a song, easy chords for beginners, simplified chords, beginner guitar chords, capo suggestions, chord detection online, AI chord transcription, free chord finder, song chord analyzer, what chords are in this song, automatic chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://ecoliving-tips.github.io/chord-finder.html">
@@ -15,7 +15,7 @@
     <!-- Open Graph -->
     <meta property="og:title" content="Chord Finder - What chords are in this song? | Swaram">
     <meta property="og:description"
-        content="Free AI chord finder — upload any song and instantly detect chords and progressions. Works for any genre, any language. No signup needed.">
+        content="Free AI chord finder — upload any song and instantly detect chords. Beginner Mode auto-simplifies complex chords with smart capo suggestions. No signup needed.">
     <meta property="og:url" content="https://ecoliving-tips.github.io/chord-finder.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -274,8 +274,12 @@
                     </div>
                 </div>
 
-                <!-- Transpose controls -->
+                <!-- Mode toggle & Transpose controls -->
                 <div class="generate-meta-bar">
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="transpose-controls">
                         <span data-i18n="transpose">Transpose:</span>
                         <button type="button" class="transpose-btn" id="transpose-down">-1</button>
@@ -283,6 +287,12 @@
                         <button type="button" class="transpose-btn" id="transpose-up">+1</button>
                         <button type="button" class="transpose-btn transpose-reset" id="transpose-reset" data-i18n="reset">Reset</button>
                     </div>
+                </div>
+
+                <!-- Beginner mode info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Current chord display -->
@@ -358,8 +368,8 @@
                         <div class="feature-icon">
                             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
                         </div>
-                        <h3 data-i18n="cf_why_instant_title">Instant Results</h3>
-                        <p data-i18n="cf_why_instant_desc">Get chord progressions in seconds. Play along with synced audio and transpose to any key with one click.</p>
+                        <h3 data-i18n="cf_why_beginner_title">Beginner-Friendly</h3>
+                        <p data-i18n="cf_why_beginner_desc">Toggle Beginner Mode to auto-simplify complex chords into easy open chords with smart capo suggestions. Perfect for new guitar players.</p>
                     </article>
                 </div>
             </div>
