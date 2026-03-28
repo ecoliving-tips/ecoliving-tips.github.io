@@ -3401,6 +3401,10 @@ footer {
     margin: 0 auto;
 }
 
+.keys-column {
+    text-align: center;
+}
+
 .keys-column h4 {
     color: var(--primary);
     margin-bottom: 0.75rem;
@@ -3410,10 +3414,11 @@ footer {
 .key-links {
     list-style: none;
     padding: 0;
-    margin: 0;
-    display: grid;
+    margin: 0 auto;
+    display: inline-grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0.4rem 1rem;
+    gap: 0.4rem 1.5rem;
+    text-align: left;
 }
 
 .key-links li a {
