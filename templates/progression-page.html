@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+
+<head>
+{{HEAD}}
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {{STRUCTURED_DATA}}
+    </script>
+</head>
+
+<body>
+{{HEADER}}
+
+    <main>
+        <section class="progressions-header">
+            <div class="container">
+                <h2>Chord Progressions in {{KEY_DISPLAY}}</h2>
+                <p>All diatonic chords and common progressions in the key of {{KEY_DISPLAY}}. Use these chords to write songs, jam, or practice.</p>
+            </div>
+        </section>
+
+        <section class="progressions-section">
+            <div class="container">
+                <h3>Diatonic Chords in {{KEY_DISPLAY}}</h3>
+                <div class="diatonic-grid">
+                    {{DIATONIC_CHORDS}}
+                </div>
+
+                <h3>Common Progressions in {{KEY_DISPLAY}}</h3>
+                <div class="preset-list">
+                    {{COMMON_PROGRESSIONS}}
+                </div>
+
+                <div class="builder-cta">
+                    <p>Want to hear these progressions or build your own?</p>
+                    <a href="/chord-progressions.html" class="btn btn-primary btn-lg">Open Interactive Builder</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="prog-cta-section">
+            <div class="container">
+                <div class="cta-card">
+                    <h3>Hear Real Chords from Any Song</h3>
+                    <p>Upload an audio file and let our AI detect the exact chords. Works for any genre and language.</p>
+                    <a href="/chord-finder.html" class="btn btn-primary btn-lg">Try AI Chord Finder</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="other-keys">
+            <div class="container">
+                <h3>Browse Other Keys</h3>
+                <div class="key-link-list">
+                    {{OTHER_KEYS}}
+                </div>
+            </div>
+        </section>
+
+{{DONATE}}
+    </main>
+
+{{FOOTER}}
+
+    <script src="/js/main.js" defer></script>
+    <script src="/js/i18n.js" defer></script>
+    <script src="/js/chord-diagrams.js" defer></script>
+</body>
+
+</html>

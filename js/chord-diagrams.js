@@ -145,6 +145,13 @@ const CHORD_DIAGRAMS = {};
             }
         }
     }
+
+    // Expose for reuse by chord-progressions.js
+    if (typeof window !== 'undefined') {
+        window.SWARAM_NOTES = NOTES;
+        window.SWARAM_INTERVALS = INTERVALS;
+        window.SWARAM_FLAT_ALIASES = FLAT_ALIASES;
+    }
 })();
 
 // All white and black key names for one octave

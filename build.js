@@ -282,6 +282,7 @@ function loadTemplates() {
         lyricsPage: read('lyrics-page.html'),
         categoryPage: read('category-page.html'),
         artistPage: read('artist-page.html'),
+        progressionPage: read('progression-page.html'),
     };
 }
 
@@ -624,13 +625,185 @@ function generateArtistPage(artistName, songs, templates) {
     fs.writeFileSync(path.join(outDir, 'index.html'), page);
 }
 
+// ===== Chord Progression Page Generator =====
+
+const PROG_NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+const PROG_FLAT_DISPLAY = { 'C#': 'Db', 'D#': 'Eb', 'F#': 'Gb', 'G#': 'Ab', 'A#': 'Bb' };
+const PROG_INTERVALS = {
+    '':     [0, 4, 7],
+    'm':    [0, 3, 7],
+    'dim':  [0, 3, 6],
+};
+const PROG_MAJOR = [
+    { semitones: 0,  quality: '',    label: 'I' },
+    { semitones: 2,  quality: 'm',   label: 'ii' },
+    { semitones: 4,  quality: 'm',   label: 'iii' },
+    { semitones: 5,  quality: '',    label: 'IV' },
+    { semitones: 7,  quality: '',    label: 'V' },
+    { semitones: 9,  quality: 'm',   label: 'vi' },
+    { semitones: 11, quality: 'dim', label: 'vii\u00B0' },
+];
+const PROG_MINOR = [
+    { semitones: 0,  quality: 'm',   label: 'i' },
+    { semitones: 2,  quality: 'dim', label: 'ii\u00B0' },
+    { semitones: 3,  quality: '',    label: 'III' },
+    { semitones: 5,  quality: 'm',   label: 'iv' },
+    { semitones: 7,  quality: 'm',   label: 'v' },
+    { semitones: 8,  quality: '',    label: 'VI' },
+    { semitones: 10, quality: '',    label: 'VII' },
+];
+const PROG_PRESETS_MAJOR = [
+    { name: 'Pop',          degrees: [0, 4, 5, 3], label: 'I \u2013 V \u2013 vi \u2013 IV' },
+    { name: 'Rock',         degrees: [0, 3, 4],    label: 'I \u2013 IV \u2013 V' },
+    { name: '50s',          degrees: [0, 5, 3, 4], label: 'I \u2013 vi \u2013 IV \u2013 V' },
+    { name: 'Axis',         degrees: [5, 3, 0, 4], label: 'vi \u2013 IV \u2013 I \u2013 V' },
+    { name: 'Jazz ii-V-I',  degrees: [1, 4, 0],    label: 'ii \u2013 V \u2013 I' },
+];
+const PROG_PRESETS_MINOR = [
+    { name: 'Minor Pop',    degrees: [0, 5, 2, 6], label: 'i \u2013 VI \u2013 III \u2013 VII' },
+    { name: 'Andalusian',   degrees: [0, 6, 5, 4], label: 'i \u2013 VII \u2013 VI \u2013 V' },
+    { name: 'Minor Blues',  degrees: [0, 3, 4],    label: 'i \u2013 iv \u2013 v' },
+];
+
+function progGetDiatonic(rootNote, mode) {
+    const scale = mode === 'minor' ? PROG_MINOR : PROG_MAJOR;
+    const rootIdx = PROG_NOTES.indexOf(rootNote);
+    return scale.map(deg => {
+        const noteIdx = (rootIdx + deg.semitones) % 12;
+        const note = PROG_NOTES[noteIdx];
+        const displayNote = PROG_FLAT_DISPLAY[note] || note;
+        return {
+            name: note + deg.quality,
+            displayName: displayNote + deg.quality,
+            degree: deg.label,
+        };
+    });
+}
+
+function progKeySlug(root, mode) {
+    let display = PROG_FLAT_DISPLAY[root] || root;
+    display = display.toLowerCase().replace('#', '-sharp');
+    return 'key-of-' + display + (mode === 'minor' ? '-minor' : '');
+}
+
+function progKeyDisplay(root, mode) {
+    const display = PROG_FLAT_DISPLAY[root] || root;
+    return display + (mode === 'minor' ? ' Minor' : ' Major');
+}
+
+function generateProgressionPages(templates) {
+    const { partials, progressionPage } = templates;
+
+    // Build list of all 24 keys
+    const allKeys = [];
+    for (const note of PROG_NOTES) {
+        allKeys.push({ root: note, mode: 'major' });
+    }
+    for (const note of PROG_NOTES) {
+        allKeys.push({ root: note, mode: 'minor' });
+    }
+
+    for (const keyInfo of allKeys) {
+        const { root, mode } = keyInfo;
+        const keyDisplay = progKeyDisplay(root, mode);
+        const keySlug = progKeySlug(root, mode);
+        const canonicalUrl = `${BASE_URL}/chord-progressions/${keySlug}/`;
+
+        const pageTitle = `Chord Progressions in ${keyDisplay} \u2014 Diatonic Chords & Common Patterns | Swaram`;
+        const pageDesc = `All diatonic chords and common chord progressions in the key of ${keyDisplay}. Free guitar and keyboard chord diagrams for songwriting and practice.`;
+        const keywords = `chord progressions in ${keyDisplay}, ${keyDisplay} chords, diatonic chords ${keyDisplay}, chords in key of ${PROG_FLAT_DISPLAY[root] || root}, ${keyDisplay} chord chart, songwriting chords ${keyDisplay}`;
+
+        // Schema.org
+        const diatonic = progGetDiatonic(root, mode);
+        const sdObj = {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": `Chord Progressions in ${keyDisplay}`,
+            "description": pageDesc,
+            "url": canonicalUrl,
+            "isPartOf": {
+                "@type": "WebSite",
+                "name": "Swaram",
+                "url": `${BASE_URL}/`
+            }
+        };
+        const breadcrumbObj = {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": `${BASE_URL}/` },
+                { "@type": "ListItem", "position": 2, "name": "Chord Progressions", "item": `${BASE_URL}/chord-progressions.html` },
+                { "@type": "ListItem", "position": 3, "name": keyDisplay, "item": canonicalUrl }
+            ]
+        };
+        const structuredData = JSON.stringify(sdObj, null, 2) + '\n    </script>\n\n    <script type="application/ld+json">\n    ' + JSON.stringify(breadcrumbObj, null, 2);
+
+        // Diatonic chord cards
+        const diatonicHtml = diatonic.map(chord =>
+            `<div class="diatonic-card">` +
+            `<span class="diatonic-degree">${chord.degree}</span>` +
+            `<span class="diatonic-name">${escapeHtml(chord.displayName)}</span>` +
+            `</div>`
+        ).join('\n                    ');
+
+        // Preset progressions
+        const presets = mode === 'minor' ? PROG_PRESETS_MINOR : PROG_PRESETS_MAJOR;
+        const presetsHtml = presets.map(preset => {
+            const chordNames = preset.degrees.map(idx => diatonic[idx].displayName).join(' \u2192 ');
+            return `<div class="preset-card">` +
+                `<span class="preset-card-name">${escapeHtml(preset.name)}</span>` +
+                `<span class="preset-card-chords">${preset.label} (${escapeHtml(chordNames)})</span>` +
+                `</div>`;
+        }).join('\n                    ');
+
+        // Other key links
+        const otherKeysHtml = allKeys
+            .filter(k => !(k.root === root && k.mode === mode))
+            .map(k => {
+                const d = progKeyDisplay(k.root, k.mode);
+                const s = progKeySlug(k.root, k.mode);
+                return `<a href="/chord-progressions/${s}/">${escapeHtml(d)}</a>`;
+            })
+            .join('\n                    ');
+
+        let page = progressionPage;
+        page = fillHead(page, partials, {
+            TITLE: escapeHtml(pageTitle),
+            DESCRIPTION: escapeHtml(pageDesc),
+            KEYWORDS: escapeHtml(keywords),
+            CANONICAL_URL: canonicalUrl,
+            OG_TITLE: escapeHtml(pageTitle),
+            OG_DESCRIPTION: escapeHtml(pageDesc),
+            OG_URL: canonicalUrl,
+            TWITTER_TITLE: escapeHtml(pageTitle),
+            TWITTER_DESCRIPTION: escapeHtml(pageDesc),
+            EXTRA_HEAD: '',
+        });
+        page = fillPartials(page, partials);
+        page = page
+            .replace(/\{\{KEY_DISPLAY\}\}/g, escapeHtml(keyDisplay))
+            .replace('{{DIATONIC_CHORDS}}', diatonicHtml)
+            .replace('{{COMMON_PROGRESSIONS}}', presetsHtml)
+            .replace('{{OTHER_KEYS}}', otherKeysHtml)
+            .replace('{{STRUCTURED_DATA}}', structuredData);
+
+        const outDir = path.join(ROOT, 'chord-progressions', keySlug);
+        mkdirp(outDir);
+        fs.writeFileSync(path.join(outDir, 'index.html'), page);
+    }
+
+    return allKeys;
+}
+
 // ===== Sitemap Generator =====
 
-function generateSitemap(songs, categories, artists) {
+
+function generateSitemap(songs, categories, artists, progressionKeys) {
     const staticPages = [
         { loc: '/', changefreq: 'weekly', priority: '1.0', file: 'index.html' },
         { loc: '/songs.html', changefreq: 'weekly', priority: '0.9', file: 'songs.html' },
         { loc: '/chord-finder.html', changefreq: 'monthly', priority: '0.95', file: 'chord-finder.html' },
+        { loc: '/chord-progressions.html', changefreq: 'monthly', priority: '0.90', file: 'chord-progressions.html' },
         { loc: '/request.html', changefreq: 'monthly', priority: '0.7', file: 'request.html' },
         { loc: '/privacy-policy.html', changefreq: 'yearly', priority: '0.3', file: 'privacy-policy.html' },
     ];
@@ -703,6 +876,20 @@ function generateSitemap(songs, categories, artists) {
         xml += `    <changefreq>weekly</changefreq>\n`;
         xml += `    <priority>0.6</priority>\n`;
         xml += `  </url>\n\n`;
+    }
+
+    // Chord progression key pages
+    if (progressionKeys) {
+        for (const keyInfo of progressionKeys) {
+            const keySlug = progKeySlug(keyInfo.root, keyInfo.mode);
+            const fullUrl = `${BASE_URL}/chord-progressions/${keySlug}/`;
+            xml += `  <url>\n`;
+            xml += `    <loc>${fullUrl}</loc>\n`;
+            xml += `    <lastmod>${today}</lastmod>\n`;
+            xml += `    <changefreq>monthly</changefreq>\n`;
+            xml += `    <priority>0.75</priority>\n`;
+            xml += `  </url>\n\n`;
+        }
     }
 
     xml += '</urlset>\n';
@@ -842,9 +1029,13 @@ function main() {
     }
     console.log(`Generated ${allArtists.length} artist pages: ${allArtists.join(', ')}`);
 
+    // Generate chord progression key pages
+    const progressionKeys = generateProgressionPages(templates);
+    console.log(`Generated ${progressionKeys.length} chord progression key pages.`);
+
     // Generate sitemap
-    generateSitemap(songs, allCategories, allArtists);
-    const totalUrls = 4 + songs.length * 2 + allCategories.length + allArtists.length;
+    generateSitemap(songs, allCategories, allArtists, progressionKeys);
+    const totalUrls = 5 + songs.length * 2 + allCategories.length + allArtists.length + progressionKeys.length;
     console.log(`Sitemap generated with ${totalUrls} URLs.`);
 
     // Pre-render songs.html
@@ -861,6 +1052,7 @@ function main() {
     console.log(`Lyrics pages:   ${lyricsPagesCount}`);
     console.log(`Category pages: ${allCategories.length}`);
     console.log(`Artist pages:   ${allArtists.length}`);
+    console.log(`Progression pages: ${progressionKeys.length}`);
     console.log(`Sitemap URLs:   ${totalUrls}`);
     console.log('Build complete!');
 }
