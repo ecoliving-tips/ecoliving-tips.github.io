@@ -70,5 +70,17 @@
     "category_ml": "വിശുദ്ധ വാരം",
     "key": "Am",
     "time": "7/8"
+  },
+  {
+    "id": "thalathil-vellameduthu",
+    "title": "Thalathil Vellameduthu",
+    "title_ml": "താലത്തില്‍ വെള്ളമെടുത്തു",
+    "file": "thalathil-vellameduthu.md",
+    "artist": "Jollee Abraham",
+    "artist_ml": "ജോളി എബ്രഹാം",
+    "category": "Holy Week",
+    "category_ml": "വിശുദ്ധ വാരം",
+    "key": "D",
+    "time": "3/4"
   }
 ]

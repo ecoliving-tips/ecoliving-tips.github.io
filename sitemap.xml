@@ -2,14 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ecoliving-tips.github.io/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
     <loc>https://ecoliving-tips.github.io/songs.html</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -85,6 +85,13 @@
   </url>
 
   <url>
+    <loc>https://ecoliving-tips.github.io/songs/thalathil-vellameduthu/</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://ecoliving-tips.github.io/lyrics/anna-pesaha/</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -127,225 +134,239 @@
   </url>
 
   <url>
+    <loc>https://ecoliving-tips.github.io/lyrics/thalathil-vellameduthu/</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
     <loc>https://ecoliving-tips.github.io/category/holy-mass/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://ecoliving-tips.github.io/category/holy-communion/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://ecoliving-tips.github.io/category/holy-week/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://ecoliving-tips.github.io/artist/traditional-syro-malabar/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
     <loc>https://ecoliving-tips.github.io/artist/fr-binoj-mulavarickal/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
     <loc>https://ecoliving-tips.github.io/artist/kester/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
     <loc>https://ecoliving-tips.github.io/artist/way-of-the-cross/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
     <loc>https://ecoliving-tips.github.io/artist/fr-vipin-kurishuthara-cmi/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://ecoliving-tips.github.io/artist/jollee-abraham/</loc>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
     <loc>https://ecoliving-tips.github.io/chord-progressions/key-of-c/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
 
   <url>
     <loc>https://ecoliving-tips.github.io/chord-progressions/key-of-db/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
 
   <url>
     <loc>https://ecoliving-tips.github.io/chord-progressions/key-of-d/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
 
   <url>
     <loc>https://ecoliving-tips.github.io/chord-progressions/key-of-eb/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
 
   <url>
     <loc>https://ecoliving-tips.github.io/chord-progressions/key-of-e/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
 
   <url>
     <loc>https://ecoliving-tips.github.io/chord-progressions/key-of-f/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
 
   <url>
     <loc>https://ecoliving-tips.github.io/chord-progressions/key-of-gb/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
 
   <url>
     <loc>https://ecoliving-tips.github.io/chord-progressions/key-of-g/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
 
   <url>
     <loc>https://ecoliving-tips.github.io/chord-progressions/key-of-ab/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
 
   <url>
     <loc>https://ecoliving-tips.github.io/chord-progressions/key-of-a/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
 
   <url>
     <loc>https://ecoliving-tips.github.io/chord-progressions/key-of-bb/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
 
   <url>
     <loc>https://ecoliving-tips.github.io/chord-progressions/key-of-b/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
 
   <url>
     <loc>https://ecoliving-tips.github.io/chord-progressions/key-of-c-minor/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
 
   <url>
     <loc>https://ecoliving-tips.github.io/chord-progressions/key-of-db-minor/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
 
   <url>
     <loc>https://ecoliving-tips.github.io/chord-progressions/key-of-d-minor/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
 
   <url>
     <loc>https://ecoliving-tips.github.io/chord-progressions/key-of-eb-minor/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
 
   <url>
     <loc>https://ecoliving-tips.github.io/chord-progressions/key-of-e-minor/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
 
   <url>
     <loc>https://ecoliving-tips.github.io/chord-progressions/key-of-f-minor/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
 
   <url>
     <loc>https://ecoliving-tips.github.io/chord-progressions/key-of-gb-minor/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
 
   <url>
     <loc>https://ecoliving-tips.github.io/chord-progressions/key-of-g-minor/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
 
   <url>
     <loc>https://ecoliving-tips.github.io/chord-progressions/key-of-ab-minor/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
 
   <url>
     <loc>https://ecoliving-tips.github.io/chord-progressions/key-of-a-minor/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
 
   <url>
     <loc>https://ecoliving-tips.github.io/chord-progressions/key-of-bb-minor/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
 
   <url>
     <loc>https://ecoliving-tips.github.io/chord-progressions/key-of-b-minor/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
