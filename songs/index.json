@@ -82,5 +82,17 @@
     "category_ml": "വിശുദ്ധ വാരം",
     "key": "D",
     "time": "3/4"
+  },
+  {
+    "id": "gagultha-malayil-ninnum",
+    "title": "Gagultha Malayil Ninnum",
+    "title_ml": "ഗാഗുല്‍ത്താ മലയില്‍ നിന്നും",
+    "file": "gagultha-malayil-ninnum.md",
+    "artist": "Kester",
+    "artist_ml": "കെസ്റ്റർ",
+    "category": "Holy Week",
+    "category_ml": "വിശുദ്ധ വാരം",
+    "key": "Gm",
+    "time": "7/8"
   }
 ]
