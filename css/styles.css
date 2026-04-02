@@ -1276,9 +1276,8 @@ header {
     border: 1px solid rgba(139, 92, 246, 0.2);
     border-radius: var(--radius-sm);
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 1.1rem;
     font-family: 'Courier New', monospace;
-    letter-spacing: 0.02em;
     transition: var(--transition);
     min-width: 50px;
     text-align: center;
@@ -1329,7 +1328,7 @@ header {
 
 .chord-name {
     font-family: 'Courier New', monospace;
-    font-size: 0.88rem;
+    font-size: 1.05rem;
     font-weight: 700;
     color: var(--primary-light);
     padding: 0 2px;
@@ -1796,8 +1795,8 @@ footer {
     }
 
     .chord {
-        padding: 6px 12px;
-        font-size: 0.85rem;
+        padding: 6px 14px;
+        font-size: 1.05rem;
         min-width: 42px;
     }
 
@@ -1820,7 +1819,7 @@ footer {
     }
 
     .chord-name {
-        font-size: 0.8rem;
+        font-size: 1rem;
     }
 
     .lyric-text {
