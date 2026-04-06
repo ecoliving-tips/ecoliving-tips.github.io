@@ -3605,3 +3605,289 @@ footer {
     }
 }
 
+/* ===================================
+   Chord Identifier
+   =================================== */
+
+.identifier-section {
+    padding: 2rem 0;
+}
+
+.identifier-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2.5rem 2rem;
+    max-width: 520px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* Mic button */
+.identifier-mic-area {
+    margin-bottom: 1.5rem;
+}
+
+.identifier-mic-btn {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid var(--primary);
+    background: rgba(108, 60, 225, 0.1);
+    color: var(--primary-light);
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.identifier-mic-btn:hover {
+    background: rgba(108, 60, 225, 0.2);
+    border-color: var(--primary-light);
+    transform: scale(1.05);
+}
+
+.identifier-mic-btn.listening {
+    border-color: var(--secondary);
+    background: rgba(236, 72, 153, 0.15);
+    color: var(--secondary);
+    animation: mic-pulse 2s ease-in-out infinite;
+}
+
+@keyframes mic-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.4); }
+    50% { box-shadow: 0 0 0 18px rgba(236, 72, 153, 0); }
+}
+
+.mic-status {
+    margin-top: 0.75rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* Volume meter */
+.identifier-volume {
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    justify-content: center;
+}
+
+.volume-bar-bg {
+    width: 180px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.volume-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    border-radius: 3px;
+    transition: width 0.08s linear;
+}
+
+.volume-label {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Detected chord result */
+.identifier-result {
+    margin-bottom: 1.5rem;
+}
+
+.identifier-chord-name {
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 1.1;
+    background: linear-gradient(135deg, var(--primary-light), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.chord-pulse {
+    animation: chordPulseAnim 0.3s ease-out;
+}
+
+@keyframes chordPulseAnim {
+    0% { transform: scale(1.15); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.identifier-chord-full {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+}
+
+.identifier-notes {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    margin-top: 0.5rem;
+    font-family: monospace;
+    letter-spacing: 0.05em;
+}
+
+/* Confidence bar */
+.identifier-confidence {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.confidence-bar-bg {
+    width: 140px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.confidence-bar-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 4px;
+    transition: width 0.2s ease;
+    background: var(--text-dim);
+}
+
+.confidence-bar-fill.high {
+    background: linear-gradient(90deg, #10B981, #34D399);
+}
+
+.confidence-bar-fill.medium {
+    background: linear-gradient(90deg, var(--accent), #FBBF24);
+}
+
+.confidence-bar-fill.low {
+    background: linear-gradient(90deg, #EF4444, #F87171);
+}
+
+.confidence-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    min-width: 36px;
+}
+
+/* Diagrams */
+.identifier-diagrams {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+}
+
+.identifier-diagram-tabs {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.identifier-tab {
+    padding: 0.4rem 1.2rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: var(--font);
+}
+
+.identifier-tab:hover {
+    border-color: var(--primary);
+    color: var(--text);
+}
+
+.identifier-tab.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+}
+
+.identifier-diagram-content {
+    display: flex;
+    justify-content: center;
+    min-height: 120px;
+    align-items: center;
+}
+
+.identifier-diagram-content svg {
+    max-width: 100%;
+}
+
+/* History */
+.identifier-history {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+}
+
+.identifier-history h4 {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+}
+
+.history-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    justify-content: center;
+}
+
+.history-chip {
+    display: inline-block;
+    padding: 0.3rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    background: rgba(139, 92, 246, 0.1);
+    color: var(--text-muted);
+    border: 1px solid rgba(139, 92, 246, 0.15);
+    transition: var(--transition);
+}
+
+.history-chip.latest {
+    background: rgba(108, 60, 225, 0.2);
+    color: var(--primary-light);
+    border-color: var(--primary);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .identifier-card {
+        padding: 1.5rem 1rem;
+    }
+
+    .identifier-mic-btn {
+        width: 80px;
+        height: 80px;
+    }
+
+    .identifier-mic-btn svg {
+        width: 36px;
+        height: 36px;
+    }
+
+    .identifier-chord-name {
+        font-size: 3rem;
+    }
+}
+
