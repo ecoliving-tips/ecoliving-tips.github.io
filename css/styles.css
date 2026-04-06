@@ -2268,18 +2268,6 @@ footer {
     animation: fadeIn 0.3s ease;
 }
 
-/* Song metadata bar in chord finder results */
-.generate-results .song-meta-bar {
-    justify-content: center;
-    margin-bottom: 1rem;
-    animation: fadeIn 0.3s ease;
-}
-
-.generate-results .song-meta-bar .meta-badge {
-    font-size: 0.85rem;
-    padding: 5px 16px;
-}
-
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-6px); }
     to { opacity: 1; transform: translateY(0); }

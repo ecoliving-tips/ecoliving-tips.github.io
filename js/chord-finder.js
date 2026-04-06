@@ -422,27 +422,6 @@ function showResults() {
     // Reset transpose display
     document.getElementById('transpose-value').textContent = '0';
 
-    // Show song metadata (key, BPM, time signature)
-    const metaBar = document.getElementById('song-meta-bar');
-    if (metaBar && chordData) {
-        const keyEl = document.getElementById('song-key-display');
-        const bpmEl = document.getElementById('song-bpm-display');
-        const tsEl = document.getElementById('song-timesig-display');
-        const hasKey = chordData.key && chordData.key !== '';
-        const hasBpm = chordData.bpm && chordData.bpm > 0;
-        const hasTs = chordData.time_signature && chordData.time_signature !== '';
-
-        if (keyEl) keyEl.textContent = hasKey ? 'Key: ' + chordData.key : '';
-        if (bpmEl) bpmEl.textContent = hasBpm ? chordData.bpm + ' BPM' : '';
-        if (tsEl) tsEl.textContent = hasTs ? chordData.time_signature : '';
-
-        if (keyEl) keyEl.style.display = hasKey ? '' : 'none';
-        if (bpmEl) bpmEl.style.display = hasBpm ? '' : 'none';
-        if (tsEl) tsEl.style.display = hasTs ? '' : 'none';
-
-        metaBar.style.display = (hasKey || hasBpm || hasTs) ? '' : 'none';
-    }
-
     // Render chord timeline
     renderChordTimeline();
 

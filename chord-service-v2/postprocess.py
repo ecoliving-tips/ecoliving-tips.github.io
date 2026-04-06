@@ -721,16 +721,17 @@ def get_diatonic_chords(key: str) -> set[str]:
 
 def viterbi_smooth_chords(
     raw_predictions: list[tuple[float, str]],
-    key: str,
+    key: str | None,
     song_length: float,
 ) -> list[tuple[float, str]]:
     """
     Apply Viterbi HMM smoothing to frame-level chord predictions.
-    Uses a key-aware transition matrix to favor diatonic chord sequences.
+    When key is None, uses uniform transitions (pure persistence smoothing).
+    When key is provided, uses key-aware diatonic transition bias.
 
     Args:
         raw_predictions: list of (time_sec, chord_label) from BTC
-        key: detected key string (e.g., 'C', 'Am', 'Eb')
+        key: detected key string or None for key-agnostic mode
         song_length: total audio duration
 
     Returns:
@@ -739,7 +740,7 @@ def viterbi_smooth_chords(
     if len(raw_predictions) < 3:
         return raw_predictions
 
-    # Build vocabulary of unique chord labels (excluding N)
+    # Build vocabulary of unique chord labels
     labels_in_data = []
     for _, label in raw_predictions:
         if label not in labels_in_data:
@@ -752,37 +753,39 @@ def viterbi_smooth_chords(
     n_states = len(labels_in_data)
     label_to_idx = {l: i for i, l in enumerate(labels_in_data)}
 
-    # Build diatonic chord set for the key
-    diatonic = get_diatonic_chords(key)
-
-    # Also include enharmonic equivalents in diatonic set
-    diatonic_expanded = set(diatonic)
-    for chord in list(diatonic):
-        # Apply both sharp→flat and ensure coverage
-        en = apply_enharmonic(chord, True)
-        if en != chord:
-            diatonic_expanded.add(en)
-
-    diatonic_indices = set()
-    for i, label in enumerate(labels_in_data):
-        if label in diatonic_expanded or label == "N":
-            diatonic_indices.add(i)
-
     # Build transition matrix
-    transition = np.full((n_states, n_states), 0.0005)  # non-diatonic default
-    for i in range(n_states):
-        # Self-transition: strong persistence
-        transition[i, i] = 0.90
+    if key is not None:
+        # Key-aware mode: diatonic chords get higher transition probability
+        diatonic = get_diatonic_chords(key)
+        diatonic_expanded = set(diatonic)
+        for chord in list(diatonic):
+            en = apply_enharmonic(chord, True)
+            if en != chord:
+                diatonic_expanded.add(en)
 
-        i_diatonic = i in diatonic_indices
-        for j in range(n_states):
-            if i == j:
-                continue
-            j_diatonic = j in diatonic_indices
-            if i_diatonic and j_diatonic:
-                transition[i, j] = 0.02    # diatonic → diatonic
-            elif i_diatonic or j_diatonic:
-                transition[i, j] = 0.002   # mixed
+        diatonic_indices = set()
+        for i, label in enumerate(labels_in_data):
+            if label in diatonic_expanded or label == "N":
+                diatonic_indices.add(i)
+
+        transition = np.full((n_states, n_states), 0.0005)
+        for i in range(n_states):
+            transition[i, i] = 0.90
+            i_diatonic = i in diatonic_indices
+            for j in range(n_states):
+                if i == j:
+                    continue
+                j_diatonic = j in diatonic_indices
+                if i_diatonic and j_diatonic:
+                    transition[i, j] = 0.02
+                elif i_diatonic or j_diatonic:
+                    transition[i, j] = 0.002
+    else:
+        # Key-agnostic mode: uniform transitions, only self-persistence bias
+        uniform_prob = 0.10 / max(1, n_states - 1)
+        transition = np.full((n_states, n_states), uniform_prob)
+        for i in range(n_states):
+            transition[i, i] = 0.90
 
     # Normalize rows
     for i in range(n_states):
