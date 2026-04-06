@@ -23,11 +23,9 @@ from pydantic import BaseModel
 
 from postprocess import (
     simplify_chord_label,
-    beat_align_chords,
     merge_consecutive_chords,
     median_filter_chords,
     viterbi_smooth_chords,
-    compute_beat_confidence,
 )
 
 # ---------------------------------------------------------------------------
@@ -159,12 +157,8 @@ async def startup():
 def extract_features(audio_path: str):
     """
     Load audio file, compute CQT features matching BTC input format.
-    Also performs beat tracking for beat-aligned chord snapping.
-    Returns (feature_matrix, feature_per_second, song_length_sec, beat_times).
+    Returns (feature_matrix, feature_per_second, song_length_sec).
     """
-    # Try BTC's built-in feature extraction first (most accurate match)
-    beat_times = np.array([])
-
     try:
         from utils.mir_eval_modules import audio_file_to_features
 
@@ -177,19 +171,7 @@ def extract_features(audio_path: str):
         # Convert to true fps for our downstream code.
         true_fps = 1.0 / feature_per_second if feature_per_second > 0 else 10.0
 
-        # Load audio separately for beat tracking
-        y, sr = librosa.load(audio_path, sr=SAMPLE_RATE, mono=True)
-        y, _ = librosa.effects.trim(y, top_db=30)
-        max_samples = MAX_DURATION_SEC * sr
-        if len(y) > max_samples:
-            y = y[:max_samples]
-
-        # Beat tracking
-        hop = config.feature.get("hop_length", HOP_LENGTH) if isinstance(config.feature, dict) else HOP_LENGTH
-        _tempo, beat_frames = librosa.beat.beat_track(y=y, sr=sr, hop_length=hop)
-        beat_times = librosa.frames_to_time(beat_frames, sr=sr, hop_length=hop)
-
-        return feature, true_fps, song_length, beat_times
+        return feature, true_fps, song_length
     except Exception as e:
         logger.info(f"BTC feature extraction failed ({e}), using custom fallback")
 
@@ -232,11 +214,7 @@ def extract_features(audio_path: str):
 
     feature_per_second = sr / hop
 
-    # Beat tracking
-    _tempo, beat_frames = librosa.beat.beat_track(y=y, sr=sr, hop_length=hop)
-    beat_times = librosa.frames_to_time(beat_frames, sr=sr, hop_length=hop)
-
-    return cqt_norm, feature_per_second, song_length, beat_times
+    return cqt_norm, feature_per_second, song_length
 
 
 # ---------------------------------------------------------------------------
@@ -327,13 +305,13 @@ def run_btc_inference(feature_matrix, feature_per_second):
 # Main analysis pipeline
 # ---------------------------------------------------------------------------
 def analyze_audio(audio_path: str, video_id: str = "upload"):
-    """Lean pipeline: features → BTC → simplify → median filter → Viterbi → beat align → cleanup → response."""
+    """Lean pipeline: features → BTC → simplify → median filter → Viterbi → group → cleanup → response."""
 
     t0 = time.time()
 
-    # 1. Extract features + beat tracking
+    # 1. Extract features
     logger.info("Extracting CQT features...")
-    feature, fps, song_length, beat_times = extract_features(audio_path)
+    feature, fps, song_length = extract_features(audio_path)
     logger.info(f"Features: shape={feature.shape}, fps={fps:.1f}, length={song_length:.1f}s")
 
     # 2. Run BTC inference
@@ -358,24 +336,18 @@ def analyze_audio(audio_path: str, video_id: str = "upload"):
         vocab_map=large_voca_map if use_large_voca else None,
     )
 
-    # 6. Beat alignment — only if beat grid is reliable (confidence-based)
-    beat_conf = compute_beat_confidence(beat_times)
-    if beat_conf >= 0.5:
-        logger.info(f"Beat alignment with {len(beat_times)} beats (confidence={beat_conf:.2f})...")
-        chord_events = beat_align_chords(smoothed, beat_times, song_length)
-    else:
-        logger.info(f"Skipping beat alignment (confidence={beat_conf:.2f}), using frame grouping")
-        chord_events = []
-        if smoothed:
-            cur_time, cur_label = smoothed[0]
-            for i in range(1, len(smoothed)):
-                t_val, label = smoothed[i]
-                if label != cur_label:
-                    dur = t_val - cur_time
-                    chord_events.append((cur_time, dur, cur_label))
-                    cur_time, cur_label = t_val, label
-            dur = song_length - cur_time
-            chord_events.append((cur_time, min(dur, 30.0), cur_label))
+    # 6. Group consecutive same-label frames into duration events
+    chord_events = []
+    if smoothed:
+        cur_time, cur_label = smoothed[0]
+        for i in range(1, len(smoothed)):
+            t_val, label = smoothed[i]
+            if label != cur_label:
+                dur = t_val - cur_time
+                chord_events.append((cur_time, dur, cur_label))
+                cur_time, cur_label = t_val, label
+        dur = song_length - cur_time
+        chord_events.append((cur_time, min(dur, 30.0), cur_label))
 
     # 7. Filter out "N" chords and very short events
     MIN_DURATION = 0.3
