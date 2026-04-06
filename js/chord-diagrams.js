@@ -1,5 +1,5 @@
 // Swaram - Chord Diagrams (Guitar + Keyboard SVG Renderer)
-// Comprehensive chord dictionary: all 12 roots × 13 types + flat aliases
+// Comprehensive chord dictionary: all 12 roots × 18 types + flat aliases
 
 const CHORD_DIAGRAMS = {};
 
@@ -24,6 +24,10 @@ const CHORD_DIAGRAMS = {};
         '9':    [0, 4, 7, 10, 14],    // Dominant 9th
         'm9':   [0, 3, 7, 10, 14],    // Minor 9th
         'm7b5': [0, 3, 6, 10],        // Half-diminished (minor 7 flat 5)
+        'dim7': [0, 3, 6, 9],         // Diminished 7th
+        'add9': [0, 4, 7, 14],        // Add 9
+        '7sus4':[0, 5, 7, 10],        // Dominant 7th sus4
+        'mM7':  [0, 3, 7, 11],        // Minor-major 7th
     };
 
     // Guitar barre patterns: E-shape (root on low E string, fret N)
@@ -40,6 +44,9 @@ const CHORD_DIAGRAMS = {};
         '9':    function(n){return [n,  n+2,  n,    n+1,  n,    n+2 ]}, // E9 shape
         'm9':   function(n){return [n,  n+2,  n,    n,    n,    n+2 ]}, // Em9 shape
         'm7b5': function(n){return [n,  n+1,  n,    n,    n,    -1  ]}, // Em7b5 shape
+        'dim7': function(n){return [n,  n+1,  n+2,  n,    n+2,  -1  ]}, // Edim7 shape
+        '7sus4':function(n){return [n,  n+2,  n,    n+2,  n,    n   ]}, // E7sus4 shape
+        'mM7':  function(n){return [n,  n+2,  n+1,  n,    n,    n   ]}, // EmM7 shape
     };
 
     // Guitar barre patterns: A-shape (root on A string, fret N)
@@ -57,6 +64,10 @@ const CHORD_DIAGRAMS = {};
         '6':    function(n){return [-1,  n,   n+2,  n+2,  n+2,  n+2 ]}, // A6 shape
         'm6':   function(n){return [-1,  n,   n+2,  n+2,  n+1,  n+2 ]}, // Am6 shape
         'm7b5': function(n){return [-1,  n,   n+1,  n,    n+1,  -1  ]}, // Am7b5 shape
+        'dim7': function(n){return [-1,  n,   n+1,  n+2,  n+1,  n+2 ]}, // Adim7 shape
+        'add9': function(n){return [-1,  n,   n+2,  n+4,  n+2,  n   ]}, // Aadd9 shape
+        '7sus4':function(n){return [-1,  n,   n+2,  n,    n+3,  n   ]}, // A7sus4 shape
+        'mM7':  function(n){return [-1,  n,   n+2,  n+1,  n+1,  n   ]}, // AmM7 shape
     };
 
     // E-string fret for each root note

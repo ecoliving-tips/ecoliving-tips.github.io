@@ -6,6 +6,7 @@ detection, and chord label simplification.
 """
 
 import numpy as np
+import librosa
 from collections import Counter
 
 # ---------------------------------------------------------------------------
@@ -21,13 +22,13 @@ QUALITY_MAP = {
     "min": "m",         # C:min → Cm
     "dim": "dim",       # C:dim → Cdim
     "aug": "aug",       # C:aug → Caug
-    "min6": "m",        # C:min6 → Cm (simplify)
-    "maj6": "",         # C:maj6 → C (simplify)
+    "min6": "m6",       # C:min6 → Cm6 (preserve 6th)
+    "maj6": "6",        # C:maj6 → C6 (preserve 6th)
     "min7": "m7",       # C:min7 → Cm7
-    "minmaj7": "m7",    # C:minmaj7 → Cm7 (simplify)
+    "minmaj7": "mM7",   # C:minmaj7 → CmM7 (preserve unique quality)
     "maj7": "maj7",     # C:maj7 → Cmaj7
     "7": "7",           # C:7 → C7
-    "dim7": "dim",      # C:dim7 → Cdim (simplify)
+    "dim7": "dim7",     # C:dim7 → Cdim7 (preserve dim7)
     "hdim7": "m7b5",    # C:hdim7 → Cm7b5
     "sus2": "sus2",     # C:sus2 → Csus2
     "sus4": "sus4",     # C:sus4 → Csus4
@@ -200,8 +201,16 @@ def merge_consecutive_chords(
 PITCH_CLASSES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 
 # Krumhansl-Kessler major & minor profiles
-MAJOR_PROFILE = [6.35, 2.23, 3.48, 2.33, 4.38, 4.09, 2.52, 5.19, 2.39, 3.66, 2.29, 2.88]
-MINOR_PROFILE = [6.33, 2.68, 3.52, 5.38, 2.60, 3.53, 2.54, 4.75, 3.98, 2.69, 3.34, 3.17]
+MAJOR_PROFILE_KK = [6.35, 2.23, 3.48, 2.33, 4.38, 4.09, 2.52, 5.19, 2.39, 3.66, 2.29, 2.88]
+MINOR_PROFILE_KK = [6.33, 2.68, 3.52, 5.38, 2.60, 3.53, 2.54, 4.75, 3.98, 2.69, 3.34, 3.17]
+
+# Temperley major & minor profiles (complementary to K-K)
+MAJOR_PROFILE_T = [5.0, 2.0, 3.5, 2.0, 4.5, 4.0, 2.0, 4.5, 2.0, 3.5, 1.5, 4.0]
+MINOR_PROFILE_T = [5.0, 2.0, 3.5, 4.5, 2.0, 3.5, 2.0, 4.5, 3.5, 2.0, 1.5, 4.0]
+
+# Combined profiles (average of K-K and Temperley for robustness)
+MAJOR_PROFILE = [(a + b) / 2 for a, b in zip(MAJOR_PROFILE_KK, MAJOR_PROFILE_T)]
+MINOR_PROFILE = [(a + b) / 2 for a, b in zip(MINOR_PROFILE_KK, MINOR_PROFILE_T)]
 
 
 def _chord_root_to_pitch_class(chord: str) -> int:
@@ -370,3 +379,323 @@ def detect_time_signature(onset_env: np.ndarray, beat_frames: np.ndarray) -> str
     }
 
     return grouping_to_time_sig.get(best_grouping, "4/4")
+
+
+# ---------------------------------------------------------------------------
+# Key refinement (two-pass, ported from v1)
+# ---------------------------------------------------------------------------
+
+def refine_key_with_chords(
+    initial_key: str,
+    events: list[tuple[float, float, str]],
+) -> str:
+    """
+    Refine detected key using chord resolution analysis.
+    Scores minor vs major candidates using weighted chord functions:
+    - Tonic chord: 1.5× weight
+    - Dominant V7: 3.0× weight (strongest indicator)
+    - Subdominant: 0.5× weight
+    - M7 chords on tonic: 0.3× weight (ambiguous — could be I of major or III of minor)
+    - Anchor bonus: +5 if first/last chord matches tonic
+    """
+    if not events or len(events) < 2:
+        return initial_key
+
+    is_minor = initial_key.endswith("m")
+    key_root_name = initial_key.rstrip("m")
+    key_root = _chord_root_to_pitch_class(key_root_name)
+    if key_root < 0:
+        return initial_key
+
+    # Build chord duration map
+    chord_dur = {}
+    for _, dur, c in events:
+        chord_dur[c] = chord_dur.get(c, 0) + dur
+
+    first_chord = events[0][2]
+    last_chord = events[-1][2]
+
+    def score_key(root_pc, minor):
+        """Score how well chords fit a given key."""
+        s = 0.0
+        tonic_name = PITCH_CLASSES[root_pc]
+        tonic_chord = f"{tonic_name}m" if minor else tonic_name
+
+        # Dominant V7: root at +7 semitones
+        dom_root = (root_pc + 7) % 12
+        dom_name = PITCH_CLASSES[dom_root]
+        dom7_chord = f"{dom_name}7"
+
+        # Subdominant: root at +5 semitones
+        sub_root = (root_pc + 5) % 12
+        sub_name = PITCH_CLASSES[sub_root]
+
+        for chord, dur in chord_dur.items():
+            c_root = _chord_root_to_pitch_class(chord)
+            if c_root < 0:
+                continue
+
+            # Tonic chord
+            if chord == tonic_chord or (c_root == root_pc and _is_minor_chord(chord) == minor):
+                s += dur * 1.5
+            # Dominant V7
+            elif chord == dom7_chord:
+                s += dur * 3.0
+            # Subdominant
+            elif c_root == sub_root:
+                s += dur * 0.5
+            # M7 on tonic — ambiguous, weight low
+            elif c_root == root_pc and chord.endswith("maj7"):
+                s += dur * 0.3
+            # Other diatonic chords get base weight
+            else:
+                interval = (c_root - root_pc) % 12
+                if minor:
+                    diatonic = {0, 2, 3, 5, 7, 8, 10, 11}  # natural + harmonic minor
+                else:
+                    diatonic = {0, 2, 4, 5, 7, 9, 11}
+                if interval in diatonic:
+                    s += dur * 0.2
+
+        # Anchor bonus: first/last chord matching tonic
+        for anchor in [first_chord, last_chord]:
+            a_root = _chord_root_to_pitch_class(anchor)
+            if a_root == root_pc:
+                s += 5.0
+
+        return s
+
+    # Score both major and minor candidates for the same root
+    major_score = score_key(key_root, False)
+    minor_score = score_key(key_root, True)
+
+    # Also score relative major/minor
+    if is_minor:
+        rel_major_root = (key_root + 3) % 12
+        rel_major_score = score_key(rel_major_root, False)
+    else:
+        rel_minor_root = (key_root + 9) % 12
+        rel_minor_score = score_key(rel_minor_root, True)
+
+    if is_minor:
+        # Currently detected as minor — need strong evidence to flip to major
+        if rel_major_score > minor_score * 1.5:
+            new_root = PITCH_CLASSES[rel_major_root]
+            return new_root
+    else:
+        # Currently detected as major — easier to flip to minor
+        if minor_score > major_score:
+            return f"{key_root_name}m"
+        if rel_minor_score > major_score:
+            new_root = PITCH_CLASSES[rel_minor_root]
+            return f"{new_root}m"
+
+    return initial_key
+
+
+# ---------------------------------------------------------------------------
+# Diatonic chord set (for Viterbi transition matrix)
+# ---------------------------------------------------------------------------
+
+# Major/minor scale degrees in semitones from root
+_MAJOR_SCALE = [0, 2, 4, 5, 7, 9, 11]
+_MINOR_SCALE = [0, 2, 3, 5, 7, 8, 10]
+
+def get_diatonic_chords(key: str) -> set[str]:
+    """
+    Return set of chord names diatonic to the given key.
+    Includes natural scale chords, harmonic minor V/V7, secondary dominants,
+    borrowed chords, and Picardy third.
+    """
+    is_minor = key.endswith("m")
+    root_name = key.rstrip("m")
+    root_pc = _chord_root_to_pitch_class(root_name)
+    if root_pc < 0:
+        return set()
+
+    chords = set()
+
+    if is_minor:
+        # Natural minor: i, ii°, III, iv, v, VI, VII
+        degrees = _MINOR_SCALE
+        minor_degrees = {0, 3, 7}   # i, iv, v (natural)
+        major_degrees = {2, 5, 8}   # III, VI, VII (natural: bIII=+3, bVI=+8, bVII=+10)
+        dim_degrees = {2}            # ii°
+
+        for d in degrees:
+            pc = (root_pc + d) % 12
+            name = PITCH_CLASSES[pc]
+            chords.add(name)          # major
+            chords.add(f"{name}m")    # minor
+            chords.add(f"{name}7")    # dominant 7th
+            chords.add(f"{name}m7")   # minor 7th
+            chords.add(f"{name}maj7") # major 7th
+            chords.add(f"{name}dim")  # diminished
+
+        # Harmonic minor: raised 7th for V and V7
+        v_root = (root_pc + 7) % 12
+        v_name = PITCH_CLASSES[v_root]
+        chords.add(v_name)
+        chords.add(f"{v_name}7")
+
+        # vii° of harmonic minor
+        vii_root = (root_pc + 11) % 12
+        vii_name = PITCH_CLASSES[vii_root]
+        chords.add(f"{vii_name}dim")
+        chords.add(f"{vii_name}dim7")
+
+        # Picardy third (major I)
+        chords.add(root_name)
+
+    else:
+        # Major: I, ii, iii, IV, V, vi, vii°
+        degrees = _MAJOR_SCALE
+
+        for d in degrees:
+            pc = (root_pc + d) % 12
+            name = PITCH_CLASSES[pc]
+            chords.add(name)
+            chords.add(f"{name}m")
+            chords.add(f"{name}7")
+            chords.add(f"{name}m7")
+            chords.add(f"{name}maj7")
+            chords.add(f"{name}dim")
+
+        # Secondary dominants (V/x for each diatonic chord)
+        for d in [2, 4, 5, 7, 9]:  # V of ii, iii, IV, V, vi
+            sec_dom = (root_pc + d + 7) % 12
+            sec_name = PITCH_CLASSES[sec_dom]
+            chords.add(f"{sec_name}7")
+            chords.add(sec_name)
+
+        # Borrowed from parallel minor (bIII, bVI, bVII, iv)
+        for d in [3, 8, 10]:
+            pc = (root_pc + d) % 12
+            name = PITCH_CLASSES[pc]
+            chords.add(name)
+            chords.add(f"{name}m")
+            chords.add(f"{name}7")
+
+    # Add common extended types for all diatonic roots
+    for d in (degrees if not is_minor else _MINOR_SCALE):
+        pc = (root_pc + d) % 12
+        name = PITCH_CLASSES[pc]
+        for suffix in ["sus2", "sus4", "6", "m6", "m7b5", "dim7", "mM7", "aug"]:
+            chords.add(f"{name}{suffix}")
+
+    return chords
+
+
+# ---------------------------------------------------------------------------
+# Viterbi HMM post-smoothing
+# ---------------------------------------------------------------------------
+
+def viterbi_smooth_chords(
+    raw_predictions: list[tuple[float, str]],
+    key: str,
+    song_length: float,
+) -> list[tuple[float, str]]:
+    """
+    Apply Viterbi HMM smoothing to frame-level chord predictions.
+    Uses a key-aware transition matrix to favor diatonic chord sequences.
+
+    Args:
+        raw_predictions: list of (time_sec, chord_label) from BTC
+        key: detected key string (e.g., 'C', 'Am', 'Eb')
+        song_length: total audio duration
+
+    Returns:
+        Smoothed list of (time_sec, chord_label)
+    """
+    if len(raw_predictions) < 3:
+        return raw_predictions
+
+    # Build vocabulary of unique chord labels (excluding N)
+    labels_in_data = []
+    for _, label in raw_predictions:
+        if label not in labels_in_data:
+            labels_in_data.append(label)
+
+    # Need at least 2 states for Viterbi
+    if len(labels_in_data) < 2:
+        return raw_predictions
+
+    n_states = len(labels_in_data)
+    label_to_idx = {l: i for i, l in enumerate(labels_in_data)}
+
+    # Build diatonic chord set for the key
+    diatonic = get_diatonic_chords(key)
+
+    # Also include enharmonic equivalents in diatonic set
+    diatonic_expanded = set(diatonic)
+    for chord in list(diatonic):
+        # Apply both sharp→flat and ensure coverage
+        en = apply_enharmonic(chord, True)
+        if en != chord:
+            diatonic_expanded.add(en)
+
+    diatonic_indices = set()
+    for i, label in enumerate(labels_in_data):
+        if label in diatonic_expanded or label == "N":
+            diatonic_indices.add(i)
+
+    # Build transition matrix
+    transition = np.full((n_states, n_states), 0.0005)  # non-diatonic default
+    for i in range(n_states):
+        # Self-transition: strong persistence
+        transition[i, i] = 0.90
+
+        i_diatonic = i in diatonic_indices
+        for j in range(n_states):
+            if i == j:
+                continue
+            j_diatonic = j in diatonic_indices
+            if i_diatonic and j_diatonic:
+                transition[i, j] = 0.02    # diatonic → diatonic
+            elif i_diatonic or j_diatonic:
+                transition[i, j] = 0.002   # mixed
+
+    # Normalize rows
+    for i in range(n_states):
+        row_sum = transition[i].sum()
+        if row_sum > 0:
+            transition[i] /= row_sum
+
+    # Build observation probability matrix
+    # Shape: (n_states, n_frames)
+    n_frames = len(raw_predictions)
+    obs_prob = np.full((n_states, n_frames), 0.01)  # small floor probability
+
+    for t, (_, label) in enumerate(raw_predictions):
+        idx = label_to_idx.get(label)
+        if idx is not None:
+            # Softened one-hot: primary label gets 0.85, others share remaining
+            obs_prob[idx, t] = 0.85
+            remaining = 0.15 / max(1, n_states - 1)
+            for j in range(n_states):
+                if j != idx:
+                    obs_prob[j, t] = remaining + 0.01
+
+    # Normalize columns
+    for t in range(n_frames):
+        col_sum = obs_prob[:, t].sum()
+        if col_sum > 0:
+            obs_prob[:, t] /= col_sum
+
+    # Run Viterbi
+    try:
+        smoothed_indices = librosa.sequence.viterbi_discriminative(
+            obs_prob, transition
+        )
+    except Exception:
+        # If Viterbi fails for any reason, return original
+        return raw_predictions
+
+    # Convert back to (time, label) format
+    result = []
+    for t in range(n_frames):
+        time_sec = raw_predictions[t][0]
+        label = labels_in_data[smoothed_indices[t]]
+        result.append((time_sec, label))
+
+    return result

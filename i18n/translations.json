@@ -230,7 +230,7 @@
     "ci_faq_q3": "Does it record my audio?",
     "ci_faq_a3": "No. All audio processing happens locally in your browser using the Web Audio API. No audio data is sent to any server. Your privacy is fully protected.",
     "ci_faq_q4": "How many chords can it recognize?",
-    "ci_faq_a4": "The chord identifier recognizes 221 chords across all 12 keys, including major, minor, 7th, major 7th, minor 7th, sus2, sus4, diminished, augmented, 6th, 9th, and half-diminished chords."
+    "ci_faq_a4": "The chord identifier recognizes 216 chords across all 12 keys, including major, minor, 7th, major 7th, minor 7th, sus2, sus4, diminished, diminished 7th, augmented, 6th, minor 6th, 9th, minor 9th, add9, 7sus4, minor-major 7th, and half-diminished chords."
   },
   "ml": {
     "site_title": "സ്വരം",
@@ -463,6 +463,6 @@
     "ci_faq_q3": "ഇത് എന്റെ ഓഡിയോ റെക്കോർഡ് ചെയ്യുന്നുണ്ടോ?",
     "ci_faq_a3": "ഇല്ല. എല്ലാ ഓഡിയോ പ്രോസസ്സിങ്ങും Web Audio API ഉപയോഗിച്ച് നിങ്ങളുടെ ബ്രൗസറിൽ തന്നെ നടക്കുന്നു. ഒരു ഓഡിയോ ഡാറ്റയും ഒരു സെർവറിലേക്കും അയയ്ക്കുന്നില്ല. നിങ്ങളുടെ സ്വകാര്യത പൂർണ്ണമായി സംരക്ഷിക്കപ്പെടുന്നു.",
     "ci_faq_q4": "എത്ര കോർഡുകൾ തിരിച്ചറിയാൻ കഴിയും?",
-    "ci_faq_a4": "കോർഡ് ഐഡന്റിഫയർ 12 കീകളിലായി 221 കോർഡുകൾ തിരിച്ചറിയുന്നു — മേജർ, മൈനർ, 7th, മേജർ 7th, മൈനർ 7th, sus2, sus4, ഡിമിനിഷ്ഡ്, ഓഗ്മെന്റഡ്, 6th, 9th, ഹാഫ്-ഡിമിനിഷ്ഡ് കോർഡുകൾ ഉൾപ്പെടെ."
+    "ci_faq_a4": "കോർഡ് ഐഡന്റിഫയർ 12 കീകളിലായി 216 കോർഡുകൾ തിരിച്ചറിയുന്നു — മേജർ, മൈനർ, 7th, മേജർ 7th, മൈനർ 7th, sus2, sus4, ഡിമിനിഷ്ഡ്, ഡിമിനിഷ്ഡ് 7th, ഓഗ്മെന്റഡ്, 6th, മൈനർ 6th, 9th, മൈനർ 9th, add9, 7sus4, മൈനർ-മേജർ 7th, ഹാഫ്-ഡിമിനിഷ്ഡ് കോർഡുകൾ ഉൾപ്പെടെ."
   }
 }

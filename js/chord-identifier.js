@@ -1,6 +1,7 @@
 /* ==============================================
-   Swaram — Chord Identifier Engine v3
+   Swaram — Chord Identifier Engine v4
    Real-time mic → FFT → HPCP → penalized matching
+   + key context tracking + diatonic bias
    Uses Web Audio API — 100% client-side, no uploads
    ============================================== */
 
@@ -25,7 +26,8 @@
     var CENTS_WINDOW = 50;                 // cosine window half-width in cents
     var BASS_LOW_HZ = 40;                  // bass HPS range start
     var BASS_HIGH_HZ = 300;                // bass HPS range end
-    var FIFTH_ATTEN = 0.1;                 // subtract 10% of each note from its 5th
+    var FIFTH_ATTEN = 0.18;                // subtract 18% of each note from its 5th (was 0.1)
+    var FOURTH_ATTEN = 0.09;               // subtract 9% from perfect 4th (bidirectional)
     var CHROMA_SMOOTH_FRAMES = 4;          // rolling chroma average window
     var PENALTY_WEIGHT = 0.8;              // penalty for non-chord-tone energy
     var MIN_CHORD_SCORE = 0.25;            // minimum penalized score to report
@@ -49,7 +51,11 @@
         'm6':   [0, 3, 7, 9],
         '9':    [0, 4, 7, 10, 14],
         'm9':   [0, 3, 7, 10, 14],
-        'm7b5': [0, 3, 6, 10]
+        'm7b5': [0, 3, 6, 10],
+        'dim7': [0, 3, 6, 9],
+        'add9': [0, 4, 7, 14],
+        '7sus4':[0, 5, 7, 10],
+        'mM7':  [0, 3, 7, 11]
     };
 
     var QUALITY_NAMES = {
@@ -66,7 +72,11 @@
         'm6':   'Minor 6th',
         '9':    'Dominant 9th',
         'm9':   'Minor 9th',
-        'm7b5': 'Half-diminished'
+        'm7b5': 'Half-diminished',
+        'dim7': 'Diminished 7th',
+        'add9': 'Add 9',
+        '7sus4':'Dominant 7th sus4',
+        'mM7':  'Minor Major 7th'
     };
 
     // Scoring weights — prioritize simpler chords
@@ -74,7 +84,8 @@
         '': 1.0, 'm': 1.0, 'sus4': 0.96, 'sus2': 0.96,
         '7': 0.93, 'm7': 0.93, 'dim': 0.92, 'aug': 0.92,
         '6': 0.90, 'm6': 0.90, 'M7': 0.90,
-        'm7b5': 0.88, '9': 0.80, 'm9': 0.80
+        'm7b5': 0.88, 'dim7': 0.88, 'add9': 0.88, '7sus4': 0.88,
+        'mM7': 0.86, '9': 0.80, 'm9': 0.80
     };
 
     // Pre-compute chord tone sets for matching (avoids re-creating Sets per frame)
@@ -100,6 +111,22 @@
     var lastAnalysisTime = 0;              // throttle chord detection
     var lastChordChangeTime = 0;           // display hold timer
     var currentDisplayedChord = '';        // currently shown chord name
+
+    // ── Key context tracking state ──────────────────
+    var keyHistogram = null;               // Float64Array(12) — pitch class accumulator
+    var detectedKeyRoot = -1;              // current estimated key root (0-11), -1 = unknown
+    var detectedKeyIsMinor = false;
+    var keyUpdateCounter = 0;
+    var KEY_UPDATE_INTERVAL = 8;           // re-evaluate key every N detections
+    var KEY_DECAY_FACTOR = 0.993;          // slow decay per frame
+    var DIATONIC_BOOST = 1.25;             // boost score for diatonic chords
+
+    // Major/minor scale degrees in semitones from root
+    var MAJOR_SCALE_SET = { 0:1, 2:1, 4:1, 5:1, 7:1, 9:1, 11:1 };
+    var MINOR_SCALE_SET = { 0:1, 2:1, 3:1, 5:1, 7:1, 8:1, 10:1, 11:1 }; // natural + harmonic minor raised 7th
+    // Krumhansl-Kessler + Temperley averaged profiles
+    var KS_MAJOR = [5.675, 2.115, 3.49, 2.165, 4.44, 4.045, 2.26, 4.845, 2.195, 3.58, 1.895, 3.44];
+    var KS_MINOR = [5.665, 2.34, 3.51, 4.94, 2.30, 3.515, 2.27, 4.625, 3.74, 2.345, 2.42, 3.585];
 
     // ── DOM refs ───────────────────────────────────────
     var micBtn, micIconOff, micIconOn, micStatus;
@@ -190,6 +217,10 @@
                 lastAnalysisTime = 0;
                 lastChordChangeTime = 0;
                 currentDisplayedChord = '';
+                keyHistogram = new Float64Array(12);
+                detectedKeyRoot = -1;
+                detectedKeyIsMinor = false;
+                keyUpdateCounter = 0;
                 analyzeLoop();
             })
             .catch(function (err) {
@@ -282,7 +313,7 @@
     function detectChord(freqData, sampleRate) {
         var binSize = sampleRate / FFT_SIZE;
         var minBin = Math.floor(65 / binSize);       // C2 ~65 Hz
-        var maxBin = Math.min(freqData.length - 1, Math.ceil(2100 / binSize)); // C7
+        var maxBin = Math.min(freqData.length - 1, Math.ceil(4200 / binSize)); // C8 (was C7=2100Hz)
 
         // Step 1: dB → linear → log1p compression
         var linMag = new Float64Array(freqData.length);
@@ -388,10 +419,17 @@
                 // Cosine weighting: 1.0 at center, 0.0 at ±CENTS_WINDOW
                 var cosWeight = Math.cos(centsOff * piOver2W);
 
+                // Octave weighting: lower octaves more reliable for root detection
+                var octave = Math.floor(nearestMidi / 12);
+                var octaveWeight = 1.0;
+                if (octave <= 3) octaveWeight = 1.4;       // below ~C3 (130 Hz)
+                else if (octave <= 4) octaveWeight = 1.15;  // C3-C4
+                else if (octave >= 6) octaveWeight = 0.7;   // above C6
+
                 var pitchClass = nearestMidi % 12;
                 if (pitchClass < 0) pitchClass += 12;
 
-                chroma[pitchClass] += m * HARMONIC_WEIGHTS[h - 1] * cosWeight;
+                chroma[pitchClass] += m * HARMONIC_WEIGHTS[h - 1] * cosWeight * octaveWeight;
             }
         }
 
@@ -461,9 +499,15 @@
         for (var i = 0; i < 12; i++) result[i] = chroma[i];
 
         for (var i = 0; i < 12; i++) {
+            // Attenuate the perfect fifth above (3rd harmonic bleed)
             var fifth = (i + 7) % 12;
             result[fifth] -= chroma[i] * FIFTH_ATTEN;
             if (result[fifth] < 0) result[fifth] = 0;
+
+            // Attenuate the perfect fourth above (bidirectional, at half strength)
+            var fourth = (i + 5) % 12;
+            result[fourth] -= chroma[i] * FOURTH_ATTEN;
+            if (result[fourth] < 0) result[fourth] = 0;
         }
         return result;
     }
@@ -483,6 +527,57 @@
         return avg;
     }
 
+    // ── Key context tracking ────────────────────────
+
+    function pearsonCorr(a, b) {
+        var n = a.length;
+        var sumA = 0, sumB = 0, sumAB = 0, sumA2 = 0, sumB2 = 0;
+        for (var i = 0; i < n; i++) {
+            sumA += a[i]; sumB += b[i]; sumAB += a[i] * b[i];
+            sumA2 += a[i] * a[i]; sumB2 += b[i] * b[i];
+        }
+        var num = n * sumAB - sumA * sumB;
+        var den = Math.sqrt((n * sumA2 - sumA * sumA) * (n * sumB2 - sumB * sumB));
+        return den > 1e-10 ? num / den : 0;
+    }
+
+    function updateKeyEstimate(rootPitchClass, isMinorChord) {
+        if (!keyHistogram) return;
+
+        // Decay existing histogram
+        for (var i = 0; i < 12; i++) keyHistogram[i] *= KEY_DECAY_FACTOR;
+
+        // Accumulate root (minor chords contribute slightly more to minor key detection)
+        keyHistogram[rootPitchClass] += isMinorChord ? 1.2 : 1.0;
+
+        keyUpdateCounter++;
+        if (keyUpdateCounter < KEY_UPDATE_INTERVAL) return;
+        keyUpdateCounter = 0;
+
+        // Correlate with major/minor profiles for all 12 keys
+        var bestScore = -999, bestRoot = 0, bestMinor = false;
+        for (var shift = 0; shift < 12; shift++) {
+            var rotated = new Float64Array(12);
+            for (var j = 0; j < 12; j++) rotated[j] = keyHistogram[(j + shift) % 12];
+
+            var corrMaj = pearsonCorr(rotated, KS_MAJOR);
+            var corrMin = pearsonCorr(rotated, KS_MINOR);
+
+            if (corrMaj > bestScore) { bestScore = corrMaj; bestRoot = shift; bestMinor = false; }
+            if (corrMin > bestScore) { bestScore = corrMin; bestRoot = shift; bestMinor = true; }
+        }
+
+        detectedKeyRoot = bestRoot;
+        detectedKeyIsMinor = bestMinor;
+    }
+
+    function isDiatonic(rootPC) {
+        if (detectedKeyRoot < 0) return true; // no key detected yet, don't penalize
+        var interval = (rootPC - detectedKeyRoot + 12) % 12;
+        var scaleSet = detectedKeyIsMinor ? MINOR_SCALE_SET : MAJOR_SCALE_SET;
+        return !!scaleSet[interval];
+    }
+
     // ── Penalized chord matching ─────────────────────
 
     function matchChordPenalized(chroma, bassRoot) {
@@ -495,7 +590,7 @@
             var info = CHORD_TONE_SETS[quality];
             var N = info.count;
             var nonN = 12 - N;
-            var priority = QUALITY_PRIORITY[quality] || 0.8;
+            var basePriority = QUALITY_PRIORITY[quality] || 0.8;
 
             for (var root = 0; root < 12; root++) {
                 // Build shifted chord tone lookup
@@ -518,12 +613,28 @@
                 var avgReward = reward / N;
                 var avgPenalty = nonN > 0 ? penalty / nonN : 0;
 
+                // Dynamic priority boost for extended chords when extension tone is audible
+                var priority = basePriority;
+                if (quality === 'M7' || quality === '7' || quality === 'm7' || quality === 'mM7') {
+                    var seventhSemi = (quality === 'M7' || quality === 'mM7') ? 11 : 10;
+                    var seventhPC = (root + seventhSemi) % 12;
+                    var rootChroma = chroma[root];
+                    if (rootChroma > 0.01 && chroma[seventhPC] > rootChroma * 0.3) {
+                        priority = Math.min(priority + 0.07, 1.0);
+                    }
+                }
+
                 // Score = normalized reward minus weighted penalty
                 var score = (avgReward - PENALTY_WEIGHT * avgPenalty) * priority;
 
                 // Bass root boost
                 if (bassRoot >= 0 && bassRoot === root) {
                     score *= BASS_ROOT_BOOST;
+                }
+
+                // Diatonic boost from key context tracking
+                if (detectedKeyRoot >= 0 && isDiatonic(root)) {
+                    score *= DIATONIC_BOOST;
                 }
 
                 if (score > bestScore) {
@@ -535,6 +646,12 @@
         }
 
         if (bestScore < MIN_CHORD_SCORE) return null;
+
+        // Update key context with this detection
+        var isMinorResult = bestQuality === 'm' || bestQuality === 'm7' || bestQuality === 'm6'
+            || bestQuality === 'm9' || bestQuality === 'mM7' || bestQuality === 'dim'
+            || bestQuality === 'dim7' || bestQuality === 'm7b5';
+        updateKeyEstimate(bestRoot, isMinorResult);
 
         var chordName = NOTES[bestRoot] + bestQuality;
         var intervals = INTERVALS[bestQuality];

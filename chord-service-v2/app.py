@@ -25,6 +25,13 @@ from postprocess import (
     simplify_chord_label,
     apply_enharmonic,
     detect_key,
+    refine_key_with_chords,
+    beat_align_chords,
+    merge_consecutive_chords,
+    detect_time_signature,
+    viterbi_smooth_chords,
+    FLAT_KEYS,
+    ENHARMONIC,
 )
 
 # ---------------------------------------------------------------------------
@@ -53,7 +60,7 @@ logger = logging.getLogger("chord-service")
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-VERSION = "2.0.0"
+VERSION = "3.0.0"
 MAX_DURATION_SEC = 300  # 5 minutes
 MAX_FILE_SIZE = 30 * 1024 * 1024  # 30 MB
 ALLOWED_EXTENSIONS = {".mp3", ".wav", ".m4a", ".ogg", ".flac", ".aac", ".wma", ".webm"}
@@ -159,9 +166,18 @@ async def startup():
 def extract_features(audio_path: str):
     """
     Load audio file, compute CQT features matching BTC input format.
-    Returns (feature_matrix, feature_per_second, song_length_sec).
+    Also performs beat tracking and onset detection for downstream use.
+    Returns (feature_matrix, feature_per_second, song_length_sec,
+             beat_times, bpm, onset_env, beat_frames, y_audio, sr).
     """
     # Try BTC's built-in feature extraction first (most accurate match)
+    y = None
+    sr = SAMPLE_RATE
+    beat_times = np.array([])
+    bpm = 0
+    onset_env = np.array([])
+    beat_frames = np.array([])
+
     try:
         from utils.mir_eval_modules import audio_file_to_features
 
@@ -173,7 +189,22 @@ def extract_features(audio_path: str):
         # (e.g., 0.1 = each frame covers 0.1s), NOT frames-per-second.
         # Convert to true fps for our downstream code.
         true_fps = 1.0 / feature_per_second if feature_per_second > 0 else 10.0
-        return feature, true_fps, song_length
+
+        # Load audio separately for beat tracking
+        y, sr = librosa.load(audio_path, sr=SAMPLE_RATE, mono=True)
+        y, _ = librosa.effects.trim(y, top_db=30)
+        max_samples = MAX_DURATION_SEC * sr
+        if len(y) > max_samples:
+            y = y[:max_samples]
+
+        # Beat tracking and onset detection
+        hop = config.feature.get("hop_length", HOP_LENGTH) if isinstance(config.feature, dict) else HOP_LENGTH
+        onset_env = librosa.onset.onset_strength(y=y, sr=sr, hop_length=hop)
+        tempo, beat_frames = librosa.beat.beat_track(y=y, sr=sr, hop_length=hop)
+        beat_times = librosa.frames_to_time(beat_frames, sr=sr, hop_length=hop)
+        bpm = round(float(tempo) if np.isscalar(tempo) else float(tempo[0]))
+
+        return feature, true_fps, song_length, beat_times, bpm, onset_env, beat_frames, y, sr
     except Exception as e:
         logger.info(f"BTC feature extraction failed ({e}), using custom fallback")
 
@@ -215,7 +246,14 @@ def extract_features(audio_path: str):
     cqt_norm = (cqt_log - cqt_log.min()) / (cqt_log.max() - cqt_log.min() + 1e-8)
 
     feature_per_second = sr / hop
-    return cqt_norm, feature_per_second, song_length
+
+    # Beat tracking and onset detection
+    onset_env = librosa.onset.onset_strength(y=y, sr=sr, hop_length=hop)
+    tempo, beat_frames = librosa.beat.beat_track(y=y, sr=sr, hop_length=hop)
+    beat_times = librosa.frames_to_time(beat_frames, sr=sr, hop_length=hop)
+    bpm = round(float(tempo) if np.isscalar(tempo) else float(tempo[0]))
+
+    return cqt_norm, feature_per_second, song_length, beat_times, bpm, onset_env, beat_frames, y, sr
 
 
 # ---------------------------------------------------------------------------
@@ -287,71 +325,111 @@ def run_btc_inference(feature_matrix, feature_per_second):
 # Main analysis pipeline
 # ---------------------------------------------------------------------------
 def analyze_audio(audio_path: str, video_id: str = "upload"):
-    """Lean pipeline: features → BTC → simplify → merge → cleanup → response."""
+    """Full pipeline: features → BTC → simplify → key detect → Viterbi → beat align → cleanup → response."""
 
     t0 = time.time()
 
-    # 1. Extract features
+    # 1. Extract features + beat tracking
     logger.info("Extracting CQT features...")
-    feature, fps, song_length = extract_features(audio_path)
-    logger.info(f"Features: shape={feature.shape}, fps={fps:.1f}, length={song_length:.1f}s")
+    feature, fps, song_length, beat_times, bpm, onset_env, beat_frames, y, sr = extract_features(audio_path)
+    logger.info(f"Features: shape={feature.shape}, fps={fps:.1f}, length={song_length:.1f}s, bpm={bpm}")
 
     # 2. Run BTC inference
     logger.info("Running BTC inference...")
     raw_chords = run_btc_inference(feature, fps)
     logger.info(f"BTC returned {len(raw_chords)} frame predictions")
 
-    # 3. Simplify chord labels
+    # 3. Simplify chord labels (preserve richer vocabulary: dim7, mM7, 6, m6)
     simplified = [
         (t, simplify_chord_label(label)) for t, label in raw_chords
     ]
 
-    # 4. Merge consecutive identical chords into events
-    MIN_DURATION = 0.8  # Filter very short spurious chords
-    chord_events = []
+    # 4. Initial key detection from raw chord distribution
+    #    (temporary merge for key detection input)
+    temp_events = []
     if simplified:
         cur_time, cur_label = simplified[0]
         for i in range(1, len(simplified)):
-            t, label = simplified[i]
+            t_val, label = simplified[i]
             if label != cur_label:
-                dur = t - cur_time
-                if cur_label != "N" and dur >= MIN_DURATION:
-                    chord_events.append((cur_time, dur, cur_label))
-                cur_time, cur_label = t, label
-        # Last chord
+                dur = t_val - cur_time
+                if cur_label != "N" and dur > 0.1:
+                    temp_events.append((cur_time, dur, cur_label))
+                cur_time, cur_label = t_val, label
         dur = song_length - cur_time
-        if cur_label != "N" and dur >= MIN_DURATION:
-            chord_events.append((cur_time, min(dur, 30.0), cur_label))
+        if cur_label != "N" and dur > 0.1:
+            temp_events.append((cur_time, min(dur, 30.0), cur_label))
 
-    # 5. Detect key for enharmonic normalization
-    key = detect_key(chord_events)
-    use_flats = key.rstrip("m") in ("Db", "Eb", "Gb", "Ab", "Bb", "F") or key.endswith("m") and key.rstrip("m") in ("D", "G", "C", "F", "Bb", "Eb")
-    logger.info(f"Detected key: {key}, use_flats: {use_flats}")
+    initial_key = detect_key(temp_events)
+    logger.info(f"Initial key detection: {initial_key}")
 
-    # 6. Apply enharmonic normalization (G# → Ab, A# → Bb, D# → Eb etc.)
+    # 5. Refine key using chord resolution analysis (two-pass)
+    key = refine_key_with_chords(initial_key, temp_events)
+    logger.info(f"Refined key: {key} (was {initial_key})")
+
+    # 6. Viterbi HMM smoothing with key-aware transition matrix
+    logger.info("Applying Viterbi HMM smoothing...")
+    smoothed = viterbi_smooth_chords(simplified, key, song_length)
+
+    # If key changed during refinement, re-run Viterbi with corrected diatonic set
+    if key != initial_key:
+        logger.info(f"Key changed ({initial_key} → {key}), re-running Viterbi with corrected diatonic set")
+        smoothed = viterbi_smooth_chords(smoothed, key, song_length)
+
+    # 7. Beat alignment — snap chords to beat boundaries
+    logger.info(f"Beat alignment with {len(beat_times)} beats...")
+    chord_events = beat_align_chords(smoothed, beat_times, song_length)
+
+    # 8. Filter out "N" chords and very short events
+    MIN_DURATION = 0.3
     chord_events = [
-        (t, dur, apply_enharmonic(label, use_flats))
-        for t, dur, label in chord_events
+        (t_val, dur, label) for t_val, dur, label in chord_events
+        if label != "N" and dur >= MIN_DURATION
     ]
 
-    # 7. Merge again after enharmonic (e.g., G# + Ab that are now both Ab)
-    merged = []
-    for t, dur, label in chord_events:
-        if merged and merged[-1][2] == label:
-            prev_t, prev_dur, prev_label = merged[-1]
-            merged[-1] = (prev_t, prev_dur + dur, prev_label)
-        else:
-            merged.append((t, dur, label))
-    chord_events = merged
+    # 9. Merge consecutive identical chords
+    chord_events = merge_consecutive_chords(chord_events)
+
+    # Clamp last chord duration to 30s max
+    if chord_events:
+        last_t, last_dur, last_c = chord_events[-1]
+        if last_dur > 30.0:
+            chord_events[-1] = (last_t, 30.0, last_c)
+
+    # 10. Enharmonic normalization
+    use_flats = (key in FLAT_KEYS) or (key.rstrip("m") in ENHARMONIC)
+    chord_events = [
+        (t_val, dur, apply_enharmonic(label, use_flats))
+        for t_val, dur, label in chord_events
+    ]
+
+    # 11. Final merge after enharmonic (e.g., G# + Ab now both Ab)
+    chord_events = merge_consecutive_chords(chord_events)
+
+    # Also normalize the key itself
+    if use_flats:
+        key_root = key.rstrip("m")
+        key_suffix = "m" if key.endswith("m") else ""
+        key_flat = ENHARMONIC.get(key_root, key_root)
+        key = f"{key_flat}{key_suffix}"
+
+    # 12. Detect time signature
+    time_sig = "4/4"
+    if len(onset_env) > 0 and len(beat_frames) > 0:
+        time_sig = detect_time_signature(onset_env, beat_frames)
+    logger.info(f"Time signature: {time_sig}")
 
     processing_time = int((time.time() - t0) * 1000)
     logger.info(
-        f"Analysis complete: key={key}, chords={len(chord_events)}, time={processing_time}ms"
+        f"Analysis complete: key={key}, bpm={bpm}, time_sig={time_sig}, "
+        f"chords={len(chord_events)}, time={processing_time}ms"
     )
 
     return AnalyzeResponse(
         video_id=video_id,
         key=key,
+        bpm=bpm,
+        time_signature=time_sig,
         chords=[
             ChordEvent(time=round(t, 2), duration=round(d, 2), chord=c)
             for t, d, c in chord_events
