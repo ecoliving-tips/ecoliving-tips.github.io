@@ -683,7 +683,7 @@ header {
 
 .features-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr));
     gap: 24px;
 }
 
@@ -694,6 +694,9 @@ header {
     padding: 32px 28px;
     text-align: center;
     transition: var(--transition);
+    overflow-wrap: break-word;
+    word-break: break-word;
+    min-width: 0;
 }
 
 .feature-card:hover {
