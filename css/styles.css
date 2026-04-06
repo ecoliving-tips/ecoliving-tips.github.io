@@ -39,7 +39,6 @@
 html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
 }
 
 body {
@@ -49,6 +48,7 @@ body {
     background: var(--bg);
     overflow-x: hidden;
     min-height: 100vh;
+    max-width: 100%;
 }
 
 /* Ambient Background Glow */
