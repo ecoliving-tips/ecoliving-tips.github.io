@@ -30,6 +30,7 @@ from postprocess import (
     merge_consecutive_chords,
     detect_time_signature,
     viterbi_smooth_chords,
+    compute_beat_confidence,
     FLAT_KEYS,
     ENHARMONIC,
 )
@@ -376,18 +377,41 @@ def analyze_audio(audio_path: str, video_id: str = "upload"):
         logger.info(f"Key changed ({initial_key} → {key}), re-running Viterbi with corrected diatonic set")
         smoothed = viterbi_smooth_chords(smoothed, key, song_length)
 
-    # 7. Beat alignment — snap chords to beat boundaries
-    logger.info(f"Beat alignment with {len(beat_times)} beats...")
-    chord_events = beat_align_chords(smoothed, beat_times, song_length)
+    # 7. Detect time signature + beat grid confidence BEFORE beat alignment
+    time_sig = "4/4"
+    beat_conf = compute_beat_confidence(beat_times)
+    if len(onset_env) > 0 and len(beat_frames) > 0:
+        time_sig = detect_time_signature(onset_env, beat_frames, sr=sr)
+    logger.info(f"Time signature: {time_sig}, beat confidence: {beat_conf:.2f}")
 
-    # 8. Filter out "N" chords and very short events
+    # 8. Beat alignment — only if beat grid is reliable
+    #    For odd meters or unreliable grids, use frame grouping instead
+    if beat_conf >= 0.5 and time_sig in ("2/4", "3/4", "3/8", "4/4", "6/4", "6/8", "12/8"):
+        logger.info(f"Beat alignment with {len(beat_times)} beats (confidence={beat_conf:.2f})...")
+        chord_events = beat_align_chords(smoothed, beat_times, song_length)
+    else:
+        logger.info(f"Skipping beat alignment (confidence={beat_conf:.2f}, time_sig={time_sig}), using frame grouping")
+        # Group consecutive identical frames into events
+        chord_events = []
+        if smoothed:
+            cur_time, cur_label = smoothed[0]
+            for i in range(1, len(smoothed)):
+                t_val, label = smoothed[i]
+                if label != cur_label:
+                    dur = t_val - cur_time
+                    chord_events.append((cur_time, dur, cur_label))
+                    cur_time, cur_label = t_val, label
+            dur = song_length - cur_time
+            chord_events.append((cur_time, min(dur, 30.0), cur_label))
+
+    # 9. Filter out "N" chords and very short events
     MIN_DURATION = 0.3
     chord_events = [
         (t_val, dur, label) for t_val, dur, label in chord_events
         if label != "N" and dur >= MIN_DURATION
     ]
 
-    # 9. Merge consecutive identical chords
+    # 10. Merge consecutive identical chords
     chord_events = merge_consecutive_chords(chord_events)
 
     # Clamp last chord duration to 30s max
@@ -396,14 +420,14 @@ def analyze_audio(audio_path: str, video_id: str = "upload"):
         if last_dur > 30.0:
             chord_events[-1] = (last_t, 30.0, last_c)
 
-    # 10. Enharmonic normalization
+    # 11. Enharmonic normalization
     use_flats = (key in FLAT_KEYS) or (key.rstrip("m") in ENHARMONIC)
     chord_events = [
         (t_val, dur, apply_enharmonic(label, use_flats))
         for t_val, dur, label in chord_events
     ]
 
-    # 11. Final merge after enharmonic (e.g., G# + Ab now both Ab)
+    # 12. Final merge after enharmonic (e.g., G# + Ab now both Ab)
     chord_events = merge_consecutive_chords(chord_events)
 
     # Also normalize the key itself
@@ -412,12 +436,6 @@ def analyze_audio(audio_path: str, video_id: str = "upload"):
         key_suffix = "m" if key.endswith("m") else ""
         key_flat = ENHARMONIC.get(key_root, key_root)
         key = f"{key_flat}{key_suffix}"
-
-    # 12. Detect time signature
-    time_sig = "4/4"
-    if len(onset_env) > 0 and len(beat_frames) > 0:
-        time_sig = detect_time_signature(onset_env, beat_frames)
-    logger.info(f"Time signature: {time_sig}")
 
     processing_time = int((time.time() - t0) * 1000)
     logger.info(

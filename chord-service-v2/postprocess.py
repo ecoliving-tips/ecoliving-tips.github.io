@@ -326,59 +326,188 @@ def detect_key(events: list[tuple[float, float, str]]) -> str:
 
 
 # ---------------------------------------------------------------------------
-# Time signature detection
+# Time signature detection (supports odd meters)
 # ---------------------------------------------------------------------------
 
-def detect_time_signature(onset_env: np.ndarray, beat_frames: np.ndarray) -> str:
+def detect_time_signature(
+    onset_env: np.ndarray,
+    beat_frames: np.ndarray,
+    sr: int = 22050,
+    hop_length: int = 512,
+) -> str:
     """
-    Estimate time signature from onset strength patterns at beat positions.
-    Returns '3/4', '4/4', '6/8', or '2/4'.
+    Estimate time signature from onset strength patterns.
+    Supports: 2/4, 3/4, 3/8, 4/4, 5/4, 5/8, 6/4, 6/8, 7/8, 9/8, 12/8.
+
+    Uses three complementary methods:
+    1. Beat grouping — tests how well beat strengths fit each candidate
+    2. IOI variance — boosts odd meter candidates when beat grid is irregular
+    3. Tempo-based disambiguation — uses BPM to decide x/4 vs x/8
+
+    Returns the best-fit time signature string.
     """
     if len(beat_frames) < 4:
         return "4/4"
 
     # Get onset strengths at beat positions
-    beat_strengths = onset_env[beat_frames[beat_frames < len(onset_env)]]
+    valid_frames = beat_frames[beat_frames < len(onset_env)]
+    beat_strengths = onset_env[valid_frames]
 
-    if len(beat_strengths) < 4:
+    if len(beat_strengths) < 6:
         return "4/4"
 
-    # Compute autocorrelation of beat strengths to find grouping pattern
-    # Group by 2, 3, and 4, see which has strongest downbeat pattern
-    scores = {}
+    # Compute BPM from beat positions (needed for x/4 vs x/8 disambiguation)
+    beat_times = librosa.frames_to_time(valid_frames, sr=sr, hop_length=hop_length)
+    if len(beat_times) >= 2:
+        median_ioi_sec = float(np.median(np.diff(beat_times)))
+        detected_bpm = 60.0 / median_ioi_sec if median_ioi_sec > 0 else 120.0
+    else:
+        detected_bpm = 120.0
 
-    for group_size in [2, 3, 4]:
+    # --- Method 1: Beat grouping with downbeat accent ---
+    # Test each candidate grouping: how much stronger is beat 1 vs rest?
+    # Map group_size → candidate label (denominator resolved later by tempo)
+    group_sizes = [2, 3, 4, 5, 6, 7, 9, 12]
+
+    scores = {}
+    for group_size in group_sizes:
         if len(beat_strengths) < group_size * 2:
             continue
 
-        # Trim to exact multiple
+        # Trim to exact multiple of group_size
         n = (len(beat_strengths) // group_size) * group_size
         grouped = beat_strengths[:n].reshape(-1, group_size)
 
-        # Score: how much stronger is the first beat vs others?
         if grouped.shape[0] < 2:
             continue
 
+        # Accent ratio: how much stronger is beat 1 vs the average of others
         first_beat_mean = grouped[:, 0].mean()
         other_beats_mean = grouped[:, 1:].mean()
 
         if other_beats_mean > 0:
-            scores[group_size] = first_beat_mean / other_beats_mean
+            accent_ratio = first_beat_mean / other_beats_mean
         else:
-            scores[group_size] = 1.0
+            accent_ratio = 1.0
+
+        # For compound meters, also check secondary accent patterns
+        secondary_bonus = 0.0
+        if group_size == 6 and grouped.shape[1] >= 4:
+            # 6/8 or 6/4: secondary accent at position 3 (middle of measure)
+            secondary = grouped[:, 3].mean()
+            inner = np.mean([grouped[:, 1].mean(), grouped[:, 2].mean(),
+                           grouped[:, 4].mean(), grouped[:, 5].mean()])
+            if inner > 0:
+                secondary_bonus = (secondary / inner - 1.0) * 0.3
+        elif group_size == 7:
+            # 7/8: common patterns 2+2+3 or 3+2+2
+            for pattern_accents in [[2, 4], [3, 5]]:
+                sub_acc = np.mean([grouped[:, p].mean() for p in pattern_accents if p < group_size])
+                non_acc = []
+                for bi in range(1, group_size):
+                    if bi not in pattern_accents:
+                        non_acc.append(grouped[:, bi].mean())
+                if non_acc and np.mean(non_acc) > 0:
+                    bonus = (sub_acc / np.mean(non_acc) - 1.0) * 0.25
+                    secondary_bonus = max(secondary_bonus, bonus)
+        elif group_size == 5:
+            # 5/4 or 5/8: common patterns 3+2 or 2+3
+            for pattern_accents in [[3], [2]]:
+                sub_acc = np.mean([grouped[:, p].mean() for p in pattern_accents if p < group_size])
+                non_acc = []
+                for bi in range(1, group_size):
+                    if bi not in pattern_accents:
+                        non_acc.append(grouped[:, bi].mean())
+                if non_acc and np.mean(non_acc) > 0:
+                    bonus = (sub_acc / np.mean(non_acc) - 1.0) * 0.2
+                    secondary_bonus = max(secondary_bonus, bonus)
+        elif group_size == 9:
+            # 9/8: 3+3+3 pattern — accents at positions 3 and 6
+            if grouped.shape[1] >= 7:
+                sub_acc = np.mean([grouped[:, 3].mean(), grouped[:, 6].mean()])
+                non_acc = []
+                for bi in range(1, group_size):
+                    if bi not in [3, 6]:
+                        non_acc.append(grouped[:, bi].mean())
+                if non_acc and np.mean(non_acc) > 0:
+                    secondary_bonus = (sub_acc / np.mean(non_acc) - 1.0) * 0.2
+
+        scores[group_size] = accent_ratio + secondary_bonus
 
     if not scores:
         return "4/4"
 
+    # --- Method 2: IOI variance test for odd meters ---
+    # If inter-beat intervals have high variance, favor odd/compound meters
+    if len(valid_frames) >= 4:
+        ioi = np.diff(valid_frames).astype(float)
+        ioi_cv = float(np.std(ioi) / (np.mean(ioi) + 1e-10))  # coefficient of variation
+
+        # High CV suggests librosa's beat tracker is struggling (odd meter)
+        # Slightly boost odd-meter candidates
+        if ioi_cv > 0.15:
+            for g in [5, 7, 9]:
+                if g in scores:
+                    scores[g] *= (1.0 + min(ioi_cv, 0.4))
+
+    # Find best grouping
     best_grouping = max(scores, key=scores.get)
 
+    # --- Method 3: Tempo-based disambiguation (x/4 vs x/8) ---
+    # High BPM (>160) → beats are eighth notes (x/8)
+    # Moderate BPM (80-160) → beats are quarter notes (x/4)
+    # Low BPM (<80) → beats could be half notes, but rare in practice
     grouping_to_time_sig = {
-        2: "2/4",
-        3: "3/4",
-        4: "4/4",
+        2:  "2/4",   # always 2/4 (2/8 is extremely rare)
+        4:  "4/4",   # always 4/4 (4/8 is extremely rare)
+        12: "12/8",  # always 12/8 (12/4 is extremely rare)
     }
 
-    return grouping_to_time_sig.get(best_grouping, "4/4")
+    if best_grouping in grouping_to_time_sig:
+        return grouping_to_time_sig[best_grouping]
+
+    # For groupings that could be x/4 or x/8, use BPM threshold
+    # BPM > 160 per beat → likely eighth note beats (x/8)
+    # BPM ≤ 160 per beat → likely quarter note beats (x/4)
+    bpm_threshold = 160
+
+    if best_grouping == 3:
+        return "3/8" if detected_bpm > bpm_threshold else "3/4"
+    elif best_grouping == 5:
+        return "5/8" if detected_bpm > bpm_threshold else "5/4"
+    elif best_grouping == 6:
+        return "6/8" if detected_bpm > bpm_threshold else "6/4"
+    elif best_grouping == 7:
+        return "7/8"  # 7/4 exists but 7/8 is far more common
+    elif best_grouping == 9:
+        return "9/8"  # 9/4 is extremely rare
+
+    return "4/4"
+
+
+def compute_beat_confidence(beat_times: np.ndarray) -> float:
+    """
+    Score how regular/reliable the beat grid is (0.0 = chaotic, 1.0 = perfect).
+    Low confidence suggests odd meter or beat tracker failure.
+    """
+    if len(beat_times) < 3:
+        return 0.0
+
+    ioi = np.diff(beat_times)
+    if len(ioi) < 2:
+        return 0.0
+
+    median_ioi = float(np.median(ioi))
+    if median_ioi <= 0:
+        return 0.0
+
+    # Coefficient of variation — lower = more regular
+    cv = float(np.std(ioi) / median_ioi)
+
+    # Convert to 0-1 confidence (cv=0 → 1.0, cv=0.3+ → ~0)
+    confidence = max(0.0, 1.0 - cv * 3.3)
+
+    return confidence
 
 
 # ---------------------------------------------------------------------------
