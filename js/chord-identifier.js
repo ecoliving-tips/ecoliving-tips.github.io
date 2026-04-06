@@ -11,19 +11,19 @@
     var NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
     var NOTE_FREQ_A4 = 440;
     var FFT_SIZE = 8192;
-    var SMOOTHING = 0.7;                   // temporal smoothing (lower = more responsive)
+    var SMOOTHING = 0.8;                   // temporal smoothing
     var MIN_VOLUME_THRESHOLD = 0.02;       // ignore background noise
-    var STABILITY_FRAMES = 3;              // require N consistent frames before showing
+    var STABILITY_FRAMES = 5;              // require N consistent frames before showing
     var HISTORY_MAX = 12;
 
-    // ── Advanced detection constants ─────────────────
-    var PEAK_PROMINENCE_DB = 2;            // min dB above neighbors for a spectral peak
-    var PEAK_NEIGHBOR_BINS = 3;            // local max window size (each side)
+    // ── Detection constants ──────────────────────────
+    var NOISE_FLOOR_DB = -90;              // bins below this are silence
+    var MAG_THRESHOLD = 0.08;              // relative magnitude gate (vs max)
+    var WHITEN_WINDOW = 20;                // ±bins for spectral whitening
     var BASS_HIGH = 300;                   // Hz — bass/treble chroma split
-    var BASS_WEIGHT = 1.5;                 // bass chroma multiplier in merge
-    var HARMONIC_CANCEL_FACTOR = 0.7;      // fraction subtracted at harmonic frequencies
-    var CHROMA_SMOOTH_FRAMES = 3;          // rolling chroma average window
-    var MIN_COSINE_SIM = 0.30;             // minimum cosine similarity to report a chord
+    var BASS_WEIGHT = 2.0;                 // bass chroma multiplier in merge (strong root bias)
+    var CHROMA_SMOOTH_FRAMES = 4;          // rolling chroma average window
+    var MIN_COSINE_SIM = 0.35;             // minimum cosine similarity to report a chord
 
     // Chord intervals — reuse from chord-diagrams.js globals if available
     var INTERVALS = window.SWARAM_INTERVALS || {
@@ -242,116 +242,91 @@
         return Math.sqrt(sum / timeData.length);
     }
 
-    // ── Spectral peak detection ─────────────────────
+    // ── Chord detection pipeline ──────────────────
 
-    function findPeaks(linMag, binSize) {
-        var minBin = Math.floor(65 / binSize);
-        var maxBin = Math.min(linMag.length - 1, Math.ceil(2100 / binSize));
-        var peaks = [];
+    function detectChord(freqData, sampleRate) {
+        var binSize = sampleRate / FFT_SIZE;
+        var minBin = Math.floor(65 / binSize);       // C2 ~65 Hz
+        var maxBin = Math.min(freqData.length - 1, Math.ceil(2100 / binSize)); // C7
+
+        // Step 1: Convert dB to linear, find max for relative threshold
+        var linMag = new Float64Array(freqData.length);
+        var maxMag = 0;
+        for (var i = minBin; i <= maxBin; i++) {
+            if (freqData[i] < NOISE_FLOOR_DB) {
+                linMag[i] = 0;
+            } else {
+                linMag[i] = Math.pow(10, freqData[i] / 20);
+            }
+            if (linMag[i] > maxMag) maxMag = linMag[i];
+        }
+        if (maxMag < 0.001) return null; // too quiet
+
+        // Step 2: Spectral whitening — divide each bin by local average
+        // This flattens the spectrum so harmonics don't dominate the chroma
+        var whitened = new Float64Array(freqData.length);
+        for (var i = minBin; i <= maxBin; i++) {
+            var localSum = 0;
+            var localCount = 0;
+            for (var j = -WHITEN_WINDOW; j <= WHITEN_WINDOW; j++) {
+                var idx = i + j;
+                if (idx >= minBin && idx <= maxBin) {
+                    localSum += linMag[idx];
+                    localCount++;
+                }
+            }
+            var localAvg = localSum / localCount;
+            whitened[i] = localAvg > 1e-10 ? linMag[i] / localAvg : 0;
+        }
+
+        // Step 3: Build chroma vectors from ALL bins (bass + treble split)
+        var bassChroma = new Float64Array(12);
+        var trebleChroma = new Float64Array(12);
+        var bassBin = Math.floor(BASS_HIGH / binSize);
 
         for (var i = minBin; i <= maxBin; i++) {
-            if (linMag[i] < 1e-6) continue;
-            var isMax = true;
-            var neighborSum = 0;
-            var neighborCount = 0;
+            var relMag = linMag[i] / maxMag;
+            if (relMag < MAG_THRESHOLD) continue; // noise gate
 
-            for (var j = -PEAK_NEIGHBOR_BINS; j <= PEAK_NEIGHBOR_BINS; j++) {
-                if (j === 0) continue;
-                var idx = i + j;
-                if (idx < 0 || idx >= linMag.length) continue;
-                // Allow equal values at ±1 (flat-topped peaks from FFT smoothing)
-                if (j >= -1 && j <= 1) {
-                    if (linMag[idx] > linMag[i]) { isMax = false; break; }
-                } else {
-                    if (linMag[idx] >= linMag[i]) { isMax = false; break; }
-                }
-                neighborSum += linMag[idx];
-                neighborCount++;
-            }
-            if (!isMax || neighborCount === 0) continue;
-
-            var avgNeighbor = neighborSum / neighborCount;
-            if (avgNeighbor < 1e-10) avgNeighbor = 1e-10;
-            var prominenceDB = 20 * Math.log10(linMag[i] / avgNeighbor);
-            if (prominenceDB >= PEAK_PROMINENCE_DB) {
-                peaks.push({ bin: i, mag: linMag[i], freq: i * binSize });
-            }
-        }
-        return peaks;
-    }
-
-    // ── Chroma vector construction ────────────────
-
-    function buildChromaVectors(peaks, binSize) {
-        var bass = new Float64Array(12);
-        var treble = new Float64Array(12);
-
-        for (var p = 0; p < peaks.length; p++) {
-            var freq = peaks[p].freq;
-            var mag = peaks[p].mag;
+            var freq = i * binSize;
             var noteNum = 12 * Math.log2(freq / NOTE_FREQ_A4) + 69;
             var noteIdx = Math.round(noteNum) % 12;
             if (noteIdx < 0) noteIdx += 12;
-            var energy = mag * mag;
 
-            if (freq <= BASS_HIGH) {
-                bass[noteIdx] += energy;
-            }
-            if (freq >= BASS_HIGH) {
-                treble[noteIdx] += energy;
-            }
-        }
-        return { bass: bass, treble: treble };
-    }
+            // Use whitened magnitude for chroma weighting
+            var weight = whitened[i] * whitened[i];
 
-    // ── Harmonic cancellation ─────────────────────
-
-    function cancelHarmonics(bassChroma, trebleChroma, peaks, binSize) {
-        // Sort peaks by magnitude descending — strongest fundamentals first
-        var sorted = peaks.slice().sort(function (a, b) { return b.mag - a.mag; });
-
-        for (var p = 0; p < sorted.length; p++) {
-            var freq = sorted[p].freq;
-            var energy = sorted[p].mag * sorted[p].mag;
-            var cancelAmount = energy * HARMONIC_CANCEL_FACTOR;
-
-            // Subtract energy at 2f, 3f, 4f, 5f
-            for (var h = 2; h <= 5; h++) {
-                var hFreq = freq * h;
-                if (hFreq > 2100) break;
-                var noteNum = 12 * Math.log2(hFreq / NOTE_FREQ_A4) + 69;
-                var noteIdx = Math.round(noteNum) % 12;
-                if (noteIdx < 0) noteIdx += 12;
-
-                if (hFreq <= BASS_HIGH) {
-                    bassChroma[noteIdx] = Math.max(0, bassChroma[noteIdx] - cancelAmount);
-                }
-                if (hFreq >= BASS_HIGH) {
-                    trebleChroma[noteIdx] = Math.max(0, trebleChroma[noteIdx] - cancelAmount);
-                }
+            if (i <= bassBin) {
+                bassChroma[noteIdx] += weight;
+            } else {
+                trebleChroma[noteIdx] += weight;
             }
         }
+
+        // Step 4: Merge bass/treble with bass weighting for root detection
+        var chroma = mergeChroma(bassChroma, trebleChroma);
+
+        // Step 5: Frame averaging — smooth over multiple frames
+        chroma = averageChroma(chroma);
+
+        // Step 6: Template matching with cosine similarity
+        return matchChord(chroma, bassChroma);
     }
 
-    // ── Chroma merge ──────────────────────────────
+    // ── Chroma helpers ────────────────────────────
 
     function mergeChroma(bassChroma, trebleChroma) {
         var merged = new Float64Array(12);
-
-        // Normalize each independently
         var bassMax = 0, trebleMax = 0;
         for (var i = 0; i < 12; i++) {
             if (bassChroma[i] > bassMax) bassMax = bassChroma[i];
             if (trebleChroma[i] > trebleMax) trebleMax = trebleChroma[i];
         }
-
         for (var i = 0; i < 12; i++) {
             var normBass = bassMax > 1e-10 ? bassChroma[i] / bassMax : 0;
             var normTreble = trebleMax > 1e-10 ? trebleChroma[i] / trebleMax : 0;
             merged[i] = normTreble + normBass * BASS_WEIGHT;
         }
-
-        // Normalize merged
         var mMax = 0;
         for (var i = 0; i < 12; i++) {
             if (merged[i] > mMax) mMax = merged[i];
@@ -362,15 +337,11 @@
         return merged;
     }
 
-    // ── Chroma frame averaging ────────────────────
-
     function averageChroma(currentChroma) {
-        // Store a copy
         var copy = new Float64Array(12);
         for (var i = 0; i < 12; i++) copy[i] = currentChroma[i];
         chromaHistory.push(copy);
         if (chromaHistory.length > CHROMA_SMOOTH_FRAMES) chromaHistory.shift();
-
         var avg = new Float64Array(12);
         for (var f = 0; f < chromaHistory.length; f++) {
             for (var i = 0; i < 12; i++) {
@@ -380,37 +351,6 @@
         var n = chromaHistory.length;
         for (var i = 0; i < 12; i++) avg[i] /= n;
         return avg;
-    }
-
-    // ── Chord detection pipeline ──────────────────
-
-    function detectChord(freqData, sampleRate) {
-        var binSize = sampleRate / FFT_SIZE;
-
-        // Step 1: Convert dB to linear magnitude
-        var linMag = new Float64Array(freqData.length);
-        for (var i = 0; i < freqData.length; i++) {
-            linMag[i] = Math.pow(10, freqData[i] / 20);
-        }
-
-        // Step 2: Find spectral peaks
-        var peaks = findPeaks(linMag, binSize);
-        if (peaks.length < 2) return null;
-
-        // Step 3: Build separate bass and treble chroma
-        var chromas = buildChromaVectors(peaks, binSize);
-
-        // Step 5: Cancel harmonic contamination
-        cancelHarmonics(chromas.bass, chromas.treble, peaks, binSize);
-
-        // Step 6: Merge with bass weighting
-        var chroma = mergeChroma(chromas.bass, chromas.treble);
-
-        // Step 7: Frame averaging
-        chroma = averageChroma(chroma);
-
-        // Step 8: Template matching
-        return matchChord(chroma, chromas.bass);
     }
 
     // ── Cosine similarity chord matching ──────────
