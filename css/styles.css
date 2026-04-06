@@ -48,7 +48,6 @@ body {
     background: var(--bg);
     overflow-x: hidden;
     min-height: 100vh;
-    max-width: 100%;
 }
 
 /* Ambient Background Glow */
@@ -94,6 +93,11 @@ img {
     padding: 0 24px;
     position: relative;
     z-index: 1;
+}
+
+main {
+    overflow-x: hidden;
+    width: 100%;
 }
 
 /* Typography */
