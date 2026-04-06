@@ -244,9 +244,19 @@
                         <div class="identifier-diagram-content" id="diagram-keyboard" style="display:none;"></div>
                     </div>
 
-                    <!-- Chord history -->
+                    <!-- Chord progression tracker -->
                     <div class="identifier-history" id="history-area" style="display:none;">
-                        <h4 data-i18n="ci_history">Recent Chords</h4>
+                        <div class="history-header">
+                            <h4 data-i18n="ci_history">Chord Progression</h4>
+                            <div class="history-actions">
+                                <button type="button" class="history-action-btn" id="copy-progression-btn" title="Copy progression">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                                </button>
+                                <button type="button" class="history-action-btn" id="clear-progression-btn" title="Clear">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                                </button>
+                            </div>
+                        </div>
                         <div class="history-chips" id="history-chips"></div>
                     </div>
                 </div>

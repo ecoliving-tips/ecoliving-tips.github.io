@@ -107,6 +107,7 @@
     var resultArea, detectedChord, detectedChordFull, detectedNotes, confidenceFill, confidenceLabel;
     var diagramArea, diagramGuitar, diagramKeyboard;
     var historyArea, historyChips;
+    var copyBtn, clearBtn;
 
     function initDOM() {
         micBtn = document.getElementById('mic-btn');
@@ -127,8 +128,13 @@
         diagramKeyboard = document.getElementById('diagram-keyboard');
         historyArea = document.getElementById('history-area');
         historyChips = document.getElementById('history-chips');
+        copyBtn = document.getElementById('copy-progression-btn');
+        clearBtn = document.getElementById('clear-progression-btn');
 
         micBtn.addEventListener('click', toggleListening);
+
+        if (copyBtn) copyBtn.addEventListener('click', copyProgression);
+        if (clearBtn) clearBtn.addEventListener('click', clearProgression);
 
         // Diagram tabs
         var tabs = document.querySelectorAll('.identifier-tab');
@@ -686,13 +692,41 @@
 
     function renderHistory() {
         historyChips.innerHTML = '';
-        for (var i = chordHistory.length - 1; i >= 0; i--) {
+        for (var i = 0; i < chordHistory.length; i++) {
             var chip = document.createElement('span');
             chip.className = 'history-chip';
             if (i === chordHistory.length - 1) chip.classList.add('latest');
             chip.textContent = chordHistory[i];
+            chip.setAttribute('data-chord', chordHistory[i]);
+            chip.addEventListener('click', onChipClick);
             historyChips.appendChild(chip);
         }
+    }
+
+    function onChipClick(e) {
+        var chordName = e.target.getAttribute('data-chord');
+        // Highlight active chip
+        var chips = historyChips.querySelectorAll('.history-chip');
+        chips.forEach(function (c) { c.classList.remove('active'); });
+        e.target.classList.add('active');
+        // Show diagram for this chord
+        showDiagrams(chordName);
+        diagramArea.style.display = '';
+    }
+
+    function copyProgression() {
+        if (chordHistory.length === 0) return;
+        var text = chordHistory.join(' → ');
+        navigator.clipboard.writeText(text).then(function () {
+            copyBtn.classList.add('copied');
+            setTimeout(function () { copyBtn.classList.remove('copied'); }, 1500);
+        });
+    }
+
+    function clearProgression() {
+        chordHistory = [];
+        historyChips.innerHTML = '';
+        historyArea.style.display = 'none';
     }
 
     // ── Init ───────────────────────────────────────────

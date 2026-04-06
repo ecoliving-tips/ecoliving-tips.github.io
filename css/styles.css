@@ -3833,11 +3833,18 @@ footer {
     max-width: 100%;
 }
 
-/* History */
+/* History / Progression Tracker */
 .identifier-history {
     margin-top: 1.5rem;
     padding-top: 1.5rem;
     border-top: 1px solid var(--border);
+}
+
+.history-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
 }
 
 .identifier-history h4 {
@@ -3845,8 +3852,36 @@ footer {
     color: var(--text-dim);
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0;
     font-weight: 500;
+}
+
+.history-actions {
+    display: flex;
+    gap: 0.4rem;
+}
+
+.history-action-btn {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-dim);
+    cursor: pointer;
+    padding: 0.3rem 0.4rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.history-action-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary-light);
+}
+
+.history-action-btn.copied {
+    border-color: #22c55e;
+    color: #22c55e;
 }
 
 .history-chips {
@@ -3865,7 +3900,20 @@ footer {
     background: rgba(139, 92, 246, 0.1);
     color: var(--text-muted);
     border: 1px solid rgba(139, 92, 246, 0.15);
+    cursor: pointer;
     transition: var(--transition);
+}
+
+.history-chip:hover {
+    border-color: var(--primary);
+    color: var(--primary-light);
+    background: rgba(108, 60, 225, 0.2);
+}
+
+.history-chip.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
 }
 
 .history-chip.latest {
