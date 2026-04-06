@@ -1,6 +1,6 @@
 /* ==============================================
-   Swaram — Chord Identifier Engine
-   Real-time mic → FFT → note detection → chord matching
+   Swaram — Chord Identifier Engine v3
+   Real-time mic → FFT → HPCP → penalized matching
    Uses Web Audio API — 100% client-side, no uploads
    ============================================== */
 
@@ -10,20 +10,29 @@
     // ── Constants ──────────────────────────────────────
     var NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
     var NOTE_FREQ_A4 = 440;
-    var FFT_SIZE = 8192;
-    var SMOOTHING = 0.8;                   // temporal smoothing
+    var FFT_SIZE = 16384;                  // ~2.7 Hz/bin at 44.1kHz (was 8192)
+    var SMOOTHING = 0.5;                   // less temporal smearing (was 0.8)
     var MIN_VOLUME_THRESHOLD = 0.02;       // ignore background noise
-    var STABILITY_FRAMES = 5;              // require N consistent frames before showing
     var HISTORY_MAX = 12;
 
     // ── Detection constants ──────────────────────────
+    var ANALYSIS_INTERVAL = 150;           // ms between chord detections (~7 fps)
     var NOISE_FLOOR_DB = -90;              // bins below this are silence
-    var MAG_THRESHOLD = 0.08;              // relative magnitude gate (vs max)
-    var WHITEN_WINDOW = 20;                // ±bins for spectral whitening
-    var BASS_HIGH = 300;                   // Hz — bass/treble chroma split
-    var BASS_WEIGHT = 2.0;                 // bass chroma multiplier in merge (strong root bias)
+    var PEAK_MIN_HEIGHT = 0.05;            // relative magnitude gate for peaks
+    var PEAK_NEIGHBORS = 2;                // local max radius in bins
+    var NUM_HARMONICS = 6;                 // HPCP sub-harmonic count
+    var HARMONIC_WEIGHTS = [1.0, 0.5, 0.33, 0.25, 0.2, 0.16];
+    var CENTS_WINDOW = 50;                 // cosine window half-width in cents
+    var BASS_LOW_HZ = 40;                  // bass HPS range start
+    var BASS_HIGH_HZ = 300;                // bass HPS range end
+    var FIFTH_ATTEN = 0.1;                 // subtract 10% of each note from its 5th
     var CHROMA_SMOOTH_FRAMES = 4;          // rolling chroma average window
-    var MIN_COSINE_SIM = 0.35;             // minimum cosine similarity to report a chord
+    var PENALTY_WEIGHT = 0.8;              // penalty for non-chord-tone energy
+    var MIN_CHORD_SCORE = 0.25;            // minimum penalized score to report
+    var BASS_ROOT_BOOST = 1.2;             // boost when bass matches chord root
+    var VOTE_WINDOW = 5;                   // voting frame count
+    var VOTE_THRESHOLD = 0.6;              // 60% majority needed (3 of 5)
+    var MIN_HOLD_MS = 500;                 // minimum display time before chord change
 
     // Chord intervals — reuse from chord-diagrams.js globals if available
     var INTERVALS = window.SWARAM_INTERVALS || {
@@ -62,10 +71,22 @@
 
     // Scoring weights — prioritize simpler chords
     var QUALITY_PRIORITY = {
-        '': 1.0, 'm': 1.0, '7': 0.92, 'm7': 0.92, 'sus4': 0.95, 'sus2': 0.95,
-        '6': 0.88, 'm6': 0.88, 'M7': 0.88, 'dim': 0.90, 'aug': 0.90,
-        '9': 0.82, 'm9': 0.82, 'm7b5': 0.85
+        '': 1.0, 'm': 1.0, 'sus4': 0.96, 'sus2': 0.96,
+        '7': 0.93, 'm7': 0.93, 'dim': 0.92, 'aug': 0.92,
+        '6': 0.90, 'm6': 0.90, 'M7': 0.90,
+        'm7b5': 0.88, '9': 0.80, 'm9': 0.80
     };
+
+    // Pre-compute chord tone sets for matching (avoids re-creating Sets per frame)
+    var CHORD_TONE_SETS = {};
+    var qualityKeys = Object.keys(INTERVALS);
+    for (var q = 0; q < qualityKeys.length; q++) {
+        var qk = qualityKeys[q];
+        var tones = {};
+        var ivs = INTERVALS[qk];
+        for (var n = 0; n < ivs.length; n++) tones[ivs[n] % 12] = true;
+        CHORD_TONE_SETS[qk] = { tones: tones, count: Object.keys(tones).length };
+    }
 
     // ── State ──────────────────────────────────────────
     var audioCtx = null;
@@ -73,9 +94,12 @@
     var micStream = null;
     var isListening = false;
     var animFrameId = null;
-    var stabilityBuffer = [];
     var chordHistory = [];
     var chromaHistory = [];                 // ring buffer for chroma frame averaging
+    var voteBuffer = [];                   // multi-frame voting buffer
+    var lastAnalysisTime = 0;              // throttle chord detection
+    var lastChordChangeTime = 0;           // display hold timer
+    var currentDisplayedChord = '';        // currently shown chord name
 
     // ── DOM refs ───────────────────────────────────────
     var micBtn, micIconOff, micIconOn, micStatus;
@@ -154,8 +178,12 @@
                 volumeMeter.style.display = '';
                 resultArea.style.display = '';
 
-                stabilityBuffer = [];
+                // Reset detection state
                 chromaHistory = [];
+                voteBuffer = [];
+                lastAnalysisTime = 0;
+                lastChordChangeTime = 0;
+                currentDisplayedChord = '';
                 analyzeLoop();
             })
             .catch(function (err) {
@@ -194,38 +222,39 @@
     function setStatus(i18nKey, fallback) {
         micStatus.textContent = fallback;
         micStatus.setAttribute('data-i18n', i18nKey);
-        // Try live i18n update
         if (typeof t === 'function') {
             var translated = t(i18nKey);
             if (translated) micStatus.textContent = translated;
         }
     }
 
-    // ── Analysis loop ──────────────────────────────────
+    // ── Analysis loop (volume at 60fps, chords throttled to ~7fps) ──
 
     function analyzeLoop() {
         if (!isListening) return;
 
         var bufferLength = analyser.frequencyBinCount;
-        var dataArray = new Float32Array(bufferLength);
-        analyser.getFloatFrequencyData(dataArray);
 
-        // Also get time-domain for volume
+        // Volume meter — every frame (cheap)
         var timeData = new Uint8Array(bufferLength);
         analyser.getByteTimeDomainData(timeData);
         var rms = computeRMS(timeData);
-
-        // Update volume meter
         var volPct = Math.min(100, Math.round(rms * 500));
         volumeFill.style.width = volPct + '%';
 
-        if (rms > MIN_VOLUME_THRESHOLD) {
+        // Chord detection — throttled
+        var now = performance.now();
+        if (rms > MIN_VOLUME_THRESHOLD && (now - lastAnalysisTime) >= ANALYSIS_INTERVAL) {
+            lastAnalysisTime = now;
+            var dataArray = new Float32Array(bufferLength);
+            analyser.getFloatFrequencyData(dataArray);
+
             var detected = detectChord(dataArray, audioCtx.sampleRate);
             if (detected) {
-                pushStability(detected.name);
-                var stable = getStableChord();
-                if (stable) {
-                    showChord(stable, detected.confidence, detected.notes, detected.quality);
+                pushVote(detected);
+                var winner = getVotedChord();
+                if (winner) {
+                    showChordWithHold(winner);
                 }
             }
         }
@@ -242,99 +271,195 @@
         return Math.sqrt(sum / timeData.length);
     }
 
-    // ── Chord detection pipeline ──────────────────
+    // ── Chord detection pipeline ──────────────────────
 
     function detectChord(freqData, sampleRate) {
         var binSize = sampleRate / FFT_SIZE;
         var minBin = Math.floor(65 / binSize);       // C2 ~65 Hz
         var maxBin = Math.min(freqData.length - 1, Math.ceil(2100 / binSize)); // C7
 
-        // Step 1: Convert dB to linear, find max for relative threshold
+        // Step 1: dB → linear → log1p compression
         var linMag = new Float64Array(freqData.length);
         var maxMag = 0;
         for (var i = minBin; i <= maxBin; i++) {
             if (freqData[i] < NOISE_FLOOR_DB) {
                 linMag[i] = 0;
             } else {
-                linMag[i] = Math.pow(10, freqData[i] / 20);
+                linMag[i] = Math.log1p(Math.pow(10, freqData[i] / 20));
             }
             if (linMag[i] > maxMag) maxMag = linMag[i];
         }
-        if (maxMag < 0.001) return null; // too quiet
+        if (maxMag < 0.001) return null;
 
-        // Step 2: Spectral whitening — divide each bin by local average
-        // This flattens the spectrum so harmonics don't dominate the chroma
-        var whitened = new Float64Array(freqData.length);
-        for (var i = minBin; i <= maxBin; i++) {
-            var localSum = 0;
-            var localCount = 0;
-            for (var j = -WHITEN_WINDOW; j <= WHITEN_WINDOW; j++) {
-                var idx = i + j;
-                if (idx >= minBin && idx <= maxBin) {
-                    localSum += linMag[idx];
-                    localCount++;
-                }
-            }
-            var localAvg = localSum / localCount;
-            whitened[i] = localAvg > 1e-10 ? linMag[i] / localAvg : 0;
+        // Step 2: Find spectral peaks with parabolic interpolation
+        var peaks = findSpectralPeaks(linMag, minBin, maxBin, maxMag, binSize);
+        if (peaks.length < 2) return null; // need at least 2 peaks for a chord
+
+        // Step 3: Build HPCP from peaks (harmonic pitch class profile)
+        var chroma = buildHPCP(peaks);
+
+        // Step 4: Find bass root via Harmonic Product Spectrum (40-300Hz)
+        var bassRoot = findBassRoot(linMag, binSize);
+
+        // Step 5: Attenuate fifths (reduce 3rd harmonic bleed)
+        chroma = attenuateFifths(chroma);
+
+        // Step 6: Normalize chroma to peak = 1.0
+        var chromaMax = 0;
+        for (var i = 0; i < 12; i++) {
+            if (chroma[i] > chromaMax) chromaMax = chroma[i];
+        }
+        if (chromaMax > 1e-10) {
+            for (var i = 0; i < 12; i++) chroma[i] /= chromaMax;
         }
 
-        // Step 3: Build chroma vectors from ALL bins (bass + treble split)
-        var bassChroma = new Float64Array(12);
-        var trebleChroma = new Float64Array(12);
-        var bassBin = Math.floor(BASS_HIGH / binSize);
-
-        for (var i = minBin; i <= maxBin; i++) {
-            var relMag = linMag[i] / maxMag;
-            if (relMag < MAG_THRESHOLD) continue; // noise gate
-
-            var freq = i * binSize;
-            var noteNum = 12 * Math.log2(freq / NOTE_FREQ_A4) + 69;
-            var noteIdx = Math.round(noteNum) % 12;
-            if (noteIdx < 0) noteIdx += 12;
-
-            // Use whitened magnitude for chroma weighting
-            var weight = whitened[i] * whitened[i];
-
-            if (i <= bassBin) {
-                bassChroma[noteIdx] += weight;
-            } else {
-                trebleChroma[noteIdx] += weight;
-            }
-        }
-
-        // Step 4: Merge bass/treble with bass weighting for root detection
-        var chroma = mergeChroma(bassChroma, trebleChroma);
-
-        // Step 5: Frame averaging — smooth over multiple frames
+        // Step 7: Frame averaging (4-frame rolling window)
         chroma = averageChroma(chroma);
 
-        // Step 6: Template matching with cosine similarity
-        return matchChord(chroma, bassChroma);
+        // Step 8: Penalized template matching
+        return matchChordPenalized(chroma, bassRoot);
     }
 
-    // ── Chroma helpers ────────────────────────────
+    // ── Spectral peak detection ──────────────────────
 
-    function mergeChroma(bassChroma, trebleChroma) {
-        var merged = new Float64Array(12);
-        var bassMax = 0, trebleMax = 0;
+    function findSpectralPeaks(linMag, minBin, maxBin, maxMag, binSize) {
+        var peaks = [];
+        var threshold = maxMag * PEAK_MIN_HEIGHT;
+
+        for (var i = minBin + PEAK_NEIGHBORS; i <= maxBin - PEAK_NEIGHBORS; i++) {
+            if (linMag[i] < threshold) continue;
+
+            // Check local maximum within ±PEAK_NEIGHBORS radius
+            var isPeak = true;
+            for (var j = 1; j <= PEAK_NEIGHBORS; j++) {
+                if (linMag[i] <= linMag[i - j] || linMag[i] <= linMag[i + j]) {
+                    isPeak = false;
+                    break;
+                }
+            }
+            if (!isPeak) continue;
+
+            // Parabolic interpolation for sub-bin frequency accuracy
+            var alpha = linMag[i - 1];
+            var beta = linMag[i];
+            var gamma = linMag[i + 1];
+            var denom = alpha - 2 * beta + gamma;
+            var interpBin;
+            if (Math.abs(denom) < 1e-10) {
+                interpBin = i;
+            } else {
+                var delta = 0.5 * (alpha - gamma) / denom;
+                interpBin = i + delta;
+            }
+
+            peaks.push({ freq: interpBin * binSize, mag: linMag[i] });
+        }
+
+        return peaks;
+    }
+
+    // ── HPCP: Harmonic Pitch Class Profile ───────────
+
+    function buildHPCP(peaks) {
+        var chroma = new Float64Array(12);
+        var piOver2W = Math.PI / (2 * CENTS_WINDOW);
+
+        for (var p = 0; p < peaks.length; p++) {
+            var f = peaks[p].freq;
+            var m = peaks[p].mag;
+
+            for (var h = 1; h <= NUM_HARMONICS; h++) {
+                var fundamental = f / h;
+                if (fundamental < 30) break; // below useful range
+
+                // Convert to MIDI note number
+                var midiNote = 12 * Math.log2(fundamental / NOTE_FREQ_A4) + 69;
+                var nearestMidi = Math.round(midiNote);
+                var centsOff = (midiNote - nearestMidi) * 100;
+
+                if (Math.abs(centsOff) >= CENTS_WINDOW) continue;
+
+                // Cosine weighting: 1.0 at center, 0.0 at ±CENTS_WINDOW
+                var cosWeight = Math.cos(centsOff * piOver2W);
+
+                var pitchClass = nearestMidi % 12;
+                if (pitchClass < 0) pitchClass += 12;
+
+                chroma[pitchClass] += m * HARMONIC_WEIGHTS[h - 1] * cosWeight;
+            }
+        }
+
+        return chroma;
+    }
+
+    // ── Bass root detection via HPS ──────────────────
+
+    function findBassRoot(linMag, binSize) {
+        var bassLow = Math.max(1, Math.floor(BASS_LOW_HZ / binSize));
+        var bassHigh = Math.floor(BASS_HIGH_HZ / binSize);
+        var maxLen = linMag.length;
+
+        var bestBin = -1;
+        var bestProduct = 0;
+
+        for (var i = bassLow; i <= bassHigh; i++) {
+            if (linMag[i] < 0.001) continue;
+
+            // Multiply spectrum at f, 2f, 3f — true fundamental has all harmonics
+            var product = linMag[i];
+            var bin2 = Math.round(2 * i);
+            var bin3 = Math.round(3 * i);
+
+            if (bin2 < maxLen) {
+                product *= (linMag[bin2] + 0.001);
+            }
+            if (bin3 < maxLen) {
+                product *= (linMag[bin3] + 0.001);
+            }
+
+            if (product > bestProduct) {
+                bestProduct = product;
+                bestBin = i;
+            }
+        }
+
+        if (bestBin < 0) return -1;
+
+        // Parabolic interpolation
+        var freq;
+        if (bestBin > 0 && bestBin < maxLen - 1) {
+            var alpha = linMag[bestBin - 1];
+            var beta = linMag[bestBin];
+            var gamma = linMag[bestBin + 1];
+            var denom = alpha - 2 * beta + gamma;
+            if (Math.abs(denom) > 1e-10) {
+                var delta = 0.5 * (alpha - gamma) / denom;
+                freq = (bestBin + delta) * binSize;
+            } else {
+                freq = bestBin * binSize;
+            }
+        } else {
+            freq = bestBin * binSize;
+        }
+
+        var midiNote = 12 * Math.log2(freq / NOTE_FREQ_A4) + 69;
+        var pc = Math.round(midiNote) % 12;
+        if (pc < 0) pc += 12;
+        return pc;
+    }
+
+    // ── Chroma post-processing ──────────────────────
+
+    function attenuateFifths(chroma) {
+        var result = new Float64Array(12);
+        for (var i = 0; i < 12; i++) result[i] = chroma[i];
+
         for (var i = 0; i < 12; i++) {
-            if (bassChroma[i] > bassMax) bassMax = bassChroma[i];
-            if (trebleChroma[i] > trebleMax) trebleMax = trebleChroma[i];
+            var fifth = (i + 7) % 12;
+            result[fifth] -= chroma[i] * FIFTH_ATTEN;
+            if (result[fifth] < 0) result[fifth] = 0;
         }
-        for (var i = 0; i < 12; i++) {
-            var normBass = bassMax > 1e-10 ? bassChroma[i] / bassMax : 0;
-            var normTreble = trebleMax > 1e-10 ? trebleChroma[i] / trebleMax : 0;
-            merged[i] = normTreble + normBass * BASS_WEIGHT;
-        }
-        var mMax = 0;
-        for (var i = 0; i < 12; i++) {
-            if (merged[i] > mMax) mMax = merged[i];
-        }
-        if (mMax > 1e-10) {
-            for (var i = 0; i < 12; i++) merged[i] /= mMax;
-        }
-        return merged;
+        return result;
     }
 
     function averageChroma(currentChroma) {
@@ -342,89 +467,73 @@
         for (var i = 0; i < 12; i++) copy[i] = currentChroma[i];
         chromaHistory.push(copy);
         if (chromaHistory.length > CHROMA_SMOOTH_FRAMES) chromaHistory.shift();
+
         var avg = new Float64Array(12);
         for (var f = 0; f < chromaHistory.length; f++) {
-            for (var i = 0; i < 12; i++) {
-                avg[i] += chromaHistory[f][i];
-            }
+            for (var i = 0; i < 12; i++) avg[i] += chromaHistory[f][i];
         }
-        var n = chromaHistory.length;
-        for (var i = 0; i < 12; i++) avg[i] /= n;
+        var len = chromaHistory.length;
+        for (var i = 0; i < 12; i++) avg[i] /= len;
         return avg;
     }
 
-    // ── Cosine similarity chord matching ──────────
+    // ── Penalized chord matching ─────────────────────
 
-    function matchChord(chroma, bassChroma) {
-        var bestScore = -1;
+    function matchChordPenalized(chroma, bassRoot) {
+        var bestScore = -Infinity;
         var bestRoot = 0;
         var bestQuality = '';
 
-        // Pre-compute chroma norm
-        var chromaNormSq = 0;
-        for (var i = 0; i < 12; i++) chromaNormSq += chroma[i] * chroma[i];
-        if (chromaNormSq < 1e-10) return null;
-        var chromaNorm = Math.sqrt(chromaNormSq);
-
-        // Find strongest bass note for root boost
-        var bassRoot = -1;
-        var bassMax = 0;
-        if (bassChroma) {
-            for (var i = 0; i < 12; i++) {
-                if (bassChroma[i] > bassMax) { bassMax = bassChroma[i]; bassRoot = i; }
-            }
-        }
-
-        var qualityKeys = Object.keys(INTERVALS);
-
         for (var q = 0; q < qualityKeys.length; q++) {
             var quality = qualityKeys[q];
-            var intervals = INTERVALS[quality];
+            var info = CHORD_TONE_SETS[quality];
+            var N = info.count;
+            var nonN = 12 - N;
             var priority = QUALITY_PRIORITY[quality] || 0.8;
 
-            // Pre-compute template norm (count unique chroma bins)
-            var templateBins = {};
-            for (var n = 0; n < intervals.length; n++) {
-                templateBins[(intervals[n]) % 12] = true;
-            }
-            var templateNonZero = Object.keys(templateBins).length;
-            var templateNorm = Math.sqrt(templateNonZero);
-
             for (var root = 0; root < 12; root++) {
-                // Compute dot product: chroma · template
-                var dot = 0;
-                for (var n = 0; n < intervals.length; n++) {
-                    var noteIdx = (root + intervals[n]) % 12;
-                    dot += chroma[noteIdx];
+                // Build shifted chord tone lookup
+                var isChordTone = new Uint8Array(12);
+                var toneKeys = Object.keys(info.tones);
+                for (var k = 0; k < toneKeys.length; k++) {
+                    isChordTone[(root + parseInt(toneKeys[k])) % 12] = 1;
                 }
-                // De-duplicate: if intervals map to same bin, we count chroma once per unique bin
-                // Since template values are 1.0, dot = sum of chroma at chord tone positions
-                // For 9th chords: interval 14 % 12 = 2, which is unique, so no dedup needed
 
-                var cosineSim = dot / (chromaNorm * templateNorm);
+                // Compute reward (average chroma at chord tones)
+                var reward = 0;
+                var penalty = 0;
+                for (var i = 0; i < 12; i++) {
+                    if (isChordTone[i]) {
+                        reward += chroma[i];
+                    } else {
+                        penalty += chroma[i];
+                    }
+                }
+                var avgReward = reward / N;
+                var avgPenalty = nonN > 0 ? penalty / nonN : 0;
+
+                // Score = normalized reward minus weighted penalty
+                var score = (avgReward - PENALTY_WEIGHT * avgPenalty) * priority;
 
                 // Bass root boost
                 if (bassRoot >= 0 && bassRoot === root) {
-                    cosineSim *= 1.15;
+                    score *= BASS_ROOT_BOOST;
                 }
 
-                // Quality priority (prefer simpler chords)
-                cosineSim *= priority;
-
-                if (cosineSim > bestScore) {
-                    bestScore = cosineSim;
+                if (score > bestScore) {
+                    bestScore = score;
                     bestRoot = root;
                     bestQuality = quality;
                 }
             }
         }
 
-        if (bestScore < MIN_COSINE_SIM) return null;
+        if (bestScore < MIN_CHORD_SCORE) return null;
 
         var chordName = NOTES[bestRoot] + bestQuality;
         var intervals = INTERVALS[bestQuality];
         var noteNames = intervals.map(function (iv) { return NOTES[(bestRoot + iv) % 12]; });
-        var confidence = Math.min(100, Math.round(bestScore * 120));
+        var confidence = Math.min(100, Math.max(0, Math.round(bestScore * 130)));
 
         return {
             name: chordName,
@@ -435,23 +544,60 @@
         };
     }
 
-    // ── Stability: require consistent detection over multiple frames ──
+    // ── Multi-frame voting (replaces identical-frame stability) ──
 
-    function pushStability(chordName) {
-        stabilityBuffer.push(chordName);
-        if (stabilityBuffer.length > STABILITY_FRAMES * 2) {
-            stabilityBuffer.shift();
+    function pushVote(detected) {
+        voteBuffer.push(detected);
+        if (voteBuffer.length > VOTE_WINDOW * 2) voteBuffer.shift();
+    }
+
+    function getVotedChord() {
+        if (voteBuffer.length < VOTE_WINDOW) return null;
+
+        var recent = voteBuffer.slice(-VOTE_WINDOW);
+        var counts = {};
+        for (var i = 0; i < recent.length; i++) {
+            var name = recent[i].name;
+            counts[name] = (counts[name] || 0) + 1;
         }
+
+        // Find winner
+        var bestName = null;
+        var bestCount = 0;
+        for (var name in counts) {
+            if (counts[name] > bestCount) {
+                bestCount = counts[name];
+                bestName = name;
+            }
+        }
+
+        // Require VOTE_THRESHOLD fraction (60% = 3 of 5)
+        if (bestCount / VOTE_WINDOW < VOTE_THRESHOLD) return null;
+
+        // Return the latest detection object for the winning chord
+        for (var i = recent.length - 1; i >= 0; i--) {
+            if (recent[i].name === bestName) return recent[i];
+        }
+        return null;
     }
 
-    function getStableChord() {
-        if (stabilityBuffer.length < STABILITY_FRAMES) return null;
-        var last = stabilityBuffer.slice(-STABILITY_FRAMES);
-        var allSame = last.every(function (c) { return c === last[0]; });
-        return allSame ? last[0] : null;
-    }
+    // ── Display with hold time ───────────────────────
 
-    // ── Display ────────────────────────────────────────
+    function showChordWithHold(detected) {
+        if (detected.name === currentDisplayedChord) {
+            // Same chord — just update confidence
+            showChord(detected.name, detected.confidence, detected.notes, detected.quality);
+            return;
+        }
+
+        // Different chord — enforce minimum hold time to prevent flickering
+        var now = Date.now();
+        if (lastChordChangeTime > 0 && (now - lastChordChangeTime) < MIN_HOLD_MS) return;
+
+        lastChordChangeTime = now;
+        currentDisplayedChord = detected.name;
+        showChord(detected.name, detected.confidence, detected.notes, detected.quality);
+    }
 
     function showChord(chordName, confidence, notes, quality) {
         // Don't re-render if same chord
@@ -468,7 +614,7 @@
             var fullName = NOTES[NOTES.indexOf(chordName.replace(/[^A-G#]/g, ''))] || '';
             detectedChordFull.textContent = fullName + ' ' + (QUALITY_NAMES[quality] || '');
         }
-        detectedNotes.textContent = 'Notes: ' + notes.join(' – ');
+        detectedNotes.textContent = 'Notes: ' + notes.join(' \u2013 ');
         confidenceFill.style.width = confidence + '%';
         confidenceLabel.textContent = confidence + '%';
 
@@ -497,7 +643,6 @@
 
         var data = CHORD_DIAGRAMS[chordName];
         if (!data) {
-            // Try flat alias — CHORD_DIAGRAMS uses sharps (e.g. A#), but detected chord may use flats (Bb)
             var FLAT_ALIASES = window.SWARAM_FLAT_ALIASES || {};
             for (var key in FLAT_ALIASES) {
                 var flat = FLAT_ALIASES[key];
@@ -516,14 +661,12 @@
 
         diagramArea.style.display = '';
 
-        // Guitar diagram
         if (data.guitar && typeof renderGuitarSVG === 'function') {
             diagramGuitar.innerHTML = renderGuitarSVG(data.guitar);
         } else {
             diagramGuitar.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:1rem;">No guitar voicing available</p>';
         }
 
-        // Keyboard diagram
         if (data.keys && typeof renderKeyboardSVG === 'function') {
             diagramKeyboard.innerHTML = renderKeyboardSVG(data.keys);
         } else {
@@ -532,7 +675,6 @@
     }
 
     function addToHistory(chordName) {
-        // Avoid duplicates at the end
         if (chordHistory.length > 0 && chordHistory[chordHistory.length - 1] === chordName) return;
 
         chordHistory.push(chordName);
