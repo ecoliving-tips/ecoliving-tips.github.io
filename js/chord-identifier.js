@@ -17,9 +17,8 @@
     var HISTORY_MAX = 12;
 
     // ── Advanced detection constants ─────────────────
-    var PEAK_PROMINENCE_DB = 3;            // min dB above neighbors for a spectral peak
-    var PEAK_NEIGHBOR_BINS = 4;            // local max window size (each side)
-    var HPS_HARMONICS = 3;                 // downsample copies for Harmonic Product Spectrum
+    var PEAK_PROMINENCE_DB = 2;            // min dB above neighbors for a spectral peak
+    var PEAK_NEIGHBOR_BINS = 3;            // local max window size (each side)
     var BASS_HIGH = 300;                   // Hz — bass/treble chroma split
     var BASS_WEIGHT = 1.5;                 // bass chroma multiplier in merge
     var HARMONIC_CANCEL_FACTOR = 0.7;      // fraction subtracted at harmonic frequencies
@@ -260,7 +259,12 @@
                 if (j === 0) continue;
                 var idx = i + j;
                 if (idx < 0 || idx >= linMag.length) continue;
-                if (linMag[idx] >= linMag[i]) { isMax = false; break; }
+                // Allow equal values at ±1 (flat-topped peaks from FFT smoothing)
+                if (j >= -1 && j <= 1) {
+                    if (linMag[idx] > linMag[i]) { isMax = false; break; }
+                } else {
+                    if (linMag[idx] >= linMag[i]) { isMax = false; break; }
+                }
                 neighborSum += linMag[idx];
                 neighborCount++;
             }
@@ -274,48 +278,6 @@
             }
         }
         return peaks;
-    }
-
-    // ── Harmonic Product Spectrum ──────────────────
-
-    function harmonicProductSpectrum(peaks, linMag, binSize) {
-        // Build HPS magnitude: multiply spectrum at 1/2, 1/3 downsample ratios
-        var minBin = Math.floor(65 / binSize);
-        var maxBin = Math.min(linMag.length - 1, Math.ceil(2100 / binSize));
-        var hps = new Float64Array(linMag.length);
-
-        for (var i = minBin; i <= maxBin; i++) {
-            hps[i] = linMag[i];
-            for (var h = 2; h <= HPS_HARMONICS; h++) {
-                var hBin = i * h;
-                if (hBin < linMag.length) {
-                    hps[i] *= linMag[hBin];
-                } else {
-                    hps[i] = 0;
-                    break;
-                }
-            }
-        }
-
-        // Re-pick peaks from HPS — only keep those near original peaks
-        var filtered = [];
-        for (var p = 0; p < peaks.length; p++) {
-            var bin = peaks[p].bin;
-            // Check if this bin is still a local max in HPS
-            var stillMax = true;
-            for (var j = -2; j <= 2; j++) {
-                if (j === 0) continue;
-                var idx = bin + j;
-                if (idx >= 0 && idx < hps.length && hps[idx] >= hps[bin]) {
-                    stillMax = false;
-                    break;
-                }
-            }
-            if (stillMax && hps[bin] > 0) {
-                filtered.push({ bin: bin, mag: hps[bin], freq: peaks[p].freq });
-            }
-        }
-        return filtered;
     }
 
     // ── Chroma vector construction ────────────────
@@ -435,11 +397,7 @@
         var peaks = findPeaks(linMag, binSize);
         if (peaks.length < 2) return null;
 
-        // Step 3: Harmonic Product Spectrum — suppress overtones
-        peaks = harmonicProductSpectrum(peaks, linMag, binSize);
-        if (peaks.length < 2) return null;
-
-        // Step 4: Build separate bass and treble chroma
+        // Step 3: Build separate bass and treble chroma
         var chromas = buildChromaVectors(peaks, binSize);
 
         // Step 5: Cancel harmonic contamination
