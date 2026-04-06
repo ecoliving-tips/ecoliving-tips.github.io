@@ -7,7 +7,6 @@ detection, and chord label simplification.
 
 import numpy as np
 import librosa
-from collections import Counter
 
 # ---------------------------------------------------------------------------
 # Chord label simplification
@@ -98,6 +97,9 @@ def beat_align_chords(
 ) -> list[tuple[float, float, str]]:
     """
     Snap frame-level chord predictions to beat boundaries.
+    Uses duration-weighted voting: each frame-level prediction is weighted
+    by the time it covers within the beat interval, so a chord occupying
+    80% of a beat wins over one flickering for 20%.
 
     Args:
         raw_chords: list of (time_sec, chord_label) from BTC
@@ -111,9 +113,12 @@ def beat_align_chords(
         # Not enough beats — fall back to frame-level grouping
         return _group_frames_to_events(raw_chords, song_length)
 
-    # For each beat interval, find the most common chord prediction
+    # For each beat interval, find the chord with most time coverage
     events = []
     all_beats = np.concatenate([[0.0], beat_times, [song_length]])
+
+    # Pre-sort raw_chords by time (should already be sorted, but be safe)
+    sorted_chords = sorted(raw_chords, key=lambda x: x[0])
 
     for i in range(len(all_beats) - 1):
         start = all_beats[i]
@@ -123,21 +128,36 @@ def beat_align_chords(
         if duration <= 0:
             continue
 
-        # Collect all chord predictions within this beat interval
-        chords_in_beat = [
-            label for t, label in raw_chords
-            if start <= t < end and label != "N"
-        ]
+        # Collect chord predictions with duration weighting
+        # Each prediction covers from its time to the next prediction's time
+        chord_durations: dict[str, float] = {}
+        for ci in range(len(sorted_chords)):
+            t_c, label = sorted_chords[ci]
 
-        if not chords_in_beat:
-            # No non-N chords — keep N
-            chords_in_beat = [
-                label for t, label in raw_chords if start <= t < end
-            ]
+            # Skip predictions before this beat interval
+            if ci < len(sorted_chords) - 1 and sorted_chords[ci + 1][0] <= start:
+                continue
+            # Stop after beat interval
+            if t_c >= end:
+                break
 
-        if chords_in_beat:
-            # Majority vote
-            chord = Counter(chords_in_beat).most_common(1)[0][0]
+            # Compute how much time this prediction covers within the beat
+            pred_start = max(t_c, start)
+            pred_end = sorted_chords[ci + 1][0] if ci < len(sorted_chords) - 1 else end
+            pred_end = min(pred_end, end)
+            pred_dur = pred_end - pred_start
+
+            if pred_dur > 0:
+                chord_durations[label] = chord_durations.get(label, 0) + pred_dur
+
+        # Remove "N" if there are real chords
+        non_n = {k: v for k, v in chord_durations.items() if k != "N"}
+        if non_n:
+            chord_durations = non_n
+
+        if chord_durations:
+            # Winner = chord with most time coverage in this beat
+            chord = max(chord_durations, key=chord_durations.get)
         else:
             chord = "N"
 
@@ -191,6 +211,37 @@ def merge_consecutive_chords(
             merged.append((start, dur, chord))
 
     return merged
+
+
+def median_filter_chords(
+    predictions: list[tuple[float, str]], window: int = 5
+) -> list[tuple[float, str]]:
+    """
+    Apply median-style filter to frame-level chord predictions.
+    Replaces each frame's label with the most common label in its
+    ±(window//2) neighborhood. Eliminates isolated single-frame blips
+    that would otherwise confuse Viterbi.
+    """
+    n = len(predictions)
+    if n < window:
+        return predictions
+
+    half = window // 2
+    result = []
+
+    for i in range(n):
+        lo = max(0, i - half)
+        hi = min(n, i + half + 1)
+        # Count labels in window
+        counts = {}
+        for j in range(lo, hi):
+            label = predictions[j][1]
+            counts[label] = counts.get(label, 0) + 1
+        # Pick the most common
+        best_label = max(counts, key=counts.get)
+        result.append((predictions[i][0], best_label))
+
+    return result
 
 
 # ---------------------------------------------------------------------------
@@ -723,16 +774,24 @@ def viterbi_smooth_chords(
     raw_predictions: list[tuple[float, str]],
     key: str | None,
     song_length: float,
+    frame_probs: "np.ndarray | None" = None,
+    vocab_map: "dict | None" = None,
 ) -> list[tuple[float, str]]:
     """
     Apply Viterbi HMM smoothing to frame-level chord predictions.
     When key is None, uses uniform transitions (pure persistence smoothing).
     When key is provided, uses key-aware diatonic transition bias.
 
+    If frame_probs (softmax output from BTC, shape n_frames × n_classes) and
+    vocab_map (index → BTC label) are provided, builds observation probabilities
+    from the model's own confidence instead of synthetic one-hot.
+
     Args:
         raw_predictions: list of (time_sec, chord_label) from BTC
         key: detected key string or None for key-agnostic mode
         song_length: total audio duration
+        frame_probs: optional softmax probability matrix from BTC
+        vocab_map: optional dict mapping class index → BTC chord label
 
     Returns:
         Smoothed list of (time_sec, chord_label)
@@ -798,15 +857,42 @@ def viterbi_smooth_chords(
     n_frames = len(raw_predictions)
     obs_prob = np.full((n_states, n_frames), 0.01)  # small floor probability
 
-    for t, (_, label) in enumerate(raw_predictions):
-        idx = label_to_idx.get(label)
-        if idx is not None:
-            # Softened one-hot: primary label gets 0.85, others share remaining
-            obs_prob[idx, t] = 0.85
-            remaining = 0.15 / max(1, n_states - 1)
-            for j in range(n_states):
-                if j != idx:
-                    obs_prob[j, t] = remaining + 0.01
+    # Try to use BTC softmax probabilities for richer observation model
+    used_softmax = False
+    if frame_probs is not None and vocab_map is not None:
+        try:
+            # Build mapping: BTC class index → our Viterbi state index
+            # We need to map through simplify_chord_label since our labels are simplified
+            btc_to_state = {}
+            for cls_idx, btc_label in vocab_map.items():
+                simplified = simplify_chord_label(btc_label)
+                state_idx = label_to_idx.get(simplified)
+                if state_idx is not None:
+                    if cls_idx not in btc_to_state:
+                        btc_to_state[cls_idx] = state_idx
+
+            if len(btc_to_state) > 0 and frame_probs.shape[0] == n_frames:
+                # Aggregate softmax probabilities into our state space
+                for t in range(n_frames):
+                    for cls_idx, state_idx in btc_to_state.items():
+                        if cls_idx < frame_probs.shape[1]:
+                            obs_prob[state_idx, t] += frame_probs[t, cls_idx]
+                # Add floor to prevent zeros
+                obs_prob = np.maximum(obs_prob, 0.001)
+                used_softmax = True
+        except Exception:
+            used_softmax = False
+
+    if not used_softmax:
+        # Fallback: synthetic one-hot from argmax labels
+        for t, (_, label) in enumerate(raw_predictions):
+            idx = label_to_idx.get(label)
+            if idx is not None:
+                obs_prob[idx, t] = 0.85
+                remaining = 0.15 / max(1, n_states - 1)
+                for j in range(n_states):
+                    if j != idx:
+                        obs_prob[j, t] = remaining + 0.01
 
     # Normalize columns
     for t in range(n_frames):

@@ -30,11 +30,19 @@
     var FOURTH_ATTEN = 0.09;               // subtract 9% from perfect 4th (bidirectional)
     var CHROMA_SMOOTH_FRAMES = 4;          // rolling chroma average window
     var PENALTY_WEIGHT = 0.8;              // penalty for non-chord-tone energy
-    var MIN_CHORD_SCORE = 0.25;            // minimum penalized score to report
+    var MIN_CHORD_SCORE = 0.30;            // minimum penalized score to report (was 0.25)
     var BASS_ROOT_BOOST = 1.2;             // boost when bass matches chord root
     var VOTE_WINDOW = 5;                   // voting frame count
     var VOTE_THRESHOLD = 0.6;              // 60% majority needed (3 of 5)
-    var MIN_HOLD_MS = 500;                 // minimum display time before chord change
+    var MIN_HOLD_MS = 450;                 // minimum display time before chord change (was 500)
+
+    // Transition penalty: semitone distances that are uncommon in real music
+    // Tritone (6) and semitone (1) jumps are penalized with longer hold times
+    var TRANSITION_PENALTY_MS = {
+        1: 300,   // semitone up/down (C→C#) — rare, add 300ms hold
+        6: 400,   // tritone (C→F#) — very rare, add 400ms hold
+        11: 300   // semitone down wrapping (C→B = 11 semitones up = 1 down)
+    };
 
     // Chord intervals — reuse from chord-diagrams.js globals if available
     var INTERVALS = window.SWARAM_INTERVALS || {
@@ -627,6 +635,21 @@
                 // Score = normalized reward minus weighted penalty
                 var score = (avgReward - PENALTY_WEIGHT * avgPenalty) * priority;
 
+                // Harmonic confirmation: if root is strong, require key chord tones
+                // (3rd and 5th) to have meaningful energy. Penalize if they're silent.
+                var rootEnergy = chroma[root];
+                if (rootEnergy > 0.3 && N >= 3) {
+                    var intervals_q = INTERVALS[quality];
+                    // Check 3rd (interval index 1) and 5th (interval index 2)
+                    for (var ci = 1; ci < Math.min(3, intervals_q.length); ci++) {
+                        var tonePC = (root + intervals_q[ci]) % 12;
+                        if (chroma[tonePC] < rootEnergy * 0.08) {
+                            // Key chord tone is essentially silent — penalize
+                            score *= 0.85;
+                        }
+                    }
+                }
+
                 // Bass root boost
                 if (bassRoot >= 0 && bassRoot === root) {
                     score *= BASS_ROOT_BOOST;
@@ -715,7 +738,31 @@
 
         // Different chord — enforce minimum hold time to prevent flickering
         var now = Date.now();
-        if (lastChordChangeTime > 0 && (now - lastChordChangeTime) < MIN_HOLD_MS) return;
+        var holdTime = MIN_HOLD_MS;
+
+        // Transition penalty: increase hold for unlikely chord root jumps
+        if (currentDisplayedChord) {
+            var prevRoot = NOTES.indexOf(currentDisplayedChord.replace(/[^A-G#]/g, '').substring(0, 2));
+            if (prevRoot < 0) prevRoot = NOTES.indexOf(currentDisplayedChord.charAt(0));
+            var newRoot = NOTES.indexOf(detected.root);
+
+            if (prevRoot >= 0 && newRoot >= 0) {
+                var interval = (newRoot - prevRoot + 12) % 12;
+                var penalty = TRANSITION_PENALTY_MS[interval] || 0;
+
+                // But if key context supports this transition, reduce penalty
+                if (penalty > 0 && detectedKeyRoot >= 0) {
+                    var scaleSet = detectedKeyIsMinor ? MINOR_SCALE_SET : MAJOR_SCALE_SET;
+                    var newInterval = (newRoot - detectedKeyRoot + 12) % 12;
+                    if (scaleSet[newInterval]) {
+                        penalty = Math.floor(penalty * 0.3); // diatonic → mostly forgive
+                    }
+                }
+                holdTime += penalty;
+            }
+        }
+
+        if (lastChordChangeTime > 0 && (now - lastChordChangeTime) < holdTime) return;
 
         lastChordChangeTime = now;
         currentDisplayedChord = detected.name;

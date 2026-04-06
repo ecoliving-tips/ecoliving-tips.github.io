@@ -25,6 +25,7 @@ from postprocess import (
     simplify_chord_label,
     beat_align_chords,
     merge_consecutive_chords,
+    median_filter_chords,
     viterbi_smooth_chords,
     compute_beat_confidence,
 )
@@ -243,7 +244,12 @@ def extract_features(audio_path: str):
 # ---------------------------------------------------------------------------
 def run_btc_inference(feature_matrix, feature_per_second):
     """
-    Run BTC model on CQT features, return list of (frame_idx, chord_label) tuples.
+    Run BTC model on CQT features.
+
+    Returns:
+        predictions: list of (time_sec, chord_label)
+        frame_probs: dict mapping chord_label → np.array of per-frame probabilities
+                     (None if softmax extraction fails)
     """
     # feature_matrix shape: (n_bins, n_frames) — transpose to (n_frames, n_bins)
     feature = feature_matrix.T
@@ -262,6 +268,7 @@ def run_btc_inference(feature_matrix, feature_per_second):
 
     # Run inference segment by segment (matches BTC's own evaluation pattern)
     all_predictions = []
+    all_logits = []
     with torch.no_grad():
         for t in range(num_segments):
             start = n_timestep * t
@@ -272,14 +279,27 @@ def run_btc_inference(feature_matrix, feature_per_second):
             )
             # BTC pattern: self_attn_layers → output_layer (not model.forward)
             encoder_output, _ = model.self_attn_layers(segment_tensor)
-            prediction, _ = model.output_layer(encoder_output)
+            prediction, encoder_out = model.output_layer(encoder_output)
             # prediction shape: (1, n_timestep) — squeeze all dims to get (n_timestep,)
             all_predictions.append(prediction.squeeze().cpu())
+            # encoder_out contains logits before argmax — shape (1, n_timestep, n_classes)
+            if encoder_out is not None and encoder_out.dim() == 3:
+                all_logits.append(encoder_out.squeeze(0).cpu())
 
     chord_indices = torch.cat(all_predictions, dim=0).numpy()  # (total_padded_frames,)
 
     # Trim padding frames
     chord_indices = chord_indices[:n_frames]
+
+    # Build softmax probability matrix if logits are available
+    frame_probs = None
+    if all_logits:
+        try:
+            logits_cat = torch.cat(all_logits, dim=0)[:n_frames]  # (n_frames, n_classes)
+            softmax_probs = torch.nn.functional.softmax(logits_cat, dim=-1).numpy()
+            frame_probs = softmax_probs
+        except Exception as e:
+            logger.debug(f"Could not extract softmax probabilities: {e}")
 
     # Convert to chord labels using the appropriate vocabulary
     if use_large_voca and large_voca_map:
@@ -300,14 +320,14 @@ def run_btc_inference(feature_matrix, feature_per_second):
         time_sec = i / feature_per_second
         results.append((time_sec, label))
 
-    return results
+    return results, frame_probs
 
 
 # ---------------------------------------------------------------------------
 # Main analysis pipeline
 # ---------------------------------------------------------------------------
 def analyze_audio(audio_path: str, video_id: str = "upload"):
-    """Lean pipeline: features → BTC → simplify → Viterbi → beat align → cleanup → response."""
+    """Lean pipeline: features → BTC → simplify → median filter → Viterbi → beat align → cleanup → response."""
 
     t0 = time.time()
 
@@ -318,19 +338,27 @@ def analyze_audio(audio_path: str, video_id: str = "upload"):
 
     # 2. Run BTC inference
     logger.info("Running BTC inference...")
-    raw_chords = run_btc_inference(feature, fps)
-    logger.info(f"BTC returned {len(raw_chords)} frame predictions")
+    raw_chords, frame_probs = run_btc_inference(feature, fps)
+    logger.info(f"BTC returned {len(raw_chords)} frame predictions (softmax={'yes' if frame_probs is not None else 'no'})")
 
     # 3. Simplify chord labels (preserve richer vocabulary: dim7, mM7, 6, m6)
     simplified = [
         (t, simplify_chord_label(label)) for t, label in raw_chords
     ]
 
-    # 4. Viterbi HMM smoothing (key-agnostic — pure chord persistence)
-    logger.info("Applying Viterbi HMM smoothing...")
-    smoothed = viterbi_smooth_chords(simplified, None, song_length)
+    # 4. Median pre-filter — remove single-frame chord blips before Viterbi
+    simplified = median_filter_chords(simplified, window=5)
 
-    # 5. Beat alignment — only if beat grid is reliable (confidence-based)
+    # 5. Viterbi HMM smoothing (key-agnostic — pure chord persistence)
+    #    Uses BTC softmax probabilities when available for richer observation model
+    logger.info("Applying Viterbi HMM smoothing...")
+    smoothed = viterbi_smooth_chords(
+        simplified, None, song_length,
+        frame_probs=frame_probs,
+        vocab_map=large_voca_map if use_large_voca else None,
+    )
+
+    # 6. Beat alignment — only if beat grid is reliable (confidence-based)
     beat_conf = compute_beat_confidence(beat_times)
     if beat_conf >= 0.5:
         logger.info(f"Beat alignment with {len(beat_times)} beats (confidence={beat_conf:.2f})...")
@@ -349,14 +377,14 @@ def analyze_audio(audio_path: str, video_id: str = "upload"):
             dur = song_length - cur_time
             chord_events.append((cur_time, min(dur, 30.0), cur_label))
 
-    # 6. Filter out "N" chords and very short events
+    # 7. Filter out "N" chords and very short events
     MIN_DURATION = 0.3
     chord_events = [
         (t_val, dur, label) for t_val, dur, label in chord_events
         if label != "N" and dur >= MIN_DURATION
     ]
 
-    # 7. Merge consecutive identical chords
+    # 8. Merge consecutive identical chords
     chord_events = merge_consecutive_chords(chord_events)
 
     # Clamp last chord duration to 30s max
