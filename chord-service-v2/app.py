@@ -72,6 +72,7 @@ YT_URL_PATTERNS = [
 YT_METADATA_TIMEOUT = 10.0
 YT_DOWNLOAD_TIMEOUT = 60.0
 YT_MIN_AUDIO_BYTES = 10_000
+YT_MAX_DURATION_SEC = 600  # 10 min — download cap (analysis truncates to MAX_DURATION_SEC)
 
 YT_INVIDIOUS_INSTANCES = [
     'https://inv.thepixora.com',        # Only instance with API enabled (Apr 2026)
@@ -483,7 +484,7 @@ async def _try_piped(video_id: str) -> str | None:
             if not data.get("audioStreams"):
                 raise ValueError("No audio streams")
             duration = data.get("duration", 0)
-            if duration and duration > MAX_DURATION_SEC:
+            if duration and duration > YT_MAX_DURATION_SEC:
                 raise ValueError(f"Video too long ({duration}s)")
 
             # Prefer itag 140 (M4A 128kbps)
@@ -527,7 +528,7 @@ async def _try_invidious_api(video_id: str) -> str | None:
                 data = resp.json()
 
             duration = data.get("lengthSeconds", 0)
-            if duration and duration > MAX_DURATION_SEC:
+            if duration and duration > YT_MAX_DURATION_SEC:
                 raise ValueError(f"Video too long ({duration}s)")
 
             audio_formats = [
