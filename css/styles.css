@@ -784,14 +784,15 @@ header {
 }
 
 .donate-btn-secondary {
-    background: transparent !important;
-    border: 1px solid var(--border) !important;
-    color: var(--text-muted) !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    color: rgba(255, 255, 255, 0.75) !important;
     font-size: 0.85rem !important;
     padding: 8px 20px !important;
 }
 
 .donate-btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
     border-color: var(--secondary) !important;
     color: var(--secondary) !important;
     box-shadow: none !important;
