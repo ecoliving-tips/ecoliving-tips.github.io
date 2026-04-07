@@ -129,7 +129,7 @@
                     <li><a href="/chord-progressions.html" data-i18n="nav_progressions">Progressions</a></li>
                     <li><a href="/songs.html" data-i18n="nav_songs">All Songs</a></li>
                     <li><a href="/request.html" data-i18n="nav_request">Request Song</a></li>
-                    <li><a href="#" onclick="openUPI(); return false;" data-i18n="nav_donate">Donate</a></li>
+                    <li><a href="#donate" data-i18n="nav_donate">Donate</a></li>
                 </ul>
             </nav>
         </div>
@@ -216,15 +216,19 @@
             </div>
         </section>
 
-    <section class="donate-section">
+    <section class="donate-section" id="donate">
         <div class="container">
-            <h3 data-i18n="support_title">Support Free Malayalam Song Chords</h3>
-            <p data-i18n="support_text">We keep every chord chart completely free. Your support helps us add more songs to the collection.</p>
+            <h3 data-i18n="support_title">Support Swaram</h3>
+            <p data-i18n="support_text">We keep everything completely free. Your support helps us improve the chord finder and add more songs.</p>
             <div class="donate-options">
-                <a href="#" onclick="openUPI(); return false;" class="btn donate-btn" data-i18n="pay_upi">Pay via UPI</a>
-                <img src="/assets/donate-qr.png" alt="Scan this QR code to donate via UPI to Swaram" class="qr-code" onclick="openUPI()">
+                <div class="razorpay-donate-btn">
+                    <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_SadQoYekBnNHJC" async> </script> </form>
+                </div>
+                <div class="upi-donate-option">
+                    <p class="upi-label" data-i18n="or_upi">Or pay directly via UPI (India)</p>
+                    <a href="#" onclick="openUPI(); return false;" class="btn donate-btn donate-btn-secondary" data-i18n="pay_upi">Pay via UPI</a>
+                </div>
             </div>
-            <p class="upi-id">UPI ID: <strong>7306025928@upi</strong></p>
         </div>
     </section>
 

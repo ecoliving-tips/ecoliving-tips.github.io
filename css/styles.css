@@ -753,13 +753,48 @@ header {
 
 .donate-options {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 32px;
-    flex-wrap: wrap;
+    gap: 24px;
     position: relative;
     z-index: 1;
     margin-bottom: 16px;
+}
+
+.razorpay-donate-btn {
+    position: relative;
+    z-index: 1;
+}
+
+.razorpay-donate-btn form {
+    display: inline-block;
+}
+
+.upi-donate-option {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+.upi-label {
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+}
+
+.donate-btn-secondary {
+    background: transparent !important;
+    border: 1px solid var(--border) !important;
+    color: var(--text-muted) !important;
+    font-size: 0.85rem !important;
+    padding: 8px 20px !important;
+}
+
+.donate-btn-secondary:hover {
+    border-color: var(--secondary) !important;
+    color: var(--secondary) !important;
+    box-shadow: none !important;
 }
 
 .donate-btn {
