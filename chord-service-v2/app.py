@@ -11,6 +11,7 @@ import sys
 import os
 import re
 import time
+import asyncio
 import tempfile
 import logging
 from urllib.parse import urlparse, parse_qs, urlencode
@@ -602,23 +603,74 @@ async def _try_invidious_api(video_id: str) -> str | None:
     return None
 
 
+async def _try_ytdlp(video_id: str) -> str | None:
+    """Use yt-dlp to extract audio directly from YouTube (no proxy needed)."""
+    tmp = tempfile.NamedTemporaryFile(suffix=".m4a", delete=False)
+    tmp.close()
+    try:
+        logger.info("[YT-dlp] Trying yt-dlp extraction...")
+        proc = await asyncio.create_subprocess_exec(
+            "yt-dlp",
+            "--no-playlist",
+            "--no-warnings",
+            "-f", "bestaudio[ext=m4a]/bestaudio",
+            "--max-filesize", f"{MAX_FILE_SIZE}",
+            "--socket-timeout", "15",
+            "--retries", "1",
+            "--extractor-args", "youtube:player_client=ios,web",
+            "-o", tmp.name,
+            "--force-overwrites",
+            f"https://www.youtube.com/watch?v={video_id}",
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE,
+        )
+        stdout, stderr = await asyncio.wait_for(
+            proc.communicate(), timeout=YT_DOWNLOAD_TIMEOUT
+        )
+        if proc.returncode != 0:
+            err_msg = stderr.decode(errors="replace")[:300]
+            raise ValueError(f"exit {proc.returncode}: {err_msg}")
+        if not os.path.exists(tmp.name) or os.path.getsize(tmp.name) < YT_MIN_AUDIO_BYTES:
+            raise ValueError("Downloaded file missing or too small")
+        logger.info(f"[YT-dlp] Success ({os.path.getsize(tmp.name)} bytes)")
+        return tmp.name
+    except asyncio.TimeoutError:
+        logger.warning("[YT-dlp] Timed out")
+        try:
+            proc.kill()
+        except Exception:
+            pass
+    except Exception as e:
+        logger.warning(f"[YT-dlp] Failed: {e}")
+    # Cleanup on failure
+    try:
+        os.unlink(tmp.name)
+    except OSError:
+        pass
+    return None
+
+
 async def fetch_youtube_audio(video_id: str) -> str:
     """
-    Download audio from YouTube via 3-tier cascade (server-side, no CORS).
-    Piped first (most reliable), Invidious as fallback.
+    Download audio from YouTube via tiered cascade (server-side, no CORS).
     Returns path to temp .m4a file. Raises HTTPException(502) if all fail.
     """
-    # Tier 1: Piped /streams — most reliable as of Apr 2026
+    # Tier 1: Piped /streams (fast, proxied audio)
     path = await _try_piped(video_id)
     if path:
         return path
 
-    # Tier 2: Invidious /latest_version (single redirect to googlevideo)
+    # Tier 2: yt-dlp (direct extraction, most robust)
+    path = await _try_ytdlp(video_id)
+    if path:
+        return path
+
+    # Tier 3: Invidious /latest_version (single redirect to googlevideo)
     path = await _try_invidious_latest(video_id)
     if path:
         return path
 
-    # Tier 3: Invidious full API (direct googlevideo URLs)
+    # Tier 4: Invidious full API (direct googlevideo URLs)
     path = await _try_invidious_api(video_id)
     if path:
         return path
