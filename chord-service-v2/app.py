@@ -563,15 +563,16 @@ async def _try_invidious_api(video_id: str) -> str | None:
 async def fetch_youtube_audio(video_id: str) -> str:
     """
     Download audio from YouTube via 3-tier cascade (server-side, no CORS).
+    Piped first (most reliable), Invidious as fallback.
     Returns path to temp .m4a file. Raises HTTPException(502) if all fail.
     """
-    # Tier 1: Invidious /latest_version (simplest — single redirect)
-    path = await _try_invidious_latest(video_id)
+    # Tier 1: Piped /streams — most reliable as of Apr 2026
+    path = await _try_piped(video_id)
     if path:
         return path
 
-    # Tier 2: Piped /streams (proxy URLs)
-    path = await _try_piped(video_id)
+    # Tier 2: Invidious /latest_version (single redirect to googlevideo)
+    path = await _try_invidious_latest(video_id)
     if path:
         return path
 
