@@ -13,6 +13,7 @@ import re
 import time
 import tempfile
 import logging
+from urllib.parse import urlparse, parse_qs, urlencode
 
 import yaml
 import numpy as np
@@ -470,6 +471,28 @@ async def _try_invidious_latest(video_id: str) -> str | None:
     return None
 
 
+def _extract_direct_url(proxy_url: str) -> str | None:
+    """Extract direct googlevideo.com URL from a Piped proxy URL.
+
+    Piped proxy URLs look like:
+      https://pipedproxy.example.com/videoplayback?...&host=rr5---sn-xxx.googlevideo.com&...
+    The 'host' query param is the real CDN hostname.
+    """
+    try:
+        parsed = urlparse(proxy_url)
+        params = parse_qs(parsed.query)
+        hosts = params.get("host")
+        if not hosts or not hosts[0].endswith(".googlevideo.com"):
+            return None
+        real_host = hosts[0]
+        # Rebuild query string without the 'host' param
+        filtered = [(k, v) for k, v in parse_qs(parsed.query, keep_blank_values=True).items() if k != "host"]
+        new_qs = urlencode([(k, v[0]) for k, v in filtered], safe="=&")
+        return f"https://{real_host}{parsed.path}?{new_qs}"
+    except Exception:
+        return None
+
+
 async def _try_piped(video_id: str) -> str | None:
     """Tier 2: Piped /streams — proxy audio URLs (avoids googlevideo.com CORS)."""
     for inst in YT_PIPED_INSTANCES:
@@ -501,13 +524,31 @@ async def _try_piped(video_id: str) -> str | None:
             if not audio_url:
                 raise ValueError("No stream URL")
 
-            async with httpx.AsyncClient(follow_redirects=True, timeout=YT_DOWNLOAD_TIMEOUT) as dl_client:
-                async with dl_client.stream("GET", audio_url) as stream_resp:
-                    if stream_resp.status_code not in (200, 206):
-                        raise ValueError(f"Audio download HTTP {stream_resp.status_code}")
-                    path = await _stream_to_tempfile(stream_resp)
-                    logger.info(f"[YT-Piped] Success via {inst}")
-                    return path
+            # Try proxy URL first, then direct googlevideo.com if proxy fails
+            urls_to_try = [audio_url]
+            direct = _extract_direct_url(audio_url)
+            if direct:
+                urls_to_try.append(direct)
+
+            last_err = None
+            for try_url in urls_to_try:
+                try:
+                    is_direct = try_url != audio_url
+                    if is_direct:
+                        logger.info(f"[YT-Piped] Proxy failed, trying direct googlevideo.com...")
+                    async with httpx.AsyncClient(follow_redirects=True, timeout=YT_DOWNLOAD_TIMEOUT) as dl_client:
+                        async with dl_client.stream("GET", try_url) as stream_resp:
+                            if stream_resp.status_code not in (200, 206):
+                                raise ValueError(f"Audio download HTTP {stream_resp.status_code}")
+                            path = await _stream_to_tempfile(stream_resp)
+                            src = "direct" if is_direct else "proxy"
+                            logger.info(f"[YT-Piped] Success via {inst} ({src})")
+                            return path
+                except Exception as dl_err:
+                    last_err = dl_err
+                    if try_url == audio_url and direct:
+                        continue  # Try direct URL next
+                    raise last_err
         except Exception as e:
             logger.warning(f"[YT-Piped] {inst} failed: {e}")
     return None
