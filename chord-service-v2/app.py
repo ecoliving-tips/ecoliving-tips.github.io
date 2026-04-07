@@ -74,19 +74,14 @@ YT_DOWNLOAD_TIMEOUT = 60.0
 YT_MIN_AUDIO_BYTES = 10_000
 
 YT_INVIDIOUS_INSTANCES = [
-    'https://inv.tux.pizza',
-    'https://invidious.nerdvpn.de',
-    'https://inv.nadeko.net',
-    'https://yewtu.be',
-    'https://invidious.private.coffee',
-    'https://iv.ggtyler.dev',
-    'https://invidious.lunar.icu',
+    'https://inv.thepixora.com',        # Only instance with API enabled (Apr 2026)
+    'https://invidious.nerdvpn.de',     # 401 on API but /latest_version may work
+    'https://inv.nadeko.net',           # 401 — anti-bot, but worth retrying
+    'https://yewtu.be',                 # 403 — intermittent, may recover
 ]
 YT_PIPED_INSTANCES = [
-    'https://pipedapi.kavin.rocks',
-    'https://api.piped.private.coffee',
-    'https://pipedapi.wireway.ch',
-    'https://pipedapi.adminforge.de',
+    'https://api.piped.private.coffee', # WORKING — official list, high uptime
+    'https://pipedapi.wireway.ch',      # Metadata OK, audio proxy flaky
 ]
 SAMPLE_RATE = 22050
 HOP_LENGTH = 2048  # BTC default (from run_config.yaml)
@@ -461,7 +456,7 @@ async def _try_invidious_latest(video_id: str) -> str | None:
                     f"{inst}/latest_version",
                     params={"id": video_id, "itag": "140"},
                 ) as resp:
-                    if resp.status_code != 200:
+                    if resp.status_code not in (200, 206):
                         raise ValueError(f"HTTP {resp.status_code}")
                     ct = resp.headers.get("content-type", "")
                     if "text/html" in ct:
@@ -507,7 +502,7 @@ async def _try_piped(video_id: str) -> str | None:
 
             async with httpx.AsyncClient(follow_redirects=True, timeout=YT_DOWNLOAD_TIMEOUT) as dl_client:
                 async with dl_client.stream("GET", audio_url) as stream_resp:
-                    if stream_resp.status_code != 200:
+                    if stream_resp.status_code not in (200, 206):
                         raise ValueError(f"Audio download HTTP {stream_resp.status_code}")
                     path = await _stream_to_tempfile(stream_resp)
                     logger.info(f"[YT-Piped] Success via {inst}")
@@ -555,7 +550,7 @@ async def _try_invidious_api(video_id: str) -> str | None:
 
             async with httpx.AsyncClient(follow_redirects=True, timeout=YT_DOWNLOAD_TIMEOUT) as dl_client:
                 async with dl_client.stream("GET", audio_url) as stream_resp:
-                    if stream_resp.status_code != 200:
+                    if stream_resp.status_code not in (200, 206):
                         raise ValueError(f"Audio download HTTP {stream_resp.status_code}")
                     path = await _stream_to_tempfile(stream_resp)
                     logger.info(f"[YT-Inv-API] Success via {inst}")
