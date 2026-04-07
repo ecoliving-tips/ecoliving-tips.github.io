@@ -802,7 +802,7 @@ function generateSitemap(songs, categories, artists, progressionKeys) {
     const staticPages = [
         { loc: '/', changefreq: 'weekly', priority: '1.0', file: 'index.html' },
         { loc: '/songs.html', changefreq: 'weekly', priority: '0.9', file: 'songs.html' },
-        { loc: '/chord-finder.html', changefreq: 'monthly', priority: '0.95', file: 'chord-finder.html' },
+        { loc: '/chord-finder.html', changefreq: 'weekly', priority: '0.95', file: 'chord-finder.html' },
         { loc: '/chord-identifier.html', changefreq: 'monthly', priority: '0.90', file: 'chord-identifier.html' },
         { loc: '/chord-progressions.html', changefreq: 'monthly', priority: '0.90', file: 'chord-progressions.html' },
         { loc: '/request.html', changefreq: 'monthly', priority: '0.7', file: 'request.html' },

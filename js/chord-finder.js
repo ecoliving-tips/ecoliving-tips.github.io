@@ -13,6 +13,31 @@ const MAX_FILE_SIZE = 30 * 1024 * 1024; // 30 MB
 const API_TIMEOUT_MS = 300_000; // 5 minutes
 const SUPABASE_URL = 'https://jfnccekkhffonkjkmxyf.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_KJA4VzMAjt2WVEEg0JKMfg_lDrABAZK';
+const MODEL_VERSION = 'btc-v1';
+
+// Lazy Supabase singleton — created on first use, reused everywhere
+let _supabaseClient = null;
+function getSupabase() {
+    if (!_supabaseClient && window.supabase) {
+        _supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    }
+    return _supabaseClient;
+}
+
+// Piped API instances for YouTube audio extraction (client-side, CORS enabled)
+// Failover list — tried in order; first success wins.
+// These are public Piped instances with CORS-enabled audio proxies.
+// Instance health varies — if one is down, the next is tried automatically.
+const PIPED_INSTANCES = [
+    'https://api.piped.private.coffee',
+    'https://pipedapi.wireway.ch',
+    'https://pipedapi.kavin.rocks',
+    'https://pipedapi.leptons.xyz',
+    'https://pipedapi.adminforge.de',
+    'https://pipedapi.in.projectsegfau.lt',
+];
+const PIPED_TIMEOUT_MS = 6_000;  // 6s per instance for /streams API
+const AUDIO_DL_TIMEOUT_MS = 60_000; // 60s for audio blob download
 
 // ---------------------------------------------------------------------------
 // State
@@ -27,6 +52,9 @@ let cachedCurrentChordEl = null; // Cached #current-chord element
 let audioPlayer = null;      // HTML5 Audio element
 let audioObjectUrl = null;   // Blob URL for uploaded file
 let serverWarm = false;      // Whether the HF Space is awake
+let youtubeVideoId = null;   // Extracted YouTube video ID (when using URL input)
+let ytPlayer = null;         // YouTube IFrame Player instance
+let ytSyncInterval = null;   // Interval ID for YouTube chord sync
 
 // Beginner mode state
 let beginnerMode = false;
@@ -273,6 +301,15 @@ function setupEventListeners() {
     const removeBtn = document.getElementById('file-remove');
     if (removeBtn) removeBtn.addEventListener('click', clearSelectedFile);
 
+    // YouTube URL input
+    const ytInput = document.getElementById('youtube-url');
+    if (ytInput) {
+        ytInput.addEventListener('input', handleYouTubeUrlInput);
+        ytInput.addEventListener('paste', () => setTimeout(handleYouTubeUrlInput, 0));
+    }
+    const ytClear = document.getElementById('youtube-url-clear');
+    if (ytClear) ytClear.addEventListener('click', clearYouTubeUrl);
+
     // Transpose controls
     document.getElementById('transpose-up')?.addEventListener('click', () => applyTranspose(1));
     document.getElementById('transpose-down')?.addEventListener('click', () => applyTranspose(-1));
@@ -316,6 +353,8 @@ function setSelectedFile(file) {
     if (nameEl) nameEl.textContent = file.name;
     if (selectedEl) selectedEl.style.display = 'flex';
     document.getElementById('upload-area').style.display = 'none';
+    // Clear YouTube URL when file is selected (mutual exclusivity)
+    clearYouTubeUrl();
 }
 
 function clearSelectedFile() {
@@ -328,11 +367,118 @@ function clearSelectedFile() {
 }
 
 // ---------------------------------------------------------------------------
+// YouTube URL handling
+// ---------------------------------------------------------------------------
+function extractVideoId(url) {
+    if (!url) return null;
+    const patterns = [
+        /(?:youtube\.com\/watch\?.*v=)([A-Za-z0-9_-]{11})/,
+        /(?:youtu\.be\/)([A-Za-z0-9_-]{11})/,
+        /(?:youtube\.com\/embed\/)([A-Za-z0-9_-]{11})/,
+        /(?:youtube\.com\/shorts\/)([A-Za-z0-9_-]{11})/,
+    ];
+    for (const p of patterns) {
+        const m = url.match(p);
+        if (m) return m[1];
+    }
+    return null;
+}
+
+function handleYouTubeUrlInput() {
+    const input = document.getElementById('youtube-url');
+    if (!input) return;
+    const url = input.value.trim();
+    const clearBtn = document.getElementById('youtube-url-clear');
+    if (clearBtn) clearBtn.style.display = url ? '' : 'none';
+    // If valid YouTube URL, clear file selection (mutual exclusivity)
+    if (url && extractVideoId(url)) {
+        clearSelectedFile();
+    }
+}
+
+function clearYouTubeUrl() {
+    const input = document.getElementById('youtube-url');
+    if (input) input.value = '';
+    const clearBtn = document.getElementById('youtube-url-clear');
+    if (clearBtn) clearBtn.style.display = 'none';
+    const status = document.getElementById('youtube-fetch-status');
+    if (status) { status.style.display = 'none'; status.classList.remove('error'); }
+    youtubeVideoId = null;
+}
+
+/**
+ * Fetch audio from YouTube via Piped API (client-side, CORS enabled).
+ * Tries multiple Piped instances with failover.
+ * Returns: { blob: Blob, title: string }
+ */
+async function fetchYouTubeAudio(videoId) {
+    let lastError = null;
+
+    for (let i = 0; i < PIPED_INSTANCES.length; i++) {
+        const instance = PIPED_INSTANCES[i];
+        try {
+            console.log(`[Piped] Trying ${instance} (${i + 1}/${PIPED_INSTANCES.length})...`);
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), PIPED_TIMEOUT_MS);
+
+            const resp = await fetch(`${instance}/streams/${videoId}`, {
+                signal: controller.signal,
+            });
+            clearTimeout(timeout);
+
+            if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+            const data = await resp.json();
+
+            if (!data.audioStreams || data.audioStreams.length === 0) {
+                throw new Error('No audio streams available');
+            }
+
+            // Pick best audio stream: prefer itag 140 (M4A 128kbps), fallback to highest bitrate under 160kbps
+            let stream = data.audioStreams.find(s => s.itag === 140);
+            if (!stream) {
+                const candidates = data.audioStreams
+                    .filter(s => s.bitrate && s.bitrate < 170000)
+                    .sort((a, b) => b.bitrate - a.bitrate);
+                stream = candidates[0] || data.audioStreams[0];
+            }
+
+            // Download audio blob (with timeout)
+            console.log(`[Piped] Downloading audio from proxy...`);
+            const dlController = new AbortController();
+            const dlTimeout = setTimeout(() => dlController.abort(), AUDIO_DL_TIMEOUT_MS);
+            const audioResp = await fetch(stream.url, { signal: dlController.signal });
+            clearTimeout(dlTimeout);
+            if (!audioResp.ok) throw new Error(`Audio download failed: HTTP ${audioResp.status}`);
+            const blob = await audioResp.blob();
+
+            // Determine file extension from mimeType
+            let ext = '.m4a';
+            if (stream.mimeType?.includes('webm') || stream.format === 'WEBMA_OPUS') ext = '.webm';
+
+            console.log(`[Piped] Success via ${instance} (${(blob.size / 1024 / 1024).toFixed(1)} MB)`);
+            return { blob, title: data.title || videoId, ext };
+
+        } catch (err) {
+            console.warn(`[Piped] ${instance} failed:`, err.message);
+            lastError = err;
+            continue; // Try next instance
+        }
+    }
+
+    throw new Error(
+        t('gen_url_error') || 'Could not fetch audio from YouTube. Please upload the audio file instead.'
+    );
+}
+
+// ---------------------------------------------------------------------------
 // Main generate flow
 // ---------------------------------------------------------------------------
 async function handleGenerate() {
-    if (!selectedFile) {
-        showError(t('gen_error_no_input') || 'Please upload an audio file to find chords.');
+    const ytUrl = document.getElementById('youtube-url')?.value.trim();
+    const videoId = ytUrl ? extractVideoId(ytUrl) : null;
+
+    if (!selectedFile && !videoId) {
+        showError(t('gen_error_no_input') || 'Please upload an audio file or paste a YouTube link.');
         return;
     }
 
@@ -343,11 +489,53 @@ async function handleGenerate() {
     disableGenerateBtn(true);
 
     try {
+        let fileToUpload = selectedFile;
+        youtubeVideoId = videoId;
+
+        // Cache check — YouTube URLs only
+        if (videoId) {
+            const cached = await checkChordCache(videoId);
+            if (cached) {
+                chordData = cached;
+                currentTranspose = 0;
+                setProgressStep('done');
+                showResults();
+                return;
+            }
+        }
+
+        // If YouTube URL provided, fetch audio first
+        if (!fileToUpload && videoId) {
+            const ytStep = document.getElementById('step-youtube-fetch');
+            if (ytStep) ytStep.style.display = '';
+            setProgressStep('youtube-fetch');
+
+            const status = document.getElementById('youtube-fetch-status');
+            if (status) {
+                status.style.display = '';
+                status.textContent = t('gen_url_fetching') || 'Fetching audio from YouTube...';
+                status.classList.remove('error');
+            }
+
+            try {
+                const { blob, title, ext } = await fetchYouTubeAudio(videoId);
+                fileToUpload = new File([blob], `${title}${ext}`, { type: blob.type });
+                // Hide fetch status on success
+                if (status) status.style.display = 'none';
+            } catch (fetchErr) {
+                const status = document.getElementById('youtube-fetch-status');
+                if (status) {
+                    status.textContent = fetchErr.message;
+                    status.classList.add('error');
+                }
+                throw fetchErr;
+            }
+        }
+
         // Send to backend for analysis
         setProgressStep('analyze');
 
         let result;
-        // Show warmup hint after 15s if server wasn't already warm
         let warmupTimer = null;
         if (!serverWarm) {
             warmupTimer = setTimeout(() => {
@@ -357,7 +545,7 @@ async function handleGenerate() {
         }
 
         try {
-            result = await callBackendAPI(selectedFile);
+            result = await callBackendAPI(fileToUpload);
             serverWarm = true;
         } finally {
             if (warmupTimer) clearTimeout(warmupTimer);
@@ -365,14 +553,22 @@ async function handleGenerate() {
             if (hint) hint.style.display = 'none';
         }
 
+        // Store file for audio player (even if from YouTube fetch)
+        if (!selectedFile && fileToUpload) {
+            selectedFile = fileToUpload;
+        }
+
         chordData = result;
         currentTranspose = 0;
+
+        // Cache store — YouTube URLs only (fire-and-forget)
+        if (videoId) storeChordCache(videoId, result);
 
         setProgressStep('done');
         showResults();
 
-        // Silent analytics — never affects user flow
-        logChordFinderUsage(selectedFile, result);
+        // Silent analytics
+        logChordFinderUsage(fileToUpload, result);
 
     } catch (err) {
         console.error('Generate failed:', err);
@@ -380,6 +576,9 @@ async function handleGenerate() {
         showError(err.message || 'An error occurred while generating chords.');
     } finally {
         disableGenerateBtn(false);
+        // Hide YouTube fetch step for next run
+        const ytStep = document.getElementById('step-youtube-fetch');
+        if (ytStep) ytStep.style.display = 'none';
     }
 }
 
@@ -425,8 +624,10 @@ function showResults() {
     // Render chord timeline
     renderChordTimeline();
 
-    // Set up audio player for playback sync
-    if (selectedFile) {
+    // Set up playback: YouTube embed or HTML5 audio player
+    if (youtubeVideoId) {
+        initYouTubePlayer(youtubeVideoId);
+    } else if (selectedFile) {
         initAudioPlayer();
     }
 }
@@ -439,6 +640,8 @@ function hideResults() {
         URL.revokeObjectURL(audioObjectUrl);
         audioObjectUrl = null;
     }
+    // Clean up YouTube player
+    destroyYouTubePlayer();
 }
 
 // ---------------------------------------------------------------------------
@@ -555,6 +758,112 @@ function handleAudioSeek(e) {
 }
 
 // ---------------------------------------------------------------------------
+// YouTube IFrame Player
+// ---------------------------------------------------------------------------
+let ytApiReady = false;
+
+function loadYouTubeIFrameAPI() {
+    if (ytApiReady || document.getElementById('yt-iframe-api')) return;
+    const tag = document.createElement('script');
+    tag.id = 'yt-iframe-api';
+    tag.src = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(tag);
+}
+
+// YouTube IFrame API calls this global function when ready
+window.onYouTubeIframeAPIReady = function () {
+    ytApiReady = true;
+};
+
+function initYouTubePlayer(videoId) {
+    // Hide HTML5 audio player, show YouTube embed
+    const audioContainer = document.getElementById('audio-player-container');
+    if (audioContainer) audioContainer.style.display = 'none';
+    const ytContainer = document.getElementById('youtube-player-container');
+    if (ytContainer) ytContainer.style.display = '';
+
+    // Load API if not already loaded
+    loadYouTubeIFrameAPI();
+
+    function createPlayer() {
+        // Destroy previous if any
+        if (ytPlayer && typeof ytPlayer.destroy === 'function') {
+            ytPlayer.destroy();
+            ytPlayer = null;
+        }
+        ytPlayer = new YT.Player('youtube-player', {
+            videoId: videoId,
+            playerVars: { autoplay: 0, modestbranding: 1, rel: 0 },
+            events: {
+                onStateChange: onYTStateChange,
+            },
+        });
+    }
+
+    if (ytApiReady && window.YT?.Player) {
+        createPlayer();
+    } else {
+        // Wait for API to load
+        const check = setInterval(() => {
+            if (window.YT?.Player) {
+                clearInterval(check);
+                ytApiReady = true;
+                createPlayer();
+            }
+        }, 200);
+        // Safety timeout
+        setTimeout(() => clearInterval(check), 10000);
+    }
+}
+
+function onYTStateChange(event) {
+    // YT.PlayerState: PLAYING=1, PAUSED=2, ENDED=0
+    if (event.data === 1) {
+        // Playing — start chord sync via polling (YouTube API has no timeupdate event)
+        startYTSync();
+    } else {
+        stopYTSync();
+    }
+    if (event.data === 0) {
+        // Ended
+        lastActiveIdx = -1;
+        if (cachedCurrentChordEl) cachedCurrentChordEl.textContent = '-';
+        if (cachedBlocks) {
+            for (let i = 0; i < cachedBlocks.length; i++) {
+                cachedBlocks[i].classList.remove('active', 'past');
+            }
+        }
+    }
+}
+
+function startYTSync() {
+    stopYTSync();
+    ytSyncInterval = setInterval(updateChordSync, 100); // Poll at 10Hz
+}
+
+function stopYTSync() {
+    if (ytSyncInterval) {
+        clearInterval(ytSyncInterval);
+        ytSyncInterval = null;
+    }
+}
+
+function destroyYouTubePlayer() {
+    stopYTSync();
+    if (ytPlayer && typeof ytPlayer.destroy === 'function') {
+        ytPlayer.destroy();
+        ytPlayer = null;
+    }
+    youtubeVideoId = null;
+    const ytContainer = document.getElementById('youtube-player-container');
+    if (ytContainer) {
+        ytContainer.style.display = 'none';
+        // Recreate the div (YouTube API replaces it with an iframe)
+        ytContainer.innerHTML = '<div id="youtube-player"></div>';
+    }
+}
+
+// ---------------------------------------------------------------------------
 // Chord sync (real-time highlight during playback)
 // ---------------------------------------------------------------------------
 function startSync() {
@@ -600,8 +909,15 @@ function findActiveChordIndex(time) {
 }
 
 function updateChordSync() {
-    if (!audioPlayer || !chordData?.chords?.length) return;
-    const time = audioPlayer.currentTime;
+    if (!chordData?.chords?.length) return;
+    let time;
+    if (ytPlayer && typeof ytPlayer.getCurrentTime === 'function') {
+        time = ytPlayer.getCurrentTime();
+    } else if (audioPlayer) {
+        time = audioPlayer.currentTime;
+    } else {
+        return;
+    }
 
     const activeIdx = findActiveChordIndex(time);
 
@@ -630,6 +946,13 @@ function updateChordSync() {
 }
 
 function seekTo(time) {
+    if (ytPlayer && typeof ytPlayer.seekTo === 'function') {
+        ytPlayer.seekTo(time, true);
+        lastActiveIdx = -1;
+        updateChordSync();
+        if (ytPlayer.getPlayerState() !== 1) ytPlayer.playVideo();
+        return;
+    }
     if (!audioPlayer) return;
     audioPlayer.currentTime = time;
     lastActiveIdx = -1; // Force sync update
@@ -699,10 +1022,10 @@ function hideProgress() {
     if (section) section.style.display = 'none';
 }
 
-const STEP_PROGRESS = { analyze: 50, done: 100 };
+const STEP_PROGRESS = { 'youtube-fetch': 20, analyze: 60, done: 100 };
 
 function setProgressStep(step) {
-    const steps = ['analyze', 'done'];
+    const steps = ['youtube-fetch', 'analyze', 'done'];
     const stepIdx = steps.indexOf(step);
 
     steps.forEach((s, idx) => {
@@ -767,6 +1090,7 @@ function resetGenerator() {
     capoPosition = 0;
     difficultyLevel = '';
     clearSelectedFile();
+    clearYouTubeUrl();
     document.getElementById('current-chord').textContent = '-';
     document.getElementById('mode-original')?.classList.add('active');
     document.getElementById('mode-beginner')?.classList.remove('active');
@@ -783,8 +1107,8 @@ function resetGenerator() {
 // ---------------------------------------------------------------------------
 function logChordFinderUsage(file, result) {
     try {
-        if (!window.supabase) return;
-        const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        const sb = getSupabase();
+        if (!sb || !file) return;
         sb.from('chord_finder_logs').insert([{
             file_name: file.name,
             file_size_kb: Math.round(file.size / 1024),
@@ -792,5 +1116,41 @@ function logChordFinderUsage(file, result) {
             chord_count: result.chords?.length || 0,
             processing_time_ms: result.processing_time_ms || null,
         }]).then(() => {}).catch(() => {});
+    } catch { /* never disrupt user flow */ }
+}
+
+// ---------------------------------------------------------------------------
+// Chord cache — Supabase-backed, keyed by YouTube video_id
+// ---------------------------------------------------------------------------
+async function checkChordCache(videoId) {
+    try {
+        const sb = getSupabase();
+        if (!sb) return null;
+        const { data, error } = await sb
+            .from('generated_chords')
+            .select('chords')
+            .eq('video_id', videoId)
+            .maybeSingle();
+        if (error || !data?.chords?.chords?.length) return null;
+        console.log(`[Cache] Hit for ${videoId}`);
+        return data.chords;
+    } catch {
+        return null;
+    }
+}
+
+function storeChordCache(videoId, result) {
+    try {
+        const sb = getSupabase();
+        if (!sb) return;
+        sb.from('generated_chords')
+            .upsert({
+                video_id: videoId,
+                chords: result,
+                model_version: MODEL_VERSION,
+                processing_time_ms: result.processing_time_ms || null,
+            }, { onConflict: 'video_id' })
+            .then(() => console.log(`[Cache] Stored for ${videoId}`))
+            .catch(() => {});
     } catch { /* never disrupt user flow */ }
 }

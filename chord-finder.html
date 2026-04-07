@@ -5,17 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Free AI chord finder — upload any song and instantly detect chords. Beginner Mode auto-simplifies complex chords with smart capo suggestions. Works for any genre, any language.">
+        content="Free AI chord finder — paste a YouTube link or upload any song to instantly detect chords. Beginner Mode simplifies complex chords with smart capo suggestions. Works for any genre, any language.">
     <meta name="keywords"
-        content="chord finder, find chords for a song, easy chords for beginners, simplified chords, beginner guitar chords, capo suggestions, chord detection online, AI chord transcription, free chord finder, song chord analyzer, what chords are in this song, automatic chord detection">
+        content="chord finder, find chords for a song, youtube chord finder, find chords from youtube, chords from youtube video, youtube song chords, get chords from youtube, easy chords for beginners, simplified chords, beginner guitar chords, capo suggestions, chord detection online, AI chord transcription, free chord finder, song chord analyzer, what chords are in this song, automatic chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://ecoliving-tips.github.io/chord-finder.html">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Chord Finder - What chords are in this song? | Swaram">
+    <meta property="og:title" content="Chord Finder — Find Chords from YouTube or Any Song | Swaram">
     <meta property="og:description"
-        content="Free AI chord finder — upload any song and instantly detect chords. Beginner Mode auto-simplifies complex chords with smart capo suggestions. No signup needed.">
+        content="Free AI chord finder — paste a YouTube link or upload any song to instantly detect chords. Beginner Mode simplifies complex chords with smart capo suggestions. No signup needed.">
     <meta property="og:url" content="https://ecoliving-tips.github.io/chord-finder.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -27,12 +27,12 @@
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Chord Finder - What chords are in this song? | Swaram">
+    <meta name="twitter:title" content="Chord Finder — Find Chords from YouTube or Any Song | Swaram">
     <meta name="twitter:description"
-        content="Free AI chord finder — upload any song and instantly detect chords and progressions. Works for any genre, any language. No signup needed.">
+        content="Free AI chord finder — paste a YouTube link or upload any song to instantly detect chords and progressions. Works for any genre, any language. No signup needed.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
-    <title>Chord Finder - What chords are in this song? | Swaram</title>
+    <title>Chord Finder — Find Chords from YouTube or Any Song | Swaram</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -68,10 +68,11 @@
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "Swaram Chord Finder",
-        "description": "AI-powered chord recognition from audio files. Free chord finder for any song.",
+        "description": "AI-powered chord finder — paste a YouTube link or upload any song to detect chords instantly. Free, no signup needed.",
         "url": "https://ecoliving-tips.github.io/chord-finder.html",
         "applicationCategory": "MusicApplication",
         "operatingSystem": "Web",
+        "featureList": "YouTube chord detection, Audio file upload, Chord timeline, Transpose, Beginner Mode, Capo suggestions",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
         "isPartOf": {
             "@type": "WebSite",
@@ -118,6 +119,30 @@
                     "@type": "Answer",
                     "text": "Our AI uses advanced harmonic analysis to detect chords with good accuracy. Results work best with clear recordings. You can transpose the detected chords to any key with one click."
                 }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I find chords from a YouTube video?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes! Just paste any YouTube link and Swaram will automatically extract the audio and detect chords. No need to download the song first — it works directly from the YouTube URL."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is the chord finder really free?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, Swaram is 100% free with no signup required. Upload audio files or paste YouTube links as many times as you want — no usage limits, no hidden fees."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Do I need to download a YouTube video to find chords?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No. Simply paste the YouTube URL into Swaram's chord finder and it extracts the audio automatically. No downloads, no extra software needed."
+                }
             }
         ]
     }
@@ -142,6 +167,38 @@
                 "item": "https://ecoliving-tips.github.io/chord-finder.html"
             }
         ]
+    }
+    </script>
+
+    <!-- HowTo structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "How to Find Chords from a YouTube Video",
+        "description": "Use Swaram's free AI chord finder to detect chords from any YouTube video in seconds.",
+        "step": [
+            {
+                "@type": "HowToStep",
+                "name": "Paste YouTube Link",
+                "text": "Copy the YouTube URL of any song and paste it into Swaram's chord finder."
+            },
+            {
+                "@type": "HowToStep",
+                "name": "AI Detects Chords",
+                "text": "Our AI automatically extracts the audio and analyzes it to identify chords and progressions."
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Play Along",
+                "text": "Follow the chord timeline synced with the YouTube video. Transpose to any key with one click."
+            }
+        ],
+        "tool": {
+            "@type": "HowToTool",
+            "name": "Swaram Chord Finder"
+        },
+        "totalTime": "PT2M"
     }
     </script>
 </head>
@@ -185,7 +242,7 @@
         <!-- Input Section -->
         <section class="generate-header">
             <div class="container">
-                <h2 data-i18n="gen_title">What chords are in this song?</h2>
+                <h2 data-i18n="gen_title">AI Chord Finder — YouTube & Audio</h2>
                 <p data-i18n="gen_desc">Find chords for any song instantly.</p>
             </div>
         </section>
@@ -214,6 +271,24 @@
                         </div>
                     </div>
 
+                    <!-- Or divider -->
+                    <div class="input-divider">
+                        <span data-i18n="gen_or_divider">or</span>
+                    </div>
+
+                    <!-- YouTube URL input -->
+                    <div class="form-group">
+                        <label data-i18n="gen_url_label">Paste a YouTube link</label>
+                        <div class="youtube-url-group">
+                            <svg class="youtube-url-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                            </svg>
+                            <input type="url" class="youtube-url-input" id="youtube-url" data-i18n-placeholder="gen_url_placeholder" placeholder="https://youtube.com/watch?v=..." autocomplete="off" spellcheck="false">
+                            <button type="button" class="youtube-url-clear" id="youtube-url-clear" aria-label="Clear URL" style="display:none;">&times;</button>
+                        </div>
+                        <div class="youtube-fetch-status" id="youtube-fetch-status" style="display:none;"></div>
+                    </div>
+
                     <button type="button" class="btn generate-btn" id="generate-btn" data-i18n="gen_button">
                         Find Chords
                     </button>
@@ -226,6 +301,10 @@
             <div class="container">
                 <div class="progress-card">
                     <div class="progress-steps">
+                        <div class="progress-step" id="step-youtube-fetch" style="display:none;">
+                            <div class="step-indicator"></div>
+                            <span data-i18n="gen_url_fetching">Fetching audio from YouTube...</span>
+                        </div>
                         <div class="progress-step" id="step-analyze">
                             <div class="step-indicator"></div>
                             <span data-i18n="gen_step_analyze">Our AI is transcribing the chords for you...</span>
@@ -274,6 +353,10 @@
                         <input type="range" class="audio-seek" id="audio-seek" min="0" max="100" value="0">
                         <span class="audio-time" id="audio-duration">0:00</span>
                     </div>
+                </div>
+                <!-- YouTube embed player (shown when using YouTube URL) -->
+                <div id="youtube-player-container" class="youtube-player-container" style="display:none;">
+                    <div id="youtube-player"></div>
                 </div>
 
                 <!-- Mode toggle & Transpose controls -->
@@ -326,8 +409,8 @@
                         <div class="feature-icon">
                             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
                         </div>
-                        <h3 data-i18n="how_step1_title">Upload Your Song</h3>
-                        <p data-i18n="how_step1_desc">Drop any audio file — MP3, WAV, M4A, OGG, or FLAC up to 30 MB.</p>
+                        <h3 data-i18n="how_step1_title">Paste Link or Upload</h3>
+                        <p data-i18n="how_step1_desc">Paste a YouTube link or drop any audio file — MP3, WAV, M4A, OGG, or FLAC up to 30 MB.</p>
                     </article>
                     <article class="feature-card">
                         <div class="feature-icon">
@@ -382,7 +465,7 @@
             <div class="container">
                 <h2 data-i18n="cf_formats_title">Supported Audio Formats</h2>
                 <div class="about-content">
-                    <p data-i18n="cf_formats_desc">Upload audio files in MP3, WAV, M4A, OGG, FLAC, AAC, WMA, or WebM format — up to 30 MB. For best chord detection results, use high-quality recordings with clear instrumentation. Our AI chord finder works with studio tracks, live recordings, and acoustic performances alike.</p>
+                    <p data-i18n="cf_formats_desc">Upload audio files in MP3, WAV, M4A, OGG, FLAC, AAC, WMA, or WebM format — up to 30 MB. You can also paste any YouTube link to find chords directly — no need to download the video first. For best chord detection results, use high-quality recordings with clear instrumentation. Our AI chord finder works with studio tracks, live recordings, and acoustic performances alike.</p>
                 </div>
             </div>
         </section>
@@ -407,6 +490,18 @@
                     <div class="faq-item">
                         <h3 data-i18n="cf_faq_q4">How accurate is the AI chord detection?</h3>
                         <p data-i18n="cf_faq_a4">Our AI uses advanced harmonic analysis to detect chords with good accuracy. Results work best with clear recordings. You can transpose the detected chords to any key with one click.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3 data-i18n="cf_faq_q5">Can I find chords from a YouTube video?</h3>
+                        <p data-i18n="cf_faq_a5">Yes! Just paste any YouTube link and Swaram will automatically extract the audio and detect chords. No need to download the song first — it works directly from the YouTube URL.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3 data-i18n="cf_faq_q6">Is the chord finder really free?</h3>
+                        <p data-i18n="cf_faq_a6">Yes, Swaram is 100% free with no signup required. Upload audio files or paste YouTube links as many times as you want — no usage limits, no hidden fees.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3 data-i18n="cf_faq_q7">Do I need to download a YouTube video to find chords?</h3>
+                        <p data-i18n="cf_faq_a7">No. Simply paste the YouTube URL into Swaram's chord finder and it extracts the audio automatically. No downloads, no extra software needed.</p>
                     </div>
                 </div>
             </div>
