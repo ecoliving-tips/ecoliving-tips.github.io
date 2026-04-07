@@ -675,6 +675,7 @@ async function handleGenerate() {
 
     try {
         let fileToUpload = selectedFile;
+        let result;
         youtubeVideoId = videoId;
 
         // Cache check — YouTube URLs only
@@ -689,53 +690,75 @@ async function handleGenerate() {
             }
         }
 
-        // If YouTube URL provided, fetch audio first
+        // If YouTube URL provided, send to backend (server-side extraction).
+        // Falls back to client-side extraction if server returns 502.
         if (!fileToUpload && videoId) {
-            const ytStep = document.getElementById('step-youtube-fetch');
-            if (ytStep) ytStep.style.display = '';
-            setProgressStep('youtube-fetch');
+            setProgressStep('analyze');
 
-            const status = document.getElementById('youtube-fetch-status');
-            if (status) {
-                status.style.display = '';
-                status.textContent = t('gen_url_fetching') || 'Fetching audio from YouTube...';
-                status.classList.remove('error');
+            let warmupTimer = null;
+            if (!serverWarm) {
+                warmupTimer = setTimeout(() => {
+                    const hint = document.getElementById('warmup-hint');
+                    if (hint) hint.style.display = '';
+                }, 15000);
             }
 
             try {
-                const { blob, title, ext } = await fetchYouTubeAudio(videoId);
-                fileToUpload = new File([blob], `${title}${ext}`, { type: blob.type });
-                // Hide fetch status on success
-                if (status) status.style.display = 'none';
-            } catch (fetchErr) {
-                const status = document.getElementById('youtube-fetch-status');
-                if (status) {
-                    status.textContent = fetchErr.message;
-                    status.classList.add('error');
+                result = await callBackendAPI(null, ytUrl);
+                serverWarm = true;
+            } catch (serverErr) {
+                if (serverErr._youtubeExtractionFailed) {
+                    // Server couldn't reach YouTube — fall back to client-side extraction
+                    console.log('[YouTube] Server-side failed, trying client-side...');
+                    const ytStep = document.getElementById('step-youtube-fetch');
+                    if (ytStep) ytStep.style.display = '';
+                    setProgressStep('youtube-fetch');
+
+                    const status = document.getElementById('youtube-fetch-status');
+                    if (status) {
+                        status.style.display = '';
+                        status.textContent = t('gen_server_yt_fallback') || 'Server extraction failed — trying from your browser...';
+                        status.classList.remove('error');
+                    }
+
+                    const { blob, title, ext } = await fetchYouTubeAudio(videoId);
+                    fileToUpload = new File([blob], `${title}${ext}`, { type: blob.type });
+                    if (status) status.style.display = 'none';
+
+                    // Now send the downloaded file to backend for analysis
+                    setProgressStep('analyze');
+                    result = await callBackendAPI(fileToUpload, null);
+                    serverWarm = true;
+                } else {
+                    throw serverErr;
                 }
-                throw fetchErr;
+            } finally {
+                if (warmupTimer) clearTimeout(warmupTimer);
+                const hint = document.getElementById('warmup-hint');
+                if (hint) hint.style.display = 'none';
             }
         }
 
-        // Send to backend for analysis
-        setProgressStep('analyze');
+        // If file uploaded (no YouTube URL), send file to backend
+        if (fileToUpload && !result) {
+            setProgressStep('analyze');
 
-        let result;
-        let warmupTimer = null;
-        if (!serverWarm) {
-            warmupTimer = setTimeout(() => {
+            let warmupTimer = null;
+            if (!serverWarm) {
+                warmupTimer = setTimeout(() => {
+                    const hint = document.getElementById('warmup-hint');
+                    if (hint) hint.style.display = '';
+                }, 15000);
+            }
+
+            try {
+                result = await callBackendAPI(fileToUpload, null);
+                serverWarm = true;
+            } finally {
+                if (warmupTimer) clearTimeout(warmupTimer);
                 const hint = document.getElementById('warmup-hint');
-                if (hint) hint.style.display = '';
-            }, 15000);
-        }
-
-        try {
-            result = await callBackendAPI(fileToUpload);
-            serverWarm = true;
-        } finally {
-            if (warmupTimer) clearTimeout(warmupTimer);
-            const hint = document.getElementById('warmup-hint');
-            if (hint) hint.style.display = 'none';
+                if (hint) hint.style.display = 'none';
+            }
         }
 
         // Store file for audio player (even if from YouTube fetch)
@@ -770,9 +793,10 @@ async function handleGenerate() {
 // ---------------------------------------------------------------------------
 // Backend API call
 // ---------------------------------------------------------------------------
-async function callBackendAPI(file) {
+async function callBackendAPI(file, youtubeUrl) {
     const formData = new FormData();
-    formData.append('file', file);
+    if (file) formData.append('file', file);
+    if (youtubeUrl) formData.append('youtube_url', youtubeUrl);
 
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), API_TIMEOUT_MS);
@@ -786,7 +810,17 @@ async function callBackendAPI(file) {
 
         if (!resp.ok) {
             const errText = await resp.text().catch(() => '');
-            throw new Error(`Server error (${resp.status}): ${errText}`);
+            const err = new Error(`Server error (${resp.status}): ${errText}`);
+            // Detect server-side YouTube extraction failure → enables client-side fallback
+            if (resp.status === 502) {
+                try {
+                    const body = JSON.parse(errText);
+                    if (body.detail === 'youtube_extraction_failed') {
+                        err._youtubeExtractionFailed = true;
+                    }
+                } catch { /* not JSON */ }
+            }
+            throw err;
         }
 
         return await resp.json();

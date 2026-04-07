@@ -9,6 +9,7 @@ Endpoint: POST /analyze — accepts audio file, returns chord analysis JSON.
 
 import sys
 import os
+import re
 import time
 import tempfile
 import logging
@@ -17,6 +18,7 @@ import yaml
 import numpy as np
 import torch
 import librosa
+import httpx
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -58,6 +60,34 @@ VERSION = "3.0.0"
 MAX_DURATION_SEC = 300  # 5 minutes
 MAX_FILE_SIZE = 30 * 1024 * 1024  # 30 MB
 ALLOWED_EXTENSIONS = {".mp3", ".wav", ".m4a", ".ogg", ".flac", ".aac", ".wma", ".webm"}
+
+# YouTube audio extraction — server-side (no CORS restrictions)
+YT_VIDEO_ID_RE = re.compile(r'^[A-Za-z0-9_-]{11}$')
+YT_URL_PATTERNS = [
+    re.compile(r'(?:youtube\.com/watch\?.*v=)([A-Za-z0-9_-]{11})'),
+    re.compile(r'(?:youtu\.be/)([A-Za-z0-9_-]{11})'),
+    re.compile(r'(?:youtube\.com/embed/)([A-Za-z0-9_-]{11})'),
+    re.compile(r'(?:youtube\.com/shorts/)([A-Za-z0-9_-]{11})'),
+]
+YT_METADATA_TIMEOUT = 10.0
+YT_DOWNLOAD_TIMEOUT = 60.0
+YT_MIN_AUDIO_BYTES = 10_000
+
+YT_INVIDIOUS_INSTANCES = [
+    'https://inv.tux.pizza',
+    'https://invidious.nerdvpn.de',
+    'https://inv.nadeko.net',
+    'https://yewtu.be',
+    'https://invidious.private.coffee',
+    'https://iv.ggtyler.dev',
+    'https://invidious.lunar.icu',
+]
+YT_PIPED_INSTANCES = [
+    'https://pipedapi.kavin.rocks',
+    'https://api.piped.private.coffee',
+    'https://pipedapi.wireway.ch',
+    'https://pipedapi.adminforge.de',
+]
 SAMPLE_RATE = 22050
 HOP_LENGTH = 2048  # BTC default (from run_config.yaml)
 
@@ -381,6 +411,187 @@ def analyze_audio(audio_path: str, video_id: str = "upload"):
 
 
 # ---------------------------------------------------------------------------
+# YouTube audio extraction — server-side, 3-tier cascade
+# ---------------------------------------------------------------------------
+def extract_video_id(url: str) -> str | None:
+    """Extract YouTube video ID from URL (SSRF-safe: only the ID is used downstream)."""
+    if not url:
+        return None
+    # Accept bare 11-char ID
+    if YT_VIDEO_ID_RE.match(url.strip()):
+        return url.strip()
+    for pattern in YT_URL_PATTERNS:
+        m = pattern.search(url)
+        if m:
+            return m.group(1)
+    return None
+
+
+async def _stream_to_tempfile(resp: httpx.Response) -> str:
+    """Stream an httpx response body to a temp .m4a file. Returns path."""
+    tmp = tempfile.NamedTemporaryFile(suffix=".m4a", delete=False)
+    try:
+        total = 0
+        async for chunk in resp.aiter_bytes(65536):
+            total += len(chunk)
+            if total > MAX_FILE_SIZE:
+                raise ValueError(f"Audio too large ({total} bytes)")
+            tmp.write(chunk)
+        tmp.close()
+        if total < YT_MIN_AUDIO_BYTES:
+            raise ValueError(f"Audio too small ({total} bytes)")
+        return tmp.name
+    except Exception:
+        tmp.close()
+        try:
+            os.unlink(tmp.name)
+        except OSError:
+            pass
+        raise
+
+
+async def _try_invidious_latest(video_id: str) -> str | None:
+    """Tier 1: Invidious /latest_version — redirect to googlevideo.com audio."""
+    for inst in YT_INVIDIOUS_INSTANCES:
+        try:
+            logger.info(f"[YT-Inv-LV] Trying {inst}...")
+            async with httpx.AsyncClient(follow_redirects=True, timeout=YT_DOWNLOAD_TIMEOUT) as client:
+                async with client.stream(
+                    "GET",
+                    f"{inst}/latest_version",
+                    params={"id": video_id, "itag": "140"},
+                ) as resp:
+                    if resp.status_code != 200:
+                        raise ValueError(f"HTTP {resp.status_code}")
+                    ct = resp.headers.get("content-type", "")
+                    if "text/html" in ct:
+                        raise ValueError("Got HTML, not audio")
+                    path = await _stream_to_tempfile(resp)
+                    logger.info(f"[YT-Inv-LV] Success via {inst}")
+                    return path
+        except Exception as e:
+            logger.warning(f"[YT-Inv-LV] {inst} failed: {e}")
+    return None
+
+
+async def _try_piped(video_id: str) -> str | None:
+    """Tier 2: Piped /streams — proxy audio URLs (avoids googlevideo.com CORS)."""
+    for inst in YT_PIPED_INSTANCES:
+        try:
+            logger.info(f"[YT-Piped] Trying {inst}...")
+            async with httpx.AsyncClient(timeout=YT_METADATA_TIMEOUT) as client:
+                resp = await client.get(f"{inst}/streams/{video_id}")
+                if resp.status_code != 200:
+                    raise ValueError(f"HTTP {resp.status_code}")
+                data = resp.json()
+
+            if not data.get("audioStreams"):
+                raise ValueError("No audio streams")
+            duration = data.get("duration", 0)
+            if duration and duration > MAX_DURATION_SEC:
+                raise ValueError(f"Video too long ({duration}s)")
+
+            # Prefer itag 140 (M4A 128kbps)
+            streams = data["audioStreams"]
+            stream = next((s for s in streams if s.get("itag") == 140), None)
+            if not stream:
+                candidates = sorted(
+                    [s for s in streams if s.get("bitrate", 0) < 170000],
+                    key=lambda s: s.get("bitrate", 0), reverse=True,
+                )
+                stream = candidates[0] if candidates else streams[0]
+
+            audio_url = stream.get("url")
+            if not audio_url:
+                raise ValueError("No stream URL")
+
+            async with httpx.AsyncClient(follow_redirects=True, timeout=YT_DOWNLOAD_TIMEOUT) as dl_client:
+                async with dl_client.stream("GET", audio_url) as stream_resp:
+                    if stream_resp.status_code != 200:
+                        raise ValueError(f"Audio download HTTP {stream_resp.status_code}")
+                    path = await _stream_to_tempfile(stream_resp)
+                    logger.info(f"[YT-Piped] Success via {inst}")
+                    return path
+        except Exception as e:
+            logger.warning(f"[YT-Piped] {inst} failed: {e}")
+    return None
+
+
+async def _try_invidious_api(video_id: str) -> str | None:
+    """Tier 3: Invidious /api/v1/videos — full metadata, direct googlevideo URLs."""
+    for inst in YT_INVIDIOUS_INSTANCES:
+        try:
+            logger.info(f"[YT-Inv-API] Trying {inst}...")
+            async with httpx.AsyncClient(timeout=YT_METADATA_TIMEOUT) as client:
+                resp = await client.get(f"{inst}/api/v1/videos/{video_id}")
+                if resp.status_code != 200:
+                    raise ValueError(f"HTTP {resp.status_code}")
+                text = resp.text
+                if text.lstrip().startswith("<"):
+                    raise ValueError("Got HTML instead of JSON")
+                data = resp.json()
+
+            duration = data.get("lengthSeconds", 0)
+            if duration and duration > MAX_DURATION_SEC:
+                raise ValueError(f"Video too long ({duration}s)")
+
+            audio_formats = [
+                f for f in data.get("adaptiveFormats", [])
+                if f.get("type", "").startswith("audio/")
+            ]
+            if not audio_formats:
+                raise ValueError("No audio formats")
+
+            # Prefer itag 140
+            stream = next(
+                (f for f in audio_formats if str(f.get("itag")) == "140"), None
+            )
+            if not stream:
+                stream = sorted(audio_formats, key=lambda f: f.get("bitrate", 0), reverse=True)[0]
+
+            audio_url = stream.get("url")
+            if not audio_url:
+                raise ValueError("No stream URL")
+
+            async with httpx.AsyncClient(follow_redirects=True, timeout=YT_DOWNLOAD_TIMEOUT) as dl_client:
+                async with dl_client.stream("GET", audio_url) as stream_resp:
+                    if stream_resp.status_code != 200:
+                        raise ValueError(f"Audio download HTTP {stream_resp.status_code}")
+                    path = await _stream_to_tempfile(stream_resp)
+                    logger.info(f"[YT-Inv-API] Success via {inst}")
+                    return path
+        except Exception as e:
+            logger.warning(f"[YT-Inv-API] {inst} failed: {e}")
+    return None
+
+
+async def fetch_youtube_audio(video_id: str) -> str:
+    """
+    Download audio from YouTube via 3-tier cascade (server-side, no CORS).
+    Returns path to temp .m4a file. Raises HTTPException(502) if all fail.
+    """
+    # Tier 1: Invidious /latest_version (simplest — single redirect)
+    path = await _try_invidious_latest(video_id)
+    if path:
+        return path
+
+    # Tier 2: Piped /streams (proxy URLs)
+    path = await _try_piped(video_id)
+    if path:
+        return path
+
+    # Tier 3: Invidious full API (direct googlevideo URLs)
+    path = await _try_invidious_api(video_id)
+    if path:
+        return path
+
+    raise HTTPException(
+        status_code=502,
+        detail="youtube_extraction_failed",
+    )
+
+
+# ---------------------------------------------------------------------------
 # API endpoints
 # ---------------------------------------------------------------------------
 @app.get("/health")
@@ -394,43 +605,61 @@ async def health():
 
 @app.post("/analyze", response_model=AnalyzeResponse)
 async def analyze(
-    file: UploadFile = File(...),
+    file: UploadFile = File(None),
     video_id: str = Form(None),
+    youtube_url: str = Form(None),
 ):
-    """Analyze an uploaded audio file and return chord recognition results."""
+    """Analyze audio and return chord recognition results.
 
-    # Validate file extension
-    _, ext = os.path.splitext(file.filename or "")
-    if ext.lower() not in ALLOWED_EXTENSIONS:
-        raise HTTPException(
-            status_code=400,
-            detail=f"Unsupported file type: {ext}. Allowed: {', '.join(ALLOWED_EXTENSIONS)}",
-        )
+    Accepts either a file upload OR a YouTube URL (not both).
+    When youtube_url is provided, the server fetches the audio server-side.
+    """
+    has_file = file is not None and file.filename
+    if not has_file and not youtube_url:
+        raise HTTPException(400, "Provide either 'file' or 'youtube_url'")
 
-    # Read file content
-    content = await file.read()
-
-    # Validate file size
-    if len(content) > MAX_FILE_SIZE:
-        raise HTTPException(
-            status_code=400,
-            detail=f"File too large ({len(content) / 1024 / 1024:.1f}MB). Max: {MAX_FILE_SIZE / 1024 / 1024:.0f}MB",
-        )
-
-    # Save to temp file
-    suffix = ext.lower() if ext else ".wav"
-    with tempfile.NamedTemporaryFile(suffix=suffix, delete=False) as tmp:
-        tmp.write(content)
-        tmp_path = tmp.name
+    tmp_path = None
+    effective_video_id = video_id or "upload"
 
     try:
-        result = analyze_audio(tmp_path, video_id=video_id or "upload")
+        if youtube_url:
+            # --- YouTube URL path: server-side extraction ---
+            vid = extract_video_id(youtube_url)
+            if not vid:
+                raise HTTPException(400, "Invalid YouTube URL")
+            effective_video_id = vid
+            logger.info(f"YouTube extraction requested for video: {vid}")
+            tmp_path = await fetch_youtube_audio(vid)
+            # fetch_youtube_audio raises HTTPException(502) if all tiers fail
+        else:
+            # --- File upload path (existing logic) ---
+            _, ext = os.path.splitext(file.filename or "")
+            if ext.lower() not in ALLOWED_EXTENSIONS:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"Unsupported file type: {ext}. Allowed: {', '.join(ALLOWED_EXTENSIONS)}",
+                )
+            content = await file.read()
+            if len(content) > MAX_FILE_SIZE:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"File too large ({len(content) / 1024 / 1024:.1f}MB). Max: {MAX_FILE_SIZE / 1024 / 1024:.0f}MB",
+                )
+            suffix = ext.lower() if ext else ".wav"
+            with tempfile.NamedTemporaryFile(suffix=suffix, delete=False) as tmp:
+                tmp.write(content)
+                tmp_path = tmp.name
+
+        result = analyze_audio(tmp_path, video_id=effective_video_id)
         return result
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Analysis failed: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Analysis failed: {str(e)}")
     finally:
-        try:
-            os.unlink(tmp_path)
-        except OSError:
-            pass
+        if tmp_path:
+            try:
+                os.unlink(tmp_path)
+            except OSError:
+                pass
