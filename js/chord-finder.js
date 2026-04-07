@@ -10,6 +10,7 @@
 // ---------------------------------------------------------------------------
 const API_ENDPOINT = 'https://vineethwilson-swaram-chord-service.hf.space/analyze';
 const MAX_FILE_SIZE = 30 * 1024 * 1024; // 30 MB
+const MAX_YT_DURATION_SEC = 600; // 10 minutes — protects free-tier backend
 const API_TIMEOUT_MS = 300_000; // 5 minutes
 const SUPABASE_URL = 'https://jfnccekkhffonkjkmxyf.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_KJA4VzMAjt2WVEEg0JKMfg_lDrABAZK';
@@ -433,6 +434,17 @@ async function fetchYouTubeAudio(videoId) {
                 throw new Error('No audio streams available');
             }
 
+            // Duration guard — reject videos that are too long for our free-tier backend
+            if (data.duration && data.duration > MAX_YT_DURATION_SEC) {
+                const mins = Math.floor(MAX_YT_DURATION_SEC / 60);
+                const err = new Error(
+                    t('gen_url_too_long') ||
+                    `This video is too long. Please use videos under ${mins} minutes for best results.`
+                );
+                err._noRetry = true;
+                throw err;
+            }
+
             // Pick best audio stream: prefer itag 140 (M4A 128kbps), fallback to highest bitrate under 160kbps
             let stream = data.audioStreams.find(s => s.itag === 140);
             if (!stream) {
@@ -459,6 +471,8 @@ async function fetchYouTubeAudio(videoId) {
             return { blob, title: data.title || videoId, ext };
 
         } catch (err) {
+            // Duration limit is a content error — don't retry other instances
+            if (err._noRetry) throw err;
             console.warn(`[Piped] ${instance} failed:`, err.message);
             lastError = err;
             continue; // Try next instance
