@@ -257,27 +257,27 @@ def run_btc_inference(feature_matrix, feature_per_second):
             )
             # BTC pattern: self_attn_layers → output_layer (not model.forward)
             encoder_output, _ = model.self_attn_layers(segment_tensor)
-            prediction, encoder_out = model.output_layer(encoder_output)
+            prediction, _ = model.output_layer(encoder_output)
             # prediction shape: (1, n_timestep) — squeeze all dims to get (n_timestep,)
             all_predictions.append(prediction.squeeze().cpu())
-            # encoder_out contains logits before argmax — shape (1, n_timestep, n_classes)
-            if encoder_out is not None and encoder_out.dim() == 3:
-                all_logits.append(encoder_out.squeeze(0).cpu())
+            # Extract raw logits directly from the linear projection layer
+            # output_layer returns (top1_indices, top2_indices) — NOT logits
+            # So we call output_projection ourselves to get (1, n_timestep, n_classes)
+            logits = model.output_layer.output_projection(encoder_output)
+            all_logits.append(logits.squeeze(0).cpu())
 
     chord_indices = torch.cat(all_predictions, dim=0).numpy()  # (total_padded_frames,)
 
     # Trim padding frames
     chord_indices = chord_indices[:n_frames]
 
-    # Build softmax probability matrix if logits are available
+    # Build softmax probability matrix from raw logits
     frame_probs = None
-    if all_logits:
-        try:
-            logits_cat = torch.cat(all_logits, dim=0)[:n_frames]  # (n_frames, n_classes)
-            softmax_probs = torch.nn.functional.softmax(logits_cat, dim=-1).numpy()
-            frame_probs = softmax_probs
-        except Exception as e:
-            logger.debug(f"Could not extract softmax probabilities: {e}")
+    try:
+        logits_cat = torch.cat(all_logits, dim=0)[:n_frames]  # (n_frames, n_classes)
+        frame_probs = torch.nn.functional.softmax(logits_cat, dim=-1).numpy()
+    except Exception as e:
+        logger.debug(f"Could not build softmax probabilities: {e}")
 
     # Convert to chord labels using the appropriate vocabulary
     if use_large_voca and large_voca_map:
