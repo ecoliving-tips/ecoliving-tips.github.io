@@ -10,7 +10,7 @@
 // ---------------------------------------------------------------------------
 const API_ENDPOINT = 'https://vineethwilson-swaram-chord-service.hf.space/analyze';
 const MAX_FILE_SIZE = 30 * 1024 * 1024; // 30 MB
-const MAX_YT_DURATION_SEC = 600; // 10 minutes — protects free-tier backend
+const MAX_DURATION_SEC = 600; // 10 minutes — protects free-tier backend
 const API_TIMEOUT_MS = 300_000; // 5 minutes
 const SUPABASE_URL = 'https://jfnccekkhffonkjkmxyf.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_KJA4VzMAjt2WVEEg0JKMfg_lDrABAZK';
@@ -435,8 +435,8 @@ async function fetchYouTubeAudio(videoId) {
             }
 
             // Duration guard — reject videos that are too long for our free-tier backend
-            if (data.duration && data.duration > MAX_YT_DURATION_SEC) {
-                const mins = Math.floor(MAX_YT_DURATION_SEC / 60);
+            if (data.duration && data.duration > MAX_DURATION_SEC) {
+                const mins = Math.floor(MAX_DURATION_SEC / 60);
                 const err = new Error(
                     t('gen_url_too_long') ||
                     `This video is too long. Please use videos under ${mins} minutes for best results.`
@@ -485,6 +485,23 @@ async function fetchYouTubeAudio(videoId) {
 }
 
 // ---------------------------------------------------------------------------
+// Audio duration check (client-side, via HTML5 Audio)
+// ---------------------------------------------------------------------------
+function getAudioDuration(file) {
+    return new Promise((resolve) => {
+        const url = URL.createObjectURL(file);
+        const audio = new Audio();
+        audio.preload = 'metadata';
+        const cleanup = () => { URL.revokeObjectURL(url); audio.src = ''; };
+        audio.onloadedmetadata = () => { resolve(audio.duration); cleanup(); };
+        audio.onerror = () => { resolve(null); cleanup(); };
+        // Safety timeout — some formats may not fire events
+        setTimeout(() => { resolve(null); cleanup(); }, 5000);
+        audio.src = url;
+    });
+}
+
+// ---------------------------------------------------------------------------
 // Main generate flow
 // ---------------------------------------------------------------------------
 async function handleGenerate() {
@@ -494,6 +511,21 @@ async function handleGenerate() {
     if (!selectedFile && !videoId) {
         showError(t('gen_error_no_input') || 'Please upload an audio file or paste a YouTube link.');
         return;
+    }
+
+    // Duration check for uploaded files — don't waste time uploading overly long audio
+    if (selectedFile && !videoId) {
+        try {
+            const dur = await getAudioDuration(selectedFile);
+            if (dur && dur > MAX_DURATION_SEC) {
+                const mins = Math.floor(MAX_DURATION_SEC / 60);
+                showError(
+                    t('gen_error_too_long') ||
+                    `This audio is too long. Please use files under ${mins} minutes for best results.`
+                );
+                return;
+            }
+        } catch { /* can't read duration — let backend handle it */ }
     }
 
     // Reset UI
