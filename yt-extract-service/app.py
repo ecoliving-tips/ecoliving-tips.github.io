@@ -152,7 +152,8 @@ async def debug_info():
     # Full yt-dlp verbose output (capture ALL stderr, not just first 20)
     try:
         r = subprocess.run(
-            ["yt-dlp", "--verbose", "--extractor-args", f"youtubepot-bgutilhttp:base_url={BGUTIL_BASE_URL}",
+            ["yt-dlp", "--verbose", "--js-runtimes", "node",
+             "--extractor-args", f"youtubepot-bgutilhttp:base_url={BGUTIL_BASE_URL}",
              "--print", "%(id)s", "https://www.youtube.com/watch?v=dQw4w9WgXcQ"],
             capture_output=True, text=True, timeout=60,
         )
@@ -271,6 +272,7 @@ async def _download_with_ytdlp(video_id: str) -> str:
             "--verbose",
             "--no-playlist",
             "-f", "ba/b",  # ba=best audio, b=best overall (most flexible)
+            "--js-runtimes", "node",  # Enable node (only deno is on by default in yt-dlp 2026)
             "--extractor-args", "youtube:player_client=web,tv_embedded",
             "--extractor-args", f"youtubepot-bgutilhttp:base_url={BGUTIL_BASE_URL}",
             "--max-filesize", str(MAX_FILE_SIZE),
