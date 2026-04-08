@@ -3,7 +3,8 @@ Swaram YouTube Audio Extraction Microservice
 
 Lightweight FastAPI service that extracts audio from YouTube videos using yt-dlp.
 Designed to run on free platforms (Render, etc.) where youtube.com is accessible.
-Uses OAuth2 + PO Tokens (via bgutil) to bypass YouTube's bot detection on cloud IPs.
+Uses fresh browser cookies + PO Tokens (via bgutil) to bypass YouTube's bot
+detection on cloud IPs.
 
 Called by the main chord-service on HF Spaces when Piped proxy fails.
 """
@@ -16,7 +17,6 @@ import logging
 import time
 import base64
 import subprocess
-import json
 
 from fastapi import FastAPI, HTTPException, Depends, Header
 from fastapi.responses import FileResponse
@@ -25,7 +25,7 @@ from fastapi.middleware.cors import CORSMiddleware
 # ---------------------------------------------------------------------------
 # Config
 # ---------------------------------------------------------------------------
-VERSION = "2.1.0"
+VERSION = "2.2.0"
 MAX_FILE_SIZE = 30 * 1024 * 1024       # 30 MB
 MAX_DURATION_SEC = 600                   # 10 min
 DOWNLOAD_TIMEOUT = 120                   # seconds (includes PO token generation)
@@ -38,14 +38,14 @@ BGUTIL_BASE_URL = os.getenv("BGUTIL_BASE_URL", "http://127.0.0.1:4416")
 # API key shared with HF Spaces backend (set via environment variable)
 API_KEY = os.getenv("API_KEY", "")
 
-# yt-dlp cache directory — stores OAuth2 tokens, nsig cache, etc.
+# yt-dlp cache directory — stores nsig cache, EJS solver, etc.
 YTDLP_CACHE_DIR = "/app/.ytdlp-cache"
 
-# YouTube cookies (optional fallback)
+# YouTube cookies — required for cloud IP extraction.
+# Set YT_COOKIES_B64 env var to base64-encoded Netscape cookies.txt content.
+# Export with "Get cookies.txt LOCALLY" Chrome extension → youtube.com.
+# Cookies expire periodically — re-export when extraction starts failing.
 YT_COOKIES_FILE = None  # Set at startup if cookies are available
-
-# OAuth2 state
-_oauth_ready = False
 
 # ---------------------------------------------------------------------------
 # Logging
@@ -70,17 +70,12 @@ _active_files: set[str] = set()
 
 
 @app.on_event("startup")
-def _startup():
-    """Initialize cookies and OAuth2 token on startup."""
-    _init_cookies()
-    _init_oauth2()
-
-
 def _init_cookies():
-    """Decode YT_COOKIES_B64 env var to a cookies.txt file."""
+    """Decode YT_COOKIES_B64 env var to a cookies.txt file on startup."""
     global YT_COOKIES_FILE
     cookies_b64 = os.getenv("YT_COOKIES_B64", "")
     if not cookies_b64:
+        logger.warning("YT_COOKIES_B64 not set — run setup-cookies.sh locally to export fresh cookies")
         return
     try:
         cookies_bytes = base64.b64decode(cookies_b64)
@@ -93,33 +88,6 @@ def _init_cookies():
         logger.info(f"YouTube cookies loaded ({len(cookies_bytes)} bytes)")
     except Exception as e:
         logger.error(f"Failed to decode YT_COOKIES_B64: {e}")
-
-
-def _init_oauth2():
-    """Decode YT_OAUTH_TOKEN_B64 env var and write to yt-dlp cache directory.
-
-    The token is a JSON blob from yt-dlp's OAuth2 device flow.
-    yt-dlp stores it at: {cache_dir}/youtube-oauth2/token_data.json
-    """
-    global _oauth_ready
-    oauth_b64 = os.getenv("YT_OAUTH_TOKEN_B64", "")
-    if not oauth_b64:
-        logger.info("YT_OAUTH_TOKEN_B64 not set — OAuth2 disabled (using PO tokens only)")
-        return
-    try:
-        token_json = base64.b64decode(oauth_b64).decode()
-        # Validate it's actual JSON
-        json.loads(token_json)
-        # Write to yt-dlp cache path
-        token_dir = os.path.join(YTDLP_CACHE_DIR, "youtube-oauth2")
-        os.makedirs(token_dir, exist_ok=True)
-        token_path = os.path.join(token_dir, "token_data.json")
-        with open(token_path, "w") as f:
-            f.write(token_json)
-        _oauth_ready = True
-        logger.info(f"OAuth2 token loaded → {token_path} ({len(token_json)} bytes)")
-    except Exception as e:
-        logger.error(f"Failed to setup OAuth2 token: {e}")
 
 
 # ---------------------------------------------------------------------------
@@ -148,23 +116,12 @@ async def health():
 
 @app.get("/debug")
 async def debug_info():
-    """Show yt-dlp version, plugins, JS runtime diagnostics, OAuth2 status, and PO token server status."""
+    """Show yt-dlp version, plugins, JS runtime diagnostics, cookie status, and PO token server status."""
     import subprocess
     info = {}
 
-    # OAuth2 status
-    token_path = os.path.join(YTDLP_CACHE_DIR, "youtube-oauth2", "token_data.json")
-    info["oauth2_ready"] = _oauth_ready
-    info["oauth2_token_exists"] = os.path.exists(token_path)
-    if os.path.exists(token_path):
-        try:
-            with open(token_path) as f:
-                td = json.loads(f.read())
-            # Show token type and expiry, but not sensitive values
-            info["oauth2_token_type"] = td.get("token_type", "unknown")
-            info["oauth2_expires_at"] = td.get("expires_at", "unknown")
-        except Exception:
-            pass
+    # Cookie status
+    info["cookies_loaded"] = YT_COOKIES_FILE is not None and os.path.exists(YT_COOKIES_FILE or "")
     # yt-dlp version
     try:
         r = subprocess.run(["yt-dlp", "--version"], capture_output=True, text=True, timeout=10)
@@ -347,13 +304,12 @@ async def _download_with_ytdlp(video_id: str) -> str:
             "-o", tmp.name,
             "--force-overwrites",
         ]
-        # OAuth2 auth — uses pre-cached token from device flow (no interactive prompt)
-        if _oauth_ready:
-            cmd.extend(["--username", "oauth2", "--password", ""])
-            logger.info("[yt-dlp] Using OAuth2 authentication")
-        # Cookies as fallback
+        # Cookies — required for cloud IP extraction
         if YT_COOKIES_FILE and os.path.exists(YT_COOKIES_FILE):
             cmd.extend(["--cookies", YT_COOKIES_FILE])
+            logger.info("[yt-dlp] Using cookies for authentication")
+        else:
+            logger.warning("[yt-dlp] No cookies — extraction will likely fail on cloud IPs")
         cmd.append(f"https://www.youtube.com/watch?v={video_id}")
 
         proc = await asyncio.create_subprocess_exec(
