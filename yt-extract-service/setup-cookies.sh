@@ -7,47 +7,78 @@
 #
 # Prerequisites:
 #   pip install yt-dlp
-#   Chrome with "Get cookies.txt LOCALLY" extension installed
-#   (https://chromewebstore.google.com/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc)
+#   Logged into YouTube in Chrome or Edge
 #
-# Usage:
-#   1. Open Chrome → go to https://www.youtube.com (make sure you're logged in)
-#   2. Click the "Get cookies.txt LOCALLY" extension icon
-#   3. Click "Export" → save as cookies.txt in this directory
-#   4. Run: bash setup-cookies.sh
-#   5. Copy the base64 output → set as YT_COOKIES_B64 on Render
+# Usage (two options):
 #
-# Cookies expire periodically. Re-run this when extraction starts
+#   Option A — Auto-export from browser (recommended):
+#     Close Chrome/Edge first, then:
+#     bash setup-cookies.sh --from-browser chrome
+#     bash setup-cookies.sh --from-browser edge
+#
+#   Option B — Manual cookies.txt file:
+#     Export cookies.txt manually, then:
+#     bash setup-cookies.sh cookies.txt
+#
+# After running, copy the base64 output → set as YT_COOKIES_B64 on Render.
+#
+# Cookies expire periodically. Re-run when extraction starts
 # failing with "Sign in to confirm you're not a bot".
 # -------------------------------------------------------------------
 
 set -e
 
-COOKIES_FILE="${1:-cookies.txt}"
+COOKIES_FILE="cookies.txt"
+TEST_VIDEO="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
 
 echo "============================================"
 echo "  Swaram — YouTube Cookie Export"
 echo "============================================"
 echo ""
 
+# --- Option A: Export from browser ---
+if [ "$1" = "--from-browser" ]; then
+    BROWSER="${2:-chrome}"
+    echo "Exporting cookies from $BROWSER..."
+    echo "(Make sure $BROWSER is CLOSED before running this)"
+    echo ""
+
+    # yt-dlp reads from browser + writes to cookies.txt
+    if yt-dlp \
+        --cookies-from-browser "$BROWSER" \
+        --cookies "$COOKIES_FILE" \
+        --skip-download \
+        --print title \
+        "$TEST_VIDEO" 2>/dev/null; then
+        echo ""
+        echo "Browser cookie export SUCCEEDED."
+    else
+        echo ""
+        echo "ERROR: Failed to export cookies from $BROWSER."
+        echo ""
+        echo "Troubleshooting:"
+        echo "  - Make sure $BROWSER is fully closed (check Task Manager)"
+        echo "  - Make sure you're logged into YouTube in $BROWSER"
+        echo "  - Try a different browser: bash setup-cookies.sh --from-browser edge"
+        echo ""
+        exit 1
+    fi
+
+# --- Option B: Use existing cookies.txt ---
+elif [ -n "$1" ] && [ "$1" != "--from-browser" ]; then
+    COOKIES_FILE="$1"
+fi
+
+# --- Validate cookies file ---
 if [ ! -f "$COOKIES_FILE" ]; then
     echo "ERROR: $COOKIES_FILE not found!"
     echo ""
-    echo "Steps to export cookies:"
-    echo "  1. Install 'Get cookies.txt LOCALLY' Chrome extension"
-    echo "     https://chromewebstore.google.com/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc"
-    echo "  2. Open Chrome → go to https://www.youtube.com (logged in)"
-    echo "  3. Click extension icon → Export → save as cookies.txt here"
-    echo "  4. Re-run: bash setup-cookies.sh"
+    echo "Usage:"
+    echo "  bash setup-cookies.sh --from-browser chrome   (auto-export)"
+    echo "  bash setup-cookies.sh --from-browser edge     (auto-export)"
+    echo "  bash setup-cookies.sh cookies.txt             (manual file)"
     echo ""
     exit 1
-fi
-
-# Validate it looks like a Netscape cookies file
-if ! head -5 "$COOKIES_FILE" | grep -qi "youtube\|google\|netscape"; then
-    echo "WARNING: $COOKIES_FILE doesn't look like a YouTube cookies file."
-    echo "Make sure you exported from youtube.com with the extension."
-    echo ""
 fi
 
 # Count cookie entries
@@ -55,18 +86,18 @@ COOKIE_COUNT=$(grep -c "youtube.com\|google.com" "$COOKIES_FILE" 2>/dev/null || 
 echo "Found $COOKIE_COUNT YouTube/Google cookie entries in $COOKIES_FILE"
 echo ""
 
-# Quick test: try yt-dlp with these cookies locally
-echo "Testing cookies locally..."
-if yt-dlp --cookies "$COOKIES_FILE" --skip-download --print title "https://www.youtube.com/watch?v=dQw4w9WgXcQ" 2>/dev/null; then
+# Quick validation test
+echo "Validating cookies with yt-dlp..."
+if yt-dlp --cookies "$COOKIES_FILE" --skip-download --print title "$TEST_VIDEO" 2>/dev/null; then
     echo ""
-    echo "Cookies are VALID — yt-dlp can access YouTube."
+    echo "Cookies are VALID."
 else
     echo ""
-    echo "WARNING: yt-dlp test failed. Cookies might be expired or invalid."
-    echo "Try exporting fresh cookies from a logged-in YouTube session."
+    echo "WARNING: yt-dlp validation failed. Cookies might be expired."
     echo ""
 fi
 
+# --- Output base64 ---
 echo ""
 echo "============================================"
 echo "  Base64-encoded cookies for Render"
@@ -75,7 +106,6 @@ echo ""
 echo "Copy EVERYTHING between the markers below:"
 echo ""
 echo "===BASE64_START==="
-# base64 encode — handle macOS (no -w flag) and Linux (-w0)
 if base64 --wrap=0 "$COOKIES_FILE" 2>/dev/null; then
     true
 elif base64 -w 0 "$COOKIES_FILE" 2>/dev/null; then
@@ -93,5 +123,5 @@ echo "       Key:   YT_COOKIES_B64"
 echo "       Value: <paste the base64 string above>"
 echo "  3. Redeploy the service"
 echo ""
-echo "Note: Cookies expire periodically. Re-export when extraction"
-echo "fails with 'Sign in to confirm you're not a bot'."
+echo "Note: Cookies expire every few weeks. Re-run this script"
+echo "when extraction fails with 'Sign in to confirm you're not a bot'."
