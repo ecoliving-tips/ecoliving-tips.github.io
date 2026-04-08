@@ -98,12 +98,14 @@ async def verify_api_key(x_api_key: str = Header(None)):
 # ---------------------------------------------------------------------------
 # Endpoints
 # ---------------------------------------------------------------------------
-@app.api_route("/", methods=["GET", "HEAD"])
+@app.get("/")
+@app.head("/")
 async def root():
     return {"service": "Swaram YT Extract", "version": VERSION, "status": "ok"}
 
 
-@app.api_route("/health", methods=["GET", "HEAD"])
+@app.get("/health")
+@app.head("/health")
 async def health():
     return {"status": "ok", "version": VERSION}
 
