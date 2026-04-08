@@ -83,6 +83,12 @@ YT_PIPED_RETRY_DELAY = 2.0            # Seconds between retries
 YT_INVIDIOUS_INSTANCES = [
     'https://inv.thepixora.com',        # /latest_version fallback (API returns 403)
 ]
+
+# External extraction microservice (yt-dlp on a platform with YouTube access)
+# Set YT_EXTRACT_URL and YT_EXTRACT_API_KEY via environment variables
+YT_EXTRACT_URL = os.getenv("YT_EXTRACT_URL", "")       # e.g. https://my-app.koyeb.app/extract
+YT_EXTRACT_API_KEY = os.getenv("YT_EXTRACT_API_KEY", "")
+YT_EXTRACT_TIMEOUT = 120.0  # yt-dlp can be slow on free tiers
 SAMPLE_RATE = 22050
 HOP_LENGTH = 2048  # BTC default (from run_config.yaml)
 
@@ -526,20 +532,68 @@ async def _try_piped(video_id: str) -> str | None:
     return None
 
 
+async def _try_extract_service(video_id: str) -> str | None:
+    """Tier 2: External yt-dlp extraction microservice (Koyeb/Railway/etc.).
+
+    Calls a lightweight service running on a platform where youtube.com
+    is accessible. The service runs yt-dlp and streams the audio file back.
+    """
+    if not YT_EXTRACT_URL:
+        return None  # Not configured — skip this tier
+
+    try:
+        logger.info(f"[YT-Extract] Calling extraction service for {video_id}...")
+        headers = {}
+        if YT_EXTRACT_API_KEY:
+            headers["X-API-Key"] = YT_EXTRACT_API_KEY
+
+        async with httpx.AsyncClient(timeout=YT_EXTRACT_TIMEOUT, follow_redirects=True) as client:
+            async with client.stream(
+                "GET",
+                YT_EXTRACT_URL,
+                params={"video_id": video_id},
+                headers=headers,
+            ) as resp:
+                if resp.status_code != 200:
+                    body = ""
+                    async for chunk in resp.aiter_bytes(1024):
+                        body += chunk.decode(errors="replace")
+                        if len(body) > 500:
+                            break
+                    raise ValueError(f"HTTP {resp.status_code}: {body[:200]}")
+
+                ct = resp.headers.get("content-type", "")
+                if "text/html" in ct or "application/json" in ct:
+                    raise ValueError(f"Unexpected content-type: {ct}")
+
+                path = await _stream_to_tempfile(resp)
+                logger.info(f"[YT-Extract] Success ({os.path.getsize(path)} bytes)")
+                return path
+    except Exception as e:
+        logger.warning(f"[YT-Extract] Failed: {e}")
+    return None
+
+
 async def fetch_youtube_audio(video_id: str) -> str:
     """
     Download audio from YouTube via tiered cascade (server-side, no CORS).
     Returns path to temp audio file. Raises HTTPException(502) if all fail.
 
     Tier 1: Piped /streams (proxied audio, retries transient 500s)
-    Tier 2: Invidious /latest_version (redirect to googlevideo.com)
+    Tier 2: External extraction service (yt-dlp on Koyeb/Railway)
+    Tier 3: Invidious /latest_version (redirect to googlevideo.com)
     """
     # Tier 1: Piped (with retries for transient 500s)
     path = await _try_piped(video_id)
     if path:
         return path
 
-    # Tier 2: Invidious /latest_version (single redirect to googlevideo)
+    # Tier 2: External extraction microservice (yt-dlp)
+    path = await _try_extract_service(video_id)
+    if path:
+        return path
+
+    # Tier 3: Invidious /latest_version (single redirect to googlevideo)
     path = await _try_invidious_latest(video_id)
     if path:
         return path
