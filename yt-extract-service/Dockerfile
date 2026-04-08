@@ -1,8 +1,8 @@
 FROM python:3.11-slim
 
-# Install ffmpeg + Node.js + git (required by bgutil PO token provider)
+# Install ffmpeg + Node.js + git + build tools (required by bgutil PO token provider + quickjs)
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends ffmpeg curl ca-certificates gnupg git && \
+    apt-get install -y --no-install-recommends ffmpeg curl ca-certificates gnupg git build-essential && \
     curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y --no-install-recommends nodejs && \
     rm -rf /var/lib/apt/lists/*
