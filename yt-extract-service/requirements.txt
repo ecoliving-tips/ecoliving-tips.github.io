@@ -3,4 +3,3 @@ uvicorn[standard]==0.30.0
 yt-dlp>=2025.05.22
 python-multipart
 bgutil-ytdlp-pot-provider
-quickjs
