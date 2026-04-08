@@ -3,7 +3,8 @@ Swaram YouTube Audio Extraction Microservice
 
 Lightweight FastAPI service that extracts audio from YouTube videos using yt-dlp.
 Designed to run on free platforms (Render, etc.) where youtube.com is accessible.
-Uses cookies to bypass YouTube's bot detection on cloud IPs.
+Uses PO Tokens (via bgutil) to bypass YouTube's bot detection on cloud IPs.
+Cookies can be provided as additional fallback.
 
 Called by the main chord-service on HF Spaces when Piped proxy fails.
 """
@@ -23,12 +24,15 @@ from fastapi.middleware.cors import CORSMiddleware
 # ---------------------------------------------------------------------------
 # Config
 # ---------------------------------------------------------------------------
-VERSION = "1.1.0"
+VERSION = "2.0.0"
 MAX_FILE_SIZE = 30 * 1024 * 1024       # 30 MB
 MAX_DURATION_SEC = 600                   # 10 min
-DOWNLOAD_TIMEOUT = 90                    # seconds
+DOWNLOAD_TIMEOUT = 120                   # seconds (includes PO token generation)
 MIN_AUDIO_BYTES = 10_000                 # 10 KB
 YT_VIDEO_ID_RE = re.compile(r'^[A-Za-z0-9_-]{11}$')
+
+# PO Token server (bgutil-ytdlp-pot-provider) — runs on localhost
+BGUTIL_BASE_URL = os.getenv("BGUTIL_BASE_URL", "http://127.0.0.1:4416")
 
 # API key shared with HF Spaces backend (set via environment variable)
 API_KEY = os.getenv("API_KEY", "")
@@ -168,6 +172,8 @@ async def _download_with_ytdlp(video_id: str) -> str:
             "--no-playlist",
             "--no-warnings",
             "-f", "ba/b",  # ba=best audio, b=best overall (most flexible)
+            "--extractor-args", "youtube:player_client=web,tv_embedded",
+            "--extractor-args", f"youtubepot-bgutilhttp:base_url={BGUTIL_BASE_URL}",
             "--max-filesize", str(MAX_FILE_SIZE),
             "--socket-timeout", "20",
             "--retries", "2",
