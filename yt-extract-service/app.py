@@ -16,6 +16,7 @@ import tempfile
 import logging
 import time
 import base64
+import subprocess
 
 from fastapi import FastAPI, HTTPException, Depends, Header
 from fastapi.responses import FileResponse
@@ -267,6 +268,19 @@ async def _download_with_ytdlp(video_id: str) -> str:
         logger.info(f"[yt-dlp] Extracting audio for {video_id}...")
         t0 = time.time()
 
+        # Check bgutil PO token server is alive before attempting extraction
+        try:
+            bg_check = subprocess.run(
+                ["curl", "-sf", f"{BGUTIL_BASE_URL}/ping"],
+                capture_output=True, text=True, timeout=5,
+            )
+            if bg_check.returncode == 0:
+                logger.info(f"[yt-dlp] PO token server OK: {bg_check.stdout.strip()[:100]}")
+            else:
+                logger.warning("[yt-dlp] PO token server NOT responding — extraction may fail")
+        except Exception as e:
+            logger.warning(f"[yt-dlp] PO token server check error: {e}")
+
         cmd = [
             "yt-dlp",
             "--verbose",
@@ -307,6 +321,15 @@ async def _download_with_ytdlp(video_id: str) -> str:
                          if l.startswith("ERROR:") or l.startswith("WARNING:") or "Sign in" in l]
             err_msg = "\n".join(err_lines)[:1000] if err_lines else full_err[-500:]
             logger.warning(f"[yt-dlp] Failed (exit {proc.returncode}): {err_msg}")
+
+            # Log PO token and JSC lines from verbose output for debugging
+            pot_lines = [l for l in full_err.split("\n")
+                         if "pot" in l.lower() or "jsc" in l.lower() or "po token" in l.lower()
+                         or "bgutil" in l.lower() or "challenge" in l.lower()]
+            if pot_lines:
+                logger.info(f"[yt-dlp] PO Token debug: {chr(10).join(pot_lines[:10])}")
+            else:
+                logger.info("[yt-dlp] PO Token debug: NO pot/jsc lines found in verbose output")
 
             # Detect specific YouTube errors
             if "Sign in to confirm" in full_err or "confirm you're not a bot" in full_err.lower():
