@@ -16,3 +16,4 @@ Desktop.ini
 # Debug / logs
 *.log
 npm-debug.log*
+make-cookies.py
