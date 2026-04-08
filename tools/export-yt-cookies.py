@@ -32,9 +32,11 @@ if not cookie_list:
 
 lines = ["# Netscape HTTP Cookie File"]
 for c in cookie_list:
+    # domain_specified must be TRUE only when domain starts with '.' (subdomain cookie)
+    domain_flag = "TRUE" if c.domain.startswith(".") else "FALSE"
     secure = "TRUE" if c.secure else "FALSE"
     expiry = str(c.expires) if c.expires else "0"
-    lines.append(f"{c.domain}\tTRUE\t{c.path}\t{secure}\t{expiry}\t{c.name}\t{c.value}")
+    lines.append(f"{c.domain}\t{domain_flag}\t{c.path}\t{secure}\t{expiry}\t{c.name}\t{c.value}")
 
 txt = "\n".join(lines)
 b64 = base64.b64encode(txt.encode()).decode()
