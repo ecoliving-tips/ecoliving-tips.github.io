@@ -301,18 +301,22 @@ async def _download_with_ytdlp(video_id: str) -> str:
         elapsed = time.time() - t0
 
         if proc.returncode != 0:
-            err_msg = stderr.decode(errors="replace")[:500]
+            full_err = stderr.decode(errors="replace")
+            # Extract actual error/warning lines (skip verbose debug noise)
+            err_lines = [l for l in full_err.split("\n")
+                         if l.startswith("ERROR:") or l.startswith("WARNING:") or "Sign in" in l]
+            err_msg = "\n".join(err_lines)[:1000] if err_lines else full_err[-500:]
             logger.warning(f"[yt-dlp] Failed (exit {proc.returncode}): {err_msg}")
 
             # Detect specific YouTube errors
-            if "Sign in to confirm" in err_msg or "bot" in err_msg.lower():
+            if "Sign in to confirm" in full_err or "bot" in full_err.lower():
                 raise HTTPException(503, "YouTube requires login — try again later")
-            if "Video unavailable" in err_msg:
+            if "Video unavailable" in full_err:
                 raise HTTPException(404, "Video not found or unavailable")
-            if "Private video" in err_msg:
+            if "Private video" in full_err:
                 raise HTTPException(403, "This video is private")
 
-            raise ValueError(f"yt-dlp exit {proc.returncode}: {err_msg[:200]}")
+            raise ValueError(f"yt-dlp exit {proc.returncode}: {err_msg[:500]}")
 
         # Validate output file
         if not os.path.exists(tmp.name):
