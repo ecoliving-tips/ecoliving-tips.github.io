@@ -274,7 +274,7 @@ async def _download_with_ytdlp(video_id: str) -> str:
             "-f", "ba/b",  # ba=best audio, b=best overall (most flexible)
             "--js-runtimes", "node",  # Enable node (only deno is on by default in yt-dlp 2026)
             "--remote-components", "ejs:github",  # Download EJS challenge solver from GitHub
-            "--extractor-args", "youtube:player_client=web,tv_embedded",
+            "--extractor-args", "youtube:player_client=web",
             "--extractor-args", f"youtubepot-bgutilhttp:base_url={BGUTIL_BASE_URL}",
             "--max-filesize", str(MAX_FILE_SIZE),
             "--socket-timeout", "20",
@@ -309,7 +309,7 @@ async def _download_with_ytdlp(video_id: str) -> str:
             logger.warning(f"[yt-dlp] Failed (exit {proc.returncode}): {err_msg}")
 
             # Detect specific YouTube errors
-            if "Sign in to confirm" in full_err or "bot" in full_err.lower():
+            if "Sign in to confirm" in full_err or "confirm you're not a bot" in full_err.lower():
                 raise HTTPException(503, "YouTube requires login — try again later")
             if "Video unavailable" in full_err:
                 raise HTTPException(404, "Video not found or unavailable")
