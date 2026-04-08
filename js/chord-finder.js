@@ -26,44 +26,22 @@ function getSupabase() {
 }
 
 // ---------------------------------------------------------------------------
-// YouTube audio extraction — 3-tier cascade (Piped → Invidious → Cobalt)
-// Tries all instances across all tiers; first successful audio download wins.
-// Instance health varies — if one is down, the next is tried automatically.
+// YouTube audio extraction — client-side fallback cascade (Piped → Cobalt)
+// Used when server-side extraction fails (e.g., Piped 500 on specific videos).
+// Runs from the user's browser IP — avoids cloud IP blocking by YouTube.
 // ---------------------------------------------------------------------------
 const PIPED_INSTANCES = [
-    'https://pipedapi.kavin.rocks',
-    'https://api.piped.private.coffee',
-    'https://pipedapi.wireway.ch',
-    'https://api.piped.privacy.com.de',
-    'https://pipedapi.drgns.space',
-    'https://api.piped.yt',
-    'https://api.piped.otp.xyz',
-    'https://pipedapi.adminforge.de',
-    'https://api.piped.r4fo.com',
-    'https://pipedapi.leptons.xyz',
-];
-const INVIDIOUS_INSTANCES = [
-    'https://inv.tux.pizza',
-    'https://yt.artemislena.eu',
-    'https://invidious.drgns.space',
-    'https://invidious.flokinet.to',
-    'https://invidious.nerdvpn.de',
-    'https://inv.nadeko.net',
-    'https://yewtu.be',
-    'https://invidious.private.coffee',
-    'https://iv.ggtyler.dev',
-    'https://invidious.lunar.icu',
+    'https://api.piped.private.coffee', // Only official instance (Apr 2026)
 ];
 const COBALT_INSTANCES = [
-    'https://cobalt.git.gay',
-    'https://cobalt.maybreak.com',
     'https://cobalt.tools',
     'https://api.cobalt.tools',
-    'https://cobalt.api.kwiatekmiki.pl',
 ];
-const METADATA_TIMEOUT_MS = 6_000;    // 6s per instance for metadata API
-const AUDIO_DL_TIMEOUT_MS = 60_000;   // 60s for audio blob download
-const MIN_AUDIO_BYTES = 10_000;       // 10 KB — skip suspiciously small responses
+const PIPED_CLIENT_MAX_RETRIES = 2;       // Retry transient 500s client-side too
+const PIPED_CLIENT_RETRY_DELAY_MS = 2000; // 2s between retries
+const METADATA_TIMEOUT_MS = 8_000;        // 8s per instance for metadata API
+const AUDIO_DL_TIMEOUT_MS = 60_000;       // 60s for audio blob download
+const MIN_AUDIO_BYTES = 10_000;           // 10 KB — skip suspiciously small responses
 
 // ---------------------------------------------------------------------------
 // State
@@ -465,94 +443,60 @@ function _checkDuration(durationSec) {
     }
 }
 
-// -- Tier 1: Piped API -------------------------------------------------------
+// -- Tier 1: Piped API (with retry for transient 500s) -----------------------
 async function _tryPiped(videoId) {
     for (let i = 0; i < PIPED_INSTANCES.length; i++) {
         const instance = PIPED_INSTANCES[i];
-        try {
-            console.log(`[Piped] Trying ${instance} (${i + 1}/${PIPED_INSTANCES.length})...`);
-            const controller = new AbortController();
-            const timer = setTimeout(() => controller.abort(), METADATA_TIMEOUT_MS);
-            const resp = await fetch(`${instance}/streams/${videoId}`, { signal: controller.signal });
-            clearTimeout(timer);
+        for (let attempt = 1; attempt <= PIPED_CLIENT_MAX_RETRIES; attempt++) {
+            try {
+                console.log(`[Piped] Trying ${instance} (attempt ${attempt}/${PIPED_CLIENT_MAX_RETRIES})...`);
+                const controller = new AbortController();
+                const timer = setTimeout(() => controller.abort(), METADATA_TIMEOUT_MS);
+                const resp = await fetch(`${instance}/streams/${videoId}`, { signal: controller.signal });
+                clearTimeout(timer);
 
-            if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-            const data = await resp.json();
+                if (resp.status === 500 && attempt < PIPED_CLIENT_MAX_RETRIES) {
+                    console.warn(`[Piped] ${instance} returned 500, retrying in ${PIPED_CLIENT_RETRY_DELAY_MS}ms...`);
+                    await new Promise(r => setTimeout(r, PIPED_CLIENT_RETRY_DELAY_MS));
+                    continue;
+                }
+                if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+                const data = await resp.json();
 
-            if (!data.audioStreams?.length) throw new Error('No audio streams');
-            _checkDuration(data.duration);
+                if (!data.audioStreams?.length) throw new Error('No audio streams');
+                _checkDuration(data.duration);
 
-            // Prefer itag 140 (M4A 128kbps), fallback to highest bitrate ≤160kbps
-            let stream = data.audioStreams.find(s => s.itag === 140);
-            if (!stream) {
-                const candidates = data.audioStreams
-                    .filter(s => s.bitrate && s.bitrate < 170000)
-                    .sort((a, b) => b.bitrate - a.bitrate);
-                stream = candidates[0] || data.audioStreams[0];
+                // Prefer itag 140 (M4A 128kbps), fallback to highest bitrate ≤160kbps
+                let stream = data.audioStreams.find(s => s.itag === 140);
+                if (!stream) {
+                    const candidates = data.audioStreams
+                        .filter(s => s.bitrate && s.bitrate < 170000)
+                        .sort((a, b) => b.bitrate - a.bitrate);
+                    stream = candidates[0] || data.audioStreams[0];
+                }
+
+                const blob = await _downloadAudioBlob(stream.url);
+                let ext = '.m4a';
+                if (stream.mimeType?.includes('webm') || stream.format === 'WEBMA_OPUS') ext = '.webm';
+
+                console.log(`[Piped] Success via ${instance} (attempt ${attempt}, ${(blob.size / 1024 / 1024).toFixed(1)} MB)`);
+                return { blob, title: data.title || videoId, ext };
+            } catch (err) {
+                if (err._noRetry) throw err;
+                if (attempt < PIPED_CLIENT_MAX_RETRIES && String(err.message).includes('500')) {
+                    console.warn(`[Piped] ${instance} attempt ${attempt} failed:`, err.message, '— retrying...');
+                    await new Promise(r => setTimeout(r, PIPED_CLIENT_RETRY_DELAY_MS));
+                    continue;
+                }
+                console.warn(`[Piped] ${instance} failed after ${attempt} attempts:`, err.message);
+                break; // Move to next instance
             }
-
-            const blob = await _downloadAudioBlob(stream.url);
-            let ext = '.m4a';
-            if (stream.mimeType?.includes('webm') || stream.format === 'WEBMA_OPUS') ext = '.webm';
-
-            console.log(`[Piped] Success via ${instance} (${(blob.size / 1024 / 1024).toFixed(1)} MB)`);
-            return { blob, title: data.title || videoId, ext };
-        } catch (err) {
-            if (err._noRetry) throw err;
-            console.warn(`[Piped] ${instance} failed:`, err.message);
         }
     }
     return null; // All instances failed — fall through to next tier
 }
 
-// -- Tier 2: Invidious API ---------------------------------------------------
-async function _tryInvidious(videoId) {
-    for (let i = 0; i < INVIDIOUS_INSTANCES.length; i++) {
-        const instance = INVIDIOUS_INSTANCES[i];
-        try {
-            console.log(`[Invidious] Trying ${instance} (${i + 1}/${INVIDIOUS_INSTANCES.length})...`);
-            const controller = new AbortController();
-            const timer = setTimeout(() => controller.abort(), METADATA_TIMEOUT_MS);
-            const resp = await fetch(`${instance}/api/v1/videos/${videoId}`, { signal: controller.signal });
-            clearTimeout(timer);
-
-            if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-            const text = await resp.text();
-            // Invidious can return HTML error pages — detect and skip
-            if (text.trimStart().startsWith('<')) throw new Error('Got HTML instead of JSON');
-            const data = JSON.parse(text);
-
-            _checkDuration(data.lengthSeconds);
-
-            // Filter audio-only adaptive formats
-            const audioFormats = (data.adaptiveFormats || [])
-                .filter(f => f.type?.startsWith('audio/'));
-            if (!audioFormats.length) throw new Error('No audio formats');
-
-            // Prefer itag 140 (M4A), else highest bitrate audio
-            let stream = audioFormats.find(f => f.itag === '140' || f.itag === 140);
-            if (!stream) {
-                stream = audioFormats.sort((a, b) => (b.bitrate || 0) - (a.bitrate || 0))[0];
-            }
-
-            const audioUrl = stream.url;
-            if (!audioUrl) throw new Error('No stream URL in format');
-
-            const blob = await _downloadAudioBlob(audioUrl);
-            let ext = '.m4a';
-            if (stream.type?.includes('webm') || stream.container === 'webm') ext = '.webm';
-
-            console.log(`[Invidious] Success via ${instance} (${(blob.size / 1024 / 1024).toFixed(1)} MB)`);
-            return { blob, title: data.title || videoId, ext };
-        } catch (err) {
-            if (err._noRetry) throw err;
-            console.warn(`[Invidious] ${instance} failed:`, err.message);
-        }
-    }
-    return null;
-}
-
-// -- Tier 3: Cobalt API (v10 + v7 payloads) ----------------------------------
+// -- Tier 2: Cobalt API (v10 + v7 payloads) ----------------------------------
 async function _tryCobalt(videoId) {
     const ytUrl = `https://www.youtube.com/watch?v=${videoId}`;
 
@@ -600,20 +544,16 @@ async function _tryCobalt(videoId) {
 }
 
 /**
- * Fetch audio from YouTube via 3-tier cascade (Piped → Invidious → Cobalt).
- * Tries all instances across all tiers; first successful audio download wins.
+ * Fetch audio from YouTube via 2-tier client-side cascade (Piped → Cobalt).
+ * Runs from user's browser — their IP is not blocked by YouTube.
  * Returns: { blob: Blob, title: string, ext: string }
  */
 async function fetchYouTubeAudio(videoId) {
-    // Tier 1: Piped
+    // Tier 1: Piped (with retry for transient 500s)
     const piped = await _tryPiped(videoId);
     if (piped) return piped;
 
-    // Tier 2: Invidious
-    const invidious = await _tryInvidious(videoId);
-    if (invidious) return invidious;
-
-    // Tier 3: Cobalt
+    // Tier 2: Cobalt
     const cobalt = await _tryCobalt(videoId);
     if (cobalt) return cobalt;
 
@@ -709,6 +649,7 @@ async function handleGenerate() {
             } catch (serverErr) {
                 if (serverErr._youtubeExtractionFailed) {
                     // Server couldn't reach YouTube — fall back to client-side extraction
+                    // This runs from the user's browser IP (not blocked by YouTube)
                     console.log('[YouTube] Server-side failed, trying client-side...');
                     const ytStep = document.getElementById('step-youtube-fetch');
                     if (ytStep) ytStep.style.display = '';
@@ -717,13 +658,22 @@ async function handleGenerate() {
                     const status = document.getElementById('youtube-fetch-status');
                     if (status) {
                         status.style.display = '';
-                        status.textContent = t('gen_server_yt_fallback') || 'Server extraction failed — trying from your browser...';
+                        status.textContent = t('gen_server_yt_fallback') || 'Fetching audio from your browser (this may take a moment)...';
                         status.classList.remove('error');
                     }
 
-                    const { blob, title, ext } = await fetchYouTubeAudio(videoId);
-                    fileToUpload = new File([blob], `${title}${ext}`, { type: blob.type });
-                    if (status) status.style.display = 'none';
+                    try {
+                        const { blob, title, ext } = await fetchYouTubeAudio(videoId);
+                        fileToUpload = new File([blob], `${title}${ext}`, { type: blob.type });
+                        if (status) status.style.display = 'none';
+                    } catch (clientErr) {
+                        // Both server and client failed — show helpful error
+                        if (status) {
+                            status.textContent = t('gen_url_error') || 'Could not fetch audio from YouTube. Please download the audio and upload it instead.';
+                            status.classList.add('error');
+                        }
+                        throw clientErr;
+                    }
 
                     // Now send the downloaded file to backend for analysis
                     setProgressStep('analyze');
