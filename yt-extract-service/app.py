@@ -103,6 +103,41 @@ async def health():
     return {"status": "ok", "version": VERSION}
 
 
+@app.get("/debug")
+async def debug_info():
+    """Show yt-dlp version, plugins, and PO token server status."""
+    import subprocess
+    info = {}
+    # yt-dlp version
+    try:
+        r = subprocess.run(["yt-dlp", "--version"], capture_output=True, text=True, timeout=10)
+        info["ytdlp_version"] = r.stdout.strip()
+    except Exception as e:
+        info["ytdlp_version"] = f"error: {e}"
+    # yt-dlp verbose (shows plugin detection)
+    try:
+        r = subprocess.run(
+            ["yt-dlp", "--verbose", "--extractor-args", f"youtubepot-bgutilhttp:base_url={BGUTIL_BASE_URL}",
+             "--print", "%(id)s", "https://www.youtube.com/watch?v=dQw4w9WgXcQ"],
+            capture_output=True, text=True, timeout=30,
+        )
+        # Extract plugin-related lines from stderr
+        lines = r.stderr.split("\n")
+        plugin_lines = [l for l in lines if "plugin" in l.lower() or "pot" in l.lower() or "bgutil" in l.lower() or "provider" in l.lower()]
+        info["plugin_detection"] = plugin_lines[:20] if plugin_lines else ["No plugin lines found"]
+        info["ytdlp_stderr_first_20"] = lines[:20]
+    except Exception as e:
+        info["plugin_detection"] = f"error: {e}"
+    # bgutil server status
+    try:
+        import urllib.request
+        req = urllib.request.urlopen(f"{BGUTIL_BASE_URL}/", timeout=5)
+        info["bgutil_status"] = f"HTTP {req.status}"
+    except Exception as e:
+        info["bgutil_status"] = f"error: {e}"
+    return info
+
+
 @app.get("/extract", dependencies=[Depends(verify_api_key)])
 async def extract_audio(video_id: str):
     """
@@ -169,8 +204,8 @@ async def _download_with_ytdlp(video_id: str) -> str:
 
         cmd = [
             "yt-dlp",
+            "--verbose",
             "--no-playlist",
-            "--no-warnings",
             "-f", "ba/b",  # ba=best audio, b=best overall (most flexible)
             "--extractor-args", "youtube:player_client=web,tv_embedded",
             "--extractor-args", f"youtubepot-bgutilhttp:base_url={BGUTIL_BASE_URL}",
