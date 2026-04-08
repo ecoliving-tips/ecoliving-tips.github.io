@@ -4,8 +4,9 @@
 
 # Start bgutil PO token HTTP server in background
 echo "[startup] Starting bgutil PO token server on port 4416..."
-npx bgutil-ytdlp-pot-provider@latest server --port 4416 &
+cd /opt/bgutil/server && node build/main.js --port 4416 &
 BGUTIL_PID=$!
+cd /app
 
 # Wait for server to initialize
 sleep 3

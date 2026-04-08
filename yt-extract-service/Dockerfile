@@ -1,21 +1,23 @@
 FROM python:3.11-slim
 
-# Install ffmpeg + Node.js (required by bgutil PO token provider)
+# Install ffmpeg + Node.js + git (required by bgutil PO token provider)
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends ffmpeg curl ca-certificates gnupg && \
-    mkdir -p /etc/apt/keyrings && \
+    apt-get install -y --no-install-recommends ffmpeg curl ca-certificates gnupg git && \
     curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y --no-install-recommends nodejs && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-# Install Python dependencies
+# Install Python dependencies (includes bgutil-ytdlp-pot-provider plugin)
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Pre-install bgutil server dependencies (avoids npx download at runtime)
-RUN npx --yes bgutil-ytdlp-pot-provider@latest server --help 2>/dev/null || true
+# Clone and build bgutil PO token HTTP server
+RUN git clone --single-branch --branch 1.3.1 https://github.com/Brainicism/bgutil-ytdlp-pot-provider.git /opt/bgutil && \
+    cd /opt/bgutil/server && \
+    npm ci && \
+    npx tsc
 
 # Copy app + startup script
 COPY app.py .
