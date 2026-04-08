@@ -76,7 +76,8 @@ YT_MIN_AUDIO_BYTES = 10_000
 YT_MAX_DURATION_SEC = 600  # 10 min — download cap (analysis truncates to MAX_DURATION_SEC)
 
 YT_PIPED_INSTANCES = [
-    'https://api.piped.private.coffee', # WORKING — only official instance (Apr 2026)
+    'https://api.piped.private.coffee', # Official — 99% uptime, intermittent 500 per-video
+    'https://pipedapi.wireway.ch',      # Unofficial — metadata OK, audio proxy may 502
 ]
 YT_PIPED_MAX_RETRIES = 3              # Retry transient 500s with backoff
 YT_PIPED_RETRY_DELAY = 2.0            # Seconds between retries
@@ -84,16 +85,9 @@ YT_INVIDIOUS_INSTANCES = [
     'https://inv.thepixora.com',        # /latest_version fallback (API returns 403)
 ]
 
-# Cobalt API — public YouTube audio extraction service (tunnel mode proxies audio)
-YT_COBALT_INSTANCES = [
-    'https://api.cobalt.tools',         # Official API endpoint
-]
-YT_COBALT_TIMEOUT = 15.0               # Metadata request timeout
-YT_COBALT_DOWNLOAD_TIMEOUT = 90.0      # Audio download timeout (tunnel can be slow)
-
-# External extraction microservice (yt-dlp on a platform with YouTube access)
+# External extraction microservice (yt-dlp on Render/Railway/etc.)
 # Set YT_EXTRACT_URL and YT_EXTRACT_API_KEY via environment variables
-YT_EXTRACT_URL = os.getenv("YT_EXTRACT_URL", "")       # e.g. https://my-app.koyeb.app/extract
+YT_EXTRACT_URL = os.getenv("YT_EXTRACT_URL", "")       # e.g. https://my-app.onrender.com/extract
 YT_EXTRACT_API_KEY = os.getenv("YT_EXTRACT_API_KEY", "")
 YT_EXTRACT_TIMEOUT = 120.0  # yt-dlp can be slow on free tiers
 SAMPLE_RATE = 22050
@@ -539,90 +533,12 @@ async def _try_piped(video_id: str) -> str | None:
     return None
 
 
-async def _try_cobalt(video_id: str) -> str | None:
-    """Tier 2: Cobalt API — public YouTube extraction with tunneled audio download.
-
-    Cobalt proxies the audio through its own servers ('tunnel' mode),
-    so the download URL is NOT a direct googlevideo.com link.
-    This avoids the IP-lock issue that blocks direct YouTube downloads from HF Spaces.
-    """
-    yt_url = f"https://www.youtube.com/watch?v={video_id}"
-
-    for inst in YT_COBALT_INSTANCES:
-        # Try v10 API payload first, then v7 fallback
-        payloads = [
-            {
-                "endpoint": "/",
-                "body": {
-                    "url": yt_url,
-                    "downloadMode": "audio",
-                    "audioFormat": "mp3",
-                    "audioBitrate": "128",
-                },
-            },
-            {
-                "endpoint": "/api/json",
-                "body": {
-                    "url": yt_url,
-                    "isAudioOnly": True,
-                    "aFormat": "mp3",
-                },
-            },
-        ]
-
-        for payload in payloads:
-            ep = payload["endpoint"]
-            try:
-                logger.info(f"[YT-Cobalt] Trying {inst}{ep}...")
-                async with httpx.AsyncClient(timeout=YT_COBALT_TIMEOUT) as client:
-                    resp = await client.post(
-                        f"{inst}{ep}",
-                        json=payload["body"],
-                        headers={
-                            "Accept": "application/json",
-                            "Content-Type": "application/json",
-                        },
-                    )
-                    if resp.status_code != 200:
-                        raise ValueError(f"HTTP {resp.status_code}")
-                    data = resp.json()
-
-                # Cobalt returns status: "error" for failures
-                status = data.get("status", "")
-                if status == "error":
-                    err_code = data.get("error", {})
-                    if isinstance(err_code, dict):
-                        err_code = err_code.get("code", "unknown")
-                    raise ValueError(f"Cobalt error: {err_code}")
-
-                # Get audio URL — could be 'url' (tunnel/redirect) or 'stream'
-                audio_url = data.get("url") or data.get("stream")
-                if not audio_url:
-                    raise ValueError("No audio URL in response")
-
-                logger.info(f"[YT-Cobalt] Got audio URL (status={status}), downloading...")
-
-                # Download the audio (tunnel URLs are proxied through Cobalt)
-                async with httpx.AsyncClient(
-                    follow_redirects=True, timeout=YT_COBALT_DOWNLOAD_TIMEOUT
-                ) as dl_client:
-                    async with dl_client.stream("GET", audio_url) as stream_resp:
-                        if stream_resp.status_code not in (200, 206):
-                            raise ValueError(f"Audio download HTTP {stream_resp.status_code}")
-                        path = await _stream_to_tempfile(stream_resp)
-                        logger.info(f"[YT-Cobalt] Success via {inst} ({os.path.getsize(path)} bytes)")
-                        return path
-
-            except Exception as e:
-                logger.warning(f"[YT-Cobalt] {inst}{ep} failed: {e}")
-    return None
-
-
 async def _try_extract_service(video_id: str) -> str | None:
-    """Tier 3: External yt-dlp extraction microservice (Koyeb/Railway/etc.).
+    """Tier 2: External yt-dlp extraction microservice (Render free tier).
 
     Calls a lightweight service running on a platform where youtube.com
     is accessible. The service runs yt-dlp and streams the audio file back.
+    Configure via YT_EXTRACT_URL and YT_EXTRACT_API_KEY env vars.
     """
     if not YT_EXTRACT_URL:
         return None  # Not configured — skip this tier
@@ -666,26 +582,20 @@ async def fetch_youtube_audio(video_id: str) -> str:
     Returns path to temp audio file. Raises HTTPException(502) if all fail.
 
     Tier 1: Piped /streams (proxied audio, retries transient 500s)
-    Tier 2: Cobalt API (tunneled audio download, avoids IP-lock)
-    Tier 3: External extraction service (yt-dlp on Koyeb/Railway, if configured)
-    Tier 4: Invidious /latest_version (redirect to googlevideo.com)
+    Tier 2: External extraction service (yt-dlp on Render, if configured)
+    Tier 3: Invidious /latest_version (redirect to googlevideo.com)
     """
     # Tier 1: Piped (with retries for transient 500s)
     path = await _try_piped(video_id)
     if path:
         return path
 
-    # Tier 2: Cobalt (tunneled audio — no IP-lock issue)
-    path = await _try_cobalt(video_id)
-    if path:
-        return path
-
-    # Tier 3: External extraction microservice (yt-dlp, if configured)
+    # Tier 2: External extraction microservice (yt-dlp, if configured)
     path = await _try_extract_service(video_id)
     if path:
         return path
 
-    # Tier 4: Invidious /latest_version (single redirect to googlevideo)
+    # Tier 3: Invidious /latest_version (single redirect to googlevideo)
     path = await _try_invidious_latest(video_id)
     if path:
         return path

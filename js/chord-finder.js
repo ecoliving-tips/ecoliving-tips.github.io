@@ -31,11 +31,8 @@ function getSupabase() {
 // Runs from the user's browser IP — avoids cloud IP blocking by YouTube.
 // ---------------------------------------------------------------------------
 const PIPED_INSTANCES = [
-    'https://api.piped.private.coffee', // Only official instance (Apr 2026)
-];
-const COBALT_INSTANCES = [
-    'https://cobalt.tools',
-    'https://api.cobalt.tools',
+    'https://api.piped.private.coffee', // Official instance (Apr 2026)
+    'https://pipedapi.wireway.ch',      // Unofficial — may have intermittent audio 502s
 ];
 const PIPED_CLIENT_MAX_RETRIES = 2;       // Retry transient 500s client-side too
 const PIPED_CLIENT_RETRY_DELAY_MS = 2000; // 2s between retries
@@ -496,66 +493,15 @@ async function _tryPiped(videoId) {
     return null; // All instances failed — fall through to next tier
 }
 
-// -- Tier 2: Cobalt API (v10 + v7 payloads) ----------------------------------
-async function _tryCobalt(videoId) {
-    const ytUrl = `https://www.youtube.com/watch?v=${videoId}`;
-
-    for (let i = 0; i < COBALT_INSTANCES.length; i++) {
-        const instance = COBALT_INSTANCES[i];
-
-        // Try v10 payload first, then v7 fallback
-        const payloads = [
-            { endpoint: '/',         body: { url: ytUrl, downloadMode: 'audio', audioFormat: 'mp3', audioBitrate: '128' } },
-            { endpoint: '/api/json', body: { url: ytUrl, isAudioOnly: true, aFormat: 'mp3' } },
-        ];
-
-        for (const { endpoint, body } of payloads) {
-            try {
-                console.log(`[Cobalt] Trying ${instance}${endpoint} (${i + 1}/${COBALT_INSTANCES.length})...`);
-                const controller = new AbortController();
-                const timer = setTimeout(() => controller.abort(), METADATA_TIMEOUT_MS);
-                const resp = await fetch(`${instance}${endpoint}`, {
-                    method: 'POST',
-                    headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-                    body: JSON.stringify(body),
-                    signal: controller.signal,
-                });
-                clearTimeout(timer);
-
-                if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-                const data = await resp.json();
-
-                // Cobalt returns status: "error" for auth-required instances
-                if (data.status === 'error') throw new Error(data.error?.code || 'Cobalt error');
-
-                const audioUrl = data.url || data.stream;
-                if (!audioUrl) throw new Error('No audio URL in response');
-
-                const blob = await _downloadAudioBlob(audioUrl);
-                console.log(`[Cobalt] Success via ${instance} (${(blob.size / 1024 / 1024).toFixed(1)} MB)`);
-                return { blob, title: videoId, ext: '.mp3' };
-            } catch (err) {
-                if (err._noRetry) throw err;
-                console.warn(`[Cobalt] ${instance}${endpoint} failed:`, err.message);
-            }
-        }
-    }
-    return null;
-}
-
 /**
- * Fetch audio from YouTube via 2-tier client-side cascade (Piped → Cobalt).
+ * Fetch audio from YouTube via client-side Piped cascade.
  * Runs from user's browser — their IP is not blocked by YouTube.
  * Returns: { blob: Blob, title: string, ext: string }
  */
 async function fetchYouTubeAudio(videoId) {
-    // Tier 1: Piped (with retry for transient 500s)
+    // Piped (with retry for transient 500s, multiple instances)
     const piped = await _tryPiped(videoId);
     if (piped) return piped;
-
-    // Tier 2: Cobalt
-    const cobalt = await _tryCobalt(videoId);
-    if (cobalt) return cobalt;
 
     // All tiers exhausted
     throw new Error(
