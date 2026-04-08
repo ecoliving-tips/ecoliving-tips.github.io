@@ -2,8 +2,8 @@
 Swaram YouTube Audio Extraction Microservice
 
 Lightweight FastAPI service that extracts audio from YouTube videos using yt-dlp.
-Designed to run on free platforms (Koyeb, Railway, etc.) where youtube.com
-is not DNS-blocked (unlike HF Spaces).
+Designed to run on free platforms (Render, etc.) where youtube.com is accessible.
+Uses cookies to bypass YouTube's bot detection on cloud IPs.
 
 Called by the main chord-service on HF Spaces when Piped proxy fails.
 """
@@ -14,6 +14,7 @@ import asyncio
 import tempfile
 import logging
 import time
+import base64
 
 from fastapi import FastAPI, HTTPException, Depends, Header
 from fastapi.responses import FileResponse
@@ -22,7 +23,7 @@ from fastapi.middleware.cors import CORSMiddleware
 # ---------------------------------------------------------------------------
 # Config
 # ---------------------------------------------------------------------------
-VERSION = "1.0.0"
+VERSION = "1.1.0"
 MAX_FILE_SIZE = 30 * 1024 * 1024       # 30 MB
 MAX_DURATION_SEC = 600                   # 10 min
 DOWNLOAD_TIMEOUT = 90                    # seconds
@@ -31,6 +32,12 @@ YT_VIDEO_ID_RE = re.compile(r'^[A-Za-z0-9_-]{11}$')
 
 # API key shared with HF Spaces backend (set via environment variable)
 API_KEY = os.getenv("API_KEY", "")
+
+# YouTube cookies — bypasses "Sign in to confirm you're not a bot" on cloud IPs.
+# Set YT_COOKIES_B64 env var to base64-encoded Netscape cookies.txt content.
+# Export: browser extension "Get cookies.txt" → youtube.com → copy content →
+#   base64 encode → paste as env var on Render.
+YT_COOKIES_FILE = None  # Set at startup if cookies are available
 
 # ---------------------------------------------------------------------------
 # Logging
@@ -52,6 +59,27 @@ app.add_middleware(
 
 # Track temp files for cleanup
 _active_files: set[str] = set()
+
+
+@app.on_event("startup")
+def _init_cookies():
+    """Decode YT_COOKIES_B64 env var to a cookies.txt file on startup."""
+    global YT_COOKIES_FILE
+    cookies_b64 = os.getenv("YT_COOKIES_B64", "")
+    if not cookies_b64:
+        logger.warning("YT_COOKIES_B64 not set — yt-dlp will run without cookies (may get bot-blocked)")
+        return
+    try:
+        cookies_bytes = base64.b64decode(cookies_b64)
+        tmp = tempfile.NamedTemporaryFile(
+            mode="wb", suffix=".txt", prefix="yt_cookies_", delete=False
+        )
+        tmp.write(cookies_bytes)
+        tmp.close()
+        YT_COOKIES_FILE = tmp.name
+        logger.info(f"YouTube cookies loaded ({len(cookies_bytes)} bytes)")
+    except Exception as e:
+        logger.error(f"Failed to decode YT_COOKIES_B64: {e}")
 
 
 # ---------------------------------------------------------------------------
@@ -135,7 +163,7 @@ async def _download_with_ytdlp(video_id: str) -> str:
         logger.info(f"[yt-dlp] Extracting audio for {video_id}...")
         t0 = time.time()
 
-        proc = await asyncio.create_subprocess_exec(
+        cmd = [
             "yt-dlp",
             "--no-playlist",
             "--no-warnings",
@@ -146,7 +174,14 @@ async def _download_with_ytdlp(video_id: str) -> str:
             "--max-downloads", "1",
             "-o", tmp.name,
             "--force-overwrites",
-            f"https://www.youtube.com/watch?v={video_id}",
+        ]
+        # Add cookies if available (bypasses bot detection)
+        if YT_COOKIES_FILE and os.path.exists(YT_COOKIES_FILE):
+            cmd.extend(["--cookies", YT_COOKIES_FILE])
+        cmd.append(f"https://www.youtube.com/watch?v={video_id}")
+
+        proc = await asyncio.create_subprocess_exec(
+            *cmd,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
         )
