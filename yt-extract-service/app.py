@@ -167,7 +167,7 @@ async def _download_with_ytdlp(video_id: str) -> str:
             "yt-dlp",
             "--no-playlist",
             "--no-warnings",
-            "-f", "bestaudio[ext=m4a]/bestaudio[ext=webm]/bestaudio",
+            "-f", "ba/b",  # ba=best audio, b=best overall (most flexible)
             "--max-filesize", str(MAX_FILE_SIZE),
             "--socket-timeout", "20",
             "--retries", "2",
