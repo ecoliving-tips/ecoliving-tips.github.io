@@ -128,13 +128,38 @@ async def debug_info():
         info["ytdlp_stderr_first_20"] = lines[:20]
     except Exception as e:
         info["plugin_detection"] = f"error: {e}"
-    # bgutil server status
+    # Node.js availability (critical for JS Challenge solving)
+    try:
+        r = subprocess.run(["which", "node"], capture_output=True, text=True, timeout=5)
+        info["node_path"] = r.stdout.strip() or "not found"
+        r = subprocess.run(["node", "--version"], capture_output=True, text=True, timeout=5)
+        info["node_version"] = r.stdout.strip()
+    except Exception as e:
+        info["node_path"] = f"error: {e}"
+    # bgutil server status (try /token endpoint, not root)
     try:
         import urllib.request
-        req = urllib.request.urlopen(f"{BGUTIL_BASE_URL}/", timeout=5)
-        info["bgutil_status"] = f"HTTP {req.status}"
+        req = urllib.request.Request(f"{BGUTIL_BASE_URL}/")
+        resp = urllib.request.urlopen(req, timeout=5)
+        info["bgutil_status"] = f"HTTP {resp.status}"
     except Exception as e:
-        info["bgutil_status"] = f"error: {e}"
+        info["bgutil_status"] = f"root: {e}"
+    # Try bgutil generate endpoint
+    try:
+        import json as _json
+        req = urllib.request.Request(
+            f"{BGUTIL_BASE_URL}/generate",
+            data=_json.dumps({"visitor_data": ""}).encode(),
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
+        resp = urllib.request.urlopen(req, timeout=15)
+        body = resp.read().decode()[:300]
+        info["bgutil_generate"] = f"HTTP {resp.status}: {body}"
+    except Exception as e:
+        info["bgutil_generate"] = f"error: {e}"
+    # Environment PATH
+    info["PATH"] = os.environ.get("PATH", "")[:500]
     return info
 
 
