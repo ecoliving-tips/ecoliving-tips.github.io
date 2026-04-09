@@ -291,7 +291,7 @@ async def _download_with_ytdlp(video_id: str) -> str:
             "yt-dlp",
             "--verbose",
             "--no-playlist",
-            "-f", "ba[abr<=192]/ba/b",  # Prefer audio ≤192kbps, then best audio, then best overall
+            "-f", "wa/ba/b",  # Worst (smallest) audio first — chord analysis only needs 16kHz
             "--cache-dir", YTDLP_CACHE_DIR,
             "--js-runtimes", "node",  # Enable node (only deno is on by default in yt-dlp 2026)
             "--remote-components", "ejs:github",  # Download EJS challenge solver from GitHub
