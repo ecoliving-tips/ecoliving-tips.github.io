@@ -77,7 +77,11 @@ YT_MAX_DURATION_SEC = 600  # 10 min — download cap (analysis truncates to MAX_
 
 YT_PIPED_INSTANCES = [
     'https://api.piped.private.coffee',
-    'https://pipedapi.wireway.ch',
+    'https://pipedapi.kavin.rocks',
+    'https://pipedapi-libre.kavin.rocks',
+    'https://pipedapi.adminforge.de',
+    'https://piped-api.privacy.com.de',
+    'https://pipedapi.reallyaweso.me',
 ]
 
 # External extraction microservice (yt-dlp on Render/Railway/etc.)
@@ -551,16 +555,16 @@ async def fetch_youtube_audio(video_id: str) -> str:
     Download audio from YouTube via tiered cascade (server-side, no CORS).
     Returns path to temp audio file. Raises HTTPException(502) if all fail.
 
-    Tier 1: Render extraction service (yt-dlp + cookies, most reliable)
-    Tier 2: Piped /streams (single attempt per instance, fast when it works)
+    Tier 1: Piped /streams (fast ~3s when working, single attempt per instance)
+    Tier 2: Render extraction service (yt-dlp + cookies, reliable ~23s)
     """
-    # Tier 1: Render extraction service (yt-dlp, most reliable)
-    path = await _try_extract_service(video_id)
+    # Tier 1: Piped (fast, single attempt per instance)
+    path = await _try_piped(video_id)
     if path:
         return path
 
-    # Tier 2: Piped (single attempt per instance, no retries)
-    path = await _try_piped(video_id)
+    # Tier 2: Render extraction service (reliable fallback)
+    path = await _try_extract_service(video_id)
     if path:
         return path
 
