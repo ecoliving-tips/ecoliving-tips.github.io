@@ -57,7 +57,7 @@ logger = logging.getLogger("chord-service")
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-VERSION = "3.0.0"
+VERSION = "3.0.1"
 MAX_DURATION_SEC = 300  # 5 minutes
 MAX_FILE_SIZE = 30 * 1024 * 1024  # 30 MB
 ALLOWED_EXTENSIONS = {".mp3", ".wav", ".m4a", ".ogg", ".flac", ".aac", ".wma", ".webm"}
@@ -181,6 +181,20 @@ def load_model():
 @app.on_event("startup")
 async def startup():
     load_model()
+    asyncio.create_task(_warm_up_extract_service())
+
+
+async def _warm_up_extract_service():
+    """Fire-and-forget ping to wake the Render yt-extract service."""
+    if not YT_EXTRACT_URL:
+        return
+    health_url = YT_EXTRACT_URL.rsplit("/", 1)[0] + "/health"
+    try:
+        async with httpx.AsyncClient(timeout=10.0) as client:
+            resp = await client.get(health_url)
+            logger.info(f"[Warmup] Extract service: HTTP {resp.status_code}")
+    except Exception as e:
+        logger.info(f"[Warmup] Extract service not yet awake: {e}")
 
 
 # ---------------------------------------------------------------------------

@@ -16,8 +16,6 @@ import tempfile
 import logging
 import time
 import base64
-import subprocess
-
 from fastapi import FastAPI, HTTPException, Depends, Header
 from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -25,7 +23,7 @@ from fastapi.middleware.cors import CORSMiddleware
 # ---------------------------------------------------------------------------
 # Config
 # ---------------------------------------------------------------------------
-VERSION = "2.2.0"
+VERSION = "2.3.0"
 MAX_FILE_SIZE = 50 * 1024 * 1024       # 50 MB
 MAX_DURATION_SEC = 600                   # 10 min
 DOWNLOAD_TIMEOUT = 120                   # seconds (includes PO token generation)
@@ -114,102 +112,6 @@ async def health():
     return {"status": "ok", "version": VERSION}
 
 
-@app.get("/debug")
-async def debug_info():
-    """Show yt-dlp version, plugins, JS runtime diagnostics, cookie status, and PO token server status."""
-    import subprocess
-    info = {}
-
-    # Cookie status
-    info["cookies_loaded"] = YT_COOKIES_FILE is not None and os.path.exists(YT_COOKIES_FILE or "")
-    # yt-dlp version
-    try:
-        r = subprocess.run(["yt-dlp", "--version"], capture_output=True, text=True, timeout=10)
-        info["ytdlp_version"] = r.stdout.strip()
-    except Exception as e:
-        info["ytdlp_version"] = f"error: {e}"
-
-    # Find yt-dlp JSC provider source files (why is node "unavailable"?)
-    try:
-        r = subprocess.run(
-            ["find", "/usr/local/lib", "-path", "*yt_dlp*jsc*", "-name", "*.py"],
-            capture_output=True, text=True, timeout=10,
-        )
-        jsc_files = [f.strip() for f in r.stdout.strip().split("\n") if f.strip()]
-        info["jsc_files"] = jsc_files
-
-        # Read the node provider source to see its availability check
-        node_files = [f for f in jsc_files if "node" in f.lower()]
-        if node_files:
-            r = subprocess.run(["cat", node_files[0]], capture_output=True, text=True, timeout=5)
-            info["jsc_node_source"] = r.stdout[:3000]  # First 3000 chars
-    except Exception as e:
-        info["jsc_files"] = f"error: {e}"
-
-    # Test node directly (does subprocess node work?)
-    try:
-        r = subprocess.run(
-            ["node", "-e", "console.log(JSON.stringify({ok:true, version:process.version}))"],
-            capture_output=True, text=True, timeout=5,
-        )
-        info["node_test"] = {"stdout": r.stdout.strip(), "stderr": r.stderr.strip(), "returncode": r.returncode}
-    except Exception as e:
-        info["node_test"] = f"error: {e}"
-
-    # Full yt-dlp verbose output (capture ALL stderr, not just first 20)
-    try:
-        r = subprocess.run(
-            ["yt-dlp", "--verbose", "--js-runtimes", "node", "--remote-components", "ejs:github",
-             "--extractor-args", f"youtubepot-bgutilhttp:base_url={BGUTIL_BASE_URL}",
-             "--print", "%(id)s", "https://www.youtube.com/watch?v=dQw4w9WgXcQ"],
-            capture_output=True, text=True, timeout=60,
-        )
-        lines = r.stderr.split("\n")
-        # Key lines: jsc, pot, error, sign in, bot
-        key_lines = [l for l in lines if any(k in l.lower() for k in
-                     ["jsc", "pot", "bgutil", "plugin", "sign in", "bot", "error", "js runtime", "challenge", "nsig"])]
-        info["ytdlp_key_lines"] = key_lines[:30]
-        info["ytdlp_exit_code"] = r.returncode
-        info["ytdlp_stdout"] = r.stdout.strip()[:500]
-        info["ytdlp_last_20_stderr"] = lines[-20:]
-    except Exception as e:
-        info["ytdlp_key_lines"] = f"error: {e}"
-
-    # Node.js path and version
-    try:
-        r = subprocess.run(["which", "node"], capture_output=True, text=True, timeout=5)
-        info["node_path"] = r.stdout.strip() or "not found"
-        r = subprocess.run(["node", "--version"], capture_output=True, text=True, timeout=5)
-        info["node_version"] = r.stdout.strip()
-    except Exception as e:
-        info["node_path"] = f"error: {e}"
-
-    # bgutil server endpoints
-    try:
-        import urllib.request
-        req = urllib.request.Request(f"{BGUTIL_BASE_URL}/")
-        resp = urllib.request.urlopen(req, timeout=5)
-        info["bgutil_status"] = f"HTTP {resp.status}"
-    except Exception as e:
-        info["bgutil_status"] = f"root: {e}"
-    try:
-        import json as _json
-        req = urllib.request.Request(
-            f"{BGUTIL_BASE_URL}/generate",
-            data=_json.dumps({"visitor_data": ""}).encode(),
-            headers={"Content-Type": "application/json"},
-            method="POST",
-        )
-        resp = urllib.request.urlopen(req, timeout=15)
-        body = resp.read().decode()[:300]
-        info["bgutil_generate"] = f"HTTP {resp.status}: {body}"
-    except Exception as e:
-        info["bgutil_generate"] = f"error: {e}"
-
-    info["PATH"] = os.environ.get("PATH", "")[:500]
-    return info
-
-
 @app.get("/extract", dependencies=[Depends(verify_api_key)])
 async def extract_audio(video_id: str):
     """
@@ -274,22 +176,8 @@ async def _download_with_ytdlp(video_id: str) -> str:
         logger.info(f"[yt-dlp] Extracting audio for {video_id}...")
         t0 = time.time()
 
-        # Check bgutil PO token server is alive before attempting extraction
-        try:
-            bg_check = subprocess.run(
-                ["curl", "-sf", f"{BGUTIL_BASE_URL}/ping"],
-                capture_output=True, text=True, timeout=5,
-            )
-            if bg_check.returncode == 0:
-                logger.info(f"[yt-dlp] PO token server OK: {bg_check.stdout.strip()[:100]}")
-            else:
-                logger.warning("[yt-dlp] PO token server NOT responding — extraction may fail")
-        except Exception as e:
-            logger.warning(f"[yt-dlp] PO token server check error: {e}")
-
         cmd = [
             "yt-dlp",
-            "--verbose",
             "--no-playlist",
             "-f", "wa/ba/b",  # Worst (smallest) audio first — chord analysis only needs 16kHz
             "--cache-dir", YTDLP_CACHE_DIR,
@@ -332,15 +220,6 @@ async def _download_with_ytdlp(video_id: str) -> str:
                          if l.startswith("ERROR:") or l.startswith("WARNING:") or "Sign in" in l]
             err_msg = "\n".join(err_lines)[:1000] if err_lines else full_err[-500:]
             logger.warning(f"[yt-dlp] Failed (exit {proc.returncode}): {err_msg}")
-
-            # Log PO token and JSC lines from verbose output for debugging
-            pot_lines = [l for l in full_err.split("\n")
-                         if "pot" in l.lower() or "jsc" in l.lower() or "po token" in l.lower()
-                         or "bgutil" in l.lower() or "challenge" in l.lower()]
-            if pot_lines:
-                logger.info(f"[yt-dlp] PO Token debug: {chr(10).join(pot_lines[:10])}")
-            else:
-                logger.info("[yt-dlp] PO Token debug: NO pot/jsc lines found in verbose output")
 
             # Detect specific YouTube errors
             if "Sign in to confirm" in full_err or "confirm you're not a bot" in full_err.lower():
