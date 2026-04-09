@@ -185,7 +185,6 @@ async def _download_with_ytdlp(video_id: str) -> str:
             "--cache-dir", YTDLP_CACHE_DIR,
             "--js-runtimes", "node",
             "--remote-components", "ejs:github",
-            "--extractor-args", f"youtubepot-bgutilhttp:base_url={BGUTIL_BASE_URL}",
             "--socket-timeout", "15",
             "--retries", "1",
             "-o", tmp.name,
