@@ -184,7 +184,6 @@ async def _download_with_ytdlp(video_id: str) -> str:
             "--cache-dir", YTDLP_CACHE_DIR,
             "--js-runtimes", "node",  # Enable node (only deno is on by default in yt-dlp 2026)
             "--remote-components", "ejs:github",  # Download EJS challenge solver from GitHub
-            "--extractor-args", "youtube:player_client=web",
             "--extractor-args", f"youtubepot-bgutilhttp:base_url={BGUTIL_BASE_URL}",
             "--max-filesize", str(MAX_FILE_SIZE),
             "--socket-timeout", "20",
