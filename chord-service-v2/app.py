@@ -76,13 +76,8 @@ YT_MIN_AUDIO_BYTES = 10_000
 YT_MAX_DURATION_SEC = 600  # 10 min — download cap (analysis truncates to MAX_DURATION_SEC)
 
 YT_PIPED_INSTANCES = [
-    'https://api.piped.private.coffee', # Official — 99% uptime, intermittent 500 per-video
-    'https://pipedapi.wireway.ch',      # Unofficial — metadata OK, audio proxy may 502
-]
-YT_PIPED_MAX_RETRIES = 3              # Retry transient 500s with backoff
-YT_PIPED_RETRY_DELAY = 2.0            # Seconds between retries
-YT_INVIDIOUS_INSTANCES = [
-    'https://inv.thepixora.com',        # /latest_version fallback (API returns 403)
+    'https://api.piped.private.coffee',
+    'https://pipedapi.wireway.ch',
 ]
 
 # External extraction microservice (yt-dlp on Render/Railway/etc.)
@@ -466,84 +461,45 @@ async def _stream_to_tempfile(resp: httpx.Response) -> str:
         raise
 
 
-async def _try_invidious_latest(video_id: str) -> str | None:
-    """Tier 2: Invidious /latest_version — redirect to googlevideo.com audio."""
-    for inst in YT_INVIDIOUS_INSTANCES:
+async def _try_piped(video_id: str) -> str | None:
+    """Fallback: Piped /streams — single attempt per instance, no retries."""
+    for inst in YT_PIPED_INSTANCES:
         try:
-            logger.info(f"[YT-Inv-LV] Trying {inst}...")
-            async with httpx.AsyncClient(follow_redirects=True, timeout=YT_DOWNLOAD_TIMEOUT) as client:
-                async with client.stream(
-                    "GET",
-                    f"{inst}/latest_version",
-                    params={"id": video_id, "itag": "140"},
-                ) as resp:
-                    if resp.status_code not in (200, 206):
-                        raise ValueError(f"HTTP {resp.status_code}")
-                    ct = resp.headers.get("content-type", "")
-                    if "text/html" in ct:
-                        raise ValueError("Got HTML, not audio")
-                    path = await _stream_to_tempfile(resp)
-                    logger.info(f"[YT-Inv-LV] Success via {inst}")
+            logger.info(f"[YT-Piped] Trying {inst}...")
+            async with httpx.AsyncClient(timeout=YT_METADATA_TIMEOUT) as client:
+                resp = await client.get(f"{inst}/streams/{video_id}")
+                if resp.status_code != 200:
+                    raise ValueError(f"HTTP {resp.status_code}")
+                data = resp.json()
+
+            if not data.get("audioStreams"):
+                raise ValueError("No audio streams")
+            duration = data.get("duration", 0)
+            if duration and duration > YT_MAX_DURATION_SEC:
+                raise ValueError(f"Video too long ({duration}s)")
+
+            streams = data["audioStreams"]
+            stream = next((s for s in streams if s.get("itag") == 140), None)
+            if not stream:
+                candidates = sorted(
+                    [s for s in streams if s.get("bitrate", 0) < 170000],
+                    key=lambda s: s.get("bitrate", 0), reverse=True,
+                )
+                stream = candidates[0] if candidates else streams[0]
+
+            audio_url = stream.get("url")
+            if not audio_url:
+                raise ValueError("No stream URL")
+
+            async with httpx.AsyncClient(follow_redirects=True, timeout=YT_DOWNLOAD_TIMEOUT) as dl_client:
+                async with dl_client.stream("GET", audio_url) as stream_resp:
+                    if stream_resp.status_code not in (200, 206):
+                        raise ValueError(f"Audio download HTTP {stream_resp.status_code}")
+                    path = await _stream_to_tempfile(stream_resp)
+                    logger.info(f"[YT-Piped] Success via {inst}")
                     return path
         except Exception as e:
-            logger.warning(f"[YT-Inv-LV] {inst} failed: {e}")
-    return None
-
-
-async def _try_piped(video_id: str) -> str | None:
-    """Tier 1: Piped /streams — proxy audio URLs, with retry for transient 500s."""
-    for inst in YT_PIPED_INSTANCES:
-        for attempt in range(1, YT_PIPED_MAX_RETRIES + 1):
-            try:
-                logger.info(f"[YT-Piped] Trying {inst} (attempt {attempt}/{YT_PIPED_MAX_RETRIES})...")
-                async with httpx.AsyncClient(timeout=YT_METADATA_TIMEOUT) as client:
-                    resp = await client.get(f"{inst}/streams/{video_id}")
-                    if resp.status_code == 500 and attempt < YT_PIPED_MAX_RETRIES:
-                        logger.warning(f"[YT-Piped] {inst} returned 500, retrying in {YT_PIPED_RETRY_DELAY}s...")
-                        await asyncio.sleep(YT_PIPED_RETRY_DELAY)
-                        continue
-                    if resp.status_code != 200:
-                        raise ValueError(f"HTTP {resp.status_code}")
-                    data = resp.json()
-
-                if not data.get("audioStreams"):
-                    raise ValueError("No audio streams")
-                duration = data.get("duration", 0)
-                if duration and duration > YT_MAX_DURATION_SEC:
-                    raise ValueError(f"Video too long ({duration}s)")
-
-                # Prefer itag 140 (M4A 128kbps)
-                streams = data["audioStreams"]
-                stream = next((s for s in streams if s.get("itag") == 140), None)
-                if not stream:
-                    candidates = sorted(
-                        [s for s in streams if s.get("bitrate", 0) < 170000],
-                        key=lambda s: s.get("bitrate", 0), reverse=True,
-                    )
-                    stream = candidates[0] if candidates else streams[0]
-
-                audio_url = stream.get("url")
-                if not audio_url:
-                    raise ValueError("No stream URL")
-
-                async with httpx.AsyncClient(follow_redirects=True, timeout=YT_DOWNLOAD_TIMEOUT) as dl_client:
-                    async with dl_client.stream("GET", audio_url) as stream_resp:
-                        if stream_resp.status_code not in (200, 206):
-                            if stream_resp.status_code == 502 and attempt < YT_PIPED_MAX_RETRIES:
-                                logger.warning(f"[YT-Piped] Proxy 502, retrying in {YT_PIPED_RETRY_DELAY}s...")
-                                await asyncio.sleep(YT_PIPED_RETRY_DELAY)
-                                continue
-                            raise ValueError(f"Audio download HTTP {stream_resp.status_code}")
-                        path = await _stream_to_tempfile(stream_resp)
-                        logger.info(f"[YT-Piped] Success via {inst} (attempt {attempt})")
-                        return path
-            except Exception as e:
-                if attempt < YT_PIPED_MAX_RETRIES and "500" in str(e):
-                    logger.warning(f"[YT-Piped] {inst} attempt {attempt} failed: {e}, retrying...")
-                    await asyncio.sleep(YT_PIPED_RETRY_DELAY)
-                    continue
-                logger.warning(f"[YT-Piped] {inst} failed after {attempt} attempts: {e}")
-                break  # Move to next instance
+            logger.warning(f"[YT-Piped] {inst} failed: {e}")
     return None
 
 
@@ -595,22 +551,16 @@ async def fetch_youtube_audio(video_id: str) -> str:
     Download audio from YouTube via tiered cascade (server-side, no CORS).
     Returns path to temp audio file. Raises HTTPException(502) if all fail.
 
-    Tier 1: Piped /streams (proxied audio, retries transient 500s)
-    Tier 2: External extraction service (yt-dlp on Render, if configured)
-    Tier 3: Invidious /latest_version (redirect to googlevideo.com)
+    Tier 1: Render extraction service (yt-dlp + cookies, most reliable)
+    Tier 2: Piped /streams (single attempt per instance, fast when it works)
     """
-    # Tier 1: Piped (with retries for transient 500s)
-    path = await _try_piped(video_id)
-    if path:
-        return path
-
-    # Tier 2: External extraction microservice (yt-dlp, if configured)
+    # Tier 1: Render extraction service (yt-dlp, most reliable)
     path = await _try_extract_service(video_id)
     if path:
         return path
 
-    # Tier 3: Invidious /latest_version (single redirect to googlevideo)
-    path = await _try_invidious_latest(video_id)
+    # Tier 2: Piped (single attempt per instance, no retries)
+    path = await _try_piped(video_id)
     if path:
         return path
 
