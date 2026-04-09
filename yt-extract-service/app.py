@@ -179,7 +179,7 @@ async def _download_with_ytdlp(video_id: str) -> str:
         cmd = [
             "yt-dlp",
             "--no-playlist",
-            "-f", "wa/ba/b",  # Worst (smallest) audio first — chord analysis only needs 16kHz
+            "-f", "wa*/ba*/w*",  # Smallest audio — wa* includes combined formats if no audio-only
             "--cache-dir", YTDLP_CACHE_DIR,
             "--js-runtimes", "node",  # Enable node (only deno is on by default in yt-dlp 2026)
             "--remote-components", "ejs:github",  # Download EJS challenge solver from GitHub
@@ -241,7 +241,7 @@ async def _download_with_ytdlp(video_id: str) -> str:
         if file_size > MAX_FILE_SIZE:
             raise ValueError(f"File too large ({file_size} bytes)")
 
-        logger.info(f"[yt-dlp] Success: {file_size} bytes in {elapsed:.1f}s")
+        logger.info(f"[yt-dlp] Success: {file_size} bytes ({file_size/1024/1024:.1f} MB) in {elapsed:.1f}s")
         return tmp.name
 
     except asyncio.TimeoutError:
