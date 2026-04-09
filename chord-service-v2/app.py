@@ -624,6 +624,7 @@ async def fetch_youtube_audio(video_id: str) -> str:
 # API endpoints
 # ---------------------------------------------------------------------------
 @app.get("/health")
+@app.head("/health")
 async def health():
     return {
         "status": "ok",
