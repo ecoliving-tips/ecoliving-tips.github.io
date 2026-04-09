@@ -30,9 +30,6 @@ DOWNLOAD_TIMEOUT = 120                   # seconds (includes PO token generation
 MIN_AUDIO_BYTES = 10_000                 # 10 KB
 YT_VIDEO_ID_RE = re.compile(r'^[A-Za-z0-9_-]{11}$')
 
-# PO Token server (bgutil-ytdlp-pot-provider) — runs on localhost
-BGUTIL_BASE_URL = os.getenv("BGUTIL_BASE_URL", "http://127.0.0.1:4416")
-
 # API key shared with HF Spaces backend (set via environment variable)
 API_KEY = os.getenv("API_KEY", "")
 
@@ -244,29 +241,7 @@ async def _download_with_ytdlp(video_id: str) -> str:
         if file_size > MAX_FILE_SIZE:
             raise ValueError(f"File too large ({file_size} bytes)")
 
-        logger.info(f"[yt-dlp] Downloaded: {file_size/1024/1024:.1f} MB in {elapsed:.1f}s")
-
-        # Strip video track with ffmpeg (YouTube SABR forces combined formats)
-        audio_path = tmp.name + ".audio.m4a"
-        ffmpeg_proc = await asyncio.create_subprocess_exec(
-            "ffmpeg", "-i", tmp.name, "-vn", "-acodec", "copy", "-y", audio_path,
-            stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE,
-        )
-        await asyncio.wait_for(ffmpeg_proc.communicate(), timeout=30)
-
-        if ffmpeg_proc.returncode == 0 and os.path.exists(audio_path):
-            audio_size = os.path.getsize(audio_path)
-            if audio_size >= MIN_AUDIO_BYTES:
-                _safe_unlink(tmp.name)  # Remove large video+audio file
-                logger.info(f"[yt-dlp] Audio extracted: {audio_size/1024/1024:.1f} MB (was {file_size/1024/1024:.1f} MB)")
-                return audio_path
-            else:
-                _safe_unlink(audio_path)
-                logger.warning(f"[ffmpeg] Extracted audio too small ({audio_size} bytes), serving original")
-        else:
-            _safe_unlink(audio_path)
-            logger.warning("[ffmpeg] Audio extraction failed, serving original file")
-
+        logger.info(f"[yt-dlp] Success: {file_size/1024/1024:.1f} MB in {elapsed:.1f}s")
         return tmp.name
 
     except asyncio.TimeoutError:
