@@ -324,7 +324,8 @@ async def _download_with_ytdlp(video_id: str) -> str:
 
         elapsed = time.time() - t0
 
-        if proc.returncode != 0:
+        # Exit 101 = --max-downloads limit reached (file was downloaded successfully)
+        if proc.returncode not in (0, 101) or (proc.returncode == 101 and not os.path.exists(tmp.name)):
             full_err = stderr.decode(errors="replace")
             # Extract actual error/warning lines (skip verbose debug noise)
             err_lines = [l for l in full_err.split("\n")
