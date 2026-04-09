@@ -1,23 +1,17 @@
 FROM python:3.11-slim
 
-# Install ffmpeg + Node.js + git + build tools (required by bgutil PO token provider + quickjs)
+# Install ffmpeg + Node.js (EJS solver needs node runtime)
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends ffmpeg curl ca-certificates gnupg git build-essential && \
+    apt-get install -y --no-install-recommends ffmpeg curl ca-certificates gnupg && \
     curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y --no-install-recommends nodejs && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-# Install Python dependencies (includes bgutil-ytdlp-pot-provider plugin)
+# Install Python dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-
-# Clone and build bgutil PO token HTTP server
-RUN git clone --single-branch --branch 1.3.1 https://github.com/Brainicism/bgutil-ytdlp-pot-provider.git /opt/bgutil && \
-    cd /opt/bgutil/server && \
-    npm ci && \
-    npx tsc
 
 # Copy app + startup script
 COPY app.py .
