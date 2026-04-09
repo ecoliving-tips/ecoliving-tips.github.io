@@ -179,16 +179,15 @@ async def _download_with_ytdlp(video_id: str) -> str:
         cmd = [
             "yt-dlp",
             "--no-playlist",
-            "-f", "ba*",           # Best audio (includes combined if no audio-only)
-            "-S", "+size,+abr",    # Sort: prefer smallest file size & lowest audio bitrate
+            "-f", "ba/b*",                     # Audio-only first, then any format
+            "-S", "+size,+br,proto:m3u8_native:m3u8:https",  # Smallest + prefer m3u8 (~6MB) over https (~30MB)
+            "--concurrent-fragments", "4",      # Parallel HLS segment downloads
             "--cache-dir", YTDLP_CACHE_DIR,
-            "--js-runtimes", "node",  # Enable node (only deno is on by default in yt-dlp 2026)
-            "--remote-components", "ejs:github",  # Download EJS challenge solver from GitHub
+            "--js-runtimes", "node",
+            "--remote-components", "ejs:github",
             "--extractor-args", f"youtubepot-bgutilhttp:base_url={BGUTIL_BASE_URL}",
-            "--max-filesize", str(MAX_FILE_SIZE),
-            "--socket-timeout", "20",
-            "--retries", "2",
-            "--max-downloads", "1",
+            "--socket-timeout", "15",
+            "--retries", "1",
             "-o", tmp.name,
             "--force-overwrites",
         ]
@@ -217,8 +216,8 @@ async def _download_with_ytdlp(video_id: str) -> str:
             if "[info]" in line and "format" in line.lower():
                 logger.info(f"[yt-dlp] {line.strip()}")
 
-        # Exit 101 = --max-downloads limit reached (file was downloaded successfully)
-        if proc.returncode not in (0, 101) or (proc.returncode == 101 and not os.path.exists(tmp.name)):
+        # Check yt-dlp exit status
+        if proc.returncode != 0:
             full_err = stderr.decode(errors="replace")
             # Extract actual error/warning lines (skip verbose debug noise)
             err_lines = [l for l in full_err.split("\n")
