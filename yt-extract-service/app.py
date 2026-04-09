@@ -179,7 +179,8 @@ async def _download_with_ytdlp(video_id: str) -> str:
         cmd = [
             "yt-dlp",
             "--no-playlist",
-            "-f", "wa*/ba*/w*",  # Smallest audio — wa* includes combined formats if no audio-only
+            "-f", "ba*",           # Best audio (includes combined if no audio-only)
+            "-S", "+size,+abr",    # Sort: prefer smallest file size & lowest audio bitrate
             "--cache-dir", YTDLP_CACHE_DIR,
             "--js-runtimes", "node",  # Enable node (only deno is on by default in yt-dlp 2026)
             "--remote-components", "ejs:github",  # Download EJS challenge solver from GitHub
@@ -211,6 +212,11 @@ async def _download_with_ytdlp(video_id: str) -> str:
         )
 
         elapsed = time.time() - t0
+
+        # Log which format yt-dlp selected (from stderr [info] line)
+        for line in stderr.decode(errors="replace").split("\n"):
+            if "[info]" in line and "format" in line.lower():
+                logger.info(f"[yt-dlp] {line.strip()}")
 
         # Exit 101 = --max-downloads limit reached (file was downloaded successfully)
         if proc.returncode not in (0, 101) or (proc.returncode == 101 and not os.path.exists(tmp.name)):
