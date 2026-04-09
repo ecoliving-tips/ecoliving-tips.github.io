@@ -820,6 +820,7 @@ function initAudioPlayer() {
 
     audioObjectUrl = URL.createObjectURL(selectedFile);
     audioPlayer.src = audioObjectUrl;
+    audioPlayer.load(); // iOS Safari requires explicit load() for blob URLs
 
     audioPlayer.onloadedmetadata = () => {
         document.getElementById('audio-duration').textContent = formatTime(audioPlayer.duration);
@@ -861,8 +862,12 @@ function initAudioPlayer() {
 
 function toggleAudioPlayback() {
     if (!audioPlayer) return;
-    if (audioPlayer.paused) audioPlayer.play();
-    else audioPlayer.pause();
+    if (audioPlayer.paused) {
+        const p = audioPlayer.play();
+        if (p && p.catch) p.catch(() => {}); // iOS may reject without user gesture
+    } else {
+        audioPlayer.pause();
+    }
 }
 
 function handleAudioSeek(e) {
@@ -908,7 +913,7 @@ function initYouTubePlayer(videoId) {
         }
         ytPlayer = new YT.Player('youtube-player', {
             videoId: videoId,
-            playerVars: { autoplay: 0, modestbranding: 1, rel: 0 },
+            playerVars: { autoplay: 0, modestbranding: 1, rel: 0, playsinline: 1 },
             events: {
                 onStateChange: onYTStateChange,
             },
@@ -1072,7 +1077,10 @@ function seekTo(time) {
     audioPlayer.currentTime = time;
     lastActiveIdx = -1; // Force sync update
     updateChordSync();  // Immediate visual feedback
-    if (audioPlayer.paused) audioPlayer.play();
+    if (audioPlayer.paused) {
+        const p = audioPlayer.play();
+        if (p && p.catch) p.catch(() => {}); // iOS may reject
+    }
 }
 
 // ---------------------------------------------------------------------------
