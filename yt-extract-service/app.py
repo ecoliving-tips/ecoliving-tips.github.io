@@ -26,7 +26,7 @@ from fastapi.middleware.cors import CORSMiddleware
 # Config
 # ---------------------------------------------------------------------------
 VERSION = "2.2.0"
-MAX_FILE_SIZE = 30 * 1024 * 1024       # 30 MB
+MAX_FILE_SIZE = 50 * 1024 * 1024       # 50 MB
 MAX_DURATION_SEC = 600                   # 10 min
 DOWNLOAD_TIMEOUT = 120                   # seconds (includes PO token generation)
 MIN_AUDIO_BYTES = 10_000                 # 10 KB
@@ -291,7 +291,7 @@ async def _download_with_ytdlp(video_id: str) -> str:
             "yt-dlp",
             "--verbose",
             "--no-playlist",
-            "-f", "ba/b",  # ba=best audio, b=best overall (most flexible)
+            "-f", "ba[abr<=192]/ba/b",  # Prefer audio ≤192kbps, then best audio, then best overall
             "--cache-dir", YTDLP_CACHE_DIR,
             "--js-runtimes", "node",  # Enable node (only deno is on by default in yt-dlp 2026)
             "--remote-components", "ejs:github",  # Download EJS challenge solver from GitHub
