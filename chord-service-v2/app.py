@@ -76,12 +76,8 @@ YT_MIN_AUDIO_BYTES = 10_000
 YT_MAX_DURATION_SEC = 600  # 10 min — download cap (analysis truncates to MAX_DURATION_SEC)
 
 YT_PIPED_INSTANCES = [
-    'https://api.piped.private.coffee',
-    'https://pipedapi.kavin.rocks',
-    'https://pipedapi-libre.kavin.rocks',
-    'https://pipedapi.adminforge.de',
-    'https://piped-api.privacy.com.de',
-    'https://pipedapi.reallyaweso.me',
+    'https://api.piped.private.coffee',   # Tested 2026-04-09: working
+    'https://pipedapi.wireway.ch',         # Tested 2026-04-09: working
 ]
 
 # External extraction microservice (yt-dlp on Render/Railway/etc.)
