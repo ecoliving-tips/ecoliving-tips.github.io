@@ -1,6 +1,6 @@
 // Swaram - Service Worker for Offline Support
 
-const CACHE_NAME = 'swaram-v2';
+const CACHE_NAME = 'swaram-v3';
 const STATIC_ASSETS = [
     '/',
     '/index.html',
@@ -52,17 +52,18 @@ self.addEventListener('fetch', event => {
     // Skip external requests
     if (url.origin !== self.location.origin) return;
 
-    // Static assets: cache-first
+    // Static assets: stale-while-revalidate (fast + always fresh on next load)
     if (url.pathname.match(/\.(css|js|json|png|svg|ico|woff2?)$/)) {
         event.respondWith(
-            caches.match(event.request).then(cached => {
-                if (cached) return cached;
-                return fetch(event.request).then(response => {
-                    const clone = response.clone();
-                    caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
-                    return response;
-                });
-            })
+            caches.open(CACHE_NAME).then(cache =>
+                cache.match(event.request).then(cached => {
+                    const fetched = fetch(event.request).then(response => {
+                        cache.put(event.request, response.clone());
+                        return response;
+                    });
+                    return cached || fetched;
+                })
+            )
         );
         return;
     }
