@@ -195,10 +195,12 @@ async def _warm_up_extract_service():
 # ---------------------------------------------------------------------------
 # Feature extraction (matches BTC's expected input)
 # ---------------------------------------------------------------------------
-def extract_features(audio_path: str):
+def extract_features(audio_path: str, audio_bytes: bytes = None):
     """
     Load audio file, compute CQT features matching BTC input format.
     Returns (feature_matrix, feature_per_second, song_length_sec).
+
+    audio_bytes: if provided, re-creates temp file when BTC destroys it.
     """
     try:
         from utils.mir_eval_modules import audio_file_to_features
@@ -217,6 +219,12 @@ def extract_features(audio_path: str):
         logger.info(f"BTC feature extraction failed ({e}), using custom fallback")
 
     # Fallback: custom CQT extraction matching BTC's expected format
+    # BTC's audio_file_to_features() can delete/corrupt the temp file.
+    # Re-create it from in-memory bytes if that happened.
+    if not os.path.exists(audio_path) and audio_bytes:
+        logger.warning(f"Temp file gone after BTC, re-creating {audio_path}")
+        with open(audio_path, "wb") as f:
+            f.write(audio_bytes)
     y, sr = librosa.load(audio_path, sr=SAMPLE_RATE, mono=True)
 
     # Trim silence from beginning/end
@@ -345,14 +353,14 @@ def run_btc_inference(feature_matrix, feature_per_second):
 # ---------------------------------------------------------------------------
 # Main analysis pipeline
 # ---------------------------------------------------------------------------
-def analyze_audio(audio_path: str, video_id: str = "upload"):
+def analyze_audio(audio_path: str, video_id: str = "upload", audio_bytes: bytes = None):
     """Lean pipeline: features → BTC → simplify → median filter → Viterbi → group → cleanup → response."""
 
     t0 = time.time()
 
     # 1. Extract features
     logger.info("Extracting CQT features...")
-    feature, fps, song_length = extract_features(audio_path)
+    feature, fps, song_length = extract_features(audio_path, audio_bytes=audio_bytes)
     logger.info(f"Features: shape={feature.shape}, fps={fps:.1f}, length={song_length:.1f}s")
 
     # 2. Run BTC inference
@@ -620,6 +628,11 @@ async def analyze(
                     detail=f"Unsupported file type: {ext}. Allowed: {', '.join(ALLOWED_EXTENSIONS)}",
                 )
             content = await file.read()
+            if len(content) < YT_MIN_AUDIO_BYTES:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"File too small ({len(content)} bytes). Upload may be incomplete.",
+                )
             if len(content) > MAX_FILE_SIZE:
                 raise HTTPException(
                     status_code=400,
@@ -630,7 +643,12 @@ async def analyze(
                 tmp.write(content)
                 tmp_path = tmp.name
 
-        result = analyze_audio(tmp_path, video_id=effective_video_id)
+        # For file uploads, content is already in memory — pass it so
+        # extract_features can re-create the temp file if BTC destroys it.
+        # For YouTube downloads, skip — no extra RAM cost on free tier.
+        raw_bytes = content if not youtube_url else None
+
+        result = analyze_audio(tmp_path, video_id=effective_video_id, audio_bytes=raw_bytes)
         return result
     except HTTPException:
         raise
