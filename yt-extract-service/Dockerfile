@@ -34,6 +34,9 @@ WORKDIR /app
 COPY --from=bgutil-build /tmp/bgutil/server/build /app/bgutil-server/build
 COPY --from=bgutil-build /tmp/bgutil/server/node_modules /app/bgutil-server/node_modules
 COPY --from=bgutil-build /tmp/bgutil/server/package.json /app/bgutil-server/package.json
+# Bind bgutil to localhost only (default is [::] which triggers Render's port detection)
+RUN sed -i 's/host: "::"/host: "127.0.0.1"/' /app/bgutil-server/build/main.js && \
+    sed -i 's/host: "0.0.0.0"/host: "127.0.0.1"/' /app/bgutil-server/build/main.js
 
 # Install Python dependencies (includes yt-dlp + bgutil plugin)
 COPY requirements.txt .
