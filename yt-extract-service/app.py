@@ -3,8 +3,9 @@ Swaram YouTube Audio Extraction Microservice
 
 Lightweight FastAPI service that extracts audio from YouTube videos using yt-dlp.
 Designed to run on free platforms (Render, etc.) where youtube.com is accessible.
-Uses fresh browser cookies + PO Tokens (via bgutil) to bypass YouTube's bot
-detection on cloud IPs.
+
+Authentication: PO Tokens (via bgutil HTTP server on localhost:4416) eliminate the
+need for manual cookie rotation. Cookies are kept as optional fallback only.
 
 Called by the main chord-service on HF Spaces when Piped proxy fails.
 """
@@ -16,6 +17,8 @@ import tempfile
 import logging
 import time
 import base64
+import urllib.request
+import urllib.error
 from fastapi import FastAPI, HTTPException, Depends, Header
 from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -23,7 +26,7 @@ from fastapi.middleware.cors import CORSMiddleware
 # ---------------------------------------------------------------------------
 # Config
 # ---------------------------------------------------------------------------
-VERSION = "2.3.0"
+VERSION = "3.0.0"
 MAX_FILE_SIZE = 50 * 1024 * 1024       # 50 MB
 MAX_DURATION_SEC = 600                   # 10 min
 DOWNLOAD_TIMEOUT = 120                   # seconds (includes PO token generation)
@@ -36,10 +39,10 @@ API_KEY = os.getenv("API_KEY", "")
 # yt-dlp cache directory — stores nsig cache, EJS solver, etc.
 YTDLP_CACHE_DIR = "/app/.ytdlp-cache"
 
-# YouTube cookies — required for cloud IP extraction.
-# Set YT_COOKIES_B64 env var to base64-encoded Netscape cookies.txt content.
-# Export with "Get cookies.txt LOCALLY" Chrome extension → youtube.com.
-# Cookies expire periodically — re-export when extraction starts failing.
+# YouTube cookies — optional fallback for cloud IP extraction.
+# PO tokens (via bgutil server on localhost:4416) are the primary auth method.
+# Set YT_COOKIES_B64 env var to base64-encoded Netscape cookies.txt content
+# ONLY if PO tokens alone are insufficient (rare).
 YT_COOKIES_FILE = None  # Set at startup if cookies are available
 
 # ---------------------------------------------------------------------------
@@ -66,11 +69,11 @@ _active_files: set[str] = set()
 
 @app.on_event("startup")
 def _init_cookies():
-    """Decode YT_COOKIES_B64 env var to a cookies.txt file on startup."""
+    """Decode YT_COOKIES_B64 env var to a cookies.txt file on startup (optional fallback)."""
     global YT_COOKIES_FILE
     cookies_b64 = os.getenv("YT_COOKIES_B64", "")
     if not cookies_b64:
-        logger.warning("YT_COOKIES_B64 not set — run setup-cookies.sh locally to export fresh cookies")
+        logger.info("YT_COOKIES_B64 not set — using PO tokens only (no cookie fallback)")
         return
     try:
         cookies_bytes = base64.b64decode(cookies_b64)
@@ -80,9 +83,26 @@ def _init_cookies():
         tmp.write(cookies_bytes)
         tmp.close()
         YT_COOKIES_FILE = tmp.name
-        logger.info(f"YouTube cookies loaded ({len(cookies_bytes)} bytes)")
+        logger.info(f"YouTube cookies loaded as fallback ({len(cookies_bytes)} bytes)")
     except Exception as e:
         logger.error(f"Failed to decode YT_COOKIES_B64: {e}")
+
+
+BGUTIL_SERVER_URL = "http://127.0.0.1:4416"
+
+
+@app.on_event("startup")
+def _check_bgutil_server():
+    """Log bgutil PO token server status (non-blocking — server may still be starting)."""
+    try:
+        req = urllib.request.Request(BGUTIL_SERVER_URL, method="GET")
+        urllib.request.urlopen(req, timeout=2)
+        logger.info(f"bgutil PO token server reachable on {BGUTIL_SERVER_URL}")
+    except urllib.error.HTTPError:
+        # 404 etc. means server IS running (no root route defined)
+        logger.info(f"bgutil PO token server reachable on {BGUTIL_SERVER_URL}")
+    except Exception:
+        logger.info(f"bgutil PO token server not yet reachable — supervisord will start it")
 
 
 # ---------------------------------------------------------------------------
@@ -106,7 +126,23 @@ async def root():
 @app.get("/health")
 @app.head("/health")
 async def health():
-    return {"status": "ok", "version": VERSION}
+    # Check bgutil server reachability
+    pot_status = "unreachable"
+    try:
+        req = urllib.request.Request(BGUTIL_SERVER_URL, method="GET")
+        urllib.request.urlopen(req, timeout=2)
+        pot_status = "ok"
+    except urllib.error.HTTPError:
+        # 404 etc. means server IS running (no root route defined)
+        pot_status = "ok"
+    except Exception:
+        pass
+    return {
+        "status": "ok",
+        "version": VERSION,
+        "po_token_server": pot_status,
+        "cookies_loaded": YT_COOKIES_FILE is not None,
+    }
 
 
 @app.get("/extract", dependencies=[Depends(verify_api_key)])
@@ -184,15 +220,17 @@ async def _download_with_ytdlp(video_id: str) -> str:
             "--remote-components", "ejs:github",
             "--socket-timeout", "15",
             "--retries", "1",
+            "--extractor-args", "youtube:player_client=mweb",  # mweb works best with PO tokens
             "-o", tmp.name,
             "--force-overwrites",
         ]
-        # Cookies — required for cloud IP extraction
+        # PO tokens: bgutil plugin auto-discovers HTTP server on localhost:4416
+        # Cookies: optional fallback (set YT_COOKIES_B64 env var if needed)
         if YT_COOKIES_FILE and os.path.exists(YT_COOKIES_FILE):
             cmd.extend(["--cookies", YT_COOKIES_FILE])
-            logger.info("[yt-dlp] Using cookies for authentication")
+            logger.info("[yt-dlp] Using PO tokens + cookies (fallback)")
         else:
-            logger.warning("[yt-dlp] No cookies — extraction will likely fail on cloud IPs")
+            logger.info("[yt-dlp] Using PO tokens only (no cookies)")
         cmd.append(f"https://www.youtube.com/watch?v={video_id}")
 
         proc = await asyncio.create_subprocess_exec(
