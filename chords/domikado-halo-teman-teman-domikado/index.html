@@ -176,28 +176,20 @@
                     </div>
                 </div>
 
-                <!-- Chord Progression (static chord sheet) -->
-                <div id="song-content" class="chord-content" data-static="true">
-                    <div class="chord-lyric-line"><div class="chord-progression"><span class="chord-in-progression"><span class="chord-name" data-original="C">C</span><span class="chord-time">0:00</span></span><span class="chord-in-progression"><span class="chord-name" data-original="E">E</span><span class="chord-time">0:02</span></span><span class="chord-in-progression"><span class="chord-name" data-original="F">F</span><span class="chord-time">0:03</span></span><span class="chord-in-progression"><span class="chord-name" data-original="C">C</span><span class="chord-time">0:06</span></span></div></div>
-<div class="chord-lyric-line"><div class="chord-progression"><span class="chord-in-progression"><span class="chord-name" data-original="E">E</span><span class="chord-time">0:08</span></span><span class="chord-in-progression"><span class="chord-name" data-original="F">F</span><span class="chord-time">0:09</span></span><span class="chord-in-progression"><span class="chord-name" data-original="G7">G7</span><span class="chord-time">0:11</span></span><span class="chord-in-progression"><span class="chord-name" data-original="C">C</span><span class="chord-time">0:13</span></span></div></div>
-<div class="chord-lyric-line"><div class="chord-progression"><span class="chord-in-progression"><span class="chord-name" data-original="E">E</span><span class="chord-time">0:15</span></span><span class="chord-in-progression"><span class="chord-name" data-original="F">F</span><span class="chord-time">0:16</span></span></div></div>
-
+                <!-- YouTube Player (IFrame API controlled) -->
+                <div id="youtube-player-container" class="youtube-player-container">
+                    <div id="youtube-player"></div>
                 </div>
 
-                <!-- YouTube Embed -->
-                <div id="youtube-embed" class="video-container">
-                    <iframe width="100%" height="315"
-                        src="https://www.youtube.com/embed/rKKyXZ7C00c"
-                        frameborder="0" allowfullscreen loading="lazy"
-                        title="Halo teman-teman Domikado!! - Domikado">
-                    </iframe>
+                <!-- Current chord display -->
+                <div class="current-chord-display">
+                    <div class="current-chord-label">Now Playing</div>
+                    <div class="current-chord chord-name" id="current-chord">-</div>
                 </div>
 
-                <!-- Interactive CTA -->
-                <div class="chord-finder-cta-box">
-                    <h3>Want real-time chord sync with this video?</h3>
-                    <p>Use our interactive Chord Finder for beat-by-beat chord tracking with audio playback.</p>
-                    <a href="/chord-finder.html?v=rKKyXZ7C00c" class="btn">Open in Chord Finder</a>
+                <!-- Chord timeline (populated by chord-page-player.js) -->
+                <div class="chord-timeline-wrapper">
+                    <div class="chord-timeline" id="chord-timeline"></div>
                 </div>
 
                 <!-- Share Buttons -->
@@ -269,8 +261,13 @@
     </footer>
 
 
+    <!-- Chord data for player -->
+    <script>
+    window.CHORD_DATA = [{"time":0,"chord":"C","duration":2.5},{"time":2.5,"chord":"E","duration":1.39},{"time":3.89,"chord":"F","duration":2.69},{"time":6.57,"chord":"C","duration":1.67},{"time":8.24,"chord":"E","duration":1.2},{"time":9.44,"chord":"F","duration":1.57},{"time":11.02,"chord":"G7","duration":2.13},{"time":13.15,"chord":"C","duration":1.94},{"time":15.09,"chord":"E","duration":1.2},{"time":16.3,"chord":"F","duration":0.47}];
+    window.YOUTUBE_VIDEO_ID = 'rKKyXZ7C00c';
+    </script>
     <script src="/js/main.js"></script>
-    <script src="/js/songs.js"></script>
+    <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>
 </body>

@@ -179,33 +179,20 @@
                     </div>
                 </div>
 
-                <!-- Chord Progression (static chord sheet) -->
-                <div id="song-content" class="chord-content" data-static="true">
-                    <div class="chord-lyric-line"><div class="chord-progression"><span class="chord-in-progression"><span class="chord-name" data-original="D#">D#</span><span class="chord-time">0:00</span></span><span class="chord-in-progression"><span class="chord-name" data-original="Fm">Fm</span><span class="chord-time">0:00</span></span><span class="chord-in-progression"><span class="chord-name" data-original="G#maj7">G#maj7</span><span class="chord-time">0:02</span></span><span class="chord-in-progression"><span class="chord-name" data-original="C#maj7">C#maj7</span><span class="chord-time">0:05</span></span></div></div>
-<div class="chord-lyric-line"><div class="chord-progression"><span class="chord-in-progression"><span class="chord-name" data-original="D#">D#</span><span class="chord-time">0:07</span></span><span class="chord-in-progression"><span class="chord-name" data-original="Fm">Fm</span><span class="chord-time">0:10</span></span><span class="chord-in-progression"><span class="chord-name" data-original="G#maj7">G#maj7</span><span class="chord-time">0:12</span></span><span class="chord-in-progression"><span class="chord-name" data-original="C#maj7">C#maj7</span><span class="chord-time">0:14</span></span></div></div>
-<div class="chord-lyric-line"><div class="chord-progression"><span class="chord-in-progression"><span class="chord-name" data-original="D#">D#</span><span class="chord-time">0:16</span></span><span class="chord-in-progression"><span class="chord-name" data-original="Fm">Fm</span><span class="chord-time">0:18</span></span><span class="chord-in-progression"><span class="chord-name" data-original="G#maj7">G#maj7</span><span class="chord-time">0:21</span></span><span class="chord-in-progression"><span class="chord-name" data-original="C#maj7">C#maj7</span><span class="chord-time">0:23</span></span></div></div>
-<div class="chord-lyric-line"><div class="chord-progression"><span class="chord-in-progression"><span class="chord-name" data-original="Cm">Cm</span><span class="chord-time">0:25</span></span><span class="chord-in-progression"><span class="chord-name" data-original="Fm">Fm</span><span class="chord-time">0:28</span></span><span class="chord-in-progression"><span class="chord-name" data-original="Cm">Cm</span><span class="chord-time">0:30</span></span><span class="chord-in-progression"><span class="chord-name" data-original="G#maj7">G#maj7</span><span class="chord-time">0:30</span></span></div></div>
-<div class="chord-lyric-line"><div class="chord-progression"><span class="chord-in-progression"><span class="chord-name" data-original="C#maj7">C#maj7</span><span class="chord-time">0:32</span></span><span class="chord-in-progression"><span class="chord-name" data-original="D#">D#</span><span class="chord-time">0:34</span></span><span class="chord-in-progression"><span class="chord-name" data-original="Cm">Cm</span><span class="chord-time">0:36</span></span><span class="chord-in-progression"><span class="chord-name" data-original="Fm">Fm</span><span class="chord-time">0:37</span></span></div></div>
-<div class="chord-lyric-line"><div class="chord-progression"><span class="chord-in-progression"><span class="chord-name" data-original="G#maj7">G#maj7</span><span class="chord-time">0:39</span></span><span class="chord-in-progression"><span class="chord-name" data-original="Cm">Cm</span><span class="chord-time">0:40</span></span><span class="chord-in-progression"><span class="chord-name" data-original="C#">C#</span><span class="chord-time">0:41</span></span><span class="chord-in-progression"><span class="chord-name" data-original="Cm">Cm</span><span class="chord-time">0:43</span></span></div></div>
-<div class="chord-lyric-line"><div class="chord-progression"><span class="chord-in-progression"><span class="chord-name" data-original="Fm">Fm</span><span class="chord-time">0:46</span></span><span class="chord-in-progression"><span class="chord-name" data-original="G#">G#</span><span class="chord-time">0:48</span></span><span class="chord-in-progression"><span class="chord-name" data-original="Cm">Cm</span><span class="chord-time">0:50</span></span><span class="chord-in-progression"><span class="chord-name" data-original="Fm">Fm</span><span class="chord-time">0:55</span></span></div></div>
-<div class="chord-lyric-line"><div class="chord-progression"><span class="chord-in-progression"><span class="chord-name" data-original="Cm">Cm</span><span class="chord-time">0:57</span></span><span class="chord-in-progression"><span class="chord-name" data-original="G#">G#</span><span class="chord-time">0:57</span></span><span class="chord-in-progression"><span class="chord-name" data-original="C#">C#</span><span class="chord-time">1:00</span></span><span class="chord-in-progression"><span class="chord-name" data-original="G#">G#</span><span class="chord-time">1:02</span></span></div></div>
-
+                <!-- YouTube Player (IFrame API controlled) -->
+                <div id="youtube-player-container" class="youtube-player-container">
+                    <div id="youtube-player"></div>
                 </div>
 
-                <!-- YouTube Embed -->
-                <div id="youtube-embed" class="video-container">
-                    <iframe width="100%" height="315"
-                        src="https://www.youtube.com/embed/mOCUosGzNn8"
-                        frameborder="0" allowfullscreen loading="lazy"
-                        title="PAL PAL Refix Version - TIGRI SASRA | SASRA Music Shorts | Devin Beats | 2025">
-                    </iframe>
+                <!-- Current chord display -->
+                <div class="current-chord-display">
+                    <div class="current-chord-label">Now Playing</div>
+                    <div class="current-chord chord-name" id="current-chord">-</div>
                 </div>
 
-                <!-- Interactive CTA -->
-                <div class="chord-finder-cta-box">
-                    <h3>Want real-time chord sync with this video?</h3>
-                    <p>Use our interactive Chord Finder for beat-by-beat chord tracking with audio playback.</p>
-                    <a href="/chord-finder.html?v=mOCUosGzNn8" class="btn">Open in Chord Finder</a>
+                <!-- Chord timeline (populated by chord-page-player.js) -->
+                <div class="chord-timeline-wrapper">
+                    <div class="chord-timeline" id="chord-timeline"></div>
                 </div>
 
                 <!-- Share Buttons -->
@@ -277,8 +264,13 @@
     </footer>
 
 
+    <!-- Chord data for player -->
+    <script>
+    window.CHORD_DATA = [{"time":0,"chord":"D#","duration":0.65},{"time":0.65,"chord":"Fm","duration":2.22},{"time":2.87,"chord":"G#maj7","duration":2.31},{"time":5.19,"chord":"C#maj7","duration":2.22},{"time":7.41,"chord":"D#","duration":2.59},{"time":10,"chord":"Fm","duration":2.04},{"time":12.04,"chord":"G#maj7","duration":2.31},{"time":14.35,"chord":"C#maj7","duration":2.31},{"time":16.67,"chord":"D#","duration":2.31},{"time":18.98,"chord":"Fm","duration":2.22},{"time":21.2,"chord":"G#maj7","duration":2.31},{"time":23.52,"chord":"C#maj7","duration":1.48},{"time":25,"chord":"Cm","duration":3.15},{"time":28.15,"chord":"Fm","duration":1.85},{"time":30,"chord":"Cm","duration":0.56},{"time":30.56,"chord":"G#maj7","duration":2.04},{"time":32.59,"chord":"C#maj7","duration":2.13},{"time":34.72,"chord":"D#","duration":1.94},{"time":36.67,"chord":"Cm","duration":0.56},{"time":37.22,"chord":"Fm","duration":2.22},{"time":39.44,"chord":"G#maj7","duration":0.56},{"time":40,"chord":"Cm","duration":1.94},{"time":41.94,"chord":"C#","duration":1.76},{"time":43.7,"chord":"Cm","duration":2.69},{"time":46.39,"chord":"Fm","duration":2.22},{"time":48.61,"chord":"G#","duration":1.39},{"time":50,"chord":"Cm","duration":5.46},{"time":55.46,"chord":"Fm","duration":2.04},{"time":57.5,"chord":"Cm","duration":0.37},{"time":57.87,"chord":"G#","duration":2.13},{"time":60,"chord":"C#","duration":2.31},{"time":62.31,"chord":"G#","duration":2.87}];
+    window.YOUTUBE_VIDEO_ID = 'mOCUosGzNn8';
+    </script>
     <script src="/js/main.js"></script>
-    <script src="/js/songs.js"></script>
+    <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>
 </body>

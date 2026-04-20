@@ -49,19 +49,18 @@
                     </div>
                 </div>
 
-                <!-- Chord Progression (static chord sheet) -->
-                <div id="song-content" class="chord-content" data-static="true">
-                    {{CHORD_SHEET}}
-                </div>
-
-                <!-- YouTube Embed -->
+                <!-- YouTube Player (IFrame API controlled) -->
                 {{YOUTUBE_EMBED}}
 
-                <!-- Interactive CTA -->
-                <div class="chord-finder-cta-box">
-                    <h3>Want real-time chord sync with this video?</h3>
-                    <p>Use our interactive Chord Finder for beat-by-beat chord tracking with audio playback.</p>
-                    <a href="/chord-finder.html?v={{VIDEO_ID}}" class="btn">Open in Chord Finder</a>
+                <!-- Current chord display -->
+                <div class="current-chord-display">
+                    <div class="current-chord-label">Now Playing</div>
+                    <div class="current-chord chord-name" id="current-chord">-</div>
+                </div>
+
+                <!-- Chord timeline (populated by chord-page-player.js) -->
+                <div class="chord-timeline-wrapper">
+                    <div class="chord-timeline" id="chord-timeline"></div>
                 </div>
 
                 <!-- Share Buttons -->
@@ -93,8 +92,13 @@
 
 {{FOOTER}}
 
+    <!-- Chord data for player -->
+    <script>
+    window.CHORD_DATA = {{CHORD_DATA_JSON}};
+    window.YOUTUBE_VIDEO_ID = '{{VIDEO_ID}}';
+    </script>
     <script src="/js/main.js"></script>
-    <script src="/js/songs.js"></script>
+    <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>
 </body>

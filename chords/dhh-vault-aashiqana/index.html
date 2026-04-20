@@ -181,32 +181,20 @@
                     </div>
                 </div>
 
-                <!-- Chord Progression (static chord sheet) -->
-                <div id="song-content" class="chord-content" data-static="true">
-                    <div class="chord-lyric-line"><div class="chord-progression"><span class="chord-in-progression"><span class="chord-name" data-original="G">G</span><span class="chord-time">0:03</span></span><span class="chord-in-progression"><span class="chord-name" data-original="D">D</span><span class="chord-time">0:08</span></span><span class="chord-in-progression"><span class="chord-name" data-original="D7">D7</span><span class="chord-time">0:11</span></span><span class="chord-in-progression"><span class="chord-name" data-original="G">G</span><span class="chord-time">0:13</span></span></div></div>
-<div class="chord-lyric-line"><div class="chord-progression"><span class="chord-in-progression"><span class="chord-name" data-original="D">D</span><span class="chord-time">0:19</span></span><span class="chord-in-progression"><span class="chord-name" data-original="B">B</span><span class="chord-time">0:22</span></span><span class="chord-in-progression"><span class="chord-name" data-original="C">C</span><span class="chord-time">0:25</span></span><span class="chord-in-progression"><span class="chord-name" data-original="G">G</span><span class="chord-time">0:27</span></span></div></div>
-<div class="chord-lyric-line"><div class="chord-progression"><span class="chord-in-progression"><span class="chord-name" data-original="C">C</span><span class="chord-time">0:30</span></span><span class="chord-in-progression"><span class="chord-name" data-original="G">G</span><span class="chord-time">0:33</span></span><span class="chord-in-progression"><span class="chord-name" data-original="F">F</span><span class="chord-time">0:36</span></span><span class="chord-in-progression"><span class="chord-name" data-original="G">G</span><span class="chord-time">0:39</span></span></div></div>
-<div class="chord-lyric-line"><div class="chord-progression"><span class="chord-in-progression"><span class="chord-name" data-original="Fmaj7">Fmaj7</span><span class="chord-time">0:41</span></span><span class="chord-in-progression"><span class="chord-name" data-original="D">D</span><span class="chord-time">0:44</span></span><span class="chord-in-progression"><span class="chord-name" data-original="G">G</span><span class="chord-time">0:47</span></span><span class="chord-in-progression"><span class="chord-name" data-original="C">C</span><span class="chord-time">0:53</span></span></div></div>
-<div class="chord-lyric-line"><div class="chord-progression"><span class="chord-in-progression"><span class="chord-name" data-original="F#dim">F#dim</span><span class="chord-time">0:56</span></span><span class="chord-in-progression"><span class="chord-name" data-original="Dm">Dm</span><span class="chord-time">1:01</span></span><span class="chord-in-progression"><span class="chord-name" data-original="G">G</span><span class="chord-time">1:02</span></span><span class="chord-in-progression"><span class="chord-name" data-original="Dm">Dm</span><span class="chord-time">1:03</span></span></div></div>
-<div class="chord-lyric-line"><div class="chord-progression"><span class="chord-in-progression"><span class="chord-name" data-original="G">G</span><span class="chord-time">1:04</span></span><span class="chord-in-progression"><span class="chord-name" data-original="Dm">Dm</span><span class="chord-time">1:05</span></span><span class="chord-in-progression"><span class="chord-name" data-original="G">G</span><span class="chord-time">1:06</span></span><span class="chord-in-progression"><span class="chord-name" data-original="Dm">Dm</span><span class="chord-time">1:07</span></span></div></div>
-<div class="chord-lyric-line"><div class="chord-progression"><span class="chord-in-progression"><span class="chord-name" data-original="G">G</span><span class="chord-time">1:08</span></span></div></div>
-
+                <!-- YouTube Player (IFrame API controlled) -->
+                <div id="youtube-player-container" class="youtube-player-container">
+                    <div id="youtube-player"></div>
                 </div>
 
-                <!-- YouTube Embed -->
-                <div id="youtube-embed" class="video-container">
-                    <iframe width="100%" height="315"
-                        src="https://www.youtube.com/embed/J5tHIY8hdUw"
-                        frameborder="0" allowfullscreen loading="lazy"
-                        title="Aashiqana ✨ - dhh._vault">
-                    </iframe>
+                <!-- Current chord display -->
+                <div class="current-chord-display">
+                    <div class="current-chord-label">Now Playing</div>
+                    <div class="current-chord chord-name" id="current-chord">-</div>
                 </div>
 
-                <!-- Interactive CTA -->
-                <div class="chord-finder-cta-box">
-                    <h3>Want real-time chord sync with this video?</h3>
-                    <p>Use our interactive Chord Finder for beat-by-beat chord tracking with audio playback.</p>
-                    <a href="/chord-finder.html?v=J5tHIY8hdUw" class="btn">Open in Chord Finder</a>
+                <!-- Chord timeline (populated by chord-page-player.js) -->
+                <div class="chord-timeline-wrapper">
+                    <div class="chord-timeline" id="chord-timeline"></div>
                 </div>
 
                 <!-- Share Buttons -->
@@ -278,8 +266,13 @@
     </footer>
 
 
+    <!-- Chord data for player -->
+    <script>
+    window.CHORD_DATA = [{"time":3.06,"chord":"G","duration":5.28},{"time":8.33,"chord":"D","duration":2.96},{"time":11.3,"chord":"D7","duration":2.41},{"time":13.7,"chord":"G","duration":5.65},{"time":19.35,"chord":"D","duration":3.24},{"time":22.59,"chord":"B","duration":2.41},{"time":25,"chord":"C","duration":2.87},{"time":27.87,"chord":"G","duration":2.59},{"time":30.46,"chord":"C","duration":2.87},{"time":33.33,"chord":"G","duration":2.78},{"time":36.11,"chord":"F","duration":2.96},{"time":39.07,"chord":"G","duration":2.78},{"time":41.85,"chord":"Fmaj7","duration":2.96},{"time":44.81,"chord":"D","duration":2.5},{"time":47.31,"chord":"G","duration":6.11},{"time":53.43,"chord":"C","duration":2.96},{"time":56.39,"chord":"F#dim","duration":4.35},{"time":61.85,"chord":"Dm","duration":0.83},{"time":62.69,"chord":"G","duration":1.02},{"time":63.7,"chord":"Dm","duration":0.74},{"time":64.44,"chord":"G","duration":1.02},{"time":65.46,"chord":"Dm","duration":0.83},{"time":66.3,"chord":"G","duration":1.02},{"time":67.31,"chord":"Dm","duration":0.74},{"time":68.06,"chord":"G","duration":5.74}];
+    window.YOUTUBE_VIDEO_ID = 'J5tHIY8hdUw';
+    </script>
     <script src="/js/main.js"></script>
-    <script src="/js/songs.js"></script>
+    <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>
 </body>

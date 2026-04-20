@@ -178,32 +178,20 @@
                     </div>
                 </div>
 
-                <!-- Chord Progression (static chord sheet) -->
-                <div id="song-content" class="chord-content" data-static="true">
-                    <div class="chord-lyric-line"><div class="chord-progression"><span class="chord-in-progression"><span class="chord-name" data-original="G">G</span><span class="chord-time">0:05</span></span><span class="chord-in-progression"><span class="chord-name" data-original="Gm">Gm</span><span class="chord-time">0:11</span></span><span class="chord-in-progression"><span class="chord-name" data-original="C">C</span><span class="chord-time">0:18</span></span><span class="chord-in-progression"><span class="chord-name" data-original="G">G</span><span class="chord-time">0:21</span></span></div></div>
-<div class="chord-lyric-line"><div class="chord-progression"><span class="chord-in-progression"><span class="chord-name" data-original="Gm">Gm</span><span class="chord-time">0:40</span></span><span class="chord-in-progression"><span class="chord-name" data-original="C">C</span><span class="chord-time">0:42</span></span><span class="chord-in-progression"><span class="chord-name" data-original="G">G</span><span class="chord-time">0:45</span></span><span class="chord-in-progression"><span class="chord-name" data-original="C">C</span><span class="chord-time">0:48</span></span></div></div>
-<div class="chord-lyric-line"><div class="chord-progression"><span class="chord-in-progression"><span class="chord-name" data-original="G">G</span><span class="chord-time">0:51</span></span><span class="chord-in-progression"><span class="chord-name" data-original="G7">G7</span><span class="chord-time">0:52</span></span><span class="chord-in-progression"><span class="chord-name" data-original="C">C</span><span class="chord-time">0:54</span></span><span class="chord-in-progression"><span class="chord-name" data-original="G">G</span><span class="chord-time">0:57</span></span></div></div>
-<div class="chord-lyric-line"><div class="chord-progression"><span class="chord-in-progression"><span class="chord-name" data-original="Cm">Cm</span><span class="chord-time">1:14</span></span><span class="chord-in-progression"><span class="chord-name" data-original="C">C</span><span class="chord-time">1:18</span></span><span class="chord-in-progression"><span class="chord-name" data-original="F">F</span><span class="chord-time">1:21</span></span><span class="chord-in-progression"><span class="chord-name" data-original="G">G</span><span class="chord-time">1:21</span></span></div></div>
-<div class="chord-lyric-line"><div class="chord-progression"><span class="chord-in-progression"><span class="chord-name" data-original="C">C</span><span class="chord-time">1:24</span></span><span class="chord-in-progression"><span class="chord-name" data-original="G">G</span><span class="chord-time">1:27</span></span><span class="chord-in-progression"><span class="chord-name" data-original="Gm">Gm</span><span class="chord-time">1:30</span></span><span class="chord-in-progression"><span class="chord-name" data-original="C">C</span><span class="chord-time">1:36</span></span></div></div>
-<div class="chord-lyric-line"><div class="chord-progression"><span class="chord-in-progression"><span class="chord-name" data-original="G">G</span><span class="chord-time">1:40</span></span><span class="chord-in-progression"><span class="chord-name" data-original="C">C</span><span class="chord-time">1:42</span></span><span class="chord-in-progression"><span class="chord-name" data-original="G">G</span><span class="chord-time">1:45</span></span><span class="chord-in-progression"><span class="chord-name" data-original="C">C</span><span class="chord-time">1:48</span></span></div></div>
-<div class="chord-lyric-line"><div class="chord-progression"><span class="chord-in-progression"><span class="chord-name" data-original="G">G</span><span class="chord-time">1:51</span></span><span class="chord-in-progression"><span class="chord-name" data-original="G7">G7</span><span class="chord-time">1:55</span></span><span class="chord-in-progression"><span class="chord-name" data-original="G">G</span><span class="chord-time">2:00</span></span></div></div>
-
+                <!-- YouTube Player (IFrame API controlled) -->
+                <div id="youtube-player-container" class="youtube-player-container">
+                    <div id="youtube-player"></div>
                 </div>
 
-                <!-- YouTube Embed -->
-                <div id="youtube-embed" class="video-container">
-                    <iframe width="100%" height="315"
-                        src="https://www.youtube.com/embed/2t_wyWQpKbQ"
-                        frameborder="0" allowfullscreen loading="lazy"
-                        title="Boppin' Guitar - Legacaster - Topic">
-                    </iframe>
+                <!-- Current chord display -->
+                <div class="current-chord-display">
+                    <div class="current-chord-label">Now Playing</div>
+                    <div class="current-chord chord-name" id="current-chord">-</div>
                 </div>
 
-                <!-- Interactive CTA -->
-                <div class="chord-finder-cta-box">
-                    <h3>Want real-time chord sync with this video?</h3>
-                    <p>Use our interactive Chord Finder for beat-by-beat chord tracking with audio playback.</p>
-                    <a href="/chord-finder.html?v=2t_wyWQpKbQ" class="btn">Open in Chord Finder</a>
+                <!-- Chord timeline (populated by chord-page-player.js) -->
+                <div class="chord-timeline-wrapper">
+                    <div class="chord-timeline" id="chord-timeline"></div>
                 </div>
 
                 <!-- Share Buttons -->
@@ -275,8 +263,13 @@
     </footer>
 
 
+    <!-- Chord data for player -->
+    <script>
+    window.CHORD_DATA = [{"time":5.74,"chord":"G","duration":5.56},{"time":11.3,"chord":"Gm","duration":6.94},{"time":18.24,"chord":"C","duration":3.15},{"time":21.39,"chord":"G","duration":17.04},{"time":40,"chord":"Gm","duration":2.5},{"time":42.5,"chord":"C","duration":2.96},{"time":45.46,"chord":"G","duration":2.96},{"time":48.43,"chord":"C","duration":2.96},{"time":51.39,"chord":"G","duration":1.02},{"time":52.41,"chord":"G7","duration":2.13},{"time":54.54,"chord":"C","duration":2.96},{"time":57.5,"chord":"G","duration":16.57},{"time":74.07,"chord":"Cm","duration":4.91},{"time":78.98,"chord":"C","duration":2.22},{"time":81.2,"chord":"F","duration":0.46},{"time":81.67,"chord":"G","duration":2.96},{"time":84.63,"chord":"C","duration":3.24},{"time":87.87,"chord":"G","duration":2.13},{"time":90,"chord":"Gm","duration":6.57},{"time":96.57,"chord":"C","duration":3.43},{"time":100,"chord":"G","duration":2.87},{"time":102.87,"chord":"C","duration":2.87},{"time":105.74,"chord":"G","duration":3.06},{"time":108.8,"chord":"C","duration":3.15},{"time":111.94,"chord":"G","duration":3.43},{"time":115.37,"chord":"G7","duration":4.63},{"time":120,"chord":"G","duration":4.91}];
+    window.YOUTUBE_VIDEO_ID = '2t_wyWQpKbQ';
+    </script>
     <script src="/js/main.js"></script>
-    <script src="/js/songs.js"></script>
+    <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>
 </body>

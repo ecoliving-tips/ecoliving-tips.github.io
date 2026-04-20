@@ -2721,14 +2721,6 @@ footer {
     color: var(--primary);
 }
 
-.chord-time {
-    display: block;
-    font-size: 0.7rem;
-    color: var(--text-muted);
-    font-weight: 400;
-    margin-top: 2px;
-}
-
 .chord-finder-cta-box {
     background: linear-gradient(135deg, rgba(108, 60, 225, 0.1), rgba(236, 72, 153, 0.1));
     border: 1px solid rgba(108, 60, 225, 0.3);

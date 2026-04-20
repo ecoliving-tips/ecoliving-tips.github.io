@@ -974,56 +974,6 @@ function generateHomepageFeaturedSongs(songs) {
     fs.writeFileSync(indexHtmlPath, html);
 }
 
-/**
- * Pre-render "Recently Analyzed" AI chord cards on homepage.
- * Uses marker comments: RECENT_AI_CHORDS_START / RECENT_AI_CHORDS_END
- */
-function generateHomepageRecentAIChords(aiChordPages) {
-    const indexHtmlPath = path.join(ROOT, 'index.html');
-    let html = fs.readFileSync(indexHtmlPath, 'utf-8');
-
-    let sectionHtml = '';
-    if (aiChordPages.length > 0) {
-        const recent = aiChordPages.slice(0, 6); // Show up to 6 recent
-        const cards = recent.map(entry => {
-            const title = escapeHtml(entry.title || 'Unknown Song');
-            const artist = escapeHtml(entry.artist || 'Unknown Artist');
-            const chordCount = entry.chords?.chords?.length || 0;
-            return `<div class="song-card">
-                    <h3>${title}</h3>
-                    <p class="artist">${artist}</p>
-                    <div class="song-card-meta">
-                        <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> ${chordCount} chords</span>
-                    </div>
-                    <div class="song-card-actions">
-                        <a href="/chords/${entry.slug}/" class="btn">View Chords</a>
-                    </div>
-                </div>`;
-        }).join('\n');
-
-        sectionHtml = `
-        <section class="songs-section recent-ai-section">
-            <div class="container">
-                <h2>Recently Analyzed Songs</h2>
-                <p class="section-subtitle">AI-detected chord progressions from user analyses</p>
-                <div class="songs-grid">
-${cards}
-                </div>
-                <div class="songs-cta">
-                    <a href="/chord-finder.html" class="btn">Analyze Your Song</a>
-                </div>
-            </div>
-        </section>`;
-    }
-
-    html = html.replace(
-        /<!-- RECENT_AI_CHORDS_START -->[\s\S]*?<!-- RECENT_AI_CHORDS_END -->/,
-        `<!-- RECENT_AI_CHORDS_START -->${sectionHtml}\n        <!-- RECENT_AI_CHORDS_END -->`
-    );
-
-    fs.writeFileSync(indexHtmlPath, html);
-}
-
 // ===== AI-Generated Chord Pages (Supabase → Static HTML) =====
 
 const SUPABASE_URL = 'https://jfnccekkhffonkjkmxyf.supabase.co';
@@ -1078,48 +1028,6 @@ function deduplicateBySlug(entries) {
         }
     }
     return Object.values(bySlug);
-}
-
-/**
- * Convert chord events [{chord, time, duration}, ...] into a static chord sheet.
- * Groups chords into lines of ~4 chords each for readable display.
- */
-function formatChordSheet(chordsData) {
-    const events = chordsData?.chords || [];
-    if (!events.length) return '<p>No chords detected.</p>';
-
-    // Merge consecutive duplicates
-    const merged = [];
-    for (const evt of events) {
-        const last = merged[merged.length - 1];
-        if (last && last.chord === evt.chord) {
-            last.duration += evt.duration;
-        } else {
-            merged.push({ ...evt });
-        }
-    }
-
-    // Group into lines of 4 chords
-    const CHORDS_PER_LINE = 4;
-    let html = '';
-    for (let i = 0; i < merged.length; i += CHORDS_PER_LINE) {
-        const lineChords = merged.slice(i, i + CHORDS_PER_LINE);
-        html += '<div class="chord-lyric-line"><div class="chord-progression">';
-        for (const evt of lineChords) {
-            const time = formatTimestamp(evt.time);
-            html += `<span class="chord-in-progression"><span class="chord-name" data-original="${escapeHtml(evt.chord)}">${escapeHtml(evt.chord)}</span><span class="chord-time">${time}</span></span>`;
-        }
-        html += '</div></div>\n';
-    }
-    return html;
-}
-
-/** Format seconds as m:ss */
-function formatTimestamp(seconds) {
-    if (seconds == null || isNaN(seconds)) return '0:00';
-    const m = Math.floor(seconds / 60);
-    const s = Math.floor(seconds % 60);
-    return `${m}:${s.toString().padStart(2, '0')}`;
 }
 
 /**
@@ -1188,14 +1096,10 @@ function generateChordsPage(entry, templates) {
     // Meta bar — only chord count, no key/time since backend doesn't provide them
     const metaBar = `<span class="meta-pill"><span class="meta-label">Chords</span> ${chordCount} detected</span>`;
 
-    // YouTube embed
+    // YouTube embed — controllable player container (not static iframe)
     const youtubeEmbed = videoId
-        ? `<div id="youtube-embed" class="video-container">
-                    <iframe width="100%" height="315"
-                        src="https://www.youtube.com/embed/${videoId}"
-                        frameborder="0" allowfullscreen loading="lazy"
-                        title="${escapeHtml(title)} - ${escapeHtml(artist)}">
-                    </iframe>
+        ? `<div id="youtube-player-container" class="youtube-player-container">
+                    <div id="youtube-player"></div>
                 </div>`
         : '';
 
@@ -1205,8 +1109,8 @@ function generateChordsPage(entry, templates) {
         .map(c => `<span class="chord-badge" data-original="${escapeHtml(c)}">${escapeHtml(c)}</span>`)
         .join('\n                        ');
 
-    // Chord sheet
-    const chordSheet = formatChordSheet(entry.chords);
+    // Chord data as JSON for client-side player
+    const chordDataJson = JSON.stringify(entry.chords?.chords || []);
 
     // Assemble
     let page = chordsPage;
@@ -1229,9 +1133,9 @@ function generateChordsPage(entry, templates) {
         .replace(/\{\{KEY\}\}/g, '')
         .replace('{{META_BAR}}', metaBar)
         .replace('{{CHORDS_USED}}', chordsUsedHtml)
-        .replace('{{CHORD_SHEET}}', chordSheet)
         .replace('{{YOUTUBE_EMBED}}', youtubeEmbed)
         .replace(/\{\{VIDEO_ID\}\}/g, escapeHtml(videoId))
+        .replace('{{CHORD_DATA_JSON}}', chordDataJson)
         .replace('{{STRUCTURED_DATA}}', structuredData);
 
     const outDir = path.join(ROOT, 'chords', slug);
@@ -1339,12 +1243,6 @@ async function main() {
     // Pre-render homepage featured songs
     generateHomepageFeaturedSongs(songs);
     console.log(`Pre-rendered index.html with ${Math.min(songs.length, 3)} featured song cards.`);
-
-    // Pre-render homepage recent AI chord analyses
-    generateHomepageRecentAIChords(aiChordPages);
-    if (aiChordPages.length > 0) {
-        console.log(`Pre-rendered index.html with ${Math.min(aiChordPages.length, 6)} recent AI chord cards.`);
-    }
 
     // Summary
     console.log('\n--- Build Summary ---');
