@@ -15,6 +15,7 @@ const API_TIMEOUT_MS = 300_000; // 5 minutes
 const SUPABASE_URL = 'https://jfnccekkhffonkjkmxyf.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_KJA4VzMAjt2WVEEg0JKMfg_lDrABAZK';
 const MODEL_VERSION = 'btc-v1';
+const BASE_URL = 'https://ecoliving-tips.github.io';
 
 // Lazy Supabase singleton — created on first use, reused everywhere
 let _supabaseClient = null;
@@ -23,6 +24,72 @@ function getSupabase() {
         _supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     }
     return _supabaseClient;
+}
+
+// ---------------------------------------------------------------------------
+// YouTube metadata — oEmbed API (no key needed) for title/artist extraction
+// ---------------------------------------------------------------------------
+
+/** Fetch video title & channel name from YouTube oEmbed (free, no API key). */
+async function fetchYouTubeMetadata(videoId) {
+    try {
+        const url = `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`;
+        const resp = await fetch(url);
+        if (!resp.ok) return null;
+        const data = await resp.json();
+        return { videoTitle: data.title || '', channelName: data.author_name || '' };
+    } catch {
+        return null;
+    }
+}
+
+/**
+ * Parse a YouTube video title into artist + song title.
+ * Handles patterns: "Artist - Song (Official Video)", "Song | Artist", etc.
+ */
+function parseYouTubeTitle(videoTitle, channelName) {
+    let title = videoTitle || '';
+    const original = title;
+
+    // Strip common suffixes/noise
+    const noise = [
+        /\s*[\(\[](?:official\s*(?:music\s*)?video|official\s*audio|lyric(?:s|al)?\s*video|audio|hd|hq|full\s*song|4k|remastered|visuali[sz]er|with\s*lyrics)[\)\]]/gi,
+        /\s*\|\s*(?:official\s*(?:music\s*)?video|official\s*audio|lyric(?:s)?\s*video|audio|hd|hq|full\s*song)\s*$/gi,
+        /\s*#\w+/g, // hashtags
+    ];
+    for (const re of noise) title = title.replace(re, '');
+    title = title.trim();
+
+    // Try splitting on common separators: " - ", " – ", " — ", " | "
+    const separators = [' - ', ' – ', ' — ', ' | '];
+    for (const sep of separators) {
+        const idx = title.indexOf(sep);
+        if (idx > 0 && idx < title.length - sep.length) {
+            const left = title.substring(0, idx).trim();
+            const right = title.substring(idx + sep.length).trim();
+            // Heuristic: if channel name matches one side, that's the artist
+            const chanLower = channelName.toLowerCase();
+            if (right.toLowerCase().includes(chanLower) || chanLower.includes(right.toLowerCase())) {
+                return { artist: right, title: left };
+            }
+            // Default: left = artist, right = title (most common YouTube pattern)
+            return { artist: left, title: right };
+        }
+    }
+
+    // No separator found — use channel name as artist, full title as song
+    return { artist: channelName || 'Unknown Artist', title: title || original };
+}
+
+/** Generate a URL-safe slug from artist + title. */
+function generateSlug(artist, title) {
+    const raw = `${artist} ${title}`;
+    return raw
+        .toLowerCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')  // strip diacritics
+        .replace(/[^a-z0-9]+/g, '-')                        // non-alphanum → dash
+        .replace(/-+/g, '-')                                 // collapse dashes
+        .replace(/^-|-$/g, '');                              // trim dashes
 }
 
 // ---------------------------------------------------------------------------
@@ -665,8 +732,28 @@ async function handleGenerate() {
         chordData = result;
         currentTranspose = 0;
 
-        // Cache store — YouTube URLs only (fire-and-forget)
-        if (videoId) storeChordCache(videoId, result);
+        // Cache store + metadata enrichment — YouTube URLs only (fire-and-forget)
+        if (videoId) {
+            // Fetch metadata in parallel — don't block results display
+            fetchYouTubeMetadata(videoId).then(meta => {
+                let metadata = null;
+                if (meta) {
+                    const parsed = parseYouTubeTitle(meta.videoTitle, meta.channelName);
+                    const slug = generateSlug(parsed.artist, parsed.title);
+                    metadata = {
+                        title: parsed.title,
+                        artist: parsed.artist,
+                        slug,
+                        youtubeTitle: meta.videoTitle,
+                    };
+                    // Show share link in UI
+                    showShareLink(slug, parsed.title, parsed.artist);
+                }
+                storeChordCache(videoId, result, metadata);
+            }).catch(() => {
+                storeChordCache(videoId, result, null);
+            });
+        }
 
         setProgressStep('done');
         showResults();
@@ -757,6 +844,44 @@ function hideResults() {
     }
     // Clean up YouTube player
     destroyYouTubePlayer();
+    // Hide share link
+    const shareContainer = document.getElementById('share-link-container');
+    if (shareContainer) shareContainer.style.display = 'none';
+}
+
+/** Show a shareable permanent link to the chord page (only for YouTube analyses). */
+function showShareLink(slug, title, artist) {
+    if (!slug) return;
+    const container = document.getElementById('share-link-container');
+    if (!container) return;
+    const url = `${BASE_URL}/chords/${slug}/`;
+    // Build via DOM to avoid XSS from YouTube titles
+    container.textContent = '';
+    const wrapper = document.createElement('div');
+    wrapper.className = 'share-link-content';
+    const label = document.createElement('span');
+    label.className = 'share-link-label';
+    label.textContent = 'Share this chord sheet:';
+    const link = document.createElement('a');
+    link.href = url;
+    link.className = 'share-link-url';
+    link.target = '_blank';
+    link.textContent = `${artist} — ${title}`;
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'btn btn-sm share-link-copy';
+    btn.textContent = 'Copy Link';
+    btn.addEventListener('click', () => copyShareLink(url));
+    wrapper.append(label, link, btn);
+    container.appendChild(wrapper);
+    container.style.display = '';
+}
+
+function copyShareLink(url) {
+    navigator.clipboard.writeText(url).then(() => {
+        const btn = document.querySelector('.share-link-copy');
+        if (btn) { btn.textContent = 'Copied!'; setTimeout(() => { btn.textContent = 'Copy Link'; }, 2000); }
+    }).catch(() => {});
 }
 
 // ---------------------------------------------------------------------------
@@ -1262,18 +1387,26 @@ async function checkChordCache(videoId) {
     }
 }
 
-function storeChordCache(videoId, result) {
+function storeChordCache(videoId, result, metadata) {
     try {
         const sb = getSupabase();
         if (!sb) return;
+        const row = {
+            video_id: videoId,
+            chords: result,
+            model_version: MODEL_VERSION,
+            processing_time_ms: result.processing_time_ms || null,
+        };
+        // Enrich with parsed metadata for SEO page generation
+        if (metadata) {
+            row.title = metadata.title || null;
+            row.artist = metadata.artist || null;
+            row.slug = metadata.slug || null;
+            row.youtube_title = metadata.youtubeTitle || null;
+        }
         sb.from('generated_chords')
-            .upsert({
-                video_id: videoId,
-                chords: result,
-                model_version: MODEL_VERSION,
-                processing_time_ms: result.processing_time_ms || null,
-            }, { onConflict: 'video_id' })
-            .then(() => console.log(`[Cache] Stored for ${videoId}`))
+            .upsert(row, { onConflict: 'video_id' })
+            .then(() => console.log(`[Cache] Stored for ${videoId}${metadata?.slug ? ` (slug: ${metadata.slug})` : ''}`))
             .catch(() => {});
     } catch { /* never disrupt user flow */ }
 }

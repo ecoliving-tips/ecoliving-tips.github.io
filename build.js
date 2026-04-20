@@ -283,6 +283,7 @@ function loadTemplates() {
         categoryPage: read('category-page.html'),
         artistPage: read('artist-page.html'),
         progressionPage: read('progression-page.html'),
+        chordsPage: read('chords-page.html'),
     };
 }
 
@@ -798,7 +799,7 @@ function generateProgressionPages(templates) {
 // ===== Sitemap Generator =====
 
 
-function generateSitemap(songs, categories, artists, progressionKeys) {
+function generateSitemap(songs, categories, artists, progressionKeys, aiChordPages) {
     const staticPages = [
         { loc: '/', changefreq: 'weekly', priority: '1.0', file: 'index.html' },
         { loc: '/songs.html', changefreq: 'weekly', priority: '0.9', file: 'songs.html' },
@@ -893,6 +894,20 @@ function generateSitemap(songs, categories, artists, progressionKeys) {
         }
     }
 
+    // AI-generated chord pages
+    if (aiChordPages) {
+        for (const entry of aiChordPages) {
+            const fullUrl = `${BASE_URL}/chords/${entry.slug}/`;
+            const lastmod = entry.created_at ? entry.created_at.split('T')[0] : today;
+            xml += `  <url>\n`;
+            xml += `    <loc>${fullUrl}</loc>\n`;
+            xml += `    <lastmod>${lastmod}</lastmod>\n`;
+            xml += `    <changefreq>monthly</changefreq>\n`;
+            xml += `    <priority>0.75</priority>\n`;
+            xml += `  </url>\n\n`;
+        }
+    }
+
     xml += '</urlset>\n';
     fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), xml);
 }
@@ -959,9 +974,274 @@ function generateHomepageFeaturedSongs(songs) {
     fs.writeFileSync(indexHtmlPath, html);
 }
 
+/**
+ * Pre-render "Recently Analyzed" AI chord cards on homepage.
+ * Uses marker comments: RECENT_AI_CHORDS_START / RECENT_AI_CHORDS_END
+ */
+function generateHomepageRecentAIChords(aiChordPages) {
+    const indexHtmlPath = path.join(ROOT, 'index.html');
+    let html = fs.readFileSync(indexHtmlPath, 'utf-8');
+
+    let sectionHtml = '';
+    if (aiChordPages.length > 0) {
+        const recent = aiChordPages.slice(0, 6); // Show up to 6 recent
+        const cards = recent.map(entry => {
+            const title = escapeHtml(entry.title || 'Unknown Song');
+            const artist = escapeHtml(entry.artist || 'Unknown Artist');
+            const chordCount = entry.chords?.chords?.length || 0;
+            return `<div class="song-card">
+                    <h3>${title}</h3>
+                    <p class="artist">${artist}</p>
+                    <div class="song-card-meta">
+                        <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> ${chordCount} chords</span>
+                    </div>
+                    <div class="song-card-actions">
+                        <a href="/chords/${entry.slug}/" class="btn">View Chords</a>
+                    </div>
+                </div>`;
+        }).join('\n');
+
+        sectionHtml = `
+        <section class="songs-section recent-ai-section">
+            <div class="container">
+                <h2>Recently Analyzed Songs</h2>
+                <p class="section-subtitle">AI-detected chord progressions from user analyses</p>
+                <div class="songs-grid">
+${cards}
+                </div>
+                <div class="songs-cta">
+                    <a href="/chord-finder.html" class="btn">Analyze Your Song</a>
+                </div>
+            </div>
+        </section>`;
+    }
+
+    html = html.replace(
+        /<!-- RECENT_AI_CHORDS_START -->[\s\S]*?<!-- RECENT_AI_CHORDS_END -->/,
+        `<!-- RECENT_AI_CHORDS_START -->${sectionHtml}\n        <!-- RECENT_AI_CHORDS_END -->`
+    );
+
+    fs.writeFileSync(indexHtmlPath, html);
+}
+
+// ===== AI-Generated Chord Pages (Supabase → Static HTML) =====
+
+const SUPABASE_URL = 'https://jfnccekkhffonkjkmxyf.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_KJA4VzMAjt2WVEEg0JKMfg_lDrABAZK';
+
+/**
+ * Fetch all generated chord entries that have metadata (slug != null) from Supabase.
+ * Uses Node 18+ built-in fetch — no npm dependencies.
+ */
+async function fetchGeneratedChords() {
+    // Try fetching with full metadata columns first; fall back to basic columns
+    const columns = 'video_id,title,artist,slug,chords,created_at,youtube_title';
+    const url = `${SUPABASE_URL}/rest/v1/generated_chords?select=${columns}&slug=not.is.null&order=created_at.desc`;
+    const headers = {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`,
+    };
+    try {
+        const resp = await fetch(url, { headers });
+        if (resp.ok) {
+            const data = await resp.json();
+            console.log(`[Supabase] Fetched ${data.length} generated chord entries with metadata.`);
+            return data;
+        }
+        // If 400 (columns don't exist yet), return empty — user needs to run schema migration
+        if (resp.status === 400) {
+            console.warn('[Supabase] Metadata columns not found — run the schema migration SQL first.');
+            console.warn('[Supabase] Skipping AI chord page generation (0 entries with metadata).');
+            return [];
+        }
+        console.warn(`[Supabase] Failed to fetch generated chords: HTTP ${resp.status}`);
+        return [];
+    } catch (err) {
+        console.warn(`[Supabase] Error fetching generated chords: ${err.message}`);
+        return [];
+    }
+}
+
+/**
+ * Deduplicate entries by slug — same song from different YouTube uploads
+ * gets one canonical page. Picks the entry with most chord events (better analysis).
+ */
+function deduplicateBySlug(entries) {
+    const SLUG_RE = /^[a-z0-9-]+$/;
+    const bySlug = {};
+    for (const entry of entries) {
+        if (!entry.slug || !SLUG_RE.test(entry.slug)) continue; // skip invalid slugs
+        const chordCount = entry.chords?.chords?.length || 0;
+        const existing = bySlug[entry.slug];
+        if (!existing || chordCount > (existing.chords?.chords?.length || 0)) {
+            bySlug[entry.slug] = entry;
+        }
+    }
+    return Object.values(bySlug);
+}
+
+/**
+ * Convert chord events [{chord, time, duration}, ...] into a static chord sheet.
+ * Groups chords into lines of ~4 chords each for readable display.
+ */
+function formatChordSheet(chordsData) {
+    const events = chordsData?.chords || [];
+    if (!events.length) return '<p>No chords detected.</p>';
+
+    // Merge consecutive duplicates
+    const merged = [];
+    for (const evt of events) {
+        const last = merged[merged.length - 1];
+        if (last && last.chord === evt.chord) {
+            last.duration += evt.duration;
+        } else {
+            merged.push({ ...evt });
+        }
+    }
+
+    // Group into lines of 4 chords
+    const CHORDS_PER_LINE = 4;
+    let html = '';
+    for (let i = 0; i < merged.length; i += CHORDS_PER_LINE) {
+        const lineChords = merged.slice(i, i + CHORDS_PER_LINE);
+        html += '<div class="chord-lyric-line"><div class="chord-progression">';
+        for (const evt of lineChords) {
+            const time = formatTimestamp(evt.time);
+            html += `<span class="chord-in-progression"><span class="chord-name" data-original="${escapeHtml(evt.chord)}">${escapeHtml(evt.chord)}</span><span class="chord-time">${time}</span></span>`;
+        }
+        html += '</div></div>\n';
+    }
+    return html;
+}
+
+/** Format seconds as m:ss */
+function formatTimestamp(seconds) {
+    if (seconds == null || isNaN(seconds)) return '0:00';
+    const m = Math.floor(seconds / 60);
+    const s = Math.floor(seconds % 60);
+    return `${m}:${s.toString().padStart(2, '0')}`;
+}
+
+/**
+ * Extract unique chord names from chord events, preserving first-occurrence order.
+ */
+function extractUniqueChords(chordsData) {
+    const events = chordsData?.chords || [];
+    const seen = new Set();
+    const unique = [];
+    for (const evt of events) {
+        if (!seen.has(evt.chord)) {
+            seen.add(evt.chord);
+            unique.push(evt.chord);
+        }
+    }
+    return unique;
+}
+
+/**
+ * Extract YouTube video ID from a standard YouTube URL.
+ */
+function extractVideoIdFromEntry(entry) {
+    return entry.video_id || '';
+}
+
+/**
+ * Generate a static AI chord page at /chords/{slug}/index.html
+ */
+function generateChordsPage(entry, templates) {
+    const { partials, chordsPage } = templates;
+    const title = entry.title || 'Unknown Song';
+    const artist = entry.artist || 'Unknown Artist';
+    const slug = entry.slug;
+    const videoId = extractVideoIdFromEntry(entry);
+    const canonicalUrl = `${BASE_URL}/chords/${slug}/`;
+    const chordCount = entry.chords?.chords?.length || 0;
+
+    const pageTitle = `${title} Chords - ${artist} | Swaram`;
+    const pageDesc = `Free ${title} chords by ${artist}. AI-detected chord progression with ${chordCount} chords. Guitar and keyboard chord chart with video.`;
+    const keywords = `${title} chords, ${artist} chords, ${title} guitar chords, ${title} keyboard chords, ${title} chord progression, AI chord detection`;
+
+    // Structured data
+    const sdObj = {
+        "@context": "https://schema.org",
+        "@type": "MusicComposition",
+        "name": title,
+        "composer": { "@type": "Person", "name": artist },
+        "url": canonicalUrl,
+        "description": pageDesc,
+    };
+
+    const breadcrumbObj = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": `${BASE_URL}/` },
+            { "@type": "ListItem", "position": 2, "name": "Chord Finder", "item": `${BASE_URL}/chord-finder.html` },
+            { "@type": "ListItem", "position": 3, "name": `${title} Chords`, "item": canonicalUrl }
+        ]
+    };
+
+    const structuredData = JSON.stringify(sdObj, null, 2) +
+        '\n    </script>\n\n    <script type="application/ld+json">\n    ' +
+        JSON.stringify(breadcrumbObj, null, 2);
+
+    // Meta bar — only chord count, no key/time since backend doesn't provide them
+    const metaBar = `<span class="meta-pill"><span class="meta-label">Chords</span> ${chordCount} detected</span>`;
+
+    // YouTube embed
+    const youtubeEmbed = videoId
+        ? `<div id="youtube-embed" class="video-container">
+                    <iframe width="100%" height="315"
+                        src="https://www.youtube.com/embed/${videoId}"
+                        frameborder="0" allowfullscreen loading="lazy"
+                        title="${escapeHtml(title)} - ${escapeHtml(artist)}">
+                    </iframe>
+                </div>`
+        : '';
+
+    // Unique chords
+    const uniqueChords = extractUniqueChords(entry.chords);
+    const chordsUsedHtml = uniqueChords
+        .map(c => `<span class="chord-badge" data-original="${escapeHtml(c)}">${escapeHtml(c)}</span>`)
+        .join('\n                        ');
+
+    // Chord sheet
+    const chordSheet = formatChordSheet(entry.chords);
+
+    // Assemble
+    let page = chordsPage;
+    page = fillHead(page, partials, {
+        TITLE: escapeHtml(pageTitle),
+        DESCRIPTION: escapeHtml(pageDesc),
+        KEYWORDS: escapeHtml(keywords),
+        CANONICAL_URL: canonicalUrl,
+        OG_TITLE: escapeHtml(pageTitle),
+        OG_DESCRIPTION: escapeHtml(pageDesc),
+        OG_URL: canonicalUrl,
+        TWITTER_TITLE: escapeHtml(pageTitle),
+        TWITTER_DESCRIPTION: escapeHtml(pageDesc),
+        EXTRA_HEAD: '',
+    });
+    page = fillPartials(page, partials);
+    page = page
+        .replace(/\{\{SONG_TITLE\}\}/g, escapeHtml(title))
+        .replace(/\{\{ARTIST\}\}/g, escapeHtml(artist))
+        .replace(/\{\{KEY\}\}/g, '')
+        .replace('{{META_BAR}}', metaBar)
+        .replace('{{CHORDS_USED}}', chordsUsedHtml)
+        .replace('{{CHORD_SHEET}}', chordSheet)
+        .replace('{{YOUTUBE_EMBED}}', youtubeEmbed)
+        .replace(/\{\{VIDEO_ID\}\}/g, escapeHtml(videoId))
+        .replace('{{STRUCTURED_DATA}}', structuredData);
+
+    const outDir = path.join(ROOT, 'chords', slug);
+    mkdirp(outDir);
+    fs.writeFileSync(path.join(outDir, 'index.html'), page);
+}
+
 // ===== Main =====
 
-function main() {
+async function main() {
     console.log('Swaram Build - Starting...\n');
 
     // Load templates
@@ -1034,9 +1314,22 @@ function main() {
     const progressionKeys = generateProgressionPages(templates);
     console.log(`Generated ${progressionKeys.length} chord progression key pages.`);
 
+    // Generate AI chord pages from Supabase
+    let aiChordPages = [];
+    try {
+        const generatedChords = await fetchGeneratedChords();
+        aiChordPages = deduplicateBySlug(generatedChords);
+        for (const entry of aiChordPages) {
+            generateChordsPage(entry, templates);
+        }
+        console.log(`Generated ${aiChordPages.length} AI chord pages (from ${generatedChords.length} Supabase entries).`);
+    } catch (err) {
+        console.warn(`[AI Chords] Skipped: ${err.message}`);
+    }
+
     // Generate sitemap
-    generateSitemap(songs, allCategories, allArtists, progressionKeys);
-    const totalUrls = 5 + songs.length * 2 + allCategories.length + allArtists.length + progressionKeys.length;
+    generateSitemap(songs, allCategories, allArtists, progressionKeys, aiChordPages);
+    const totalUrls = 5 + songs.length * 2 + allCategories.length + allArtists.length + progressionKeys.length + aiChordPages.length;
     console.log(`Sitemap generated with ${totalUrls} URLs.`);
 
     // Pre-render songs.html
@@ -1047,6 +1340,12 @@ function main() {
     generateHomepageFeaturedSongs(songs);
     console.log(`Pre-rendered index.html with ${Math.min(songs.length, 3)} featured song cards.`);
 
+    // Pre-render homepage recent AI chord analyses
+    generateHomepageRecentAIChords(aiChordPages);
+    if (aiChordPages.length > 0) {
+        console.log(`Pre-rendered index.html with ${Math.min(aiChordPages.length, 6)} recent AI chord cards.`);
+    }
+
     // Summary
     console.log('\n--- Build Summary ---');
     console.log(`Song pages:     ${songPagesCount}`);
@@ -1054,8 +1353,9 @@ function main() {
     console.log(`Category pages: ${allCategories.length}`);
     console.log(`Artist pages:   ${allArtists.length}`);
     console.log(`Progression pages: ${progressionKeys.length}`);
+    console.log(`AI chord pages: ${aiChordPages.length}`);
     console.log(`Sitemap URLs:   ${totalUrls}`);
     console.log('Build complete!');
 }
 
-main();
+main().catch(err => { console.error(err); process.exit(1); });

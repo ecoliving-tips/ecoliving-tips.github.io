@@ -2675,6 +2675,123 @@ footer {
     }
 }
 
+/* ===== AI Chord Pages ===== */
+
+.chords-page-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.meta-pill-ai {
+    background: rgba(16, 185, 129, 0.1);
+    border-color: #10b981;
+    color: #10b981;
+}
+
+.chords-used-section {
+    margin: 1.5rem 0;
+}
+
+.chords-used-section h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--text);
+}
+
+.chords-used-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.chord-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 3rem;
+    padding: 0.4rem 0.75rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--primary);
+}
+
+.chord-time {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-weight: 400;
+    margin-top: 2px;
+}
+
+.chord-finder-cta-box {
+    background: linear-gradient(135deg, rgba(108, 60, 225, 0.1), rgba(236, 72, 153, 0.1));
+    border: 1px solid rgba(108, 60, 225, 0.3);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.chord-finder-cta-box h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.chord-finder-cta-box p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+/* ===== Chord Finder Share Link ===== */
+
+.share-link-container {
+    margin: 1rem 0;
+    padding: 0.75rem 1rem;
+    background: rgba(108, 60, 225, 0.08);
+    border: 1px solid rgba(108, 60, 225, 0.2);
+    border-radius: var(--radius-sm);
+}
+
+.share-link-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.share-link-label {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+.share-link-url {
+    color: var(--primary);
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 300px;
+}
+
+.share-link-url:hover {
+    text-decoration: underline;
+}
+
+.share-link-copy {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.75rem;
+}
+
 /* ===== PWA Install Banner ===== */
 
 .pwa-install-banner {
