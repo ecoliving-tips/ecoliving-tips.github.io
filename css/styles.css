@@ -2566,13 +2566,13 @@ footer {
     padding: 0.65rem 1.5rem;
 }
 
-.btn-secondary {
+.generate-actions .btn-secondary {
     background: var(--bg-card);
     border: 1px solid var(--border);
     color: var(--text);
 }
 
-.btn-secondary:hover {
+.generate-actions .btn-secondary:hover {
     background: var(--bg-card-hover);
     border-color: var(--primary);
 }
