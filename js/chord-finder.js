@@ -72,14 +72,23 @@ function parseYouTubeTitle(videoTitle, channelName) {
     return { artist, title: title || original };
 }
 
-/** Generate a URL-safe slug from cleaned YouTube title. Falls back to videoId for non-Latin titles. */
-function generateSlug(title, videoId) {
-    const slug = title
+/** Generate a URL-safe slug from title + artist. Falls back to videoId for non-Latin titles. */
+function generateSlug(title, artist, videoId) {
+    const slugify = (s) => (s || '')
         .toLowerCase()
-        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')  // strip diacritics
-        .replace(/[^a-z0-9]+/g, '-')                        // non-alphanum → dash
-        .replace(/-+/g, '-')                                 // collapse dashes
-        .replace(/^-|-$/g, '');                              // trim dashes
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-|-$/g, '');
+
+    let slug = slugify(title);
+    const artistSlug = slugify(artist);
+
+    // Append artist if not already part of the title slug (prevents collisions)
+    if (slug && artistSlug && !slug.includes(artistSlug)) {
+        slug = slug + '-' + artistSlug;
+    }
+
     return slug || videoId || 'unknown';
 }
 
@@ -730,7 +739,7 @@ async function handleGenerate() {
                 let metadata = null;
                 if (meta) {
                     const parsed = parseYouTubeTitle(meta.videoTitle, meta.channelName);
-                    const slug = generateSlug(parsed.title, videoId);
+                    const slug = generateSlug(parsed.title, parsed.artist, videoId);
                     metadata = {
                         title: parsed.title,
                         artist: parsed.artist,

@@ -74,13 +74,22 @@ function parseYouTubeTitle(videoTitle, channelName) {
     return { artist, title: title || original };
 }
 
-function generateSlug(title, videoId) {
-    const slug = title
+function generateSlug(title, artist, videoId) {
+    const slugify = (s) => (s || '')
         .toLowerCase()
         .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/-+/g, '-')
         .replace(/^-|-$/g, '');
+
+    let slug = slugify(title);
+    const artistSlug = slugify(artist);
+
+    // Append artist if not already part of the title slug (prevents collisions)
+    if (slug && artistSlug && !slug.includes(artistSlug)) {
+        slug = slug + '-' + artistSlug;
+    }
+
     return slug || videoId || 'unknown';
 }
 
@@ -110,7 +119,7 @@ async function main() {
         }
 
         const parsed = parseYouTubeTitle(meta.title, meta.author_name);
-        const slug = generateSlug(parsed.title, vid);
+        const slug = generateSlug(parsed.title, parsed.artist, vid);
 
         await supabaseUpdate(vid, {
             title: parsed.title,
