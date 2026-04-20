@@ -1017,7 +1017,7 @@ async function fetchGeneratedChords() {
  * gets one canonical page. Picks the entry with most chord events (better analysis).
  */
 function deduplicateBySlug(entries) {
-    const SLUG_RE = /^[a-z0-9-]+$/;
+    const SLUG_RE = /^[a-zA-Z0-9_-]+$/;
     const bySlug = {};
     for (const entry of entries) {
         if (!entry.slug || !SLUG_RE.test(entry.slug)) continue; // skip invalid slugs
@@ -1065,9 +1065,9 @@ function generateChordsPage(entry, templates) {
     const canonicalUrl = `${BASE_URL}/chords/${slug}/`;
     const chordCount = entry.chords?.chords?.length || 0;
 
-    const pageTitle = `${title} Chords - ${artist} | Swaram`;
-    const pageDesc = `Free ${title} chords by ${artist}. AI-detected chord progression with ${chordCount} chords. Guitar and keyboard chord chart with video.`;
-    const keywords = `${title} chords, ${artist} chords, ${title} guitar chords, ${title} keyboard chords, ${title} chord progression, AI chord detection`;
+    const pageTitle = `${title} Chords | Swaram`;
+    const pageDesc = `Free chords for ${title} by ${artist}. AI-detected chord progression with ${chordCount} chords. Guitar and keyboard chord chart with video.`;
+    const keywords = `${title} chords, ${artist} chords, guitar chords, keyboard chords, chord progression, AI chord detection`;
 
     // Structured data
     const sdObj = {

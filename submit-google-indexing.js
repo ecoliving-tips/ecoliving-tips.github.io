@@ -116,8 +116,8 @@ function getAccessToken(jwt) {
 
 // ── Indexing API ──
 
-function submitUrl(url, accessToken) {
-  const body = JSON.stringify({ url, type: 'URL_UPDATED' });
+function submitUrl(url, accessToken, type = 'URL_UPDATED') {
+  const body = JSON.stringify({ url, type });
 
   return new Promise((resolve, reject) => {
     const req = https.request({
@@ -165,7 +165,56 @@ async function main() {
   const accessToken = await getAccessToken(jwt);
   console.log('Authenticated successfully.\n');
 
-  // Get URLs and progress
+  // --remove-dead mode: notify Google about URLs that were submitted but no longer in sitemap
+  if (process.argv.includes('--remove-dead')) {
+    const allUrls = new Set(getUrlsFromSitemap());
+    const progress = loadProgress();
+    const deadUrls = progress.submitted.filter(u => !allUrls.has(u));
+
+    console.log(`Previously submitted: ${progress.submitted.length}`);
+    console.log(`Currently in sitemap: ${allUrls.size}`);
+    console.log(`Dead URLs to remove:  ${deadUrls.length}\n`);
+
+    if (deadUrls.length === 0) {
+      console.log('No dead URLs found. Nothing to do.');
+      return;
+    }
+
+    const batch = deadUrls.slice(0, DAILY_QUOTA);
+    console.log(`Sending URL_DELETED for ${batch.length} URLs...\n`);
+
+    let ok = 0, fail = 0;
+    for (let i = 0; i < batch.length; i++) {
+      try {
+        const result = await submitUrl(batch[i], accessToken, 'URL_DELETED');
+        if (result.statusCode === 200) {
+          console.log(`[${i + 1}/${batch.length}] DELETED: ${batch[i]}`);
+          ok++;
+          // Remove from submitted list so it won't be re-submitted
+          const idx = progress.submitted.indexOf(batch[i]);
+          if (idx !== -1) progress.submitted.splice(idx, 1);
+        } else {
+          console.log(`[${i + 1}/${batch.length}] FAIL: ${batch[i]}`);
+          fail++;
+        }
+      } catch (err) {
+        console.log(`[${i + 1}/${batch.length}] ERROR: ${batch[i]} — ${err.message}`);
+        fail++;
+      }
+      progress.lastRun = new Date().toISOString();
+      saveProgress(progress);
+      if (i < batch.length - 1) await sleep(1000);
+    }
+
+    console.log(`\n--- Summary ---`);
+    console.log(`Deleted: ${ok}, Failed: ${fail}`);
+    if (deadUrls.length > batch.length) {
+      console.log(`Run again tomorrow for remaining ${deadUrls.length - batch.length} URLs.`);
+    }
+    return;
+  }
+
+  // Default mode: submit new URLs from sitemap
   const allUrls = getUrlsFromSitemap();
   const progress = loadProgress();
   const submittedSet = new Set(progress.submitted);
@@ -204,18 +253,14 @@ async function main() {
         const msg = errorInfo.error?.message || result.body;
         console.log(`[${idx}/${total}] FAIL (${result.statusCode}): ${url} — ${msg}`);
         failCount++;
-        // Don't add to submitted — will retry next run
       }
     } catch (err) {
       console.log(`[${idx}/${total}] ERROR: ${url} — ${err.message}`);
       failCount++;
     }
 
-    // Save progress after each URL (resume-safe)
     progress.lastRun = new Date().toISOString();
     saveProgress(progress);
-
-    // Rate limit: ~1 request/second
     if (i < batch.length - 1) await sleep(1000);
   }
 

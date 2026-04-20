@@ -1,9 +1,10 @@
 /**
- * One-time backfill script — fetches YouTube metadata for existing
- * generated_chords rows that have video_id but no slug.
+ * Backfill script — fetches YouTube metadata for existing
+ * generated_chords rows and populates slug/title/artist fields.
  *
- * Run: node backfill-slugs.js
- * Safe to re-run (skips rows that already have a slug).
+ * Run: node backfill-slugs.js          (only rows without slug)
+ *      node backfill-slugs.js --force   (re-process ALL rows)
+ * Safe to re-run.
  */
 
 const SUPABASE_URL = 'https://jfnccekkhffonkjkmxyf.supabase.co';
@@ -45,6 +46,12 @@ async function fetchYouTubeMetadata(videoId) {
     }
 }
 
+/**
+ * Clean a YouTube video title for use as page title.
+ * Minimal cleanup only — strip noise like "(Official Video)", hashtags,
+ * and pipe-separated tags. Keep the rest as YouTube provides it.
+ * Artist is always the channel name (most reliable source).
+ */
 function parseYouTubeTitle(videoTitle, channelName) {
     let title = videoTitle || '';
     const original = title;
@@ -55,38 +62,36 @@ function parseYouTubeTitle(videoTitle, channelName) {
         /\s*#\w+/g,
     ];
     for (const re of noise) title = title.replace(re, '');
+
+    // Strip pipe-separated tags
+    const pipeIdx = title.indexOf(' | ');
+    if (pipeIdx > 0) title = title.substring(0, pipeIdx);
     title = title.trim();
 
-    const separators = [' - ', ' – ', ' — ', ' | '];
-    for (const sep of separators) {
-        const idx = title.indexOf(sep);
-        if (idx > 0 && idx < title.length - sep.length) {
-            const left = title.substring(0, idx).trim();
-            const right = title.substring(idx + sep.length).trim();
-            const chanLower = channelName.toLowerCase();
-            if (right.toLowerCase().includes(chanLower) || chanLower.includes(right.toLowerCase())) {
-                return { artist: right, title: left };
-            }
-            return { artist: left, title: right };
-        }
-    }
+    // Channel name as artist — strip YouTube's " - Topic" auto-suffix
+    const artist = (channelName || 'Unknown Artist').replace(/\s*-\s*Topic$/i, '');
 
-    return { artist: channelName || 'Unknown Artist', title: title || original };
+    return { artist, title: title || original };
 }
 
-function generateSlug(artist, title) {
-    return `${artist} ${title}`
+function generateSlug(title, videoId) {
+    const slug = title
         .toLowerCase()
         .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/-+/g, '-')
         .replace(/^-|-$/g, '');
+    return slug || videoId || 'unknown';
 }
 
 async function main() {
-    // Fetch rows without slug
-    const rows = await supabaseGet('generated_chords?select=video_id&slug=is.null&order=created_at.asc');
-    console.log(`Found ${rows.length} rows without slug.\n`);
+    const force = process.argv.includes('--force');
+    // Fetch rows — either all rows or only those without slug
+    const query = force
+        ? 'generated_chords?select=video_id&order=created_at.asc'
+        : 'generated_chords?select=video_id&slug=is.null&order=created_at.asc';
+    const rows = await supabaseGet(query);
+    console.log(`Found ${rows.length} rows${force ? ' (--force: re-processing all)' : ' without slug'}.\n`);
 
     let updated = 0, skipped = 0, failed = 0;
 
@@ -105,7 +110,7 @@ async function main() {
         }
 
         const parsed = parseYouTubeTitle(meta.title, meta.author_name);
-        const slug = generateSlug(parsed.artist, parsed.title);
+        const slug = generateSlug(parsed.title, vid);
 
         await supabaseUpdate(vid, {
             title: parsed.title,
@@ -115,7 +120,7 @@ async function main() {
         });
 
         updated++;
-        console.log(`  OK ${vid} → ${slug}  (${parsed.artist} — ${parsed.title})`);
+        console.log(`  OK ${vid} → ${slug}  (${parsed.title} by ${parsed.artist})`);
 
         // Small delay to be nice to YouTube oEmbed
         await new Promise(r => setTimeout(r, 200));

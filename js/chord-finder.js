@@ -44,52 +44,43 @@ async function fetchYouTubeMetadata(videoId) {
 }
 
 /**
- * Parse a YouTube video title into artist + song title.
- * Handles patterns: "Artist - Song (Official Video)", "Song | Artist", etc.
+ * Clean a YouTube video title for use as page title.
+ * Minimal cleanup only — strip noise like "(Official Video)", hashtags,
+ * and pipe-separated tags. Keep the rest as YouTube provides it.
+ * Artist is always the channel name (most reliable source).
  */
 function parseYouTubeTitle(videoTitle, channelName) {
     let title = videoTitle || '';
     const original = title;
 
-    // Strip common suffixes/noise
+    // Strip common noise suffixes
     const noise = [
         /\s*[\(\[](?:official\s*(?:music\s*)?video|official\s*audio|lyric(?:s|al)?\s*video|audio|hd|hq|full\s*song|4k|remastered|visuali[sz]er|with\s*lyrics)[\)\]]/gi,
         /\s*\|\s*(?:official\s*(?:music\s*)?video|official\s*audio|lyric(?:s)?\s*video|audio|hd|hq|full\s*song)\s*$/gi,
-        /\s*#\w+/g, // hashtags
+        /\s*#\w+/g,
     ];
     for (const re of noise) title = title.replace(re, '');
+
+    // Strip pipe-separated tags (context, album info, etc.)
+    const pipeIdx = title.indexOf(' | ');
+    if (pipeIdx > 0) title = title.substring(0, pipeIdx);
     title = title.trim();
 
-    // Try splitting on common separators: " - ", " – ", " — ", " | "
-    const separators = [' - ', ' – ', ' — ', ' | '];
-    for (const sep of separators) {
-        const idx = title.indexOf(sep);
-        if (idx > 0 && idx < title.length - sep.length) {
-            const left = title.substring(0, idx).trim();
-            const right = title.substring(idx + sep.length).trim();
-            // Heuristic: if channel name matches one side, that's the artist
-            const chanLower = channelName.toLowerCase();
-            if (right.toLowerCase().includes(chanLower) || chanLower.includes(right.toLowerCase())) {
-                return { artist: right, title: left };
-            }
-            // Default: left = artist, right = title (most common YouTube pattern)
-            return { artist: left, title: right };
-        }
-    }
+    // Channel name as artist — strip YouTube's " - Topic" auto-suffix
+    const artist = (channelName || 'Unknown Artist').replace(/\s*-\s*Topic$/i, '');
 
-    // No separator found — use channel name as artist, full title as song
-    return { artist: channelName || 'Unknown Artist', title: title || original };
+    return { artist, title: title || original };
 }
 
-/** Generate a URL-safe slug from artist + title. */
-function generateSlug(artist, title) {
-    const raw = `${artist} ${title}`;
-    return raw
+/** Generate a URL-safe slug from cleaned YouTube title. Falls back to videoId for non-Latin titles. */
+function generateSlug(title, videoId) {
+    const slug = title
         .toLowerCase()
         .normalize('NFD').replace(/[\u0300-\u036f]/g, '')  // strip diacritics
         .replace(/[^a-z0-9]+/g, '-')                        // non-alphanum → dash
         .replace(/-+/g, '-')                                 // collapse dashes
         .replace(/^-|-$/g, '');                              // trim dashes
+    return slug || videoId || 'unknown';
 }
 
 // ---------------------------------------------------------------------------
@@ -739,7 +730,7 @@ async function handleGenerate() {
                 let metadata = null;
                 if (meta) {
                     const parsed = parseYouTubeTitle(meta.videoTitle, meta.channelName);
-                    const slug = generateSlug(parsed.artist, parsed.title);
+                    const slug = generateSlug(parsed.title, videoId);
                     metadata = {
                         title: parsed.title,
                         artist: parsed.artist,
