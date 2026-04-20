@@ -9,5 +9,7 @@ Allow: /songs/
 Allow: /lyrics/
 Allow: /category/
 Allow: /artist/
+Allow: /chords/
+Allow: /progression/
 
 Sitemap: https://ecoliving-tips.github.io/sitemap.xml

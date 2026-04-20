@@ -62,9 +62,7 @@ function submitToIndexNow(urls) {
 
 async function main() {
   const urls = getUrlsFromSitemap();
-  console.log(`Found ${urls.length} URLs in sitemap.xml:`);
-  urls.forEach((url) => console.log(`  ${url}`));
-  console.log();
+  console.log(`Found ${urls.length} URLs in sitemap.xml\n`);
 
   console.log('Submitting to IndexNow (api.indexnow.org)...');
   try {
@@ -81,8 +79,26 @@ async function main() {
     }
   } catch (err) {
     console.error('Submission failed:', err.message);
-    process.exit(1);
   }
+
+  // Ping sitemap endpoints
+  console.log('\n--- Sitemap Pings ---');
+  const sitemapUrl = `https://${HOST}/sitemap.xml`;
+  const pingUrls = [
+    { name: 'Google', url: `https://www.google.com/ping?sitemap=${encodeURIComponent(sitemapUrl)}` },
+    { name: 'Bing', url: `https://www.bing.com/ping?sitemap=${encodeURIComponent(sitemapUrl)}` },
+  ];
+  for (const { name, url } of pingUrls) {
+    try {
+      const resp = await fetch(url);
+      console.log(`  ${name}: ${resp.status} ${resp.statusText}`);
+    } catch (err) {
+      console.warn(`  ${name}: failed — ${err.message}`);
+    }
+  }
+
+  console.log('\nDone. Bing/Yandex should index within hours.');
+  console.log('For Google: resubmit sitemap in Search Console or use URL Inspection tool.');
 }
 
 main();
