@@ -146,6 +146,15 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+function tryParseError(body) {
+  try {
+    const parsed = JSON.parse(body);
+    return parsed.error?.message || body;
+  } catch {
+    return body;
+  }
+}
+
 // ── Main ──
 
 async function main() {
@@ -194,8 +203,13 @@ async function main() {
           const idx = progress.submitted.indexOf(batch[i]);
           if (idx !== -1) progress.submitted.splice(idx, 1);
         } else {
-          console.log(`[${i + 1}/${batch.length}] FAIL: ${batch[i]}`);
+          const msg = tryParseError(result.body);
+          console.log(`[${i + 1}/${batch.length}] FAIL (${result.statusCode}): ${batch[i]} — ${msg}`);
           fail++;
+          if (result.statusCode === 429) {
+            console.log('\nDaily quota exceeded. Stopping early. Run again tomorrow.');
+            break;
+          }
         }
       } catch (err) {
         console.log(`[${i + 1}/${batch.length}] ERROR: ${batch[i]} — ${err.message}`);
@@ -249,10 +263,13 @@ async function main() {
         successCount++;
         progress.submitted.push(url);
       } else {
-        const errorInfo = JSON.parse(result.body);
-        const msg = errorInfo.error?.message || result.body;
+        const msg = tryParseError(result.body);
         console.log(`[${idx}/${total}] FAIL (${result.statusCode}): ${url} — ${msg}`);
         failCount++;
+        if (result.statusCode === 429) {
+          console.log('\nDaily quota exceeded. Stopping early. Run again tomorrow.');
+          break;
+        }
       }
     } catch (err) {
       console.log(`[${idx}/${total}] ERROR: ${url} — ${err.message}`);
