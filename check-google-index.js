@@ -195,7 +195,9 @@ async function main() {
 
   // Default: check all URLs (skip already checked unless --force)
   const force = process.argv.includes('--force');
-  const toCheck = force ? allUrls : allUrls.filter(u => !results[u]);
+  const toCheck = force
+    ? allUrls
+    : allUrls.filter(u => !results[u] || results[u].verdict !== 'PASS');
 
   console.log('Total URLs in sitemap: ' + allUrls.length);
   console.log('Already checked:       ' + (allUrls.length - toCheck.length));

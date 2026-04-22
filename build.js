@@ -14,6 +14,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const https = require('https');
 
 const BASE_URL = 'https://ecoliving-tips.github.io';
 const ROOT = __dirname;
@@ -956,6 +957,7 @@ function generateRSSFeed(songs, aiChordPages) {
     rss += '    <language>en</language>\n';
     rss += `    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>\n`;
     rss += `    <atom:link href="${BASE_URL}/feed.xml" rel="self" type="application/rss+xml"/>\n`;
+    rss += '    <atom:link href="https://pubsubhubbub.appspot.com/" rel="hub"/>\n';
 
     for (const item of feed) {
         rss += '    <item>\n';
@@ -971,6 +973,35 @@ function generateRSSFeed(songs, aiChordPages) {
     rss += '</rss>\n';
 
     fs.writeFileSync(path.join(ROOT, 'feed.xml'), rss);
+}
+
+function pingWebSub() {
+    const body = 'hub.mode=publish&hub.url=' + encodeURIComponent(BASE_URL + '/feed.xml');
+    return new Promise((resolve) => {
+        const req = https.request({
+            hostname: 'pubsubhubbub.appspot.com',
+            path: '/',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Length': Buffer.byteLength(body),
+            },
+        }, (res) => {
+            if (res.statusCode === 204 || res.statusCode === 200) {
+                console.log('WebSub ping sent — Google notified of feed update.');
+            } else {
+                console.log('WebSub ping returned HTTP ' + res.statusCode + ' (non-fatal, Google will still crawl naturally).');
+            }
+            res.resume();
+            resolve();
+        });
+        req.on('error', (err) => {
+            console.log('WebSub ping failed: ' + err.message + ' (non-fatal).');
+            resolve();
+        });
+        req.write(body);
+        req.end();
+    });
 }
 
 
@@ -1300,6 +1331,7 @@ async function main() {
 
     generateRSSFeed(songs, aiChordPages);
     console.log(`RSS feed generated (feed.xml).`);
+    await pingWebSub();
 
     // Pre-render songs.html
     generateSongsPage(songs, allCategories, allArtists);
