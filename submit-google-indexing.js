@@ -155,6 +155,28 @@ function tryParseError(body) {
   }
 }
 
+function getNotificationMetadata(url, accessToken) {
+  const encodedUrl = encodeURIComponent(url);
+  return new Promise((resolve, reject) => {
+    const req = https.request({
+      hostname: 'indexing.googleapis.com',
+      path: `/v3/urlNotifications/metadata?url=${encodedUrl}`,
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+      },
+    }, (res) => {
+      let data = '';
+      res.on('data', (chunk) => { data += chunk; });
+      res.on('end', () => {
+        resolve({ statusCode: res.statusCode, body: data });
+      });
+    });
+    req.on('error', reject);
+    req.end();
+  });
+}
+
 // ── Main ──
 
 async function main() {
@@ -173,6 +195,54 @@ async function main() {
   const jwt = createJWT(serviceAccount);
   const accessToken = await getAccessToken(jwt);
   console.log('Authenticated successfully.\n');
+
+  // --status mode: check notification metadata for submitted URLs
+  if (process.argv.includes('--status')) {
+    const progress = loadProgress();
+    const urls = progress.submitted;
+    const sample = process.argv.includes('--all') ? urls : urls.slice(0, 20);
+
+    console.log(`Checking status for ${sample.length} of ${urls.length} submitted URLs...\n`);
+
+    let updated = 0, notFound = 0, errors = 0;
+    for (let i = 0; i < sample.length; i++) {
+      try {
+        const result = await getNotificationMetadata(sample[i], accessToken);
+        if (result.statusCode === 200) {
+          const meta = JSON.parse(result.body);
+          const notifyTime = meta.latestUpdate?.notifyTime || meta.latestRemove?.notifyTime || 'N/A';
+          const type = meta.latestUpdate ? 'URL_UPDATED' : meta.latestRemove ? 'URL_DELETED' : 'UNKNOWN';
+          console.log(`[${i + 1}/${sample.length}] ${type} @ ${notifyTime}`);
+          console.log(`  ${sample[i]}`);
+          updated++;
+        } else if (result.statusCode === 404) {
+          console.log(`[${i + 1}/${sample.length}] NOT FOUND (Google has no record)`);
+          console.log(`  ${sample[i]}`);
+          notFound++;
+        } else {
+          const msg = tryParseError(result.body);
+          console.log(`[${i + 1}/${sample.length}] ERROR (${result.statusCode}): ${msg}`);
+          console.log(`  ${sample[i]}`);
+          errors++;
+          if (result.statusCode === 429) {
+            console.log('\nQuota exceeded. Try again later.');
+            break;
+          }
+        }
+      } catch (err) {
+        console.log(`[${i + 1}/${sample.length}] ERROR: ${err.message}`);
+        errors++;
+      }
+      if (i < sample.length - 1) await sleep(500);
+    }
+
+    console.log(`\n--- Summary ---`);
+    console.log(`Has notification: ${updated}, Not found: ${notFound}, Errors: ${errors}`);
+    if (!process.argv.includes('--all') && urls.length > 20) {
+      console.log(`\nShowing first 20 only. Use --status --all to check all ${urls.length}.`);
+    }
+    return;
+  }
 
   // --remove-dead mode: notify Google about URLs that were submitted but no longer in sitemap
   if (process.argv.includes('--remove-dead')) {

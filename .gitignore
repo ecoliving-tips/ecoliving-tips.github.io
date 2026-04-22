@@ -21,3 +21,6 @@ make-cookies.py
 # Google Indexing API credentials
 google-indexing-key.json
 indexing-progress.json
+
+# IndexNow progress
+indexnow-progress.json

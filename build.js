@@ -912,6 +912,68 @@ function generateSitemap(songs, categories, artists, progressionKeys, aiChordPag
     fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), xml);
 }
 
+
+function generateRSSFeed(songs, aiChordPages) {
+    const MAX_ITEMS = 50;
+    const items = [];
+
+    // AI chord pages (sorted by created_at desc from Supabase)
+    if (aiChordPages) {
+        for (const entry of aiChordPages) {
+            if (!entry.slug) continue;
+            const uniqueChords = extractUniqueChords(entry.chords);
+            const chordList = uniqueChords.slice(0, 8).join(', ');
+            items.push({
+                title: `${entry.title || entry.slug} — ${entry.artist || 'Unknown'} Chords`,
+                link: `${BASE_URL}/chords/${entry.slug}/`,
+                description: `AI-detected chord progression for ${entry.title || entry.slug} by ${entry.artist || 'Unknown'}. Chords: ${chordList || 'N/A'}`,
+                pubDate: entry.created_at ? new Date(entry.created_at).toUTCString() : new Date().toUTCString(),
+            });
+        }
+    }
+
+    // Curated songs
+    for (const song of songs) {
+        items.push({
+            title: `${song.title} — ${song.artist} Chords`,
+            link: `${BASE_URL}/songs/${song.id}/`,
+            description: `Guitar and keyboard chords for ${song.title} by ${song.artist}. Key: ${song.key || 'N/A'}`,
+            pubDate: new Date().toUTCString(),
+        });
+    }
+
+    // Limit to newest items
+    const feed = items.slice(0, MAX_ITEMS);
+
+    const escXml = (s) => (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+    let rss = '<?xml version="1.0" encoding="UTF-8"?>\n';
+    rss += '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n';
+    rss += '  <channel>\n';
+    rss += '    <title>Swaram — AI Chord Finder</title>\n';
+    rss += `    <link>${BASE_URL}/</link>\n`;
+    rss += '    <description>Free AI-powered chord detection for any song. Latest chord pages and updates.</description>\n';
+    rss += '    <language>en</language>\n';
+    rss += `    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>\n`;
+    rss += `    <atom:link href="${BASE_URL}/feed.xml" rel="self" type="application/rss+xml"/>\n`;
+
+    for (const item of feed) {
+        rss += '    <item>\n';
+        rss += `      <title>${escXml(item.title)}</title>\n`;
+        rss += `      <link>${item.link}</link>\n`;
+        rss += `      <guid>${item.link}</guid>\n`;
+        rss += `      <description>${escXml(item.description)}</description>\n`;
+        rss += `      <pubDate>${item.pubDate}</pubDate>\n`;
+        rss += '    </item>\n';
+    }
+
+    rss += '  </channel>\n';
+    rss += '</rss>\n';
+
+    fs.writeFileSync(path.join(ROOT, 'feed.xml'), rss);
+}
+
+
 // ===== Service Worker Precache Updater =====
 // NOTE: Song/lyrics/category/artist pages are intentionally NOT precached
 // in sw.js to ensure every page visit requires a network request (for ad impressions).
@@ -1235,6 +1297,9 @@ async function main() {
     generateSitemap(songs, allCategories, allArtists, progressionKeys, aiChordPages);
     const totalUrls = 5 + songs.length * 2 + allCategories.length + allArtists.length + progressionKeys.length + aiChordPages.length;
     console.log(`Sitemap generated with ${totalUrls} URLs.`);
+
+    generateRSSFeed(songs, aiChordPages);
+    console.log(`RSS feed generated (feed.xml).`);
 
     // Pre-render songs.html
     generateSongsPage(songs, allCategories, allArtists);
