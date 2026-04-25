@@ -353,7 +353,24 @@ function generateSongPage(song, body, templates) {
         ]
     };
 
-    const structuredData = JSON.stringify(sdObj, null, 2) + '\n    </script>\n\n    <script type="application/ld+json">\n    ' + JSON.stringify(breadcrumbObj, null, 2);
+    // VideoObject for YouTube embeds (helps Google index video rich results)
+    const videoId = extractYouTubeId(song.youtube);
+    let videoSd = '';
+    if (videoId) {
+        const videoObj = {
+            "@context": "https://schema.org",
+            "@type": "VideoObject",
+            "name": `${songTitle} - Chords & Tutorial`,
+            "description": `Watch and play along with chords for ${songTitle} by ${artist}. Guitar and keyboard chord chart.`,
+            "thumbnailUrl": `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`,
+            "embedUrl": `https://www.youtube.com/embed/${videoId}`,
+            "uploadDate": "2026-01-01",
+            "publisher": { "@type": "Organization", "name": "Swaram", "url": `${BASE_URL}/` }
+        };
+        videoSd = '\n    </script>\n\n    <script type="application/ld+json">\n    ' + JSON.stringify(videoObj, null, 2);
+    }
+
+    const structuredData = JSON.stringify(sdObj, null, 2) + '\n    </script>\n\n    <script type="application/ld+json">\n    ' + JSON.stringify(breadcrumbObj, null, 2) + videoSd;
 
     // Build meta bar
     let metaBar = '';
@@ -1182,9 +1199,25 @@ function generateChordsPage(entry, templates) {
         ]
     };
 
+    // VideoObject for YouTube embeds
+    let videoSd = '';
+    if (videoId) {
+        const videoObj = {
+            "@context": "https://schema.org",
+            "@type": "VideoObject",
+            "name": `${title} - AI-Detected Chords`,
+            "description": `Watch and play along with AI-detected chords for ${title} by ${artist}. ${chordCount} chords detected.`,
+            "thumbnailUrl": `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`,
+            "embedUrl": `https://www.youtube.com/embed/${videoId}`,
+            "uploadDate": entry.created_at ? entry.created_at.split('T')[0] : "2026-01-01",
+            "publisher": { "@type": "Organization", "name": "Swaram", "url": `${BASE_URL}/` }
+        };
+        videoSd = '\n    </script>\n\n    <script type="application/ld+json">\n    ' + JSON.stringify(videoObj, null, 2);
+    }
+
     const structuredData = JSON.stringify(sdObj, null, 2) +
         '\n    </script>\n\n    <script type="application/ld+json">\n    ' +
-        JSON.stringify(breadcrumbObj, null, 2);
+        JSON.stringify(breadcrumbObj, null, 2) + videoSd;
 
     // Meta bar — only chord count, no key/time since backend doesn't provide them
     const metaBar = `<span class="meta-pill"><span class="meta-label">Chords</span> ${chordCount} detected</span>`;
