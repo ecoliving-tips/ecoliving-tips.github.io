@@ -7,10 +7,11 @@
  *   - google-indexing-key.json with service account
  *   - Service account as Owner in Google Search Console
  *
- * Usage: node check-google-index.js              (check all URLs)
+ * Usage: node check-google-index.js              (check new + re-check not-indexed)
+ *        node check-google-index.js --new         (only check never-checked URLs)
  *        node check-google-index.js --not-indexed (show only non-indexed)
  *        node check-google-index.js --summary     (counts only)
- *        node check-google-index.js --force       (re-check already checked)
+ *        node check-google-index.js --force       (re-check everything)
  *
  * Results saved to index-status.json (resumable — safe to re-run).
  * Quota: ~2000 requests/day for URL Inspection API.
@@ -193,20 +194,25 @@ async function main() {
     return;
   }
 
-  // Default: check all URLs (skip already checked unless --force)
+  // Default: re-check not-indexed + check new URLs
+  // --new: only check URLs never checked before (skip all previously checked)
+  // --force: re-check everything including indexed ones
   const force = process.argv.includes('--force');
+  const newOnly = process.argv.includes('--new');
   const toCheck = force
     ? allUrls
-    : allUrls.filter(u => !results[u] || results[u].verdict !== 'PASS');
+    : newOnly
+      ? allUrls.filter(u => !results[u])
+      : allUrls.filter(u => !results[u] || results[u].verdict !== 'PASS');
 
   console.log('Total URLs in sitemap: ' + allUrls.length);
-  console.log('Already checked:       ' + (allUrls.length - toCheck.length));
-  console.log('To check:              ' + toCheck.length);
+  console.log('Already checked:       ' + Object.keys(results).length);
+  console.log('To check:              ' + toCheck.length + (newOnly ? ' (--new: unchecked only)' : ''));
   console.log('(Quota: ~2000/day for URL Inspection API)\n');
 
   if (toCheck.length === 0) {
     console.log('All URLs checked. Use --summary or --not-indexed to view results.');
-    console.log('Use --force to re-check all.');
+    console.log('Use --force to re-check all. Use --new to check only unchecked URLs.');
     return;
   }
 
