@@ -816,18 +816,22 @@ function generateProgressionPages(templates) {
 
 // ===== Sitemap Generator =====
 
+function buildUrlset(entries) {
+    let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
+    xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+    for (const e of entries) {
+        xml += `  <url>\n`;
+        xml += `    <loc>${e.loc}</loc>\n`;
+        xml += `    <lastmod>${e.lastmod}</lastmod>\n`;
+        xml += `    <changefreq>${e.changefreq}</changefreq>\n`;
+        xml += `    <priority>${e.priority}</priority>\n`;
+        xml += `  </url>\n`;
+    }
+    xml += '</urlset>\n';
+    return xml;
+}
 
 function generateSitemap(songs, categories, artists, progressionKeys, aiChordPages) {
-    const staticPages = [
-        { loc: '/', changefreq: 'weekly', priority: '1.0', file: 'index.html' },
-        { loc: '/songs.html', changefreq: 'weekly', priority: '0.9', file: 'songs.html' },
-        { loc: '/chord-finder.html', changefreq: 'weekly', priority: '0.95', file: 'chord-finder.html' },
-        { loc: '/chord-identifier.html', changefreq: 'monthly', priority: '0.90', file: 'chord-identifier.html' },
-        { loc: '/chord-progressions.html', changefreq: 'monthly', priority: '0.90', file: 'chord-progressions.html' },
-        { loc: '/request.html', changefreq: 'monthly', priority: '0.7', file: 'request.html' },
-        { loc: '/privacy-policy.html', changefreq: 'yearly', priority: '0.3', file: 'privacy-policy.html' },
-    ];
-
     function getLastmod(filePath) {
         try {
             const stat = fs.statSync(path.join(ROOT, filePath));
@@ -837,97 +841,101 @@ function generateSitemap(songs, categories, artists, progressionKeys, aiChordPag
         }
     }
 
-    let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
-    xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+    // --- Segment: static pages ---
+    const pagesEntries = [
+        { loc: '/', changefreq: 'weekly', priority: '1.0', file: 'index.html' },
+        { loc: '/songs.html', changefreq: 'weekly', priority: '0.9', file: 'songs.html' },
+        { loc: '/chord-finder.html', changefreq: 'weekly', priority: '0.95', file: 'chord-finder.html' },
+        { loc: '/chord-identifier.html', changefreq: 'monthly', priority: '0.90', file: 'chord-identifier.html' },
+        { loc: '/chord-progressions.html', changefreq: 'monthly', priority: '0.90', file: 'chord-progressions.html' },
+        { loc: '/request.html', changefreq: 'monthly', priority: '0.7', file: 'request.html' },
+        { loc: '/privacy-policy.html', changefreq: 'yearly', priority: '0.3', file: 'privacy-policy.html' },
+    ].map(p => ({
+        loc: `${BASE_URL}${p.loc}`,
+        lastmod: getLastmod(p.file),
+        changefreq: p.changefreq,
+        priority: p.priority,
+    }));
 
-    // Static pages
-    for (const page of staticPages) {
-        const fullUrl = `${BASE_URL}${page.loc}`;
-        const lastmod = getLastmod(page.file);
-        xml += `  <url>\n`;
-        xml += `    <loc>${fullUrl}</loc>\n`;
-        xml += `    <lastmod>${lastmod}</lastmod>\n`;
-        xml += `    <changefreq>${page.changefreq}</changefreq>\n`;
-        xml += `    <priority>${page.priority}</priority>\n`;
-        xml += `  </url>\n\n`;
+    // --- Segment: song pages ---
+    const songsEntries = songs.map(song => ({
+        loc: `${BASE_URL}/songs/${song.id}/`,
+        lastmod: getLastmod(`songs/${song.file || song.id + '.md'}`),
+        changefreq: 'monthly',
+        priority: '0.8',
+    }));
+
+    // --- Segment: lyrics pages ---
+    const lyricsEntries = songs.map(song => ({
+        loc: `${BASE_URL}/lyrics/${song.id}/`,
+        lastmod: getLastmod(`songs/${song.file || song.id + '.md'}`),
+        changefreq: 'monthly',
+        priority: '0.7',
+    }));
+
+    // --- Segment: category pages ---
+    const categoryEntries = categories.map(cat => ({
+        loc: `${BASE_URL}/category/${slugify(cat)}/`,
+        lastmod: today,
+        changefreq: 'weekly',
+        priority: '0.7',
+    }));
+
+    // --- Segment: artist pages ---
+    const artistEntries = artists.map(artist => ({
+        loc: `${BASE_URL}/artist/${slugify(artist)}/`,
+        lastmod: today,
+        changefreq: 'weekly',
+        priority: '0.6',
+    }));
+
+    // --- Segment: chord progression pages ---
+    const progressionEntries = (progressionKeys || []).map(keyInfo => ({
+        loc: `${BASE_URL}/chord-progressions/${progKeySlug(keyInfo.root, keyInfo.mode)}/`,
+        lastmod: today,
+        changefreq: 'monthly',
+        priority: '0.75',
+    }));
+
+    // --- Segment: AI chord pages ---
+    const chordEntries = (aiChordPages || []).map(entry => ({
+        loc: `${BASE_URL}/chords/${entry.slug}/`,
+        lastmod: entry.created_at ? entry.created_at.split('T')[0] : today,
+        changefreq: 'monthly',
+        priority: '0.75',
+    }));
+
+    // Write individual sitemap files and collect index entries
+    const segments = [
+        { file: 'sitemap-pages.xml', entries: pagesEntries },
+        { file: 'sitemap-songs.xml', entries: songsEntries },
+        { file: 'sitemap-lyrics.xml', entries: lyricsEntries },
+        { file: 'sitemap-categories.xml', entries: categoryEntries },
+        { file: 'sitemap-artists.xml', entries: artistEntries },
+        { file: 'sitemap-progressions.xml', entries: progressionEntries },
+        { file: 'sitemap-chords.xml', entries: chordEntries },
+    ];
+
+    const indexEntries = [];
+    for (const seg of segments) {
+        if (seg.entries.length === 0) continue;
+        fs.writeFileSync(path.join(ROOT, seg.file), buildUrlset(seg.entries));
+        // Use the most recent lastmod from the segment's entries
+        const latestMod = seg.entries.reduce((max, e) => e.lastmod > max ? e.lastmod : max, seg.entries[0].lastmod);
+        indexEntries.push({ file: seg.file, lastmod: latestMod });
     }
 
-    // Song pages
-    for (const song of songs) {
-        const fullUrl = `${BASE_URL}/songs/${song.id}/`;
-        const lastmod = getLastmod(`songs/${song.file || song.id + '.md'}`);
-        xml += `  <url>\n`;
-        xml += `    <loc>${fullUrl}</loc>\n`;
-        xml += `    <lastmod>${lastmod}</lastmod>\n`;
-        xml += `    <changefreq>monthly</changefreq>\n`;
-        xml += `    <priority>0.8</priority>\n`;
-        xml += `  </url>\n\n`;
+    // Write sitemap index
+    let idx = '<?xml version="1.0" encoding="UTF-8"?>\n';
+    idx += '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+    for (const entry of indexEntries) {
+        idx += `  <sitemap>\n`;
+        idx += `    <loc>${BASE_URL}/${entry.file}</loc>\n`;
+        idx += `    <lastmod>${entry.lastmod}</lastmod>\n`;
+        idx += `  </sitemap>\n`;
     }
-
-    // Lyrics pages
-    for (const song of songs) {
-        const fullUrl = `${BASE_URL}/lyrics/${song.id}/`;
-        const lastmod = getLastmod(`songs/${song.file || song.id + '.md'}`);
-        xml += `  <url>\n`;
-        xml += `    <loc>${fullUrl}</loc>\n`;
-        xml += `    <lastmod>${lastmod}</lastmod>\n`;
-        xml += `    <changefreq>monthly</changefreq>\n`;
-        xml += `    <priority>0.7</priority>\n`;
-        xml += `  </url>\n\n`;
-    }
-
-    // Category pages
-    for (const cat of categories) {
-        const fullUrl = `${BASE_URL}/category/${slugify(cat)}/`;
-        xml += `  <url>\n`;
-        xml += `    <loc>${fullUrl}</loc>\n`;
-        xml += `    <lastmod>${today}</lastmod>\n`;
-        xml += `    <changefreq>weekly</changefreq>\n`;
-        xml += `    <priority>0.7</priority>\n`;
-        xml += `  </url>\n\n`;
-    }
-
-    // Artist pages
-    for (const artist of artists) {
-        const fullUrl = `${BASE_URL}/artist/${slugify(artist)}/`;
-        xml += `  <url>\n`;
-        xml += `    <loc>${fullUrl}</loc>\n`;
-        xml += `    <lastmod>${today}</lastmod>\n`;
-        xml += `    <changefreq>weekly</changefreq>\n`;
-        xml += `    <priority>0.6</priority>\n`;
-        xml += `  </url>\n\n`;
-    }
-
-    // Chord progression key pages
-    if (progressionKeys) {
-        for (const keyInfo of progressionKeys) {
-            const keySlug = progKeySlug(keyInfo.root, keyInfo.mode);
-            const fullUrl = `${BASE_URL}/chord-progressions/${keySlug}/`;
-            xml += `  <url>\n`;
-            xml += `    <loc>${fullUrl}</loc>\n`;
-            xml += `    <lastmod>${today}</lastmod>\n`;
-            xml += `    <changefreq>monthly</changefreq>\n`;
-            xml += `    <priority>0.75</priority>\n`;
-            xml += `  </url>\n\n`;
-        }
-    }
-
-    // AI-generated chord pages
-    if (aiChordPages) {
-        for (const entry of aiChordPages) {
-            const fullUrl = `${BASE_URL}/chords/${entry.slug}/`;
-            const lastmod = entry.created_at ? entry.created_at.split('T')[0] : today;
-            xml += `  <url>\n`;
-            xml += `    <loc>${fullUrl}</loc>\n`;
-            xml += `    <lastmod>${lastmod}</lastmod>\n`;
-            xml += `    <changefreq>monthly</changefreq>\n`;
-            xml += `    <priority>0.75</priority>\n`;
-            xml += `  </url>\n\n`;
-        }
-    }
-
-    xml += '</urlset>\n';
-    fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), xml);
+    idx += '</sitemapindex>\n';
+    fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), idx);
 }
 
 

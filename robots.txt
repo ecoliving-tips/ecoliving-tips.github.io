@@ -13,4 +13,3 @@ Allow: /chords/
 Allow: /progression/
 
 Sitemap: https://ecoliving-tips.github.io/sitemap.xml
-Feed: https://ecoliving-tips.github.io/feed.xml
