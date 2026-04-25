@@ -364,7 +364,7 @@ function generateSongPage(song, body, templates) {
             "description": `Watch and play along with chords for ${songTitle} by ${artist}. Guitar and keyboard chord chart.`,
             "thumbnailUrl": `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`,
             "embedUrl": `https://www.youtube.com/embed/${videoId}`,
-            "uploadDate": "2026-01-01",
+            "uploadDate": "2026-01-01T00:00:00+05:30",
             "publisher": { "@type": "Organization", "name": "Swaram", "url": `${BASE_URL}/` }
         };
         videoSd = '\n    </script>\n\n    <script type="application/ld+json">\n    ' + JSON.stringify(videoObj, null, 2);
@@ -1209,7 +1209,7 @@ function generateChordsPage(entry, templates) {
             "description": `Watch and play along with AI-detected chords for ${title} by ${artist}. ${chordCount} chords detected.`,
             "thumbnailUrl": `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`,
             "embedUrl": `https://www.youtube.com/embed/${videoId}`,
-            "uploadDate": entry.created_at ? entry.created_at.split('T')[0] : "2026-01-01",
+            "uploadDate": entry.created_at ? entry.created_at.replace(/ /, 'T').replace(/\+00$/, '+00:00') : "2026-01-01T00:00:00+05:30",
             "publisher": { "@type": "Organization", "name": "Swaram", "url": `${BASE_URL}/` }
         };
         videoSd = '\n    </script>\n\n    <script type="application/ld+json">\n    ' + JSON.stringify(videoObj, null, 2);
