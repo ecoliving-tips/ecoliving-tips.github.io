@@ -58,6 +58,15 @@
         gtag('config', 'G-ZHLRN8B07Z');
     </script>
 
+    <!-- Canonical URL enforcement: strip query params like ?ref=producthunt -->
+    <script>
+    (function(){
+        if (location.search) {
+            history.replaceState(null, '', location.pathname);
+        }
+    })();
+    </script>
+
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7438590583270235"
         crossorigin="anonymous"></script>

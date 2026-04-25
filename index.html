@@ -57,6 +57,16 @@
         gtag('config', 'G-ZHLRN8B07Z');
     </script>
 
+    <!-- Canonical URL enforcement: redirect /index.html and query params to / -->
+    <script>
+    (function(){
+        var c = 'https://ecoliving-tips.github.io/';
+        if (location.pathname === '/index.html' || location.search) {
+            history.replaceState(null, '', c);
+        }
+    })();
+    </script>
+
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7438590583270235"
         crossorigin="anonymous"></script>
