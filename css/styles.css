@@ -929,6 +929,13 @@ header {
     text-align: center;
 }
 
+.about-content h3 {
+    font-size: 1.1rem;
+    color: var(--text);
+    margin-top: 24px;
+    margin-bottom: 8px;
+}
+
 .about-content p {
     color: var(--text-muted);
     margin-bottom: 16px;
