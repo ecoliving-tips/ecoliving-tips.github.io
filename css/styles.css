@@ -1620,27 +1620,32 @@ footer {
     font-size: 0.85rem;
 }
 
-.footer-links h4 {
+.footer-links h4,
+.footer-social h4 {
     color: var(--text);
     font-size: 0.95rem;
     margin-bottom: 12px;
 }
 
-.footer-links ul {
+.footer-links ul,
+.footer-social ul {
     list-style: none;
 }
 
-.footer-links ul li {
+.footer-links ul li,
+.footer-social ul li {
     margin-bottom: 8px;
 }
 
-.footer-links ul li a {
+.footer-links ul li a,
+.footer-social ul li a {
     color: var(--text-dim);
     font-size: 0.9rem;
     transition: var(--transition);
 }
 
-.footer-links ul li a:hover {
+.footer-links ul li a:hover,
+.footer-social ul li a:hover {
     color: var(--primary-light);
 }
 
