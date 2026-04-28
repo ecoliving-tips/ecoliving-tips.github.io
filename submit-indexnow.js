@@ -25,12 +25,29 @@ const BATCH_SIZE = 10000; // IndexNow allows up to 10,000 per request
 // ── Helpers ──
 
 function getUrlsFromSitemap() {
-  const xml = fs.readFileSync(SITEMAP_PATH, 'utf-8');
+  const indexXml = fs.readFileSync(SITEMAP_PATH, 'utf-8');
   const urls = [];
-  const regex = /<loc>(.*?)<\/loc>/g;
-  let match;
-  while ((match = regex.exec(xml)) !== null) {
-    urls.push(match[1]);
+  if (indexXml.includes('<sitemapindex')) {
+    const locRegex = /<loc>(.*?)<\/loc>/g;
+    let locMatch;
+    while ((locMatch = locRegex.exec(indexXml)) !== null) {
+      const filename = locMatch[1].split('/').pop();
+      const filePath = path.join(__dirname, filename);
+      if (fs.existsSync(filePath)) {
+        const childXml = fs.readFileSync(filePath, 'utf-8');
+        const urlRegex = /<loc>(.*?)<\/loc>/g;
+        let urlMatch;
+        while ((urlMatch = urlRegex.exec(childXml)) !== null) {
+          urls.push(urlMatch[1]);
+        }
+      }
+    }
+  } else {
+    const regex = /<loc>(.*?)<\/loc>/g;
+    let match;
+    while ((match = regex.exec(indexXml)) !== null) {
+      urls.push(match[1]);
+    }
   }
   return urls;
 }
