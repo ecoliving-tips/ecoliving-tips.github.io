@@ -236,6 +236,23 @@
                 else if (state === 0 || state === 2) stopSync();
             }
         });
+
+        // Send the YouTube API "listening" handshake ourselves so chord sync
+        // works regardless of whether GA's YT.Player initialises in time.
+        // Must fire after the iframe has navigated to youtube.com, otherwise
+        // the postMessage origin check inside the iframe rejects our message.
+        function subscribe() {
+            try {
+                ytIframe.contentWindow.postMessage(
+                    JSON.stringify({ event: 'listening', id: 2 }),
+                    'https://www.youtube.com'
+                );
+            } catch (_) {}
+        }
+
+        ytIframe.addEventListener('load', subscribe, { once: true });
+        // Fallback if 'load' already fired (e.g. cached iframe)
+        setTimeout(subscribe, 2000);
     }
 
     // ── Init ──
