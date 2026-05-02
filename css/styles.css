@@ -4323,6 +4323,8 @@ footer {
     text-decoration: none;
     color: var(--text);
     transition: var(--transition);
+    min-width: 0;
+    overflow: hidden;
 }
 
 .chord-browse-card:hover {
