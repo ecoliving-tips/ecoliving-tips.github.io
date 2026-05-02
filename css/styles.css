@@ -2266,6 +2266,12 @@ footer {
     max-width: 900px;
 }
 
+.generate-results .song-toolbar {
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /* Audio player */
 .audio-player-container {
     background: var(--bg-card);
