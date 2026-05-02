@@ -1471,14 +1471,19 @@ function generateChordsPage(entry, templates) {
     // Meta bar — only chord count, no key/time since backend doesn't provide them
     const metaBar = `<span class="meta-pill"><span class="meta-label">Chords</span> ${chordCount} detected</span>`;
 
-    // YouTube embed — pre-rendered iframe with enablejsapi so YT.Player can attach without race condition
+    // YouTube embed — facade pattern: thumbnail + play button overlay, iframe created on click.
+    // Avoids GA4's YT.Player racing with an eagerly-loaded iframe, which caused 2-3 clicks
+    // to be needed on cold navigation. The iframe (with autoplay=1) is created by chord-page-player.js.
     const youtubeEmbed = videoId
-        ? `<div id="youtube-player-container" class="youtube-player-container">
-                    <iframe id="youtube-player"
-                        src="https://www.youtube.com/embed/${videoId}?enablejsapi=1&playsinline=1&rel=0&modestbranding=1&origin=https://ecoliving-tips.github.io"
-                        frameborder="0" allow="autoplay; encrypted-media; fullscreen"
-                        title="${escapeHtml(entry.title || '')} - Chord Player">
-                    </iframe>
+        ? `<div id="youtube-player-container" class="youtube-player-container youtube-facade"
+                   data-video-id="${videoId}" data-title="${escapeHtml(entry.title || '')}">
+                    <img class="yt-facade-thumb"
+                        src="https://i.ytimg.com/vi/${videoId}/hqdefault.jpg"
+                        alt="${escapeHtml(entry.title || '')} video"
+                        loading="lazy" decoding="async">
+                    <button class="yt-facade-play" aria-label="Play ${escapeHtml(entry.title || '')}">
+                        <svg viewBox="0 0 68 48" width="68" height="48" aria-hidden="true"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#f00"/><path d="M45 24 27 14v20" fill="#fff"/></svg>
+                    </button>
                 </div>`
         : '';
 

@@ -12,11 +12,13 @@
     var videoId = window.YOUTUBE_VIDEO_ID || '';
     var beginnerMeta = window.BEGINNER_META || { capo: 0, difficulty: 'easy' };
 
-    var ytIframe = null;        // pre-rendered <iframe> element
+    var ytIframe = null;        // created on first play click
     var ytCurrentTime = 0;      // last known position from infoDelivery
     var ytPlayStart = null;     // wall-clock ms when play began (for interpolation)
     var ytPlayBase = 0;         // ytCurrentTime value when play began
     var syncInterval = null;
+    var facadeActive = false;   // true while the thumbnail facade is showing
+    var pendingSeek = null;     // seek time queued before iframe exists
     var currentTranspose = 0;
     var lastActiveIdx = -1;
     var cachedBlocks = null;
@@ -146,7 +148,12 @@
     }
 
     function seekTo(time) {
-        if (!ytIframe) return;
+        if (!ytIframe) {
+            // Facade still showing — queue the seek and trigger iframe load
+            pendingSeek = time;
+            if (facadeActive) loadIframe(true);
+            return;
+        }
         ytIframe.contentWindow.postMessage(
             JSON.stringify({ event: 'command', func: 'seekTo', args: [time, true] }),
             'https://www.youtube.com'
@@ -207,22 +214,22 @@
         syncInterval = null;
     }
 
-    // ── YouTube postMessage listener ──
+    // ── YouTube player (facade → iframe on click) ──
 
     function initPlayer() {
         if (!videoId) return;
-        ytIframe = document.getElementById('youtube-player');
-        if (!ytIframe) return;
+        var container = document.getElementById('youtube-player-container');
+        if (!container) return;
 
+        // Message listener — ytIframe null-checked; it's only set after loadIframe()
         window.addEventListener('message', function (e) {
-            if (e.source !== ytIframe.contentWindow) return;
+            if (!ytIframe || e.source !== ytIframe.contentWindow) return;
             var data;
             try { data = JSON.parse(e.data); } catch (_) { return; }
 
             if (data.event === 'infoDelivery' && data.info) {
                 if (typeof data.info.currentTime === 'number') {
                     ytCurrentTime = data.info.currentTime;
-                    // Re-anchor interpolation to the fresh timestamp
                     if (ytPlayStart !== null) {
                         ytPlayStart = Date.now();
                         ytPlayBase = ytCurrentTime;
@@ -237,22 +244,47 @@
             }
         });
 
-        // Send the YouTube API "listening" handshake ourselves so chord sync
-        // works regardless of whether GA's YT.Player initialises in time.
-        // Must fire after the iframe has navigated to youtube.com, otherwise
-        // the postMessage origin check inside the iframe rejects our message.
         function subscribe() {
+            if (!ytIframe) return;
             try {
                 ytIframe.contentWindow.postMessage(
                     JSON.stringify({ event: 'listening', id: 2 }),
                     'https://www.youtube.com'
                 );
+                // Dispatch any queued seek (e.g. user clicked chord block before play)
+                if (pendingSeek !== null) {
+                    var t = pendingSeek; pendingSeek = null;
+                    setTimeout(function () { seekTo(t); }, 500);
+                }
             } catch (_) {}
         }
 
-        ytIframe.addEventListener('load', subscribe, { once: true });
-        // Fallback if 'load' already fired (e.g. cached iframe)
-        setTimeout(subscribe, 2000);
+        function loadIframe(autoplay) {
+            facadeActive = false;
+            var src = 'https://www.youtube.com/embed/' + videoId +
+                '?enablejsapi=1&playsinline=1&rel=0&modestbranding=1' +
+                '&origin=https://ecoliving-tips.github.io' +
+                (autoplay ? '&autoplay=1' : '');
+            var iframe = document.createElement('iframe');
+            iframe.src = src;
+            iframe.setAttribute('frameborder', '0');
+            iframe.setAttribute('allow', 'autoplay; encrypted-media; fullscreen');
+            iframe.title = (container.dataset.title || '') + ' - Chord Player';
+            container.classList.remove('youtube-facade');
+            container.innerHTML = '';
+            container.appendChild(iframe);
+            ytIframe = iframe;
+            iframe.addEventListener('load', subscribe, { once: true });
+            setTimeout(subscribe, 2500); // fallback if 'load' already fired
+        }
+
+        if (container.classList.contains('youtube-facade')) {
+            facadeActive = true;
+            container.addEventListener('click', function () {
+                if (!facadeActive) return;
+                loadIframe(true);
+            }, { once: true });
+        }
     }
 
     // ── Init ──
