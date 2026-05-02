@@ -264,6 +264,8 @@
                 <div id="recently-added-section" class="recently-added-section">
                     <h3 data-i18n="browse_recently_added">Recently Added</h3>
                     <div id="recently-added-row" class="recently-added-row">
+<a class="recently-added-card" href="/chords/yo-quiero-vivir-canciones-infantiles-in-christ-kids/"><div class="ra-title">Yo quiero vivir ✨ Canciones Infantiles</div><div class="ra-artist">In Christ Kids</div></a>
+<a class="recently-added-card" href="/chords/moira-dela-torre-torete-official-lyric-video-sony-music-philippines/"><div class="ra-title">Moira Dela Torre - Torete (Official Lyric Video)</div><div class="ra-artist">Sony Music Philippines</div></a>
 <a class="recently-added-card" href="/chords/vinnaithaandi-varuvaayaa-mannipaaya-video-sonymusicsouthvevo/"><div class="ra-title">Vinnaithaandi Varuvaayaa - Mannipaaya Video</div><div class="ra-artist">SonyMusicSouthVEVO</div></a>
 <a class="recently-added-card" href="/chords/fanfare-sumika/"><div class="ra-title">Fanfare</div><div class="ra-artist">sumika</div></a>
 <a class="recently-added-card" href="/chords/pahasara-centigradz-centigradz-live/"><div class="ra-title">Pahasara - Centigradz</div><div class="ra-artist">Centigradz Live</div></a>
@@ -272,8 +274,6 @@
 <a class="recently-added-card" href="/chords/NbNV-DYwjkI/"><div class="ra-title">სეფას ბიჭები - ჟანეტ</div><div class="ra-artist">ႥႨႲႰႳႥႨႠႬႤႪႨ</div></a>
 <a class="recently-added-card" href="/chords/mec-namara-nasty-vuoti-a-rendere-monemaster/"><div class="ra-title">Mec Namara & Nasty - Vuoti a rendere</div><div class="ra-artist">monemaster</div></a>
 <a class="recently-added-card" href="/chords/kaane-kaane-song-malayalam-gramaphone-music/"><div class="ra-title">Kaane Kaane Song</div><div class="ra-artist">Malayalam Gramaphone Music</div></a>
-<a class="recently-added-card" href="/chords/emsea-silence/"><div class="ra-title">ÈMSÉA - Silence</div><div class="ra-artist">ÈMSÉA</div></a>
-<a class="recently-added-card" href="/chords/gunn-official-mv-eng-sub/"><div class="ra-title">GUNN - ℌ𝔦𝔤𝔥 𝔔𝔲𝔞𝔩𝔦𝔱𝔶 Official MV [ENG SUB]</div><div class="ra-artist">GUNN</div></a>
 </div>
 </div>
 <div id="az-letter-bar" class="az-letter-bar"></div>
@@ -347,6 +347,22 @@
     <script src="js/main.js"></script>
     <script src="js/songs.js"></script>
     <script src="js/browse-chords.js" defer></script>
-</body>
+    <script>
+    fetch('/chords/index.json').then(r => r.json()).then(function(entries) {
+        const row = document.getElementById('recently-added-row');
+        if (!row) return;
+        const recent = entries
+            .filter(function(e) { return e.s && e.t && e.dt; })
+            .sort(function(a, b) { return b.dt < a.dt ? -1 : b.dt > a.dt ? 1 : 0; })
+            .slice(0, 10);
+        if (!recent.length) return;
+        row.innerHTML = recent.map(function(e) {
+            return '<a class="recently-added-card" href="/chords/' + e.s + '/">'
+                + '<div class="ra-title">' + e.t.replace(/</g, '&lt;') + '</div>'
+                + (e.a ? '<div class="ra-artist">' + e.a.replace(/</g, '&lt;') + '</div>' : '')
+                + '</a>';
+        }).join('');
+    }).catch(function() {});
+    </script>
 
 </html>

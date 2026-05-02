@@ -1301,8 +1301,17 @@ function deduplicateBySlug(entries) {
         if (!entry.slug || !SLUG_RE.test(entry.slug)) continue; // skip invalid slugs
         const chordCount = entry.chords?.chords?.length || 0;
         const existing = bySlug[entry.slug];
-        if (!existing || chordCount > (existing.chords?.chords?.length || 0)) {
+        if (!existing) {
             bySlug[entry.slug] = entry;
+        } else {
+            const existingCount = existing.chords?.chords?.length || 0;
+            // Always preserve the newest created_at across all duplicates for "recently added"
+            const newestAt = (entry.created_at || '') > (existing.created_at || '') ? entry.created_at : existing.created_at;
+            if (chordCount > existingCount) {
+                bySlug[entry.slug] = { ...entry, created_at: newestAt };
+            } else {
+                bySlug[entry.slug] = { ...existing, created_at: newestAt };
+            }
         }
     }
     return Object.values(bySlug);
@@ -1613,7 +1622,7 @@ async function main() {
             s: entry.slug,
             d: bComputeDifficulty(entry.chords?.chords || [], bFindOptimalCapo(entry.chords?.chords || [])),
             c: bFindOptimalCapo(entry.chords?.chords || []),
-            dt: (entry.created_at || '').slice(0, 10)
+            dt: entry.created_at || ''
         }));
         chordsIndex.sort((a, b) => a.t.localeCompare(b.t));
         fs.writeFileSync(path.join(ROOT, 'chords', 'index.json'), JSON.stringify(chordsIndex));
