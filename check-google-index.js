@@ -156,6 +156,27 @@ function inspectUrl(url, accessToken) {
   });
 }
 
+// ── Token Manager (auto-refresh before expiry) ──
+
+class TokenManager {
+  constructor(serviceAccount) {
+    this.serviceAccount = serviceAccount;
+    this.accessToken = null;
+    this.expiresAt = 0;
+  }
+
+  async getToken() {
+    const now = Date.now();
+    if (this.accessToken && now < this.expiresAt - 120000) {
+      return this.accessToken;
+    }
+    const jwt = createJWT(this.serviceAccount);
+    this.accessToken = await getAccessToken(jwt);
+    this.expiresAt = now + 3600 * 1000;
+    return this.accessToken;
+  }
+}
+
 // ── Main ──
 
 async function main() {
@@ -163,8 +184,8 @@ async function main() {
   console.log('Service account: ' + serviceAccount.client_email + '\n');
 
   console.log('Authenticating...');
-  const jwt = createJWT(serviceAccount);
-  const accessToken = await getAccessToken(jwt);
+  const tokenManager = new TokenManager(serviceAccount);
+  await tokenManager.getToken();
   console.log('Authenticated.\n');
 
   // Load previous results if resuming
@@ -238,7 +259,8 @@ async function main() {
   for (let i = 0; i < toCheck.length; i++) {
     const url = toCheck[i];
     try {
-      const result = await inspectUrl(url, accessToken);
+      const token = await tokenManager.getToken();
+      const result = await inspectUrl(url, token);
 
       if (result.statusCode === 200) {
         const data = JSON.parse(result.body);
