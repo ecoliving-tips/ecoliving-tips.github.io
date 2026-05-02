@@ -27,6 +27,24 @@ jobs:
       - name: Submit new URLs to IndexNow
         run: node submit-indexnow.js
 
+      - name: Setup Google service account
+        if: env.GOOGLE_INDEXING_KEY != ''
+        env:
+          GOOGLE_INDEXING_KEY: ${{ secrets.GOOGLE_INDEXING_KEY }}
+        run: echo "$GOOGLE_INDEXING_KEY" > google-indexing-key.json
+
+      - name: Submit new URLs to Google Indexing API
+        if: hashFiles('google-indexing-key.json') != ''
+        run: node submit-google-indexing.js
+
+      - name: Check Google index status
+        if: hashFiles('google-indexing-key.json') != ''
+        run: node check-google-index.js --new
+
+      - name: Cleanup service account key
+        if: always()
+        run: rm -f google-indexing-key.json
+
       - name: Build summary
         run: |
           echo "### Daily Build Summary" >> $GITHUB_STEP_SUMMARY
@@ -36,6 +54,11 @@ jobs:
           echo "- **AI Chord Pages:** ${CHORD_COUNT}" >> $GITHUB_STEP_SUMMARY
           echo "- **Sitemap Chord URLs:** ${SITEMAP_URLS}" >> $GITHUB_STEP_SUMMARY
           echo "- **Build time:** $(date -u '+%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
+          if [ -f index-status.json ]; then
+            INDEXED=$(node -e "const r=require('./index-status.json');console.log(Object.values(r).filter(v=>v.verdict==='PASS').length)")
+            TOTAL_CHECKED=$(node -e "const r=require('./index-status.json');console.log(Object.keys(r).length)")
+            echo "- **Google indexed:** ${INDEXED} / ${TOTAL_CHECKED} checked" >> $GITHUB_STEP_SUMMARY
+          fi
           if git diff --quiet; then
             echo "- **Status:** No new changes" >> $GITHUB_STEP_SUMMARY
           else
