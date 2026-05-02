@@ -856,6 +856,7 @@ function generateSitemap(songs, categories, artists, progressionKeys, aiChordPag
         { loc: '/chord-finder.html', changefreq: 'weekly', priority: '0.95', file: 'chord-finder.html' },
         { loc: '/chord-identifier.html', changefreq: 'monthly', priority: '0.90', file: 'chord-identifier.html' },
         { loc: '/chord-progressions.html', changefreq: 'monthly', priority: '0.90', file: 'chord-progressions.html' },
+        { loc: '/chords/browse.html', changefreq: 'daily', priority: '0.85', file: 'chords/browse.html' },
         { loc: '/request.html', changefreq: 'monthly', priority: '0.7', file: 'request.html' },
         { loc: '/privacy-policy.html', changefreq: 'yearly', priority: '0.3', file: 'privacy-policy.html' },
     ].map(p => ({
@@ -1077,7 +1078,7 @@ function pingSitemap() {
 
 // ===== Songs Page Pre-renderer =====
 
-function generateSongsPage(songs, allCategories, allArtists) {
+function generateSongsPage(songs, allCategories, allArtists, aiChordPages) {
     const songsHtmlPath = path.join(ROOT, 'songs.html');
     let html = fs.readFileSync(songsHtmlPath, 'utf-8');
 
@@ -1112,6 +1113,26 @@ function generateSongsPage(songs, allCategories, allArtists) {
         `$1${artistTags}$2`
     );
 
+    // Pre-render recently added chord cards (for Googlebot discovery)
+    if (aiChordPages && aiChordPages.length > 0) {
+        const sorted = [...aiChordPages]
+            .filter(e => e.slug && e.title)
+            .sort((a, b) => (b.created_at || '').localeCompare(a.created_at || ''));
+        const recent = sorted.slice(0, 10);
+        const recentCards = recent.map(entry => {
+            const title = (entry.title || entry.slug).replace(/</g, '&lt;');
+            const artist = (entry.artist || '').replace(/</g, '&lt;');
+            return `<a class="recently-added-card" href="/chords/${entry.slug}/">`
+                + `<div class="ra-title">${title}</div>`
+                + (artist ? `<div class="ra-artist">${artist}</div>` : '')
+                + `</a>`;
+        }).join('\n');
+        html = html.replace(
+            /(<div id="recently-added-row" class="recently-added-row">)[\s\S]*?(<\/div>\s*<\/div>\s*<div id="az-letter-bar")/,
+            `$1\n${recentCards}\n</div>\n</div>\n<div id="az-letter-bar"`
+        );
+    }
+
     fs.writeFileSync(songsHtmlPath, html);
 }
 
@@ -1130,6 +1151,96 @@ function generateHomepageFeaturedSongs(songs) {
     );
 
     fs.writeFileSync(indexHtmlPath, html);
+}
+
+// ===== Homepage Recently Added Chords Pre-renderer =====
+
+function generateHomepageRecentChords(aiChordPages) {
+    const indexHtmlPath = path.join(ROOT, 'index.html');
+    let html = fs.readFileSync(indexHtmlPath, 'utf-8');
+
+    const sorted = [...aiChordPages]
+        .filter(e => e.slug && e.title)
+        .sort((a, b) => (b.created_at || '').localeCompare(a.created_at || ''));
+    const recent = sorted.slice(0, 8);
+
+    const cards = recent.map(entry => {
+        const title = (entry.title || entry.slug).replace(/</g, '&lt;');
+        const artist = (entry.artist || '').replace(/</g, '&lt;');
+        return `                    <a class="recently-added-card" href="/chords/${entry.slug}/">`
+            + `<div class="ra-title">${title}</div>`
+            + (artist ? `<div class="ra-artist">${artist}</div>` : '')
+            + `</a>`;
+    }).join('\n');
+
+    html = html.replace(
+        /(<!-- BUILD:RECENT_CHORDS -->)[\s\S]*?(<!-- \/BUILD:RECENT_CHORDS -->)/,
+        `$1\n${cards}\n$2`
+    );
+
+    fs.writeFileSync(indexHtmlPath, html);
+}
+
+function generateChordsBrowsePage(aiChordPages) {
+    const browsePath = path.join(ROOT, 'chords', 'browse.html');
+    if (!fs.existsSync(browsePath)) return;
+    let html = fs.readFileSync(browsePath, 'utf-8');
+
+    const entries = aiChordPages
+        .filter(e => e.slug && e.title)
+        .sort((a, b) => (a.title || '').localeCompare(b.title || '', undefined, { sensitivity: 'base' }));
+
+    // Group by first letter
+    const groups = {};
+    for (const entry of entries) {
+        const firstChar = (entry.title || entry.slug).charAt(0).toUpperCase();
+        const letter = /[A-Z]/.test(firstChar) ? firstChar : '#';
+        if (!groups[letter]) groups[letter] = [];
+        groups[letter].push(entry);
+    }
+
+    const letters = Object.keys(groups).sort((a, b) => {
+        if (a === '#') return -1;
+        if (b === '#') return 1;
+        return a.localeCompare(b);
+    });
+
+    // A-Z navigation
+    const azNav = letters.map(l => `            <a href="#letter-${l === '#' ? 'num' : l}">${l}</a>`).join('\n');
+    html = html.replace(
+        /(<!-- BUILD:AZ_NAV -->)[\s\S]*?(<!-- \/BUILD:AZ_NAV -->)/,
+        `$1\n${azNav}\n$2`
+    );
+
+    // Directory listing
+    let directory = '';
+    for (const letter of letters) {
+        const id = letter === '#' ? 'num' : letter;
+        directory += `        <section class="az-section" id="letter-${id}">\n`;
+        directory += `            <h3 class="az-letter">${letter}</h3>\n`;
+        directory += `            <ul class="az-list">\n`;
+        for (const entry of groups[letter]) {
+            const title = (entry.title || entry.slug).replace(/</g, '&lt;').replace(/"/g, '&quot;');
+            const artist = (entry.artist || '').replace(/</g, '&lt;');
+            const artistSuffix = artist ? ` <span class="az-artist">— ${artist}</span>` : '';
+            directory += `                <li><a href="/chords/${entry.slug}/">${title}</a>${artistSuffix}</li>\n`;
+        }
+        directory += `            </ul>\n`;
+        directory += `        </section>\n`;
+    }
+
+    html = html.replace(
+        /(<!-- BUILD:CHORD_DIRECTORY -->)[\s\S]*?(<!-- \/BUILD:CHORD_DIRECTORY -->)/,
+        `$1\n${directory}$2`
+    );
+
+    // Update count
+    html = html.replace(
+        /(<!-- BUILD:CHORD_COUNT -->)[\s\S]*?(<!-- \/BUILD:CHORD_COUNT -->)/,
+        `$1${entries.length}$2`
+    );
+
+    fs.writeFileSync(browsePath, html);
 }
 
 // ===== AI-Generated Chord Pages (Supabase → Static HTML) =====
@@ -1521,12 +1632,15 @@ async function main() {
     await pingSitemap();
 
     // Pre-render songs.html
-    generateSongsPage(songs, allCategories, allArtists);
+    generateSongsPage(songs, allCategories, allArtists, aiChordPages);
     console.log('Pre-rendered songs.html with song cards, browse tags, and count.');
 
-    // Pre-render homepage featured songs
+    // Pre-render homepage featured songs + recent chords
     generateHomepageFeaturedSongs(songs);
-    console.log(`Pre-rendered index.html with ${Math.min(songs.length, 3)} featured song cards.`);
+    generateHomepageRecentChords(aiChordPages);
+    generateChordsBrowsePage(aiChordPages);
+    console.log(`Pre-rendered index.html with ${Math.min(songs.length, 3)} featured song cards + 8 recent chords.`);
+    console.log(`Pre-rendered chords/browse.html with ${aiChordPages.length} chord links (A-Z directory).`);
 
     // Summary
     console.log('\n--- Build Summary ---');

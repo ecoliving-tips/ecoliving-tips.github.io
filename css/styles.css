@@ -4166,6 +4166,25 @@ footer {
     margin: 2rem 0 2.5rem;
 }
 
+.recently-added-home {
+    padding: 3rem 0;
+}
+
+.recently-added-home h2 {
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.recently-added-home .section-subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+}
+
+.recently-added-home .recently-added-row {
+    margin-bottom: 1.5rem;
+}
+
 .recently-added-section h3 {
     font-size: 1.1rem;
     font-weight: 600;
@@ -4454,6 +4473,123 @@ footer {
 
     .letter-heading {
         font-size: 1.2rem;
+    }
+}
+
+/* Chords Browse Page (A-Z Directory) */
+.chords-browse-page {
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+}
+
+.chords-browse-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.chords-browse-header h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.chords-browse-cta {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: 0.75rem;
+}
+
+.chords-browse-cta a {
+    color: var(--primary-light);
+}
+
+.az-jump {
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+    margin-bottom: 2rem;
+}
+
+.az-jump a {
+    min-width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.az-jump a:hover {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+}
+
+.az-section {
+    margin-bottom: 2rem;
+}
+
+.az-letter {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--primary-light);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 6px;
+    margin-bottom: 10px;
+    scroll-margin-top: 60px;
+}
+
+.az-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    columns: 2;
+    column-gap: 2rem;
+}
+
+.az-list li {
+    padding: 4px 0;
+    break-inside: avoid;
+    line-height: 1.4;
+}
+
+.az-list a {
+    color: var(--text);
+    text-decoration: none;
+    transition: color var(--transition);
+}
+
+.az-list a:hover {
+    color: var(--primary-light);
+}
+
+.az-artist {
+    color: var(--text-muted);
+    font-size: 0.85em;
+}
+
+@media (max-width: 768px) {
+    .az-list {
+        columns: 1;
+    }
+
+    .az-jump a {
+        min-width: 28px;
+        height: 28px;
+        font-size: 0.7rem;
     }
 }
 

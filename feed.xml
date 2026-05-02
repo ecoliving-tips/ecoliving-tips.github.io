@@ -5,9 +5,23 @@
     <link>https://ecoliving-tips.github.io/</link>
     <description>Free AI-powered chord detection for any song. Latest chord pages and updates.</description>
     <language>en</language>
-    <lastBuildDate>Sat, 02 May 2026 05:01:50 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 02 May 2026 05:31:42 GMT</lastBuildDate>
     <atom:link href="https://ecoliving-tips.github.io/feed.xml" rel="self" type="application/rss+xml"/>
     <atom:link href="https://pubsubhubbub.appspot.com/" rel="hub"/>
+    <item>
+      <title>Blue Shift feat. Kasane Teto — Yowane Chords</title>
+      <link>https://ecoliving-tips.github.io/chords/blue-shift-feat-kasane-teto-yowane/</link>
+      <guid>https://ecoliving-tips.github.io/chords/blue-shift-feat-kasane-teto-yowane/</guid>
+      <description>AI-detected chord progression for Blue Shift feat. Kasane Teto by Yowane. Chords: F, G, Em7, Am, Em, C, G7, Am7</description>
+      <pubDate>Sat, 02 May 2026 05:28:51 GMT</pubDate>
+    </item>
+    <item>
+      <title>Lagu Anak Sekolah Minggu – “Bersukacita” ~ JPCC kids — Elohim Ministry Chords</title>
+      <link>https://ecoliving-tips.github.io/chords/lagu-anak-sekolah-minggu-bersukacita-jpcc-kids-elohim-ministry/</link>
+      <guid>https://ecoliving-tips.github.io/chords/lagu-anak-sekolah-minggu-bersukacita-jpcc-kids-elohim-ministry/</guid>
+      <description>AI-detected chord progression for Lagu Anak Sekolah Minggu – “Bersukacita” ~ JPCC kids by Elohim Ministry. Chords: C, F, D, G, Em, Em7, Am, Dm</description>
+      <pubDate>Sat, 02 May 2026 05:11:25 GMT</pubDate>
+    </item>
     <item>
       <title>Greatly to Be Praised — Planetshakers Chords</title>
       <link>https://ecoliving-tips.github.io/chords/greatly-to-be-praised-planetshakers/</link>
@@ -343,20 +357,6 @@
       <guid>https://ecoliving-tips.github.io/chords/i-just-got-mad-malcolm-todd-extended-mackyman/</guid>
       <description>AI-detected chord progression for I just got mad - Malcolm Todd (extended) by mackyman. Chords: Am7, Cm, G, Gmaj7, E7, Cm6</description>
       <pubDate>Fri, 01 May 2026 16:09:09 GMT</pubDate>
-    </item>
-    <item>
-      <title>Ishq wala love ✨ — Chirag C. Chords</title>
-      <link>https://ecoliving-tips.github.io/chords/ishq-wala-love-chirag-c/</link>
-      <guid>https://ecoliving-tips.github.io/chords/ishq-wala-love-chirag-c/</guid>
-      <description>AI-detected chord progression for Ishq wala love ✨ by Chirag C.. Chords: Gm, Dm, Cm, F, D#, A#, C</description>
-      <pubDate>Fri, 01 May 2026 16:05:55 GMT</pubDate>
-    </item>
-    <item>
-      <title>The Lament of a Suicidal Man — Siamun Chords</title>
-      <link>https://ecoliving-tips.github.io/chords/the-lament-of-a-suicidal-man-siamun/</link>
-      <guid>https://ecoliving-tips.github.io/chords/the-lament-of-a-suicidal-man-siamun/</guid>
-      <description>AI-detected chord progression for The Lament of a Suicidal Man by Siamun. Chords: Am, Dm7, G, F, Dm, Fmaj7</description>
-      <pubDate>Fri, 01 May 2026 15:47:51 GMT</pubDate>
     </item>
   </channel>
 </rss>
