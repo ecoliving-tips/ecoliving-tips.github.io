@@ -378,17 +378,18 @@
                 </div>
 
                 <!-- Mode toggle & Transpose controls -->
-                <div class="generate-meta-bar">
+                <div class="song-toolbar">
                     <div class="simplify-toggle">
                         <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
                         <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
                     </div>
-                    <div class="transpose-controls">
-                        <span data-i18n="transpose">Transpose:</span>
-                        <button type="button" class="transpose-btn" id="transpose-down">-1</button>
-                        <span id="transpose-value">0</span>
-                        <button type="button" class="transpose-btn" id="transpose-up">+1</button>
-                        <button type="button" class="transpose-btn transpose-reset" id="transpose-reset" data-i18n="reset">Reset</button>
+                    <div class="song-controls">
+                        <div class="transpose-controls">
+                            <button type="button" class="ctrl-btn" id="transpose-down" aria-label="Transpose down">-1</button>
+                            <span class="transpose-display"><span data-i18n="transpose">Transpose:</span> <strong id="transpose-value">0</strong></span>
+                            <button type="button" class="ctrl-btn" id="transpose-up" aria-label="Transpose up">+1</button>
+                            <button type="button" class="ctrl-btn ctrl-btn-text" id="transpose-reset" data-i18n="reset" aria-label="Reset transpose">Reset</button>
+                        </div>
                     </div>
                 </div>
 
