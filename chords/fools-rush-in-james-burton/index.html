@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Fools Rush In by James Burton. AI-detected chord progression with 68 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Fools Rush In by James Burton. AI-detected chord progression with 68 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Fools Rush In chords, James Burton chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Fools Rush In Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Fools Rush In by James Burton. AI-detected chord progression with 68 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Fools Rush In by James Burton. AI-detected chord progression with 68 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/fools-rush-in-james-burton/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Fools Rush In Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Fools Rush In by James Burton. AI-detected chord progression with 68 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Fools Rush In by James Burton. AI-detected chord progression with 68 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Fools Rush In Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "James Burton"
   },
   "url": "https://ecoliving-tips.github.io/chords/fools-rush-in-james-burton/",
-  "description": "Free chords for Fools Rush In by James Burton. AI-detected chord progression with 68 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Fools Rush In by James Burton. AI-detected chord progression with 68 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -90,8 +91,8 @@
     {
       "@type": "ListItem",
       "position": 2,
-      "name": "Chord Finder",
-      "item": "https://ecoliving-tips.github.io/chord-finder.html"
+      "name": "Song Library",
+      "item": "https://ecoliving-tips.github.io/songs.html"
     },
     {
       "@type": "ListItem",
@@ -129,9 +130,6 @@
                     <h1><a href="/" style="color:inherit;text-decoration:none;" data-i18n="site_title">Swaram</a></h1>
                     <p class="tagline" data-i18n="tagline">Find Chords for Any Song &mdash; Free AI Chord Finder</p>
                 </div>
-                <button class="lang-toggle" onclick="switchLanguage()" aria-label="Switch language">
-                    <span id="lang-indicator">EN</span>
-                </button>
                 <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
                     <span class="hamburger-line"></span>
                     <span class="hamburger-line"></span>
@@ -144,8 +142,7 @@
                     <li><a href="/chord-finder.html" data-i18n="nav_generate">Chord Finder</a></li>
                     <li><a href="/chord-identifier.html" data-i18n="nav_identifier">Chord Identifier</a></li>
                     <li><a href="/chord-progressions.html" data-i18n="nav_progressions">Progressions</a></li>
-                    <li><a href="/songs.html" data-i18n="nav_songs">All Songs</a></li>
-                    <li><a href="/request.html" data-i18n="nav_request">Request Song</a></li>
+                    <li><a href="/songs.html" data-i18n="nav_songs">Song Library</a></li>
                     <li><a href="#donate" data-i18n="nav_donate">Donate</a></li>
                 </ul>
             </nav>
@@ -173,6 +170,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 68 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +182,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -272,8 +279,7 @@
                         <li><a href="/chord-finder.html" data-i18n="nav_generate">Chord Finder</a></li>
                         <li><a href="/chord-identifier.html" data-i18n="nav_identifier">Chord Identifier</a></li>
                         <li><a href="/chord-progressions.html" data-i18n="nav_progressions">Progressions</a></li>
-                        <li><a href="/songs.html" data-i18n="nav_songs">All Songs</a></li>
-                        <li><a href="/request.html" data-i18n="nav_request">Request Song</a></li>
+                        <li><a href="/songs.html" data-i18n="nav_songs">Song Library</a></li>
                         <li><a href="/privacy-policy.html" data-i18n="nav_privacy">Privacy Policy</a></li>
                     </ul>
                 </div>
@@ -295,11 +301,12 @@
     <script>
     window.CHORD_DATA = [{"time":4.35,"chord":"A","duration":0.93},{"time":5.28,"chord":"F#m","duration":1.02},{"time":6.3,"chord":"Bm","duration":0.93},{"time":7.22,"chord":"Em","duration":1.02},{"time":8.24,"chord":"A","duration":0.93},{"time":9.17,"chord":"F#m","duration":0.65},{"time":9.81,"chord":"Bm","duration":1.48},{"time":11.3,"chord":"E","duration":0.93},{"time":12.22,"chord":"Bm","duration":3.98},{"time":16.2,"chord":"A","duration":3.33},{"time":19.54,"chord":"E","duration":0.46},{"time":20,"chord":"Bm","duration":2.13},{"time":22.13,"chord":"E7","duration":2.04},{"time":24.17,"chord":"A","duration":3.8},{"time":27.96,"chord":"Bm","duration":2.04},{"time":30,"chord":"E","duration":1.85},{"time":31.85,"chord":"F#m","duration":4.07},{"time":35.93,"chord":"B","duration":4.07},{"time":40,"chord":"Bm","duration":1.94},{"time":41.94,"chord":"E7","duration":1.85},{"time":43.8,"chord":"Bm","duration":2.13},{"time":45.93,"chord":"E7","duration":1.76},{"time":47.69,"chord":"A","duration":3.98},{"time":51.67,"chord":"Bm","duration":2.04},{"time":53.7,"chord":"E","duration":1.94},{"time":55.65,"chord":"C#m","duration":1.94},{"time":57.59,"chord":"F#","duration":1.94},{"time":59.54,"chord":"Bm","duration":2.04},{"time":61.57,"chord":"Dm","duration":2.04},{"time":63.61,"chord":"A","duration":1.76},{"time":65.37,"chord":"F#m","duration":2.04},{"time":67.41,"chord":"Bm","duration":2.04},{"time":69.44,"chord":"E7","duration":1.94},{"time":71.39,"chord":"A","duration":3.89},{"time":75.28,"chord":"Bm","duration":2.22},{"time":77.5,"chord":"E7","duration":1.85},{"time":79.35,"chord":"A","duration":3.89},{"time":83.24,"chord":"Bm","duration":2.04},{"time":85.28,"chord":"E7","duration":2.04},{"time":87.31,"chord":"A","duration":3.98},{"time":91.3,"chord":"Bm","duration":2.04},{"time":93.33,"chord":"E","duration":1.94},{"time":95.28,"chord":"F#m","duration":4.07},{"time":99.35,"chord":"B","duration":2.04},{"time":101.39,"chord":"Bm","duration":3.98},{"time":105.37,"chord":"E","duration":1.94},{"time":107.31,"chord":"Bm","duration":1.94},{"time":109.26,"chord":"E7","duration":2.04},{"time":111.3,"chord":"A","duration":3.98},{"time":115.28,"chord":"Bm","duration":1.94},{"time":117.22,"chord":"E7","duration":2.04},{"time":119.26,"chord":"C#m","duration":1.85},{"time":121.11,"chord":"F#","duration":2.04},{"time":123.15,"chord":"Bm","duration":2.13},{"time":125.28,"chord":"Dm","duration":1.94},{"time":127.22,"chord":"A","duration":1.85},{"time":129.07,"chord":"F#m","duration":2.04},{"time":131.11,"chord":"Bm","duration":2.04},{"time":133.15,"chord":"E7","duration":2.04},{"time":135.19,"chord":"A","duration":1.85},{"time":137.04,"chord":"F#m","duration":2.04},{"time":139.07,"chord":"Bm","duration":2.04},{"time":141.11,"chord":"E7","duration":2.04},{"time":143.15,"chord":"A","duration":1.76},{"time":144.91,"chord":"F#m","duration":2.13},{"time":147.04,"chord":"Bm","duration":2.04},{"time":149.07,"chord":"E","duration":2.04},{"time":151.11,"chord":"A","duration":6.48}];
     window.YOUTUBE_VIDEO_ID = 'PTUR2EdupUw';
+    window.BEGINNER_META = { capo: 2, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
-    <script src="/js/i18n.js" defer></script>
 </body>
 
 </html>

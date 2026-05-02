@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Browse our full collection of Malayalam Christian song chords. Find easy keyboard and guitar chord charts for Syro Malabar Holy Mass songs, hymns, and worship songs. Search by title or artist.">
-    <meta name="keywords" content="Malayalam Christian song list, all Malayalam chords, Syro Malabar song collection, Malayalam worship song chords, church song chords list, മലയാളം ക്രിസ്തീയ ഗാന കോർഡ്, എല്ലാ മലയാളം കോർഡുകൾ, സിറോ മലബാർ ഗാന ശേഖരം">
+    <meta name="description" content="Browse 1000+ song chords — hand-curated Malayalam Christian chord sheets plus AI-detected chord pages. Search by title or artist, filter by difficulty. Free guitar and keyboard chords.">
+    <meta name="keywords" content="song chords, guitar chords, keyboard chords, AI chord detection, Malayalam Christian chords, chord library, free chords, Syro Malabar songs">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://ecoliving-tips.github.io/songs.html">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="All Malayalam Christian Song Chords - Browse Full Collection">
-    <meta property="og:description" content="Browse our full collection of Malayalam Christian song chords. Easy keyboard and guitar chord charts for Holy Mass songs, hymns, and worship music.">
+    <meta property="og:title" content="Song Library — 1000+ Chord Pages | Swaram">
+    <meta property="og:description" content="Browse curated Malayalam chord sheets and 998 AI-detected chord pages. Search, filter by difficulty, and play along.">
     <meta property="og:url" content="https://ecoliving-tips.github.io/songs.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -22,11 +22,11 @@
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="All Malayalam Christian Song Chords - Full Collection">
-    <meta name="twitter:description" content="Browse our full collection of Malayalam Christian song chords. Easy chord charts for keyboard and guitar.">
+    <meta name="twitter:title" content="Song Library — 1000+ Chord Pages | Swaram">
+    <meta name="twitter:description" content="Browse curated chord sheets and AI-detected chord pages. Free guitar and keyboard chords.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
-    <title>All Malayalam Christian Song Chords - Browse Full Collection | Swaram</title>
+    <title>Song Library — Curated Chords & AI Chord Pages | Swaram</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -54,8 +54,8 @@
     {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
-      "name": "All Malayalam Christian Song Chords",
-      "description": "Browse our full collection of Malayalam Christian song chords for keyboard and guitar.",
+      "name": "Song Library — Curated Chords & AI Chord Pages",
+      "description": "Browse 1000+ song chords: hand-curated Malayalam Christian chord sheets and AI-detected chord pages for any song.",
       "url": "https://ecoliving-tips.github.io/songs.html",
       "isPartOf": {
         "@type": "WebSite",
@@ -74,9 +74,6 @@
                     <h1><a href="/" style="color:inherit;text-decoration:none;" data-i18n="site_title">Swaram</a></h1>
                     <p class="tagline" data-i18n="tagline">Find Chords for Any Song &mdash; Free AI Chord Finder</p>
                 </div>
-                <button class="lang-toggle" onclick="switchLanguage()" aria-label="Switch language">
-                    <span id="lang-indicator">EN</span>
-                </button>
                 <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
                     <span class="hamburger-line"></span>
                     <span class="hamburger-line"></span>
@@ -89,8 +86,7 @@
                     <li><a href="/chord-finder.html" data-i18n="nav_generate">Chord Finder</a></li>
                     <li><a href="/chord-identifier.html" data-i18n="nav_identifier">Chord Identifier</a></li>
                     <li><a href="/chord-progressions.html" data-i18n="nav_progressions">Progressions</a></li>
-                    <li><a href="/songs.html" data-i18n="nav_songs">All Songs</a></li>
-                    <li><a href="/request.html" data-i18n="nav_request">Request Song</a></li>
+                    <li><a href="/songs.html" data-i18n="nav_songs">Song Library</a></li>
                     <li><a href="#donate" data-i18n="nav_donate">Donate</a></li>
                 </ul>
             </nav>
@@ -103,42 +99,18 @@
     <main>
         <section class="songs-header">
             <div class="container">
-                <h2 data-i18n="songs_title">All Malayalam Christian Song Chords</h2>
-                <p data-i18n="songs_desc">Browse our growing collection of chord charts for Syro Malabar Holy Mass songs, Marian hymns, and praise & worship music. Every chord chart is free and beginner-friendly.</p>
+                <h2 data-i18n="songs_title">Song Library</h2>
+                <p data-i18n="songs_desc">Browse our collection of hand-curated chord sheets and AI-detected chord pages. Search by title or artist, filter by difficulty.</p>
                 <div class="search-box">
-                    <input type="text" id="search-input" placeholder="Search by song title, artist, or category..." data-i18n-placeholder="search_placeholder" aria-label="Search songs">
+                    <input type="text" id="search-input" placeholder="Search all songs by title or artist..." data-i18n-placeholder="browse_search_placeholder" aria-label="Search songs">
                 </div>
-                <div class="filter-bar" id="filter-bar" style="display:none">
-                    <div class="filter-group">
-                        <label>Category:</label>
-                        <div class="filter-chips" id="category-chips">
-                            <!-- Populated by JS -->
-                        </div>
-                    </div>
-                    <div class="filter-row">
-                        <div class="filter-group">
-                            <label for="key-filter">Key:</label>
-                            <select id="key-filter" class="filter-select">
-                                <option value="">All Keys</option>
-                            </select>
-                        </div>
-                        <div class="filter-group">
-                            <label for="sort-select">Sort:</label>
-                            <select id="sort-select" class="filter-select">
-                                <option value="default">Default</option>
-                                <option value="title-asc">Title (A-Z)</option>
-                                <option value="title-desc">Title (Z-A)</option>
-                                <option value="artist-asc">Artist (A-Z)</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <p class="song-count"><span data-i18n="songs_count">Songs in our collection:</span> <span id="song-count">8</span></p>
+                <p class="song-count"><span data-i18n="songs_count">Songs in our collection:</span> <span id="song-count">8</span> curated + <span id="ai-chord-count">0</span> AI chord pages</p>
             </div>
         </section>
 
-        <section class="songs-section">
+        <section class="songs-section" id="curated-section">
             <div class="container">
+                <div class="curated-label">&#9733; Hand-Curated Chord Sheets</div>
                 <div id="songs-grid" class="songs-grid"><div class="song-card">
                     <h3><span class="lang-en">Anna Pesaha Thirunalil</span><span class="lang-ml">അന്നാ പെസഹാ തിരുനാളിൽ</span></h3>
                     <p class="artist"><span class="lang-en">Traditional Syro Malabar</span><span class="lang-ml">പരമ്പരാഗത സിറോ മലബാർ</span></p>
@@ -244,8 +216,7 @@
                     </div>
                 </div></div>
                 <div id="no-results" class="no-results" style="display: none;">
-                    <p data-i18n="no_results">No songs found matching your search. Try a different term or request the song below.</p>
-                    <a href="request.html" class="btn" data-i18n="request_this">Request This Song</a>
+                    <p data-i18n="no_results">No songs found matching your search.</p>
                 </div>
             </div>
         </section>
@@ -268,6 +239,40 @@
 <a href="/artist/fr-vipin-kurishuthara-cmi/" class="browse-tag">Fr. Vipin Kurishuthara CMI</a>
 <a href="/artist/jollee-abraham/" class="browse-tag">Jollee Abraham</a></div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Chord Library -->
+        <section class="songs-section" id="ai-library-section">
+            <div class="container">
+                <hr class="section-divider">
+                <h2 data-i18n="browse_ai_title">AI Chord Library</h2>
+                <p style="color:var(--text-muted); margin-bottom: 1.5rem;" data-i18n="browse_ai_desc">AI-detected chord pages for hundreds of songs. Search, filter by difficulty, or browse A-Z.</p>
+
+                <div class="search-box" style="margin-bottom: 1rem;">
+                    <input type="text" id="ai-search-input" placeholder="Search AI chord pages by title or artist..." aria-label="Search AI chords">
+                </div>
+
+                <div class="difficulty-chips">
+                    <button class="difficulty-chip active" data-difficulty="all" data-i18n="difficulty_all">All</button>
+                    <button class="difficulty-chip" data-difficulty="easy" data-i18n="difficulty_easy">Easy</button>
+                    <button class="difficulty-chip" data-difficulty="moderate" data-i18n="difficulty_moderate">Moderate</button>
+                    <button class="difficulty-chip" data-difficulty="advanced" data-i18n="difficulty_advanced">Advanced</button>
+                </div>
+
+                <div id="recently-added-section" class="recently-added-section">
+                    <h3 data-i18n="browse_recently_added">Recently Added</h3>
+                    <div id="recently-added-row" class="recently-added-row"></div>
+                </div>
+
+                <div id="az-letter-bar" class="az-letter-bar"></div>
+
+                <div id="chords-container"></div>
+
+                <div id="browse-no-results" class="browse-no-results" style="display:none;">
+                    <p data-i18n="browse_no_results">Can't find your song?</p>
+                    <a href="/chord-finder.html" class="btn" data-i18n="browse_no_results_cta">Try AI Chord Finder</a>
                 </div>
             </div>
         </section>
@@ -311,8 +316,7 @@
                         <li><a href="/chord-finder.html" data-i18n="nav_generate">Chord Finder</a></li>
                         <li><a href="/chord-identifier.html" data-i18n="nav_identifier">Chord Identifier</a></li>
                         <li><a href="/chord-progressions.html" data-i18n="nav_progressions">Progressions</a></li>
-                        <li><a href="/songs.html" data-i18n="nav_songs">All Songs</a></li>
-                        <li><a href="/request.html" data-i18n="nav_request">Request Song</a></li>
+                        <li><a href="/songs.html" data-i18n="nav_songs">Song Library</a></li>
                         <li><a href="/privacy-policy.html" data-i18n="nav_privacy">Privacy Policy</a></li>
                     </ul>
                 </div>
@@ -331,7 +335,7 @@
 
     <script src="js/main.js"></script>
     <script src="js/songs.js"></script>
-    <script src="js/i18n.js" defer></script>
+    <script src="js/browse-chords.js" defer></script>
 </body>
 
 </html>

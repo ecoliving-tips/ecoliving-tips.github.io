@@ -1099,31 +1099,39 @@ const SUPABASE_KEY = 'sb_publishable_KJA4VzMAjt2WVEEg0JKMfg_lDrABAZK';
 
 /**
  * Fetch all generated chord entries that have metadata (slug != null) from Supabase.
- * Uses Node 18+ built-in fetch — no npm dependencies.
+ * Uses Range header pagination to get beyond the 1000-row default limit.
  */
 async function fetchGeneratedChords() {
-    // Try fetching with full metadata columns first; fall back to basic columns
     const columns = 'video_id,title,artist,slug,chords,created_at,youtube_title';
-    const url = `${SUPABASE_URL}/rest/v1/generated_chords?select=${columns}&slug=not.is.null&order=created_at.desc`;
+    const baseUrl = `${SUPABASE_URL}/rest/v1/generated_chords?select=${columns}&slug=not.is.null&order=created_at.desc`;
     const headers = {
         'apikey': SUPABASE_KEY,
         'Authorization': `Bearer ${SUPABASE_KEY}`,
+        'Prefer': 'count=exact',
     };
     try {
-        const resp = await fetch(url, { headers });
-        if (resp.ok) {
+        let allData = [];
+        let from = 0;
+        const pageSize = 1000;
+        while (true) {
+            const resp = await fetch(baseUrl, {
+                headers: { ...headers, 'Range': `${from}-${from + pageSize - 1}` }
+            });
+            if (resp.status === 400) {
+                console.warn('[Supabase] Metadata columns not found — run the schema migration SQL first.');
+                return [];
+            }
+            if (!resp.ok && resp.status !== 206) {
+                console.warn(`[Supabase] Failed to fetch generated chords: HTTP ${resp.status}`);
+                return allData;
+            }
             const data = await resp.json();
-            console.log(`[Supabase] Fetched ${data.length} generated chord entries with metadata.`);
-            return data;
+            allData = allData.concat(data);
+            if (data.length < pageSize) break;
+            from += pageSize;
         }
-        // If 400 (columns don't exist yet), return empty — user needs to run schema migration
-        if (resp.status === 400) {
-            console.warn('[Supabase] Metadata columns not found — run the schema migration SQL first.');
-            console.warn('[Supabase] Skipping AI chord page generation (0 entries with metadata).');
-            return [];
-        }
-        console.warn(`[Supabase] Failed to fetch generated chords: HTTP ${resp.status}`);
-        return [];
+        console.log(`[Supabase] Fetched ${allData.length} generated chord entries with metadata.`);
+        return allData;
     } catch (err) {
         console.warn(`[Supabase] Error fetching generated chords: ${err.message}`);
         return [];
@@ -1284,7 +1292,7 @@ function generateChordsPage(entry, templates) {
         "@type": "BreadcrumbList",
         "itemListElement": [
             { "@type": "ListItem", "position": 1, "name": "Home", "item": `${BASE_URL}/` },
-            { "@type": "ListItem", "position": 2, "name": "Chord Finder", "item": `${BASE_URL}/chord-finder.html` },
+            { "@type": "ListItem", "position": 2, "name": "Song Library", "item": `${BASE_URL}/songs.html` },
             { "@type": "ListItem", "position": 3, "name": `${title} Chords`, "item": canonicalUrl }
         ]
     };
@@ -1445,6 +1453,19 @@ async function main() {
             generateChordsPage(entry, templates);
         }
         console.log(`Generated ${aiChordPages.length} AI chord pages (from ${generatedChords.length} Supabase entries).`);
+
+        // Generate chords/index.json for the browse page
+        const chordsIndex = aiChordPages.map(entry => ({
+            t: entry.title || 'Unknown Song',
+            a: entry.artist || '',
+            s: entry.slug,
+            d: bComputeDifficulty(entry.chords?.chords || [], bFindOptimalCapo(entry.chords?.chords || [])),
+            c: bFindOptimalCapo(entry.chords?.chords || []),
+            dt: (entry.created_at || '').slice(0, 10)
+        }));
+        chordsIndex.sort((a, b) => a.t.localeCompare(b.t));
+        fs.writeFileSync(path.join(ROOT, 'chords', 'index.json'), JSON.stringify(chordsIndex));
+        console.log(`Generated chords/index.json with ${chordsIndex.length} entries.`);
     } catch (err) {
         console.warn(`[AI Chords] Skipped: ${err.message}`);
     }

@@ -1,3 +1,6 @@
+// i18n stub — returns fallback or key (full i18n system removed)
+function t(key, fallback) { return fallback || key; }
+
 document.addEventListener('DOMContentLoaded', function() {
     // Mobile menu toggle
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
