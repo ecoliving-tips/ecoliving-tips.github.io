@@ -11,6 +11,7 @@ const STATIC_ASSETS = [
     '/chord-progressions.html',
     '/js/chord-finder.js',
     '/js/chord-utils.js',
+    '/js/youtube-player.js',
     '/js/chord-identifier.js',
     '/js/chord-progressions.js',
     '/css/styles.css',

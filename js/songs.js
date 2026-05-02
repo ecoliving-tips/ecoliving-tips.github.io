@@ -287,14 +287,8 @@ async function loadSong(file) {
 
         if (metadata.youtube) {
             const videoId = extractYouTubeId(metadata.youtube);
-            if (videoId) {
-                document.getElementById('youtube-embed').innerHTML = `
-                    <iframe width="100%" height="315"
-                        src="https://www.youtube.com/embed/${videoId}"
-                        frameborder="0" allowfullscreen loading="lazy"
-                        title="${metadata.title || 'Song'} - Video Tutorial">
-                    </iframe>
-                `;
+            if (videoId && window.SwaramYT) {
+                SwaramYT.init('youtube-embed', videoId);
             }
         }
     } catch (error) {

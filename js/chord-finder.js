@@ -121,7 +121,6 @@ let audioPlayer = null;      // HTML5 Audio element
 let audioObjectUrl = null;   // Blob URL for uploaded file
 let serverWarm = false;      // Whether the HF Space is awake
 let youtubeVideoId = null;   // Extracted YouTube video ID (when using URL input)
-let ytPlayer = null;         // YouTube IFrame Player instance
 let ytSyncInterval = null;   // Interval ID for YouTube chord sync
 
 // Beginner mode state
@@ -817,62 +816,21 @@ function handleAudioSeek(e) {
 }
 
 // ---------------------------------------------------------------------------
-// YouTube IFrame Player
+// YouTube IFrame Player (via SwaramYT)
 // ---------------------------------------------------------------------------
-let ytApiReady = false;
-
-function loadYouTubeIFrameAPI() {
-    if (ytApiReady || document.getElementById('yt-iframe-api')) return;
-    const tag = document.createElement('script');
-    tag.id = 'yt-iframe-api';
-    tag.src = 'https://www.youtube.com/iframe_api';
-    document.head.appendChild(tag);
-}
-
-// YouTube IFrame API calls this global function when ready
-window.onYouTubeIframeAPIReady = function () {
-    ytApiReady = true;
-};
 
 function initYouTubePlayer(videoId) {
-    // Hide HTML5 audio player, show YouTube embed
     const audioContainer = document.getElementById('audio-player-container');
     if (audioContainer) audioContainer.style.display = 'none';
     const ytContainer = document.getElementById('youtube-player-container');
     if (ytContainer) ytContainer.style.display = '';
 
-    // Load API if not already loaded
-    loadYouTubeIFrameAPI();
-
-    function createPlayer() {
-        // Destroy previous if any
-        if (ytPlayer && typeof ytPlayer.destroy === 'function') {
-            ytPlayer.destroy();
-            ytPlayer = null;
-        }
-        ytPlayer = new YT.Player('youtube-player', {
-            videoId: videoId,
-            playerVars: { autoplay: 0, modestbranding: 1, rel: 0, playsinline: 1, origin: window.location.origin },
-            events: {
-                onStateChange: onYTStateChange,
-            },
-        });
-    }
-
-    if (ytApiReady && window.YT?.Player) {
-        createPlayer();
-    } else {
-        // Wait for API to load
-        const check = setInterval(() => {
-            if (window.YT?.Player) {
-                clearInterval(check);
-                ytApiReady = true;
-                createPlayer();
-            }
-        }, 200);
-        // Safety timeout
-        setTimeout(() => clearInterval(check), 10000);
-    }
+    SwaramYT.destroy();
+    ytContainer.innerHTML = '<div id="youtube-player"></div>';
+    SwaramYT.init('youtube-player', videoId, {
+        noThumbnail: true,
+        onStateChange: onYTStateChange
+    });
 }
 
 function onYTStateChange(event) {
@@ -909,15 +867,11 @@ function stopYTSync() {
 
 function destroyYouTubePlayer() {
     stopYTSync();
-    if (ytPlayer && typeof ytPlayer.destroy === 'function') {
-        ytPlayer.destroy();
-        ytPlayer = null;
-    }
+    SwaramYT.destroy();
     youtubeVideoId = null;
     const ytContainer = document.getElementById('youtube-player-container');
     if (ytContainer) {
         ytContainer.style.display = 'none';
-        // Recreate the div (YouTube API replaces it with an iframe)
         ytContainer.innerHTML = '<div id="youtube-player"></div>';
     }
 }
@@ -970,8 +924,8 @@ function findActiveChordIndex(time) {
 function updateChordSync() {
     if (!chordData?.chords?.length) return;
     let time;
-    if (ytPlayer && typeof ytPlayer.getCurrentTime === 'function') {
-        time = ytPlayer.getCurrentTime();
+    if (SwaramYT.isReady()) {
+        time = SwaramYT.getCurrentTime();
     } else if (audioPlayer) {
         time = audioPlayer.currentTime;
     } else {
@@ -1005,11 +959,10 @@ function updateChordSync() {
 }
 
 function seekTo(time) {
-    if (ytPlayer && typeof ytPlayer.seekTo === 'function') {
-        ytPlayer.seekTo(time, true);
+    if (SwaramYT.isReady()) {
+        SwaramYT.seekTo(time);
         lastActiveIdx = -1;
         updateChordSync();
-        if (ytPlayer.getPlayerState() !== 1) ytPlayer.playVideo();
         return;
     }
     if (!audioPlayer) return;
