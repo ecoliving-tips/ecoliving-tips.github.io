@@ -614,8 +614,6 @@ async function handleGenerate() {
                         slug,
                         youtubeTitle: meta.videoTitle,
                     };
-                    // Show share link in UI
-                    showShareLink(slug, parsed.title, parsed.artist);
                 }
                 storeChordCache(videoId, result, metadata);
             }).catch(() => {
@@ -712,44 +710,6 @@ function hideResults() {
     }
     // Clean up YouTube player
     destroyYouTubePlayer();
-    // Hide share link
-    const shareContainer = document.getElementById('share-link-container');
-    if (shareContainer) shareContainer.style.display = 'none';
-}
-
-/** Show a shareable permanent link to the chord page (only for YouTube analyses). */
-function showShareLink(slug, title, artist) {
-    if (!slug) return;
-    const container = document.getElementById('share-link-container');
-    if (!container) return;
-    const url = `${BASE_URL}/chords/${slug}/`;
-    // Build via DOM to avoid XSS from YouTube titles
-    container.textContent = '';
-    const wrapper = document.createElement('div');
-    wrapper.className = 'share-link-content';
-    const label = document.createElement('span');
-    label.className = 'share-link-label';
-    label.textContent = 'Share this chord sheet:';
-    const link = document.createElement('a');
-    link.href = url;
-    link.className = 'share-link-url';
-    link.target = '_blank';
-    link.textContent = `${artist} — ${title}`;
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'btn btn-sm share-link-copy';
-    btn.textContent = 'Copy Link';
-    btn.addEventListener('click', () => copyShareLink(url));
-    wrapper.append(label, link, btn);
-    container.appendChild(wrapper);
-    container.style.display = '';
-}
-
-function copyShareLink(url) {
-    navigator.clipboard.writeText(url).then(() => {
-        const btn = document.querySelector('.share-link-copy');
-        if (btn) { btn.textContent = 'Copied!'; setTimeout(() => { btn.textContent = 'Copy Link'; }, 2000); }
-    }).catch(() => {});
 }
 
 // ---------------------------------------------------------------------------
