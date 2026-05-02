@@ -12,6 +12,7 @@
     var videoId = window.YOUTUBE_VIDEO_ID || '';
     var beginnerMeta = window.BEGINNER_META || { capo: 0, difficulty: 'easy' };
 
+    var ytPlayer = null;
     var syncInterval = null;
     var currentTranspose = 0;
     var lastActiveIdx = -1;
@@ -142,7 +143,9 @@
     }
 
     function seekTo(time) {
-        window.SwaramYT.seekTo(time);
+        if (ytPlayer && typeof ytPlayer.seekTo === 'function') {
+            ytPlayer.seekTo(time, true);
+        }
     }
 
     // ── Sync ──
@@ -158,8 +161,8 @@
     }
 
     function updateChordSync() {
-        if (!window.SwaramYT.isReady()) return;
-        var time = window.SwaramYT.getCurrentTime();
+        if (!ytPlayer || typeof ytPlayer.getCurrentTime !== 'function') return;
+        var time = ytPlayer.getCurrentTime();
         var activeIdx = findActiveChordIndex(time);
         if (activeIdx === lastActiveIdx) return;
         lastActiveIdx = activeIdx;
@@ -183,16 +186,46 @@
     function startSync() { if (!syncInterval) syncInterval = setInterval(updateChordSync, 100); }
     function stopSync() { clearInterval(syncInterval); syncInterval = null; }
 
-    // ── YouTube Player (via SwaramYT) ──
+    // ── YouTube IFrame API ──
+
+    function onStateChange(event) {
+        if (event.data === 1) startSync();
+        else if (event.data === 0 || event.data === 2) stopSync();
+    }
+
+    function createYTPlayer() {
+        if (ytPlayer) return;
+        ytPlayer = new YT.Player('youtube-player', {
+            videoId: videoId,
+            playerVars: { autoplay: 0, rel: 0, modestbranding: 1, playsinline: 1, origin: window.location.origin },
+            events: {
+                onReady: function () {},
+                onStateChange: onStateChange
+            }
+        });
+    }
 
     function initPlayer() {
         if (!videoId) return;
-        window.SwaramYT.init('youtube-player', videoId, {
-            onStateChange: function (event) {
-                if (event.data === 1) startSync();
-                else if (event.data === 0 || event.data === 2) stopSync();
+
+        if (!document.getElementById('yt-iframe-api')) {
+            var tag = document.createElement('script');
+            tag.id = 'yt-iframe-api';
+            tag.src = 'https://www.youtube.com/iframe_api';
+            document.head.appendChild(tag);
+        }
+
+        window.onYouTubeIframeAPIReady = function () {
+            createYTPlayer();
+        };
+
+        var check = setInterval(function () {
+            if (window.YT && window.YT.Player) {
+                clearInterval(check);
+                if (!ytPlayer) createYTPlayer();
             }
-        });
+        }, 200);
+        setTimeout(function () { clearInterval(check); }, 10000);
     }
 
     // ── Init ──

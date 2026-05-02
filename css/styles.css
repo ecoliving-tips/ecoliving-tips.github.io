@@ -1438,39 +1438,6 @@ body.lang-ml .lyric-line {
     border: none;
 }
 
-/* Lazy YouTube Thumbnail */
-.yt-lazy-thumb {
-    position: relative;
-    cursor: pointer;
-    aspect-ratio: 16 / 9;
-    background: #000;
-}
-
-.yt-lazy-thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-.yt-lazy-thumb .yt-play-btn {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    opacity: 0.85;
-    transition: opacity 0.2s, transform 0.2s;
-}
-
-.yt-lazy-thumb:hover .yt-play-btn {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.1);
-}
-
 .song-navigation {
     display: flex;
     gap: 16px;
@@ -2152,7 +2119,6 @@ footer {
     max-width: 560px;
     margin-left: auto;
     margin-right: auto;
-    background: #000;
 }
 .youtube-player-container iframe {
     width: 100%;
