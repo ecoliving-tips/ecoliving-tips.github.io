@@ -206,24 +206,56 @@
     function initPlayer() {
         if (!videoId) return;
 
-        if (!document.getElementById('yt-iframe-api')) {
-            var tag = document.createElement('script');
-            tag.id = 'yt-iframe-api';
-            tag.src = 'https://www.youtube.com/iframe_api';
-            document.head.appendChild(tag);
+        var iframe = document.getElementById('youtube-player');
+        if (!iframe) return;
+
+        function attachAPI() {
+            if (!document.getElementById('yt-iframe-api')) {
+                var tag = document.createElement('script');
+                tag.id = 'yt-iframe-api';
+                tag.src = 'https://www.youtube.com/iframe_api';
+                document.head.appendChild(tag);
+            }
+
+            // Chain with any existing onYouTubeIframeAPIReady (e.g. GA's YouTube tracking)
+            // to avoid overwriting GA's callback and causing duplicate-player conflicts
+            var prev = window.onYouTubeIframeAPIReady;
+            window.onYouTubeIframeAPIReady = function () {
+                if (typeof prev === 'function') prev();
+                createYTPlayer();
+            };
+
+            // If GA already loaded the API before we set our callback, create player now
+            if (window.YT && window.YT.Player && !ytPlayer) {
+                createYTPlayer();
+                return;
+            }
+
+            var check = setInterval(function () {
+                if (window.YT && window.YT.Player) {
+                    clearInterval(check);
+                    if (!ytPlayer) createYTPlayer();
+                }
+            }, 200);
+            setTimeout(function () { clearInterval(check); }, 10000);
         }
 
-        window.onYouTubeIframeAPIReady = function () {
-            createYTPlayer();
-        };
+        // Wait for the iframe to finish loading youtube.com content before attaching
+        // the API. Until 'load' fires, iframe.contentWindow.origin is still our domain,
+        // which causes the YT API's internal postMessage polls to fail with an origin
+        // mismatch error.
+        var attached = false;
+        iframe.addEventListener('load', function () {
+            if (attached) return;
+            attached = true;
+            attachAPI();
+        }, { once: true });
 
-        var check = setInterval(function () {
-            if (window.YT && window.YT.Player) {
-                clearInterval(check);
-                if (!ytPlayer) createYTPlayer();
-            }
-        }, 200);
-        setTimeout(function () { clearInterval(check); }, 10000);
+        // Fallback: if the iframe was already cached and 'load' fired before our listener,
+        // proceed after a short delay (iframe.contentWindow.origin is youtube.com by then).
+        setTimeout(function () {
+            if (!attached) { attached = true; attachAPI(); }
+        }, 1500);
     }
 
     // ── Init ──

@@ -243,7 +243,7 @@ function renderYouTubeEmbed(url, title) {
     return `<div id="youtube-embed" class="video-container">
                     <iframe width="100%" height="315"
                         src="https://www.youtube.com/embed/${videoId}?enablejsapi=1&playsinline=1&rel=0&origin=https://ecoliving-tips.github.io"
-                        frameborder="0" allow="autoplay; encrypted-media; fullscreen" allowfullscreen loading="lazy"
+                        frameborder="0" allow="autoplay; encrypted-media; fullscreen" loading="lazy"
                         title="${escapeHtml(title || 'Song')} - Video Tutorial">
                     </iframe>
                 </div>`;
@@ -1476,7 +1476,7 @@ function generateChordsPage(entry, templates) {
         ? `<div id="youtube-player-container" class="youtube-player-container">
                     <iframe id="youtube-player"
                         src="https://www.youtube.com/embed/${videoId}?enablejsapi=1&playsinline=1&rel=0&modestbranding=1&origin=https://ecoliving-tips.github.io"
-                        frameborder="0" allow="autoplay; encrypted-media; fullscreen" allowfullscreen
+                        frameborder="0" allow="autoplay; encrypted-media; fullscreen"
                         title="${escapeHtml(entry.title || '')} - Chord Player">
                     </iframe>
                 </div>`
