@@ -267,10 +267,6 @@
     function setStatus(i18nKey, fallback) {
         micStatus.textContent = fallback;
         micStatus.setAttribute('data-i18n', i18nKey);
-        if (typeof t === 'function') {
-            var translated = t(i18nKey);
-            if (translated) micStatus.textContent = translated;
-        }
     }
 
     // ── Analysis loop (volume at 60fps, chords throttled to ~7fps) ──

@@ -242,8 +242,8 @@ function renderYouTubeEmbed(url, title) {
     if (!videoId) return '';
     return `<div id="youtube-embed" class="video-container">
                     <iframe width="100%" height="315"
-                        src="https://www.youtube.com/embed/${videoId}"
-                        frameborder="0" allowfullscreen loading="lazy"
+                        src="https://www.youtube.com/embed/${videoId}?playsinline=1&rel=0"
+                        frameborder="0" allow="autoplay; encrypted-media; fullscreen" allowfullscreen loading="lazy"
                         title="${escapeHtml(title || 'Song')} - Video Tutorial">
                     </iframe>
                 </div>`;

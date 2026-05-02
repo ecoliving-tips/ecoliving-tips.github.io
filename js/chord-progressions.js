@@ -218,8 +218,7 @@
     function updatePlayButton() {
         var btn = document.getElementById('prog-play-btn');
         if (!btn) return;
-        var t = window.t || function (k, fb) { return fb; };
-        btn.textContent = isPlaying ? t('prog_stop', 'Stop') : t('prog_play', 'Play');
+        btn.textContent = isPlaying ? 'Stop' : 'Play';
         btn.classList.toggle('active', isPlaying);
     }
 
@@ -274,9 +273,8 @@
         navigator.clipboard.writeText(text).then(function () {
             var btn = document.getElementById('prog-copy-btn');
             if (btn) {
-                var t = window.t || function (k, fb) { return fb; };
                 var orig = btn.textContent;
-                btn.textContent = t('prog_copied', 'Copied!');
+                btn.textContent = 'Copied!';
                 setTimeout(function () { btn.textContent = orig; }, 1500);
             }
         });
