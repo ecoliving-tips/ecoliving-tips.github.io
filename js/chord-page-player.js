@@ -235,6 +235,12 @@
                         ytPlayBase = ytCurrentTime;
                     }
                 }
+                // Handle autoplay race: onStateChange(1) may fire before our subscribe
+                if (typeof data.info.playerState === 'number') {
+                    var ps = data.info.playerState;
+                    if (ps === 1 && !syncInterval) startSync();
+                    else if ((ps === 0 || ps === 2) && syncInterval) stopSync();
+                }
             }
 
             if (data.event === 'onStateChange') {
@@ -275,7 +281,9 @@
             container.appendChild(iframe);
             ytIframe = iframe;
             iframe.addEventListener('load', subscribe, { once: true });
-            setTimeout(subscribe, 2500); // fallback if 'load' already fired
+            setTimeout(subscribe, 1000);
+            setTimeout(subscribe, 2500);
+            setTimeout(subscribe, 5000);
         }
 
         if (container.classList.contains('youtube-facade')) {
