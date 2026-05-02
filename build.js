@@ -279,6 +279,7 @@ function loadTemplates() {
             header: read('partials/header.html'),
             footer: read('partials/footer.html'),
             donate: read('partials/donate.html'),
+            donateSimple: read('partials/donate-simple.html'),
         },
         songPage: read('song-page.html'),
         lyricsPage: read('lyrics-page.html'),
@@ -289,11 +290,11 @@ function loadTemplates() {
     };
 }
 
-function fillPartials(template, partials) {
+function fillPartials(template, partials, donateOverride) {
     return template
         .replace('{{HEADER}}', partials.header)
         .replace('{{FOOTER}}', partials.footer)
-        .replace('{{DONATE}}', partials.donate);
+        .replace('{{DONATE}}', donateOverride || partials.donate);
 }
 
 function fillHead(template, partials, headVars) {
@@ -1501,7 +1502,7 @@ function generateChordsPage(entry, templates) {
         TWITTER_DESCRIPTION: escapeHtml(pageDesc),
         EXTRA_HEAD: '',
     });
-    page = fillPartials(page, partials);
+    page = fillPartials(page, partials, partials.donateSimple);
     page = page
         .replace(/\{\{SONG_TITLE\}\}/g, escapeHtml(title))
         .replace(/\{\{ARTIST\}\}/g, escapeHtml(artist))
