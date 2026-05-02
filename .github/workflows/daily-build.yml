@@ -1,4 +1,4 @@
-name: Daily Build
+name: Daily Build & Index
 
 on:
   schedule:
@@ -21,6 +21,28 @@ jobs:
       - name: Run build
         run: node build.js
 
+      - name: Validate chord diagrams
+        run: node test-chords.js
+
+      - name: Submit new URLs to IndexNow
+        run: node submit-indexnow.js
+
+      - name: Build summary
+        run: |
+          echo "### Daily Build Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          CHORD_COUNT=$(node -e "console.log(require('./chords/index.json').length)")
+          SITEMAP_URLS=$(grep -c "<loc>" sitemap-chords.xml || echo 0)
+          echo "- **AI Chord Pages:** ${CHORD_COUNT}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Sitemap Chord URLs:** ${SITEMAP_URLS}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Build time:** $(date -u '+%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
+          if git diff --quiet; then
+            echo "- **Status:** No new changes" >> $GITHUB_STEP_SUMMARY
+          else
+            NEW_PAGES=$(git diff --name-only | grep "^chords/" | grep -c "index.html" || echo 0)
+            echo "- **New chord pages:** ${NEW_PAGES}" >> $GITHUB_STEP_SUMMARY
+          fi
+
       - name: Commit and push if changed
         run: |
           git config user.name "github-actions[bot]"
@@ -29,6 +51,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "chore: daily build — update chord pages and sitemaps"
+            CHORD_COUNT=$(node -e "console.log(require('./chords/index.json').length)")
+            git commit -m "chore: daily build — ${CHORD_COUNT} chord pages, sitemaps updated"
             git push
           fi
