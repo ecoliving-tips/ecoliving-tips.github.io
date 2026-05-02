@@ -196,8 +196,6 @@
     function createYTPlayer() {
         if (ytPlayer) return;
         ytPlayer = new YT.Player('youtube-player', {
-            videoId: videoId,
-            playerVars: { autoplay: 0, rel: 0, modestbranding: 1, playsinline: 1, origin: window.location.origin },
             events: {
                 onReady: function () {},
                 onStateChange: onStateChange

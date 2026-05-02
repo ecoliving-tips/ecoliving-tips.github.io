@@ -242,7 +242,7 @@ function renderYouTubeEmbed(url, title) {
     if (!videoId) return '';
     return `<div id="youtube-embed" class="video-container">
                     <iframe width="100%" height="315"
-                        src="https://www.youtube.com/embed/${videoId}?playsinline=1&rel=0"
+                        src="https://www.youtube.com/embed/${videoId}?enablejsapi=1&playsinline=1&rel=0&origin=https://ecoliving-tips.github.io"
                         frameborder="0" allow="autoplay; encrypted-media; fullscreen" allowfullscreen loading="lazy"
                         title="${escapeHtml(title || 'Song')} - Video Tutorial">
                     </iframe>
@@ -1471,10 +1471,14 @@ function generateChordsPage(entry, templates) {
     // Meta bar — only chord count, no key/time since backend doesn't provide them
     const metaBar = `<span class="meta-pill"><span class="meta-label">Chords</span> ${chordCount} detected</span>`;
 
-    // YouTube embed — controllable player container (not static iframe)
+    // YouTube embed — pre-rendered iframe with enablejsapi so YT.Player can attach without race condition
     const youtubeEmbed = videoId
         ? `<div id="youtube-player-container" class="youtube-player-container">
-                    <div id="youtube-player"></div>
+                    <iframe id="youtube-player"
+                        src="https://www.youtube.com/embed/${videoId}?enablejsapi=1&playsinline=1&rel=0&modestbranding=1&origin=https://ecoliving-tips.github.io"
+                        frameborder="0" allow="autoplay; encrypted-media; fullscreen" allowfullscreen
+                        title="${escapeHtml(entry.title || '')} - Chord Player">
+                    </iframe>
                 </div>`
         : '';
 
