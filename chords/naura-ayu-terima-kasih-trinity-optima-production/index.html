@@ -276,9 +276,7 @@
             <h3 data-i18n="support_title">Support Swaram</h3>
             <p data-i18n="support_text">We keep everything completely free. Your support helps us improve the chord finder and add more songs.</p>
             <div class="donate-options">
-                <div class="razorpay-donate-btn">
-                    <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_SadQoYekBnNHJC" async> </script> </form>
-                </div>
+                <div class="razorpay-donate-btn" id="razorpay-btn-container"></div>
                 <div class="upi-donate-option">
                     <p class="upi-label" data-i18n="or_upi">Or pay directly via UPI (India)</p>
                     <a href="#" onclick="openUPI(); return false;" class="btn btn-secondary" data-i18n="pay_upi">Pay via UPI</a>
@@ -286,6 +284,32 @@
             </div>
         </div>
     </section>
+    <script>
+    (function () {
+        var container = document.getElementById('razorpay-btn-container');
+        if (!container) return;
+        var loaded = false;
+        function loadRazorpay() {
+            if (loaded) return;
+            loaded = true;
+            var form = document.createElement('form');
+            var s = document.createElement('script');
+            s.src = 'https://checkout.razorpay.com/v1/payment-button.js';
+            s.setAttribute('data-payment_button_id', 'pl_SadQoYekBnNHJC');
+            s.async = true;
+            form.appendChild(s);
+            container.appendChild(form);
+        }
+        if ('IntersectionObserver' in window) {
+            var obs = new IntersectionObserver(function (entries) {
+                if (entries[0].isIntersecting) { loadRazorpay(); obs.disconnect(); }
+            }, { rootMargin: '300px' });
+            obs.observe(container);
+        } else {
+            loadRazorpay();
+        }
+    })();
+    </script>
 
     </main>
 
