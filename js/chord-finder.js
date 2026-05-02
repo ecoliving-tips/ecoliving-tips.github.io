@@ -169,12 +169,12 @@ function updateBeginnerInfo() {
 
     if (capoEl) {
         capoEl.textContent = capoPosition > 0
-            ? `${t('gen_capo_prefix')} ${capoPosition}`
-            : t('gen_no_capo');
+            ? `${t('gen_capo_prefix', 'Capo')} ${capoPosition}`
+            : t('gen_no_capo', 'No Capo');
     }
 
     if (diffEl) {
-        const labels = { easy: t('gen_difficulty_easy'), moderate: t('gen_difficulty_moderate'), advanced: t('gen_difficulty_advanced') };
+        const labels = { easy: t('gen_difficulty_easy', 'Easy'), moderate: t('gen_difficulty_moderate', 'Moderate'), advanced: t('gen_difficulty_advanced', 'Advanced') };
         diffEl.textContent = labels[difficultyLevel] || difficultyLevel;
         diffEl.className = 'meta-badge beginner-difficulty difficulty-' + difficultyLevel;
     }
@@ -280,7 +280,7 @@ function handleFileSelect(e) {
 
 function setSelectedFile(file) {
     if (file.size > MAX_FILE_SIZE) {
-        showError(t('gen_error_file_size') || `File too large (${(file.size / 1024 / 1024).toFixed(1)}MB). Max: 30MB.`);
+        showError(t('gen_error_file_size', `File too large (${(file.size / 1024 / 1024).toFixed(1)}MB). Max: 30MB.`));
         return;
     }
     selectedFile = file;
@@ -367,8 +367,7 @@ function _checkDuration(durationSec) {
     if (durationSec && durationSec > MAX_DURATION_SEC) {
         const mins = Math.floor(MAX_DURATION_SEC / 60);
         const err = new Error(
-            t('gen_url_too_long') ||
-            `This video is too long. Please use videos under ${mins} minutes for best results.`
+            t('gen_url_too_long', `This video is too long. Please use videos under ${mins} minutes for best results.`)
         );
         err._noRetry = true;
         throw err;
@@ -440,7 +439,7 @@ async function fetchYouTubeAudio(videoId) {
 
     // All tiers exhausted
     throw new Error(
-        t('gen_url_error') || 'Could not fetch audio from YouTube. Please upload the audio file instead.'
+        t('gen_url_error', 'Could not fetch audio from YouTube. Please upload the audio file instead.')
     );
 }
 
@@ -469,7 +468,7 @@ async function handleGenerate() {
     const videoId = ytUrl ? extractVideoId(ytUrl) : null;
 
     if (!selectedFile && !videoId) {
-        showError(t('gen_error_no_input') || 'Please upload an audio file or paste a YouTube link.');
+        showError(t('gen_error_no_input', 'Please upload an audio file or paste a YouTube link.'));
         return;
     }
 
@@ -480,8 +479,7 @@ async function handleGenerate() {
             if (dur && dur > MAX_DURATION_SEC) {
                 const mins = Math.floor(MAX_DURATION_SEC / 60);
                 showError(
-                    t('gen_error_too_long') ||
-                    `This audio is too long. Please use files under ${mins} minutes for best results.`
+                    t('gen_error_too_long', `This audio is too long. Please use files under ${mins} minutes for best results.`)
                 );
                 return;
             }
@@ -539,7 +537,7 @@ async function handleGenerate() {
                     const status = document.getElementById('youtube-fetch-status');
                     if (status) {
                         status.style.display = '';
-                        status.textContent = t('gen_server_yt_fallback') || 'Fetching audio from your browser (this may take a moment)...';
+                        status.textContent = t('gen_server_yt_fallback', 'Fetching audio from your browser (this may take a moment)...');
                         status.classList.remove('error');
                     }
 
@@ -550,7 +548,7 @@ async function handleGenerate() {
                     } catch (clientErr) {
                         // Both server and client failed — show helpful error
                         if (status) {
-                            status.textContent = t('gen_url_error') || 'Could not fetch audio from YouTube. Please download the audio and upload it instead.';
+                            status.textContent = t('gen_url_error', 'Could not fetch audio from YouTube. Please download the audio and upload it instead.');
                             status.classList.add('error');
                         }
                         throw clientErr;
@@ -866,7 +864,7 @@ function initYouTubePlayer(videoId) {
         }
         ytPlayer = new YT.Player('youtube-player', {
             videoId: videoId,
-            playerVars: { autoplay: 0, modestbranding: 1, rel: 0, playsinline: 1 },
+            playerVars: { autoplay: 0, modestbranding: 1, rel: 0, playsinline: 1, origin: window.location.origin },
             events: {
                 onStateChange: onYTStateChange,
             },
@@ -1123,8 +1121,8 @@ function disableGenerateBtn(disabled) {
     if (btn) {
         btn.disabled = disabled;
         btn.textContent = disabled
-            ? (t('gen_generating') || 'Listening...')
-            : (t('gen_button') || 'Find Chords');
+            ? t('gen_generating', 'Listening...')
+            : t('gen_button', 'Find Chords');
     }
 }
 

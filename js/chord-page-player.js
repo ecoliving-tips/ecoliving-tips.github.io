@@ -96,11 +96,11 @@
         var diffEl = document.getElementById('difficulty-display');
         if (capoEl) {
             capoEl.textContent = capoPosition > 0
-                ? t('gen_capo_prefix') + ' ' + capoPosition
-                : t('gen_no_capo');
+                ? t('gen_capo_prefix', 'Capo') + ' ' + capoPosition
+                : t('gen_no_capo', 'No Capo');
         }
         if (diffEl) {
-            var labels = { easy: t('gen_difficulty_easy'), moderate: t('gen_difficulty_moderate'), advanced: t('gen_difficulty_advanced') };
+            var labels = { easy: t('gen_difficulty_easy', 'Easy'), moderate: t('gen_difficulty_moderate', 'Moderate'), advanced: t('gen_difficulty_advanced', 'Advanced') };
             diffEl.textContent = labels[difficultyLevel] || difficultyLevel;
             diffEl.className = 'meta-badge beginner-difficulty difficulty-' + difficultyLevel;
         }
@@ -213,7 +213,7 @@
         window.onYouTubeIframeAPIReady = function () {
             ytPlayer = new YT.Player('youtube-player', {
                 videoId: videoId,
-                playerVars: { rel: 0, modestbranding: 1 },
+                playerVars: { rel: 0, modestbranding: 1, playsinline: 1, origin: window.location.origin },
                 events: { onStateChange: onStateChange },
             });
         };
