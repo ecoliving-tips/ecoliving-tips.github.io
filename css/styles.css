@@ -2114,8 +2114,7 @@ footer {
 .youtube-player-container {
     margin-bottom: 1rem;
     border-radius: var(--radius);
-    overflow: hidden; /* fallback: Safari < 15.4, Chrome < 90 */
-    overflow: clip;   /* modern: clips to border-radius without creating a scroll container */
+    overflow: hidden;
     aspect-ratio: 16 / 9;
     max-width: 560px;
     margin-left: auto;
@@ -2125,33 +2124,6 @@ footer {
     width: 100%;
     height: 100%;
     border: none;
-}
-.youtube-facade {
-    position: relative;
-    background: #000;
-    cursor: pointer;
-}
-.yt-facade-thumb {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-}
-.yt-facade-play {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    filter: drop-shadow(0 2px 8px rgba(0,0,0,.5));
-    transition: transform .15s;
-}
-.youtube-facade:hover .yt-facade-play {
-    transform: translate(-50%, -50%) scale(1.08);
 }
 
 .generate-btn {
