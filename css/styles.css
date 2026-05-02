@@ -2114,7 +2114,8 @@ footer {
 .youtube-player-container {
     margin-bottom: 1rem;
     border-radius: var(--radius);
-    overflow: hidden;
+    overflow: hidden; /* fallback: Safari < 15.4, Chrome < 90 */
+    overflow: clip;   /* modern: clips to border-radius without creating a scroll container */
     aspect-ratio: 16 / 9;
     max-width: 560px;
     margin-left: auto;
