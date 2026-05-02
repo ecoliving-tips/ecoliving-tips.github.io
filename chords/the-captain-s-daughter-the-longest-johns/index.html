@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for The Captain's Daughter by The Longest Johns. AI-detected chord progression with 40 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for The Captain's Daughter by The Longest Johns. AI-detected chord progression with 40 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="The Captain's Daughter chords, The Longest Johns chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="The Captain's Daughter Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for The Captain's Daughter by The Longest Johns. AI-detected chord progression with 40 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for The Captain's Daughter by The Longest Johns. AI-detected chord progression with 40 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/the-captain-s-daughter-the-longest-johns/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="The Captain's Daughter Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for The Captain's Daughter by The Longest Johns. AI-detected chord progression with 40 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for The Captain's Daughter by The Longest Johns. AI-detected chord progression with 40 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>The Captain's Daughter Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "The Longest Johns"
   },
   "url": "https://ecoliving-tips.github.io/chords/the-captain-s-daughter-the-longest-johns/",
-  "description": "Free chords for The Captain's Daughter by The Longest Johns. AI-detected chord progression with 40 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for The Captain's Daughter by The Longest Johns. AI-detected chord progression with 40 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 40 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -288,8 +299,10 @@
     <script>
     window.CHORD_DATA = [{"time":16.48,"chord":"C","duration":1.02},{"time":17.5,"chord":"F","duration":1.02},{"time":18.52,"chord":"G","duration":0.83},{"time":19.35,"chord":"F","duration":0.56},{"time":19.91,"chord":"C","duration":1.67},{"time":21.57,"chord":"F","duration":1.02},{"time":22.59,"chord":"G","duration":1.39},{"time":23.98,"chord":"C","duration":2.96},{"time":40,"chord":"G","duration":2.13},{"time":42.13,"chord":"C","duration":0.74},{"time":42.87,"chord":"F","duration":1.11},{"time":43.98,"chord":"G","duration":1.02},{"time":45,"chord":"C","duration":2.04},{"time":47.04,"chord":"F","duration":1.02},{"time":48.06,"chord":"G","duration":1.3},{"time":49.35,"chord":"C","duration":3.61},{"time":68.33,"chord":"F","duration":1.02},{"time":69.35,"chord":"G","duration":1.11},{"time":70.46,"chord":"C","duration":1.94},{"time":72.41,"chord":"F","duration":1.02},{"time":73.43,"chord":"G","duration":1.39},{"time":74.81,"chord":"C","duration":6.11},{"time":93.8,"chord":"F","duration":0.93},{"time":94.72,"chord":"G","duration":1.48},{"time":96.2,"chord":"C","duration":1.76},{"time":97.96,"chord":"F","duration":0.93},{"time":98.89,"chord":"G","duration":1.11},{"time":100,"chord":"C","duration":3.61},{"time":119.07,"chord":"F","duration":0.93},{"time":120,"chord":"G","duration":1.3},{"time":121.3,"chord":"C","duration":2.04},{"time":123.33,"chord":"F","duration":0.93},{"time":124.26,"chord":"G","duration":1.39},{"time":125.65,"chord":"C","duration":1.85},{"time":127.5,"chord":"F","duration":0.93},{"time":128.43,"chord":"G","duration":1.02},{"time":129.44,"chord":"C","duration":1.94},{"time":131.39,"chord":"F","duration":1.02},{"time":132.41,"chord":"G","duration":2.22},{"time":134.63,"chord":"C","duration":5}];
     window.YOUTUBE_VIDEO_ID = 'bY3wGMrfDXs';
+    window.BEGINNER_META = { capo: 0, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

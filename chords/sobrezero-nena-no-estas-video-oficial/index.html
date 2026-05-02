@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for SOBREZERO - Nena, no estás (VIDEO OFICIAL) by SOBREZERØ. AI-detected chord progression with 112 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for SOBREZERO - Nena, no estás (VIDEO OFICIAL) by SOBREZERØ. AI-detected chord progression with 112 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="SOBREZERO - Nena, no estás (VIDEO OFICIAL) chords, SOBREZERØ chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="SOBREZERO - Nena, no estás (VIDEO OFICIAL) Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for SOBREZERO - Nena, no estás (VIDEO OFICIAL) by SOBREZERØ. AI-detected chord progression with 112 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for SOBREZERO - Nena, no estás (VIDEO OFICIAL) by SOBREZERØ. AI-detected chord progression with 112 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/sobrezero-nena-no-estas-video-oficial/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="SOBREZERO - Nena, no estás (VIDEO OFICIAL) Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for SOBREZERO - Nena, no estás (VIDEO OFICIAL) by SOBREZERØ. AI-detected chord progression with 112 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for SOBREZERO - Nena, no estás (VIDEO OFICIAL) by SOBREZERØ. AI-detected chord progression with 112 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>SOBREZERO - Nena, no estás (VIDEO OFICIAL) Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "SOBREZERØ"
   },
   "url": "https://ecoliving-tips.github.io/chords/sobrezero-nena-no-estas-video-oficial/",
-  "description": "Free chords for SOBREZERO - Nena, no estás (VIDEO OFICIAL) by SOBREZERØ. AI-detected chord progression with 112 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for SOBREZERO - Nena, no estás (VIDEO OFICIAL) by SOBREZERØ. AI-detected chord progression with 112 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 112 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -293,8 +304,10 @@
     <script>
     window.CHORD_DATA = [{"time":15.65,"chord":"E","duration":0.93},{"time":16.57,"chord":"A","duration":1.48},{"time":18.06,"chord":"E","duration":1.02},{"time":19.07,"chord":"Bm","duration":0.93},{"time":20,"chord":"D","duration":1.57},{"time":21.57,"chord":"A","duration":1.2},{"time":22.78,"chord":"E","duration":1.11},{"time":23.89,"chord":"Bm","duration":1.2},{"time":25.09,"chord":"D","duration":1.3},{"time":26.39,"chord":"A","duration":1.2},{"time":27.59,"chord":"E","duration":1.11},{"time":28.7,"chord":"Bm","duration":2.69},{"time":31.39,"chord":"A","duration":1.02},{"time":32.41,"chord":"E","duration":1.2},{"time":33.61,"chord":"Bm","duration":1.48},{"time":35.09,"chord":"D","duration":1.11},{"time":36.2,"chord":"A","duration":1.11},{"time":37.31,"chord":"E","duration":1.2},{"time":38.52,"chord":"Bm","duration":2.5},{"time":41.02,"chord":"A","duration":1.2},{"time":42.22,"chord":"E","duration":1.2},{"time":43.43,"chord":"Bm7","duration":1.48},{"time":44.91,"chord":"D","duration":0.65},{"time":45.56,"chord":"F#m","duration":1.57},{"time":47.13,"chord":"E","duration":1.11},{"time":48.24,"chord":"A","duration":2.5},{"time":50.74,"chord":"F#m","duration":1.3},{"time":52.04,"chord":"E","duration":1.3},{"time":53.33,"chord":"A","duration":3.52},{"time":56.85,"chord":"E","duration":1.2},{"time":58.06,"chord":"B","duration":1.2},{"time":59.26,"chord":"D","duration":0.74},{"time":60,"chord":"A","duration":1.85},{"time":61.85,"chord":"E","duration":1.2},{"time":63.06,"chord":"B","duration":1.3},{"time":64.35,"chord":"D","duration":1.02},{"time":65.37,"chord":"A","duration":1.48},{"time":66.85,"chord":"E","duration":1.02},{"time":67.87,"chord":"B","duration":1.39},{"time":69.26,"chord":"D","duration":1.2},{"time":70.46,"chord":"A","duration":1.2},{"time":71.67,"chord":"E","duration":1.2},{"time":72.87,"chord":"Bm","duration":1.2},{"time":74.07,"chord":"D","duration":1.3},{"time":75.37,"chord":"A","duration":1.3},{"time":76.67,"chord":"E","duration":1.02},{"time":77.69,"chord":"Bm","duration":1.2},{"time":78.89,"chord":"D","duration":1.11},{"time":80,"chord":"A","duration":1.67},{"time":81.67,"chord":"E","duration":1.02},{"time":82.69,"chord":"Bm","duration":1.11},{"time":83.8,"chord":"D","duration":1.2},{"time":85,"chord":"A","duration":1.48},{"time":86.48,"chord":"E","duration":1.3},{"time":87.78,"chord":"Bm","duration":2.22},{"time":90,"chord":"A","duration":1.11},{"time":91.11,"chord":"E","duration":1.3},{"time":92.41,"chord":"Bm","duration":1.67},{"time":94.07,"chord":"D","duration":1.3},{"time":95.37,"chord":"A","duration":0.56},{"time":95.93,"chord":"E","duration":1.76},{"time":97.69,"chord":"Bm","duration":0.93},{"time":98.61,"chord":"D","duration":1.2},{"time":99.81,"chord":"A","duration":1.2},{"time":101.02,"chord":"E","duration":1.3},{"time":102.31,"chord":"Bm","duration":1.11},{"time":103.43,"chord":"D","duration":1.39},{"time":104.81,"chord":"A","duration":1.02},{"time":105.83,"chord":"E","duration":1.2},{"time":107.04,"chord":"Bm","duration":1.39},{"time":108.43,"chord":"D","duration":1.57},{"time":110,"chord":"A","duration":0.74},{"time":110.74,"chord":"E","duration":1.3},{"time":112.04,"chord":"Bm","duration":1.11},{"time":113.15,"chord":"D","duration":1.3},{"time":114.44,"chord":"A","duration":1.3},{"time":115.74,"chord":"E","duration":1.2},{"time":116.94,"chord":"Bm","duration":1.3},{"time":118.24,"chord":"D","duration":1.11},{"time":119.35,"chord":"A","duration":1.48},{"time":120.83,"chord":"E","duration":1.39},{"time":122.22,"chord":"D","duration":1.94},{"time":124.17,"chord":"A","duration":1.67},{"time":125.83,"chord":"G","duration":1.02},{"time":126.85,"chord":"B","duration":0.93},{"time":127.78,"chord":"D","duration":1.11},{"time":128.89,"chord":"A","duration":1.11},{"time":130,"chord":"E","duration":1.67},{"time":131.67,"chord":"Bm","duration":1.2},{"time":132.87,"chord":"D","duration":1.11},{"time":133.98,"chord":"A","duration":1.57},{"time":135.56,"chord":"E","duration":0.93},{"time":136.48,"chord":"Bm","duration":1.48},{"time":137.96,"chord":"D","duration":1.02},{"time":138.98,"chord":"A","duration":1.02},{"time":140,"chord":"E","duration":1.57},{"time":141.57,"chord":"Bm","duration":1.11},{"time":142.69,"chord":"D","duration":1.02},{"time":143.7,"chord":"A","duration":1.39},{"time":145.09,"chord":"E","duration":1.39},{"time":146.48,"chord":"Bm","duration":1.02},{"time":147.5,"chord":"D","duration":1.3},{"time":148.8,"chord":"A","duration":1.2},{"time":150,"chord":"E","duration":1.3},{"time":151.3,"chord":"Bm","duration":1.02},{"time":152.31,"chord":"D","duration":1.67},{"time":153.98,"chord":"A","duration":1.02},{"time":155,"chord":"E","duration":1.11},{"time":156.11,"chord":"Bm","duration":1.2},{"time":157.31,"chord":"D","duration":1.2},{"time":158.52,"chord":"A","duration":2.69},{"time":161.2,"chord":"B","duration":0.74}];
     window.YOUTUBE_VIDEO_ID = 'HhviqoCZtWA';
+    window.BEGINNER_META = { capo: 2, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

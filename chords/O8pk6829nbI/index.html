@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for ふわりと、きえて by MUMU音樂台. AI-detected chord progression with 65 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for ふわりと、きえて by MUMU音樂台. AI-detected chord progression with 65 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="ふわりと、きえて chords, MUMU音樂台 chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="ふわりと、きえて Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for ふわりと、きえて by MUMU音樂台. AI-detected chord progression with 65 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for ふわりと、きえて by MUMU音樂台. AI-detected chord progression with 65 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/O8pk6829nbI/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="ふわりと、きえて Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for ふわりと、きえて by MUMU音樂台. AI-detected chord progression with 65 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for ふわりと、きえて by MUMU音樂台. AI-detected chord progression with 65 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>ふわりと、きえて Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "MUMU音樂台"
   },
   "url": "https://ecoliving-tips.github.io/chords/O8pk6829nbI/",
-  "description": "Free chords for ふわりと、きえて by MUMU音樂台. AI-detected chord progression with 65 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for ふわりと、きえて by MUMU音樂台. AI-detected chord progression with 65 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 65 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -300,8 +311,10 @@
     <script>
     window.CHORD_DATA = [{"time":3.24,"chord":"Gm","duration":3.89},{"time":7.13,"chord":"F","duration":0.56},{"time":7.69,"chord":"Am","duration":2.31},{"time":10,"chord":"F","duration":0.93},{"time":10.93,"chord":"Gm","duration":1.67},{"time":12.59,"chord":"D#7","duration":2.13},{"time":14.72,"chord":"F","duration":0.56},{"time":15.28,"chord":"C","duration":3.33},{"time":18.61,"chord":"Gm","duration":4.07},{"time":22.69,"chord":"Dm","duration":3.8},{"time":26.48,"chord":"Gm","duration":3.52},{"time":30.28,"chord":"F","duration":3.61},{"time":33.89,"chord":"Gm7","duration":3.52},{"time":37.41,"chord":"C7","duration":0.74},{"time":38.15,"chord":"Am","duration":1.85},{"time":40,"chord":"F","duration":1.57},{"time":41.57,"chord":"A#maj7","duration":5.28},{"time":46.85,"chord":"F","duration":0.46},{"time":47.31,"chord":"C","duration":2.31},{"time":49.63,"chord":"F","duration":0.37},{"time":50,"chord":"Fmaj7","duration":3.43},{"time":53.43,"chord":"Dm7","duration":3.43},{"time":56.85,"chord":"Am7","duration":0.46},{"time":57.31,"chord":"Gm7","duration":4.17},{"time":61.48,"chord":"C7","duration":3.61},{"time":65.09,"chord":"Am","duration":3.98},{"time":69.07,"chord":"D7","duration":3.8},{"time":72.87,"chord":"Gm7","duration":1.94},{"time":74.81,"chord":"C7","duration":1.94},{"time":76.76,"chord":"F","duration":3.24},{"time":80,"chord":"Gm7","duration":2.31},{"time":82.31,"chord":"A#m","duration":1.67},{"time":83.98,"chord":"F","duration":4.26},{"time":88.24,"chord":"Gm7","duration":1.76},{"time":90,"chord":"A#m","duration":2.22},{"time":92.22,"chord":"F","duration":3.8},{"time":96.02,"chord":"Gm7","duration":1.94},{"time":97.96,"chord":"C7","duration":2.04},{"time":100,"chord":"Am7","duration":2.13},{"time":102.13,"chord":"D7","duration":1.76},{"time":103.89,"chord":"Gm7","duration":1.94},{"time":105.83,"chord":"C7","duration":1.94},{"time":107.78,"chord":"F","duration":3.8},{"time":111.57,"chord":"Gm7","duration":2.04},{"time":113.61,"chord":"C7","duration":1.85},{"time":115.46,"chord":"Am","duration":2.04},{"time":117.5,"chord":"Dm","duration":1.94},{"time":119.44,"chord":"A#","duration":0.56},{"time":120,"chord":"A#maj7","duration":3.24},{"time":123.24,"chord":"C7","duration":3.89},{"time":127.13,"chord":"F","duration":3.61},{"time":130.74,"chord":"Dm7","duration":3.89},{"time":134.63,"chord":"Gm7","duration":4.44},{"time":139.07,"chord":"C7","duration":3.52},{"time":142.59,"chord":"F","duration":3.89},{"time":146.48,"chord":"D7","duration":3.7},{"time":150.19,"chord":"Gm7","duration":2.13},{"time":152.31,"chord":"C7","duration":1.94},{"time":154.26,"chord":"F","duration":3.7},{"time":157.96,"chord":"Gm7","duration":2.04},{"time":160,"chord":"C7","duration":2.04},{"time":162.04,"chord":"Fmaj7","duration":3.7},{"time":165.74,"chord":"Gm7","duration":2.04},{"time":167.78,"chord":"C7","duration":1.85},{"time":169.63,"chord":"F","duration":3.98}];
     window.YOUTUBE_VIDEO_ID = 'O8pk6829nbI';
+    window.BEGINNER_META = { capo: 5, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Pokemon Ruby/Sapphire/Emerald- Littleroot Town by pokemonmusicmaster. AI-detected chord progression with 57 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Pokemon Ruby/Sapphire/Emerald- Littleroot Town by pokemonmusicmaster. AI-detected chord progression with 57 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Pokemon Ruby/Sapphire/Emerald- Littleroot Town chords, pokemonmusicmaster chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Pokemon Ruby/Sapphire/Emerald- Littleroot Town Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Pokemon Ruby/Sapphire/Emerald- Littleroot Town by pokemonmusicmaster. AI-detected chord progression with 57 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Pokemon Ruby/Sapphire/Emerald- Littleroot Town by pokemonmusicmaster. AI-detected chord progression with 57 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/pokemon-ruby-sapphire-emerald-littleroot-town-pokemonmusicmaster/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Pokemon Ruby/Sapphire/Emerald- Littleroot Town Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Pokemon Ruby/Sapphire/Emerald- Littleroot Town by pokemonmusicmaster. AI-detected chord progression with 57 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Pokemon Ruby/Sapphire/Emerald- Littleroot Town by pokemonmusicmaster. AI-detected chord progression with 57 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Pokemon Ruby/Sapphire/Emerald- Littleroot Town Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "pokemonmusicmaster"
   },
   "url": "https://ecoliving-tips.github.io/chords/pokemon-ruby-sapphire-emerald-littleroot-town-pokemonmusicmaster/",
-  "description": "Free chords for Pokemon Ruby/Sapphire/Emerald- Littleroot Town by pokemonmusicmaster. AI-detected chord progression with 57 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Pokemon Ruby/Sapphire/Emerald- Littleroot Town by pokemonmusicmaster. AI-detected chord progression with 57 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 57 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -298,8 +309,10 @@
     <script>
     window.CHORD_DATA = [{"time":0,"chord":"C","duration":0.83},{"time":0.83,"chord":"F","duration":2.31},{"time":3.15,"chord":"Am","duration":0.93},{"time":4.07,"chord":"A","duration":1.11},{"time":5.19,"chord":"Dm","duration":1.11},{"time":6.3,"chord":"A","duration":1.11},{"time":7.41,"chord":"C","duration":1.11},{"time":8.52,"chord":"G","duration":1.48},{"time":10,"chord":"F","duration":0.37},{"time":10.37,"chord":"A#","duration":1.67},{"time":12.04,"chord":"Gm","duration":2.31},{"time":14.35,"chord":"C","duration":4.35},{"time":18.7,"chord":"F","duration":2.31},{"time":21.02,"chord":"A","duration":2.13},{"time":23.15,"chord":"Dm","duration":0.93},{"time":24.07,"chord":"A","duration":1.3},{"time":25.37,"chord":"C","duration":1.48},{"time":26.85,"chord":"Dm","duration":0.65},{"time":27.5,"chord":"F","duration":0.65},{"time":28.15,"chord":"A#","duration":1.85},{"time":30,"chord":"Gm7","duration":2.13},{"time":32.13,"chord":"C","duration":2.22},{"time":34.35,"chord":"Em","duration":1.02},{"time":35.37,"chord":"C","duration":2.41},{"time":37.78,"chord":"A","duration":1.48},{"time":39.26,"chord":"Dm","duration":0.74},{"time":40,"chord":"Dm6","duration":0.37},{"time":40.37,"chord":"F","duration":0.65},{"time":41.02,"chord":"Gm","duration":2.13},{"time":43.15,"chord":"C","duration":1.39},{"time":44.54,"chord":"Gm","duration":1.02},{"time":45.56,"chord":"Am","duration":0.74},{"time":46.3,"chord":"A","duration":1.39},{"time":47.69,"chord":"F","duration":1.02},{"time":48.7,"chord":"Bm","duration":0.74},{"time":49.44,"chord":"G7","duration":0.56},{"time":50,"chord":"A#","duration":0.83},{"time":50.83,"chord":"G","duration":1.3},{"time":52.13,"chord":"C","duration":2.31},{"time":54.44,"chord":"F","duration":2.13},{"time":56.57,"chord":"Am","duration":1.3},{"time":57.87,"chord":"A","duration":0.83},{"time":58.7,"chord":"Dm","duration":1.3},{"time":60,"chord":"A","duration":1.02},{"time":61.02,"chord":"C","duration":1.39},{"time":62.41,"chord":"F","duration":1.39},{"time":63.8,"chord":"A#","duration":1.76},{"time":65.56,"chord":"Gm","duration":2.31},{"time":67.87,"chord":"C","duration":4.35},{"time":72.22,"chord":"F","duration":2.22},{"time":74.44,"chord":"A","duration":2.31},{"time":76.76,"chord":"Dm","duration":0.93},{"time":77.69,"chord":"A","duration":1.2},{"time":78.89,"chord":"C","duration":1.11},{"time":80,"chord":"Dm","duration":1.2},{"time":81.2,"chord":"A#","duration":2.22},{"time":83.43,"chord":"Gm","duration":0.99}];
     window.YOUTUBE_VIDEO_ID = 'im6tbN9SZXs';
+    window.BEGINNER_META = { capo: 5, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

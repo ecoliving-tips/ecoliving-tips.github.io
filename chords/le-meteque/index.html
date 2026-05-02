@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Ο μέτοικος (Le meteque)| Γιάννης Μπέζος - Δημήτρης Υφαντής by Ό,τι Αγαπώ με τον Γιάννη Μπέζο. AI-detected chord progression with 43 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Ο μέτοικος (Le meteque)| Γιάννης Μπέζος - Δημήτρης Υφαντής by Ό,τι Αγαπώ με τον Γιάννη Μπέζο. AI-detected chord progression with 43 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Ο μέτοικος (Le meteque)| Γιάννης Μπέζος - Δημήτρης Υφαντής chords, Ό,τι Αγαπώ με τον Γιάννη Μπέζο chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Ο μέτοικος (Le meteque)| Γιάννης Μπέζος - Δημήτρης Υφαντής Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Ο μέτοικος (Le meteque)| Γιάννης Μπέζος - Δημήτρης Υφαντής by Ό,τι Αγαπώ με τον Γιάννη Μπέζο. AI-detected chord progression with 43 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Ο μέτοικος (Le meteque)| Γιάννης Μπέζος - Δημήτρης Υφαντής by Ό,τι Αγαπώ με τον Γιάννη Μπέζο. AI-detected chord progression with 43 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/le-meteque/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Ο μέτοικος (Le meteque)| Γιάννης Μπέζος - Δημήτρης Υφαντής Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Ο μέτοικος (Le meteque)| Γιάννης Μπέζος - Δημήτρης Υφαντής by Ό,τι Αγαπώ με τον Γιάννη Μπέζο. AI-detected chord progression with 43 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Ο μέτοικος (Le meteque)| Γιάννης Μπέζος - Δημήτρης Υφαντής by Ό,τι Αγαπώ με τον Γιάννη Μπέζο. AI-detected chord progression with 43 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Ο μέτοικος (Le meteque)| Γιάννης Μπέζος - Δημήτρης Υφαντής Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Ό,τι Αγαπώ με τον Γιάννη Μπέζο"
   },
   "url": "https://ecoliving-tips.github.io/chords/le-meteque/",
-  "description": "Free chords for Ο μέτοικος (Le meteque)| Γιάννης Μπέζος - Δημήτρης Υφαντής by Ό,τι Αγαπώ με τον Γιάννη Μπέζο. AI-detected chord progression with 43 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Ο μέτοικος (Le meteque)| Γιάννης Μπέζος - Δημήτρης Υφαντής by Ό,τι Αγαπώ με τον Γιάννη Μπέζο. AI-detected chord progression with 43 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 43 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -293,8 +304,10 @@
     <script>
     window.CHORD_DATA = [{"time":0,"chord":"A","duration":3.98},{"time":3.98,"chord":"F#m","duration":0.83},{"time":4.81,"chord":"E","duration":0.74},{"time":5.56,"chord":"A","duration":7.41},{"time":12.96,"chord":"F#m","duration":0.56},{"time":13.52,"chord":"E7","duration":10.28},{"time":23.8,"chord":"A","duration":10.65},{"time":34.44,"chord":"E7","duration":2.69},{"time":37.13,"chord":"D","duration":2.5},{"time":39.63,"chord":"A","duration":0.37},{"time":40,"chord":"C#m","duration":1.57},{"time":41.57,"chord":"A","duration":0.56},{"time":42.13,"chord":"Bm","duration":1.3},{"time":43.43,"chord":"E7","duration":1.48},{"time":44.91,"chord":"A","duration":10.46},{"time":55.37,"chord":"E7","duration":10.19},{"time":65.56,"chord":"A","duration":6.2},{"time":71.76,"chord":"D","duration":1.11},{"time":72.87,"chord":"A","duration":2.87},{"time":75.74,"chord":"E","duration":2.59},{"time":78.33,"chord":"D","duration":2.78},{"time":81.11,"chord":"C#m","duration":2.41},{"time":83.52,"chord":"Bm","duration":1.57},{"time":85.09,"chord":"E","duration":1.39},{"time":86.48,"chord":"A","duration":6.67},{"time":93.15,"chord":"Dm","duration":1.11},{"time":94.26,"chord":"A","duration":2.59},{"time":96.85,"chord":"E","duration":2.31},{"time":99.17,"chord":"E7","duration":8.06},{"time":107.22,"chord":"A","duration":10.37},{"time":117.59,"chord":"E7","duration":2.41},{"time":120,"chord":"D","duration":2.78},{"time":122.78,"chord":"C#m","duration":2.69},{"time":125.46,"chord":"Bm","duration":1.39},{"time":126.85,"chord":"E","duration":1.3},{"time":128.15,"chord":"A","duration":5.19},{"time":133.33,"chord":"Bm","duration":2.59},{"time":135.93,"chord":"E7","duration":2.5},{"time":138.43,"chord":"A","duration":2.59},{"time":141.02,"chord":"D","duration":6.02},{"time":147.04,"chord":"A","duration":5.74},{"time":152.78,"chord":"D","duration":0.74},{"time":153.52,"chord":"A","duration":4.26}];
     window.YOUTUBE_VIDEO_ID = 'YEzPqAtPRiY';
+    window.BEGINNER_META = { capo: 2, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

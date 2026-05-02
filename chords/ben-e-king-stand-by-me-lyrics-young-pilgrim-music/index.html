@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Ben E  King - Stand By Me (Lyrics) by Young Pilgrim Music. AI-detected chord progression with 49 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Ben E  King - Stand By Me (Lyrics) by Young Pilgrim Music. AI-detected chord progression with 49 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Ben E  King - Stand By Me (Lyrics) chords, Young Pilgrim Music chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Ben E  King - Stand By Me (Lyrics) Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Ben E  King - Stand By Me (Lyrics) by Young Pilgrim Music. AI-detected chord progression with 49 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Ben E  King - Stand By Me (Lyrics) by Young Pilgrim Music. AI-detected chord progression with 49 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/ben-e-king-stand-by-me-lyrics-young-pilgrim-music/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Ben E  King - Stand By Me (Lyrics) Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Ben E  King - Stand By Me (Lyrics) by Young Pilgrim Music. AI-detected chord progression with 49 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Ben E  King - Stand By Me (Lyrics) by Young Pilgrim Music. AI-detected chord progression with 49 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Ben E  King - Stand By Me (Lyrics) Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Young Pilgrim Music"
   },
   "url": "https://ecoliving-tips.github.io/chords/ben-e-king-stand-by-me-lyrics-young-pilgrim-music/",
-  "description": "Free chords for Ben E  King - Stand By Me (Lyrics) by Young Pilgrim Music. AI-detected chord progression with 49 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Ben E  King - Stand By Me (Lyrics) by Young Pilgrim Music. AI-detected chord progression with 49 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 49 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -289,8 +300,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.28,"chord":"A","duration":3.89},{"time":8.98,"chord":"D","duration":1.02},{"time":10,"chord":"E","duration":2.13},{"time":12.13,"chord":"A","duration":8.15},{"time":20.28,"chord":"F#m","duration":3.89},{"time":24.17,"chord":"D","duration":2.13},{"time":26.3,"chord":"E","duration":1.94},{"time":28.24,"chord":"A","duration":8.15},{"time":36.39,"chord":"F#m","duration":1.39},{"time":37.78,"chord":"E","duration":0.46},{"time":38.24,"chord":"F#m","duration":1.76},{"time":40,"chord":"D","duration":2.31},{"time":42.31,"chord":"E","duration":1.94},{"time":44.26,"chord":"A","duration":8.15},{"time":52.41,"chord":"F#m","duration":4.07},{"time":56.48,"chord":"D","duration":1.94},{"time":58.43,"chord":"E","duration":2.13},{"time":60.56,"chord":"A","duration":8.06},{"time":68.61,"chord":"F#m","duration":1.39},{"time":70,"chord":"A","duration":0.65},{"time":70.65,"chord":"F#m","duration":2.04},{"time":72.69,"chord":"D","duration":2.04},{"time":74.72,"chord":"E","duration":2.13},{"time":76.85,"chord":"A","duration":7.96},{"time":84.81,"chord":"F#m","duration":4.07},{"time":88.89,"chord":"D","duration":2.04},{"time":90.93,"chord":"E","duration":2.04},{"time":92.96,"chord":"A","duration":8.06},{"time":101.02,"chord":"F#m","duration":1.57},{"time":102.59,"chord":"E","duration":0.37},{"time":102.96,"chord":"F#m","duration":2.13},{"time":105.09,"chord":"D","duration":1.94},{"time":107.04,"chord":"E","duration":2.04},{"time":109.07,"chord":"A","duration":7.78},{"time":116.85,"chord":"F#m","duration":4.44},{"time":121.3,"chord":"D","duration":1.94},{"time":123.24,"chord":"E","duration":2.22},{"time":125.46,"chord":"A","duration":7.87},{"time":133.33,"chord":"F#m","duration":4.07},{"time":137.41,"chord":"D","duration":2.13},{"time":139.54,"chord":"E","duration":2.04},{"time":141.57,"chord":"A","duration":7.96},{"time":149.54,"chord":"F#m","duration":4.07},{"time":153.61,"chord":"D","duration":1.94},{"time":155.56,"chord":"E","duration":1.94},{"time":157.5,"chord":"A","duration":8.15},{"time":165.65,"chord":"F#m","duration":4.07},{"time":169.72,"chord":"D","duration":1.94},{"time":171.67,"chord":"E","duration":1.11}];
     window.YOUTUBE_VIDEO_ID = '7rZyI7kPZMI';
+    window.BEGINNER_META = { capo: 2, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Ú.R.M. - Elment egyszer Zákeus by Ú.R.M. - Új Remény Music. AI-detected chord progression with 65 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Ú.R.M. - Elment egyszer Zákeus by Ú.R.M. - Új Remény Music. AI-detected chord progression with 65 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Ú.R.M. - Elment egyszer Zákeus chords, Ú.R.M. - Új Remény Music chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Ú.R.M. - Elment egyszer Zákeus Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Ú.R.M. - Elment egyszer Zákeus by Ú.R.M. - Új Remény Music. AI-detected chord progression with 65 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Ú.R.M. - Elment egyszer Zákeus by Ú.R.M. - Új Remény Music. AI-detected chord progression with 65 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/u-r-m-elment-egyszer-zakeus-u-r-m-uj-remeny-music/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Ú.R.M. - Elment egyszer Zákeus Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Ú.R.M. - Elment egyszer Zákeus by Ú.R.M. - Új Remény Music. AI-detected chord progression with 65 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Ú.R.M. - Elment egyszer Zákeus by Ú.R.M. - Új Remény Music. AI-detected chord progression with 65 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Ú.R.M. - Elment egyszer Zákeus Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Ú.R.M. - Új Remény Music"
   },
   "url": "https://ecoliving-tips.github.io/chords/u-r-m-elment-egyszer-zakeus-u-r-m-uj-remeny-music/",
-  "description": "Free chords for Ú.R.M. - Elment egyszer Zákeus by Ú.R.M. - Új Remény Music. AI-detected chord progression with 65 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Ú.R.M. - Elment egyszer Zákeus by Ú.R.M. - Új Remény Music. AI-detected chord progression with 65 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 65 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -294,8 +305,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.46,"chord":"G","duration":2.5},{"time":2.96,"chord":"D","duration":0.56},{"time":3.52,"chord":"Am","duration":0.56},{"time":4.07,"chord":"G","duration":3.52},{"time":7.59,"chord":"D","duration":1.2},{"time":8.8,"chord":"G","duration":3.61},{"time":12.41,"chord":"D","duration":1.11},{"time":13.52,"chord":"G","duration":2.59},{"time":16.11,"chord":"Am","duration":0.83},{"time":16.94,"chord":"Em","duration":1.39},{"time":18.33,"chord":"A","duration":0.56},{"time":18.89,"chord":"D","duration":0.74},{"time":19.63,"chord":"G","duration":1.2},{"time":20.83,"chord":"Em","duration":1.11},{"time":21.94,"chord":"D","duration":1.3},{"time":23.24,"chord":"G","duration":3.52},{"time":26.76,"chord":"D","duration":1.2},{"time":27.96,"chord":"G","duration":3.7},{"time":31.67,"chord":"D","duration":1.11},{"time":32.78,"chord":"G","duration":3.61},{"time":36.39,"chord":"D","duration":1.3},{"time":37.69,"chord":"G","duration":3.52},{"time":41.2,"chord":"D","duration":1.2},{"time":42.41,"chord":"G","duration":2.31},{"time":44.72,"chord":"Am","duration":1.3},{"time":46.02,"chord":"Em","duration":1.2},{"time":47.22,"chord":"Am","duration":0.56},{"time":47.78,"chord":"D","duration":0.83},{"time":48.61,"chord":"Bm","duration":0.74},{"time":49.35,"chord":"Em","duration":1.48},{"time":50.83,"chord":"D","duration":1.11},{"time":51.94,"chord":"G","duration":2.87},{"time":54.81,"chord":"C","duration":0.93},{"time":55.74,"chord":"Em","duration":0.93},{"time":56.67,"chord":"G","duration":0.56},{"time":57.22,"chord":"D","duration":1.67},{"time":58.89,"chord":"Em","duration":0.65},{"time":59.54,"chord":"G","duration":0.83},{"time":60.37,"chord":"D","duration":1.67},{"time":62.04,"chord":"G","duration":3.06},{"time":65.09,"chord":"D","duration":1.3},{"time":66.39,"chord":"G","duration":3.61},{"time":70,"chord":"D","duration":1.2},{"time":71.2,"chord":"G","duration":2.41},{"time":73.61,"chord":"Am","duration":0.83},{"time":74.44,"chord":"C","duration":0.56},{"time":75,"chord":"Em","duration":1.02},{"time":76.02,"chord":"A7","duration":0.46},{"time":76.48,"chord":"D","duration":0.83},{"time":77.31,"chord":"G","duration":1.02},{"time":78.33,"chord":"Em","duration":1.2},{"time":79.54,"chord":"D","duration":1.3},{"time":80.83,"chord":"G","duration":3.98},{"time":84.81,"chord":"D","duration":0.65},{"time":85.46,"chord":"G","duration":3.61},{"time":89.07,"chord":"D","duration":1.3},{"time":90.37,"chord":"G","duration":2.41},{"time":92.78,"chord":"Am","duration":1.2},{"time":93.98,"chord":"Em","duration":1.2},{"time":95.19,"chord":"Am","duration":0.56},{"time":95.74,"chord":"D7","duration":0.65},{"time":96.39,"chord":"G","duration":1.11},{"time":97.5,"chord":"Em","duration":1.3},{"time":98.8,"chord":"D7","duration":1.2},{"time":100,"chord":"G","duration":1.3}];
     window.YOUTUBE_VIDEO_ID = '-EPJjzoilyo';
+    window.BEGINNER_META = { capo: 7, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

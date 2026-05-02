@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Moon River (instrumental) - Henry Mancini by Cláudio Borges. AI-detected chord progression with 108 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Moon River (instrumental) - Henry Mancini by Cláudio Borges. AI-detected chord progression with 108 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Moon River (instrumental) - Henry Mancini chords, Cláudio Borges chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Moon River (instrumental) - Henry Mancini Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Moon River (instrumental) - Henry Mancini by Cláudio Borges. AI-detected chord progression with 108 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Moon River (instrumental) - Henry Mancini by Cláudio Borges. AI-detected chord progression with 108 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/moon-river-instrumental-henry-mancini-claudio-borges/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Moon River (instrumental) - Henry Mancini Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Moon River (instrumental) - Henry Mancini by Cláudio Borges. AI-detected chord progression with 108 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Moon River (instrumental) - Henry Mancini by Cláudio Borges. AI-detected chord progression with 108 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Moon River (instrumental) - Henry Mancini Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Cláudio Borges"
   },
   "url": "https://ecoliving-tips.github.io/chords/moon-river-instrumental-henry-mancini-claudio-borges/",
-  "description": "Free chords for Moon River (instrumental) - Henry Mancini by Cláudio Borges. AI-detected chord progression with 108 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Moon River (instrumental) - Henry Mancini by Cláudio Borges. AI-detected chord progression with 108 chords. Advanced difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Advanced"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 108 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -309,8 +320,10 @@
     <script>
     window.CHORD_DATA = [{"time":2.04,"chord":"Cmaj7","duration":2.13},{"time":4.17,"chord":"Fmaj7","duration":2.78},{"time":6.94,"chord":"Cmaj7","duration":2.31},{"time":9.26,"chord":"Fmaj7","duration":1.67},{"time":10.93,"chord":"F","duration":1.11},{"time":12.04,"chord":"C","duration":2.41},{"time":14.44,"chord":"Am","duration":2.78},{"time":17.22,"chord":"F","duration":2.41},{"time":19.63,"chord":"C","duration":2.5},{"time":22.13,"chord":"F","duration":2.41},{"time":24.54,"chord":"C","duration":2.59},{"time":27.13,"chord":"Bm7","duration":2.41},{"time":29.54,"chord":"E7","duration":2.5},{"time":32.04,"chord":"Am","duration":2.59},{"time":34.63,"chord":"C7","duration":2.5},{"time":37.13,"chord":"Fmaj7","duration":2.13},{"time":39.26,"chord":"F7","duration":0.74},{"time":40,"chord":"A#7","duration":2.04},{"time":42.04,"chord":"Am7","duration":2.22},{"time":44.26,"chord":"Em","duration":0.65},{"time":44.91,"chord":"Bsus4","duration":0.74},{"time":45.65,"chord":"B","duration":1.48},{"time":47.13,"chord":"Em7","duration":1.76},{"time":48.89,"chord":"A7","duration":0.65},{"time":49.54,"chord":"Am7","duration":0.46},{"time":50,"chord":"Dm7","duration":0.74},{"time":50.74,"chord":"G7","duration":1.3},{"time":52.04,"chord":"C","duration":2.5},{"time":54.54,"chord":"Am","duration":2.59},{"time":57.13,"chord":"F","duration":2.41},{"time":59.54,"chord":"C","duration":2.59},{"time":62.13,"chord":"F","duration":2.5},{"time":64.63,"chord":"C","duration":2.59},{"time":67.22,"chord":"Dm","duration":2.78},{"time":70,"chord":"Esus4","duration":0.83},{"time":70.83,"chord":"E7","duration":1.39},{"time":72.22,"chord":"Am","duration":2.59},{"time":74.81,"chord":"C7","duration":2.5},{"time":77.31,"chord":"F","duration":2.69},{"time":80,"chord":"Fm6","duration":2.31},{"time":82.31,"chord":"Cmaj7","duration":2.31},{"time":84.63,"chord":"Fmaj7","duration":2.78},{"time":87.41,"chord":"Cmaj7","duration":2.31},{"time":89.72,"chord":"Fmaj7","duration":1.94},{"time":91.67,"chord":"G7","duration":0.93},{"time":92.59,"chord":"Cmaj7","duration":2.41},{"time":95,"chord":"Am7","duration":2.59},{"time":97.59,"chord":"Dm7","duration":3.8},{"time":101.39,"chord":"G7","duration":1.39},{"time":102.78,"chord":"Cmaj7","duration":2.22},{"time":105,"chord":"Fmaj7","duration":2.87},{"time":107.87,"chord":"Cmaj7","duration":2.13},{"time":110,"chord":"F","duration":3.06},{"time":113.06,"chord":"C","duration":2.31},{"time":115.37,"chord":"Am","duration":2.87},{"time":118.24,"chord":"F","duration":2.31},{"time":120.56,"chord":"C","duration":2.59},{"time":123.15,"chord":"F","duration":2.69},{"time":125.83,"chord":"C","duration":2.59},{"time":128.43,"chord":"Bm7","duration":2.41},{"time":130.83,"chord":"E7","duration":2.59},{"time":133.43,"chord":"Am","duration":2.59},{"time":136.02,"chord":"C7","duration":2.5},{"time":138.52,"chord":"F","duration":2.69},{"time":141.2,"chord":"A#7","duration":2.5},{"time":143.7,"chord":"Am","duration":2.87},{"time":146.57,"chord":"Bsus4","duration":0.74},{"time":147.31,"chord":"B","duration":1.57},{"time":148.89,"chord":"Em7","duration":1.11},{"time":150,"chord":"Asus4","duration":0.74},{"time":150.74,"chord":"A7","duration":0.65},{"time":151.39,"chord":"Dm7","duration":1.2},{"time":152.59,"chord":"G7","duration":1.3},{"time":153.89,"chord":"C","duration":2.5},{"time":156.39,"chord":"Am","duration":2.69},{"time":159.07,"chord":"F","duration":2.59},{"time":161.67,"chord":"C","duration":2.59},{"time":164.26,"chord":"F","duration":2.5},{"time":166.76,"chord":"C","duration":2.5},{"time":169.26,"chord":"Dm","duration":0.74},{"time":170,"chord":"Dm7","duration":1.85},{"time":171.85,"chord":"Esus4","duration":1.2},{"time":173.06,"chord":"E","duration":1.3},{"time":174.35,"chord":"Am","duration":2.69},{"time":177.04,"chord":"C7","duration":2.5},{"time":179.54,"chord":"F","duration":2.78},{"time":182.31,"chord":"A#7","duration":0.74},{"time":183.06,"chord":"G#dim7","duration":1.67},{"time":184.72,"chord":"Cmaj7","duration":2.22},{"time":186.94,"chord":"Fmaj7","duration":2.41},{"time":189.35,"chord":"G7","duration":0.46},{"time":189.81,"chord":"Cmaj7","duration":2.22},{"time":192.04,"chord":"Fmaj7","duration":2.31},{"time":194.35,"chord":"G7","duration":0.83},{"time":195.19,"chord":"C","duration":2.31},{"time":197.5,"chord":"Am7","duration":2.5},{"time":200,"chord":"Dm7","duration":3.89},{"time":203.89,"chord":"G7","duration":1.39},{"time":205.28,"chord":"Cmaj7","duration":2.41},{"time":207.69,"chord":"Fmaj7","duration":2.78},{"time":210.46,"chord":"Cmaj7","duration":2.31},{"time":212.78,"chord":"Fmaj7","duration":2.96},{"time":215.74,"chord":"Cmaj7","duration":2.31},{"time":218.06,"chord":"Fmaj7","duration":2.96},{"time":221.02,"chord":"Cmaj7","duration":2.22},{"time":223.24,"chord":"Fmaj7","duration":2.96},{"time":226.2,"chord":"Cmaj7","duration":2.31},{"time":228.52,"chord":"Fmaj7","duration":1.48}];
     window.YOUTUBE_VIDEO_ID = 'Ga1dGEsUyME';
+    window.BEGINNER_META = { capo: 0, difficulty: 'advanced' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

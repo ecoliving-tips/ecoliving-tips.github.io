@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Everet Almond - Rain Rain Go Away (Lyrics) by Weather. AI-detected chord progression with 101 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Everet Almond - Rain Rain Go Away (Lyrics) by Weather. AI-detected chord progression with 101 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Everet Almond - Rain Rain Go Away (Lyrics) chords, Weather chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Everet Almond - Rain Rain Go Away (Lyrics) Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Everet Almond - Rain Rain Go Away (Lyrics) by Weather. AI-detected chord progression with 101 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Everet Almond - Rain Rain Go Away (Lyrics) by Weather. AI-detected chord progression with 101 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/everet-almond-rain-rain-go-away-lyrics-weather/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Everet Almond - Rain Rain Go Away (Lyrics) Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Everet Almond - Rain Rain Go Away (Lyrics) by Weather. AI-detected chord progression with 101 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Everet Almond - Rain Rain Go Away (Lyrics) by Weather. AI-detected chord progression with 101 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Everet Almond - Rain Rain Go Away (Lyrics) Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Weather"
   },
   "url": "https://ecoliving-tips.github.io/chords/everet-almond-rain-rain-go-away-lyrics-weather/",
-  "description": "Free chords for Everet Almond - Rain Rain Go Away (Lyrics) by Weather. AI-detected chord progression with 101 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Everet Almond - Rain Rain Go Away (Lyrics) by Weather. AI-detected chord progression with 101 chords. Advanced difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Advanced"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 101 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -297,8 +308,10 @@
     <script>
     window.CHORD_DATA = [{"time":0,"chord":"F","duration":2.04},{"time":2.04,"chord":"Dm","duration":1.67},{"time":3.7,"chord":"Am","duration":1.76},{"time":5.46,"chord":"A#","duration":1.76},{"time":7.22,"chord":"F","duration":1.67},{"time":8.89,"chord":"Dm","duration":1.85},{"time":10.74,"chord":"C","duration":1.67},{"time":12.41,"chord":"A#","duration":3.33},{"time":15.74,"chord":"F","duration":1.94},{"time":17.69,"chord":"Dm","duration":1.76},{"time":19.44,"chord":"Am7","duration":1.76},{"time":21.2,"chord":"A#","duration":1.67},{"time":22.87,"chord":"F","duration":1.76},{"time":24.63,"chord":"Dm","duration":1.76},{"time":26.39,"chord":"C","duration":1.67},{"time":28.06,"chord":"A#","duration":1.94},{"time":30,"chord":"F","duration":1.57},{"time":31.57,"chord":"Dm","duration":1.85},{"time":33.43,"chord":"Am7","duration":1.67},{"time":35.09,"chord":"A#","duration":1.76},{"time":36.85,"chord":"F","duration":1.67},{"time":38.52,"chord":"Dm","duration":1.76},{"time":40.28,"chord":"C","duration":3.06},{"time":43.33,"chord":"Em","duration":0.46},{"time":43.8,"chord":"C7","duration":2.69},{"time":46.48,"chord":"C#dim7","duration":0.74},{"time":47.22,"chord":"Dm","duration":1.85},{"time":49.07,"chord":"F","duration":0.93},{"time":50,"chord":"C","duration":0.74},{"time":50.74,"chord":"A#","duration":3.43},{"time":54.17,"chord":"F","duration":1.76},{"time":55.93,"chord":"C","duration":1.76},{"time":57.69,"chord":"A#","duration":1.67},{"time":59.35,"chord":"F","duration":1.85},{"time":61.2,"chord":"Dm","duration":1.76},{"time":62.96,"chord":"Am","duration":1.67},{"time":64.63,"chord":"A#","duration":1.76},{"time":66.39,"chord":"F","duration":1.67},{"time":68.06,"chord":"Dm","duration":1.94},{"time":70,"chord":"C","duration":1.48},{"time":71.48,"chord":"A#","duration":3.61},{"time":75.09,"chord":"F","duration":1.76},{"time":76.85,"chord":"Dm","duration":1.67},{"time":78.52,"chord":"Am7","duration":1.67},{"time":80.19,"chord":"A#","duration":1.85},{"time":82.04,"chord":"F","duration":1.76},{"time":83.8,"chord":"Dm","duration":1.76},{"time":85.56,"chord":"C","duration":1.57},{"time":87.13,"chord":"A#","duration":1.85},{"time":88.98,"chord":"F","duration":1.76},{"time":90.74,"chord":"Dm","duration":1.76},{"time":92.5,"chord":"Am","duration":1.67},{"time":94.17,"chord":"A#","duration":1.76},{"time":95.93,"chord":"F","duration":1.85},{"time":97.78,"chord":"Dm","duration":1.67},{"time":99.44,"chord":"C","duration":0.56},{"time":100,"chord":"Am","duration":1.85},{"time":101.85,"chord":"C7","duration":3.89},{"time":105.74,"chord":"A#m","duration":0.65},{"time":106.39,"chord":"Dm","duration":1.85},{"time":108.24,"chord":"F","duration":1.76},{"time":110,"chord":"A#","duration":3.33},{"time":113.33,"chord":"Dm","duration":1.85},{"time":115.19,"chord":"C","duration":1.67},{"time":116.85,"chord":"A#","duration":3.52},{"time":120.37,"chord":"Dm","duration":1.76},{"time":122.13,"chord":"C","duration":1.67},{"time":123.8,"chord":"A#","duration":3.52},{"time":127.31,"chord":"F","duration":1.67},{"time":128.98,"chord":"C","duration":1.76},{"time":130.74,"chord":"A#","duration":1.67},{"time":132.41,"chord":"F","duration":6.85},{"time":139.26,"chord":"Am","duration":1.85},{"time":141.11,"chord":"Dm","duration":1.76},{"time":142.87,"chord":"Am","duration":1.76},{"time":144.63,"chord":"Gm7","duration":3.43},{"time":148.06,"chord":"A#m","duration":5.37},{"time":153.43,"chord":"F","duration":1.67},{"time":155.09,"chord":"Dm","duration":1.76},{"time":156.85,"chord":"Am7","duration":1.67},{"time":158.52,"chord":"A#","duration":1.76},{"time":160.28,"chord":"F","duration":1.76},{"time":162.04,"chord":"Dm","duration":1.76},{"time":163.8,"chord":"C","duration":3.8},{"time":167.59,"chord":"C7","duration":2.41},{"time":170,"chord":"C#","duration":0.74},{"time":170.74,"chord":"Dm","duration":1.94},{"time":172.69,"chord":"F","duration":1.48},{"time":174.17,"chord":"A#","duration":3.43},{"time":177.59,"chord":"F","duration":1.76},{"time":179.35,"chord":"C","duration":1.85},{"time":181.2,"chord":"A#","duration":1.67},{"time":182.87,"chord":"F","duration":1.76},{"time":184.63,"chord":"Dm","duration":1.76},{"time":186.39,"chord":"Am","duration":1.76},{"time":188.15,"chord":"A#","duration":1.85},{"time":190,"chord":"F","duration":1.57},{"time":191.57,"chord":"Dm","duration":1.85},{"time":193.43,"chord":"C","duration":1.67},{"time":195.09,"chord":"A#","duration":2.69},{"time":197.78,"chord":"F","duration":8.07}];
     window.YOUTUBE_VIDEO_ID = 'DDki-Azsqoc';
+    window.BEGINNER_META = { capo: 5, difficulty: 'advanced' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

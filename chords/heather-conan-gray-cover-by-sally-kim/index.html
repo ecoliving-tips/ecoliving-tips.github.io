@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Heather- Conan Gray - cover by Sally Kim by Sally Kim. AI-detected chord progression with 54 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Heather- Conan Gray - cover by Sally Kim by Sally Kim. AI-detected chord progression with 54 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Heather- Conan Gray - cover by Sally Kim chords, Sally Kim chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Heather- Conan Gray - cover by Sally Kim Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Heather- Conan Gray - cover by Sally Kim by Sally Kim. AI-detected chord progression with 54 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Heather- Conan Gray - cover by Sally Kim by Sally Kim. AI-detected chord progression with 54 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/heather-conan-gray-cover-by-sally-kim/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Heather- Conan Gray - cover by Sally Kim Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Heather- Conan Gray - cover by Sally Kim by Sally Kim. AI-detected chord progression with 54 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Heather- Conan Gray - cover by Sally Kim by Sally Kim. AI-detected chord progression with 54 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Heather- Conan Gray - cover by Sally Kim Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Sally Kim"
   },
   "url": "https://ecoliving-tips.github.io/chords/heather-conan-gray-cover-by-sally-kim/",
-  "description": "Free chords for Heather- Conan Gray - cover by Sally Kim by Sally Kim. AI-detected chord progression with 54 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Heather- Conan Gray - cover by Sally Kim by Sally Kim. AI-detected chord progression with 54 chords. Advanced difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Advanced"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 54 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -295,8 +306,10 @@
     <script>
     window.CHORD_DATA = [{"time":4.91,"chord":"A#","duration":5.09},{"time":10,"chord":"Dm","duration":5.19},{"time":15.19,"chord":"Gm","duration":5.37},{"time":20.56,"chord":"D#","duration":2.5},{"time":23.06,"chord":"D#m","duration":2.78},{"time":25.83,"chord":"A#","duration":5.19},{"time":31.02,"chord":"Dm","duration":5.09},{"time":36.11,"chord":"Gm","duration":5.37},{"time":41.48,"chord":"D#","duration":2.59},{"time":44.07,"chord":"D#m6","duration":2.59},{"time":46.67,"chord":"A#","duration":5.19},{"time":51.85,"chord":"Dm","duration":5.19},{"time":57.04,"chord":"Gm","duration":6.85},{"time":63.89,"chord":"D#","duration":0.56},{"time":64.44,"chord":"D#m","duration":3.06},{"time":67.5,"chord":"A#","duration":5.19},{"time":72.69,"chord":"Dm7","duration":5.09},{"time":77.78,"chord":"Gm","duration":3.98},{"time":81.76,"chord":"Gm7","duration":1.39},{"time":83.15,"chord":"D#","duration":2.5},{"time":85.65,"chord":"D#m","duration":1.02},{"time":86.67,"chord":"D#m6","duration":1.57},{"time":88.24,"chord":"A#m","duration":1.76},{"time":90,"chord":"A#","duration":3.7},{"time":93.7,"chord":"Dm7","duration":4.17},{"time":97.87,"chord":"Gm7","duration":0.93},{"time":98.8,"chord":"Gm","duration":5.37},{"time":104.17,"chord":"D#","duration":2.31},{"time":106.48,"chord":"D#m","duration":2.78},{"time":109.26,"chord":"A#","duration":5.19},{"time":114.44,"chord":"Dm","duration":3.7},{"time":118.15,"chord":"Dm7","duration":1.39},{"time":119.54,"chord":"Gm7","duration":0.46},{"time":120,"chord":"Gm","duration":2.87},{"time":122.87,"chord":"Gm7","duration":2.13},{"time":125,"chord":"D#","duration":2.22},{"time":127.22,"chord":"D#m","duration":1.48},{"time":128.7,"chord":"D#m6","duration":1.3},{"time":130,"chord":"A#","duration":5.56},{"time":135.56,"chord":"Dm7","duration":4.81},{"time":140.37,"chord":"Gm","duration":5.37},{"time":145.74,"chord":"D#","duration":2.78},{"time":148.52,"chord":"D#m","duration":2.41},{"time":150.93,"chord":"A#","duration":5.19},{"time":156.11,"chord":"Dm7","duration":3.89},{"time":160,"chord":"Dm","duration":1.2},{"time":161.2,"chord":"Gm","duration":5.46},{"time":166.67,"chord":"D#maj7","duration":2.59},{"time":169.26,"chord":"D#m","duration":2.41},{"time":171.67,"chord":"A#","duration":5.19},{"time":176.85,"chord":"Dm7","duration":5.28},{"time":182.13,"chord":"Gm","duration":5.46},{"time":187.59,"chord":"D#","duration":2.41},{"time":190,"chord":"D#m","duration":10}];
     window.YOUTUBE_VIDEO_ID = 'dQD5uuWSj6M';
+    window.BEGINNER_META = { capo: 1, difficulty: 'advanced' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

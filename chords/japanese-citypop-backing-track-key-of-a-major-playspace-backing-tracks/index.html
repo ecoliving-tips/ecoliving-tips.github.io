@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Japanese Citypop Backing Track - Key of A major by PlaySpace Backing Tracks. AI-detected chord progression with 102 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Japanese Citypop Backing Track - Key of A major by PlaySpace Backing Tracks. AI-detected chord progression with 102 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Japanese Citypop Backing Track - Key of A major chords, PlaySpace Backing Tracks chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Japanese Citypop Backing Track - Key of A major Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Japanese Citypop Backing Track - Key of A major by PlaySpace Backing Tracks. AI-detected chord progression with 102 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Japanese Citypop Backing Track - Key of A major by PlaySpace Backing Tracks. AI-detected chord progression with 102 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/japanese-citypop-backing-track-key-of-a-major-playspace-backing-tracks/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Japanese Citypop Backing Track - Key of A major Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Japanese Citypop Backing Track - Key of A major by PlaySpace Backing Tracks. AI-detected chord progression with 102 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Japanese Citypop Backing Track - Key of A major by PlaySpace Backing Tracks. AI-detected chord progression with 102 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Japanese Citypop Backing Track - Key of A major Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "PlaySpace Backing Tracks"
   },
   "url": "https://ecoliving-tips.github.io/chords/japanese-citypop-backing-track-key-of-a-major-playspace-backing-tracks/",
-  "description": "Free chords for Japanese Citypop Backing Track - Key of A major by PlaySpace Backing Tracks. AI-detected chord progression with 102 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Japanese Citypop Backing Track - Key of A major by PlaySpace Backing Tracks. AI-detected chord progression with 102 chords. Advanced difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Advanced"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 102 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -304,8 +315,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.65,"chord":"Dmaj7","duration":2.13},{"time":2.78,"chord":"C#7","duration":2.5},{"time":5.28,"chord":"F#m7","duration":2.22},{"time":7.5,"chord":"Em7","duration":1.2},{"time":8.7,"chord":"A","duration":1.3},{"time":10,"chord":"Dmaj7","duration":2.31},{"time":12.31,"chord":"C#7","duration":2.22},{"time":14.54,"chord":"F#m7","duration":1.94},{"time":16.48,"chord":"Em7","duration":2.59},{"time":19.07,"chord":"Dmaj7","duration":2.31},{"time":21.39,"chord":"E7","duration":2.31},{"time":23.7,"chord":"C#m7","duration":2.22},{"time":25.93,"chord":"F#7","duration":2.41},{"time":28.33,"chord":"Bm7","duration":2.31},{"time":30.65,"chord":"D","duration":2.22},{"time":32.87,"chord":"E","duration":2.22},{"time":35.09,"chord":"Em7","duration":1.39},{"time":36.48,"chord":"Aaug","duration":1.02},{"time":37.5,"chord":"Dmaj7","duration":2.5},{"time":40,"chord":"C#7","duration":2.13},{"time":42.13,"chord":"C#m7","duration":2.13},{"time":44.26,"chord":"C7","duration":2.41},{"time":46.67,"chord":"Bm7","duration":0.93},{"time":47.59,"chord":"A","duration":1.2},{"time":48.8,"chord":"Dm7","duration":1.39},{"time":50.19,"chord":"G7","duration":1.2},{"time":51.39,"chord":"Bm7","duration":2.5},{"time":53.89,"chord":"A","duration":2.04},{"time":55.93,"chord":"Dmaj7","duration":2.31},{"time":58.24,"chord":"E","duration":3.61},{"time":61.85,"chord":"C#m7","duration":0.74},{"time":62.59,"chord":"F#m7","duration":0.93},{"time":63.52,"chord":"E","duration":0.56},{"time":64.07,"chord":"A","duration":1.11},{"time":65.19,"chord":"Bm7","duration":2.31},{"time":67.5,"chord":"C#7","duration":2.5},{"time":70,"chord":"F#m7","duration":1.85},{"time":71.85,"chord":"Em7","duration":1.57},{"time":73.43,"chord":"A","duration":0.83},{"time":74.26,"chord":"Dmaj7","duration":2.59},{"time":76.85,"chord":"Dm","duration":2.13},{"time":78.98,"chord":"C#m7","duration":1.02},{"time":80,"chord":"E","duration":1.02},{"time":81.02,"chord":"F#7","duration":2.69},{"time":83.7,"chord":"Bm7","duration":0.93},{"time":84.63,"chord":"Amaj7","duration":1.3},{"time":85.93,"chord":"Bm7","duration":2.41},{"time":88.33,"chord":"Amaj7","duration":4.44},{"time":92.78,"chord":"Dmaj7","duration":2.31},{"time":95.09,"chord":"Dm","duration":2.31},{"time":97.41,"chord":"C#m7","duration":2.59},{"time":100,"chord":"F#m7","duration":2.04},{"time":102.04,"chord":"Bm7","duration":2.31},{"time":104.35,"chord":"A","duration":2.31},{"time":106.67,"chord":"F#m7","duration":2.41},{"time":109.07,"chord":"Em7","duration":0.93},{"time":110.28,"chord":"A","duration":1.11},{"time":111.39,"chord":"Dmaj7","duration":2.31},{"time":113.7,"chord":"Dm","duration":2.22},{"time":115.93,"chord":"C#m7","duration":2.41},{"time":118.33,"chord":"F#m7","duration":1.67},{"time":120,"chord":"F#7","duration":0.37},{"time":120.37,"chord":"Bm7","duration":2.31},{"time":122.69,"chord":"D","duration":1.67},{"time":124.35,"chord":"B7","duration":0.83},{"time":125.19,"chord":"E7","duration":4.81},{"time":130,"chord":"Dmaj7","duration":1.67},{"time":131.67,"chord":"E","duration":2.59},{"time":134.26,"chord":"C#m7","duration":2.22},{"time":136.48,"chord":"F#m7","duration":2.22},{"time":138.7,"chord":"Bm7","duration":3.24},{"time":141.94,"chord":"Dmaj7","duration":1.67},{"time":143.61,"chord":"E7","duration":4.44},{"time":148.06,"chord":"Dmaj7","duration":2.59},{"time":150.65,"chord":"E","duration":2.5},{"time":153.15,"chord":"C#m7","duration":2.04},{"time":155.19,"chord":"F#m7","duration":2.31},{"time":157.5,"chord":"Bm7","duration":2.5},{"time":160,"chord":"C#7","duration":2.22},{"time":162.22,"chord":"F#m7","duration":1.94},{"time":164.17,"chord":"Bm7","duration":1.39},{"time":165.56,"chord":"A","duration":1.2},{"time":166.76,"chord":"Dmaj7","duration":2.41},{"time":169.17,"chord":"E7","duration":2.22},{"time":171.39,"chord":"C#m7","duration":2.04},{"time":173.43,"chord":"C","duration":2.41},{"time":175.83,"chord":"Bm7","duration":1.02},{"time":176.85,"chord":"C#m7","duration":1.2},{"time":178.06,"chord":"Bm7","duration":1.94},{"time":180,"chord":"D","duration":0.65},{"time":180.65,"chord":"Dmaj7","duration":2.22},{"time":182.87,"chord":"C#m7","duration":1.39},{"time":184.26,"chord":"F#m7","duration":0.93},{"time":185.19,"chord":"Bm7","duration":4.81},{"time":190,"chord":"Dmaj7","duration":2.04},{"time":192.04,"chord":"C#m7","duration":1.3},{"time":193.33,"chord":"F#m7","duration":1.11},{"time":194.44,"chord":"Bm7","duration":0.93},{"time":195.37,"chord":"Dmaj7","duration":1.3},{"time":196.67,"chord":"E7","duration":4.81},{"time":201.48,"chord":"Amaj7","duration":6.11},{"time":207.59,"chord":"A","duration":1.76}];
     window.YOUTUBE_VIDEO_ID = 'yK7H3EIAlxI';
+    window.BEGINNER_META = { capo: 0, difficulty: 'advanced' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

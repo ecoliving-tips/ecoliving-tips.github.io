@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Vineyard - Quebrantado (Sweetly Broken) - Juninho Afram by Musile Records. AI-detected chord progression with 86 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Vineyard - Quebrantado (Sweetly Broken) - Juninho Afram by Musile Records. AI-detected chord progression with 86 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Vineyard - Quebrantado (Sweetly Broken) - Juninho Afram chords, Musile Records chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Vineyard - Quebrantado (Sweetly Broken) - Juninho Afram Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Vineyard - Quebrantado (Sweetly Broken) - Juninho Afram by Musile Records. AI-detected chord progression with 86 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Vineyard - Quebrantado (Sweetly Broken) - Juninho Afram by Musile Records. AI-detected chord progression with 86 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/vineyard-quebrantado-sweetly-broken-juninho-afram-musile-records/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Vineyard - Quebrantado (Sweetly Broken) - Juninho Afram Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Vineyard - Quebrantado (Sweetly Broken) - Juninho Afram by Musile Records. AI-detected chord progression with 86 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Vineyard - Quebrantado (Sweetly Broken) - Juninho Afram by Musile Records. AI-detected chord progression with 86 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Vineyard - Quebrantado (Sweetly Broken) - Juninho Afram Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Musile Records"
   },
   "url": "https://ecoliving-tips.github.io/chords/vineyard-quebrantado-sweetly-broken-juninho-afram-musile-records/",
-  "description": "Free chords for Vineyard - Quebrantado (Sweetly Broken) - Juninho Afram by Musile Records. AI-detected chord progression with 86 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Vineyard - Quebrantado (Sweetly Broken) - Juninho Afram by Musile Records. AI-detected chord progression with 86 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 86 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -297,8 +308,10 @@
     <script>
     window.CHORD_DATA = [{"time":4.81,"chord":"C","duration":8.7},{"time":13.52,"chord":"G","duration":1.57},{"time":15.09,"chord":"Am","duration":4.91},{"time":20,"chord":"F","duration":4.07},{"time":24.07,"chord":"C","duration":6.67},{"time":30.74,"chord":"G","duration":4.63},{"time":35.37,"chord":"C","duration":0.83},{"time":36.2,"chord":"Am7","duration":3.15},{"time":39.35,"chord":"D","duration":0.65},{"time":40,"chord":"Am","duration":0.93},{"time":40.93,"chord":"F","duration":4.26},{"time":45.19,"chord":"C","duration":6.11},{"time":51.3,"chord":"Gsus4","duration":2.5},{"time":53.8,"chord":"G","duration":2.59},{"time":56.39,"chord":"Am7","duration":3.61},{"time":60,"chord":"Am","duration":1.76},{"time":61.76,"chord":"Fmaj7","duration":4.81},{"time":66.57,"chord":"C","duration":3.43},{"time":70,"chord":"Csus2","duration":2.04},{"time":72.04,"chord":"Am7","duration":5},{"time":77.04,"chord":"Gsus4","duration":5.28},{"time":82.31,"chord":"Fsus2","duration":4.72},{"time":87.04,"chord":"C","duration":5.19},{"time":92.22,"chord":"Am7","duration":5.09},{"time":97.31,"chord":"G","duration":5.46},{"time":102.78,"chord":"F","duration":3.98},{"time":106.76,"chord":"C","duration":6.48},{"time":113.24,"chord":"Gsus4","duration":2.22},{"time":115.46,"chord":"G","duration":3.06},{"time":118.52,"chord":"Am7","duration":4.91},{"time":123.43,"chord":"Fmaj7","duration":1.94},{"time":125.37,"chord":"Fsus2","duration":2.41},{"time":127.78,"chord":"C","duration":4.54},{"time":132.31,"chord":"Csus2","duration":0.93},{"time":133.24,"chord":"Gsus4","duration":5.28},{"time":138.52,"chord":"Am7","duration":5.09},{"time":143.61,"chord":"F","duration":5},{"time":148.61,"chord":"C","duration":3.06},{"time":151.67,"chord":"Csus2","duration":1.94},{"time":153.61,"chord":"Am7","duration":5.19},{"time":158.8,"chord":"Csus2","duration":1.2},{"time":160,"chord":"G","duration":4.07},{"time":164.07,"chord":"F","duration":2.13},{"time":166.2,"chord":"Fmaj7","duration":2.78},{"time":168.98,"chord":"C","duration":5.09},{"time":174.07,"chord":"Am7","duration":5.09},{"time":179.17,"chord":"Gsus4","duration":2.59},{"time":181.76,"chord":"G","duration":2.69},{"time":184.44,"chord":"F","duration":3.61},{"time":188.06,"chord":"C","duration":1.11},{"time":189.17,"chord":"Dm","duration":4.44},{"time":193.61,"chord":"C","duration":0.74},{"time":194.35,"chord":"F","duration":5.09},{"time":199.44,"chord":"Dm","duration":4.26},{"time":203.7,"chord":"C","duration":0.93},{"time":204.63,"chord":"F","duration":2.69},{"time":207.31,"chord":"G","duration":2.69},{"time":210,"chord":"Dm","duration":3.7},{"time":213.7,"chord":"C","duration":1.11},{"time":214.81,"chord":"F","duration":4.07},{"time":218.89,"chord":"C","duration":1.11},{"time":220,"chord":"Dm","duration":4.17},{"time":224.17,"chord":"C","duration":0.56},{"time":224.72,"chord":"F","duration":2.78},{"time":227.5,"chord":"G","duration":2.5},{"time":230,"chord":"C","duration":5.56},{"time":235.56,"chord":"G","duration":0.74},{"time":236.3,"chord":"Am7","duration":3.7},{"time":240,"chord":"G","duration":5.37},{"time":245.37,"chord":"F","duration":5.19},{"time":250.56,"chord":"C","duration":4.91},{"time":255.46,"chord":"Am7","duration":4.44},{"time":259.91,"chord":"Am","duration":0.74},{"time":260.65,"chord":"G","duration":5.09},{"time":265.74,"chord":"F","duration":3.89},{"time":269.63,"chord":"C","duration":6.11},{"time":275.74,"chord":"Am7","duration":5.09},{"time":280.83,"chord":"G","duration":5},{"time":285.83,"chord":"F","duration":5.19},{"time":291.02,"chord":"C","duration":5},{"time":296.02,"chord":"Am7","duration":3.98},{"time":300,"chord":"F","duration":1.02},{"time":301.02,"chord":"G","duration":5.19},{"time":306.2,"chord":"F","duration":4.72},{"time":310.93,"chord":"C","duration":9.17},{"time":321.3,"chord":"A","duration":5.93}];
     window.YOUTUBE_VIDEO_ID = 'QbnmpJo3DiI';
+    window.BEGINNER_META = { capo: 0, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

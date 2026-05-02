@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Absolutely - I Just Dont Know You Yet - Lyrics And Chords by LyricsAndChords. AI-detected chord progression with 83 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Absolutely - I Just Dont Know You Yet - Lyrics And Chords by LyricsAndChords. AI-detected chord progression with 83 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Absolutely - I Just Dont Know You Yet - Lyrics And Chords chords, LyricsAndChords chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Absolutely - I Just Dont Know You Yet - Lyrics And Chords Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Absolutely - I Just Dont Know You Yet - Lyrics And Chords by LyricsAndChords. AI-detected chord progression with 83 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Absolutely - I Just Dont Know You Yet - Lyrics And Chords by LyricsAndChords. AI-detected chord progression with 83 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/absolutely-i-just-dont-know-you-yet-lyrics-and-chords-lyricsandchords/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Absolutely - I Just Dont Know You Yet - Lyrics And Chords Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Absolutely - I Just Dont Know You Yet - Lyrics And Chords by LyricsAndChords. AI-detected chord progression with 83 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Absolutely - I Just Dont Know You Yet - Lyrics And Chords by LyricsAndChords. AI-detected chord progression with 83 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Absolutely - I Just Dont Know You Yet - Lyrics And Chords Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "LyricsAndChords"
   },
   "url": "https://ecoliving-tips.github.io/chords/absolutely-i-just-dont-know-you-yet-lyrics-and-chords-lyricsandchords/",
-  "description": "Free chords for Absolutely - I Just Dont Know You Yet - Lyrics And Chords by LyricsAndChords. AI-detected chord progression with 83 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Absolutely - I Just Dont Know You Yet - Lyrics And Chords by LyricsAndChords. AI-detected chord progression with 83 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 83 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -289,8 +300,10 @@
     <script>
     window.CHORD_DATA = [{"time":4.17,"chord":"E","duration":0.46},{"time":4.63,"chord":"D","duration":2.13},{"time":6.76,"chord":"E","duration":2.22},{"time":8.98,"chord":"A","duration":3.7},{"time":12.69,"chord":"E","duration":0.56},{"time":13.24,"chord":"D","duration":2.13},{"time":15.37,"chord":"E","duration":2.22},{"time":17.59,"chord":"A","duration":3.61},{"time":21.2,"chord":"E","duration":0.65},{"time":21.85,"chord":"D","duration":2.04},{"time":23.89,"chord":"E","duration":2.22},{"time":26.11,"chord":"A","duration":3.89},{"time":30,"chord":"E","duration":0.46},{"time":30.46,"chord":"D","duration":2.04},{"time":32.5,"chord":"E","duration":2.22},{"time":34.72,"chord":"A","duration":3.61},{"time":38.33,"chord":"E","duration":0.65},{"time":38.98,"chord":"D","duration":2.13},{"time":41.11,"chord":"E","duration":2.13},{"time":43.24,"chord":"A","duration":3.8},{"time":47.04,"chord":"E","duration":0.46},{"time":47.5,"chord":"D","duration":2.22},{"time":49.72,"chord":"E","duration":2.13},{"time":51.85,"chord":"A","duration":3.8},{"time":55.65,"chord":"E","duration":0.46},{"time":56.11,"chord":"D","duration":2.13},{"time":58.24,"chord":"E","duration":2.22},{"time":60.46,"chord":"A","duration":3.89},{"time":64.35,"chord":"D","duration":2.5},{"time":66.85,"chord":"E","duration":2.13},{"time":68.98,"chord":"A","duration":3.8},{"time":72.78,"chord":"E","duration":0.46},{"time":73.24,"chord":"D","duration":2.13},{"time":75.37,"chord":"E","duration":2.22},{"time":77.59,"chord":"A","duration":4.17},{"time":81.76,"chord":"D","duration":2.22},{"time":83.98,"chord":"E","duration":2.22},{"time":86.2,"chord":"A","duration":3.8},{"time":90.28,"chord":"D","duration":2.22},{"time":92.5,"chord":"E","duration":2.22},{"time":94.72,"chord":"A","duration":3.52},{"time":98.24,"chord":"E","duration":0.74},{"time":98.98,"chord":"D","duration":2.04},{"time":101.02,"chord":"E","duration":2.22},{"time":103.24,"chord":"A","duration":3.7},{"time":106.94,"chord":"E","duration":0.56},{"time":107.5,"chord":"D","duration":2.13},{"time":109.63,"chord":"E","duration":2.31},{"time":111.94,"chord":"A","duration":4.17},{"time":116.11,"chord":"D","duration":2.13},{"time":118.24,"chord":"E","duration":2.22},{"time":120.46,"chord":"A","duration":3.7},{"time":124.17,"chord":"E","duration":0.56},{"time":124.72,"chord":"D","duration":2.04},{"time":126.76,"chord":"E","duration":2.22},{"time":128.98,"chord":"A","duration":3.89},{"time":132.87,"chord":"D","duration":2.59},{"time":135.46,"chord":"E","duration":2.13},{"time":137.59,"chord":"A","duration":4.17},{"time":141.76,"chord":"D","duration":2.22},{"time":143.98,"chord":"E","duration":2.13},{"time":146.11,"chord":"A","duration":4.26},{"time":150.37,"chord":"D","duration":2.13},{"time":152.5,"chord":"E","duration":2.22},{"time":154.72,"chord":"A","duration":3.61},{"time":158.33,"chord":"E","duration":0.65},{"time":158.98,"chord":"D","duration":2.13},{"time":161.11,"chord":"E","duration":2.22},{"time":163.33,"chord":"A","duration":4.17},{"time":167.5,"chord":"D","duration":2.04},{"time":169.54,"chord":"E","duration":2.22},{"time":171.76,"chord":"A","duration":4.17},{"time":175.93,"chord":"D","duration":2.22},{"time":178.15,"chord":"E","duration":2.22},{"time":180.37,"chord":"A","duration":3.8},{"time":184.17,"chord":"E","duration":0.46},{"time":184.63,"chord":"D","duration":2.13},{"time":186.76,"chord":"E7","duration":2.22},{"time":188.98,"chord":"A","duration":3.7},{"time":192.69,"chord":"E","duration":0.56},{"time":193.24,"chord":"D","duration":2.04},{"time":195.28,"chord":"E","duration":2.69},{"time":197.96,"chord":"A","duration":2.57}];
     window.YOUTUBE_VIDEO_ID = 'jn0sxUuV-XE';
+    window.BEGINNER_META = { capo: 0, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

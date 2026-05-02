@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Intros made 30min before showtime😬 by PIANICK . AI-detected chord progression with 32 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Intros made 30min before showtime😬 by PIANICK . AI-detected chord progression with 40 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Intros made 30min before showtime😬 chords, PIANICK  chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Intros made 30min before showtime😬 Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Intros made 30min before showtime😬 by PIANICK . AI-detected chord progression with 32 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Intros made 30min before showtime😬 by PIANICK . AI-detected chord progression with 40 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/intros-made-30min-before-showtime-pianick/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Intros made 30min before showtime😬 Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Intros made 30min before showtime😬 by PIANICK . AI-detected chord progression with 32 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Intros made 30min before showtime😬 by PIANICK . AI-detected chord progression with 40 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Intros made 30min before showtime😬 Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "PIANICK "
   },
   "url": "https://ecoliving-tips.github.io/chords/intros-made-30min-before-showtime-pianick/",
-  "description": "Free chords for Intros made 30min before showtime😬 by PIANICK . AI-detected chord progression with 32 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Intros made 30min before showtime😬 by PIANICK . AI-detected chord progression with 40 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -108,7 +109,7 @@
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Intros made 30min before showtime😬 - AI-Detected Chords",
-  "description": "Watch and play along with AI-detected chords for Intros made 30min before showtime😬 by PIANICK . 32 chords detected.",
+  "description": "Watch and play along with AI-detected chords for Intros made 30min before showtime😬 by PIANICK . 40 chords detected.",
   "thumbnailUrl": "https://img.youtube.com/vi/XrMeE3UrNtM/maxresdefault.jpg",
   "embedUrl": "https://www.youtube.com/embed/XrMeE3UrNtM",
   "uploadDate": "2026-05-01T22:18:14.039297+00:00",
@@ -170,8 +171,12 @@
                 <!-- Metadata Bar -->
                 <div class="song-toolbar">
                     <div class="song-meta-bar">
-                        <span class="meta-pill"><span class="meta-label">Chords</span> 32 detected</span>
+                        <span class="meta-pill"><span class="meta-label">Chords</span> 40 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
+                    </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
                     </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
@@ -183,18 +188,26 @@
                     </div>
                 </div>
 
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
+                </div>
+
                 <!-- Unique Chords Used -->
                 <div class="chords-used-section">
                     <h2>Chords Used</h2>
                     <div class="chords-used-grid" id="chords-used">
                         <span class="chord-badge" data-original="F">F</span>
                         <span class="chord-badge" data-original="Dm">Dm</span>
+                        <span class="chord-badge" data-original="F#">F#</span>
                         <span class="chord-badge" data-original="Gm7">Gm7</span>
                         <span class="chord-badge" data-original="A#">A#</span>
-                        <span class="chord-badge" data-original="Am7">Am7</span>
                         <span class="chord-badge" data-original="C">C</span>
+                        <span class="chord-badge" data-original="Am7">Am7</span>
                         <span class="chord-badge" data-original="Dm7">Dm7</span>
-                        <span class="chord-badge" data-original="Csus4">Csus4</span>
+                        <span class="chord-badge" data-original="C7">C7</span>
+                        <span class="chord-badge" data-original="A7">A7</span>
                     </div>
                 </div>
 
@@ -291,10 +304,12 @@
 
     <!-- Chord data for player -->
     <script>
-    window.CHORD_DATA = [{"time":0,"chord":"F","duration":3.43},{"time":3.43,"chord":"Dm","duration":0.65},{"time":4.07,"chord":"Gm7","duration":2.13},{"time":6.2,"chord":"A#","duration":0.65},{"time":6.85,"chord":"F","duration":1.02},{"time":7.87,"chord":"Dm","duration":0.56},{"time":8.43,"chord":"Gm7","duration":1.3},{"time":9.72,"chord":"F","duration":2.59},{"time":12.31,"chord":"Am7","duration":1.11},{"time":13.43,"chord":"Gm7","duration":2.31},{"time":15.74,"chord":"Am7","duration":1.76},{"time":17.5,"chord":"Gm7","duration":1.11},{"time":18.61,"chord":"F","duration":3.7},{"time":22.31,"chord":"Gm7","duration":2.13},{"time":24.44,"chord":"F","duration":2.31},{"time":26.76,"chord":"Gm7","duration":1.2},{"time":27.96,"chord":"C","duration":2.04},{"time":30,"chord":"F","duration":1.02},{"time":31.02,"chord":"Gm7","duration":2.22},{"time":33.24,"chord":"C","duration":1.48},{"time":34.72,"chord":"Dm7","duration":1.02},{"time":35.74,"chord":"Gm7","duration":0.37},{"time":36.11,"chord":"Csus4","duration":1.76},{"time":37.87,"chord":"F","duration":2.13},{"time":40,"chord":"Gm7","duration":1.11},{"time":41.11,"chord":"C","duration":0.83},{"time":41.94,"chord":"A#","duration":0.37},{"time":42.31,"chord":"Am7","duration":1.57},{"time":43.89,"chord":"Dm","duration":0.83},{"time":44.72,"chord":"Gm7","duration":0.37},{"time":45.09,"chord":"C","duration":1.76},{"time":46.85,"chord":"F","duration":1.3}];
+    window.CHORD_DATA = [{"time":0,"chord":"F","duration":3.33},{"time":3.33,"chord":"Dm","duration":0.65},{"time":3.98,"chord":"F#","duration":0.46},{"time":4.44,"chord":"Gm7","duration":1.76},{"time":6.2,"chord":"A#","duration":0.56},{"time":6.76,"chord":"F","duration":1.02},{"time":7.78,"chord":"Dm","duration":0.56},{"time":8.33,"chord":"F#","duration":0.46},{"time":8.8,"chord":"Gm7","duration":0.74},{"time":9.54,"chord":"C","duration":0.46},{"time":10,"chord":"F","duration":2.31},{"time":12.31,"chord":"Am7","duration":1.11},{"time":13.43,"chord":"Gm7","duration":2.13},{"time":15.56,"chord":"Am7","duration":1.94},{"time":17.5,"chord":"Gm7","duration":0.83},{"time":18.33,"chord":"C","duration":0.46},{"time":18.8,"chord":"F","duration":0.65},{"time":19.44,"chord":"C","duration":0.56},{"time":20,"chord":"F","duration":2.22},{"time":22.22,"chord":"Gm7","duration":2.13},{"time":24.35,"chord":"F","duration":2.31},{"time":26.67,"chord":"Gm7","duration":1.02},{"time":27.69,"chord":"F","duration":0.56},{"time":28.24,"chord":"C","duration":0.74},{"time":28.98,"chord":"F","duration":1.94},{"time":30.93,"chord":"Gm7","duration":2.31},{"time":33.24,"chord":"F","duration":0.83},{"time":34.07,"chord":"C","duration":0.56},{"time":34.63,"chord":"Dm7","duration":0.93},{"time":35.56,"chord":"Gm7","duration":0.56},{"time":36.11,"chord":"C","duration":1.76},{"time":37.87,"chord":"F","duration":2.13},{"time":40,"chord":"Gm7","duration":1.2},{"time":41.2,"chord":"C7","duration":0.65},{"time":41.85,"chord":"A#","duration":0.56},{"time":42.41,"chord":"A7","duration":1.2},{"time":43.61,"chord":"Dm","duration":1.02},{"time":44.63,"chord":"Gm7","duration":0.46},{"time":45.09,"chord":"C","duration":1.76},{"time":46.85,"chord":"F","duration":0.93}];
     window.YOUTUBE_VIDEO_ID = 'XrMeE3UrNtM';
+    window.BEGINNER_META = { capo: 5, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

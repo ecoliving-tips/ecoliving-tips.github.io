@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for HEY JUNE! - Sabihin Mo Lang by HEYJUNEVEVO. AI-detected chord progression with 73 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for HEY JUNE! - Sabihin Mo Lang by HEYJUNEVEVO. AI-detected chord progression with 73 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="HEY JUNE! - Sabihin Mo Lang chords, HEYJUNEVEVO chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="HEY JUNE! - Sabihin Mo Lang Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for HEY JUNE! - Sabihin Mo Lang by HEYJUNEVEVO. AI-detected chord progression with 73 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for HEY JUNE! - Sabihin Mo Lang by HEYJUNEVEVO. AI-detected chord progression with 73 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/hey-june-sabihin-mo-lang-heyjunevevo/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="HEY JUNE! - Sabihin Mo Lang Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for HEY JUNE! - Sabihin Mo Lang by HEYJUNEVEVO. AI-detected chord progression with 73 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for HEY JUNE! - Sabihin Mo Lang by HEYJUNEVEVO. AI-detected chord progression with 73 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>HEY JUNE! - Sabihin Mo Lang Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "HEYJUNEVEVO"
   },
   "url": "https://ecoliving-tips.github.io/chords/hey-june-sabihin-mo-lang-heyjunevevo/",
-  "description": "Free chords for HEY JUNE! - Sabihin Mo Lang by HEYJUNEVEVO. AI-detected chord progression with 73 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for HEY JUNE! - Sabihin Mo Lang by HEYJUNEVEVO. AI-detected chord progression with 73 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 73 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -297,8 +308,10 @@
     <script>
     window.CHORD_DATA = [{"time":0,"chord":"D","duration":1.02},{"time":1.02,"chord":"Em7","duration":1.94},{"time":2.96,"chord":"D","duration":1.11},{"time":4.07,"chord":"Em7","duration":2.13},{"time":9.54,"chord":"B","duration":10.46},{"time":20,"chord":"B7","duration":1.11},{"time":21.11,"chord":"E","duration":1.39},{"time":22.5,"chord":"Emaj7","duration":5.19},{"time":27.69,"chord":"B","duration":3.06},{"time":30.74,"chord":"Bmaj7","duration":3.52},{"time":34.26,"chord":"E","duration":1.57},{"time":35.83,"chord":"C#m7","duration":1.76},{"time":37.59,"chord":"B","duration":1.67},{"time":39.26,"chord":"F#","duration":1.67},{"time":40.93,"chord":"E","duration":1.67},{"time":42.59,"chord":"C#m","duration":1.57},{"time":44.17,"chord":"B","duration":1.57},{"time":45.74,"chord":"F#7","duration":1.76},{"time":47.5,"chord":"E","duration":1.48},{"time":48.98,"chord":"C#m","duration":1.85},{"time":50.83,"chord":"B","duration":1.39},{"time":52.22,"chord":"F#","duration":2.22},{"time":54.44,"chord":"C#m","duration":2.78},{"time":57.22,"chord":"E","duration":1.85},{"time":59.07,"chord":"F#","duration":0.93},{"time":60.65,"chord":"Emaj7","duration":4.35},{"time":65,"chord":"F#7","duration":2.31},{"time":67.31,"chord":"Bmaj7","duration":6.67},{"time":73.98,"chord":"Emaj7","duration":4.17},{"time":78.15,"chord":"F#7","duration":1.85},{"time":80,"chord":"E","duration":0.74},{"time":80.74,"chord":"B","duration":1.57},{"time":82.31,"chord":"F#","duration":1.67},{"time":83.98,"chord":"B","duration":1.39},{"time":85.37,"chord":"F#","duration":1.85},{"time":87.22,"chord":"E","duration":4.72},{"time":91.94,"chord":"Emaj7","duration":0.56},{"time":92.5,"chord":"B","duration":1.3},{"time":93.8,"chord":"E","duration":1.57},{"time":95.37,"chord":"C#m","duration":1.57},{"time":96.94,"chord":"B","duration":1.67},{"time":98.61,"chord":"F#","duration":1.85},{"time":100.46,"chord":"E","duration":1.48},{"time":101.94,"chord":"C#m","duration":1.67},{"time":103.61,"chord":"B","duration":1.39},{"time":105,"chord":"F#","duration":2.13},{"time":107.13,"chord":"Emaj7","duration":1.48},{"time":108.61,"chord":"C#m","duration":1.85},{"time":110.46,"chord":"B","duration":1.3},{"time":111.76,"chord":"F#","duration":2.13},{"time":113.89,"chord":"C#m","duration":3.24},{"time":117.13,"chord":"E","duration":1.57},{"time":118.7,"chord":"F#","duration":1.57},{"time":120.28,"chord":"Emaj7","duration":4.35},{"time":124.63,"chord":"F#7","duration":1.48},{"time":126.11,"chord":"E","duration":0.83},{"time":126.94,"chord":"B","duration":3.06},{"time":130,"chord":"Bmaj7","duration":3.52},{"time":133.52,"chord":"Emaj7","duration":4.26},{"time":137.78,"chord":"F#7","duration":1.39},{"time":139.17,"chord":"E","duration":1.11},{"time":140.28,"chord":"B","duration":6.48},{"time":146.76,"chord":"Emaj7","duration":3.24},{"time":150,"chord":"Fmaj7","duration":1.3},{"time":151.3,"chord":"Bmaj7","duration":1.39},{"time":152.69,"chord":"Fmaj7","duration":0.74},{"time":153.43,"chord":"Bmaj7","duration":6.57},{"time":160,"chord":"Emaj7","duration":4.44},{"time":164.44,"chord":"F#7","duration":2.31},{"time":166.76,"chord":"B","duration":1.39},{"time":168.15,"chord":"Bmaj7","duration":1.39},{"time":169.54,"chord":"B","duration":3.7},{"time":173.24,"chord":"E","duration":12.69}];
     window.YOUTUBE_VIDEO_ID = 'vrI1tOik6l4';
+    window.BEGINNER_META = { capo: 2, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

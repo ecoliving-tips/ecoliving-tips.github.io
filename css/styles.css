@@ -1843,6 +1843,11 @@ footer {
         padding: 14px 18px;
     }
 
+    .song-toolbar .simplify-toggle {
+        width: 100%;
+        justify-content: center;
+    }
+
     .song-controls {
         flex-direction: column;
         align-items: flex-start;
@@ -2874,6 +2879,7 @@ footer {
     .generate-input-section, .generate-progress, .generate-error,
     .generate-actions, .audio-player-container, .transpose-controls,
     .share-buttons, .pwa-install-banner, .chord-finder-cta,
+    .beginner-info,
     body::before { display: none !important; }
 
     body {

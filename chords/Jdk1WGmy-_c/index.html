@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Διάφανα Κρίνα - Μέρες Αργίας by MLK. AI-detected chord progression with 61 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Διάφανα Κρίνα - Μέρες Αργίας by MLK. AI-detected chord progression with 61 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Διάφανα Κρίνα - Μέρες Αργίας chords, MLK chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Διάφανα Κρίνα - Μέρες Αργίας Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Διάφανα Κρίνα - Μέρες Αργίας by MLK. AI-detected chord progression with 61 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Διάφανα Κρίνα - Μέρες Αργίας by MLK. AI-detected chord progression with 61 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/Jdk1WGmy-_c/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Διάφανα Κρίνα - Μέρες Αργίας Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Διάφανα Κρίνα - Μέρες Αργίας by MLK. AI-detected chord progression with 61 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Διάφανα Κρίνα - Μέρες Αργίας by MLK. AI-detected chord progression with 61 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Διάφανα Κρίνα - Μέρες Αργίας Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "MLK"
   },
   "url": "https://ecoliving-tips.github.io/chords/Jdk1WGmy-_c/",
-  "description": "Free chords for Διάφανα Κρίνα - Μέρες Αργίας by MLK. AI-detected chord progression with 61 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Διάφανα Κρίνα - Μέρες Αργίας by MLK. AI-detected chord progression with 61 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 61 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -294,8 +305,10 @@
     <script>
     window.CHORD_DATA = [{"time":8.61,"chord":"Dm","duration":1.39},{"time":10,"chord":"Em","duration":1.57},{"time":11.57,"chord":"Am","duration":2.96},{"time":14.54,"chord":"G","duration":1.76},{"time":16.3,"chord":"Fmaj7","duration":1.57},{"time":17.87,"chord":"Am","duration":2.96},{"time":20.83,"chord":"Dm","duration":1.67},{"time":22.5,"chord":"Em","duration":1.67},{"time":24.17,"chord":"Am","duration":2.96},{"time":27.13,"chord":"F","duration":1.48},{"time":28.61,"chord":"G","duration":1.39},{"time":30,"chord":"A","duration":2.96},{"time":32.96,"chord":"D","duration":2.04},{"time":35,"chord":"Em","duration":1.57},{"time":36.57,"chord":"A","duration":2.96},{"time":39.54,"chord":"G","duration":1.67},{"time":41.2,"chord":"F","duration":1.57},{"time":42.78,"chord":"Am","duration":3.15},{"time":45.93,"chord":"Dm","duration":1.57},{"time":47.5,"chord":"E","duration":1.67},{"time":49.17,"chord":"Am","duration":2.87},{"time":52.04,"chord":"F","duration":1.67},{"time":53.7,"chord":"G","duration":1.67},{"time":55.37,"chord":"A","duration":3.06},{"time":58.43,"chord":"Dm","duration":1.57},{"time":60,"chord":"Em","duration":1.67},{"time":61.67,"chord":"Am","duration":3.06},{"time":64.72,"chord":"G","duration":1.48},{"time":66.2,"chord":"F","duration":1.57},{"time":67.78,"chord":"Am","duration":3.15},{"time":70.93,"chord":"Dm","duration":1.57},{"time":72.5,"chord":"Em","duration":1.57},{"time":74.07,"chord":"Am","duration":3.06},{"time":77.13,"chord":"F","duration":1.67},{"time":78.8,"chord":"G","duration":1.2},{"time":80,"chord":"Am","duration":3.43},{"time":83.43,"chord":"Dm","duration":1.67},{"time":85.09,"chord":"E","duration":1.48},{"time":86.57,"chord":"Am","duration":2.87},{"time":89.44,"chord":"G","duration":1.76},{"time":91.2,"chord":"F","duration":1.57},{"time":92.78,"chord":"Am","duration":3.15},{"time":95.93,"chord":"Dm","duration":1.57},{"time":97.5,"chord":"Em","duration":1.57},{"time":99.07,"chord":"Am","duration":3.06},{"time":102.13,"chord":"F","duration":1.57},{"time":103.7,"chord":"G","duration":1.67},{"time":105.37,"chord":"Am","duration":3.06},{"time":108.43,"chord":"F","duration":1.57},{"time":110,"chord":"G","duration":1.57},{"time":111.57,"chord":"Am","duration":2.96},{"time":114.54,"chord":"F","duration":1.67},{"time":116.2,"chord":"G","duration":1.67},{"time":117.87,"chord":"Am","duration":3.06},{"time":120.93,"chord":"F","duration":1.48},{"time":122.41,"chord":"G","duration":1.57},{"time":123.98,"chord":"Am","duration":3.06},{"time":127.04,"chord":"F","duration":1.57},{"time":128.61,"chord":"G","duration":1.39},{"time":130,"chord":"Am","duration":3.7},{"time":133.7,"chord":"Dm","duration":3.06}];
     window.YOUTUBE_VIDEO_ID = 'Jdk1WGmy-_c';
+    window.BEGINNER_META = { capo: 0, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

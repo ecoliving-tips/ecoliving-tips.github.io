@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Lonely I Will Never Be (Full Song Edit) - Fionna and Cake by Phizzy Alt. AI-detected chord progression with 22 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Lonely I Will Never Be (Full Song Edit) - Fionna and Cake by Phizzy Alt. AI-detected chord progression with 22 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Lonely I Will Never Be (Full Song Edit) - Fionna and Cake chords, Phizzy Alt chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Lonely I Will Never Be (Full Song Edit) - Fionna and Cake Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Lonely I Will Never Be (Full Song Edit) - Fionna and Cake by Phizzy Alt. AI-detected chord progression with 22 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Lonely I Will Never Be (Full Song Edit) - Fionna and Cake by Phizzy Alt. AI-detected chord progression with 22 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/lonely-i-will-never-be-full-song-edit-fionna-and-cake-phizzy-alt/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Lonely I Will Never Be (Full Song Edit) - Fionna and Cake Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Lonely I Will Never Be (Full Song Edit) - Fionna and Cake by Phizzy Alt. AI-detected chord progression with 22 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Lonely I Will Never Be (Full Song Edit) - Fionna and Cake by Phizzy Alt. AI-detected chord progression with 22 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Lonely I Will Never Be (Full Song Edit) - Fionna and Cake Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Phizzy Alt"
   },
   "url": "https://ecoliving-tips.github.io/chords/lonely-i-will-never-be-full-song-edit-fionna-and-cake-phizzy-alt/",
-  "description": "Free chords for Lonely I Will Never Be (Full Song Edit) - Fionna and Cake by Phizzy Alt. AI-detected chord progression with 22 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Lonely I Will Never Be (Full Song Edit) - Fionna and Cake by Phizzy Alt. AI-detected chord progression with 22 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 22 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -292,8 +303,10 @@
     <script>
     window.CHORD_DATA = [{"time":3.43,"chord":"G","duration":2.69},{"time":6.11,"chord":"D","duration":1.48},{"time":7.59,"chord":"B","duration":1.39},{"time":8.98,"chord":"Em","duration":2.87},{"time":11.85,"chord":"Am","duration":1.39},{"time":13.24,"chord":"D","duration":1.39},{"time":14.63,"chord":"F","duration":1.48},{"time":16.11,"chord":"E","duration":1.48},{"time":17.59,"chord":"Am","duration":2.78},{"time":20.37,"chord":"D","duration":2.69},{"time":23.06,"chord":"G","duration":2.78},{"time":25.83,"chord":"D","duration":1.48},{"time":27.31,"chord":"B","duration":1.39},{"time":28.7,"chord":"Em","duration":2.87},{"time":31.57,"chord":"Am","duration":1.39},{"time":32.96,"chord":"D","duration":1.39},{"time":34.35,"chord":"F","duration":1.39},{"time":35.74,"chord":"E","duration":1.48},{"time":37.22,"chord":"Am","duration":1.39},{"time":38.61,"chord":"D","duration":1.39},{"time":40,"chord":"G","duration":2.22},{"time":42.22,"chord":"B","duration":1.11}];
     window.YOUTUBE_VIDEO_ID = 'kDjaz_DLcnA';
+    window.BEGINNER_META = { capo: 0, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

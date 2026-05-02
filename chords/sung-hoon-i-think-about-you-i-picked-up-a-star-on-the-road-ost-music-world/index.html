@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Sung Hoon (성훈) - I Think About You (자꾸 널 생각해) (I Picked Up a Star on the Road OST) by MUSIC WORLD. AI-detected chord progression with 98 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Sung Hoon (성훈) - I Think About You (자꾸 널 생각해) (I Picked Up a Star on the Road OST) by MUSIC WORLD. AI-detected chord progression with 98 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Sung Hoon (성훈) - I Think About You (자꾸 널 생각해) (I Picked Up a Star on the Road OST) chords, MUSIC WORLD chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Sung Hoon (성훈) - I Think About You (자꾸 널 생각해) (I Picked Up a Star on the Road OST) Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Sung Hoon (성훈) - I Think About You (자꾸 널 생각해) (I Picked Up a Star on the Road OST) by MUSIC WORLD. AI-detected chord progression with 98 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Sung Hoon (성훈) - I Think About You (자꾸 널 생각해) (I Picked Up a Star on the Road OST) by MUSIC WORLD. AI-detected chord progression with 98 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/sung-hoon-i-think-about-you-i-picked-up-a-star-on-the-road-ost-music-world/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Sung Hoon (성훈) - I Think About You (자꾸 널 생각해) (I Picked Up a Star on the Road OST) Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Sung Hoon (성훈) - I Think About You (자꾸 널 생각해) (I Picked Up a Star on the Road OST) by MUSIC WORLD. AI-detected chord progression with 98 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Sung Hoon (성훈) - I Think About You (자꾸 널 생각해) (I Picked Up a Star on the Road OST) by MUSIC WORLD. AI-detected chord progression with 98 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Sung Hoon (성훈) - I Think About You (자꾸 널 생각해) (I Picked Up a Star on the Road OST) Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "MUSIC WORLD"
   },
   "url": "https://ecoliving-tips.github.io/chords/sung-hoon-i-think-about-you-i-picked-up-a-star-on-the-road-ost-music-world/",
-  "description": "Free chords for Sung Hoon (성훈) - I Think About You (자꾸 널 생각해) (I Picked Up a Star on the Road OST) by MUSIC WORLD. AI-detected chord progression with 98 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Sung Hoon (성훈) - I Think About You (자꾸 널 생각해) (I Picked Up a Star on the Road OST) by MUSIC WORLD. AI-detected chord progression with 98 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 98 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -299,8 +310,10 @@
     <script>
     window.CHORD_DATA = [{"time":1.94,"chord":"F#","duration":3.24},{"time":5.19,"chord":"F#aug","duration":2.41},{"time":7.59,"chord":"D#m","duration":2.41},{"time":10,"chord":"F#7","duration":2.87},{"time":12.87,"chord":"B","duration":2.59},{"time":15.46,"chord":"F#","duration":2.69},{"time":18.15,"chord":"G#m7","duration":2.87},{"time":21.02,"chord":"F#","duration":0.46},{"time":21.48,"chord":"B","duration":1.94},{"time":23.43,"chord":"F#","duration":3.33},{"time":26.76,"chord":"F#aug","duration":2.5},{"time":29.26,"chord":"D#m","duration":0.74},{"time":30,"chord":"F#","duration":4.44},{"time":34.44,"chord":"B","duration":2.59},{"time":37.04,"chord":"F#","duration":2.96},{"time":40,"chord":"G#m7","duration":2.5},{"time":42.5,"chord":"C#","duration":0.93},{"time":43.43,"chord":"B","duration":2.13},{"time":45.56,"chord":"F#","duration":2.5},{"time":48.06,"chord":"F#aug","duration":2.41},{"time":50.46,"chord":"F#","duration":0.74},{"time":51.2,"chord":"D#m7","duration":1.57},{"time":52.78,"chord":"F#7","duration":3.24},{"time":56.02,"chord":"B","duration":2.69},{"time":58.7,"chord":"F#","duration":2.87},{"time":61.57,"chord":"G#m7","duration":2.59},{"time":64.17,"chord":"C#7","duration":2.5},{"time":66.67,"chord":"F#","duration":2.87},{"time":69.54,"chord":"D#m","duration":0.46},{"time":70,"chord":"Edim7","duration":2.13},{"time":72.13,"chord":"G#m7","duration":2.31},{"time":74.44,"chord":"B","duration":2.78},{"time":77.22,"chord":"F#","duration":0.56},{"time":77.78,"chord":"A#m7","duration":1.57},{"time":79.35,"chord":"C#","duration":1.85},{"time":81.2,"chord":"D#7","duration":1.94},{"time":83.15,"chord":"G#m7","duration":2.41},{"time":85.56,"chord":"C#","duration":1.02},{"time":86.57,"chord":"B","duration":1.67},{"time":88.24,"chord":"F#","duration":2.96},{"time":91.2,"chord":"F#aug","duration":2.59},{"time":93.8,"chord":"F#","duration":1.67},{"time":95.46,"chord":"G#m7","duration":0.93},{"time":96.39,"chord":"F#7","duration":2.78},{"time":99.17,"chord":"B","duration":2.59},{"time":101.76,"chord":"F#","duration":2.69},{"time":104.44,"chord":"G#m7","duration":3.43},{"time":107.87,"chord":"B","duration":1.39},{"time":109.26,"chord":"F#","duration":3.43},{"time":112.69,"chord":"F#aug","duration":2.87},{"time":115.56,"chord":"D#m","duration":2.13},{"time":117.69,"chord":"F#","duration":3.06},{"time":120.74,"chord":"Bmaj7","duration":2.59},{"time":123.33,"chord":"F#","duration":2.87},{"time":126.2,"chord":"G#m7","duration":2.5},{"time":128.7,"chord":"C#","duration":2.78},{"time":131.48,"chord":"F#","duration":2.78},{"time":134.26,"chord":"D#7","duration":2.69},{"time":136.94,"chord":"G#m7","duration":4.63},{"time":141.57,"chord":"C#","duration":0.56},{"time":142.13,"chord":"A#m7","duration":2.96},{"time":145.09,"chord":"D#m7","duration":2.5},{"time":147.59,"chord":"G#m7","duration":2.96},{"time":150.56,"chord":"C#sus4","duration":1.85},{"time":152.41,"chord":"F#","duration":3.24},{"time":155.65,"chord":"C#7","duration":2.78},{"time":158.43,"chord":"A#m7","duration":2.69},{"time":161.11,"chord":"D#m7","duration":2.59},{"time":163.7,"chord":"G#m7","duration":3.06},{"time":166.76,"chord":"C#7","duration":3.24},{"time":170,"chord":"C#","duration":1.67},{"time":171.67,"chord":"F#","duration":2.87},{"time":174.54,"chord":"D#m","duration":0.56},{"time":175.09,"chord":"D#7","duration":2.13},{"time":177.22,"chord":"G#m7","duration":2.04},{"time":179.26,"chord":"B","duration":1.85},{"time":181.11,"chord":"C#","duration":1.39},{"time":182.5,"chord":"A#m7","duration":3.06},{"time":185.56,"chord":"D#m7","duration":2.5},{"time":188.06,"chord":"G#m7","duration":2.78},{"time":190.83,"chord":"C#7","duration":2.69},{"time":193.52,"chord":"F#","duration":2.78},{"time":196.3,"chord":"D#m","duration":2.59},{"time":198.89,"chord":"G#m7","duration":2.96},{"time":201.85,"chord":"C#","duration":2.22},{"time":204.07,"chord":"A#m7","duration":2.96},{"time":207.04,"chord":"D#m7","duration":2.5},{"time":209.54,"chord":"G#m7","duration":2.96},{"time":212.5,"chord":"C#7","duration":5.19},{"time":217.69,"chord":"F#","duration":2.87},{"time":220.56,"chord":"F#aug","duration":2.96},{"time":223.52,"chord":"D#m7","duration":2.13},{"time":225.65,"chord":"F#7","duration":3.15},{"time":228.8,"chord":"B","duration":2.22},{"time":231.02,"chord":"F#","duration":2.96},{"time":233.98,"chord":"G#m7","duration":3.06},{"time":237.04,"chord":"B","duration":2.96},{"time":240,"chord":"F#","duration":5.37}];
     window.YOUTUBE_VIDEO_ID = 'dXCmlI0u1HQ';
+    window.BEGINNER_META = { capo: 6, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

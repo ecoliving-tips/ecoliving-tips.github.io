@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for fakemink - Snow White (prod Me) by fakemink. AI-detected chord progression with 66 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for fakemink - Snow White (prod Me) by fakemink. AI-detected chord progression with 66 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="fakemink - Snow White (prod Me) chords, fakemink chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="fakemink - Snow White (prod Me) Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for fakemink - Snow White (prod Me) by fakemink. AI-detected chord progression with 66 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for fakemink - Snow White (prod Me) by fakemink. AI-detected chord progression with 66 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/fakemink-snow-white-prod-me/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="fakemink - Snow White (prod Me) Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for fakemink - Snow White (prod Me) by fakemink. AI-detected chord progression with 66 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for fakemink - Snow White (prod Me) by fakemink. AI-detected chord progression with 66 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>fakemink - Snow White (prod Me) Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "fakemink"
   },
   "url": "https://ecoliving-tips.github.io/chords/fakemink-snow-white-prod-me/",
-  "description": "Free chords for fakemink - Snow White (prod Me) by fakemink. AI-detected chord progression with 66 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for fakemink - Snow White (prod Me) by fakemink. AI-detected chord progression with 66 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 66 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -292,8 +303,10 @@
     <script>
     window.CHORD_DATA = [{"time":0,"chord":"Bm","duration":2.87},{"time":2.87,"chord":"D","duration":2.69},{"time":5.56,"chord":"Gmaj7","duration":4.44},{"time":10,"chord":"A","duration":1.2},{"time":11.2,"chord":"Bm7","duration":3.06},{"time":14.26,"chord":"Dmaj7","duration":2.5},{"time":16.76,"chord":"Gmaj7","duration":3.24},{"time":20,"chord":"G","duration":1.3},{"time":21.3,"chord":"A","duration":1.2},{"time":22.5,"chord":"Bm","duration":3.06},{"time":25.56,"chord":"D","duration":2.5},{"time":28.06,"chord":"G","duration":4.44},{"time":32.5,"chord":"A","duration":1.3},{"time":33.8,"chord":"Bm","duration":2.78},{"time":36.57,"chord":"D","duration":2.69},{"time":39.26,"chord":"G","duration":4.44},{"time":43.7,"chord":"A","duration":1.67},{"time":45.37,"chord":"Bm","duration":2.5},{"time":47.87,"chord":"A","duration":0.65},{"time":48.52,"chord":"D","duration":2.04},{"time":50.56,"chord":"G","duration":4.17},{"time":54.72,"chord":"A","duration":1.39},{"time":56.11,"chord":"Bm","duration":3.24},{"time":59.35,"chord":"D","duration":2.31},{"time":61.67,"chord":"Gmaj7","duration":4.44},{"time":66.11,"chord":"A","duration":1.3},{"time":67.41,"chord":"Bm7","duration":2.87},{"time":70.28,"chord":"Dmaj7","duration":2.59},{"time":72.87,"chord":"Gmaj7","duration":4.54},{"time":77.41,"chord":"A","duration":1.39},{"time":78.8,"chord":"Bm7","duration":1.2},{"time":80,"chord":"Bm","duration":1.57},{"time":81.57,"chord":"Dmaj7","duration":2.5},{"time":84.07,"chord":"Gmaj7","duration":4.44},{"time":88.52,"chord":"A","duration":1.48},{"time":90,"chord":"Bm","duration":2.69},{"time":92.69,"chord":"D","duration":2.69},{"time":95.37,"chord":"Gmaj7","duration":4.63},{"time":100,"chord":"A","duration":1.11},{"time":101.11,"chord":"Bm7","duration":2.87},{"time":103.98,"chord":"D","duration":2.5},{"time":106.48,"chord":"Gmaj7","duration":3.52},{"time":110,"chord":"G","duration":0.93},{"time":110.93,"chord":"A","duration":1.48},{"time":112.41,"chord":"Bm7","duration":2.69},{"time":115.09,"chord":"A","duration":1.39},{"time":116.48,"chord":"D","duration":1.3},{"time":117.78,"chord":"Gmaj7","duration":2.13},{"time":119.91,"chord":"G","duration":2.31},{"time":122.22,"chord":"A","duration":1.2},{"time":123.43,"chord":"Bm","duration":3.06},{"time":126.48,"chord":"D","duration":2.59},{"time":129.07,"chord":"G","duration":4.44},{"time":133.52,"chord":"A","duration":1.3},{"time":134.81,"chord":"Bm","duration":2.78},{"time":137.59,"chord":"D","duration":2.41},{"time":140.37,"chord":"Gmaj7","duration":4.35},{"time":144.72,"chord":"A","duration":1.3},{"time":146.02,"chord":"Bm7","duration":2.96},{"time":148.98,"chord":"Dmaj7","duration":2.59},{"time":151.57,"chord":"Gmaj7","duration":4.17},{"time":155.74,"chord":"A","duration":1.48},{"time":157.22,"chord":"Bm7","duration":2.78},{"time":160,"chord":"Dmaj7","duration":2.69},{"time":162.69,"chord":"Gmaj7","duration":4.35},{"time":167.04,"chord":"A","duration":1.12}];
     window.YOUTUBE_VIDEO_ID = 'nP8heyxnJGA';
+    window.BEGINNER_META = { capo: 2, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

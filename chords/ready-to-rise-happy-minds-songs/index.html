@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Ready to Rise 🎓 by Happy Minds Songs. AI-detected chord progression with 95 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Ready to Rise 🎓 by Happy Minds Songs. AI-detected chord progression with 95 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Ready to Rise 🎓 chords, Happy Minds Songs chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Ready to Rise 🎓 Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Ready to Rise 🎓 by Happy Minds Songs. AI-detected chord progression with 95 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Ready to Rise 🎓 by Happy Minds Songs. AI-detected chord progression with 95 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/ready-to-rise-happy-minds-songs/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Ready to Rise 🎓 Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Ready to Rise 🎓 by Happy Minds Songs. AI-detected chord progression with 95 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Ready to Rise 🎓 by Happy Minds Songs. AI-detected chord progression with 95 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Ready to Rise 🎓 Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Happy Minds Songs"
   },
   "url": "https://ecoliving-tips.github.io/chords/ready-to-rise-happy-minds-songs/",
-  "description": "Free chords for Ready to Rise 🎓 by Happy Minds Songs. AI-detected chord progression with 95 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Ready to Rise 🎓 by Happy Minds Songs. AI-detected chord progression with 95 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 95 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -291,8 +302,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.28,"chord":"C","duration":5},{"time":5.28,"chord":"F","duration":0.83},{"time":6.11,"chord":"C","duration":1.11},{"time":7.22,"chord":"Gsus4","duration":2.78},{"time":10,"chord":"F","duration":0.83},{"time":10.83,"chord":"C","duration":1.2},{"time":12.04,"chord":"G","duration":2.31},{"time":14.35,"chord":"F","duration":1.2},{"time":15.56,"chord":"C","duration":0.83},{"time":16.39,"chord":"G","duration":2.69},{"time":19.07,"chord":"F","duration":0.93},{"time":20,"chord":"C","duration":1.3},{"time":21.3,"chord":"G","duration":2.41},{"time":23.7,"chord":"F","duration":1.2},{"time":24.91,"chord":"C","duration":2.13},{"time":27.04,"chord":"G","duration":1.39},{"time":28.43,"chord":"F","duration":1.3},{"time":29.72,"chord":"C","duration":0.93},{"time":30.65,"chord":"G","duration":2.5},{"time":33.15,"chord":"F","duration":1.2},{"time":34.35,"chord":"C","duration":1.2},{"time":35.56,"chord":"G","duration":2.31},{"time":37.87,"chord":"F","duration":1.2},{"time":39.07,"chord":"C","duration":1.3},{"time":40.37,"chord":"Gsus4","duration":1.11},{"time":41.48,"chord":"C","duration":1.2},{"time":42.69,"chord":"F","duration":1.11},{"time":43.8,"chord":"C","duration":1.2},{"time":45,"chord":"G","duration":2.41},{"time":47.41,"chord":"Am7","duration":1.11},{"time":48.52,"chord":"C","duration":1.02},{"time":49.54,"chord":"F","duration":4.54},{"time":54.07,"chord":"G","duration":2.04},{"time":56.11,"chord":"C","duration":5.09},{"time":61.2,"chord":"F","duration":1.48},{"time":62.69,"chord":"C","duration":1.11},{"time":63.8,"chord":"Gsus4","duration":2.41},{"time":66.2,"chord":"F","duration":1.02},{"time":67.22,"chord":"C","duration":1.2},{"time":68.43,"chord":"Gsus4","duration":1.57},{"time":70,"chord":"G","duration":0.83},{"time":70.83,"chord":"F","duration":1.2},{"time":72.04,"chord":"C","duration":1.48},{"time":73.52,"chord":"G","duration":2.04},{"time":75.56,"chord":"F","duration":1.3},{"time":76.85,"chord":"C","duration":1.02},{"time":77.87,"chord":"Gsus4","duration":2.41},{"time":80.28,"chord":"F","duration":1.11},{"time":81.39,"chord":"C","duration":1.3},{"time":82.69,"chord":"Gsus4","duration":2.31},{"time":85,"chord":"F","duration":1.11},{"time":86.11,"chord":"C","duration":1.11},{"time":87.22,"chord":"Gsus4","duration":2.78},{"time":90,"chord":"F","duration":0.93},{"time":90.93,"chord":"C","duration":1.11},{"time":92.04,"chord":"Gsus4","duration":2.22},{"time":94.26,"chord":"Am7","duration":1.39},{"time":95.65,"chord":"Gsus4","duration":1.11},{"time":96.76,"chord":"F","duration":1.76},{"time":98.52,"chord":"C","duration":0.83},{"time":99.35,"chord":"F","duration":1.94},{"time":101.3,"chord":"Gsus4","duration":2.5},{"time":103.8,"chord":"C","duration":4.72},{"time":108.52,"chord":"F","duration":2.31},{"time":110.83,"chord":"Gsus4","duration":1.39},{"time":112.22,"chord":"G","duration":1.02},{"time":113.24,"chord":"Am7","duration":2.41},{"time":115.65,"chord":"C","duration":2.31},{"time":117.96,"chord":"F","duration":2.22},{"time":120.19,"chord":"G","duration":2.5},{"time":122.69,"chord":"Am7","duration":1.2},{"time":123.89,"chord":"G","duration":1.11},{"time":125,"chord":"F","duration":5},{"time":130,"chord":"C","duration":1.67},{"time":131.67,"chord":"G","duration":2.31},{"time":133.98,"chord":"F","duration":1.67},{"time":135.65,"chord":"C","duration":0.74},{"time":136.39,"chord":"G","duration":2.22},{"time":138.61,"chord":"C","duration":0.56},{"time":139.17,"chord":"F","duration":1.2},{"time":140.37,"chord":"C","duration":1.02},{"time":141.39,"chord":"Gsus4","duration":2.31},{"time":143.7,"chord":"Am7","duration":1.39},{"time":145.09,"chord":"Gsus4","duration":1.11},{"time":146.2,"chord":"F","duration":1.39},{"time":147.59,"chord":"Fsus2","duration":3.15},{"time":150.74,"chord":"Gsus4","duration":2.5},{"time":153.24,"chord":"C","duration":4.72},{"time":157.96,"chord":"F","duration":1.02},{"time":158.98,"chord":"C","duration":1.48},{"time":160.46,"chord":"Gsus4","duration":1.48},{"time":161.94,"chord":"C","duration":0.74},{"time":162.69,"chord":"F","duration":1.11},{"time":163.8,"chord":"C","duration":1.02},{"time":164.81,"chord":"G","duration":7.22}];
     window.YOUTUBE_VIDEO_ID = 'TRgMyKtCM8A';
+    window.BEGINNER_META = { capo: 0, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

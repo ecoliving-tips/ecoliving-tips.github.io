@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Dont You Worry by Span. AI-detected chord progression with 66 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Dont You Worry by Span. AI-detected chord progression with 66 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Dont You Worry chords, Span chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Dont You Worry Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Dont You Worry by Span. AI-detected chord progression with 66 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Dont You Worry by Span. AI-detected chord progression with 66 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/dont-you-worry-span/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Dont You Worry Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Dont You Worry by Span. AI-detected chord progression with 66 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Dont You Worry by Span. AI-detected chord progression with 66 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Dont You Worry Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Span"
   },
   "url": "https://ecoliving-tips.github.io/chords/dont-you-worry-span/",
-  "description": "Free chords for Dont You Worry by Span. AI-detected chord progression with 66 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Dont You Worry by Span. AI-detected chord progression with 66 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 66 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -292,8 +303,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.46,"chord":"F#m","duration":4.07},{"time":4.54,"chord":"Em","duration":10.28},{"time":24.81,"chord":"F#","duration":0.65},{"time":25.46,"chord":"Bm","duration":2.96},{"time":28.43,"chord":"Em","duration":4.63},{"time":33.06,"chord":"Bm","duration":3.7},{"time":36.76,"chord":"Em","duration":4.44},{"time":41.2,"chord":"Bm","duration":3.89},{"time":45.09,"chord":"A","duration":4.07},{"time":49.17,"chord":"Em","duration":8.43},{"time":57.59,"chord":"Bm","duration":3.98},{"time":61.57,"chord":"Em","duration":4.26},{"time":65.83,"chord":"Bm","duration":3.98},{"time":69.81,"chord":"Em","duration":4.07},{"time":73.89,"chord":"Bm","duration":3.98},{"time":77.87,"chord":"A","duration":4.26},{"time":82.13,"chord":"Em7","duration":3.98},{"time":86.11,"chord":"A","duration":3.98},{"time":90.09,"chord":"Em7","duration":4.17},{"time":94.26,"chord":"A","duration":4.17},{"time":98.43,"chord":"Em","duration":4.07},{"time":102.5,"chord":"A","duration":4.17},{"time":106.67,"chord":"Em","duration":2.04},{"time":108.7,"chord":"Bm","duration":2.04},{"time":110.74,"chord":"F#m","duration":2.04},{"time":112.78,"chord":"Bm","duration":1.94},{"time":114.72,"chord":"Em","duration":2.13},{"time":116.85,"chord":"Bm","duration":1.94},{"time":118.8,"chord":"F#m","duration":2.22},{"time":121.02,"chord":"Bm","duration":1.85},{"time":122.87,"chord":"Em","duration":2.13},{"time":125,"chord":"Bm","duration":2.04},{"time":127.04,"chord":"F#m","duration":2.13},{"time":129.17,"chord":"Bm","duration":2.04},{"time":131.2,"chord":"Em","duration":2.04},{"time":133.24,"chord":"Bm","duration":2.04},{"time":135.28,"chord":"F#m","duration":0.74},{"time":136.02,"chord":"F#m7","duration":3.43},{"time":139.44,"chord":"Em","duration":4.07},{"time":143.52,"chord":"Bm","duration":3.89},{"time":147.41,"chord":"Em","duration":4.26},{"time":151.67,"chord":"Bm","duration":4.07},{"time":155.74,"chord":"Em","duration":4.26},{"time":160,"chord":"Bm","duration":3.89},{"time":163.89,"chord":"A","duration":4.07},{"time":167.96,"chord":"Em","duration":4.17},{"time":172.13,"chord":"A","duration":4.07},{"time":176.2,"chord":"Em","duration":3.8},{"time":180,"chord":"A","duration":4.26},{"time":184.26,"chord":"Em7","duration":4.07},{"time":188.33,"chord":"A","duration":4.17},{"time":192.5,"chord":"Em","duration":2.13},{"time":194.63,"chord":"Bm","duration":1.94},{"time":196.57,"chord":"F#m","duration":2.13},{"time":198.7,"chord":"Bm","duration":1.94},{"time":200.65,"chord":"Em","duration":2.13},{"time":202.78,"chord":"Bm","duration":1.94},{"time":204.72,"chord":"F#m","duration":2.13},{"time":206.85,"chord":"Bm","duration":1.94},{"time":208.8,"chord":"Em","duration":2.22},{"time":211.02,"chord":"Bm","duration":1.94},{"time":212.96,"chord":"F#m","duration":2.13},{"time":215.09,"chord":"Bm","duration":1.94},{"time":217.04,"chord":"Em","duration":2.13},{"time":219.17,"chord":"Bm","duration":1.94},{"time":221.11,"chord":"F#m7","duration":12.5}];
     window.YOUTUBE_VIDEO_ID = 'vVTSh1kd_WQ';
+    window.BEGINNER_META = { capo: 2, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

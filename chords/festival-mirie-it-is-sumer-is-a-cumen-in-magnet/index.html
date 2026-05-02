@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Festival / Mirie It Is / Sumer is A-Cumen In by Magnet. AI-detected chord progression with 89 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Festival / Mirie It Is / Sumer is A-Cumen In by Magnet. AI-detected chord progression with 89 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Festival / Mirie It Is / Sumer is A-Cumen In chords, Magnet chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Festival / Mirie It Is / Sumer is A-Cumen In Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Festival / Mirie It Is / Sumer is A-Cumen In by Magnet. AI-detected chord progression with 89 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Festival / Mirie It Is / Sumer is A-Cumen In by Magnet. AI-detected chord progression with 89 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/festival-mirie-it-is-sumer-is-a-cumen-in-magnet/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Festival / Mirie It Is / Sumer is A-Cumen In Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Festival / Mirie It Is / Sumer is A-Cumen In by Magnet. AI-detected chord progression with 89 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Festival / Mirie It Is / Sumer is A-Cumen In by Magnet. AI-detected chord progression with 89 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Festival / Mirie It Is / Sumer is A-Cumen In Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Magnet"
   },
   "url": "https://ecoliving-tips.github.io/chords/festival-mirie-it-is-sumer-is-a-cumen-in-magnet/",
-  "description": "Free chords for Festival / Mirie It Is / Sumer is A-Cumen In by Magnet. AI-detected chord progression with 89 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Festival / Mirie It Is / Sumer is A-Cumen In by Magnet. AI-detected chord progression with 89 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 89 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -297,8 +308,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.46,"chord":"Em","duration":3.06},{"time":3.52,"chord":"D","duration":1.11},{"time":4.63,"chord":"Em","duration":1.02},{"time":5.65,"chord":"D","duration":1.11},{"time":6.76,"chord":"Em","duration":3.24},{"time":10,"chord":"D","duration":0.93},{"time":10.93,"chord":"Em","duration":0.93},{"time":11.85,"chord":"D","duration":1.11},{"time":12.96,"chord":"Em","duration":0.93},{"time":13.89,"chord":"D","duration":0.93},{"time":14.81,"chord":"Em","duration":1.02},{"time":15.83,"chord":"D","duration":1.11},{"time":16.94,"chord":"Em","duration":0.93},{"time":17.87,"chord":"D","duration":0.93},{"time":18.8,"chord":"Em","duration":1.2},{"time":20,"chord":"D","duration":2.04},{"time":22.04,"chord":"C","duration":0.93},{"time":22.96,"chord":"D","duration":4.26},{"time":27.22,"chord":"Em","duration":2.78},{"time":30,"chord":"D","duration":3.61},{"time":33.61,"chord":"Em","duration":2.69},{"time":36.3,"chord":"D","duration":12.31},{"time":48.61,"chord":"C","duration":1.02},{"time":49.63,"chord":"D","duration":4.35},{"time":53.98,"chord":"Em","duration":3.06},{"time":57.04,"chord":"D","duration":0.83},{"time":57.87,"chord":"Em","duration":1.02},{"time":58.89,"chord":"D","duration":1.11},{"time":60,"chord":"E","duration":1.2},{"time":61.2,"chord":"Em","duration":1.67},{"time":62.87,"chord":"D","duration":1.11},{"time":63.98,"chord":"Em","duration":0.83},{"time":64.81,"chord":"D","duration":1.3},{"time":66.11,"chord":"Em","duration":0.74},{"time":66.85,"chord":"D","duration":1.02},{"time":67.87,"chord":"Em","duration":0.93},{"time":68.8,"chord":"D","duration":1.2},{"time":70,"chord":"E","duration":1.02},{"time":71.02,"chord":"D","duration":0.74},{"time":71.76,"chord":"Em","duration":1.11},{"time":72.87,"chord":"D","duration":2.13},{"time":75,"chord":"C","duration":1.02},{"time":76.02,"chord":"D","duration":4.35},{"time":80.37,"chord":"Em","duration":3.15},{"time":83.52,"chord":"D","duration":0.93},{"time":84.44,"chord":"Em","duration":1.2},{"time":85.65,"chord":"D","duration":0.93},{"time":86.57,"chord":"Em","duration":3.43},{"time":90,"chord":"D","duration":1.02},{"time":91.02,"chord":"Em7","duration":1.57},{"time":100.56,"chord":"D","duration":7.78},{"time":120,"chord":"B","duration":7.41},{"time":127.41,"chord":"Am","duration":2.59},{"time":130.74,"chord":"E7","duration":3.7},{"time":134.44,"chord":"Am","duration":1.02},{"time":135.46,"chord":"E7","duration":0.83},{"time":136.3,"chord":"A","duration":1.76},{"time":138.06,"chord":"F","duration":1.02},{"time":139.07,"chord":"Em","duration":0.93},{"time":140,"chord":"B","duration":0.93},{"time":140.93,"chord":"E","duration":3.89},{"time":144.81,"chord":"Am","duration":6.3},{"time":151.11,"chord":"D","duration":2.22},{"time":153.33,"chord":"Am","duration":2.5},{"time":155.83,"chord":"D","duration":4.17},{"time":160,"chord":"Am","duration":3.98},{"time":163.98,"chord":"F","duration":1.02},{"time":165,"chord":"Em","duration":3.98},{"time":171.11,"chord":"F","duration":2.96},{"time":176.94,"chord":"D","duration":4.63},{"time":194.54,"chord":"Am","duration":0.93},{"time":196.57,"chord":"C","duration":1.2},{"time":198.52,"chord":"F","duration":0.83},{"time":199.35,"chord":"C","duration":2.22},{"time":201.57,"chord":"Am","duration":1.2},{"time":202.78,"chord":"C","duration":0.74},{"time":203.52,"chord":"F","duration":3.15},{"time":240,"chord":"Em7","duration":0.74},{"time":240.74,"chord":"Dm","duration":0.93},{"time":241.67,"chord":"Em7","duration":1.3},{"time":244.07,"chord":"Am","duration":1.67},{"time":246.85,"chord":"Dm","duration":0.93},{"time":247.78,"chord":"C","duration":1.2},{"time":250,"chord":"F","duration":0.83},{"time":250.83,"chord":"C","duration":2.13},{"time":252.96,"chord":"Am","duration":1.11},{"time":254.07,"chord":"C","duration":0.83},{"time":254.91,"chord":"F","duration":4.17},{"time":259.07,"chord":"G","duration":0.93}];
     window.YOUTUBE_VIDEO_ID = 'LnaQgK2fYpQ';
+    window.BEGINNER_META = { capo: 0, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

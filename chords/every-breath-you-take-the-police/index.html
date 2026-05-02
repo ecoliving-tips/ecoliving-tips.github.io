@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Every Breath You Take by The Police. AI-detected chord progression with 82 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Every Breath You Take by The Police. AI-detected chord progression with 82 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Every Breath You Take chords, The Police chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Every Breath You Take Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Every Breath You Take by The Police. AI-detected chord progression with 82 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Every Breath You Take by The Police. AI-detected chord progression with 82 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/every-breath-you-take-the-police/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Every Breath You Take Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Every Breath You Take by The Police. AI-detected chord progression with 82 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Every Breath You Take by The Police. AI-detected chord progression with 82 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Every Breath You Take Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "The Police"
   },
   "url": "https://ecoliving-tips.github.io/chords/every-breath-you-take-the-police/",
-  "description": "Free chords for Every Breath You Take by The Police. AI-detected chord progression with 82 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Every Breath You Take by The Police. AI-detected chord progression with 82 chords. Advanced difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Advanced"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 82 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -297,8 +308,10 @@
     <script>
     window.CHORD_DATA = [{"time":1.02,"chord":"G#","duration":3.98},{"time":5,"chord":"Fm","duration":4.07},{"time":9.07,"chord":"C#","duration":1.94},{"time":11.02,"chord":"D#","duration":2.22},{"time":13.24,"chord":"G#","duration":8.06},{"time":21.3,"chord":"Fm","duration":3.98},{"time":25.28,"chord":"C#","duration":2.13},{"time":27.41,"chord":"D#","duration":2.22},{"time":29.63,"chord":"Fm","duration":3.52},{"time":33.15,"chord":"D#","duration":0.37},{"time":33.52,"chord":"G#","duration":4.17},{"time":37.69,"chord":"Fm","duration":3.98},{"time":41.67,"chord":"C#","duration":1.94},{"time":43.61,"chord":"D#","duration":2.31},{"time":45.93,"chord":"G#","duration":3.8},{"time":49.72,"chord":"C#","duration":3.8},{"time":53.52,"chord":"G#","duration":4.54},{"time":58.06,"chord":"A#","duration":4.17},{"time":62.22,"chord":"D#","duration":3.98},{"time":66.2,"chord":"G#","duration":4.07},{"time":70.28,"chord":"Fm","duration":4.17},{"time":74.44,"chord":"C#","duration":1.94},{"time":76.39,"chord":"D#","duration":2.22},{"time":78.61,"chord":"Fm","duration":1.39},{"time":80,"chord":"Fm7","duration":2.59},{"time":82.59,"chord":"E","duration":4.17},{"time":86.76,"chord":"F#","duration":4.17},{"time":90.93,"chord":"E","duration":4.07},{"time":95,"chord":"G","duration":3.24},{"time":98.24,"chord":"F#","duration":0.83},{"time":99.07,"chord":"E","duration":3.98},{"time":103.06,"chord":"G#","duration":4.17},{"time":107.22,"chord":"Fm","duration":4.17},{"time":111.39,"chord":"C#","duration":1.76},{"time":113.15,"chord":"D#","duration":2.22},{"time":115.37,"chord":"Fm","duration":4.07},{"time":119.44,"chord":"G#","duration":4.17},{"time":123.61,"chord":"Fm7","duration":3.98},{"time":127.59,"chord":"C#","duration":2.13},{"time":129.72,"chord":"D#","duration":2.04},{"time":131.76,"chord":"G#","duration":3.98},{"time":135.74,"chord":"C#","duration":2.96},{"time":138.7,"chord":"B","duration":1.3},{"time":140,"chord":"G#","duration":4.07},{"time":144.07,"chord":"A#m","duration":4.07},{"time":148.15,"chord":"D#","duration":1.85},{"time":150,"chord":"E","duration":1.94},{"time":151.94,"chord":"G#","duration":4.35},{"time":156.3,"chord":"Fm","duration":3.06},{"time":159.35,"chord":"F#m","duration":0.65},{"time":160,"chord":"C#","duration":2.22},{"time":162.22,"chord":"D#","duration":2.22},{"time":164.44,"chord":"Fm","duration":3.98},{"time":168.43,"chord":"C#","duration":2.04},{"time":170.46,"chord":"D#","duration":2.31},{"time":172.78,"chord":"Fm","duration":7.22},{"time":180,"chord":"D#","duration":0.74},{"time":180.74,"chord":"G#","duration":4.17},{"time":184.91,"chord":"Fm","duration":2.04},{"time":186.94,"chord":"C#","duration":2.13},{"time":189.07,"chord":"G#","duration":3.98},{"time":193.06,"chord":"Fm","duration":2.13},{"time":195.19,"chord":"C#","duration":2.13},{"time":197.31,"chord":"G#","duration":3.98},{"time":201.3,"chord":"Fm","duration":2.04},{"time":203.33,"chord":"C#","duration":2.13},{"time":205.46,"chord":"G#","duration":3.98},{"time":209.44,"chord":"Fm","duration":2.13},{"time":211.57,"chord":"C#","duration":1.85},{"time":213.43,"chord":"G#","duration":4.17},{"time":217.59,"chord":"Fm","duration":2.04},{"time":219.63,"chord":"C#","duration":2.04},{"time":221.67,"chord":"G#","duration":4.17},{"time":225.83,"chord":"Fm","duration":2.04},{"time":227.87,"chord":"C#","duration":2.13},{"time":230,"chord":"G#","duration":3.98},{"time":233.98,"chord":"Fm","duration":2.13},{"time":236.11,"chord":"C#","duration":1.94},{"time":238.06,"chord":"G#","duration":4.17},{"time":242.22,"chord":"Fm","duration":2.04},{"time":244.26,"chord":"C#","duration":2.31},{"time":246.57,"chord":"G#","duration":1.76}];
     window.YOUTUBE_VIDEO_ID = '6cucosmPj-A';
+    window.BEGINNER_META = { capo: 1, difficulty: 'advanced' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

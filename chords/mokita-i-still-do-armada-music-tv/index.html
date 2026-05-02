@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Mokita - I Still Do by Armada Music TV. AI-detected chord progression with 110 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Mokita - I Still Do by Armada Music TV. AI-detected chord progression with 110 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Mokita - I Still Do chords, Armada Music TV chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Mokita - I Still Do Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Mokita - I Still Do by Armada Music TV. AI-detected chord progression with 110 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Mokita - I Still Do by Armada Music TV. AI-detected chord progression with 110 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/mokita-i-still-do-armada-music-tv/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Mokita - I Still Do Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Mokita - I Still Do by Armada Music TV. AI-detected chord progression with 110 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Mokita - I Still Do by Armada Music TV. AI-detected chord progression with 110 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Mokita - I Still Do Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Armada Music TV"
   },
   "url": "https://ecoliving-tips.github.io/chords/mokita-i-still-do-armada-music-tv/",
-  "description": "Free chords for Mokita - I Still Do by Armada Music TV. AI-detected chord progression with 110 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Mokita - I Still Do by Armada Music TV. AI-detected chord progression with 110 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 110 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -295,8 +306,10 @@
     <script>
     window.CHORD_DATA = [{"time":3.15,"chord":"A","duration":1.57},{"time":4.72,"chord":"E","duration":1.3},{"time":6.02,"chord":"B","duration":1.11},{"time":7.13,"chord":"E","duration":0.65},{"time":7.78,"chord":"C#m","duration":1.3},{"time":9.07,"chord":"A","duration":0.93},{"time":10,"chord":"Asus2","duration":0.74},{"time":10.74,"chord":"E","duration":1.02},{"time":11.76,"chord":"B","duration":1.39},{"time":13.15,"chord":"Bsus4","duration":2.04},{"time":15.19,"chord":"E","duration":2.69},{"time":17.87,"chord":"Bsus4","duration":2.59},{"time":20.46,"chord":"G#m7","duration":0.56},{"time":21.02,"chord":"Asus2","duration":2.87},{"time":23.89,"chord":"Bsus4","duration":3.33},{"time":27.22,"chord":"E","duration":2.22},{"time":29.44,"chord":"Bsus4","duration":2.87},{"time":32.31,"chord":"G#m7","duration":0.74},{"time":33.06,"chord":"Asus2","duration":2.41},{"time":35.46,"chord":"Amaj7","duration":0.56},{"time":36.02,"chord":"Bsus4","duration":2.96},{"time":38.98,"chord":"C#m7","duration":2.59},{"time":41.57,"chord":"E","duration":0.46},{"time":42.04,"chord":"Asus2","duration":3.06},{"time":45.09,"chord":"E","duration":2.69},{"time":47.78,"chord":"Bsus4","duration":2.22},{"time":50,"chord":"B","duration":1.11},{"time":51.11,"chord":"C#m","duration":2.31},{"time":53.43,"chord":"E","duration":0.65},{"time":54.07,"chord":"Asus2","duration":2.96},{"time":57.04,"chord":"E","duration":2.96},{"time":60,"chord":"B","duration":1.94},{"time":61.94,"chord":"E","duration":1.2},{"time":63.15,"chord":"Amaj7","duration":1.76},{"time":64.91,"chord":"E","duration":0.93},{"time":65.83,"chord":"B","duration":2.22},{"time":68.06,"chord":"C#m7","duration":0.93},{"time":68.98,"chord":"Amaj7","duration":1.02},{"time":70,"chord":"Asus2","duration":0.83},{"time":70.83,"chord":"Emaj7","duration":1.11},{"time":71.94,"chord":"B","duration":2.59},{"time":74.54,"chord":"Emaj7","duration":0.37},{"time":74.91,"chord":"Asus2","duration":2.04},{"time":76.94,"chord":"E","duration":0.65},{"time":77.59,"chord":"B","duration":2.41},{"time":80,"chord":"C#m","duration":1.02},{"time":81.02,"chord":"A","duration":1.76},{"time":82.78,"chord":"C#m7","duration":1.2},{"time":83.98,"chord":"B","duration":3.06},{"time":87.04,"chord":"A","duration":1.57},{"time":88.61,"chord":"E","duration":1.39},{"time":90,"chord":"B","duration":1.85},{"time":91.85,"chord":"C#m","duration":1.3},{"time":93.15,"chord":"Asus2","duration":1.48},{"time":94.63,"chord":"E","duration":1.3},{"time":95.93,"chord":"B","duration":2.59},{"time":98.52,"chord":"E","duration":3.52},{"time":102.04,"chord":"Bsus4","duration":2.31},{"time":104.35,"chord":"G#m7","duration":0.83},{"time":105.19,"chord":"Asus2","duration":1.94},{"time":107.13,"chord":"A","duration":0.93},{"time":108.06,"chord":"Bsus4","duration":3.06},{"time":111.11,"chord":"E","duration":2.87},{"time":113.98,"chord":"B","duration":2.41},{"time":116.39,"chord":"G#m7","duration":0.65},{"time":117.04,"chord":"Amaj7","duration":2.5},{"time":119.54,"chord":"C#m7","duration":0.46},{"time":120,"chord":"Bsus4","duration":3.06},{"time":123.06,"chord":"C#m7","duration":2.41},{"time":125.46,"chord":"E","duration":0.56},{"time":126.02,"chord":"Asus2","duration":3.06},{"time":129.07,"chord":"E","duration":1.85},{"time":130.93,"chord":"Asus2","duration":0.65},{"time":131.57,"chord":"Bsus4","duration":3.43},{"time":135,"chord":"C#m7","duration":2.5},{"time":137.5,"chord":"E","duration":0.46},{"time":137.96,"chord":"Amaj7","duration":2.04},{"time":140,"chord":"A","duration":1.11},{"time":141.11,"chord":"E","duration":1.85},{"time":142.96,"chord":"B","duration":3.43},{"time":146.39,"chord":"A","duration":2.31},{"time":148.7,"chord":"E","duration":1.3},{"time":150,"chord":"B","duration":1.94},{"time":151.94,"chord":"C#m","duration":1.02},{"time":152.96,"chord":"Asus2","duration":1.94},{"time":154.91,"chord":"E","duration":1.02},{"time":155.93,"chord":"B","duration":2.59},{"time":158.52,"chord":"E","duration":0.46},{"time":158.98,"chord":"Asus2","duration":1.3},{"time":160.28,"chord":"E","duration":1.39},{"time":161.67,"chord":"B","duration":2.31},{"time":163.98,"chord":"C#m7","duration":1.02},{"time":165,"chord":"Amaj7","duration":1.94},{"time":166.94,"chord":"C#m7","duration":1.02},{"time":167.96,"chord":"B","duration":2.41},{"time":170.37,"chord":"Asus2","duration":2.04},{"time":172.41,"chord":"E","duration":1.57},{"time":173.98,"chord":"B","duration":1.94},{"time":175.93,"chord":"C#m","duration":1.2},{"time":177.13,"chord":"Asus2","duration":1.67},{"time":178.8,"chord":"E","duration":1.2},{"time":180,"chord":"B","duration":2.5},{"time":182.5,"chord":"E","duration":0.56},{"time":183.06,"chord":"A","duration":1.48},{"time":184.54,"chord":"E","duration":0.93},{"time":185.46,"chord":"B","duration":2.13},{"time":187.59,"chord":"C#m","duration":1.48},{"time":189.07,"chord":"A","duration":1.67},{"time":190.74,"chord":"C#m","duration":1.2},{"time":191.94,"chord":"B","duration":2.87}];
     window.YOUTUBE_VIDEO_ID = 'D1G5x26CBfM';
+    window.BEGINNER_META = { capo: 4, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

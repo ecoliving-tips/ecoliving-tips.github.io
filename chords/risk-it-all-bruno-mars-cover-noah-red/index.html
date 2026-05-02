@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Risk It All - Bruno Mars (Cover) by Noah Red. AI-detected chord progression with 83 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Risk It All - Bruno Mars (Cover) by Noah Red. AI-detected chord progression with 83 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Risk It All - Bruno Mars (Cover) chords, Noah Red chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Risk It All - Bruno Mars (Cover) Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Risk It All - Bruno Mars (Cover) by Noah Red. AI-detected chord progression with 83 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Risk It All - Bruno Mars (Cover) by Noah Red. AI-detected chord progression with 83 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/risk-it-all-bruno-mars-cover-noah-red/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Risk It All - Bruno Mars (Cover) Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Risk It All - Bruno Mars (Cover) by Noah Red. AI-detected chord progression with 83 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Risk It All - Bruno Mars (Cover) by Noah Red. AI-detected chord progression with 83 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Risk It All - Bruno Mars (Cover) Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Noah Red"
   },
   "url": "https://ecoliving-tips.github.io/chords/risk-it-all-bruno-mars-cover-noah-red/",
-  "description": "Free chords for Risk It All - Bruno Mars (Cover) by Noah Red. AI-detected chord progression with 83 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Risk It All - Bruno Mars (Cover) by Noah Red. AI-detected chord progression with 83 chords. Advanced difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Advanced"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 83 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -305,8 +316,10 @@
     <script>
     window.CHORD_DATA = [{"time":0,"chord":"Bm7","duration":3.33},{"time":3.33,"chord":"E7","duration":3.15},{"time":6.48,"chord":"Amaj7","duration":2.96},{"time":9.44,"chord":"F#7","duration":3.24},{"time":12.69,"chord":"Bm7","duration":3.15},{"time":15.83,"chord":"E7","duration":8.8},{"time":24.63,"chord":"Bm7","duration":2.87},{"time":27.5,"chord":"E7","duration":3.61},{"time":31.11,"chord":"A","duration":3.33},{"time":34.44,"chord":"F#7","duration":3.43},{"time":37.87,"chord":"Bm","duration":0.74},{"time":38.61,"chord":"Bm7","duration":2.41},{"time":41.02,"chord":"E7","duration":3.24},{"time":44.26,"chord":"C#m","duration":1.76},{"time":46.02,"chord":"Gdim7","duration":1.11},{"time":47.13,"chord":"F#7","duration":3.43},{"time":50.56,"chord":"Bm","duration":0.83},{"time":51.39,"chord":"Bm7","duration":5.37},{"time":56.76,"chord":"C#m7","duration":3.24},{"time":60,"chord":"F#7","duration":3.24},{"time":63.24,"chord":"Bm7","duration":2.96},{"time":66.2,"chord":"E7","duration":3.15},{"time":69.35,"chord":"A","duration":0.65},{"time":70,"chord":"E","duration":0.46},{"time":70.46,"chord":"Amaj7","duration":2.78},{"time":73.24,"chord":"A","duration":2.04},{"time":75.28,"chord":"Bm7","duration":3.15},{"time":78.43,"chord":"E7","duration":2.96},{"time":81.39,"chord":"A","duration":0.74},{"time":82.13,"chord":"Amaj7","duration":2.22},{"time":84.35,"chord":"F#7","duration":3.06},{"time":87.41,"chord":"Bm7","duration":2.96},{"time":90.37,"chord":"E7","duration":2.78},{"time":93.15,"chord":"C#m","duration":1.85},{"time":95,"chord":"Gdim","duration":0.93},{"time":95.93,"chord":"F#7","duration":3.06},{"time":98.98,"chord":"Bm","duration":1.39},{"time":100.37,"chord":"Bm7","duration":2.31},{"time":102.69,"chord":"Dm6","duration":2.13},{"time":104.81,"chord":"C#m7","duration":2.96},{"time":107.78,"chord":"F#7","duration":2.96},{"time":110.74,"chord":"Bm","duration":0.74},{"time":111.48,"chord":"Bm7","duration":2.04},{"time":113.52,"chord":"E7","duration":3.15},{"time":116.67,"chord":"A","duration":2.78},{"time":119.44,"chord":"F#7","duration":1.57},{"time":121.02,"chord":"G7","duration":0.74},{"time":121.76,"chord":"C#m7b5","duration":0.74},{"time":122.5,"chord":"Dm7","duration":2.78},{"time":125.28,"chord":"G7","duration":3.15},{"time":128.43,"chord":"Em7","duration":2.96},{"time":131.39,"chord":"Fmaj7","duration":2.41},{"time":133.8,"chord":"A#maj7","duration":2.87},{"time":136.67,"chord":"E7","duration":3.06},{"time":139.72,"chord":"A","duration":0.65},{"time":140.37,"chord":"Amaj7","duration":5},{"time":145.37,"chord":"Bm7","duration":3.06},{"time":148.43,"chord":"E7","duration":2.87},{"time":151.3,"chord":"A","duration":0.65},{"time":151.94,"chord":"Amaj7","duration":2.13},{"time":154.07,"chord":"F#7","duration":2.87},{"time":156.94,"chord":"Bm7","duration":2.69},{"time":159.63,"chord":"E7","duration":2.96},{"time":162.59,"chord":"C#m","duration":1.3},{"time":163.89,"chord":"G","duration":1.3},{"time":165.19,"chord":"F#7","duration":2.87},{"time":168.06,"chord":"Bm","duration":3.7},{"time":171.76,"chord":"Bm7","duration":0.93},{"time":172.69,"chord":"Dm6","duration":1.02},{"time":173.7,"chord":"C#m7","duration":2.69},{"time":176.39,"chord":"F#7","duration":2.87},{"time":179.26,"chord":"Bm","duration":2.78},{"time":182.04,"chord":"E7","duration":3.06},{"time":185.09,"chord":"C#m","duration":1.57},{"time":186.67,"chord":"G","duration":1.39},{"time":188.06,"chord":"F#","duration":1.94},{"time":190,"chord":"F#7","duration":1.3},{"time":191.3,"chord":"Bm7","duration":3.06},{"time":194.35,"chord":"E7","duration":5.65},{"time":200,"chord":"Bm","duration":0.93},{"time":200.93,"chord":"A","duration":2.96},{"time":203.89,"chord":"Amaj7","duration":6.11},{"time":210,"chord":"A","duration":4.51}];
     window.YOUTUBE_VIDEO_ID = 'npFa435R5bU';
+    window.BEGINNER_META = { capo: 0, difficulty: 'advanced' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

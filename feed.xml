@@ -5,9 +5,16 @@
     <link>https://ecoliving-tips.github.io/</link>
     <description>Free AI-powered chord detection for any song. Latest chord pages and updates.</description>
     <language>en</language>
-    <lastBuildDate>Sat, 02 May 2026 02:10:05 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 02 May 2026 02:40:40 GMT</lastBuildDate>
     <atom:link href="https://ecoliving-tips.github.io/feed.xml" rel="self" type="application/rss+xml"/>
     <atom:link href="https://pubsubhubbub.appspot.com/" rel="hub"/>
+    <item>
+      <title>YonKid - Varm — YonKid Yonas Chords</title>
+      <link>https://ecoliving-tips.github.io/chords/yonkid-varm-yonkid-yonas/</link>
+      <guid>https://ecoliving-tips.github.io/chords/yonkid-varm-yonkid-yonas/</guid>
+      <description>AI-detected chord progression for YonKid - Varm by YonKid Yonas. Chords: D#, G#, A#, Cm, Fm7, Cm7, F</description>
+      <pubDate>Sat, 02 May 2026 02:22:20 GMT</pubDate>
+    </item>
     <item>
       <title>Sung Hoon (성훈) - I Think About You (자꾸 널 생각해) (I Picked Up a Star on the Road OST) — MUSIC WORLD Chords</title>
       <link>https://ecoliving-tips.github.io/chords/sung-hoon-i-think-about-you-i-picked-up-a-star-on-the-road-ost-music-world/</link>
@@ -75,7 +82,7 @@
       <title>Intros made 30min before showtime😬 — PIANICK  Chords</title>
       <link>https://ecoliving-tips.github.io/chords/intros-made-30min-before-showtime-pianick/</link>
       <guid>https://ecoliving-tips.github.io/chords/intros-made-30min-before-showtime-pianick/</guid>
-      <description>AI-detected chord progression for Intros made 30min before showtime😬 by PIANICK . Chords: F, Dm, Gm7, A#, Am7, C, Dm7, Csus4</description>
+      <description>AI-detected chord progression for Intros made 30min before showtime😬 by PIANICK . Chords: F, Dm, F#, Gm7, A#, C, Am7, Dm7</description>
       <pubDate>Fri, 01 May 2026 22:18:14 GMT</pubDate>
     </item>
     <item>
@@ -350,13 +357,6 @@
       <guid>https://ecoliving-tips.github.io/chords/madrigal-seni-dert-etmeler-muzikplay/</guid>
       <description>AI-detected chord progression for Madrigal - Seni Dert Etmeler by MuzikPlay. Chords: Fm, Cm, A#m, D#, Cm7, A#m7, G#, D#7</description>
       <pubDate>Fri, 01 May 2026 14:38:57 GMT</pubDate>
-    </item>
-    <item>
-      <title>Holi Holi Jadon Saadi Jaan Ban — SagaHits Chords</title>
-      <link>https://ecoliving-tips.github.io/chords/holi-holi-jadon-saadi-jaan-ban-sagahits/</link>
-      <guid>https://ecoliving-tips.github.io/chords/holi-holi-jadon-saadi-jaan-ban-sagahits/</guid>
-      <description>AI-detected chord progression for Holi Holi Jadon Saadi Jaan Ban by SagaHits. Chords: A, Cm, A#7, D#, Gm7, A#, Gm, G#</description>
-      <pubDate>Fri, 01 May 2026 14:27:01 GMT</pubDate>
     </item>
   </channel>
 </rss>

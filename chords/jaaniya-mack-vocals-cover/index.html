@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Jaaniya - Mack Vocals cover by Mack Vocals. AI-detected chord progression with 21 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Jaaniya - Mack Vocals cover by Mack Vocals. AI-detected chord progression with 21 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Jaaniya - Mack Vocals cover chords, Mack Vocals chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Jaaniya - Mack Vocals cover Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Jaaniya - Mack Vocals cover by Mack Vocals. AI-detected chord progression with 21 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Jaaniya - Mack Vocals cover by Mack Vocals. AI-detected chord progression with 21 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/jaaniya-mack-vocals-cover/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Jaaniya - Mack Vocals cover Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Jaaniya - Mack Vocals cover by Mack Vocals. AI-detected chord progression with 21 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Jaaniya - Mack Vocals cover by Mack Vocals. AI-detected chord progression with 21 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Jaaniya - Mack Vocals cover Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Mack Vocals"
   },
   "url": "https://ecoliving-tips.github.io/chords/jaaniya-mack-vocals-cover/",
-  "description": "Free chords for Jaaniya - Mack Vocals cover by Mack Vocals. AI-detected chord progression with 21 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Jaaniya - Mack Vocals cover by Mack Vocals. AI-detected chord progression with 21 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 21 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -293,8 +304,10 @@
     <script>
     window.CHORD_DATA = [{"time":0,"chord":"F#","duration":0.93},{"time":0.93,"chord":"B","duration":0.83},{"time":1.76,"chord":"D#m","duration":1.94},{"time":3.7,"chord":"C#","duration":1.94},{"time":5.65,"chord":"D#m","duration":3.43},{"time":9.07,"chord":"B","duration":3.7},{"time":12.78,"chord":"C#","duration":7.22},{"time":20,"chord":"B","duration":2.04},{"time":22.04,"chord":"D#m","duration":0.74},{"time":22.78,"chord":"B","duration":4.17},{"time":26.94,"chord":"A#","duration":6.94},{"time":33.89,"chord":"D#m","duration":3.7},{"time":37.59,"chord":"G#m","duration":3.43},{"time":41.02,"chord":"C#","duration":3.33},{"time":44.35,"chord":"A#m","duration":3.52},{"time":47.87,"chord":"Bm","duration":2.13},{"time":50,"chord":"B","duration":1.2},{"time":51.2,"chord":"C#","duration":3.43},{"time":54.63,"chord":"B","duration":2.31},{"time":56.94,"chord":"C#","duration":1.48},{"time":58.43,"chord":"D#m","duration":2.48}];
     window.YOUTUBE_VIDEO_ID = 'sRjFKsQ3OLA';
+    window.BEGINNER_META = { capo: 6, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

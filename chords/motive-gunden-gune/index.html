@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for MOTIVE - GÜNDEN GÜNE by Motive. AI-detected chord progression with 65 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for MOTIVE - GÜNDEN GÜNE by Motive. AI-detected chord progression with 65 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="MOTIVE - GÜNDEN GÜNE chords, Motive chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="MOTIVE - GÜNDEN GÜNE Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for MOTIVE - GÜNDEN GÜNE by Motive. AI-detected chord progression with 65 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for MOTIVE - GÜNDEN GÜNE by Motive. AI-detected chord progression with 65 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/motive-gunden-gune/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="MOTIVE - GÜNDEN GÜNE Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for MOTIVE - GÜNDEN GÜNE by Motive. AI-detected chord progression with 65 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for MOTIVE - GÜNDEN GÜNE by Motive. AI-detected chord progression with 65 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>MOTIVE - GÜNDEN GÜNE Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Motive"
   },
   "url": "https://ecoliving-tips.github.io/chords/motive-gunden-gune/",
-  "description": "Free chords for MOTIVE - GÜNDEN GÜNE by Motive. AI-detected chord progression with 65 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for MOTIVE - GÜNDEN GÜNE by Motive. AI-detected chord progression with 65 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 65 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -294,8 +305,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.28,"chord":"C","duration":3.61},{"time":3.89,"chord":"Em","duration":3.7},{"time":7.59,"chord":"C","duration":3.61},{"time":11.2,"chord":"Em","duration":3.7},{"time":14.91,"chord":"C","duration":3.7},{"time":18.61,"chord":"Em","duration":3.8},{"time":22.41,"chord":"C","duration":3.61},{"time":26.02,"chord":"Em","duration":2.96},{"time":28.98,"chord":"B","duration":0.93},{"time":29.91,"chord":"C","duration":3.33},{"time":33.24,"chord":"Em","duration":3.15},{"time":36.39,"chord":"C","duration":4.26},{"time":40.65,"chord":"Em","duration":3.89},{"time":44.54,"chord":"C","duration":4.07},{"time":50,"chord":"Em","duration":1.94},{"time":51.94,"chord":"C","duration":8.61},{"time":62.96,"chord":"Em","duration":3.15},{"time":66.11,"chord":"C","duration":1.39},{"time":67.5,"chord":"Em","duration":4.17},{"time":73.33,"chord":"Am","duration":0.65},{"time":73.98,"chord":"C","duration":3.52},{"time":77.5,"chord":"Em","duration":3.89},{"time":81.39,"chord":"C","duration":3.7},{"time":85.09,"chord":"Em","duration":3.8},{"time":88.89,"chord":"C","duration":3.43},{"time":92.31,"chord":"Em","duration":3.15},{"time":95.46,"chord":"C","duration":3.7},{"time":99.17,"chord":"Em","duration":4.35},{"time":103.52,"chord":"C","duration":3.7},{"time":107.22,"chord":"Em","duration":3.98},{"time":111.2,"chord":"C","duration":3.52},{"time":114.72,"chord":"Em","duration":1.94},{"time":116.67,"chord":"B7","duration":1.76},{"time":118.43,"chord":"Em","duration":0.65},{"time":119.07,"chord":"C","duration":2.04},{"time":121.11,"chord":"G","duration":0.93},{"time":122.04,"chord":"Em","duration":3.33},{"time":125.37,"chord":"B","duration":0.46},{"time":125.83,"chord":"C","duration":2.78},{"time":128.61,"chord":"Em","duration":1.39},{"time":133.24,"chord":"C","duration":3.8},{"time":137.04,"chord":"Em","duration":3.43},{"time":140.46,"chord":"C","duration":3.61},{"time":144.07,"chord":"Em","duration":3.8},{"time":147.87,"chord":"C","duration":2.13},{"time":150,"chord":"Bm","duration":1.67},{"time":151.67,"chord":"Em","duration":3.06},{"time":154.72,"chord":"B","duration":1.48},{"time":156.2,"chord":"Em","duration":3.8},{"time":162.59,"chord":"C","duration":3.61},{"time":166.2,"chord":"Em","duration":2.87},{"time":169.07,"chord":"C","duration":3.89},{"time":172.96,"chord":"Em","duration":3.8},{"time":176.76,"chord":"Bsus4","duration":0.83},{"time":177.59,"chord":"C","duration":3.52},{"time":181.11,"chord":"Em","duration":2.31},{"time":183.43,"chord":"Esus2","duration":0.93},{"time":184.35,"chord":"C","duration":3.33},{"time":187.69,"chord":"Em","duration":2.31},{"time":191.3,"chord":"B","duration":0.93},{"time":192.22,"chord":"C","duration":3.61},{"time":195.83,"chord":"Em","duration":3.7},{"time":199.54,"chord":"C","duration":3.7},{"time":203.24,"chord":"Em","duration":3.52},{"time":206.76,"chord":"B","duration":1.2}];
     window.YOUTUBE_VIDEO_ID = '4-I1i3Hwv88';
+    window.BEGINNER_META = { capo: 7, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

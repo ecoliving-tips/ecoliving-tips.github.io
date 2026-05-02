@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Eeparadevanaho by THARANGNI. AI-detected chord progression with 28 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Eeparadevanaho by THARANGNI. AI-detected chord progression with 28 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Eeparadevanaho chords, THARANGNI chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Eeparadevanaho Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Eeparadevanaho by THARANGNI. AI-detected chord progression with 28 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Eeparadevanaho by THARANGNI. AI-detected chord progression with 28 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/eeparadevanaho-tharangni/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Eeparadevanaho Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Eeparadevanaho by THARANGNI. AI-detected chord progression with 28 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Eeparadevanaho by THARANGNI. AI-detected chord progression with 28 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Eeparadevanaho Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "THARANGNI"
   },
   "url": "https://ecoliving-tips.github.io/chords/eeparadevanaho-tharangni/",
-  "description": "Free chords for Eeparadevanaho by THARANGNI. AI-detected chord progression with 28 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Eeparadevanaho by THARANGNI. AI-detected chord progression with 28 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 28 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -293,8 +304,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.28,"chord":"C","duration":10.74},{"time":11.02,"chord":"G","duration":2.31},{"time":13.33,"chord":"C","duration":0.93},{"time":14.26,"chord":"G","duration":2.31},{"time":16.57,"chord":"C","duration":7.78},{"time":24.35,"chord":"D","duration":1.11},{"time":25.46,"chord":"C","duration":7.96},{"time":33.43,"chord":"F","duration":2.5},{"time":35.93,"chord":"C","duration":17.22},{"time":53.15,"chord":"Gm","duration":3.06},{"time":56.2,"chord":"C","duration":6.48},{"time":62.69,"chord":"G","duration":3.15},{"time":65.83,"chord":"C","duration":1.57},{"time":67.41,"chord":"F","duration":1.76},{"time":69.17,"chord":"C","duration":1.85},{"time":71.02,"chord":"F","duration":1.2},{"time":72.22,"chord":"C","duration":1.2},{"time":73.43,"chord":"Csus2","duration":1.67},{"time":75.09,"chord":"Gsus4","duration":4.07},{"time":79.17,"chord":"C","duration":21.11},{"time":100.28,"chord":"Csus4","duration":4.35},{"time":104.63,"chord":"C","duration":8.15},{"time":112.78,"chord":"G","duration":2.22},{"time":115,"chord":"C","duration":22.04},{"time":137.04,"chord":"G","duration":1.39},{"time":138.43,"chord":"C","duration":37.22},{"time":175.65,"chord":"G","duration":2.13},{"time":177.78,"chord":"C","duration":30}];
     window.YOUTUBE_VIDEO_ID = 'HGPrvN5AFxk';
+    window.BEGINNER_META = { capo: 5, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

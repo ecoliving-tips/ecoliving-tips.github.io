@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for KUCH NA KAHO – Yasser Desai by Yasser Desai. AI-detected chord progression with 72 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for KUCH NA KAHO – Yasser Desai by Yasser Desai. AI-detected chord progression with 72 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="KUCH NA KAHO – Yasser Desai chords, Yasser Desai chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="KUCH NA KAHO – Yasser Desai Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for KUCH NA KAHO – Yasser Desai by Yasser Desai. AI-detected chord progression with 72 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for KUCH NA KAHO – Yasser Desai by Yasser Desai. AI-detected chord progression with 72 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/kuch-na-kaho-yasser-desai/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="KUCH NA KAHO – Yasser Desai Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for KUCH NA KAHO – Yasser Desai by Yasser Desai. AI-detected chord progression with 72 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for KUCH NA KAHO – Yasser Desai by Yasser Desai. AI-detected chord progression with 72 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>KUCH NA KAHO – Yasser Desai Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Yasser Desai"
   },
   "url": "https://ecoliving-tips.github.io/chords/kuch-na-kaho-yasser-desai/",
-  "description": "Free chords for KUCH NA KAHO – Yasser Desai by Yasser Desai. AI-detected chord progression with 72 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for KUCH NA KAHO – Yasser Desai by Yasser Desai. AI-detected chord progression with 72 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 72 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -294,8 +305,10 @@
     <script>
     window.CHORD_DATA = [{"time":9.35,"chord":"A#","duration":1.3},{"time":10.65,"chord":"D#maj7","duration":1.57},{"time":12.22,"chord":"Gm7","duration":1.67},{"time":13.89,"chord":"F","duration":1.57},{"time":15.46,"chord":"A#","duration":2.5},{"time":17.96,"chord":"D#","duration":0.56},{"time":18.52,"chord":"Gm7","duration":2.04},{"time":20.56,"chord":"Fsus4","duration":1.94},{"time":22.5,"chord":"A#sus2","duration":4.54},{"time":27.04,"chord":"A#6","duration":2.96},{"time":30,"chord":"D#","duration":2.22},{"time":32.22,"chord":"A#sus2","duration":1.02},{"time":33.24,"chord":"F","duration":2.87},{"time":36.11,"chord":"A#sus2","duration":3.89},{"time":40,"chord":"Gm7","duration":0.83},{"time":40.83,"chord":"F","duration":1.02},{"time":41.85,"chord":"A#","duration":0.93},{"time":42.78,"chord":"D#","duration":3.06},{"time":45.83,"chord":"F","duration":3.15},{"time":48.98,"chord":"A#","duration":1.85},{"time":50.83,"chord":"F","duration":1.57},{"time":52.41,"chord":"D#","duration":3.33},{"time":55.74,"chord":"A#","duration":1.39},{"time":57.13,"chord":"F","duration":1.76},{"time":58.89,"chord":"D#","duration":3.24},{"time":62.13,"chord":"Gm","duration":1.48},{"time":63.61,"chord":"F","duration":1.67},{"time":65.28,"chord":"D#","duration":3.15},{"time":68.43,"chord":"A#","duration":1.57},{"time":70,"chord":"F","duration":1.57},{"time":71.57,"chord":"D#","duration":3.15},{"time":74.72,"chord":"A#","duration":1.76},{"time":76.48,"chord":"F","duration":1.57},{"time":78.06,"chord":"D#","duration":3.15},{"time":81.2,"chord":"A#","duration":1.57},{"time":82.78,"chord":"F","duration":1.67},{"time":84.44,"chord":"D#","duration":3.33},{"time":87.78,"chord":"A#","duration":1.57},{"time":89.35,"chord":"F","duration":1.48},{"time":90.83,"chord":"D#","duration":3.33},{"time":94.17,"chord":"A#","duration":2.96},{"time":97.13,"chord":"Gm7","duration":2.87},{"time":100.28,"chord":"D#","duration":3.24},{"time":103.52,"chord":"F","duration":3.24},{"time":106.76,"chord":"A#","duration":3.24},{"time":110,"chord":"Gm7","duration":3.24},{"time":113.24,"chord":"D#","duration":3.15},{"time":116.39,"chord":"F","duration":3.15},{"time":119.54,"chord":"A#","duration":3.43},{"time":122.96,"chord":"Gm","duration":2.96},{"time":125.93,"chord":"D#","duration":3.06},{"time":128.98,"chord":"A#","duration":5.09},{"time":134.07,"chord":"F","duration":1.57},{"time":135.65,"chord":"D#","duration":3.24},{"time":138.89,"chord":"A#","duration":1.57},{"time":140.46,"chord":"F","duration":1.57},{"time":142.04,"chord":"D#","duration":3.33},{"time":145.37,"chord":"Gm","duration":1.48},{"time":146.85,"chord":"F","duration":1.67},{"time":148.52,"chord":"D#","duration":3.15},{"time":151.67,"chord":"A#","duration":1.57},{"time":153.24,"chord":"F","duration":1.57},{"time":154.81,"chord":"D#","duration":3.15},{"time":157.96,"chord":"A#","duration":2.04},{"time":160,"chord":"F","duration":1.11},{"time":161.11,"chord":"D#","duration":3.33},{"time":164.44,"chord":"A#","duration":1.57},{"time":166.02,"chord":"F","duration":1.67},{"time":167.69,"chord":"D#","duration":3.24},{"time":170.93,"chord":"A#","duration":1.57},{"time":172.5,"chord":"F","duration":1.48},{"time":173.98,"chord":"D#","duration":5.74}];
     window.YOUTUBE_VIDEO_ID = 'muUJoB8insQ';
+    window.BEGINNER_META = { capo: 3, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

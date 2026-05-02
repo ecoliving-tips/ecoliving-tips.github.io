@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for मन वचन से जो आत्मा ईश्वर की बन जाती है, वो आत्मा सुख पाती हैं by Ruhani Rahein. AI-detected chord progression with 121 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for मन वचन से जो आत्मा ईश्वर की बन जाती है, वो आत्मा सुख पाती हैं by Ruhani Rahein. AI-detected chord progression with 121 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="मन वचन से जो आत्मा ईश्वर की बन जाती है, वो आत्मा सुख पाती हैं chords, Ruhani Rahein chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="मन वचन से जो आत्मा ईश्वर की बन जाती है, वो आत्मा सुख पाती हैं Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for मन वचन से जो आत्मा ईश्वर की बन जाती है, वो आत्मा सुख पाती हैं by Ruhani Rahein. AI-detected chord progression with 121 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for मन वचन से जो आत्मा ईश्वर की बन जाती है, वो आत्मा सुख पाती हैं by Ruhani Rahein. AI-detected chord progression with 121 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/XWxRkZJa0C0/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="मन वचन से जो आत्मा ईश्वर की बन जाती है, वो आत्मा सुख पाती हैं Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for मन वचन से जो आत्मा ईश्वर की बन जाती है, वो आत्मा सुख पाती हैं by Ruhani Rahein. AI-detected chord progression with 121 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for मन वचन से जो आत्मा ईश्वर की बन जाती है, वो आत्मा सुख पाती हैं by Ruhani Rahein. AI-detected chord progression with 121 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>मन वचन से जो आत्मा ईश्वर की बन जाती है, वो आत्मा सुख पाती हैं Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Ruhani Rahein"
   },
   "url": "https://ecoliving-tips.github.io/chords/XWxRkZJa0C0/",
-  "description": "Free chords for मन वचन से जो आत्मा ईश्वर की बन जाती है, वो आत्मा सुख पाती हैं by Ruhani Rahein. AI-detected chord progression with 121 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for मन वचन से जो आत्मा ईश्वर की बन जाती है, वो आत्मा सुख पाती हैं by Ruhani Rahein. AI-detected chord progression with 121 chords. Advanced difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Advanced"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 121 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -299,8 +310,10 @@
     <script>
     window.CHORD_DATA = [{"time":0,"chord":"F","duration":1.94},{"time":1.94,"chord":"D#","duration":1.3},{"time":3.24,"chord":"A#","duration":1.2},{"time":4.44,"chord":"F","duration":3.15},{"time":7.59,"chord":"D#","duration":1.2},{"time":8.8,"chord":"A#","duration":1.2},{"time":10,"chord":"F","duration":2.59},{"time":12.59,"chord":"A#","duration":2.04},{"time":14.63,"chord":"F","duration":1.48},{"time":16.11,"chord":"D#","duration":2.69},{"time":18.8,"chord":"F","duration":1.48},{"time":20.28,"chord":"Fm","duration":3.8},{"time":24.07,"chord":"A#","duration":3.8},{"time":27.87,"chord":"F","duration":3.06},{"time":30.93,"chord":"C","duration":1.94},{"time":32.87,"chord":"F","duration":6.76},{"time":39.63,"chord":"A#","duration":2.69},{"time":42.31,"chord":"F","duration":1.57},{"time":43.89,"chord":"A#","duration":0.93},{"time":44.81,"chord":"F","duration":2.13},{"time":46.94,"chord":"C","duration":1.2},{"time":48.15,"chord":"F","duration":4.72},{"time":52.87,"chord":"C","duration":1.57},{"time":54.44,"chord":"F","duration":9.17},{"time":63.61,"chord":"A#","duration":2.69},{"time":66.3,"chord":"C","duration":1.48},{"time":67.78,"chord":"A#","duration":1.11},{"time":68.89,"chord":"F","duration":2.5},{"time":71.39,"chord":"D#","duration":1.2},{"time":72.59,"chord":"F","duration":4.26},{"time":76.85,"chord":"C","duration":0.93},{"time":77.78,"chord":"D#","duration":0.93},{"time":78.7,"chord":"F","duration":12.41},{"time":91.11,"chord":"D#","duration":0.83},{"time":91.94,"chord":"Cm","duration":1.48},{"time":93.43,"chord":"F","duration":2.13},{"time":95.56,"chord":"C#","duration":1.2},{"time":96.76,"chord":"D#","duration":3.24},{"time":100,"chord":"F#","duration":2.31},{"time":102.31,"chord":"F","duration":2.78},{"time":105.09,"chord":"F#","duration":3.06},{"time":108.15,"chord":"F","duration":2.78},{"time":110.93,"chord":"A#","duration":2.96},{"time":113.89,"chord":"F","duration":2.78},{"time":116.67,"chord":"Gm","duration":2.87},{"time":119.54,"chord":"F","duration":3.24},{"time":122.78,"chord":"A#","duration":3.24},{"time":126.02,"chord":"F","duration":2.41},{"time":128.43,"chord":"A#","duration":3.15},{"time":131.57,"chord":"F","duration":4.81},{"time":136.39,"chord":"Cm","duration":2.31},{"time":138.7,"chord":"D#","duration":4.54},{"time":143.24,"chord":"F","duration":8.89},{"time":152.13,"chord":"A#","duration":1.94},{"time":154.07,"chord":"C","duration":1.3},{"time":155.37,"chord":"F","duration":3.8},{"time":159.17,"chord":"C","duration":1.76},{"time":160.93,"chord":"F","duration":1.11},{"time":162.04,"chord":"C","duration":1.02},{"time":163.06,"chord":"F","duration":1.85},{"time":164.91,"chord":"C","duration":1.76},{"time":166.67,"chord":"F","duration":8.43},{"time":175.09,"chord":"Fm","duration":3.52},{"time":178.61,"chord":"D#","duration":6.02},{"time":184.63,"chord":"F","duration":0.93},{"time":185.56,"chord":"C#maj7","duration":3.8},{"time":189.35,"chord":"Fm","duration":1.2},{"time":190.56,"chord":"D#","duration":5.09},{"time":195.65,"chord":"F","duration":2.69},{"time":198.33,"chord":"A#","duration":1.67},{"time":200,"chord":"Gm","duration":1.85},{"time":201.85,"chord":"F","duration":2.22},{"time":204.07,"chord":"Gm","duration":3.7},{"time":207.78,"chord":"F","duration":3.24},{"time":211.02,"chord":"A#","duration":2.41},{"time":213.43,"chord":"F","duration":2.31},{"time":215.74,"chord":"A#","duration":3.06},{"time":218.8,"chord":"C","duration":0.93},{"time":219.72,"chord":"F","duration":4.72},{"time":224.44,"chord":"Cm","duration":1.94},{"time":226.39,"chord":"D#","duration":1.76},{"time":228.15,"chord":"C","duration":4.17},{"time":232.31,"chord":"F","duration":7.69},{"time":240,"chord":"A#","duration":2.69},{"time":242.69,"chord":"F","duration":1.3},{"time":243.98,"chord":"A#","duration":0.93},{"time":244.91,"chord":"F","duration":7.78},{"time":252.69,"chord":"C","duration":1.57},{"time":254.26,"chord":"F","duration":10.56},{"time":264.81,"chord":"F7","duration":1.85},{"time":266.67,"chord":"D#","duration":1.76},{"time":268.43,"chord":"F7","duration":1.57},{"time":270,"chord":"Fm","duration":2.31},{"time":272.31,"chord":"D#m","duration":2.87},{"time":275.19,"chord":"F#","duration":2.31},{"time":277.5,"chord":"C#","duration":1.2},{"time":278.7,"chord":"F","duration":1.76},{"time":280.46,"chord":"F#","duration":2.78},{"time":283.24,"chord":"Fm","duration":1.3},{"time":284.54,"chord":"F","duration":1.85},{"time":286.39,"chord":"A#","duration":2.69},{"time":289.07,"chord":"F","duration":2.87},{"time":291.94,"chord":"A#","duration":2.87},{"time":294.81,"chord":"F","duration":2.96},{"time":297.78,"chord":"A#","duration":2.78},{"time":300.56,"chord":"F","duration":2.31},{"time":302.87,"chord":"Dm","duration":2.13},{"time":305,"chord":"G","duration":1.48},{"time":306.48,"chord":"F","duration":15.09},{"time":326.57,"chord":"A#","duration":2.31},{"time":328.89,"chord":"C","duration":1.67},{"time":330.56,"chord":"A#","duration":1.2},{"time":331.76,"chord":"F","duration":7.31},{"time":339.07,"chord":"A#","duration":1.11},{"time":340.19,"chord":"F","duration":9.07},{"time":349.26,"chord":"A#","duration":2.87},{"time":352.13,"chord":"C","duration":1.2},{"time":353.33,"chord":"F","duration":9.17},{"time":362.5,"chord":"C","duration":1.39},{"time":363.89,"chord":"F","duration":6.11},{"time":370,"chord":"F7","duration":10}];
     window.YOUTUBE_VIDEO_ID = 'XWxRkZJa0C0';
+    window.BEGINNER_META = { capo: 3, difficulty: 'advanced' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

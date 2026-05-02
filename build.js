@@ -1148,9 +1148,84 @@ function deduplicateBySlug(entries) {
     return Object.values(bySlug);
 }
 
-/**
- * Extract unique chord names from chord events, preserving first-occurrence order.
- */
+// ---------------------------------------------------------------------------
+// Beginner mode utilities (keep in sync with js/chord-utils.js)
+// ---------------------------------------------------------------------------
+const B_NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+const B_FLAT_MAP = { 'Db': 'C#', 'Eb': 'D#', 'Fb': 'E', 'Gb': 'F#', 'Ab': 'G#', 'Bb': 'A#', 'Cb': 'B' };
+const B_BEGINNER_CHORDS = new Set(['C','D','E','F','G','A','Am','Dm','Em','A7','B7','D7','E7','G7']);
+const B_BEGINNER_7THS = new Set(['A7','B7','D7','E7','G7']);
+
+function bTranspose(chord, semitones) {
+    if (!chord || semitones === 0) return chord;
+    if (chord.includes('/')) {
+        const p = chord.split('/');
+        return bTranspose(p[0], semitones) + '/' + bTranspose(p[1], semitones);
+    }
+    const m = chord.match(/^([A-G][#b]?)(.*)/);
+    if (!m) return chord;
+    let root = m[1];
+    if (B_FLAT_MAP[root]) root = B_FLAT_MAP[root];
+    const idx = B_NOTES.indexOf(root);
+    if (idx < 0) return chord;
+    return B_NOTES[((idx + semitones) % 12 + 12) % 12] + m[2];
+}
+
+function bSimplify(chord) {
+    if (!chord) return chord;
+    if (chord.includes('/')) chord = chord.split('/')[0];
+    const m = chord.match(/^([A-G][#b]?)(.*)/);
+    if (!m) return chord;
+    let root = m[1], q = m[2];
+    if (B_FLAT_MAP[root]) root = B_FLAT_MAP[root];
+    if (q === '5') return root;
+    if (/^m?1[13]/.test(q)) return root + (q.startsWith('m') ? 'm' : '');
+    if (/m?.*9/.test(q)) return root + (q.startsWith('m') && !q.startsWith('maj') ? 'm' : '');
+    if (q === '7sus4') return root;
+    if (q === 'm7b5') return root + 'm';
+    if (q === 'dim') return root + 'm';
+    if (q === 'aug') return root;
+    if (q === '6') return root;
+    if (q === 'm6') return root + 'm';
+    if (q === 'sus4' || q === 'sus2') return root;
+    if (q === 'add2') return root;
+    if (q === 'M7' || q === 'maj7') return root;
+    if (q === 'm7') return root + 'm';
+    if (q.startsWith('7')) return B_BEGINNER_7THS.has(root + '7') ? root + '7' : root;
+    return root + q;
+}
+
+function bFindOptimalCapo(chordEvents) {
+    if (!chordEvents || !chordEvents.length) return 0;
+    const seen = new Set();
+    for (const e of chordEvents) seen.add(bSimplify(e.chord));
+    const unique = [...seen];
+    let bestCapo = 0, bestScore = -1;
+    for (let capo = 0; capo <= 7; capo++) {
+        let score = 0;
+        for (const c of unique) {
+            if (B_BEGINNER_CHORDS.has(bTranspose(c, -capo))) score++;
+        }
+        if (score > bestScore) { bestScore = score; bestCapo = capo; }
+    }
+    return bestCapo;
+}
+
+function bComputeDifficulty(chordEvents, capo) {
+    if (!chordEvents || !chordEvents.length) return 'easy';
+    const seen = new Set();
+    for (const e of chordEvents) {
+        seen.add(bTranspose(bSimplify(e.chord), -capo));
+    }
+    const unique = [...seen];
+    let bc = 0;
+    for (const c of unique) { if (B_BEGINNER_CHORDS.has(c)) bc++; }
+    const ratio = bc / unique.length;
+    if (ratio >= 1) return 'easy';
+    if (ratio >= 0.7) return 'moderate';
+    return 'advanced';
+}
+
 function extractUniqueChords(chordsData) {
     const events = chordsData?.chords || [];
     const seen = new Set();
@@ -1183,8 +1258,14 @@ function generateChordsPage(entry, templates) {
     const canonicalUrl = `${BASE_URL}/chords/${slug}/`;
     const chordCount = entry.chords?.chords?.length || 0;
 
+    // Pre-compute beginner mode data for SEO
+    const chordEvents = entry.chords?.chords || [];
+    const beginnerCapo = bFindOptimalCapo(chordEvents);
+    const beginnerDifficulty = bComputeDifficulty(chordEvents, beginnerCapo);
+    const diffLabel = { easy: 'Easy', moderate: 'Moderate', advanced: 'Advanced' }[beginnerDifficulty] || 'Easy';
+
     const pageTitle = `${title} Chords | Swaram`;
-    const pageDesc = `Free chords for ${title} by ${artist}. AI-detected chord progression with ${chordCount} chords. Guitar and keyboard chord chart with video.`;
+    const pageDesc = `Free chords for ${title} by ${artist}. AI-detected chord progression with ${chordCount} chords. ${diffLabel} difficulty. Guitar and keyboard chord chart with video.`;
     const keywords = `${title} chords, ${artist} chords, guitar chords, keyboard chords, chord progression, AI chord detection`;
 
     // Structured data
@@ -1195,6 +1276,7 @@ function generateChordsPage(entry, templates) {
         "composer": { "@type": "Person", "name": artist },
         "url": canonicalUrl,
         "description": pageDesc,
+        "educationalLevel": { easy: 'Beginner', moderate: 'Intermediate', advanced: 'Advanced' }[beginnerDifficulty] || 'Beginner',
     };
 
     const breadcrumbObj = {
@@ -1270,6 +1352,8 @@ function generateChordsPage(entry, templates) {
         .replace('{{YOUTUBE_EMBED}}', youtubeEmbed)
         .replace(/\{\{VIDEO_ID\}\}/g, escapeHtml(videoId))
         .replace('{{CHORD_DATA_JSON}}', chordDataJson)
+        .replace('{{BEGINNER_CAPO}}', String(beginnerCapo))
+        .replace('{{BEGINNER_DIFFICULTY}}', beginnerDifficulty)
         .replace('{{STRUCTURED_DATA}}', structuredData);
 
     const outDir = path.join(ROOT, 'chords', slug);

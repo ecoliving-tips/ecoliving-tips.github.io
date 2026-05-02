@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Om du går till världens kant by Staffan Westerberg. AI-detected chord progression with 44 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Om du går till världens kant by Staffan Westerberg. AI-detected chord progression with 44 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Om du går till världens kant chords, Staffan Westerberg chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Om du går till världens kant Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Om du går till världens kant by Staffan Westerberg. AI-detected chord progression with 44 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Om du går till världens kant by Staffan Westerberg. AI-detected chord progression with 44 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/om-du-gar-till-varldens-kant-staffan-westerberg/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Om du går till världens kant Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Om du går till världens kant by Staffan Westerberg. AI-detected chord progression with 44 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Om du går till världens kant by Staffan Westerberg. AI-detected chord progression with 44 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Om du går till världens kant Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Staffan Westerberg"
   },
   "url": "https://ecoliving-tips.github.io/chords/om-du-gar-till-varldens-kant-staffan-westerberg/",
-  "description": "Free chords for Om du går till världens kant by Staffan Westerberg. AI-detected chord progression with 44 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Om du går till världens kant by Staffan Westerberg. AI-detected chord progression with 44 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 44 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -292,8 +303,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.83,"chord":"D#","duration":2.5},{"time":3.33,"chord":"A#","duration":2.04},{"time":5.37,"chord":"G#","duration":1.11},{"time":6.48,"chord":"A#7","duration":0.83},{"time":7.31,"chord":"D#","duration":3.89},{"time":11.2,"chord":"G#maj7","duration":1.2},{"time":12.41,"chord":"F7","duration":0.93},{"time":13.33,"chord":"D#","duration":0.83},{"time":14.17,"chord":"A#","duration":1.2},{"time":15.37,"chord":"D#","duration":0.46},{"time":15.83,"chord":"G#maj7","duration":0.46},{"time":16.3,"chord":"Gm","duration":1.11},{"time":17.41,"chord":"D#","duration":1.02},{"time":18.43,"chord":"A#","duration":0.74},{"time":19.17,"chord":"D#","duration":6.2},{"time":25.37,"chord":"A#","duration":1.94},{"time":27.31,"chord":"G#","duration":1.2},{"time":28.52,"chord":"A#","duration":0.83},{"time":29.35,"chord":"D#","duration":3.89},{"time":33.24,"chord":"G#maj7","duration":1.2},{"time":34.44,"chord":"F7","duration":0.83},{"time":35.28,"chord":"D#","duration":1.11},{"time":36.39,"chord":"A#","duration":0.83},{"time":37.22,"chord":"D#","duration":0.65},{"time":38.15,"chord":"Gm","duration":1.11},{"time":39.26,"chord":"D#","duration":1.2},{"time":40.46,"chord":"A#","duration":0.83},{"time":41.3,"chord":"D#","duration":6.02},{"time":47.31,"chord":"A#","duration":1.94},{"time":49.26,"chord":"G#","duration":1.11},{"time":50.37,"chord":"A#7","duration":1.11},{"time":51.48,"chord":"D#","duration":3.61},{"time":55.09,"chord":"G#","duration":1.3},{"time":56.39,"chord":"F7","duration":0.83},{"time":57.22,"chord":"D#","duration":1.02},{"time":58.24,"chord":"A#","duration":0.93},{"time":59.17,"chord":"D#","duration":0.83},{"time":60,"chord":"Gm","duration":1.3},{"time":61.3,"chord":"D#","duration":1.11},{"time":62.41,"chord":"A#","duration":0.93},{"time":63.33,"chord":"D#","duration":1.11},{"time":64.44,"chord":"G#","duration":0.83},{"time":65.28,"chord":"A#7","duration":1.57},{"time":66.85,"chord":"D#","duration":4.26}];
     window.YOUTUBE_VIDEO_ID = 'wXJdBX28i58';
+    window.BEGINNER_META = { capo: 3, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

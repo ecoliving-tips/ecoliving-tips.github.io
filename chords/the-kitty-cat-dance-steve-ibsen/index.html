@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for The Kitty Cat Dance by Steve Ibsen. AI-detected chord progression with 40 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for The Kitty Cat Dance by Steve Ibsen. AI-detected chord progression with 40 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="The Kitty Cat Dance chords, Steve Ibsen chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="The Kitty Cat Dance Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for The Kitty Cat Dance by Steve Ibsen. AI-detected chord progression with 40 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for The Kitty Cat Dance by Steve Ibsen. AI-detected chord progression with 40 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/the-kitty-cat-dance-steve-ibsen/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="The Kitty Cat Dance Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for The Kitty Cat Dance by Steve Ibsen. AI-detected chord progression with 40 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for The Kitty Cat Dance by Steve Ibsen. AI-detected chord progression with 40 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>The Kitty Cat Dance Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Steve Ibsen"
   },
   "url": "https://ecoliving-tips.github.io/chords/the-kitty-cat-dance-steve-ibsen/",
-  "description": "Free chords for The Kitty Cat Dance by Steve Ibsen. AI-detected chord progression with 40 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for The Kitty Cat Dance by Steve Ibsen. AI-detected chord progression with 40 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 40 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -289,8 +300,10 @@
     <script>
     window.CHORD_DATA = [{"time":10,"chord":"E","duration":0.74},{"time":10.74,"chord":"A","duration":0.93},{"time":11.67,"chord":"G","duration":1.67},{"time":13.33,"chord":"E","duration":0.93},{"time":14.26,"chord":"A","duration":0.83},{"time":15.09,"chord":"G","duration":1.67},{"time":16.76,"chord":"E","duration":0.83},{"time":17.59,"chord":"A","duration":0.93},{"time":18.52,"chord":"G","duration":1.48},{"time":20,"chord":"E","duration":1.02},{"time":21.02,"chord":"A","duration":1.39},{"time":22.41,"chord":"E","duration":7.59},{"time":35.83,"chord":"G","duration":1.48},{"time":37.31,"chord":"E","duration":0.93},{"time":38.24,"chord":"A","duration":0.93},{"time":39.17,"chord":"G","duration":1.57},{"time":40.74,"chord":"E","duration":0.83},{"time":41.57,"chord":"A","duration":1.02},{"time":42.59,"chord":"G","duration":1.57},{"time":44.17,"chord":"E","duration":0.93},{"time":45.09,"chord":"A","duration":0.93},{"time":46.02,"chord":"G","duration":1.48},{"time":47.5,"chord":"E","duration":1.94},{"time":49.44,"chord":"G","duration":1.48},{"time":50.93,"chord":"E","duration":1.02},{"time":51.94,"chord":"A","duration":0.74},{"time":52.69,"chord":"D","duration":1.85},{"time":54.54,"chord":"E","duration":8.52},{"time":63.06,"chord":"G","duration":1.76},{"time":64.81,"chord":"E","duration":0.83},{"time":65.65,"chord":"A","duration":0.83},{"time":66.48,"chord":"G","duration":1.67},{"time":68.15,"chord":"E","duration":0.93},{"time":69.07,"chord":"A","duration":0.93},{"time":70,"chord":"G","duration":1.57},{"time":71.57,"chord":"E","duration":1.02},{"time":72.59,"chord":"A","duration":0.83},{"time":73.43,"chord":"G","duration":1.48},{"time":74.91,"chord":"E","duration":1.11},{"time":76.02,"chord":"A","duration":1.39}];
     window.YOUTUBE_VIDEO_ID = 'SaA_cs4WZHM';
+    window.BEGINNER_META = { capo: 0, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

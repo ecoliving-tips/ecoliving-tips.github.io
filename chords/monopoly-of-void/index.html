@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Monopoly by Of Void. AI-detected chord progression with 83 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Monopoly by Of Void. AI-detected chord progression with 83 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Monopoly chords, Of Void chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Monopoly Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Monopoly by Of Void. AI-detected chord progression with 83 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Monopoly by Of Void. AI-detected chord progression with 83 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/monopoly-of-void/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Monopoly Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Monopoly by Of Void. AI-detected chord progression with 83 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Monopoly by Of Void. AI-detected chord progression with 83 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Monopoly Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Of Void"
   },
   "url": "https://ecoliving-tips.github.io/chords/monopoly-of-void/",
-  "description": "Free chords for Monopoly by Of Void. AI-detected chord progression with 83 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Monopoly by Of Void. AI-detected chord progression with 83 chords. Advanced difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Advanced"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 83 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -299,8 +310,10 @@
     <script>
     window.CHORD_DATA = [{"time":6.02,"chord":"A#m","duration":13.52},{"time":19.54,"chord":"G#","duration":3.61},{"time":23.15,"chord":"F#","duration":1.67},{"time":24.81,"chord":"F","duration":1.76},{"time":26.57,"chord":"A#m","duration":6.3},{"time":32.87,"chord":"G#","duration":3.7},{"time":36.57,"chord":"F#","duration":1.48},{"time":38.06,"chord":"F","duration":1.67},{"time":39.72,"chord":"A#m","duration":6.67},{"time":46.39,"chord":"G#","duration":1.67},{"time":48.06,"chord":"C","duration":1.02},{"time":49.07,"chord":"D#","duration":0.46},{"time":49.54,"chord":"F#","duration":2.69},{"time":52.22,"chord":"A#m","duration":7.13},{"time":59.35,"chord":"G#","duration":2.13},{"time":61.48,"chord":"Cm","duration":0.93},{"time":62.41,"chord":"F#","duration":2.13},{"time":64.54,"chord":"F","duration":1.48},{"time":66.02,"chord":"A#m","duration":6.85},{"time":72.87,"chord":"C#m6","duration":0.65},{"time":73.52,"chord":"G#","duration":0.83},{"time":74.35,"chord":"D#sus4","duration":0.93},{"time":75.28,"chord":"G#","duration":1.02},{"time":76.3,"chord":"C#","duration":2.41},{"time":78.7,"chord":"A#m","duration":7.13},{"time":85.83,"chord":"G#","duration":3.7},{"time":89.54,"chord":"F#","duration":1.57},{"time":91.11,"chord":"F","duration":1.57},{"time":92.69,"chord":"A#m","duration":6.57},{"time":99.26,"chord":"G#","duration":3.33},{"time":102.59,"chord":"F#","duration":1.67},{"time":104.26,"chord":"F","duration":1.67},{"time":105.93,"chord":"A#","duration":4.07},{"time":110,"chord":"A#m","duration":2.41},{"time":112.41,"chord":"G#","duration":3.61},{"time":116.02,"chord":"F#","duration":1.39},{"time":117.41,"chord":"F","duration":1.76},{"time":119.17,"chord":"A#m","duration":6.48},{"time":125.65,"chord":"G#","duration":3.33},{"time":128.98,"chord":"F#","duration":1.85},{"time":130.83,"chord":"F","duration":1.48},{"time":132.31,"chord":"A#m","duration":6.57},{"time":138.89,"chord":"G#","duration":0.46},{"time":139.35,"chord":"C#m","duration":1.39},{"time":140.74,"chord":"G#","duration":1.2},{"time":141.94,"chord":"D#m","duration":0.37},{"time":142.31,"chord":"F#","duration":2.96},{"time":145.28,"chord":"A#m","duration":6.76},{"time":152.04,"chord":"G#","duration":0.46},{"time":152.5,"chord":"C#m","duration":2.87},{"time":155.37,"chord":"F#","duration":2.04},{"time":157.41,"chord":"A#m","duration":21.39},{"time":178.8,"chord":"G#","duration":3.52},{"time":182.31,"chord":"F#","duration":1.48},{"time":183.8,"chord":"F","duration":1.94},{"time":185.74,"chord":"A#m","duration":6.39},{"time":192.13,"chord":"G#","duration":3.43},{"time":195.56,"chord":"F#","duration":1.48},{"time":197.04,"chord":"F","duration":1.11},{"time":198.15,"chord":"A","duration":0.56},{"time":198.7,"chord":"F#","duration":3.33},{"time":202.04,"chord":"G#","duration":3.24},{"time":205.28,"chord":"A#m","duration":4.72},{"time":210,"chord":"A#","duration":9.91},{"time":219.91,"chord":"A#m","duration":16.2},{"time":250.65,"chord":"G#","duration":4.26},{"time":254.91,"chord":"F#","duration":1.76},{"time":256.67,"chord":"F","duration":2.22},{"time":258.89,"chord":"A#m","duration":5.83},{"time":264.72,"chord":"G#","duration":3.43},{"time":268.15,"chord":"F#","duration":2.13},{"time":270.28,"chord":"F","duration":1.3},{"time":271.57,"chord":"A#m","duration":6.11},{"time":277.69,"chord":"G#","duration":3.89},{"time":281.57,"chord":"F#","duration":1.57},{"time":283.15,"chord":"F","duration":1.94},{"time":285.09,"chord":"A#m","duration":5.83},{"time":290.93,"chord":"G#","duration":3.7},{"time":294.63,"chord":"F#","duration":1.85},{"time":296.48,"chord":"F","duration":1.57},{"time":298.06,"chord":"A#m","duration":0.83},{"time":298.89,"chord":"A#","duration":11.11},{"time":310,"chord":"A#m","duration":7.04}];
     window.YOUTUBE_VIDEO_ID = 'CSCEeCopsDE';
+    window.BEGINNER_META = { capo: 1, difficulty: 'advanced' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

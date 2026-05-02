@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for More Love, More Power (Live) by Fred Hammond. AI-detected chord progression with 74 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for More Love, More Power (Live) by Fred Hammond. AI-detected chord progression with 74 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="More Love, More Power (Live) chords, Fred Hammond chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="More Love, More Power (Live) Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for More Love, More Power (Live) by Fred Hammond. AI-detected chord progression with 74 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for More Love, More Power (Live) by Fred Hammond. AI-detected chord progression with 74 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/more-love-more-power-live-fred-hammond/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="More Love, More Power (Live) Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for More Love, More Power (Live) by Fred Hammond. AI-detected chord progression with 74 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for More Love, More Power (Live) by Fred Hammond. AI-detected chord progression with 74 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>More Love, More Power (Live) Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Fred Hammond"
   },
   "url": "https://ecoliving-tips.github.io/chords/more-love-more-power-live-fred-hammond/",
-  "description": "Free chords for More Love, More Power (Live) by Fred Hammond. AI-detected chord progression with 74 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for More Love, More Power (Live) by Fred Hammond. AI-detected chord progression with 74 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 74 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -295,8 +306,10 @@
     <script>
     window.CHORD_DATA = [{"time":0,"chord":"Dm","duration":1.2},{"time":1.2,"chord":"Gm","duration":3.06},{"time":4.26,"chord":"Cm7","duration":3.24},{"time":7.5,"chord":"F","duration":1.76},{"time":9.26,"chord":"Dm7","duration":1.76},{"time":11.02,"chord":"Gm","duration":2.31},{"time":13.33,"chord":"Dm","duration":0.83},{"time":14.17,"chord":"Gm","duration":2.96},{"time":17.13,"chord":"Cm7","duration":3.43},{"time":20.56,"chord":"F","duration":1.76},{"time":22.31,"chord":"Dm7","duration":1.48},{"time":23.8,"chord":"Gm","duration":2.31},{"time":26.11,"chord":"Dm7","duration":0.93},{"time":27.04,"chord":"Gm","duration":3.33},{"time":30.37,"chord":"Cm7","duration":2.96},{"time":33.33,"chord":"F","duration":1.85},{"time":35.19,"chord":"Dm7","duration":1.85},{"time":37.04,"chord":"Gm7","duration":2.96},{"time":40,"chord":"Cm","duration":3.33},{"time":43.33,"chord":"Gm","duration":3.15},{"time":46.48,"chord":"Cm","duration":3.52},{"time":50,"chord":"Gm","duration":2.04},{"time":52.04,"chord":"A#","duration":1.02},{"time":53.06,"chord":"Cm","duration":3.43},{"time":56.48,"chord":"Gm","duration":3.06},{"time":59.54,"chord":"D#","duration":3.06},{"time":62.59,"chord":"Dm7","duration":3.43},{"time":66.02,"chord":"Gm","duration":3.24},{"time":69.26,"chord":"Cm7","duration":3.15},{"time":72.41,"chord":"F","duration":1.76},{"time":74.17,"chord":"Dm7","duration":1.57},{"time":75.74,"chord":"Gm","duration":2.59},{"time":78.33,"chord":"A#","duration":0.65},{"time":78.98,"chord":"Gm","duration":3.15},{"time":82.13,"chord":"Cm7","duration":3.24},{"time":85.37,"chord":"F","duration":1.85},{"time":87.22,"chord":"Dm7","duration":1.57},{"time":88.8,"chord":"Gm","duration":3.15},{"time":91.94,"chord":"Cm","duration":3.24},{"time":95.19,"chord":"Gm","duration":3.33},{"time":98.52,"chord":"Cm","duration":2.87},{"time":101.39,"chord":"Gm","duration":3.52},{"time":104.91,"chord":"Cm","duration":3.24},{"time":108.15,"chord":"Gm","duration":3.33},{"time":111.48,"chord":"D#","duration":3.15},{"time":114.63,"chord":"Dm7","duration":2.59},{"time":117.22,"chord":"Gm","duration":0.74},{"time":117.96,"chord":"Cm7","duration":3.15},{"time":121.11,"chord":"Dm7","duration":2.5},{"time":123.61,"chord":"A#","duration":0.65},{"time":124.26,"chord":"D#maj7","duration":3.33},{"time":127.59,"chord":"Dm7","duration":2.41},{"time":130,"chord":"Gm7","duration":0.83},{"time":130.83,"chord":"Cm7","duration":3.43},{"time":134.26,"chord":"Dm7","duration":5},{"time":139.26,"chord":"Gm7","duration":0.74},{"time":140,"chord":"Gm","duration":2.04},{"time":142.04,"chord":"D#","duration":3.15},{"time":145.19,"chord":"F","duration":3.15},{"time":148.33,"chord":"Gm","duration":6.2},{"time":154.54,"chord":"D#","duration":3.24},{"time":157.78,"chord":"F","duration":4.35},{"time":162.13,"chord":"Gm","duration":5.83},{"time":167.96,"chord":"D#","duration":3.33},{"time":171.3,"chord":"F","duration":3.24},{"time":174.54,"chord":"Gm","duration":6.48},{"time":181.02,"chord":"D#","duration":3.24},{"time":184.26,"chord":"F","duration":2.96},{"time":187.22,"chord":"Gm","duration":6.57},{"time":193.8,"chord":"Cm7","duration":1.76},{"time":195.56,"chord":"D#maj7","duration":1.48},{"time":197.04,"chord":"F","duration":2.96},{"time":200,"chord":"Dm","duration":1.11},{"time":201.11,"chord":"Gm","duration":3.7}];
     window.YOUTUBE_VIDEO_ID = 'BY4wJgNQ9vU';
+    window.BEGINNER_META = { capo: 3, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

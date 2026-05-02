@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Zdravko Čolić - Južnjaci, KARAOKE by Party Karaoke. AI-detected chord progression with 109 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Zdravko Čolić - Južnjaci, KARAOKE by Party Karaoke. AI-detected chord progression with 109 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Zdravko Čolić - Južnjaci, KARAOKE chords, Party Karaoke chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Zdravko Čolić - Južnjaci, KARAOKE Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Zdravko Čolić - Južnjaci, KARAOKE by Party Karaoke. AI-detected chord progression with 109 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Zdravko Čolić - Južnjaci, KARAOKE by Party Karaoke. AI-detected chord progression with 109 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/zdravko-colic-juznjaci-karaoke-party-karaoke/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Zdravko Čolić - Južnjaci, KARAOKE Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Zdravko Čolić - Južnjaci, KARAOKE by Party Karaoke. AI-detected chord progression with 109 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Zdravko Čolić - Južnjaci, KARAOKE by Party Karaoke. AI-detected chord progression with 109 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Zdravko Čolić - Južnjaci, KARAOKE Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Party Karaoke"
   },
   "url": "https://ecoliving-tips.github.io/chords/zdravko-colic-juznjaci-karaoke-party-karaoke/",
-  "description": "Free chords for Zdravko Čolić - Južnjaci, KARAOKE by Party Karaoke. AI-detected chord progression with 109 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Zdravko Čolić - Južnjaci, KARAOKE by Party Karaoke. AI-detected chord progression with 109 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 109 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -299,8 +310,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.56,"chord":"D","duration":2.04},{"time":2.59,"chord":"Dm","duration":1.85},{"time":4.44,"chord":"A","duration":3.89},{"time":8.33,"chord":"D","duration":1.67},{"time":10,"chord":"Dm","duration":2.13},{"time":12.13,"chord":"Am","duration":4.07},{"time":16.2,"chord":"Dm","duration":3.8},{"time":20,"chord":"E","duration":4.07},{"time":24.07,"chord":"Am","duration":5.93},{"time":30,"chord":"A","duration":0.83},{"time":30.83,"chord":"Bm7","duration":0.74},{"time":31.57,"chord":"C#","duration":0.37},{"time":31.94,"chord":"D","duration":0.83},{"time":32.78,"chord":"Dm","duration":1.11},{"time":33.89,"chord":"Bm7","duration":1.11},{"time":35,"chord":"E7","duration":1.2},{"time":36.2,"chord":"Am","duration":1.76},{"time":37.96,"chord":"E7","duration":3.98},{"time":41.94,"chord":"Am","duration":1.76},{"time":43.7,"chord":"F","duration":2.04},{"time":45.74,"chord":"E","duration":2.41},{"time":48.15,"chord":"F","duration":1.57},{"time":49.72,"chord":"E7","duration":2.96},{"time":52.69,"chord":"F","duration":0.46},{"time":53.15,"chord":"G","duration":0.56},{"time":53.7,"chord":"C","duration":3.89},{"time":57.59,"chord":"Am","duration":1.57},{"time":59.17,"chord":"F","duration":0.83},{"time":60,"chord":"Am","duration":0.65},{"time":60.65,"chord":"G","duration":0.83},{"time":61.48,"chord":"E7","duration":4.07},{"time":65.56,"chord":"Am","duration":2.87},{"time":68.43,"chord":"F","duration":0.46},{"time":68.89,"chord":"G7","duration":0.56},{"time":69.44,"chord":"C","duration":3.89},{"time":73.33,"chord":"Am","duration":3.06},{"time":76.39,"chord":"G","duration":0.46},{"time":76.85,"chord":"F","duration":0.46},{"time":77.31,"chord":"E7","duration":3.98},{"time":81.3,"chord":"Dm","duration":0.83},{"time":82.13,"chord":"Dm6","duration":1.11},{"time":83.24,"chord":"Dm","duration":1.94},{"time":85.19,"chord":"A","duration":3.89},{"time":89.07,"chord":"Dm","duration":0.93},{"time":90,"chord":"Dm6","duration":1.02},{"time":91.02,"chord":"D","duration":2.04},{"time":93.06,"chord":"A","duration":3.89},{"time":96.94,"chord":"D","duration":4.07},{"time":101.02,"chord":"A","duration":3.7},{"time":104.72,"chord":"D","duration":4.07},{"time":108.8,"chord":"Am","duration":1.2},{"time":110,"chord":"A","duration":2.87},{"time":112.87,"chord":"Dm","duration":2.69},{"time":115.56,"chord":"D","duration":1.11},{"time":116.67,"chord":"E","duration":3.98},{"time":120.65,"chord":"Am","duration":6.67},{"time":127.31,"chord":"G","duration":0.83},{"time":128.15,"chord":"Am","duration":0.37},{"time":128.52,"chord":"Dm","duration":1.48},{"time":130,"chord":"Bm7","duration":1.48},{"time":131.48,"chord":"E7","duration":1.2},{"time":132.69,"chord":"Am","duration":1.76},{"time":134.44,"chord":"E7","duration":4.07},{"time":138.52,"chord":"Am","duration":1.85},{"time":140.37,"chord":"F","duration":1.94},{"time":142.31,"chord":"E","duration":2.13},{"time":144.44,"chord":"F","duration":1.76},{"time":146.2,"chord":"E7","duration":3.15},{"time":149.35,"chord":"F","duration":0.37},{"time":149.72,"chord":"G","duration":0.56},{"time":150.28,"chord":"C","duration":3.89},{"time":154.17,"chord":"Am","duration":2.96},{"time":157.13,"chord":"G","duration":0.56},{"time":157.69,"chord":"F","duration":0.37},{"time":158.06,"chord":"E7","duration":3.98},{"time":162.04,"chord":"Am","duration":2.96},{"time":165,"chord":"F","duration":0.37},{"time":165.37,"chord":"G","duration":0.56},{"time":165.93,"chord":"C","duration":4.07},{"time":170,"chord":"Am","duration":2.87},{"time":172.87,"chord":"G","duration":0.56},{"time":173.43,"chord":"F","duration":0.37},{"time":173.8,"chord":"E7","duration":4.07},{"time":177.87,"chord":"Am","duration":2.13},{"time":180,"chord":"F","duration":0.74},{"time":180.74,"chord":"G","duration":1.02},{"time":181.76,"chord":"C","duration":3.89},{"time":185.65,"chord":"Am","duration":2.96},{"time":188.61,"chord":"G","duration":0.56},{"time":189.17,"chord":"F","duration":0.46},{"time":189.63,"chord":"E7","duration":3.98},{"time":193.61,"chord":"Am","duration":2.87},{"time":196.48,"chord":"F","duration":0.46},{"time":196.94,"chord":"G7","duration":0.56},{"time":197.5,"chord":"C","duration":2.78},{"time":200.28,"chord":"F","duration":0.74},{"time":201.02,"chord":"C","duration":0.37},{"time":201.39,"chord":"Am","duration":3.06},{"time":204.44,"chord":"G","duration":0.46},{"time":204.91,"chord":"F","duration":0.46},{"time":205.37,"chord":"E7","duration":4.07},{"time":209.44,"chord":"F","duration":0.56},{"time":210,"chord":"Dm6","duration":1.39},{"time":211.39,"chord":"E7","duration":1.02},{"time":212.41,"chord":"Am","duration":1.39},{"time":213.8,"chord":"Fmaj7","duration":1.02},{"time":214.81,"chord":"Dm6","duration":1.02},{"time":215.83,"chord":"E7","duration":0.93},{"time":216.76,"chord":"Am","duration":5.56}];
     window.YOUTUBE_VIDEO_ID = 'P8lrty3qkgk';
+    window.BEGINNER_META = { capo: 0, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

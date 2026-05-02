@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Titanium Court Reveal Trailer by Fellow Traveller. AI-detected chord progression with 34 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Titanium Court Reveal Trailer by Fellow Traveller. AI-detected chord progression with 34 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Titanium Court Reveal Trailer chords, Fellow Traveller chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Titanium Court Reveal Trailer Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Titanium Court Reveal Trailer by Fellow Traveller. AI-detected chord progression with 34 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Titanium Court Reveal Trailer by Fellow Traveller. AI-detected chord progression with 34 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/titanium-court-reveal-trailer-fellow-traveller/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Titanium Court Reveal Trailer Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Titanium Court Reveal Trailer by Fellow Traveller. AI-detected chord progression with 34 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Titanium Court Reveal Trailer by Fellow Traveller. AI-detected chord progression with 34 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Titanium Court Reveal Trailer Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Fellow Traveller"
   },
   "url": "https://ecoliving-tips.github.io/chords/titanium-court-reveal-trailer-fellow-traveller/",
-  "description": "Free chords for Titanium Court Reveal Trailer by Fellow Traveller. AI-detected chord progression with 34 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Titanium Court Reveal Trailer by Fellow Traveller. AI-detected chord progression with 34 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 34 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -291,8 +302,10 @@
     <script>
     window.CHORD_DATA = [{"time":3.24,"chord":"G","duration":10.74},{"time":13.98,"chord":"C","duration":3.52},{"time":17.5,"chord":"G","duration":7.31},{"time":24.81,"chord":"C","duration":4.17},{"time":28.98,"chord":"Em","duration":2.87},{"time":31.85,"chord":"C","duration":4.17},{"time":36.02,"chord":"Em","duration":3.15},{"time":39.17,"chord":"C","duration":2.59},{"time":41.76,"chord":"D","duration":1.39},{"time":43.15,"chord":"Em","duration":3.15},{"time":46.3,"chord":"G","duration":7.31},{"time":53.61,"chord":"Em","duration":0.65},{"time":54.26,"chord":"C","duration":3.33},{"time":57.59,"chord":"G","duration":11.11},{"time":68.7,"chord":"C","duration":3.24},{"time":71.94,"chord":"G","duration":4.07},{"time":76.02,"chord":"C","duration":3.24},{"time":79.26,"chord":"G","duration":3.89},{"time":83.15,"chord":"C","duration":3.15},{"time":86.3,"chord":"Em7","duration":1.85},{"time":88.15,"chord":"C","duration":3.33},{"time":91.48,"chord":"G","duration":7.41},{"time":98.89,"chord":"C","duration":6.94},{"time":105.83,"chord":"G","duration":7.87},{"time":113.7,"chord":"C","duration":6.67},{"time":120.37,"chord":"G","duration":7.5},{"time":127.87,"chord":"C","duration":7.13},{"time":135,"chord":"G","duration":7.22},{"time":142.22,"chord":"C","duration":1.57},{"time":143.8,"chord":"Cmaj7","duration":3.8},{"time":147.59,"chord":"Em7","duration":2.41},{"time":150,"chord":"G","duration":2.22},{"time":152.22,"chord":"C","duration":3.61},{"time":155.83,"chord":"G","duration":8.05}];
     window.YOUTUBE_VIDEO_ID = 'xSxuuoYkR3o';
+    window.BEGINNER_META = { capo: 0, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

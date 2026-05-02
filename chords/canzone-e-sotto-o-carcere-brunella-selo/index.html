@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Canzone 'e sotto 'o carcere by Brunella Selo. AI-detected chord progression with 53 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Canzone 'e sotto 'o carcere by Brunella Selo. AI-detected chord progression with 53 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Canzone 'e sotto 'o carcere chords, Brunella Selo chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Canzone 'e sotto 'o carcere Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Canzone 'e sotto 'o carcere by Brunella Selo. AI-detected chord progression with 53 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Canzone 'e sotto 'o carcere by Brunella Selo. AI-detected chord progression with 53 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/canzone-e-sotto-o-carcere-brunella-selo/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Canzone 'e sotto 'o carcere Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Canzone 'e sotto 'o carcere by Brunella Selo. AI-detected chord progression with 53 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Canzone 'e sotto 'o carcere by Brunella Selo. AI-detected chord progression with 53 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Canzone 'e sotto 'o carcere Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Brunella Selo"
   },
   "url": "https://ecoliving-tips.github.io/chords/canzone-e-sotto-o-carcere-brunella-selo/",
-  "description": "Free chords for Canzone 'e sotto 'o carcere by Brunella Selo. AI-detected chord progression with 53 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Canzone 'e sotto 'o carcere by Brunella Selo. AI-detected chord progression with 53 chords. Advanced difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Advanced"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 53 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -313,8 +324,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.74,"chord":"Am","duration":4.81},{"time":5.56,"chord":"Fmaj7","duration":1.11},{"time":6.67,"chord":"Dm7","duration":1.2},{"time":7.87,"chord":"C","duration":2.13},{"time":10,"chord":"Gsus4","duration":1.02},{"time":11.02,"chord":"D7","duration":2.22},{"time":13.24,"chord":"E","duration":1.39},{"time":14.63,"chord":"Am","duration":2.13},{"time":16.76,"chord":"Em","duration":2.31},{"time":19.07,"chord":"Dm7","duration":0.93},{"time":20,"chord":"Fm6","duration":0.83},{"time":20.83,"chord":"G7","duration":0.46},{"time":21.3,"chord":"C","duration":2.13},{"time":23.43,"chord":"Fm","duration":1.2},{"time":24.63,"chord":"F","duration":0.93},{"time":25.56,"chord":"Fmaj7","duration":0.93},{"time":26.48,"chord":"Fm","duration":1.11},{"time":27.59,"chord":"C","duration":2.13},{"time":29.72,"chord":"E","duration":1.3},{"time":31.02,"chord":"Eaug","duration":0.56},{"time":31.57,"chord":"Am7","duration":3.43},{"time":35,"chord":"Dm7","duration":1.02},{"time":36.02,"chord":"D#dim7","duration":1.2},{"time":37.22,"chord":"F7","duration":1.57},{"time":38.8,"chord":"F#m7","duration":6.02},{"time":44.81,"chord":"Dm7","duration":1.94},{"time":46.76,"chord":"D#m7b5","duration":1.94},{"time":48.7,"chord":"Em7","duration":0.56},{"time":49.26,"chord":"D","duration":2.59},{"time":51.85,"chord":"E","duration":5.83},{"time":57.69,"chord":"A","duration":2.31},{"time":60,"chord":"A7","duration":2.69},{"time":62.69,"chord":"D7","duration":2.04},{"time":64.72,"chord":"A#7","duration":1.76},{"time":66.48,"chord":"Am","duration":2.59},{"time":69.07,"chord":"G7","duration":0.93},{"time":70,"chord":"Fm","duration":1.02},{"time":72.31,"chord":"F#m7","duration":0.93},{"time":73.24,"chord":"A","duration":3.06},{"time":76.3,"chord":"F#m7","duration":1.76},{"time":78.06,"chord":"Dm7","duration":1.94},{"time":80,"chord":"D#7","duration":0.56},{"time":80.56,"chord":"Dmaj7","duration":1.39},{"time":81.94,"chord":"D","duration":3.15},{"time":85.09,"chord":"E","duration":3.8},{"time":88.89,"chord":"F#m","duration":0.74},{"time":89.63,"chord":"E","duration":0.37},{"time":90,"chord":"A","duration":2.87},{"time":92.87,"chord":"Dm","duration":1.2},{"time":94.07,"chord":"C","duration":2.87},{"time":96.94,"chord":"Dm","duration":0.83},{"time":97.78,"chord":"A#","duration":2.22},{"time":105.65,"chord":"Am","duration":3.98}];
     window.YOUTUBE_VIDEO_ID = 'EFx7D7EmfGU';
+    window.BEGINNER_META = { capo: 0, difficulty: 'advanced' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Das Lied der Erde- Kreisgesänge Südtirol by Kreisgesänge Südtirol. AI-detected chord progression with 82 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Das Lied der Erde- Kreisgesänge Südtirol by Kreisgesänge Südtirol. AI-detected chord progression with 82 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Das Lied der Erde- Kreisgesänge Südtirol chords, Kreisgesänge Südtirol chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Das Lied der Erde- Kreisgesänge Südtirol Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Das Lied der Erde- Kreisgesänge Südtirol by Kreisgesänge Südtirol. AI-detected chord progression with 82 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Das Lied der Erde- Kreisgesänge Südtirol by Kreisgesänge Südtirol. AI-detected chord progression with 82 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/das-lied-der-erde-kreisgesange-sudtirol/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Das Lied der Erde- Kreisgesänge Südtirol Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Das Lied der Erde- Kreisgesänge Südtirol by Kreisgesänge Südtirol. AI-detected chord progression with 82 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Das Lied der Erde- Kreisgesänge Südtirol by Kreisgesänge Südtirol. AI-detected chord progression with 82 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Das Lied der Erde- Kreisgesänge Südtirol Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Kreisgesänge Südtirol"
   },
   "url": "https://ecoliving-tips.github.io/chords/das-lied-der-erde-kreisgesange-sudtirol/",
-  "description": "Free chords for Das Lied der Erde- Kreisgesänge Südtirol by Kreisgesänge Südtirol. AI-detected chord progression with 82 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Das Lied der Erde- Kreisgesänge Südtirol by Kreisgesänge Südtirol. AI-detected chord progression with 82 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 82 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -289,8 +300,10 @@
     <script>
     window.CHORD_DATA = [{"time":0,"chord":"Am","duration":3.24},{"time":3.24,"chord":"C","duration":4.72},{"time":7.96,"chord":"G","duration":4.35},{"time":12.31,"chord":"Am","duration":7.69},{"time":20,"chord":"C","duration":4.81},{"time":24.81,"chord":"G","duration":4.17},{"time":28.98,"chord":"Am","duration":1.76},{"time":30.74,"chord":"C","duration":0.56},{"time":31.3,"chord":"Am","duration":5.93},{"time":37.22,"chord":"C","duration":4.17},{"time":41.39,"chord":"G","duration":4.26},{"time":45.65,"chord":"Am","duration":7.96},{"time":53.61,"chord":"C","duration":4.35},{"time":57.96,"chord":"G","duration":4.17},{"time":62.13,"chord":"Am","duration":8.24},{"time":70.37,"chord":"C","duration":4.17},{"time":74.54,"chord":"G","duration":4.07},{"time":78.61,"chord":"Am","duration":7.5},{"time":86.11,"chord":"C","duration":4.72},{"time":90.83,"chord":"G","duration":4.07},{"time":94.91,"chord":"Am","duration":7.5},{"time":102.41,"chord":"C","duration":4.26},{"time":106.67,"chord":"G","duration":4.17},{"time":110.83,"chord":"Am","duration":7.59},{"time":118.43,"chord":"C","duration":3.89},{"time":122.31,"chord":"G","duration":3.98},{"time":126.3,"chord":"Am7","duration":3.7},{"time":130,"chord":"Am","duration":4.07},{"time":134.07,"chord":"C","duration":3.8},{"time":137.87,"chord":"G","duration":3.98},{"time":141.85,"chord":"Am","duration":7.5},{"time":149.35,"chord":"C","duration":3.8},{"time":153.15,"chord":"G","duration":3.98},{"time":157.13,"chord":"Am","duration":7.5},{"time":164.63,"chord":"C","duration":3.98},{"time":168.61,"chord":"G","duration":3.89},{"time":172.5,"chord":"Am","duration":7.5},{"time":180,"chord":"C","duration":3.8},{"time":183.8,"chord":"G","duration":3.98},{"time":187.78,"chord":"Am","duration":7.5},{"time":195.28,"chord":"C","duration":3.8},{"time":199.07,"chord":"G","duration":3.89},{"time":202.96,"chord":"Am","duration":7.04},{"time":210,"chord":"C","duration":3.98},{"time":213.98,"chord":"G","duration":3.8},{"time":217.78,"chord":"Am","duration":7.13},{"time":224.91,"chord":"C","duration":3.98},{"time":228.89,"chord":"G","duration":3.61},{"time":232.5,"chord":"Am","duration":6.94},{"time":239.44,"chord":"C","duration":4.07},{"time":243.52,"chord":"G","duration":3.89},{"time":247.41,"chord":"Am","duration":7.22},{"time":254.63,"chord":"C","duration":3.89},{"time":258.52,"chord":"G","duration":3.89},{"time":262.41,"chord":"Am","duration":7.59},{"time":270,"chord":"C","duration":3.61},{"time":273.61,"chord":"G","duration":3.8},{"time":277.41,"chord":"Am","duration":7.31},{"time":284.72,"chord":"C","duration":3.89},{"time":288.61,"chord":"G","duration":3.89},{"time":292.5,"chord":"Am","duration":7.5},{"time":300,"chord":"C","duration":3.61},{"time":303.61,"chord":"G","duration":3.8},{"time":307.41,"chord":"Am","duration":7.41},{"time":314.81,"chord":"C","duration":3.61},{"time":318.43,"chord":"G","duration":3.89},{"time":322.31,"chord":"Am","duration":7.22},{"time":329.54,"chord":"C","duration":3.7},{"time":333.24,"chord":"G","duration":3.8},{"time":337.04,"chord":"Am","duration":7.22},{"time":344.26,"chord":"C","duration":3.7},{"time":347.96,"chord":"G","duration":3.89},{"time":351.85,"chord":"Am","duration":7.04},{"time":358.89,"chord":"C","duration":3.89},{"time":362.78,"chord":"G","duration":3.7},{"time":366.48,"chord":"Am","duration":7.59},{"time":374.07,"chord":"C","duration":3.8},{"time":377.87,"chord":"G","duration":4.17},{"time":382.04,"chord":"Am","duration":6.39},{"time":388.43,"chord":"C","duration":4.54},{"time":392.96,"chord":"G","duration":4.17},{"time":397.13,"chord":"Am","duration":5.56}];
     window.YOUTUBE_VIDEO_ID = 'Us_FsepaAVA';
+    window.BEGINNER_META = { capo: 0, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

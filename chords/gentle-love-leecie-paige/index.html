@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Gentle Love by Leecie Paige. AI-detected chord progression with 64 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Gentle Love by Leecie Paige. AI-detected chord progression with 64 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Gentle Love chords, Leecie Paige chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Gentle Love Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Gentle Love by Leecie Paige. AI-detected chord progression with 64 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Gentle Love by Leecie Paige. AI-detected chord progression with 64 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/gentle-love-leecie-paige/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Gentle Love Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Gentle Love by Leecie Paige. AI-detected chord progression with 64 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Gentle Love by Leecie Paige. AI-detected chord progression with 64 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Gentle Love Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Leecie Paige"
   },
   "url": "https://ecoliving-tips.github.io/chords/gentle-love-leecie-paige/",
-  "description": "Free chords for Gentle Love by Leecie Paige. AI-detected chord progression with 64 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Gentle Love by Leecie Paige. AI-detected chord progression with 64 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 64 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -291,8 +302,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.46,"chord":"D","duration":2.41},{"time":2.87,"chord":"A","duration":1.94},{"time":4.81,"chord":"Dmaj7","duration":4.63},{"time":9.44,"chord":"D","duration":1.3},{"time":10.74,"chord":"Bm7","duration":5.19},{"time":15.93,"chord":"A","duration":3.15},{"time":19.07,"chord":"Bm","duration":5.56},{"time":24.63,"chord":"A","duration":2.13},{"time":26.76,"chord":"D","duration":2.04},{"time":28.8,"chord":"Bm","duration":4.54},{"time":33.33,"chord":"A","duration":2.22},{"time":35.56,"chord":"D","duration":2.04},{"time":37.59,"chord":"Bm","duration":4.54},{"time":42.13,"chord":"A","duration":2.31},{"time":44.44,"chord":"D","duration":0.93},{"time":45.37,"chord":"A","duration":1.2},{"time":46.57,"chord":"G","duration":2.41},{"time":48.98,"chord":"D","duration":1.02},{"time":50,"chord":"A","duration":0.93},{"time":50.93,"chord":"G","duration":2.31},{"time":53.24,"chord":"D","duration":0.93},{"time":54.17,"chord":"A","duration":1.2},{"time":55.37,"chord":"G","duration":2.22},{"time":57.59,"chord":"A","duration":2.41},{"time":60,"chord":"D","duration":2.22},{"time":62.22,"chord":"A","duration":1.76},{"time":63.98,"chord":"Dmaj7","duration":4.91},{"time":68.89,"chord":"D","duration":1.57},{"time":70.46,"chord":"Bm","duration":2.59},{"time":73.06,"chord":"D","duration":2.13},{"time":75.19,"chord":"A","duration":2.31},{"time":77.5,"chord":"D","duration":1.85},{"time":79.35,"chord":"Bm","duration":2.41},{"time":81.76,"chord":"D","duration":2.31},{"time":84.07,"chord":"A","duration":2.13},{"time":86.2,"chord":"D","duration":2.04},{"time":88.24,"chord":"Bm","duration":4.44},{"time":92.69,"chord":"A","duration":2.41},{"time":95.09,"chord":"D","duration":1.94},{"time":97.04,"chord":"Bm","duration":4.54},{"time":101.57,"chord":"A","duration":2.31},{"time":103.89,"chord":"D","duration":0.93},{"time":104.81,"chord":"A","duration":1.3},{"time":106.11,"chord":"G","duration":2.5},{"time":108.61,"chord":"D","duration":0.65},{"time":109.26,"chord":"A","duration":1.11},{"time":110.37,"chord":"G","duration":2.31},{"time":112.69,"chord":"D","duration":1.11},{"time":113.8,"chord":"A","duration":1.02},{"time":114.81,"chord":"G","duration":2.22},{"time":117.04,"chord":"A","duration":2.22},{"time":119.26,"chord":"D","duration":2.13},{"time":121.39,"chord":"A","duration":2.22},{"time":123.61,"chord":"D","duration":2.13},{"time":125.74,"chord":"A","duration":2.22},{"time":127.96,"chord":"D","duration":2.22},{"time":130.19,"chord":"A","duration":2.13},{"time":132.31,"chord":"D","duration":2.31},{"time":134.63,"chord":"A","duration":1.94},{"time":136.57,"chord":"D","duration":1.76},{"time":138.33,"chord":"A","duration":1.67},{"time":140,"chord":"G","duration":2.13},{"time":142.13,"chord":"A","duration":3.06},{"time":145.19,"chord":"D","duration":3.8}];
     window.YOUTUBE_VIDEO_ID = 'v1UYpDxp-To';
+    window.BEGINNER_META = { capo: 2, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

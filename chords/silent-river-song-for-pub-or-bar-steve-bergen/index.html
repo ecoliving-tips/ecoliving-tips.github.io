@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Silent River,  song for Pub or Bar by Steve Bergen. AI-detected chord progression with 39 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Silent River,  song for Pub or Bar by Steve Bergen. AI-detected chord progression with 39 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Silent River,  song for Pub or Bar chords, Steve Bergen chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Silent River,  song for Pub or Bar Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Silent River,  song for Pub or Bar by Steve Bergen. AI-detected chord progression with 39 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Silent River,  song for Pub or Bar by Steve Bergen. AI-detected chord progression with 39 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/silent-river-song-for-pub-or-bar-steve-bergen/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Silent River,  song for Pub or Bar Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Silent River,  song for Pub or Bar by Steve Bergen. AI-detected chord progression with 39 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Silent River,  song for Pub or Bar by Steve Bergen. AI-detected chord progression with 39 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Silent River,  song for Pub or Bar Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Steve Bergen"
   },
   "url": "https://ecoliving-tips.github.io/chords/silent-river-song-for-pub-or-bar-steve-bergen/",
-  "description": "Free chords for Silent River,  song for Pub or Bar by Steve Bergen. AI-detected chord progression with 39 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Silent River,  song for Pub or Bar by Steve Bergen. AI-detected chord progression with 39 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 39 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -289,8 +300,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.37,"chord":"E","duration":2.96},{"time":3.33,"chord":"A","duration":3.06},{"time":6.39,"chord":"E","duration":3.06},{"time":9.44,"chord":"B","duration":2.87},{"time":12.31,"chord":"E","duration":3.06},{"time":15.37,"chord":"A","duration":3.15},{"time":18.52,"chord":"E","duration":1.48},{"time":20,"chord":"B","duration":1.57},{"time":21.57,"chord":"E","duration":6.2},{"time":27.78,"chord":"B","duration":3.15},{"time":30.93,"chord":"A","duration":2.78},{"time":33.7,"chord":"E","duration":3.24},{"time":36.94,"chord":"A","duration":3.06},{"time":40,"chord":"E","duration":6.11},{"time":46.11,"chord":"B","duration":3.33},{"time":49.44,"chord":"E","duration":3.06},{"time":52.5,"chord":"A","duration":3.33},{"time":55.83,"chord":"E","duration":4.44},{"time":60.28,"chord":"B","duration":3.06},{"time":63.33,"chord":"E","duration":1.57},{"time":64.91,"chord":"B","duration":1.48},{"time":66.39,"chord":"E","duration":3.06},{"time":69.44,"chord":"A","duration":6.2},{"time":75.65,"chord":"E","duration":6.11},{"time":81.76,"chord":"B","duration":3.06},{"time":84.81,"chord":"B7","duration":3.24},{"time":88.06,"chord":"E","duration":5.93},{"time":93.98,"chord":"A","duration":6.02},{"time":100,"chord":"E","duration":6.39},{"time":106.39,"chord":"B","duration":5.83},{"time":112.22,"chord":"E","duration":6.11},{"time":118.33,"chord":"A","duration":3.33},{"time":121.67,"chord":"E","duration":3.24},{"time":124.91,"chord":"B","duration":2.87},{"time":127.78,"chord":"E","duration":2.96},{"time":130.74,"chord":"A","duration":2.96},{"time":133.7,"chord":"E","duration":1.57},{"time":135.28,"chord":"B","duration":1.57},{"time":136.85,"chord":"E","duration":7.51}];
     window.YOUTUBE_VIDEO_ID = 'ABc9wmniEI4';
+    window.BEGINNER_META = { capo: 2, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

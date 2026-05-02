@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for KzX - Stalemate by Camix Music. AI-detected chord progression with 72 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for KzX - Stalemate by Camix Music. AI-detected chord progression with 72 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="KzX - Stalemate chords, Camix Music chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="KzX - Stalemate Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for KzX - Stalemate by Camix Music. AI-detected chord progression with 72 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for KzX - Stalemate by Camix Music. AI-detected chord progression with 72 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/kzx-stalemate-camix-music/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="KzX - Stalemate Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for KzX - Stalemate by Camix Music. AI-detected chord progression with 72 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for KzX - Stalemate by Camix Music. AI-detected chord progression with 72 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>KzX - Stalemate Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Camix Music"
   },
   "url": "https://ecoliving-tips.github.io/chords/kzx-stalemate-camix-music/",
-  "description": "Free chords for KzX - Stalemate by Camix Music. AI-detected chord progression with 72 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for KzX - Stalemate by Camix Music. AI-detected chord progression with 72 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 72 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -303,8 +314,10 @@
     <script>
     window.CHORD_DATA = [{"time":2.04,"chord":"Em","duration":6.48},{"time":8.52,"chord":"D#","duration":1.48},{"time":10,"chord":"C","duration":1.39},{"time":11.39,"chord":"Am","duration":2.87},{"time":14.26,"chord":"G","duration":2.78},{"time":17.04,"chord":"C","duration":2.59},{"time":19.63,"chord":"D","duration":1.67},{"time":21.3,"chord":"B","duration":1.3},{"time":22.59,"chord":"Em","duration":4.44},{"time":27.04,"chord":"C","duration":1.2},{"time":28.24,"chord":"Em","duration":2.87},{"time":31.11,"chord":"D#","duration":1.39},{"time":32.5,"chord":"C","duration":1.48},{"time":33.98,"chord":"Am","duration":2.87},{"time":36.85,"chord":"Bm7","duration":1.2},{"time":38.06,"chord":"Baug","duration":1.48},{"time":39.54,"chord":"C","duration":2.87},{"time":42.41,"chord":"D","duration":1.48},{"time":43.89,"chord":"B","duration":1.2},{"time":45.09,"chord":"Em","duration":6.48},{"time":51.57,"chord":"Esus4","duration":2.5},{"time":54.07,"chord":"B","duration":0.37},{"time":54.44,"chord":"C","duration":1.57},{"time":56.02,"chord":"Em","duration":1.11},{"time":57.13,"chord":"Esus4","duration":2.31},{"time":59.44,"chord":"D#","duration":0.56},{"time":60,"chord":"C","duration":2.22},{"time":62.22,"chord":"Asus2","duration":1.3},{"time":63.52,"chord":"Am7","duration":1.48},{"time":65,"chord":"Bm7","duration":1.3},{"time":66.3,"chord":"Baug","duration":1.48},{"time":67.78,"chord":"C","duration":3.06},{"time":70.83,"chord":"G","duration":1.3},{"time":72.13,"chord":"B","duration":1.2},{"time":73.33,"chord":"Em","duration":7.87},{"time":82.04,"chord":"D#aug","duration":1.67},{"time":83.7,"chord":"C","duration":1.02},{"time":84.72,"chord":"Am","duration":2.96},{"time":87.69,"chord":"B","duration":2.69},{"time":90.37,"chord":"C","duration":2.96},{"time":93.33,"chord":"D","duration":1.39},{"time":94.72,"chord":"B","duration":1.11},{"time":95.83,"chord":"Em","duration":4.54},{"time":100.37,"chord":"C","duration":1.11},{"time":101.48,"chord":"Em","duration":2.96},{"time":104.44,"chord":"Baug","duration":1.3},{"time":105.74,"chord":"C","duration":1.57},{"time":107.31,"chord":"Am","duration":2.69},{"time":110,"chord":"Bm","duration":1.2},{"time":111.2,"chord":"B","duration":1.76},{"time":112.96,"chord":"C","duration":2.87},{"time":115.83,"chord":"D","duration":1.48},{"time":117.31,"chord":"B","duration":1.2},{"time":118.52,"chord":"Em","duration":8.61},{"time":127.13,"chord":"D#","duration":0.74},{"time":127.87,"chord":"C","duration":1.48},{"time":129.35,"chord":"Cm","duration":0.65},{"time":130,"chord":"A6","duration":1.02},{"time":131.02,"chord":"Am7","duration":1.85},{"time":132.87,"chord":"G","duration":1.2},{"time":134.07,"chord":"Baug","duration":1.48},{"time":135.56,"chord":"C","duration":1.2},{"time":136.76,"chord":"D7","duration":2.04},{"time":138.8,"chord":"Dsus4","duration":1.2},{"time":140,"chord":"B","duration":1.57},{"time":150,"chord":"D#","duration":1.2},{"time":151.2,"chord":"Cm","duration":1.48},{"time":152.69,"chord":"Am","duration":2.78},{"time":155.46,"chord":"G","duration":2.78},{"time":158.24,"chord":"C","duration":2.78},{"time":161.02,"chord":"D","duration":1.39},{"time":162.41,"chord":"B","duration":1.57}];
     window.YOUTUBE_VIDEO_ID = 'IAEU6Ay7Xtk';
+    window.BEGINNER_META = { capo: 7, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

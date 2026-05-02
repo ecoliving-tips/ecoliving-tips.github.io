@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for How’d I do?! by Dominic Flynn. AI-detected chord progression with 28 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for How’d I do?! by Dominic Flynn. AI-detected chord progression with 28 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="How’d I do?! chords, Dominic Flynn chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="How’d I do?! Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for How’d I do?! by Dominic Flynn. AI-detected chord progression with 28 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for How’d I do?! by Dominic Flynn. AI-detected chord progression with 28 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/how-d-i-do-dominic-flynn/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="How’d I do?! Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for How’d I do?! by Dominic Flynn. AI-detected chord progression with 28 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for How’d I do?! by Dominic Flynn. AI-detected chord progression with 28 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>How’d I do?! Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Dominic Flynn"
   },
   "url": "https://ecoliving-tips.github.io/chords/how-d-i-do-dominic-flynn/",
-  "description": "Free chords for How’d I do?! by Dominic Flynn. AI-detected chord progression with 28 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for How’d I do?! by Dominic Flynn. AI-detected chord progression with 28 chords. Advanced difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Advanced"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 28 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -303,8 +314,10 @@
     <script>
     window.CHORD_DATA = [{"time":1.3,"chord":"F#","duration":1.39},{"time":2.69,"chord":"G#m7","duration":2.41},{"time":5.09,"chord":"E","duration":1.3},{"time":6.39,"chord":"B","duration":2.41},{"time":8.8,"chord":"G#m7","duration":1.57},{"time":10.37,"chord":"E","duration":1.11},{"time":11.48,"chord":"B","duration":1.11},{"time":12.59,"chord":"F#","duration":2.13},{"time":14.72,"chord":"Cm","duration":2.13},{"time":16.85,"chord":"Cm7","duration":1.48},{"time":18.33,"chord":"A#","duration":1.3},{"time":19.63,"chord":"D#","duration":1.85},{"time":21.48,"chord":"Gm7","duration":1.2},{"time":22.69,"chord":"G#","duration":3.61},{"time":26.3,"chord":"G","duration":1.94},{"time":28.24,"chord":"A#","duration":3.33},{"time":31.57,"chord":"Gm","duration":2.87},{"time":34.44,"chord":"Cm","duration":4.44},{"time":38.89,"chord":"F","duration":3.06},{"time":41.94,"chord":"G","duration":1.2},{"time":43.15,"chord":"E","duration":1.76},{"time":44.91,"chord":"Em","duration":1.11},{"time":46.02,"chord":"E","duration":1.3},{"time":47.31,"chord":"D","duration":1.67},{"time":48.98,"chord":"C","duration":3.43},{"time":53.61,"chord":"Am","duration":2.31},{"time":55.93,"chord":"Fmaj7","duration":1.85},{"time":57.78,"chord":"C","duration":2.08}];
     window.YOUTUBE_VIDEO_ID = '4px1fBcw0z8';
+    window.BEGINNER_META = { capo: 3, difficulty: 'advanced' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

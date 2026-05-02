@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Alan Walker - Faded by Alan Walker. AI-detected chord progression with 76 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Alan Walker - Faded by Alan Walker. AI-detected chord progression with 76 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Alan Walker - Faded chords, Alan Walker chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Alan Walker - Faded Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Alan Walker - Faded by Alan Walker. AI-detected chord progression with 76 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Alan Walker - Faded by Alan Walker. AI-detected chord progression with 76 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/alan-walker-faded/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Alan Walker - Faded Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Alan Walker - Faded by Alan Walker. AI-detected chord progression with 76 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Alan Walker - Faded by Alan Walker. AI-detected chord progression with 76 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Alan Walker - Faded Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Alan Walker"
   },
   "url": "https://ecoliving-tips.github.io/chords/alan-walker-faded/",
-  "description": "Free chords for Alan Walker - Faded by Alan Walker. AI-detected chord progression with 76 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Alan Walker - Faded by Alan Walker. AI-detected chord progression with 76 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 76 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -290,8 +301,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.46,"chord":"D#m","duration":2.69},{"time":3.15,"chord":"B","duration":3.06},{"time":6.2,"chord":"F#","duration":2.22},{"time":8.43,"chord":"C#","duration":2.78},{"time":11.2,"chord":"D#m","duration":2.69},{"time":13.89,"chord":"B","duration":2.69},{"time":16.57,"chord":"F#","duration":2.59},{"time":19.17,"chord":"C#","duration":2.78},{"time":21.94,"chord":"D#m","duration":2.69},{"time":24.63,"chord":"B","duration":2.69},{"time":27.31,"chord":"F#","duration":2.69},{"time":30,"chord":"C#","duration":2.87},{"time":32.87,"chord":"D#m","duration":2.31},{"time":35.19,"chord":"B","duration":2.87},{"time":38.06,"chord":"F#","duration":2.59},{"time":40.65,"chord":"C#","duration":2.69},{"time":43.33,"chord":"D#m","duration":2.59},{"time":45.93,"chord":"Bmaj7","duration":2.59},{"time":48.52,"chord":"F#","duration":2.69},{"time":51.2,"chord":"C#","duration":4.07},{"time":55.28,"chord":"D#m","duration":2.69},{"time":57.96,"chord":"B","duration":2.59},{"time":60.56,"chord":"F#","duration":2.78},{"time":63.33,"chord":"C#","duration":2.69},{"time":66.02,"chord":"D#m","duration":2.5},{"time":68.52,"chord":"B","duration":2.59},{"time":71.11,"chord":"F#","duration":2.78},{"time":73.89,"chord":"C#","duration":2.69},{"time":76.57,"chord":"D#m","duration":2.69},{"time":79.26,"chord":"B","duration":2.59},{"time":81.85,"chord":"F#","duration":2.59},{"time":84.44,"chord":"C#","duration":2.87},{"time":87.31,"chord":"D#m","duration":2.69},{"time":90,"chord":"B","duration":2.41},{"time":92.41,"chord":"F#","duration":2.69},{"time":95.09,"chord":"C#","duration":2.87},{"time":97.96,"chord":"D#m","duration":2.69},{"time":100.65,"chord":"Bmaj7","duration":2.59},{"time":103.24,"chord":"F#","duration":2.5},{"time":105.74,"chord":"C#","duration":2.69},{"time":108.43,"chord":"D#m","duration":2.87},{"time":111.3,"chord":"Bmaj7","duration":2.78},{"time":114.07,"chord":"F#","duration":2.31},{"time":116.39,"chord":"C#","duration":2.96},{"time":119.35,"chord":"D#m","duration":2.5},{"time":121.85,"chord":"B","duration":2.87},{"time":124.72,"chord":"F#","duration":2.59},{"time":127.31,"chord":"C#","duration":2.69},{"time":130,"chord":"D#m","duration":2.59},{"time":132.59,"chord":"B","duration":2.59},{"time":135.19,"chord":"F#","duration":2.69},{"time":137.87,"chord":"C#","duration":2.87},{"time":140.74,"chord":"D#m","duration":2.5},{"time":143.24,"chord":"B","duration":2.78},{"time":146.02,"chord":"F#","duration":2.69},{"time":148.7,"chord":"C#","duration":3.89},{"time":152.59,"chord":"D#m","duration":2.69},{"time":155.28,"chord":"B","duration":2.5},{"time":157.78,"chord":"F#","duration":2.87},{"time":160.65,"chord":"C#","duration":2.69},{"time":163.33,"chord":"D#m","duration":2.5},{"time":165.83,"chord":"B","duration":2.69},{"time":168.52,"chord":"F#","duration":2.69},{"time":171.2,"chord":"C#","duration":2.69},{"time":173.89,"chord":"D#m","duration":2.78},{"time":176.67,"chord":"B","duration":2.5},{"time":179.17,"chord":"F#","duration":2.69},{"time":181.85,"chord":"C#","duration":2.78},{"time":184.63,"chord":"D#m","duration":2.69},{"time":187.31,"chord":"B","duration":2.69},{"time":190,"chord":"F#","duration":2.41},{"time":192.41,"chord":"C#","duration":3.24},{"time":195.65,"chord":"D#m","duration":2.31},{"time":197.96,"chord":"B","duration":2.96},{"time":200.93,"chord":"F#","duration":2.78},{"time":203.7,"chord":"C#","duration":4.17}];
     window.YOUTUBE_VIDEO_ID = '60ItHLz5WEA';
+    window.BEGINNER_META = { capo: 6, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

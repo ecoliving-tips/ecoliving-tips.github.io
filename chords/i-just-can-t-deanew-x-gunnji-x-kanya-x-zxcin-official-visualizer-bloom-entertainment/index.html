@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for รู้เเล้วเเต่ทำไม่ได้(I Just Can’t)-DEANEW x Gunnji x Kanya x Zxcin (Official Visualizer) by Bloom Entertainment. AI-detected chord progression with 103 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for รู้เเล้วเเต่ทำไม่ได้(I Just Can’t)-DEANEW x Gunnji x Kanya x Zxcin (Official Visualizer) by Bloom Entertainment. AI-detected chord progression with 103 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="รู้เเล้วเเต่ทำไม่ได้(I Just Can’t)-DEANEW x Gunnji x Kanya x Zxcin (Official Visualizer) chords, Bloom Entertainment chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="รู้เเล้วเเต่ทำไม่ได้(I Just Can’t)-DEANEW x Gunnji x Kanya x Zxcin (Official Visualizer) Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for รู้เเล้วเเต่ทำไม่ได้(I Just Can’t)-DEANEW x Gunnji x Kanya x Zxcin (Official Visualizer) by Bloom Entertainment. AI-detected chord progression with 103 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for รู้เเล้วเเต่ทำไม่ได้(I Just Can’t)-DEANEW x Gunnji x Kanya x Zxcin (Official Visualizer) by Bloom Entertainment. AI-detected chord progression with 103 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/i-just-can-t-deanew-x-gunnji-x-kanya-x-zxcin-official-visualizer-bloom-entertainment/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="รู้เเล้วเเต่ทำไม่ได้(I Just Can’t)-DEANEW x Gunnji x Kanya x Zxcin (Official Visualizer) Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for รู้เเล้วเเต่ทำไม่ได้(I Just Can’t)-DEANEW x Gunnji x Kanya x Zxcin (Official Visualizer) by Bloom Entertainment. AI-detected chord progression with 103 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for รู้เเล้วเเต่ทำไม่ได้(I Just Can’t)-DEANEW x Gunnji x Kanya x Zxcin (Official Visualizer) by Bloom Entertainment. AI-detected chord progression with 103 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>รู้เเล้วเเต่ทำไม่ได้(I Just Can’t)-DEANEW x Gunnji x Kanya x Zxcin (Official Visualizer) Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Bloom Entertainment"
   },
   "url": "https://ecoliving-tips.github.io/chords/i-just-can-t-deanew-x-gunnji-x-kanya-x-zxcin-official-visualizer-bloom-entertainment/",
-  "description": "Free chords for รู้เเล้วเเต่ทำไม่ได้(I Just Can’t)-DEANEW x Gunnji x Kanya x Zxcin (Official Visualizer) by Bloom Entertainment. AI-detected chord progression with 103 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for รู้เเล้วเเต่ทำไม่ได้(I Just Can’t)-DEANEW x Gunnji x Kanya x Zxcin (Official Visualizer) by Bloom Entertainment. AI-detected chord progression with 103 chords. Advanced difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Advanced"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 103 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -308,8 +319,10 @@
     <script>
     window.CHORD_DATA = [{"time":1.3,"chord":"G","duration":3.8},{"time":5.09,"chord":"Em7","duration":3.43},{"time":8.52,"chord":"C","duration":1.76},{"time":10.28,"chord":"G","duration":1.76},{"time":12.04,"chord":"Am7","duration":3.43},{"time":15.46,"chord":"G","duration":4.17},{"time":19.63,"chord":"Em7","duration":2.04},{"time":21.67,"chord":"G","duration":1.2},{"time":22.87,"chord":"C","duration":1.94},{"time":24.81,"chord":"G","duration":1.57},{"time":26.39,"chord":"Am7","duration":4.63},{"time":31.02,"chord":"Bm7","duration":0.65},{"time":31.67,"chord":"C","duration":1.85},{"time":33.52,"chord":"Am7","duration":3.61},{"time":37.13,"chord":"C","duration":0.93},{"time":38.06,"chord":"G","duration":0.74},{"time":38.8,"chord":"Am7","duration":2.04},{"time":40.83,"chord":"F","duration":1.67},{"time":42.5,"chord":"D","duration":1.67},{"time":44.17,"chord":"G","duration":3.8},{"time":47.96,"chord":"Em7","duration":3.52},{"time":51.48,"chord":"C","duration":1.85},{"time":53.33,"chord":"G","duration":1.76},{"time":55.09,"chord":"Am7","duration":0.74},{"time":55.83,"chord":"D7","duration":2.87},{"time":58.7,"chord":"G","duration":3.61},{"time":62.31,"chord":"A7","duration":3.52},{"time":65.83,"chord":"C","duration":0.65},{"time":66.48,"chord":"Bm","duration":1.02},{"time":67.5,"chord":"Em7","duration":0.83},{"time":68.33,"chord":"A7","duration":0.65},{"time":68.98,"chord":"Am7","duration":2.78},{"time":71.76,"chord":"D7","duration":1.2},{"time":72.96,"chord":"Gmaj7","duration":1.02},{"time":73.98,"chord":"G","duration":6.02},{"time":80,"chord":"Em7","duration":3.7},{"time":83.7,"chord":"D7","duration":1.76},{"time":85.46,"chord":"G","duration":1.76},{"time":87.22,"chord":"Am7","duration":1.94},{"time":89.17,"chord":"Dsus4","duration":0.83},{"time":90,"chord":"D","duration":0.93},{"time":90.93,"chord":"G","duration":3.52},{"time":94.44,"chord":"Em7","duration":3.61},{"time":98.06,"chord":"C","duration":1.94},{"time":100,"chord":"G","duration":1.67},{"time":101.67,"chord":"Am7","duration":1.76},{"time":103.43,"chord":"D","duration":1.76},{"time":105.19,"chord":"Am7","duration":0.93},{"time":106.11,"chord":"G","duration":0.93},{"time":107.04,"chord":"C","duration":1.85},{"time":108.89,"chord":"Am7","duration":3.52},{"time":112.41,"chord":"Cmaj7","duration":0.93},{"time":113.33,"chord":"G","duration":0.83},{"time":114.17,"chord":"Am7","duration":1.85},{"time":116.02,"chord":"F","duration":1.67},{"time":117.69,"chord":"Dm","duration":1.76},{"time":119.44,"chord":"G","duration":3.8},{"time":123.24,"chord":"Em7","duration":3.43},{"time":126.67,"chord":"C","duration":1.85},{"time":128.52,"chord":"Bm7","duration":1.48},{"time":130,"chord":"Am7","duration":1.67},{"time":131.67,"chord":"D7","duration":2.31},{"time":133.98,"chord":"Gmaj7","duration":3.33},{"time":137.31,"chord":"A7","duration":3.61},{"time":140.93,"chord":"C","duration":1.02},{"time":141.94,"chord":"Baug","duration":0.93},{"time":142.87,"chord":"Em7","duration":0.83},{"time":143.7,"chord":"Am7","duration":3.15},{"time":146.85,"chord":"D#aug","duration":0.74},{"time":147.59,"chord":"D","duration":0.56},{"time":148.15,"chord":"C","duration":3.43},{"time":151.57,"chord":"Bm7","duration":3.8},{"time":155.37,"chord":"Am7","duration":3.61},{"time":158.98,"chord":"G","duration":2.04},{"time":161.02,"chord":"G7","duration":1.57},{"time":162.59,"chord":"Em6","duration":1.76},{"time":164.35,"chord":"Cm","duration":1.76},{"time":166.11,"chord":"Bm7","duration":1.76},{"time":167.87,"chord":"A#maj7","duration":1.67},{"time":169.54,"chord":"Am7","duration":3.8},{"time":173.33,"chord":"C","duration":1.2},{"time":174.54,"chord":"Dsus4","duration":1.48},{"time":176.02,"chord":"G","duration":8.06},{"time":184.07,"chord":"Em7","duration":3.52},{"time":187.59,"chord":"C","duration":1.85},{"time":189.44,"chord":"Bm7","duration":1.57},{"time":191.02,"chord":"Am7","duration":1.67},{"time":192.69,"chord":"Dsus4","duration":2.04},{"time":194.72,"chord":"G","duration":3.61},{"time":198.33,"chord":"F","duration":3.61},{"time":201.94,"chord":"C","duration":0.83},{"time":202.78,"chord":"G","duration":0.93},{"time":203.7,"chord":"Em7","duration":0.93},{"time":204.63,"chord":"Am7","duration":3.61},{"time":208.24,"chord":"D7","duration":0.83},{"time":209.07,"chord":"C","duration":0.93},{"time":210,"chord":"B7","duration":0.83},{"time":210.83,"chord":"Em","duration":0.93},{"time":211.76,"chord":"A7","duration":0.83},{"time":212.59,"chord":"Am7","duration":1.94},{"time":214.54,"chord":"Cm6","duration":1.76},{"time":216.3,"chord":"Gmaj7","duration":2.13},{"time":218.43,"chord":"G","duration":3.98}];
     window.YOUTUBE_VIDEO_ID = 'dh3bHRPBLu8';
+    window.BEGINNER_META = { capo: 0, difficulty: 'advanced' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

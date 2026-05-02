@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Nish - Standing By You (Duniya Cover) by Nish. AI-detected chord progression with 98 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Nish - Standing By You (Duniya Cover) by Nish. AI-detected chord progression with 98 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Nish - Standing By You (Duniya Cover) chords, Nish chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Nish - Standing By You (Duniya Cover) Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Nish - Standing By You (Duniya Cover) by Nish. AI-detected chord progression with 98 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Nish - Standing By You (Duniya Cover) by Nish. AI-detected chord progression with 98 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/nish-standing-by-you-duniya-cover/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Nish - Standing By You (Duniya Cover) Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Nish - Standing By You (Duniya Cover) by Nish. AI-detected chord progression with 98 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Nish - Standing By You (Duniya Cover) by Nish. AI-detected chord progression with 98 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Nish - Standing By You (Duniya Cover) Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Nish"
   },
   "url": "https://ecoliving-tips.github.io/chords/nish-standing-by-you-duniya-cover/",
-  "description": "Free chords for Nish - Standing By You (Duniya Cover) by Nish. AI-detected chord progression with 98 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Nish - Standing By You (Duniya Cover) by Nish. AI-detected chord progression with 98 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 98 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -296,8 +307,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.19,"chord":"D#","duration":0.65},{"time":0.83,"chord":"F","duration":2.22},{"time":3.06,"chord":"Gm7","duration":2.22},{"time":5.28,"chord":"F","duration":3.98},{"time":9.26,"chord":"Gm7","duration":2.5},{"time":11.76,"chord":"F","duration":0.93},{"time":12.69,"chord":"D#","duration":1.39},{"time":14.07,"chord":"F","duration":1.57},{"time":15.65,"chord":"Gm7","duration":2.04},{"time":17.69,"chord":"F","duration":1.67},{"time":19.35,"chord":"D#","duration":0.93},{"time":20.28,"chord":"F","duration":1.67},{"time":21.94,"chord":"Gm7","duration":1.94},{"time":23.89,"chord":"F","duration":1.11},{"time":25,"chord":"D#","duration":1.67},{"time":26.67,"chord":"F","duration":1.48},{"time":28.15,"chord":"Gm7","duration":1.85},{"time":30,"chord":"F","duration":1.57},{"time":31.57,"chord":"D#","duration":1.48},{"time":33.06,"chord":"F","duration":1.48},{"time":34.54,"chord":"Gm","duration":1.94},{"time":36.48,"chord":"F","duration":1.02},{"time":37.5,"chord":"D#","duration":1.57},{"time":39.07,"chord":"F","duration":1.57},{"time":40.65,"chord":"Gm7","duration":3.15},{"time":43.8,"chord":"D#","duration":1.57},{"time":45.37,"chord":"F","duration":1.48},{"time":46.85,"chord":"Gm7","duration":2.04},{"time":48.89,"chord":"F7","duration":1.39},{"time":50.28,"chord":"D#sus2","duration":1.48},{"time":51.76,"chord":"Fsus4","duration":1.3},{"time":53.06,"chord":"Gm7","duration":2.22},{"time":55.28,"chord":"Cm7","duration":0.83},{"time":56.11,"chord":"F7","duration":2.04},{"time":58.15,"chord":"F","duration":1.11},{"time":59.26,"chord":"Gm7","duration":2.13},{"time":61.39,"chord":"F","duration":4.17},{"time":65.56,"chord":"Gm","duration":1.85},{"time":67.41,"chord":"F","duration":1.3},{"time":68.7,"chord":"D#","duration":1.3},{"time":70,"chord":"F7","duration":0.74},{"time":70.74,"chord":"F","duration":1.11},{"time":71.85,"chord":"Gm","duration":2.13},{"time":73.98,"chord":"F","duration":4.07},{"time":78.06,"chord":"Gm","duration":1.94},{"time":80,"chord":"Fsus4","duration":1.11},{"time":81.11,"chord":"D#","duration":1.57},{"time":82.69,"chord":"F","duration":1.2},{"time":83.89,"chord":"Gm7","duration":2.78},{"time":86.67,"chord":"F","duration":0.74},{"time":87.41,"chord":"D#","duration":1.57},{"time":88.98,"chord":"F","duration":1.3},{"time":90.28,"chord":"Gm7","duration":1.85},{"time":92.13,"chord":"F","duration":1.48},{"time":93.61,"chord":"D#","duration":1.57},{"time":95.19,"chord":"F","duration":1.48},{"time":96.67,"chord":"Gm7","duration":2.22},{"time":98.89,"chord":"F","duration":1.11},{"time":100,"chord":"A#","duration":0.46},{"time":100.46,"chord":"D#","duration":1.02},{"time":101.48,"chord":"F","duration":1.39},{"time":102.87,"chord":"Gm7","duration":3.24},{"time":106.11,"chord":"D#","duration":1.48},{"time":107.59,"chord":"F7","duration":1.57},{"time":109.17,"chord":"Gm7","duration":2.31},{"time":111.48,"chord":"C7","duration":0.83},{"time":112.31,"chord":"D#","duration":1.85},{"time":114.17,"chord":"F","duration":1.3},{"time":115.46,"chord":"Gm7","duration":2.04},{"time":117.5,"chord":"F","duration":1.57},{"time":119.07,"chord":"D#","duration":0.93},{"time":120,"chord":"F","duration":1.67},{"time":121.67,"chord":"Gm7","duration":3.24},{"time":124.91,"chord":"D#sus2","duration":1.3},{"time":126.2,"chord":"F","duration":1.67},{"time":127.87,"chord":"Gm7","duration":2.13},{"time":130,"chord":"F","duration":1.48},{"time":131.48,"chord":"D#","duration":1.11},{"time":132.59,"chord":"F","duration":1.57},{"time":134.17,"chord":"Gm","duration":1.85},{"time":136.02,"chord":"C7","duration":1.3},{"time":137.31,"chord":"D#","duration":1.57},{"time":138.89,"chord":"F","duration":1.48},{"time":140.37,"chord":"Gm7","duration":2.13},{"time":142.5,"chord":"F","duration":1.3},{"time":143.8,"chord":"D#","duration":1.2},{"time":145,"chord":"F","duration":1.57},{"time":146.57,"chord":"Gm7","duration":2.96},{"time":149.54,"chord":"D#","duration":0.93},{"time":150.46,"chord":"D#sus2","duration":0.83},{"time":151.3,"chord":"F","duration":1.48},{"time":152.78,"chord":"Gm7","duration":2.22},{"time":155,"chord":"F","duration":1.3},{"time":156.3,"chord":"D#sus2","duration":1.2},{"time":157.5,"chord":"F","duration":1.57},{"time":159.07,"chord":"Gm7","duration":0.93},{"time":160,"chord":"A#","duration":0.74},{"time":160.74,"chord":"C","duration":2.13}];
     window.YOUTUBE_VIDEO_ID = '8qX0VIVxivU';
+    window.BEGINNER_META = { capo: 3, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

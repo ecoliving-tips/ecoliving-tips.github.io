@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Ode to a Rock Opera by Keith Mansfield. AI-detected chord progression with 83 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Ode to a Rock Opera by Keith Mansfield. AI-detected chord progression with 83 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Ode to a Rock Opera chords, Keith Mansfield chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Ode to a Rock Opera Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Ode to a Rock Opera by Keith Mansfield. AI-detected chord progression with 83 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Ode to a Rock Opera by Keith Mansfield. AI-detected chord progression with 83 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/ode-to-a-rock-opera-keith-mansfield/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Ode to a Rock Opera Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Ode to a Rock Opera by Keith Mansfield. AI-detected chord progression with 83 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Ode to a Rock Opera by Keith Mansfield. AI-detected chord progression with 83 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Ode to a Rock Opera Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Keith Mansfield"
   },
   "url": "https://ecoliving-tips.github.io/chords/ode-to-a-rock-opera-keith-mansfield/",
-  "description": "Free chords for Ode to a Rock Opera by Keith Mansfield. AI-detected chord progression with 83 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Ode to a Rock Opera by Keith Mansfield. AI-detected chord progression with 83 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 83 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -293,8 +304,10 @@
     <script>
     window.CHORD_DATA = [{"time":0,"chord":"Gm","duration":10},{"time":10,"chord":"F","duration":1.3},{"time":11.3,"chord":"C","duration":1.39},{"time":12.69,"chord":"G","duration":10.09},{"time":22.78,"chord":"F","duration":1.11},{"time":23.89,"chord":"C","duration":1.3},{"time":25.19,"chord":"G","duration":5},{"time":30.19,"chord":"Gm","duration":2.04},{"time":32.22,"chord":"G","duration":5.56},{"time":37.78,"chord":"F","duration":1.48},{"time":39.26,"chord":"C","duration":1.02},{"time":40.28,"chord":"G","duration":11.76},{"time":52.04,"chord":"C","duration":0.93},{"time":52.96,"chord":"G","duration":1.67},{"time":54.63,"chord":"C","duration":0.83},{"time":55.46,"chord":"G","duration":2.41},{"time":57.87,"chord":"A#","duration":1.39},{"time":59.26,"chord":"F","duration":1.2},{"time":60.46,"chord":"C","duration":1.39},{"time":61.85,"chord":"F","duration":1.3},{"time":63.15,"chord":"A#","duration":1.11},{"time":64.26,"chord":"F","duration":1.67},{"time":65.93,"chord":"A","duration":0.65},{"time":66.57,"chord":"D","duration":4.26},{"time":70.83,"chord":"C","duration":5.09},{"time":75.93,"chord":"G","duration":5.37},{"time":81.3,"chord":"F","duration":1.11},{"time":82.41,"chord":"C","duration":1.39},{"time":83.8,"chord":"G","duration":3.89},{"time":87.69,"chord":"C","duration":0.65},{"time":88.33,"chord":"G","duration":1.3},{"time":89.63,"chord":"C","duration":0.37},{"time":90,"chord":"G","duration":4.17},{"time":94.17,"chord":"F","duration":1.11},{"time":95.28,"chord":"C","duration":1.3},{"time":96.57,"chord":"G","duration":11.3},{"time":107.87,"chord":"Em","duration":0.83},{"time":108.7,"chord":"G","duration":3.52},{"time":112.22,"chord":"F","duration":0.83},{"time":113.06,"chord":"C","duration":1.39},{"time":114.44,"chord":"G","duration":10.37},{"time":124.81,"chord":"F","duration":1.11},{"time":125.93,"chord":"C","duration":1.3},{"time":127.22,"chord":"G","duration":5.83},{"time":133.06,"chord":"C","duration":1.39},{"time":134.44,"chord":"G","duration":1.02},{"time":135.46,"chord":"C","duration":0.65},{"time":136.11,"chord":"G","duration":3.89},{"time":140,"chord":"F","duration":1.11},{"time":141.11,"chord":"C","duration":1.39},{"time":142.5,"chord":"G","duration":3.98},{"time":146.48,"chord":"C","duration":0.74},{"time":147.22,"chord":"G","duration":2.31},{"time":149.54,"chord":"C","duration":0.74},{"time":150.28,"chord":"G","duration":2.78},{"time":153.06,"chord":"F","duration":1.11},{"time":154.17,"chord":"C","duration":1.2},{"time":155.37,"chord":"G","duration":4.63},{"time":160,"chord":"Gm","duration":0.56},{"time":160.56,"chord":"A#","duration":1.3},{"time":161.85,"chord":"F","duration":1.2},{"time":163.06,"chord":"C","duration":1.39},{"time":164.44,"chord":"F","duration":1.3},{"time":165.74,"chord":"A#","duration":1.2},{"time":166.94,"chord":"F","duration":1.39},{"time":168.33,"chord":"A","duration":1.67},{"time":170,"chord":"D","duration":0.65},{"time":170.65,"chord":"A","duration":1.11},{"time":171.76,"chord":"D","duration":1.57},{"time":173.33,"chord":"C","duration":4.26},{"time":177.59,"chord":"F","duration":0.83},{"time":178.43,"chord":"G","duration":2.13},{"time":180.56,"chord":"C","duration":0.56},{"time":181.11,"chord":"G","duration":2.69},{"time":183.8,"chord":"F","duration":1.3},{"time":185.09,"chord":"C","duration":1.2},{"time":186.3,"chord":"G","duration":10.56},{"time":196.85,"chord":"F","duration":1.2},{"time":198.06,"chord":"C","duration":1.3},{"time":199.35,"chord":"G","duration":2.69},{"time":202.04,"chord":"F","duration":1.3},{"time":203.33,"chord":"C","duration":1.39},{"time":204.72,"chord":"G","duration":5.28}];
     window.YOUTUBE_VIDEO_ID = 'cZ_zL7xMcfs';
+    window.BEGINNER_META = { capo: 5, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

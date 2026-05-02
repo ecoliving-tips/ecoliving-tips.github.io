@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Madison Ryann Ward - Higher by Madison Ryann Ward. AI-detected chord progression with 76 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Madison Ryann Ward - Higher by Madison Ryann Ward. AI-detected chord progression with 76 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Madison Ryann Ward - Higher chords, Madison Ryann Ward chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Madison Ryann Ward - Higher Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Madison Ryann Ward - Higher by Madison Ryann Ward. AI-detected chord progression with 76 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Madison Ryann Ward - Higher by Madison Ryann Ward. AI-detected chord progression with 76 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/madison-ryann-ward-higher/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Madison Ryann Ward - Higher Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Madison Ryann Ward - Higher by Madison Ryann Ward. AI-detected chord progression with 76 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Madison Ryann Ward - Higher by Madison Ryann Ward. AI-detected chord progression with 76 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Madison Ryann Ward - Higher Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Madison Ryann Ward"
   },
   "url": "https://ecoliving-tips.github.io/chords/madison-ryann-ward-higher/",
-  "description": "Free chords for Madison Ryann Ward - Higher by Madison Ryann Ward. AI-detected chord progression with 76 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Madison Ryann Ward - Higher by Madison Ryann Ward. AI-detected chord progression with 76 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 76 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -296,8 +307,10 @@
     <script>
     window.CHORD_DATA = [{"time":10,"chord":"C#7","duration":1.2},{"time":11.2,"chord":"C#","duration":0.93},{"time":12.13,"chord":"C#maj7","duration":2.5},{"time":14.63,"chord":"G#maj7","duration":3.52},{"time":18.15,"chord":"C#maj7","duration":1.85},{"time":20,"chord":"D#","duration":0.93},{"time":20.93,"chord":"G#maj7","duration":1.67},{"time":22.59,"chord":"C#maj7","duration":4.35},{"time":26.94,"chord":"G#maj7","duration":3.52},{"time":30.46,"chord":"Bmaj7","duration":1.48},{"time":31.94,"chord":"A#m7","duration":1.11},{"time":33.06,"chord":"G#maj7","duration":3.43},{"time":36.48,"chord":"C#maj7","duration":2.87},{"time":39.35,"chord":"G#maj7","duration":3.33},{"time":42.69,"chord":"C#maj7","duration":2.59},{"time":45.28,"chord":"G#maj7","duration":1.94},{"time":47.22,"chord":"A#m7","duration":0.93},{"time":48.15,"chord":"C#maj7","duration":3.43},{"time":51.57,"chord":"G#maj7","duration":3.43},{"time":55,"chord":"Bmaj7","duration":1.57},{"time":56.57,"chord":"A#m7","duration":0.46},{"time":57.04,"chord":"G#maj7","duration":2.96},{"time":60,"chord":"D#","duration":1.11},{"time":61.11,"chord":"C#maj7","duration":2.78},{"time":63.89,"chord":"G#maj7","duration":3.43},{"time":67.31,"chord":"C#maj7","duration":2.13},{"time":69.44,"chord":"A#m7","duration":0.56},{"time":70,"chord":"G#maj7","duration":1.94},{"time":71.94,"chord":"A#m7","duration":0.74},{"time":72.69,"chord":"C#maj7","duration":3.43},{"time":76.11,"chord":"G#maj7","duration":3.43},{"time":79.54,"chord":"Bmaj7","duration":1.67},{"time":81.2,"chord":"Amaj7","duration":1.02},{"time":82.22,"chord":"G#maj7","duration":3.52},{"time":85.74,"chord":"C#maj7","duration":2.59},{"time":88.33,"chord":"G#maj7","duration":4.17},{"time":92.5,"chord":"C#maj7","duration":1.94},{"time":94.44,"chord":"G#maj7","duration":2.04},{"time":96.48,"chord":"A#m7","duration":1.02},{"time":97.5,"chord":"C#maj7","duration":2.5},{"time":100,"chord":"Cm7","duration":0.74},{"time":100.74,"chord":"G#maj7","duration":3.52},{"time":104.26,"chord":"B","duration":1.48},{"time":105.74,"chord":"A#m7","duration":1.11},{"time":106.85,"chord":"G#maj7","duration":2.78},{"time":109.63,"chord":"D#","duration":0.74},{"time":110.37,"chord":"C#maj7","duration":2.78},{"time":113.15,"chord":"G#maj7","duration":3.33},{"time":116.48,"chord":"C#maj7","duration":2.59},{"time":119.07,"chord":"G#maj7","duration":3.52},{"time":122.59,"chord":"C#maj7","duration":2.69},{"time":125.28,"chord":"G#maj7","duration":3.43},{"time":128.7,"chord":"A#m7","duration":2.87},{"time":131.57,"chord":"G#maj7","duration":3.43},{"time":135,"chord":"C#maj7","duration":2.69},{"time":137.69,"chord":"G#maj7","duration":3.52},{"time":141.2,"chord":"C#maj7","duration":2.69},{"time":143.89,"chord":"G#maj7","duration":1.85},{"time":145.74,"chord":"A#m7","duration":0.83},{"time":146.57,"chord":"C#maj7","duration":2.78},{"time":149.35,"chord":"A#m7","duration":0.65},{"time":150,"chord":"G#maj7","duration":3.15},{"time":153.15,"chord":"A#m7","duration":0.37},{"time":153.52,"chord":"B6","duration":1.39},{"time":154.91,"chord":"A#m7","duration":1.2},{"time":156.11,"chord":"G#maj7","duration":3.52},{"time":159.63,"chord":"C#maj7","duration":2.69},{"time":162.31,"chord":"G#maj7","duration":3.52},{"time":165.83,"chord":"C#maj7","duration":2.59},{"time":168.43,"chord":"G#maj7","duration":1.85},{"time":170.28,"chord":"A#m7","duration":1.02},{"time":171.3,"chord":"C#maj7","duration":3.15},{"time":174.44,"chord":"G#maj7","duration":3.61},{"time":178.06,"chord":"Bmaj7","duration":1.57},{"time":179.63,"chord":"Amaj7","duration":1.11},{"time":180.74,"chord":"G#maj7","duration":2.96}];
     window.YOUTUBE_VIDEO_ID = 'cl4R7uwBuNo';
+    window.BEGINNER_META = { capo: 6, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

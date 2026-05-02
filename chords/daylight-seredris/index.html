@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Daylight by Seredris. AI-detected chord progression with 72 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Daylight by Seredris. AI-detected chord progression with 72 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Daylight chords, Seredris chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Daylight Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Daylight by Seredris. AI-detected chord progression with 72 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Daylight by Seredris. AI-detected chord progression with 72 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/daylight-seredris/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Daylight Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Daylight by Seredris. AI-detected chord progression with 72 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Daylight by Seredris. AI-detected chord progression with 72 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Daylight Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Seredris"
   },
   "url": "https://ecoliving-tips.github.io/chords/daylight-seredris/",
-  "description": "Free chords for Daylight by Seredris. AI-detected chord progression with 72 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Daylight by Seredris. AI-detected chord progression with 72 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 72 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -290,8 +301,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.65,"chord":"G","duration":2.31},{"time":2.96,"chord":"A","duration":1.48},{"time":4.44,"chord":"Bm7","duration":2.87},{"time":7.31,"chord":"G","duration":2.04},{"time":9.35,"chord":"A","duration":1.57},{"time":10.93,"chord":"Bm7","duration":2.78},{"time":13.7,"chord":"Gmaj7","duration":1.85},{"time":15.56,"chord":"A","duration":1.57},{"time":17.13,"chord":"Bm7","duration":2.87},{"time":20,"chord":"Gmaj7","duration":2.04},{"time":22.04,"chord":"A","duration":1.85},{"time":23.89,"chord":"Bm","duration":2.59},{"time":26.48,"chord":"G","duration":1.67},{"time":28.15,"chord":"A","duration":1.85},{"time":30,"chord":"Bm","duration":2.96},{"time":32.96,"chord":"G","duration":1.76},{"time":34.72,"chord":"A","duration":1.57},{"time":36.3,"chord":"Bm","duration":3.15},{"time":39.44,"chord":"G","duration":1.67},{"time":41.11,"chord":"A","duration":1.67},{"time":42.78,"chord":"Bm","duration":3.15},{"time":45.93,"chord":"G","duration":1.85},{"time":47.78,"chord":"A","duration":1.48},{"time":49.26,"chord":"Bm","duration":3.24},{"time":52.5,"chord":"G","duration":1.76},{"time":54.26,"chord":"A","duration":1.39},{"time":55.65,"chord":"Bm","duration":3.33},{"time":58.98,"chord":"G","duration":1.67},{"time":60.65,"chord":"A","duration":1.57},{"time":62.22,"chord":"Bm","duration":3.24},{"time":65.46,"chord":"G","duration":1.67},{"time":67.13,"chord":"A","duration":1.85},{"time":68.98,"chord":"Bm","duration":3.06},{"time":72.04,"chord":"G","duration":1.76},{"time":73.8,"chord":"A","duration":2.04},{"time":75.83,"chord":"Bm","duration":6.02},{"time":81.85,"chord":"G","duration":1.39},{"time":83.24,"chord":"A","duration":1.48},{"time":84.72,"chord":"Bm","duration":3.43},{"time":88.15,"chord":"G","duration":1.48},{"time":89.63,"chord":"A","duration":1.67},{"time":91.3,"chord":"Bm","duration":3.33},{"time":94.63,"chord":"G","duration":1.57},{"time":96.2,"chord":"A","duration":1.67},{"time":97.87,"chord":"Bm","duration":3.15},{"time":101.02,"chord":"G","duration":1.67},{"time":102.69,"chord":"A","duration":1.76},{"time":104.44,"chord":"Bm","duration":2.96},{"time":107.41,"chord":"G","duration":1.94},{"time":109.35,"chord":"A","duration":1.48},{"time":110.83,"chord":"Bm","duration":3.24},{"time":114.07,"chord":"G","duration":1.67},{"time":115.74,"chord":"A","duration":1.94},{"time":117.69,"chord":"Bm","duration":2.87},{"time":120.56,"chord":"G","duration":1.67},{"time":122.22,"chord":"A","duration":2.13},{"time":124.35,"chord":"Bm","duration":2.69},{"time":127.04,"chord":"G","duration":1.85},{"time":128.89,"chord":"A","duration":1.39},{"time":130.28,"chord":"Bm","duration":3.33},{"time":133.61,"chord":"G","duration":1.67},{"time":135.28,"chord":"A","duration":1.48},{"time":136.76,"chord":"Bm","duration":3.24},{"time":140,"chord":"G","duration":1.85},{"time":141.85,"chord":"A","duration":1.48},{"time":143.33,"chord":"Bm","duration":3.15},{"time":146.48,"chord":"G","duration":1.67},{"time":148.15,"chord":"A","duration":1.85},{"time":150,"chord":"Bm","duration":2.87},{"time":152.87,"chord":"G","duration":1.85},{"time":154.72,"chord":"A","duration":1.57},{"time":156.3,"chord":"Bm","duration":6.45}];
     window.YOUTUBE_VIDEO_ID = 'wq-VSjVULkM';
+    window.BEGINNER_META = { capo: 2, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

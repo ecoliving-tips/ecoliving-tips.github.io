@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Szép Mesék by Szinetár Dóra. AI-detected chord progression with 63 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Szép Mesék by Szinetár Dóra. AI-detected chord progression with 63 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Szép Mesék chords, Szinetár Dóra chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Szép Mesék Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Szép Mesék by Szinetár Dóra. AI-detected chord progression with 63 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Szép Mesék by Szinetár Dóra. AI-detected chord progression with 63 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/szep-mesek-szinetar-dora/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Szép Mesék Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Szép Mesék by Szinetár Dóra. AI-detected chord progression with 63 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Szép Mesék by Szinetár Dóra. AI-detected chord progression with 63 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Szép Mesék Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Szinetár Dóra"
   },
   "url": "https://ecoliving-tips.github.io/chords/szep-mesek-szinetar-dora/",
-  "description": "Free chords for Szép Mesék by Szinetár Dóra. AI-detected chord progression with 63 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Szép Mesék by Szinetár Dóra. AI-detected chord progression with 63 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 63 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -293,8 +304,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.46,"chord":"A#","duration":3.7},{"time":4.17,"chord":"Cm7","duration":3.7},{"time":7.87,"chord":"A#","duration":3.7},{"time":11.57,"chord":"Cm7","duration":3.89},{"time":15.46,"chord":"A#","duration":3.52},{"time":18.98,"chord":"Cm7","duration":3.7},{"time":22.69,"chord":"A#","duration":3.7},{"time":26.39,"chord":"D#","duration":3.61},{"time":30,"chord":"A#","duration":3.8},{"time":33.8,"chord":"Cm7","duration":3.61},{"time":37.41,"chord":"A#","duration":3.61},{"time":41.02,"chord":"D#","duration":3.61},{"time":44.63,"chord":"A#","duration":3.61},{"time":48.24,"chord":"Cm7","duration":3.89},{"time":52.13,"chord":"A#","duration":3.52},{"time":55.65,"chord":"Cm7","duration":3.61},{"time":59.26,"chord":"A#","duration":3.61},{"time":62.87,"chord":"Cm7","duration":3.61},{"time":66.48,"chord":"A#","duration":3.52},{"time":70,"chord":"D#","duration":3.52},{"time":73.52,"chord":"A#","duration":3.7},{"time":77.22,"chord":"Cm7","duration":3.98},{"time":81.2,"chord":"A#","duration":3.52},{"time":84.72,"chord":"Cm7","duration":3.43},{"time":88.15,"chord":"D#","duration":3.89},{"time":92.04,"chord":"Am7","duration":1.94},{"time":93.98,"chord":"F","duration":1.57},{"time":95.56,"chord":"Gm7","duration":5.19},{"time":100.74,"chord":"D#","duration":2.04},{"time":102.78,"chord":"F7","duration":3.43},{"time":106.2,"chord":"A#","duration":1.85},{"time":108.06,"chord":"D#","duration":1.94},{"time":110,"chord":"Cm","duration":1.67},{"time":111.67,"chord":"F","duration":1.57},{"time":113.24,"chord":"A#","duration":2.96},{"time":116.2,"chord":"F","duration":3.06},{"time":119.26,"chord":"D#","duration":3.7},{"time":122.96,"chord":"Am7","duration":1.67},{"time":124.63,"chord":"F","duration":1.76},{"time":126.39,"chord":"Gm7","duration":4.72},{"time":131.11,"chord":"D#","duration":2.41},{"time":133.52,"chord":"F7","duration":3.52},{"time":137.04,"chord":"A#","duration":1.76},{"time":138.8,"chord":"D#","duration":1.76},{"time":140.56,"chord":"Cm","duration":1.85},{"time":142.41,"chord":"F","duration":1.3},{"time":143.7,"chord":"A#","duration":3.52},{"time":147.22,"chord":"F","duration":2.78},{"time":150,"chord":"F7","duration":1.48},{"time":151.48,"chord":"A#","duration":4.26},{"time":155.74,"chord":"D#","duration":1.57},{"time":157.31,"chord":"F7","duration":1.57},{"time":158.89,"chord":"A#","duration":3.61},{"time":162.5,"chord":"D#","duration":3.43},{"time":165.93,"chord":"A#","duration":3.61},{"time":169.54,"chord":"Cm7","duration":3.33},{"time":172.87,"chord":"A#","duration":3.61},{"time":176.48,"chord":"D#","duration":3.52},{"time":180,"chord":"A#","duration":3.8},{"time":183.8,"chord":"Cm7","duration":3.61},{"time":187.41,"chord":"A#","duration":4.26},{"time":191.67,"chord":"Cm7","duration":4.54},{"time":196.2,"chord":"A#","duration":7.31}];
     window.YOUTUBE_VIDEO_ID = 'w48aNZN0o_A';
+    window.BEGINNER_META = { capo: 3, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

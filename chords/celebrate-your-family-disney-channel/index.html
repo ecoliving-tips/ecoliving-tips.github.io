@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Celebrate Your Family - Disney Channel by Disney Channel. AI-detected chord progression with 18 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Celebrate Your Family - Disney Channel by Disney Channel. AI-detected chord progression with 18 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Celebrate Your Family - Disney Channel chords, Disney Channel chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Celebrate Your Family - Disney Channel Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Celebrate Your Family - Disney Channel by Disney Channel. AI-detected chord progression with 18 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Celebrate Your Family - Disney Channel by Disney Channel. AI-detected chord progression with 18 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/celebrate-your-family-disney-channel/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Celebrate Your Family - Disney Channel Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Celebrate Your Family - Disney Channel by Disney Channel. AI-detected chord progression with 18 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Celebrate Your Family - Disney Channel by Disney Channel. AI-detected chord progression with 18 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Celebrate Your Family - Disney Channel Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Disney Channel"
   },
   "url": "https://ecoliving-tips.github.io/chords/celebrate-your-family-disney-channel/",
-  "description": "Free chords for Celebrate Your Family - Disney Channel by Disney Channel. AI-detected chord progression with 18 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Celebrate Your Family - Disney Channel by Disney Channel. AI-detected chord progression with 18 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 18 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -289,8 +300,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.46,"chord":"A","duration":5.28},{"time":5.74,"chord":"F#m","duration":2.69},{"time":8.43,"chord":"D","duration":4.35},{"time":12.78,"chord":"A","duration":4.26},{"time":17.04,"chord":"F#m","duration":2.87},{"time":19.91,"chord":"D","duration":2.78},{"time":22.69,"chord":"A","duration":3.33},{"time":26.02,"chord":"C#m","duration":2.31},{"time":28.33,"chord":"F#m","duration":2.78},{"time":31.11,"chord":"D","duration":2.87},{"time":33.98,"chord":"A","duration":3.33},{"time":37.31,"chord":"C#m","duration":2.31},{"time":39.63,"chord":"F#m","duration":2.78},{"time":42.41,"chord":"D","duration":2.87},{"time":45.28,"chord":"A","duration":3.98},{"time":49.26,"chord":"C#m","duration":1.67},{"time":50.93,"chord":"F#m","duration":2.96},{"time":53.89,"chord":"D","duration":4.63}];
     window.YOUTUBE_VIDEO_ID = 't2QTq4QPHww';
+    window.BEGINNER_META = { capo: 2, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

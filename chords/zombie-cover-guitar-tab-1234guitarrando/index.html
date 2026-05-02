@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for ZOMBIE cover (Guitar Tab) by 1234guitarrando. AI-detected chord progression with 76 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for ZOMBIE cover (Guitar Tab) by 1234guitarrando. AI-detected chord progression with 76 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="ZOMBIE cover (Guitar Tab) chords, 1234guitarrando chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="ZOMBIE cover (Guitar Tab) Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for ZOMBIE cover (Guitar Tab) by 1234guitarrando. AI-detected chord progression with 76 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for ZOMBIE cover (Guitar Tab) by 1234guitarrando. AI-detected chord progression with 76 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/zombie-cover-guitar-tab-1234guitarrando/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="ZOMBIE cover (Guitar Tab) Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for ZOMBIE cover (Guitar Tab) by 1234guitarrando. AI-detected chord progression with 76 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for ZOMBIE cover (Guitar Tab) by 1234guitarrando. AI-detected chord progression with 76 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>ZOMBIE cover (Guitar Tab) Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "1234guitarrando"
   },
   "url": "https://ecoliving-tips.github.io/chords/zombie-cover-guitar-tab-1234guitarrando/",
-  "description": "Free chords for ZOMBIE cover (Guitar Tab) by 1234guitarrando. AI-detected chord progression with 76 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for ZOMBIE cover (Guitar Tab) by 1234guitarrando. AI-detected chord progression with 76 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 76 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -291,8 +302,10 @@
     <script>
     window.CHORD_DATA = [{"time":6.39,"chord":"E","duration":2.59},{"time":8.98,"chord":"C","duration":2.87},{"time":11.85,"chord":"G","duration":2.78},{"time":14.63,"chord":"D","duration":2.87},{"time":17.5,"chord":"Em","duration":2.69},{"time":20.19,"chord":"C","duration":2.78},{"time":22.96,"chord":"G","duration":2.78},{"time":25.74,"chord":"D","duration":2.87},{"time":28.61,"chord":"Em","duration":1.39},{"time":30,"chord":"Em7","duration":1.48},{"time":31.48,"chord":"C","duration":2.69},{"time":34.17,"chord":"G","duration":2.59},{"time":36.76,"chord":"D","duration":3.06},{"time":39.81,"chord":"Em7","duration":2.78},{"time":42.59,"chord":"C","duration":2.78},{"time":45.37,"chord":"G","duration":2.5},{"time":47.87,"chord":"D","duration":3.06},{"time":50.93,"chord":"Em","duration":2.78},{"time":53.7,"chord":"C","duration":2.69},{"time":56.39,"chord":"G","duration":2.78},{"time":59.17,"chord":"D","duration":2.96},{"time":62.13,"chord":"Em","duration":2.78},{"time":64.91,"chord":"C","duration":2.69},{"time":67.59,"chord":"G","duration":2.87},{"time":70.46,"chord":"D","duration":2.78},{"time":73.24,"chord":"Em","duration":2.87},{"time":76.11,"chord":"C","duration":2.59},{"time":78.7,"chord":"G","duration":2.69},{"time":81.39,"chord":"D","duration":3.06},{"time":84.44,"chord":"Em","duration":2.78},{"time":87.22,"chord":"C","duration":2.78},{"time":90,"chord":"G","duration":2.69},{"time":92.69,"chord":"D","duration":2.87},{"time":95.56,"chord":"Em","duration":2.87},{"time":98.43,"chord":"C","duration":2.69},{"time":101.11,"chord":"G","duration":2.69},{"time":103.8,"chord":"D","duration":2.96},{"time":106.76,"chord":"Em","duration":2.78},{"time":109.54,"chord":"C","duration":2.69},{"time":112.22,"chord":"G","duration":2.78},{"time":115,"chord":"D","duration":2.96},{"time":117.96,"chord":"Em","duration":2.04},{"time":120,"chord":"Em7","duration":0.74},{"time":120.74,"chord":"C","duration":2.78},{"time":123.52,"chord":"G","duration":2.59},{"time":126.11,"chord":"D","duration":2.87},{"time":128.98,"chord":"Em","duration":1.02},{"time":130,"chord":"Em7","duration":1.85},{"time":131.85,"chord":"C","duration":2.78},{"time":134.63,"chord":"G","duration":2.59},{"time":137.22,"chord":"D","duration":2.78},{"time":140,"chord":"Em","duration":2.96},{"time":142.96,"chord":"C","duration":2.78},{"time":145.74,"chord":"G","duration":2.78},{"time":148.52,"chord":"D","duration":2.87},{"time":151.39,"chord":"Em","duration":2.78},{"time":154.17,"chord":"C","duration":2.78},{"time":156.94,"chord":"G","duration":2.78},{"time":159.72,"chord":"D","duration":2.87},{"time":162.59,"chord":"Em","duration":2.78},{"time":165.37,"chord":"C","duration":2.69},{"time":168.06,"chord":"G","duration":2.59},{"time":170.65,"chord":"D","duration":3.06},{"time":173.7,"chord":"Em","duration":2.87},{"time":176.57,"chord":"C","duration":2.59},{"time":179.17,"chord":"G","duration":2.69},{"time":181.85,"chord":"D","duration":2.96},{"time":184.81,"chord":"Em","duration":2.87},{"time":187.69,"chord":"C","duration":2.59},{"time":190.28,"chord":"G","duration":2.87},{"time":193.15,"chord":"D","duration":2.87},{"time":196.02,"chord":"Em","duration":2.96},{"time":198.98,"chord":"C","duration":2.59},{"time":201.57,"chord":"G","duration":2.78},{"time":204.35,"chord":"D","duration":2.87},{"time":207.22,"chord":"Em","duration":11.02}];
     window.YOUTUBE_VIDEO_ID = 'IS6kVVi5GiQ';
+    window.BEGINNER_META = { capo: 0, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Parcels - Yourfault (Live from Hansa Studios, Berlin) by Parcels. AI-detected chord progression with 105 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Parcels - Yourfault (Live from Hansa Studios, Berlin) by Parcels. AI-detected chord progression with 105 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Parcels - Yourfault (Live from Hansa Studios, Berlin) chords, Parcels chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Parcels - Yourfault (Live from Hansa Studios, Berlin) Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Parcels - Yourfault (Live from Hansa Studios, Berlin) by Parcels. AI-detected chord progression with 105 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Parcels - Yourfault (Live from Hansa Studios, Berlin) by Parcels. AI-detected chord progression with 105 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/parcels-yourfault-live-from-hansa-studios-berlin/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Parcels - Yourfault (Live from Hansa Studios, Berlin) Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Parcels - Yourfault (Live from Hansa Studios, Berlin) by Parcels. AI-detected chord progression with 105 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Parcels - Yourfault (Live from Hansa Studios, Berlin) by Parcels. AI-detected chord progression with 105 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Parcels - Yourfault (Live from Hansa Studios, Berlin) Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Parcels"
   },
   "url": "https://ecoliving-tips.github.io/chords/parcels-yourfault-live-from-hansa-studios-berlin/",
-  "description": "Free chords for Parcels - Yourfault (Live from Hansa Studios, Berlin) by Parcels. AI-detected chord progression with 105 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Parcels - Yourfault (Live from Hansa Studios, Berlin) by Parcels. AI-detected chord progression with 105 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 105 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -297,8 +308,10 @@
     <script>
     window.CHORD_DATA = [{"time":0,"chord":"G#","duration":6.67},{"time":6.67,"chord":"Fm","duration":1.39},{"time":8.06,"chord":"D#","duration":0.93},{"time":8.98,"chord":"Fm","duration":1.02},{"time":10,"chord":"A#m","duration":3.06},{"time":13.06,"chord":"D#7","duration":3.7},{"time":16.76,"chord":"G#","duration":3.24},{"time":20,"chord":"Fm7","duration":2.87},{"time":22.87,"chord":"A#m7","duration":1.67},{"time":24.54,"chord":"A#m","duration":1.94},{"time":26.48,"chord":"D#7","duration":3.52},{"time":30,"chord":"G#","duration":3.24},{"time":33.24,"chord":"Fm7","duration":3.33},{"time":36.57,"chord":"A#m","duration":3.43},{"time":40,"chord":"D#7","duration":3.15},{"time":43.15,"chord":"G#","duration":3.15},{"time":46.3,"chord":"Fm7","duration":3.24},{"time":49.54,"chord":"A#m7","duration":0.46},{"time":50,"chord":"A#m","duration":3.43},{"time":53.43,"chord":"C#","duration":2.41},{"time":55.83,"chord":"D#7","duration":3.7},{"time":59.54,"chord":"G#","duration":3.33},{"time":62.87,"chord":"Fm7","duration":3.15},{"time":66.02,"chord":"A#m","duration":3.52},{"time":69.54,"chord":"D#7","duration":3.43},{"time":72.96,"chord":"G#","duration":3.15},{"time":76.11,"chord":"Fm7","duration":3.33},{"time":79.44,"chord":"A#m7","duration":4.54},{"time":83.98,"chord":"D#7","duration":5.37},{"time":89.35,"chord":"G#","duration":0.65},{"time":90,"chord":"G#maj7","duration":2.96},{"time":92.96,"chord":"Fm7","duration":2.13},{"time":95.09,"chord":"G#maj7","duration":0.93},{"time":96.02,"chord":"A#m7","duration":2.69},{"time":98.7,"chord":"G#","duration":0.74},{"time":99.44,"chord":"D#","duration":3.43},{"time":102.87,"chord":"G","duration":3.33},{"time":106.2,"chord":"G#","duration":1.11},{"time":107.31,"chord":"Fm","duration":2.04},{"time":109.35,"chord":"A#m","duration":3.43},{"time":112.78,"chord":"D#","duration":1.67},{"time":114.44,"chord":"C#","duration":1.48},{"time":115.93,"chord":"D#","duration":3.33},{"time":119.26,"chord":"G#","duration":3.33},{"time":122.59,"chord":"Fm7","duration":2.59},{"time":125.19,"chord":"A#m7","duration":3.98},{"time":129.17,"chord":"D#","duration":0.93},{"time":130.09,"chord":"G#maj7","duration":0.83},{"time":130.93,"chord":"D#","duration":1.2},{"time":132.13,"chord":"Fm7","duration":0.37},{"time":132.5,"chord":"G#maj7","duration":3.33},{"time":135.83,"chord":"Fm7","duration":2.87},{"time":138.7,"chord":"A#m7","duration":3.8},{"time":142.5,"chord":"D#","duration":3.24},{"time":145.74,"chord":"G#maj7","duration":3.15},{"time":148.89,"chord":"G#","duration":1.11},{"time":150,"chord":"Fm","duration":1.2},{"time":151.2,"chord":"G#","duration":0.74},{"time":151.94,"chord":"A#m","duration":3.15},{"time":155.09,"chord":"D#","duration":3.89},{"time":158.98,"chord":"G#","duration":1.48},{"time":160.46,"chord":"Cm","duration":2.31},{"time":162.78,"chord":"Fm","duration":1.2},{"time":163.98,"chord":"G#","duration":1.2},{"time":165.19,"chord":"A#m7","duration":2.96},{"time":168.15,"chord":"D#","duration":3.8},{"time":171.94,"chord":"Fm","duration":0.37},{"time":172.31,"chord":"G#maj7","duration":3.43},{"time":175.74,"chord":"Fm","duration":2.78},{"time":178.52,"chord":"A#m7","duration":3.7},{"time":182.22,"chord":"D#","duration":3.43},{"time":185.65,"chord":"G#maj7","duration":1.39},{"time":187.04,"chord":"G#","duration":2.41},{"time":189.44,"chord":"Fm7","duration":0.83},{"time":190.28,"chord":"G#","duration":1.48},{"time":191.76,"chord":"A#m7","duration":3.52},{"time":195.28,"chord":"D#7","duration":1.67},{"time":196.94,"chord":"A#m7","duration":1.11},{"time":198.06,"chord":"Fm","duration":0.83},{"time":198.89,"chord":"Cm7","duration":0.46},{"time":199.35,"chord":"G#maj7","duration":3.33},{"time":202.69,"chord":"Fm7","duration":1.94},{"time":204.63,"chord":"A#m7","duration":2.41},{"time":207.04,"chord":"C#","duration":0.65},{"time":207.69,"chord":"G#","duration":0.46},{"time":208.15,"chord":"D#","duration":2.87},{"time":211.02,"chord":"G#maj7","duration":4.81},{"time":215.83,"chord":"Fm7","duration":1.02},{"time":216.85,"chord":"G#maj7","duration":1.3},{"time":218.15,"chord":"A#m7","duration":1.85},{"time":220,"chord":"C#","duration":1.11},{"time":221.39,"chord":"D#","duration":3.52},{"time":224.91,"chord":"Fm7","duration":0.37},{"time":225.28,"chord":"G#","duration":3.43},{"time":228.7,"chord":"Fm7","duration":1.3},{"time":230,"chord":"G#","duration":1.2},{"time":231.2,"chord":"A#m7","duration":3.98},{"time":235.19,"chord":"D#7","duration":3.06},{"time":238.24,"chord":"G#","duration":1.76},{"time":240,"chord":"G#maj7","duration":1.85},{"time":241.85,"chord":"Fm7","duration":2.59},{"time":244.44,"chord":"A#m7","duration":3.8},{"time":248.24,"chord":"D#7","duration":4.07},{"time":252.31,"chord":"G#maj7","duration":7.69},{"time":260,"chord":"G#","duration":4.85}];
     window.YOUTUBE_VIDEO_ID = 'Cxan9Hriku0';
+    window.BEGINNER_META = { capo: 1, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

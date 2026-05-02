@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Kárpátia -  Kivándorlók dala by Kárpátia Zenekar. AI-detected chord progression with 79 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Kárpátia -  Kivándorlók dala by Kárpátia Zenekar. AI-detected chord progression with 79 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Kárpátia -  Kivándorlók dala chords, Kárpátia Zenekar chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Kárpátia -  Kivándorlók dala Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Kárpátia -  Kivándorlók dala by Kárpátia Zenekar. AI-detected chord progression with 79 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Kárpátia -  Kivándorlók dala by Kárpátia Zenekar. AI-detected chord progression with 79 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/karpatia-kivandorlok-dala-karpatia-zenekar/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Kárpátia -  Kivándorlók dala Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Kárpátia -  Kivándorlók dala by Kárpátia Zenekar. AI-detected chord progression with 79 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Kárpátia -  Kivándorlók dala by Kárpátia Zenekar. AI-detected chord progression with 79 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Kárpátia -  Kivándorlók dala Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Kárpátia Zenekar"
   },
   "url": "https://ecoliving-tips.github.io/chords/karpatia-kivandorlok-dala-karpatia-zenekar/",
-  "description": "Free chords for Kárpátia -  Kivándorlók dala by Kárpátia Zenekar. AI-detected chord progression with 79 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Kárpátia -  Kivándorlók dala by Kárpátia Zenekar. AI-detected chord progression with 79 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 79 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -289,8 +300,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.56,"chord":"Am","duration":3.8},{"time":4.35,"chord":"G","duration":0.74},{"time":5.09,"chord":"Am","duration":3.8},{"time":8.89,"chord":"G","duration":0.93},{"time":9.81,"chord":"Am","duration":4.35},{"time":14.17,"chord":"G","duration":1.2},{"time":15.37,"chord":"F","duration":1.02},{"time":16.39,"chord":"E","duration":1.2},{"time":17.59,"chord":"Am","duration":5.74},{"time":23.33,"chord":"G","duration":1.11},{"time":24.44,"chord":"F","duration":1.11},{"time":25.56,"chord":"E","duration":1.2},{"time":26.76,"chord":"Am","duration":1.67},{"time":28.43,"chord":"G","duration":0.56},{"time":28.98,"chord":"Am","duration":4.17},{"time":33.15,"chord":"G","duration":0.46},{"time":33.61,"chord":"F","duration":4.44},{"time":38.06,"chord":"G","duration":2.41},{"time":40.46,"chord":"E","duration":2.31},{"time":42.78,"chord":"Am","duration":9.07},{"time":51.85,"chord":"G","duration":1.2},{"time":53.06,"chord":"F","duration":1.02},{"time":54.07,"chord":"E","duration":1.3},{"time":55.37,"chord":"Am","duration":5.65},{"time":61.02,"chord":"G","duration":1.2},{"time":62.22,"chord":"F","duration":1.11},{"time":63.33,"chord":"E","duration":1.2},{"time":64.54,"chord":"Am","duration":1.57},{"time":66.11,"chord":"G","duration":0.65},{"time":66.76,"chord":"Am","duration":4.63},{"time":71.39,"chord":"F","duration":4.44},{"time":75.83,"chord":"G","duration":2.31},{"time":78.15,"chord":"E","duration":2.41},{"time":80.56,"chord":"Am","duration":3.8},{"time":84.35,"chord":"G","duration":0.83},{"time":85.19,"chord":"Am","duration":4.26},{"time":89.44,"chord":"G","duration":1.39},{"time":90.83,"chord":"F","duration":0.93},{"time":91.76,"chord":"E","duration":1.3},{"time":93.06,"chord":"Am","duration":5.65},{"time":98.7,"chord":"G","duration":1.3},{"time":100,"chord":"F","duration":1.02},{"time":101.02,"chord":"E","duration":1.2},{"time":102.22,"chord":"Am","duration":1.67},{"time":103.89,"chord":"G","duration":0.56},{"time":104.44,"chord":"Am","duration":4.63},{"time":109.07,"chord":"F","duration":4.54},{"time":113.61,"chord":"G","duration":2.31},{"time":115.93,"chord":"E","duration":2.22},{"time":118.15,"chord":"Am","duration":9.17},{"time":127.31,"chord":"G","duration":1.11},{"time":128.43,"chord":"F","duration":1.11},{"time":129.54,"chord":"E","duration":1.3},{"time":130.83,"chord":"Am","duration":5.56},{"time":136.39,"chord":"G","duration":1.2},{"time":137.59,"chord":"F","duration":1.11},{"time":138.7,"chord":"E","duration":1.3},{"time":140,"chord":"Am","duration":1.57},{"time":141.57,"chord":"G","duration":0.65},{"time":142.22,"chord":"Am","duration":4.54},{"time":146.76,"chord":"F","duration":4.54},{"time":151.3,"chord":"G","duration":2.31},{"time":153.61,"chord":"E","duration":2.31},{"time":155.93,"chord":"Am","duration":4.07},{"time":160,"chord":"G","duration":0.56},{"time":160.56,"chord":"Am","duration":4.44},{"time":165,"chord":"G","duration":1.2},{"time":166.2,"chord":"F","duration":1.11},{"time":167.31,"chord":"E","duration":1.2},{"time":168.52,"chord":"Am","duration":2.31},{"time":170.83,"chord":"G","duration":2.22},{"time":173.06,"chord":"E","duration":2.31},{"time":175.37,"chord":"Am","duration":3.89},{"time":179.26,"chord":"G","duration":0.74},{"time":180,"chord":"Am","duration":4.54},{"time":184.54,"chord":"F","duration":4.44},{"time":188.98,"chord":"G","duration":2.41},{"time":191.39,"chord":"E","duration":2.22},{"time":193.61,"chord":"Am","duration":7.04}];
     window.YOUTUBE_VIDEO_ID = 'Tk4WdPFCwbQ';
+    window.BEGINNER_META = { capo: 0, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

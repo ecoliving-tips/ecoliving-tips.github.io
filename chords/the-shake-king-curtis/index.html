@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for The Shake by King Curtis. AI-detected chord progression with 51 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for The Shake by King Curtis. AI-detected chord progression with 51 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="The Shake chords, King Curtis chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="The Shake Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for The Shake by King Curtis. AI-detected chord progression with 51 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for The Shake by King Curtis. AI-detected chord progression with 51 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/the-shake-king-curtis/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="The Shake Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for The Shake by King Curtis. AI-detected chord progression with 51 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for The Shake by King Curtis. AI-detected chord progression with 51 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>The Shake Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "King Curtis"
   },
   "url": "https://ecoliving-tips.github.io/chords/the-shake-king-curtis/",
-  "description": "Free chords for The Shake by King Curtis. AI-detected chord progression with 51 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for The Shake by King Curtis. AI-detected chord progression with 51 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 51 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -294,8 +305,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.56,"chord":"A#","duration":5.83},{"time":6.39,"chord":"C#","duration":0.74},{"time":7.13,"chord":"D#","duration":2.87},{"time":10,"chord":"A#","duration":4.07},{"time":14.07,"chord":"F","duration":1.39},{"time":15.46,"chord":"D#","duration":1.57},{"time":17.04,"chord":"A#","duration":10.19},{"time":27.22,"chord":"D#","duration":2.78},{"time":30,"chord":"A#","duration":3.8},{"time":33.8,"chord":"F","duration":1.94},{"time":35.74,"chord":"D#","duration":1.48},{"time":37.22,"chord":"F","duration":0.37},{"time":37.59,"chord":"A#","duration":2.41},{"time":40,"chord":"Fm","duration":0.74},{"time":40.74,"chord":"A#7","duration":3.8},{"time":44.54,"chord":"D#","duration":3.15},{"time":47.69,"chord":"C","duration":3.7},{"time":51.39,"chord":"F","duration":2.5},{"time":53.89,"chord":"D#","duration":0.74},{"time":54.63,"chord":"A#","duration":4.81},{"time":59.44,"chord":"C","duration":0.56},{"time":60,"chord":"A#","duration":1.39},{"time":61.39,"chord":"D#","duration":2.78},{"time":64.17,"chord":"A#","duration":4.54},{"time":68.7,"chord":"D#","duration":2.22},{"time":70.93,"chord":"A#","duration":10.93},{"time":81.85,"chord":"D#","duration":3.43},{"time":85.28,"chord":"A#","duration":3.24},{"time":88.52,"chord":"F","duration":1.67},{"time":90.19,"chord":"D#","duration":1.57},{"time":91.76,"chord":"A#","duration":8.24},{"time":100,"chord":"A#7","duration":2.13},{"time":102.13,"chord":"D#","duration":3.7},{"time":105.83,"chord":"A#","duration":3.06},{"time":108.89,"chord":"D#","duration":0.46},{"time":109.35,"chord":"F","duration":1.3},{"time":110.65,"chord":"D#","duration":1.57},{"time":112.22,"chord":"C7","duration":0.56},{"time":112.78,"chord":"A#","duration":0.65},{"time":113.43,"chord":"Fm","duration":2.41},{"time":115.83,"chord":"A#7","duration":3.61},{"time":119.44,"chord":"D#","duration":3.24},{"time":122.69,"chord":"C","duration":3.61},{"time":126.3,"chord":"F7","duration":3.7},{"time":130,"chord":"A#","duration":6.48},{"time":136.48,"chord":"D#","duration":3.52},{"time":140,"chord":"A#","duration":3.24},{"time":143.24,"chord":"F","duration":1.76},{"time":145,"chord":"D#","duration":1.57},{"time":146.57,"chord":"A#","duration":5.28},{"time":151.85,"chord":"A#7","duration":6.76}];
     window.YOUTUBE_VIDEO_ID = 'maeWTaO81hw';
+    window.BEGINNER_META = { capo: 1, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

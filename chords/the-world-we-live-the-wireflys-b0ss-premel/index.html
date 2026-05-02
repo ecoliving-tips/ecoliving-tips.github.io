@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for The World We Live - The Wireflys by B0ss Premel. AI-detected chord progression with 96 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for The World We Live - The Wireflys by B0ss Premel. AI-detected chord progression with 96 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="The World We Live - The Wireflys chords, B0ss Premel chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="The World We Live - The Wireflys Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for The World We Live - The Wireflys by B0ss Premel. AI-detected chord progression with 96 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for The World We Live - The Wireflys by B0ss Premel. AI-detected chord progression with 96 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/the-world-we-live-the-wireflys-b0ss-premel/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="The World We Live - The Wireflys Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for The World We Live - The Wireflys by B0ss Premel. AI-detected chord progression with 96 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for The World We Live - The Wireflys by B0ss Premel. AI-detected chord progression with 96 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>The World We Live - The Wireflys Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "B0ss Premel"
   },
   "url": "https://ecoliving-tips.github.io/chords/the-world-we-live-the-wireflys-b0ss-premel/",
-  "description": "Free chords for The World We Live - The Wireflys by B0ss Premel. AI-detected chord progression with 96 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for The World We Live - The Wireflys by B0ss Premel. AI-detected chord progression with 96 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 96 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -297,8 +308,10 @@
     <script>
     window.CHORD_DATA = [{"time":2.04,"chord":"D#m","duration":37.96},{"time":40,"chord":"D#","duration":10},{"time":50,"chord":"D#m","duration":4.54},{"time":54.54,"chord":"C#","duration":5.46},{"time":60,"chord":"D#","duration":8.61},{"time":68.61,"chord":"D#7","duration":1.39},{"time":70,"chord":"D#m","duration":2.13},{"time":72.13,"chord":"D#","duration":7.87},{"time":80,"chord":"D#m","duration":1.11},{"time":81.11,"chord":"C#","duration":5.37},{"time":86.48,"chord":"D#","duration":6.2},{"time":92.69,"chord":"F#","duration":1.02},{"time":93.7,"chord":"G#","duration":0.93},{"time":94.63,"chord":"B","duration":1.02},{"time":95.65,"chord":"D#m","duration":2.31},{"time":97.96,"chord":"F#","duration":1.02},{"time":98.98,"chord":"G#","duration":1.02},{"time":100,"chord":"B","duration":2.04},{"time":102.04,"chord":"D#m","duration":1.48},{"time":103.52,"chord":"F#","duration":0.83},{"time":104.35,"chord":"G#","duration":0.83},{"time":105.19,"chord":"B","duration":1.2},{"time":106.39,"chord":"D#m","duration":2.31},{"time":108.7,"chord":"F#","duration":0.93},{"time":109.63,"chord":"G#","duration":0.74},{"time":110.37,"chord":"B","duration":1.85},{"time":112.22,"chord":"G#m","duration":0.65},{"time":112.87,"chord":"D#","duration":15.83},{"time":128.7,"chord":"C#","duration":5.46},{"time":134.17,"chord":"D#","duration":15.83},{"time":150,"chord":"C#","duration":5.19},{"time":155.19,"chord":"D#","duration":2.78},{"time":157.96,"chord":"D#m","duration":3.52},{"time":161.48,"chord":"F#","duration":0.93},{"time":162.41,"chord":"G#","duration":0.83},{"time":163.24,"chord":"B","duration":1.3},{"time":164.54,"chord":"D#m","duration":2.31},{"time":166.85,"chord":"F#","duration":1.02},{"time":167.87,"chord":"G#","duration":0.83},{"time":168.7,"chord":"B","duration":1.3},{"time":170.28,"chord":"D#m","duration":1.94},{"time":172.22,"chord":"F#","duration":1.02},{"time":173.24,"chord":"G#","duration":0.83},{"time":174.07,"chord":"B","duration":1.3},{"time":175.37,"chord":"D#m","duration":2.22},{"time":177.59,"chord":"F#","duration":1.11},{"time":178.7,"chord":"G#m","duration":0.83},{"time":179.54,"chord":"B","duration":1.02},{"time":180.56,"chord":"C#","duration":0.56},{"time":181.11,"chord":"D#m","duration":0.93},{"time":182.04,"chord":"F#maj7","duration":6.48},{"time":188.52,"chord":"F#","duration":1.48},{"time":190,"chord":"C#6","duration":2.69},{"time":192.69,"chord":"B6","duration":5.09},{"time":197.78,"chord":"C#","duration":10.28},{"time":208.06,"chord":"B","duration":5.28},{"time":213.33,"chord":"G#","duration":3.43},{"time":216.76,"chord":"C#","duration":0.74},{"time":218.33,"chord":"D#m","duration":1.11},{"time":219.44,"chord":"F#","duration":0.83},{"time":220.28,"chord":"G#m","duration":2.5},{"time":222.78,"chord":"D#m","duration":2.04},{"time":224.81,"chord":"F#","duration":1.02},{"time":225.83,"chord":"G#m","duration":0.93},{"time":226.76,"chord":"B","duration":0.93},{"time":227.69,"chord":"C#","duration":0.56},{"time":228.24,"chord":"D#m","duration":1.76},{"time":230,"chord":"F#","duration":1.11},{"time":231.11,"chord":"G#m","duration":1.02},{"time":232.13,"chord":"B","duration":0.93},{"time":233.06,"chord":"C#","duration":0.46},{"time":233.52,"chord":"D#m","duration":1.85},{"time":235.37,"chord":"F#","duration":1.11},{"time":236.48,"chord":"G#m","duration":0.93},{"time":237.41,"chord":"B","duration":1.02},{"time":238.43,"chord":"C#","duration":0.46},{"time":238.89,"chord":"D#m","duration":1.85},{"time":240.74,"chord":"F#","duration":1.02},{"time":241.76,"chord":"G#","duration":0.74},{"time":242.5,"chord":"B","duration":1.2},{"time":243.7,"chord":"D#m","duration":2.22},{"time":245.93,"chord":"F#","duration":0.93},{"time":246.85,"chord":"G#","duration":0.83},{"time":247.69,"chord":"B","duration":1.3},{"time":248.98,"chord":"D#m","duration":2.13},{"time":251.11,"chord":"F#","duration":1.02},{"time":252.13,"chord":"G#","duration":0.83},{"time":252.96,"chord":"B","duration":1.2},{"time":254.17,"chord":"D#m","duration":2.13},{"time":256.3,"chord":"F#","duration":0.83},{"time":257.13,"chord":"G#","duration":1.02},{"time":258.15,"chord":"B","duration":0.65},{"time":258.8,"chord":"A#m","duration":0.56},{"time":259.35,"chord":"D#m","duration":0.65},{"time":260,"chord":"D#","duration":20},{"time":280,"chord":"D#m","duration":4.17}];
     window.YOUTUBE_VIDEO_ID = 'UfTQsu21B0M';
+    window.BEGINNER_META = { capo: 6, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

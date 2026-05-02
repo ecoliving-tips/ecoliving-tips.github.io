@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Claude - På Bare Tæ'r i Regnvejr by ClaudeVideos. AI-detected chord progression with 91 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Claude - På Bare Tæ'r i Regnvejr by ClaudeVideos. AI-detected chord progression with 91 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Claude - På Bare Tæ'r i Regnvejr chords, ClaudeVideos chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Claude - På Bare Tæ'r i Regnvejr Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Claude - På Bare Tæ'r i Regnvejr by ClaudeVideos. AI-detected chord progression with 91 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Claude - På Bare Tæ'r i Regnvejr by ClaudeVideos. AI-detected chord progression with 91 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/claude-pa-bare-t-r-i-regnvejr-claudevideos/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Claude - På Bare Tæ'r i Regnvejr Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Claude - På Bare Tæ'r i Regnvejr by ClaudeVideos. AI-detected chord progression with 91 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Claude - På Bare Tæ'r i Regnvejr by ClaudeVideos. AI-detected chord progression with 91 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Claude - På Bare Tæ'r i Regnvejr Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "ClaudeVideos"
   },
   "url": "https://ecoliving-tips.github.io/chords/claude-pa-bare-t-r-i-regnvejr-claudevideos/",
-  "description": "Free chords for Claude - På Bare Tæ'r i Regnvejr by ClaudeVideos. AI-detected chord progression with 91 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Claude - På Bare Tæ'r i Regnvejr by ClaudeVideos. AI-detected chord progression with 91 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 91 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -293,8 +304,10 @@
     <script>
     window.CHORD_DATA = [{"time":3.24,"chord":"Am","duration":3.89},{"time":7.13,"chord":"G","duration":3.89},{"time":11.02,"chord":"F","duration":3.98},{"time":15,"chord":"G","duration":3.8},{"time":18.8,"chord":"Am","duration":4.07},{"time":22.87,"chord":"G","duration":3.7},{"time":26.57,"chord":"F","duration":4.07},{"time":30.65,"chord":"G","duration":3.8},{"time":34.44,"chord":"Am","duration":3.89},{"time":38.33,"chord":"G","duration":3.98},{"time":42.31,"chord":"F","duration":4.07},{"time":46.39,"chord":"G","duration":1.67},{"time":50,"chord":"Am","duration":2.13},{"time":52.13,"chord":"C","duration":1.85},{"time":53.98,"chord":"F","duration":1.85},{"time":55.83,"chord":"G","duration":2.04},{"time":57.87,"chord":"Am","duration":2.13},{"time":60,"chord":"C","duration":1.76},{"time":61.76,"chord":"F","duration":1.94},{"time":63.7,"chord":"G","duration":1.94},{"time":65.65,"chord":"Am","duration":2.13},{"time":67.78,"chord":"C","duration":1.76},{"time":69.54,"chord":"F","duration":1.94},{"time":71.48,"chord":"G","duration":1.94},{"time":73.43,"chord":"Am","duration":2.13},{"time":75.56,"chord":"C","duration":1.85},{"time":77.41,"chord":"F","duration":1.85},{"time":79.26,"chord":"G","duration":1.94},{"time":81.2,"chord":"Am","duration":3.98},{"time":85.19,"chord":"G","duration":3.8},{"time":88.98,"chord":"F","duration":4.07},{"time":93.06,"chord":"G","duration":3.89},{"time":96.94,"chord":"Am7","duration":3.06},{"time":100,"chord":"Am","duration":0.74},{"time":100.74,"chord":"G","duration":3.89},{"time":104.63,"chord":"F","duration":3.98},{"time":108.61,"chord":"G","duration":3.89},{"time":112.5,"chord":"Am","duration":2.13},{"time":114.63,"chord":"C","duration":1.76},{"time":116.39,"chord":"F","duration":1.94},{"time":118.33,"chord":"G","duration":2.04},{"time":120.37,"chord":"Am","duration":1.85},{"time":122.22,"chord":"C","duration":2.04},{"time":124.26,"chord":"F","duration":1.94},{"time":126.2,"chord":"G","duration":1.85},{"time":128.06,"chord":"Am","duration":1.94},{"time":130,"chord":"C","duration":2.04},{"time":132.04,"chord":"F","duration":1.94},{"time":133.98,"chord":"G","duration":1.94},{"time":135.93,"chord":"Am","duration":2.04},{"time":137.96,"chord":"C","duration":1.76},{"time":139.72,"chord":"F","duration":2.04},{"time":141.76,"chord":"G","duration":2.22},{"time":143.98,"chord":"Am","duration":3.7},{"time":147.69,"chord":"Em","duration":1.94},{"time":149.63,"chord":"D","duration":3.06},{"time":152.69,"chord":"Am","duration":2.78},{"time":155.46,"chord":"Em","duration":1.85},{"time":157.31,"chord":"D","duration":2.04},{"time":159.35,"chord":"C","duration":3.89},{"time":163.24,"chord":"Em","duration":1.94},{"time":165.19,"chord":"D","duration":1.85},{"time":167.04,"chord":"C","duration":3.89},{"time":170.93,"chord":"Am","duration":1.57},{"time":172.5,"chord":"G","duration":1.02},{"time":173.52,"chord":"E","duration":1.39},{"time":174.91,"chord":"Am","duration":2.04},{"time":176.94,"chord":"C","duration":1.85},{"time":178.8,"chord":"F","duration":1.94},{"time":180.74,"chord":"G","duration":2.04},{"time":182.78,"chord":"Am","duration":1.94},{"time":184.72,"chord":"C","duration":2.04},{"time":186.76,"chord":"F","duration":1.85},{"time":188.61,"chord":"G","duration":1.94},{"time":190.56,"chord":"Am","duration":2.04},{"time":192.59,"chord":"C","duration":1.85},{"time":194.44,"chord":"F","duration":1.85},{"time":196.3,"chord":"G","duration":2.04},{"time":198.33,"chord":"Am","duration":2.04},{"time":200.37,"chord":"C","duration":1.94},{"time":202.31,"chord":"F","duration":1.85},{"time":204.17,"chord":"G","duration":1.94},{"time":206.11,"chord":"Am","duration":2.22},{"time":208.33,"chord":"C","duration":1.67},{"time":210,"chord":"F","duration":1.94},{"time":211.94,"chord":"G","duration":2.04},{"time":213.98,"chord":"Am","duration":2.22},{"time":216.2,"chord":"C","duration":1.67},{"time":217.87,"chord":"F","duration":1.85},{"time":219.72,"chord":"G","duration":2.22},{"time":225.93,"chord":"F","duration":1.57}];
     window.YOUTUBE_VIDEO_ID = 'qTBYFtYIJ00';
+    window.BEGINNER_META = { capo: 0, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

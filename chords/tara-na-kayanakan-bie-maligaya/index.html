@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Tara na Kayanakan by BIE MALIGAYA. AI-detected chord progression with 76 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Tara na Kayanakan by BIE MALIGAYA. AI-detected chord progression with 76 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Tara na Kayanakan chords, BIE MALIGAYA chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Tara na Kayanakan Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Tara na Kayanakan by BIE MALIGAYA. AI-detected chord progression with 76 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Tara na Kayanakan by BIE MALIGAYA. AI-detected chord progression with 76 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/tara-na-kayanakan-bie-maligaya/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Tara na Kayanakan Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Tara na Kayanakan by BIE MALIGAYA. AI-detected chord progression with 76 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Tara na Kayanakan by BIE MALIGAYA. AI-detected chord progression with 76 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Tara na Kayanakan Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "BIE MALIGAYA"
   },
   "url": "https://ecoliving-tips.github.io/chords/tara-na-kayanakan-bie-maligaya/",
-  "description": "Free chords for Tara na Kayanakan by BIE MALIGAYA. AI-detected chord progression with 76 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Tara na Kayanakan by BIE MALIGAYA. AI-detected chord progression with 76 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 76 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -294,8 +305,10 @@
     <script>
     window.CHORD_DATA = [{"time":1.39,"chord":"F","duration":3.7},{"time":5.09,"chord":"C","duration":1.94},{"time":7.04,"chord":"Dm","duration":3.8},{"time":10.83,"chord":"A#","duration":1.85},{"time":12.69,"chord":"F","duration":1.94},{"time":14.63,"chord":"Gm","duration":1.85},{"time":16.48,"chord":"C","duration":1.94},{"time":18.43,"chord":"F","duration":1.85},{"time":20.28,"chord":"C","duration":1.94},{"time":22.22,"chord":"Dm","duration":1.85},{"time":24.07,"chord":"Am","duration":1.94},{"time":26.02,"chord":"A#","duration":1.85},{"time":27.87,"chord":"F","duration":2.04},{"time":29.91,"chord":"C","duration":1.76},{"time":31.67,"chord":"F","duration":9.54},{"time":41.2,"chord":"C","duration":7.59},{"time":48.8,"chord":"F","duration":7.59},{"time":56.39,"chord":"A#","duration":3.7},{"time":60.09,"chord":"F","duration":1.94},{"time":62.04,"chord":"C","duration":1.85},{"time":63.89,"chord":"F","duration":3.8},{"time":67.69,"chord":"C","duration":2.04},{"time":69.72,"chord":"Dm","duration":3.7},{"time":73.43,"chord":"A#","duration":1.85},{"time":75.28,"chord":"F","duration":1.94},{"time":77.22,"chord":"G","duration":1.85},{"time":79.07,"chord":"C","duration":1.85},{"time":80.93,"chord":"F","duration":1.94},{"time":82.87,"chord":"C","duration":1.94},{"time":84.81,"chord":"Dm","duration":1.85},{"time":86.67,"chord":"Am","duration":1.94},{"time":88.61,"chord":"A#","duration":1.94},{"time":90.56,"chord":"F","duration":1.67},{"time":92.22,"chord":"C","duration":1.94},{"time":94.17,"chord":"F","duration":0.83},{"time":95,"chord":"A#","duration":0.93},{"time":95.93,"chord":"F","duration":7.78},{"time":103.7,"chord":"C","duration":6.3},{"time":110,"chord":"C7","duration":1.39},{"time":111.39,"chord":"F","duration":7.41},{"time":118.8,"chord":"A#","duration":2.04},{"time":120.83,"chord":"F","duration":1.76},{"time":122.59,"chord":"C","duration":3.8},{"time":126.39,"chord":"F","duration":3.8},{"time":130.19,"chord":"A#","duration":1.85},{"time":132.04,"chord":"C","duration":2.04},{"time":134.07,"chord":"F","duration":3.7},{"time":137.78,"chord":"A#","duration":1.85},{"time":139.63,"chord":"C","duration":1.94},{"time":141.57,"chord":"F","duration":3.8},{"time":145.37,"chord":"A#","duration":1.85},{"time":147.22,"chord":"C","duration":1.94},{"time":149.17,"chord":"Am","duration":1.85},{"time":151.02,"chord":"Dm","duration":1.57},{"time":152.59,"chord":"Gm7","duration":2.22},{"time":154.81,"chord":"A#","duration":1.85},{"time":156.67,"chord":"C","duration":3.61},{"time":160.28,"chord":"F","duration":2.04},{"time":162.31,"chord":"C","duration":1.94},{"time":164.26,"chord":"Dm","duration":3.61},{"time":167.87,"chord":"A#","duration":2.04},{"time":169.91,"chord":"F","duration":1.76},{"time":171.67,"chord":"G","duration":2.13},{"time":173.8,"chord":"C","duration":1.57},{"time":175.37,"chord":"F","duration":2.04},{"time":177.41,"chord":"C","duration":1.85},{"time":179.26,"chord":"Dm","duration":1.85},{"time":181.11,"chord":"Am","duration":1.94},{"time":183.06,"chord":"A#","duration":1.85},{"time":184.91,"chord":"F","duration":1.76},{"time":186.67,"chord":"C","duration":1.85},{"time":188.52,"chord":"F","duration":0.83},{"time":189.35,"chord":"A#","duration":1.02},{"time":190.37,"chord":"F","duration":0.65},{"time":191.02,"chord":"C","duration":0.56},{"time":191.57,"chord":"F","duration":1.39}];
     window.YOUTUBE_VIDEO_ID = 'KW4weIaXpQ4';
+    window.BEGINNER_META = { capo: 5, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

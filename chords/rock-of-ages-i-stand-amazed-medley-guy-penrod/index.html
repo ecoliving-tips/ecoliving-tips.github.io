@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Rock of Ages / I Stand Amazed (Medley) by Guy Penrod. AI-detected chord progression with 109 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Rock of Ages / I Stand Amazed (Medley) by Guy Penrod. AI-detected chord progression with 109 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Rock of Ages / I Stand Amazed (Medley) chords, Guy Penrod chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Rock of Ages / I Stand Amazed (Medley) Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Rock of Ages / I Stand Amazed (Medley) by Guy Penrod. AI-detected chord progression with 109 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Rock of Ages / I Stand Amazed (Medley) by Guy Penrod. AI-detected chord progression with 109 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/rock-of-ages-i-stand-amazed-medley-guy-penrod/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Rock of Ages / I Stand Amazed (Medley) Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Rock of Ages / I Stand Amazed (Medley) by Guy Penrod. AI-detected chord progression with 109 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Rock of Ages / I Stand Amazed (Medley) by Guy Penrod. AI-detected chord progression with 109 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Rock of Ages / I Stand Amazed (Medley) Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Guy Penrod"
   },
   "url": "https://ecoliving-tips.github.io/chords/rock-of-ages-i-stand-amazed-medley-guy-penrod/",
-  "description": "Free chords for Rock of Ages / I Stand Amazed (Medley) by Guy Penrod. AI-detected chord progression with 109 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Rock of Ages / I Stand Amazed (Medley) by Guy Penrod. AI-detected chord progression with 109 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 109 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -291,8 +302,10 @@
     <script>
     window.CHORD_DATA = [{"time":0,"chord":"F#","duration":2.31},{"time":2.31,"chord":"B","duration":1.48},{"time":3.8,"chord":"F#","duration":2.22},{"time":6.02,"chord":"B","duration":1.39},{"time":7.41,"chord":"F#","duration":2.04},{"time":9.44,"chord":"B","duration":1.3},{"time":10.74,"chord":"F#","duration":2.22},{"time":12.96,"chord":"B","duration":0.83},{"time":13.8,"chord":"F#","duration":2.59},{"time":16.39,"chord":"B","duration":1.11},{"time":17.5,"chord":"F#","duration":2.5},{"time":20,"chord":"C#","duration":0.83},{"time":20.83,"chord":"F#","duration":2.04},{"time":22.87,"chord":"C#","duration":1.39},{"time":24.26,"chord":"F#","duration":2.5},{"time":26.76,"chord":"F#m","duration":1.39},{"time":28.15,"chord":"C#","duration":2.69},{"time":30.83,"chord":"F#","duration":3.98},{"time":34.81,"chord":"C#","duration":2.87},{"time":37.69,"chord":"F#","duration":6.11},{"time":43.8,"chord":"B","duration":1.2},{"time":45,"chord":"F#","duration":5},{"time":50,"chord":"C#","duration":1.57},{"time":51.57,"chord":"F#","duration":2.5},{"time":54.07,"chord":"B","duration":0.93},{"time":55,"chord":"F#","duration":2.13},{"time":57.13,"chord":"B","duration":1.3},{"time":58.43,"chord":"F#","duration":2.59},{"time":61.02,"chord":"B","duration":0.93},{"time":61.94,"chord":"F#","duration":5.28},{"time":67.22,"chord":"C#","duration":1.57},{"time":68.8,"chord":"F#","duration":3.43},{"time":72.22,"chord":"C#","duration":2.31},{"time":74.54,"chord":"F#","duration":4.54},{"time":79.07,"chord":"C#","duration":3.33},{"time":82.41,"chord":"F#","duration":2.59},{"time":85,"chord":"D#m","duration":0.65},{"time":85.65,"chord":"F#","duration":2.78},{"time":88.43,"chord":"B","duration":1.39},{"time":89.81,"chord":"F#","duration":4.81},{"time":94.63,"chord":"C#","duration":1.85},{"time":96.48,"chord":"F#","duration":9.91},{"time":106.39,"chord":"C#","duration":3.06},{"time":109.44,"chord":"F#","duration":0.56},{"time":110,"chord":"G#m7","duration":1.39},{"time":111.39,"chord":"C#","duration":1.85},{"time":113.24,"chord":"F#","duration":6.76},{"time":120,"chord":"B","duration":1.76},{"time":121.76,"chord":"F#","duration":1.39},{"time":123.15,"chord":"C#","duration":2.04},{"time":125.19,"chord":"F#","duration":2.96},{"time":128.15,"chord":"B","duration":0.65},{"time":128.8,"chord":"F#","duration":2.5},{"time":131.3,"chord":"B","duration":1.02},{"time":132.31,"chord":"F#","duration":2.41},{"time":134.72,"chord":"B","duration":1.11},{"time":135.83,"chord":"F#","duration":4.81},{"time":140.65,"chord":"C#","duration":1.76},{"time":142.41,"chord":"F#","duration":3.43},{"time":145.83,"chord":"C#","duration":3.33},{"time":149.17,"chord":"F#","duration":3.7},{"time":152.87,"chord":"C#","duration":3.15},{"time":156.02,"chord":"F#","duration":6.11},{"time":162.13,"chord":"B","duration":1.02},{"time":163.15,"chord":"F#","duration":5},{"time":168.15,"chord":"C#","duration":1.85},{"time":170,"chord":"F#","duration":10},{"time":180,"chord":"C#","duration":3.24},{"time":183.24,"chord":"F#","duration":0.37},{"time":183.61,"chord":"G#m7","duration":1.57},{"time":185.19,"chord":"C#","duration":1.76},{"time":186.94,"chord":"F#","duration":6.94},{"time":193.89,"chord":"B","duration":1.67},{"time":195.56,"chord":"F#","duration":1.39},{"time":196.94,"chord":"C#","duration":1.94},{"time":198.89,"chord":"F#","duration":6.85},{"time":205.74,"chord":"C#","duration":3.24},{"time":208.98,"chord":"F#","duration":0.46},{"time":209.44,"chord":"B","duration":1.39},{"time":210.83,"chord":"C#","duration":1.85},{"time":212.69,"chord":"F#","duration":6.76},{"time":219.44,"chord":"B","duration":1.76},{"time":221.2,"chord":"F#","duration":1.2},{"time":222.41,"chord":"C#","duration":2.22},{"time":224.63,"chord":"F#","duration":2.69},{"time":227.31,"chord":"B","duration":1.39},{"time":228.7,"chord":"F#","duration":2.04},{"time":230.74,"chord":"B","duration":0.83},{"time":231.57,"chord":"F#","duration":2.22},{"time":233.8,"chord":"B","duration":1.85},{"time":235.65,"chord":"F#","duration":5.28},{"time":240.93,"chord":"B","duration":1.2},{"time":242.13,"chord":"F#","duration":2.04},{"time":244.17,"chord":"B","duration":1.11},{"time":245.28,"chord":"F#","duration":2.59},{"time":247.87,"chord":"B","duration":0.74},{"time":248.61,"chord":"F#","duration":2.69},{"time":251.3,"chord":"B","duration":1.02},{"time":252.31,"chord":"F#","duration":2.31},{"time":254.63,"chord":"B","duration":0.93},{"time":255.56,"chord":"F#","duration":2.5},{"time":258.06,"chord":"B","duration":0.93},{"time":258.98,"chord":"F#","duration":2.59},{"time":261.57,"chord":"B","duration":0.93},{"time":262.5,"chord":"F#","duration":2.31},{"time":264.81,"chord":"B","duration":1.02},{"time":265.83,"chord":"F#","duration":2.5},{"time":268.33,"chord":"B","duration":0.93},{"time":269.26,"chord":"F#","duration":6.67}];
     window.YOUTUBE_VIDEO_ID = 'ffM2RM7-7XI';
+    window.BEGINNER_META = { capo: 4, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

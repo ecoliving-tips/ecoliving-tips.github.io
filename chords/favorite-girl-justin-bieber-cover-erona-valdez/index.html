@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Favorite Girl - Justin Bieber (cover) by Erona Valdez. AI-detected chord progression with 24 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Favorite Girl - Justin Bieber (cover) by Erona Valdez. AI-detected chord progression with 24 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Favorite Girl - Justin Bieber (cover) chords, Erona Valdez chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Favorite Girl - Justin Bieber (cover) Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Favorite Girl - Justin Bieber (cover) by Erona Valdez. AI-detected chord progression with 24 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Favorite Girl - Justin Bieber (cover) by Erona Valdez. AI-detected chord progression with 24 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/favorite-girl-justin-bieber-cover-erona-valdez/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Favorite Girl - Justin Bieber (cover) Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Favorite Girl - Justin Bieber (cover) by Erona Valdez. AI-detected chord progression with 24 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Favorite Girl - Justin Bieber (cover) by Erona Valdez. AI-detected chord progression with 24 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Favorite Girl - Justin Bieber (cover) Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Erona Valdez"
   },
   "url": "https://ecoliving-tips.github.io/chords/favorite-girl-justin-bieber-cover-erona-valdez/",
-  "description": "Free chords for Favorite Girl - Justin Bieber (cover) by Erona Valdez. AI-detected chord progression with 24 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Favorite Girl - Justin Bieber (cover) by Erona Valdez. AI-detected chord progression with 24 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 24 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -289,8 +300,10 @@
     <script>
     window.CHORD_DATA = [{"time":0,"chord":"G","duration":1.57},{"time":1.57,"chord":"F","duration":2.59},{"time":4.17,"chord":"C","duration":2.59},{"time":6.76,"chord":"Am","duration":2.5},{"time":9.26,"chord":"G","duration":2.87},{"time":12.13,"chord":"F","duration":2.5},{"time":14.63,"chord":"C","duration":2.69},{"time":17.31,"chord":"Am","duration":2.69},{"time":20,"chord":"G","duration":2.69},{"time":22.69,"chord":"Am","duration":2.59},{"time":25.28,"chord":"F","duration":2.41},{"time":27.69,"chord":"C","duration":2.87},{"time":30.56,"chord":"G","duration":2.41},{"time":32.96,"chord":"F","duration":2.78},{"time":35.74,"chord":"C","duration":2.59},{"time":38.33,"chord":"Am","duration":2.69},{"time":41.02,"chord":"G","duration":2.69},{"time":43.7,"chord":"F","duration":2.59},{"time":46.3,"chord":"C","duration":2.59},{"time":48.89,"chord":"Am","duration":2.59},{"time":51.48,"chord":"G","duration":2.69},{"time":54.17,"chord":"F","duration":2.5},{"time":56.67,"chord":"C","duration":2.78},{"time":59.44,"chord":"Am","duration":0.63}];
     window.YOUTUBE_VIDEO_ID = 'uhJI-9cL67o';
+    window.BEGINNER_META = { capo: 0, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

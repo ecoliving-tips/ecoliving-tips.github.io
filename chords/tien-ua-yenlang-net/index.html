@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Tiễn đưa by yenlang•net. AI-detected chord progression with 108 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Tiễn đưa by yenlang•net. AI-detected chord progression with 108 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Tiễn đưa chords, yenlang•net chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Tiễn đưa Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Tiễn đưa by yenlang•net. AI-detected chord progression with 108 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Tiễn đưa by yenlang•net. AI-detected chord progression with 108 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/tien-ua-yenlang-net/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Tiễn đưa Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Tiễn đưa by yenlang•net. AI-detected chord progression with 108 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Tiễn đưa by yenlang•net. AI-detected chord progression with 108 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Tiễn đưa Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "yenlang•net"
   },
   "url": "https://ecoliving-tips.github.io/chords/tien-ua-yenlang-net/",
-  "description": "Free chords for Tiễn đưa by yenlang•net. AI-detected chord progression with 108 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Tiễn đưa by yenlang•net. AI-detected chord progression with 108 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 108 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -301,8 +312,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.93,"chord":"Dm","duration":3.98},{"time":4.91,"chord":"C","duration":1.94},{"time":6.85,"chord":"Dm","duration":3.15},{"time":10,"chord":"G#","duration":4.07},{"time":20,"chord":"Am","duration":1.02},{"time":21.02,"chord":"Em","duration":0.93},{"time":21.94,"chord":"Am","duration":3.43},{"time":25.37,"chord":"Em7","duration":2.69},{"time":28.06,"chord":"F","duration":1.67},{"time":29.72,"chord":"G","duration":1.48},{"time":31.2,"chord":"C","duration":3.15},{"time":34.35,"chord":"Dm","duration":2.31},{"time":36.67,"chord":"G7","duration":0.83},{"time":37.5,"chord":"Am","duration":3.24},{"time":40.74,"chord":"E","duration":2.31},{"time":43.06,"chord":"Em","duration":0.93},{"time":43.98,"chord":"Am","duration":6.39},{"time":50.37,"chord":"Dm","duration":3.33},{"time":53.7,"chord":"G","duration":3.15},{"time":56.85,"chord":"C","duration":2.78},{"time":59.63,"chord":"F","duration":0.37},{"time":60,"chord":"Gm","duration":1.76},{"time":61.76,"chord":"Dm","duration":3.15},{"time":64.91,"chord":"E","duration":2.87},{"time":67.78,"chord":"Am","duration":6.3},{"time":74.07,"chord":"Dm","duration":3.06},{"time":77.13,"chord":"G","duration":3.15},{"time":80.28,"chord":"C","duration":2.22},{"time":82.5,"chord":"Em","duration":0.93},{"time":83.43,"chord":"F","duration":2.87},{"time":86.3,"chord":"Dm","duration":3.06},{"time":89.35,"chord":"Em","duration":0.65},{"time":90,"chord":"E","duration":4.54},{"time":94.54,"chord":"Am","duration":1.76},{"time":96.3,"chord":"D","duration":1.2},{"time":97.5,"chord":"Am","duration":4.72},{"time":102.22,"chord":"Dm","duration":2.31},{"time":104.54,"chord":"G","duration":3.7},{"time":108.24,"chord":"C","duration":3.24},{"time":111.48,"chord":"F","duration":2.41},{"time":113.89,"chord":"Dm","duration":4.07},{"time":117.96,"chord":"E","duration":3.15},{"time":121.11,"chord":"Am","duration":6.3},{"time":127.41,"chord":"Dm","duration":3.33},{"time":130.74,"chord":"G","duration":3.24},{"time":133.98,"chord":"C","duration":3.15},{"time":137.13,"chord":"Dm","duration":2.13},{"time":139.26,"chord":"Am","duration":1.2},{"time":140.46,"chord":"Dm","duration":3.33},{"time":143.8,"chord":"Em","duration":2.59},{"time":146.39,"chord":"Am","duration":4.54},{"time":150.93,"chord":"Am7","duration":1.94},{"time":152.87,"chord":"Dm7","duration":1.67},{"time":154.54,"chord":"G7","duration":3.24},{"time":157.78,"chord":"C","duration":2.22},{"time":160,"chord":"Em","duration":0.93},{"time":160.93,"chord":"Fmaj7","duration":1.39},{"time":162.31,"chord":"F","duration":1.39},{"time":163.7,"chord":"Dm","duration":3.24},{"time":166.94,"chord":"E7","duration":3.06},{"time":170,"chord":"E","duration":3.06},{"time":173.06,"chord":"Am","duration":6.11},{"time":179.17,"chord":"Dm","duration":2.87},{"time":182.04,"chord":"G","duration":3.24},{"time":185.28,"chord":"C","duration":2.22},{"time":187.5,"chord":"G","duration":0.56},{"time":188.06,"chord":"F","duration":2.69},{"time":190.74,"chord":"Dm","duration":3.7},{"time":194.44,"chord":"E7","duration":3.89},{"time":198.33,"chord":"Am","duration":5.46},{"time":203.8,"chord":"Dm","duration":2.78},{"time":206.57,"chord":"G","duration":3.06},{"time":209.63,"chord":"C","duration":3.33},{"time":212.96,"chord":"Fmaj7","duration":2.87},{"time":215.83,"chord":"Dm7","duration":2.22},{"time":218.06,"chord":"G","duration":0.74},{"time":218.8,"chord":"E7","duration":1.2},{"time":220,"chord":"E","duration":1.94},{"time":221.94,"chord":"Am","duration":4.63},{"time":226.57,"chord":"Dm","duration":0.74},{"time":227.31,"chord":"Am","duration":0.56},{"time":227.87,"chord":"Dm","duration":2.13},{"time":230,"chord":"G","duration":4.26},{"time":234.26,"chord":"C","duration":3.06},{"time":237.31,"chord":"F","duration":2.69},{"time":240,"chord":"Dm","duration":2.22},{"time":242.22,"chord":"C","duration":1.3},{"time":243.52,"chord":"E","duration":3.15},{"time":246.67,"chord":"Am","duration":6.48},{"time":253.15,"chord":"Dm","duration":3.24},{"time":256.39,"chord":"G","duration":3.24},{"time":259.63,"chord":"C","duration":1.57},{"time":261.2,"chord":"E","duration":1.76},{"time":262.96,"chord":"Am","duration":3.24},{"time":266.2,"chord":"Dm","duration":3.24},{"time":269.44,"chord":"E","duration":0.56},{"time":270,"chord":"E7","duration":2.69},{"time":272.69,"chord":"Am","duration":8.24},{"time":280.93,"chord":"Dm","duration":2.31},{"time":283.24,"chord":"G","duration":3.8},{"time":287.04,"chord":"C","duration":2.13},{"time":289.17,"chord":"Am","duration":5},{"time":294.17,"chord":"Dm","duration":3.43},{"time":297.59,"chord":"E","duration":12.41},{"time":311.67,"chord":"Am","duration":3.52},{"time":315.19,"chord":"F","duration":1.48},{"time":316.67,"chord":"G","duration":2.5},{"time":319.17,"chord":"Am","duration":3.33}];
     window.YOUTUBE_VIDEO_ID = 'JTwqxplSCKM';
+    window.BEGINNER_META = { capo: 0, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

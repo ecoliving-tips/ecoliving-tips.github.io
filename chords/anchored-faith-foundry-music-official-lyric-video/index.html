@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Anchored - Faith Foundry Music (Official Lyric Video) by Faith Foundry Music. AI-detected chord progression with 103 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Anchored - Faith Foundry Music (Official Lyric Video) by Faith Foundry Music. AI-detected chord progression with 103 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Anchored - Faith Foundry Music (Official Lyric Video) chords, Faith Foundry Music chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Anchored - Faith Foundry Music (Official Lyric Video) Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Anchored - Faith Foundry Music (Official Lyric Video) by Faith Foundry Music. AI-detected chord progression with 103 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Anchored - Faith Foundry Music (Official Lyric Video) by Faith Foundry Music. AI-detected chord progression with 103 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/anchored-faith-foundry-music-official-lyric-video/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Anchored - Faith Foundry Music (Official Lyric Video) Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Anchored - Faith Foundry Music (Official Lyric Video) by Faith Foundry Music. AI-detected chord progression with 103 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Anchored - Faith Foundry Music (Official Lyric Video) by Faith Foundry Music. AI-detected chord progression with 103 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Anchored - Faith Foundry Music (Official Lyric Video) Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Faith Foundry Music"
   },
   "url": "https://ecoliving-tips.github.io/chords/anchored-faith-foundry-music-official-lyric-video/",
-  "description": "Free chords for Anchored - Faith Foundry Music (Official Lyric Video) by Faith Foundry Music. AI-detected chord progression with 103 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Anchored - Faith Foundry Music (Official Lyric Video) by Faith Foundry Music. AI-detected chord progression with 103 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 103 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -292,8 +303,10 @@
     <script>
     window.CHORD_DATA = [{"time":1.39,"chord":"C#m","duration":1.39},{"time":2.78,"chord":"B","duration":1.76},{"time":4.54,"chord":"A","duration":0.56},{"time":5.09,"chord":"Amaj7","duration":2.69},{"time":7.78,"chord":"C#m","duration":1.3},{"time":9.07,"chord":"B","duration":1.76},{"time":10.83,"chord":"A","duration":3.33},{"time":14.17,"chord":"C#m7","duration":1.39},{"time":15.56,"chord":"B","duration":1.76},{"time":17.31,"chord":"A","duration":3.33},{"time":20.65,"chord":"C#m","duration":1.39},{"time":22.04,"chord":"B","duration":1.67},{"time":23.7,"chord":"A","duration":3.15},{"time":26.85,"chord":"E","duration":3.06},{"time":29.91,"chord":"B","duration":3.43},{"time":33.33,"chord":"C#m","duration":1.48},{"time":34.81,"chord":"B","duration":1.67},{"time":36.48,"chord":"Amaj7","duration":3.52},{"time":40,"chord":"C#m","duration":1.3},{"time":41.3,"chord":"B","duration":1.57},{"time":42.87,"chord":"A","duration":3.24},{"time":46.11,"chord":"C#m","duration":1.67},{"time":47.78,"chord":"B","duration":1.57},{"time":49.35,"chord":"A","duration":1.57},{"time":50.93,"chord":"E","duration":1.57},{"time":52.5,"chord":"C#m","duration":1.57},{"time":54.07,"chord":"B","duration":1.48},{"time":55.56,"chord":"A","duration":1.57},{"time":57.13,"chord":"B","duration":1.76},{"time":58.89,"chord":"C#m","duration":1.67},{"time":60.56,"chord":"B","duration":1.57},{"time":62.13,"chord":"A","duration":1.76},{"time":63.89,"chord":"F#m7","duration":1.3},{"time":65.19,"chord":"E","duration":1.76},{"time":66.94,"chord":"B","duration":1.48},{"time":68.43,"chord":"C#m","duration":1.57},{"time":70,"chord":"B","duration":1.67},{"time":71.67,"chord":"A","duration":3.33},{"time":75,"chord":"C#m","duration":1.39},{"time":76.39,"chord":"B","duration":1.67},{"time":78.06,"chord":"A","duration":3.33},{"time":81.39,"chord":"C#m","duration":1.57},{"time":82.96,"chord":"B","duration":1.48},{"time":84.44,"chord":"A","duration":3.24},{"time":87.69,"chord":"C#m","duration":1.76},{"time":89.44,"chord":"B","duration":1.48},{"time":90.93,"chord":"A","duration":3.15},{"time":94.07,"chord":"C#m","duration":1.76},{"time":95.83,"chord":"B","duration":1.48},{"time":97.31,"chord":"A","duration":3.15},{"time":100.46,"chord":"E","duration":1.67},{"time":102.13,"chord":"A","duration":1.57},{"time":103.7,"chord":"B","duration":3.15},{"time":106.85,"chord":"C#m","duration":1.67},{"time":108.52,"chord":"B","duration":1.48},{"time":110,"chord":"Amaj7","duration":1.94},{"time":111.94,"chord":"A","duration":1.39},{"time":113.33,"chord":"C#m7","duration":1.67},{"time":115,"chord":"B","duration":1.57},{"time":116.57,"chord":"A","duration":1.57},{"time":118.15,"chord":"E","duration":1.39},{"time":119.54,"chord":"C#m","duration":1.85},{"time":121.39,"chord":"B","duration":1.48},{"time":122.87,"chord":"A","duration":1.57},{"time":124.44,"chord":"E","duration":1.67},{"time":126.11,"chord":"C#m","duration":1.57},{"time":127.69,"chord":"B","duration":1.57},{"time":129.26,"chord":"A","duration":1.11},{"time":130.37,"chord":"B","duration":2.13},{"time":132.5,"chord":"C#m","duration":1.85},{"time":134.35,"chord":"B","duration":1.39},{"time":135.74,"chord":"A","duration":1.94},{"time":137.69,"chord":"F#m7","duration":1.2},{"time":138.89,"chord":"E","duration":1.76},{"time":140.65,"chord":"B","duration":1.48},{"time":142.13,"chord":"C#m","duration":1.57},{"time":143.7,"chord":"B","duration":1.57},{"time":145.28,"chord":"A","duration":6.39},{"time":151.67,"chord":"E","duration":3.24},{"time":154.91,"chord":"B","duration":3.15},{"time":158.06,"chord":"A","duration":3.15},{"time":161.2,"chord":"B","duration":2.41},{"time":163.61,"chord":"E","duration":2.5},{"time":166.11,"chord":"B","duration":1.57},{"time":167.69,"chord":"A","duration":1.76},{"time":169.44,"chord":"C#m","duration":3.06},{"time":172.5,"chord":"B","duration":1.48},{"time":173.98,"chord":"A","duration":1.76},{"time":175.74,"chord":"B","duration":1.3},{"time":177.04,"chord":"C#m","duration":2.04},{"time":179.07,"chord":"B","duration":1.39},{"time":180.46,"chord":"A","duration":1.76},{"time":182.22,"chord":"F#m7","duration":1.39},{"time":183.61,"chord":"E","duration":1.85},{"time":185.46,"chord":"B","duration":1.2},{"time":186.67,"chord":"C#m","duration":1.85},{"time":188.52,"chord":"B","duration":1.48},{"time":190,"chord":"A","duration":3.43},{"time":193.43,"chord":"C#m","duration":1.48},{"time":194.91,"chord":"B","duration":1.57},{"time":196.48,"chord":"C#m","duration":1.57},{"time":198.06,"chord":"B","duration":1.39},{"time":199.44,"chord":"A","duration":6.08}];
     window.YOUTUBE_VIDEO_ID = 'LyUPjM5qhOo';
+    window.BEGINNER_META = { capo: 4, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

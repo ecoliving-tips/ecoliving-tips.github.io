@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Fabiø Guerra - siempre pienso en ti (video oficial) by Fabiø Guerra . AI-detected chord progression with 120 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Fabiø Guerra - siempre pienso en ti (video oficial) by Fabiø Guerra . AI-detected chord progression with 120 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Fabiø Guerra - siempre pienso en ti (video oficial) chords, Fabiø Guerra  chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Fabiø Guerra - siempre pienso en ti (video oficial) Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Fabiø Guerra - siempre pienso en ti (video oficial) by Fabiø Guerra . AI-detected chord progression with 120 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Fabiø Guerra - siempre pienso en ti (video oficial) by Fabiø Guerra . AI-detected chord progression with 120 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/fabi-guerra-siempre-pienso-en-ti-video-oficial/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Fabiø Guerra - siempre pienso en ti (video oficial) Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Fabiø Guerra - siempre pienso en ti (video oficial) by Fabiø Guerra . AI-detected chord progression with 120 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Fabiø Guerra - siempre pienso en ti (video oficial) by Fabiø Guerra . AI-detected chord progression with 120 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Fabiø Guerra - siempre pienso en ti (video oficial) Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Fabiø Guerra "
   },
   "url": "https://ecoliving-tips.github.io/chords/fabi-guerra-siempre-pienso-en-ti-video-oficial/",
-  "description": "Free chords for Fabiø Guerra - siempre pienso en ti (video oficial) by Fabiø Guerra . AI-detected chord progression with 120 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Fabiø Guerra - siempre pienso en ti (video oficial) by Fabiø Guerra . AI-detected chord progression with 120 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 120 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -291,8 +302,10 @@
     <script>
     window.CHORD_DATA = [{"time":2.87,"chord":"B","duration":1.57},{"time":4.44,"chord":"F#","duration":1.85},{"time":6.3,"chord":"C#","duration":0.65},{"time":6.94,"chord":"D#m","duration":3.06},{"time":10,"chord":"F#","duration":0.56},{"time":10.56,"chord":"B","duration":2.13},{"time":12.69,"chord":"C#","duration":2.04},{"time":14.72,"chord":"D#m","duration":3.15},{"time":17.87,"chord":"F#","duration":0.56},{"time":18.43,"chord":"B","duration":1.11},{"time":19.54,"chord":"F#","duration":1.11},{"time":20.65,"chord":"C#","duration":1.94},{"time":22.59,"chord":"D#m","duration":3.98},{"time":26.57,"chord":"F#","duration":2.13},{"time":28.7,"chord":"C#","duration":1.67},{"time":30.37,"chord":"D#m","duration":2.78},{"time":33.15,"chord":"F#","duration":1.2},{"time":34.35,"chord":"B","duration":1.85},{"time":36.2,"chord":"C#","duration":2.04},{"time":38.24,"chord":"D#m","duration":3.15},{"time":41.39,"chord":"F#","duration":0.74},{"time":42.13,"chord":"B","duration":1.94},{"time":44.07,"chord":"C#","duration":2.13},{"time":46.2,"chord":"D#m","duration":0.74},{"time":46.94,"chord":"F#","duration":1.02},{"time":47.96,"chord":"D#m","duration":1.02},{"time":48.98,"chord":"F#","duration":0.56},{"time":49.54,"chord":"A#m","duration":0.46},{"time":50,"chord":"B","duration":1.94},{"time":51.94,"chord":"C#","duration":2.04},{"time":53.98,"chord":"D#m","duration":3.06},{"time":57.04,"chord":"F#","duration":0.74},{"time":57.78,"chord":"B","duration":0.65},{"time":58.43,"chord":"F#","duration":1.3},{"time":59.72,"chord":"C#","duration":2.13},{"time":61.85,"chord":"D#m","duration":2.96},{"time":64.81,"chord":"F#","duration":0.74},{"time":65.56,"chord":"B","duration":2.04},{"time":67.59,"chord":"C#","duration":2.04},{"time":69.63,"chord":"D#m","duration":0.74},{"time":70.37,"chord":"F#","duration":1.2},{"time":71.57,"chord":"D#m","duration":0.83},{"time":72.41,"chord":"F#","duration":1.02},{"time":73.43,"chord":"B","duration":1.39},{"time":74.81,"chord":"F#","duration":1.94},{"time":76.76,"chord":"C#","duration":0.65},{"time":77.41,"chord":"D#m","duration":2.69},{"time":80.09,"chord":"F#","duration":1.2},{"time":81.3,"chord":"B","duration":1.2},{"time":82.5,"chord":"F#","duration":0.65},{"time":83.15,"chord":"C#","duration":2.31},{"time":85.46,"chord":"D#m","duration":3.61},{"time":89.07,"chord":"B","duration":0.93},{"time":90,"chord":"F#","duration":1.11},{"time":91.11,"chord":"C#","duration":2.22},{"time":93.33,"chord":"D#m","duration":2.69},{"time":96.02,"chord":"F#","duration":0.93},{"time":96.94,"chord":"B","duration":0.83},{"time":97.78,"chord":"D#m","duration":0.74},{"time":98.52,"chord":"F#","duration":0.65},{"time":99.17,"chord":"C#","duration":1.85},{"time":101.02,"chord":"D#m","duration":2.87},{"time":103.89,"chord":"F#","duration":0.83},{"time":104.72,"chord":"B","duration":1.11},{"time":105.83,"chord":"F#","duration":1.39},{"time":107.22,"chord":"C#","duration":1.48},{"time":108.7,"chord":"D#m","duration":3.06},{"time":111.76,"chord":"F#","duration":0.93},{"time":112.69,"chord":"B","duration":1.94},{"time":114.63,"chord":"C#","duration":2.04},{"time":116.67,"chord":"D#m","duration":2.87},{"time":119.54,"chord":"F#","duration":0.46},{"time":120,"chord":"C#","duration":0.46},{"time":120.46,"chord":"B","duration":1.85},{"time":122.31,"chord":"C#","duration":2.13},{"time":124.44,"chord":"D#m","duration":2.96},{"time":127.41,"chord":"F#","duration":0.83},{"time":128.24,"chord":"B","duration":1.11},{"time":129.35,"chord":"D#m","duration":0.83},{"time":130.19,"chord":"F#","duration":1.48},{"time":131.67,"chord":"C#","duration":0.83},{"time":132.5,"chord":"D#m","duration":3.52},{"time":136.02,"chord":"B","duration":1.11},{"time":137.13,"chord":"F#","duration":1.48},{"time":138.61,"chord":"C#","duration":1.39},{"time":140,"chord":"D#m","duration":3.52},{"time":143.52,"chord":"A#m","duration":0.46},{"time":143.98,"chord":"B","duration":1.11},{"time":145.09,"chord":"F#","duration":0.93},{"time":146.02,"chord":"C#","duration":1.94},{"time":147.96,"chord":"D#m","duration":2.96},{"time":150.93,"chord":"F#","duration":0.83},{"time":151.76,"chord":"B","duration":2.13},{"time":153.89,"chord":"C#","duration":1.85},{"time":155.74,"chord":"D#m","duration":3.89},{"time":159.63,"chord":"B","duration":2.04},{"time":161.67,"chord":"C#","duration":2.04},{"time":163.7,"chord":"D#m","duration":3.15},{"time":166.85,"chord":"C#","duration":0.56},{"time":167.41,"chord":"B","duration":0.83},{"time":168.24,"chord":"F#","duration":0.74},{"time":168.98,"chord":"B","duration":0.46},{"time":169.44,"chord":"C#","duration":2.04},{"time":171.48,"chord":"D#m","duration":3.24},{"time":174.72,"chord":"G#m","duration":0.46},{"time":175.19,"chord":"B","duration":0.93},{"time":176.11,"chord":"D#m","duration":1.2},{"time":177.31,"chord":"C#","duration":1.94},{"time":179.26,"chord":"D#m","duration":3.24},{"time":182.5,"chord":"G#m","duration":0.46},{"time":182.96,"chord":"B","duration":2.13},{"time":185.09,"chord":"C#","duration":2.04},{"time":187.13,"chord":"D#m","duration":2.87},{"time":190,"chord":"F#","duration":0.83},{"time":190.83,"chord":"B","duration":2.13},{"time":192.96,"chord":"C#","duration":1.94},{"time":194.91,"chord":"D#m","duration":3.8},{"time":198.7,"chord":"B","duration":1.3},{"time":200,"chord":"F#","duration":0.83},{"time":200.83,"chord":"C#","duration":2.18}];
     window.YOUTUBE_VIDEO_ID = 'KhejHeOPmlo';
+    window.BEGINNER_META = { capo: 6, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

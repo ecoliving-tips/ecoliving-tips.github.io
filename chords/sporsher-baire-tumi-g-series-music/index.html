@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Sporsher Baire Tumi by G Series Music. AI-detected chord progression with 64 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Sporsher Baire Tumi by G Series Music. AI-detected chord progression with 64 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Sporsher Baire Tumi chords, G Series Music chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Sporsher Baire Tumi Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Sporsher Baire Tumi by G Series Music. AI-detected chord progression with 64 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Sporsher Baire Tumi by G Series Music. AI-detected chord progression with 64 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/sporsher-baire-tumi-g-series-music/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Sporsher Baire Tumi Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Sporsher Baire Tumi by G Series Music. AI-detected chord progression with 64 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Sporsher Baire Tumi by G Series Music. AI-detected chord progression with 64 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Sporsher Baire Tumi Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "G Series Music"
   },
   "url": "https://ecoliving-tips.github.io/chords/sporsher-baire-tumi-g-series-music/",
-  "description": "Free chords for Sporsher Baire Tumi by G Series Music. AI-detected chord progression with 64 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Sporsher Baire Tumi by G Series Music. AI-detected chord progression with 64 chords. Advanced difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Advanced"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 64 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -293,8 +304,10 @@
     <script>
     window.CHORD_DATA = [{"time":0,"chord":"D","duration":7.87},{"time":15.74,"chord":"A#","duration":2.59},{"time":18.33,"chord":"F","duration":2.41},{"time":20.74,"chord":"D#","duration":2.69},{"time":23.43,"chord":"A#","duration":5.09},{"time":28.52,"chord":"F","duration":2.5},{"time":31.02,"chord":"D#","duration":2.69},{"time":33.7,"chord":"A#","duration":5.09},{"time":38.8,"chord":"D#","duration":4.81},{"time":43.61,"chord":"A#","duration":5.56},{"time":49.17,"chord":"D#","duration":4.91},{"time":54.07,"chord":"A#","duration":5.56},{"time":59.63,"chord":"F","duration":2.22},{"time":61.85,"chord":"D#","duration":3.06},{"time":64.91,"chord":"A#","duration":1.2},{"time":66.11,"chord":"Gm7","duration":0.93},{"time":67.04,"chord":"A#","duration":2.96},{"time":70,"chord":"F","duration":2.13},{"time":72.13,"chord":"D#","duration":2.78},{"time":74.91,"chord":"A#","duration":2.5},{"time":77.41,"chord":"F#","duration":1.39},{"time":78.8,"chord":"A#","duration":3.7},{"time":82.5,"chord":"F","duration":2.69},{"time":85.19,"chord":"D#m","duration":2.59},{"time":87.78,"chord":"A#","duration":5.65},{"time":93.43,"chord":"F","duration":1.94},{"time":95.37,"chord":"D#m","duration":2.87},{"time":98.24,"chord":"A#","duration":4.81},{"time":103.06,"chord":"F","duration":2.69},{"time":105.74,"chord":"D#m","duration":2.5},{"time":108.24,"chord":"A#","duration":5.09},{"time":113.33,"chord":"F","duration":2.69},{"time":116.02,"chord":"D#m","duration":2.5},{"time":118.52,"chord":"A#","duration":5.28},{"time":123.8,"chord":"F","duration":2.41},{"time":126.2,"chord":"D#","duration":2.59},{"time":128.8,"chord":"A#","duration":5.28},{"time":134.07,"chord":"F","duration":2.41},{"time":136.48,"chord":"D#","duration":2.22},{"time":138.7,"chord":"Cm","duration":0.65},{"time":139.35,"chord":"A#","duration":4.91},{"time":144.26,"chord":"F","duration":2.59},{"time":146.85,"chord":"D#","duration":2.69},{"time":149.54,"chord":"A#","duration":5},{"time":154.54,"chord":"F","duration":2.5},{"time":157.04,"chord":"D#","duration":2.78},{"time":159.81,"chord":"A#","duration":5},{"time":164.81,"chord":"D#","duration":4.81},{"time":169.63,"chord":"A#","duration":5.56},{"time":175.19,"chord":"D#","duration":5.19},{"time":180.37,"chord":"A#","duration":5.09},{"time":185.46,"chord":"F","duration":2.5},{"time":187.96,"chord":"D#","duration":2.04},{"time":190,"chord":"Cm","duration":0.56},{"time":190.56,"chord":"A#","duration":5.09},{"time":195.65,"chord":"F","duration":2.59},{"time":198.24,"chord":"D#","duration":2.59},{"time":200.83,"chord":"A#","duration":5.19},{"time":206.02,"chord":"F","duration":2.5},{"time":208.52,"chord":"D#","duration":2.59},{"time":211.11,"chord":"A#","duration":5.19},{"time":216.3,"chord":"F","duration":2.5},{"time":218.8,"chord":"D#","duration":2.59},{"time":221.39,"chord":"A#","duration":5.28}];
     window.YOUTUBE_VIDEO_ID = '8Xq6u00EeAo';
+    window.BEGINNER_META = { capo: 1, difficulty: 'advanced' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for F3miii  - NOBLE by f3miii. AI-detected chord progression with 39 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for F3miii  - NOBLE by f3miii. AI-detected chord progression with 39 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="F3miii  - NOBLE chords, f3miii chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="F3miii  - NOBLE Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for F3miii  - NOBLE by f3miii. AI-detected chord progression with 39 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for F3miii  - NOBLE by f3miii. AI-detected chord progression with 39 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/f3miii-noble/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="F3miii  - NOBLE Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for F3miii  - NOBLE by f3miii. AI-detected chord progression with 39 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for F3miii  - NOBLE by f3miii. AI-detected chord progression with 39 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>F3miii  - NOBLE Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "f3miii"
   },
   "url": "https://ecoliving-tips.github.io/chords/f3miii-noble/",
-  "description": "Free chords for F3miii  - NOBLE by f3miii. AI-detected chord progression with 39 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for F3miii  - NOBLE by f3miii. AI-detected chord progression with 39 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 39 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -293,8 +304,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.93,"chord":"Em","duration":4.72},{"time":5.65,"chord":"Am","duration":4.81},{"time":10.46,"chord":"Em","duration":5.46},{"time":15.93,"chord":"Am","duration":4.72},{"time":20.65,"chord":"Em","duration":5.93},{"time":26.57,"chord":"Am7","duration":4.44},{"time":31.02,"chord":"Em","duration":5.83},{"time":36.85,"chord":"Am7","duration":2.22},{"time":39.07,"chord":"D7","duration":0.93},{"time":40,"chord":"Em","duration":7.22},{"time":47.22,"chord":"Am","duration":4.54},{"time":51.76,"chord":"Em","duration":5.83},{"time":57.59,"chord":"Am","duration":4.44},{"time":62.04,"chord":"Em","duration":5.83},{"time":67.87,"chord":"Am","duration":4.07},{"time":71.94,"chord":"Em","duration":6.85},{"time":78.8,"chord":"Am","duration":1.2},{"time":82.78,"chord":"Em","duration":5.56},{"time":88.33,"chord":"Am7","duration":1.67},{"time":90,"chord":"Am","duration":2.5},{"time":92.5,"chord":"Em","duration":6.02},{"time":98.52,"chord":"Am","duration":4.72},{"time":103.24,"chord":"Em","duration":5.74},{"time":108.98,"chord":"Am","duration":4.91},{"time":113.89,"chord":"Em","duration":1.39},{"time":115.28,"chord":"F","duration":3.8},{"time":119.07,"chord":"Am","duration":0.93},{"time":120,"chord":"A#","duration":4.35},{"time":128.7,"chord":"D#","duration":1.3},{"time":130,"chord":"Em","duration":12.59},{"time":150.56,"chord":"Am","duration":3.15},{"time":153.7,"chord":"Em","duration":7.87},{"time":161.57,"chord":"Am","duration":3.61},{"time":165.19,"chord":"Em","duration":5.74},{"time":170.93,"chord":"Am","duration":4.72},{"time":175.65,"chord":"Em","duration":4.35},{"time":180,"chord":"G","duration":0.56},{"time":180.56,"chord":"Em","duration":0.65},{"time":181.2,"chord":"Am","duration":3.61}];
     window.YOUTUBE_VIDEO_ID = 'CyG05z2eX4M';
+    window.BEGINNER_META = { capo: 0, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

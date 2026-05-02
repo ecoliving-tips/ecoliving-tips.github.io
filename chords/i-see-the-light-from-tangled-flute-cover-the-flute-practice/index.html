@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for I see the light from Tangled (flute cover) by The Flute Practice. AI-detected chord progression with 100 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for I see the light from Tangled (flute cover) by The Flute Practice. AI-detected chord progression with 100 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="I see the light from Tangled (flute cover) chords, The Flute Practice chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="I see the light from Tangled (flute cover) Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for I see the light from Tangled (flute cover) by The Flute Practice. AI-detected chord progression with 100 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for I see the light from Tangled (flute cover) by The Flute Practice. AI-detected chord progression with 100 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/i-see-the-light-from-tangled-flute-cover-the-flute-practice/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="I see the light from Tangled (flute cover) Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for I see the light from Tangled (flute cover) by The Flute Practice. AI-detected chord progression with 100 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for I see the light from Tangled (flute cover) by The Flute Practice. AI-detected chord progression with 100 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>I see the light from Tangled (flute cover) Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "The Flute Practice"
   },
   "url": "https://ecoliving-tips.github.io/chords/i-see-the-light-from-tangled-flute-cover-the-flute-practice/",
-  "description": "Free chords for I see the light from Tangled (flute cover) by The Flute Practice. AI-detected chord progression with 100 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for I see the light from Tangled (flute cover) by The Flute Practice. AI-detected chord progression with 100 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 100 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -307,8 +318,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.46,"chord":"C","duration":12.59},{"time":13.06,"chord":"G7","duration":1.2},{"time":14.26,"chord":"C","duration":3.7},{"time":17.96,"chord":"G7","duration":1.2},{"time":19.17,"chord":"C","duration":1.11},{"time":20.28,"chord":"F","duration":2.41},{"time":22.69,"chord":"C","duration":1.2},{"time":23.89,"chord":"Fmaj7","duration":0.56},{"time":24.44,"chord":"G","duration":0.74},{"time":25.19,"chord":"C","duration":1.2},{"time":26.39,"chord":"D7","duration":1.11},{"time":27.5,"chord":"Gsus4","duration":0.74},{"time":28.24,"chord":"G7","duration":1.76},{"time":30,"chord":"C","duration":2.59},{"time":32.59,"chord":"G7","duration":1.39},{"time":33.98,"chord":"C","duration":3.52},{"time":37.5,"chord":"G7","duration":1.39},{"time":38.89,"chord":"C","duration":1.11},{"time":40,"chord":"F","duration":2.31},{"time":42.31,"chord":"Em","duration":2.31},{"time":44.63,"chord":"Am7","duration":1.3},{"time":45.93,"chord":"D7","duration":1.39},{"time":47.31,"chord":"G7","duration":2.13},{"time":49.44,"chord":"F","duration":2.41},{"time":51.85,"chord":"C","duration":2.31},{"time":54.17,"chord":"G","duration":2.41},{"time":56.57,"chord":"C","duration":2.41},{"time":58.98,"chord":"F","duration":2.22},{"time":61.2,"chord":"C","duration":2.31},{"time":63.52,"chord":"Am","duration":1.2},{"time":64.72,"chord":"E","duration":1.2},{"time":65.93,"chord":"Am","duration":2.5},{"time":68.43,"chord":"F","duration":2.31},{"time":70.74,"chord":"C","duration":2.41},{"time":73.15,"chord":"Em","duration":2.5},{"time":75.65,"chord":"F","duration":5},{"time":80.65,"chord":"C","duration":2.59},{"time":83.24,"chord":"G7","duration":1.2},{"time":84.44,"chord":"C","duration":1.2},{"time":85.65,"chord":"F","duration":1.3},{"time":86.94,"chord":"G7","duration":1.57},{"time":88.52,"chord":"C","duration":12.69},{"time":101.2,"chord":"G","duration":0.93},{"time":102.13,"chord":"C","duration":3.98},{"time":106.11,"chord":"G","duration":0.83},{"time":106.94,"chord":"C","duration":1.3},{"time":108.24,"chord":"F","duration":2.5},{"time":110.74,"chord":"C","duration":1.2},{"time":111.94,"chord":"Fmaj7","duration":0.56},{"time":112.5,"chord":"G","duration":0.74},{"time":113.24,"chord":"C","duration":1.39},{"time":114.63,"chord":"D7","duration":1.3},{"time":115.93,"chord":"Gsus4","duration":0.93},{"time":116.85,"chord":"G7","duration":1.57},{"time":118.43,"chord":"A#sus4","duration":1.57},{"time":120,"chord":"A#m7","duration":0.83},{"time":120.83,"chord":"D#","duration":9.17},{"time":130,"chord":"G#","duration":2.5},{"time":132.5,"chord":"D#","duration":1.2},{"time":133.7,"chord":"G#","duration":0.56},{"time":134.26,"chord":"A#7","duration":0.56},{"time":134.81,"chord":"D#","duration":1.39},{"time":136.2,"chord":"F7","duration":1.11},{"time":137.31,"chord":"A#7","duration":2.5},{"time":139.81,"chord":"D#","duration":2.31},{"time":142.13,"chord":"A#","duration":1.11},{"time":143.24,"chord":"D#","duration":3.61},{"time":146.85,"chord":"A#","duration":1.11},{"time":147.96,"chord":"D#","duration":1.11},{"time":149.07,"chord":"G#","duration":2.41},{"time":151.48,"chord":"Gm7","duration":2.22},{"time":153.7,"chord":"Cm7","duration":1.48},{"time":155.19,"chord":"F7","duration":1.2},{"time":156.39,"chord":"A#sus4","duration":1.02},{"time":157.41,"chord":"A#m7","duration":1.11},{"time":158.52,"chord":"G#","duration":2.31},{"time":160.83,"chord":"D#","duration":2.5},{"time":163.33,"chord":"A#","duration":1.94},{"time":165.28,"chord":"D#","duration":2.04},{"time":167.31,"chord":"G#","duration":2.22},{"time":169.54,"chord":"D#","duration":2.31},{"time":171.85,"chord":"Gm","duration":0.74},{"time":172.59,"chord":"G7","duration":1.2},{"time":173.8,"chord":"Cm","duration":2.13},{"time":175.93,"chord":"G#","duration":2.59},{"time":178.52,"chord":"D#","duration":2.5},{"time":181.02,"chord":"Gm7","duration":2.04},{"time":183.06,"chord":"A#","duration":1.2},{"time":184.26,"chord":"G#","duration":4.44},{"time":188.7,"chord":"D#","duration":2.78},{"time":191.48,"chord":"A#7","duration":1.02},{"time":192.5,"chord":"D#","duration":1.39},{"time":193.89,"chord":"G#","duration":1.48},{"time":195.37,"chord":"A#7","duration":1.39},{"time":196.76,"chord":"D#","duration":2.59},{"time":199.35,"chord":"Cm7","duration":1.3},{"time":200.65,"chord":"F7","duration":2.04},{"time":202.69,"chord":"A#sus4","duration":1.76},{"time":204.44,"chord":"A#7","duration":3.06},{"time":207.5,"chord":"D#","duration":12.5}];
     window.YOUTUBE_VIDEO_ID = 'poVYZug_RUc';
+    window.BEGINNER_META = { capo: 3, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

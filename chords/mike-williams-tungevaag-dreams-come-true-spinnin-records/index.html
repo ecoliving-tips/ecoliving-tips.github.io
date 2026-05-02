@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Mike Williams &amp; Tungevaag - Dreams Come True by Spinnin' Records. AI-detected chord progression with 74 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Mike Williams &amp; Tungevaag - Dreams Come True by Spinnin' Records. AI-detected chord progression with 74 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Mike Williams &amp; Tungevaag - Dreams Come True chords, Spinnin' Records chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Mike Williams &amp; Tungevaag - Dreams Come True Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Mike Williams &amp; Tungevaag - Dreams Come True by Spinnin' Records. AI-detected chord progression with 74 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Mike Williams &amp; Tungevaag - Dreams Come True by Spinnin' Records. AI-detected chord progression with 74 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/mike-williams-tungevaag-dreams-come-true-spinnin-records/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Mike Williams &amp; Tungevaag - Dreams Come True Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Mike Williams &amp; Tungevaag - Dreams Come True by Spinnin' Records. AI-detected chord progression with 74 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Mike Williams &amp; Tungevaag - Dreams Come True by Spinnin' Records. AI-detected chord progression with 74 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Mike Williams &amp; Tungevaag - Dreams Come True Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Spinnin' Records"
   },
   "url": "https://ecoliving-tips.github.io/chords/mike-williams-tungevaag-dreams-come-true-spinnin-records/",
-  "description": "Free chords for Mike Williams & Tungevaag - Dreams Come True by Spinnin' Records. AI-detected chord progression with 74 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Mike Williams & Tungevaag - Dreams Come True by Spinnin' Records. AI-detected chord progression with 74 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 74 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -294,8 +305,10 @@
     <script>
     window.CHORD_DATA = [{"time":1.02,"chord":"D","duration":10.46},{"time":11.48,"chord":"Bm7","duration":2.22},{"time":13.7,"chord":"D","duration":3.98},{"time":19.17,"chord":"G","duration":2.04},{"time":21.2,"chord":"A","duration":1.85},{"time":23.06,"chord":"Bm7","duration":2.78},{"time":25.83,"chord":"A","duration":2.78},{"time":28.61,"chord":"Bm7","duration":1.39},{"time":30,"chord":"Bm","duration":0.56},{"time":30.56,"chord":"G","duration":0.65},{"time":31.2,"chord":"D","duration":3.06},{"time":34.26,"chord":"F#m","duration":0.83},{"time":35.09,"chord":"Bm","duration":2.96},{"time":38.06,"chord":"G","duration":0.65},{"time":38.7,"chord":"D","duration":3.15},{"time":41.85,"chord":"A","duration":0.74},{"time":42.59,"chord":"Bm","duration":2.96},{"time":45.56,"chord":"G","duration":0.56},{"time":46.11,"chord":"D","duration":3.24},{"time":49.35,"chord":"F#","duration":0.65},{"time":50,"chord":"Bm","duration":3.15},{"time":53.15,"chord":"G","duration":0.56},{"time":53.7,"chord":"D","duration":3.15},{"time":56.85,"chord":"F#","duration":0.74},{"time":57.59,"chord":"Bm","duration":2.96},{"time":60.56,"chord":"G","duration":0.65},{"time":61.2,"chord":"D","duration":3.15},{"time":64.35,"chord":"F#","duration":0.74},{"time":65.09,"chord":"Bm","duration":3.06},{"time":68.15,"chord":"G","duration":0.56},{"time":68.7,"chord":"D","duration":3.33},{"time":72.04,"chord":"F#","duration":0.46},{"time":72.5,"chord":"Bm","duration":1.39},{"time":73.89,"chord":"D","duration":6.39},{"time":80.28,"chord":"Dm","duration":0.83},{"time":81.11,"chord":"Bm","duration":2.04},{"time":83.15,"chord":"A","duration":1.39},{"time":84.54,"chord":"Asus4","duration":0.56},{"time":85.09,"chord":"D","duration":2.04},{"time":87.13,"chord":"Dm","duration":1.48},{"time":88.61,"chord":"G","duration":2.04},{"time":90.65,"chord":"A","duration":1.85},{"time":92.5,"chord":"Bm","duration":2.13},{"time":94.63,"chord":"A","duration":1.48},{"time":96.11,"chord":"G","duration":0.56},{"time":96.67,"chord":"Bm","duration":1.39},{"time":98.06,"chord":"G","duration":0.56},{"time":98.61,"chord":"D","duration":3.24},{"time":101.85,"chord":"F#m","duration":0.74},{"time":102.59,"chord":"Bm","duration":3.06},{"time":105.65,"chord":"G","duration":0.65},{"time":106.3,"chord":"D","duration":3.06},{"time":109.35,"chord":"A","duration":0.65},{"time":110,"chord":"Bm","duration":3.15},{"time":113.15,"chord":"G","duration":0.46},{"time":113.61,"chord":"D","duration":3.89},{"time":117.5,"chord":"Bm","duration":3.15},{"time":120.65,"chord":"G","duration":0.46},{"time":121.11,"chord":"D","duration":3.89},{"time":125,"chord":"Bm","duration":3.06},{"time":128.06,"chord":"G","duration":0.65},{"time":128.7,"chord":"D","duration":3.15},{"time":131.85,"chord":"F#m","duration":0.56},{"time":132.41,"chord":"Bm","duration":3.24},{"time":135.65,"chord":"G","duration":0.65},{"time":136.3,"chord":"D","duration":3.7},{"time":140,"chord":"Bm","duration":3.7},{"time":143.7,"chord":"D","duration":3.15},{"time":146.85,"chord":"F#m","duration":0.65},{"time":147.5,"chord":"Bm","duration":3.15},{"time":150.65,"chord":"G","duration":0.46},{"time":151.11,"chord":"D","duration":3.33},{"time":154.44,"chord":"A","duration":0.56},{"time":155,"chord":"Bm","duration":2.04}];
     window.YOUTUBE_VIDEO_ID = 'DDVey5vu2Xk';
+    window.BEGINNER_META = { capo: 2, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for İlyas Yalçıntaş - Hançer (Akustik) by netd müzik. AI-detected chord progression with 96 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for İlyas Yalçıntaş - Hançer (Akustik) by netd müzik. AI-detected chord progression with 96 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="İlyas Yalçıntaş - Hançer (Akustik) chords, netd müzik chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="İlyas Yalçıntaş - Hançer (Akustik) Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for İlyas Yalçıntaş - Hançer (Akustik) by netd müzik. AI-detected chord progression with 96 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for İlyas Yalçıntaş - Hançer (Akustik) by netd müzik. AI-detected chord progression with 96 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/ilyas-yalc-ntas-hancer-akustik-netd-muzik/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="İlyas Yalçıntaş - Hançer (Akustik) Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for İlyas Yalçıntaş - Hançer (Akustik) by netd müzik. AI-detected chord progression with 96 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for İlyas Yalçıntaş - Hançer (Akustik) by netd müzik. AI-detected chord progression with 96 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>İlyas Yalçıntaş - Hançer (Akustik) Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "netd müzik"
   },
   "url": "https://ecoliving-tips.github.io/chords/ilyas-yalc-ntas-hancer-akustik-netd-muzik/",
-  "description": "Free chords for İlyas Yalçıntaş - Hançer (Akustik) by netd müzik. AI-detected chord progression with 96 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for İlyas Yalçıntaş - Hançer (Akustik) by netd müzik. AI-detected chord progression with 96 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 96 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -293,8 +304,10 @@
     <script>
     window.CHORD_DATA = [{"time":3.24,"chord":"Cm","duration":2.96},{"time":6.2,"chord":"G#","duration":2.96},{"time":9.17,"chord":"Cm","duration":2.96},{"time":12.13,"chord":"G#","duration":2.78},{"time":14.91,"chord":"Cm","duration":3.06},{"time":17.96,"chord":"G#","duration":3.06},{"time":21.02,"chord":"A#","duration":3.06},{"time":24.07,"chord":"Cm","duration":5.74},{"time":29.81,"chord":"G#maj7","duration":3.43},{"time":33.24,"chord":"A#","duration":3.06},{"time":36.3,"chord":"Cm","duration":3.06},{"time":39.35,"chord":"Fm","duration":1.48},{"time":40.83,"chord":"Gm","duration":1.48},{"time":42.31,"chord":"Cm","duration":3.06},{"time":45.37,"chord":"Fm","duration":1.39},{"time":46.76,"chord":"Gm","duration":1.57},{"time":48.33,"chord":"Cm","duration":2.69},{"time":51.02,"chord":"G#","duration":2.31},{"time":53.33,"chord":"A#","duration":0.83},{"time":54.17,"chord":"Cm","duration":2.87},{"time":57.04,"chord":"Gm","duration":1.48},{"time":58.52,"chord":"F","duration":1.11},{"time":59.63,"chord":"A#","duration":0.37},{"time":60,"chord":"Cm","duration":2.87},{"time":62.87,"chord":"Gm","duration":1.48},{"time":64.35,"chord":"F","duration":1.48},{"time":65.83,"chord":"A#","duration":2.31},{"time":68.15,"chord":"Fm","duration":0.65},{"time":68.8,"chord":"Cm","duration":3.06},{"time":71.85,"chord":"A#","duration":2.22},{"time":74.07,"chord":"Fm","duration":0.83},{"time":74.91,"chord":"Cm","duration":5.74},{"time":80.65,"chord":"Gm","duration":1.48},{"time":82.13,"chord":"F","duration":1.3},{"time":83.43,"chord":"Cm","duration":1.57},{"time":85,"chord":"G#","duration":1.48},{"time":86.48,"chord":"A#","duration":1.39},{"time":87.87,"chord":"F","duration":1.48},{"time":89.35,"chord":"A#","duration":2.22},{"time":91.57,"chord":"Fm","duration":0.83},{"time":92.41,"chord":"Cm","duration":2.87},{"time":95.28,"chord":"A#","duration":2.31},{"time":97.59,"chord":"Fm","duration":0.65},{"time":98.24,"chord":"Cm","duration":5.74},{"time":103.98,"chord":"Gm","duration":1.57},{"time":105.56,"chord":"F","duration":1.57},{"time":107.13,"chord":"Cm","duration":2.87},{"time":110,"chord":"Gm","duration":1.57},{"time":111.57,"chord":"Fm","duration":1.39},{"time":112.96,"chord":"A#","duration":2.22},{"time":115.19,"chord":"Fm","duration":0.65},{"time":115.83,"chord":"Cm","duration":2.96},{"time":118.8,"chord":"A#","duration":2.22},{"time":121.02,"chord":"Fm","duration":0.74},{"time":121.76,"chord":"Cm","duration":5.93},{"time":127.69,"chord":"G#","duration":2.87},{"time":130.56,"chord":"A#","duration":2.41},{"time":132.96,"chord":"Gm","duration":0.65},{"time":133.61,"chord":"Cm","duration":5.93},{"time":139.54,"chord":"G#","duration":2.87},{"time":142.41,"chord":"A#","duration":2.96},{"time":145.37,"chord":"Cm","duration":2.78},{"time":148.15,"chord":"Fm","duration":1.85},{"time":150,"chord":"Gm","duration":1.3},{"time":151.3,"chord":"Cm","duration":2.96},{"time":154.26,"chord":"Fm","duration":1.39},{"time":155.65,"chord":"Gm","duration":1.57},{"time":157.22,"chord":"Cm","duration":2.31},{"time":159.54,"chord":"Fm","duration":0.46},{"time":160,"chord":"G#","duration":2.22},{"time":162.22,"chord":"A#","duration":0.74},{"time":162.96,"chord":"Cm","duration":2.87},{"time":165.83,"chord":"Gm","duration":1.48},{"time":167.31,"chord":"F","duration":1.39},{"time":168.7,"chord":"Cm","duration":3.06},{"time":171.76,"chord":"Gm","duration":1.48},{"time":173.24,"chord":"Fm","duration":1.48},{"time":174.72,"chord":"A#","duration":2.22},{"time":176.94,"chord":"Fm","duration":0.93},{"time":177.87,"chord":"Cm","duration":2.69},{"time":180.56,"chord":"A#","duration":2.22},{"time":182.78,"chord":"F","duration":0.65},{"time":183.43,"chord":"Cm","duration":5.83},{"time":189.26,"chord":"Gm","duration":1.39},{"time":190.65,"chord":"F","duration":1.39},{"time":192.04,"chord":"Cm","duration":1.48},{"time":193.52,"chord":"G#","duration":1.48},{"time":195,"chord":"A#","duration":1.48},{"time":196.48,"chord":"F","duration":1.48},{"time":197.96,"chord":"A#","duration":2.04},{"time":200,"chord":"Fm","duration":0.93},{"time":200.93,"chord":"Cm","duration":2.87},{"time":203.8,"chord":"A#","duration":2.13},{"time":205.93,"chord":"Fm","duration":0.93},{"time":206.85,"chord":"Cm","duration":3.15},{"time":210,"chord":"C","duration":5.69}];
     window.YOUTUBE_VIDEO_ID = 'SXsuUIBzs2U';
+    window.BEGINNER_META = { capo: 3, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

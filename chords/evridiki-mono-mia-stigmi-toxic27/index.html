@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Evridiki - Mono Mia Stigmi by Toxic27. AI-detected chord progression with 106 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Evridiki - Mono Mia Stigmi by Toxic27. AI-detected chord progression with 106 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Evridiki - Mono Mia Stigmi chords, Toxic27 chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Evridiki - Mono Mia Stigmi Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Evridiki - Mono Mia Stigmi by Toxic27. AI-detected chord progression with 106 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Evridiki - Mono Mia Stigmi by Toxic27. AI-detected chord progression with 106 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/evridiki-mono-mia-stigmi-toxic27/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Evridiki - Mono Mia Stigmi Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Evridiki - Mono Mia Stigmi by Toxic27. AI-detected chord progression with 106 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Evridiki - Mono Mia Stigmi by Toxic27. AI-detected chord progression with 106 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Evridiki - Mono Mia Stigmi Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Toxic27"
   },
   "url": "https://ecoliving-tips.github.io/chords/evridiki-mono-mia-stigmi-toxic27/",
-  "description": "Free chords for Evridiki - Mono Mia Stigmi by Toxic27. AI-detected chord progression with 106 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Evridiki - Mono Mia Stigmi by Toxic27. AI-detected chord progression with 106 chords. Advanced difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Advanced"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 106 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -308,8 +319,10 @@
     <script>
     window.CHORD_DATA = [{"time":1.57,"chord":"Am","duration":1.94},{"time":3.52,"chord":"G","duration":1.39},{"time":4.91,"chord":"Am","duration":2.13},{"time":7.04,"chord":"G","duration":1.67},{"time":8.7,"chord":"C","duration":1.85},{"time":10.56,"chord":"G","duration":1.48},{"time":12.04,"chord":"Asus4","duration":3.33},{"time":15.37,"chord":"Am","duration":2.31},{"time":17.69,"chord":"G","duration":1.85},{"time":19.54,"chord":"Am","duration":1.57},{"time":21.11,"chord":"Bm7","duration":1.3},{"time":22.41,"chord":"Am","duration":0.74},{"time":23.15,"chord":"C","duration":3.52},{"time":26.67,"chord":"G","duration":3.8},{"time":30.46,"chord":"Dm","duration":3.43},{"time":33.89,"chord":"Asus4","duration":6.11},{"time":40,"chord":"E7","duration":0.74},{"time":40.74,"chord":"Am","duration":2.13},{"time":42.87,"chord":"G","duration":1.76},{"time":44.63,"chord":"Am","duration":3.61},{"time":48.24,"chord":"C","duration":1.76},{"time":50,"chord":"F","duration":1.02},{"time":51.02,"chord":"C","duration":0.74},{"time":51.76,"chord":"G","duration":3.7},{"time":55.46,"chord":"Dm","duration":3.61},{"time":59.07,"chord":"Asus4","duration":0.93},{"time":60,"chord":"Asus2","duration":2.41},{"time":62.41,"chord":"A","duration":2.04},{"time":64.44,"chord":"Am","duration":1.76},{"time":66.2,"chord":"Dm","duration":1.94},{"time":68.15,"chord":"F","duration":1.48},{"time":69.63,"chord":"Gm","duration":1.85},{"time":71.48,"chord":"A","duration":1.94},{"time":73.43,"chord":"A#","duration":1.76},{"time":75.19,"chord":"F","duration":1.94},{"time":77.13,"chord":"Asus4","duration":1.48},{"time":78.61,"chord":"A","duration":1.85},{"time":80.46,"chord":"Dm","duration":1.94},{"time":82.41,"chord":"F","duration":1.67},{"time":84.07,"chord":"Gm","duration":1.85},{"time":85.93,"chord":"A","duration":1.76},{"time":87.69,"chord":"A#","duration":1.85},{"time":89.54,"chord":"F","duration":1.85},{"time":91.39,"chord":"Asus4","duration":1.67},{"time":93.06,"chord":"A7","duration":1.85},{"time":94.91,"chord":"Dm","duration":1.85},{"time":96.76,"chord":"C","duration":1.67},{"time":98.43,"chord":"A#maj7","duration":1.57},{"time":100,"chord":"Dm","duration":0.56},{"time":100.56,"chord":"Am","duration":3.24},{"time":103.8,"chord":"G","duration":1.85},{"time":105.65,"chord":"Am","duration":3.61},{"time":109.26,"chord":"C","duration":1.67},{"time":110.93,"chord":"F","duration":0.93},{"time":111.85,"chord":"C","duration":0.93},{"time":112.78,"chord":"G","duration":3.61},{"time":116.39,"chord":"Dm7","duration":2.78},{"time":119.17,"chord":"G","duration":0.83},{"time":120,"chord":"A","duration":0.56},{"time":120.56,"chord":"Asus4","duration":2.5},{"time":123.06,"chord":"A","duration":4.07},{"time":127.13,"chord":"Dm","duration":1.85},{"time":128.98,"chord":"C","duration":1.02},{"time":130,"chord":"F","duration":0.56},{"time":130.56,"chord":"Gm","duration":1.94},{"time":132.5,"chord":"A7","duration":1.85},{"time":134.35,"chord":"A#","duration":1.76},{"time":136.11,"chord":"F","duration":1.94},{"time":138.06,"chord":"A","duration":3.43},{"time":141.48,"chord":"Dm","duration":1.94},{"time":143.43,"chord":"F","duration":1.57},{"time":145,"chord":"Gm","duration":1.85},{"time":146.85,"chord":"A7","duration":1.85},{"time":148.7,"chord":"A#","duration":1.76},{"time":150.46,"chord":"F","duration":1.85},{"time":152.31,"chord":"Asus4","duration":1.2},{"time":153.52,"chord":"A","duration":2.13},{"time":155.65,"chord":"A#","duration":3.61},{"time":159.26,"chord":"D#m","duration":2.04},{"time":161.3,"chord":"F#","duration":1.67},{"time":162.96,"chord":"G#m","duration":1.85},{"time":164.81,"chord":"A#","duration":1.76},{"time":166.57,"chord":"B","duration":1.76},{"time":168.33,"chord":"F#","duration":1.67},{"time":170,"chord":"D#m","duration":0.46},{"time":170.46,"chord":"A#","duration":3.33},{"time":173.8,"chord":"D#m","duration":1.76},{"time":175.56,"chord":"F#","duration":1.67},{"time":177.22,"chord":"G#m","duration":1.85},{"time":179.07,"chord":"A#7","duration":1.94},{"time":181.02,"chord":"B","duration":1.67},{"time":182.69,"chord":"F#","duration":1.85},{"time":184.54,"chord":"A#","duration":1.2},{"time":185.74,"chord":"A#7","duration":2.31},{"time":188.06,"chord":"D#m","duration":1.94},{"time":190,"chord":"C#","duration":1.76},{"time":191.76,"chord":"Bmaj7","duration":1.85},{"time":193.61,"chord":"A#","duration":1.2},{"time":194.81,"chord":"D#m","duration":2.22},{"time":197.04,"chord":"C#","duration":1.48},{"time":198.52,"chord":"D#m","duration":2.22},{"time":200.74,"chord":"C#","duration":1.3},{"time":202.04,"chord":"F#","duration":2.41},{"time":204.44,"chord":"C#","duration":1.94},{"time":206.39,"chord":"D#m","duration":3.61},{"time":210,"chord":"D#","duration":1.14}];
     window.YOUTUBE_VIDEO_ID = 'M-Mm87ZE6Sk';
+    window.BEGINNER_META = { capo: 5, difficulty: 'advanced' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

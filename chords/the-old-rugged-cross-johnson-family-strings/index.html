@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for The Old Rugged Cross by Johnson Family Strings. AI-detected chord progression with 72 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for The Old Rugged Cross by Johnson Family Strings. AI-detected chord progression with 72 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="The Old Rugged Cross chords, Johnson Family Strings chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="The Old Rugged Cross Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for The Old Rugged Cross by Johnson Family Strings. AI-detected chord progression with 72 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for The Old Rugged Cross by Johnson Family Strings. AI-detected chord progression with 72 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/the-old-rugged-cross-johnson-family-strings/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="The Old Rugged Cross Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for The Old Rugged Cross by Johnson Family Strings. AI-detected chord progression with 72 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for The Old Rugged Cross by Johnson Family Strings. AI-detected chord progression with 72 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>The Old Rugged Cross Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Johnson Family Strings"
   },
   "url": "https://ecoliving-tips.github.io/chords/the-old-rugged-cross-johnson-family-strings/",
-  "description": "Free chords for The Old Rugged Cross by Johnson Family Strings. AI-detected chord progression with 72 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for The Old Rugged Cross by Johnson Family Strings. AI-detected chord progression with 72 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 72 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -298,8 +309,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.56,"chord":"G","duration":6.11},{"time":6.67,"chord":"C","duration":2.13},{"time":8.8,"chord":"G","duration":2.04},{"time":10.83,"chord":"C","duration":2.22},{"time":13.06,"chord":"G","duration":1.57},{"time":14.63,"chord":"A","duration":0.74},{"time":15.37,"chord":"G","duration":2.31},{"time":17.69,"chord":"C","duration":1.48},{"time":19.17,"chord":"G","duration":0.83},{"time":20,"chord":"C","duration":2.22},{"time":22.22,"chord":"D","duration":2.5},{"time":24.72,"chord":"C","duration":0.93},{"time":25.65,"chord":"D7","duration":0.93},{"time":26.57,"chord":"G","duration":2.31},{"time":28.89,"chord":"C","duration":2.13},{"time":31.02,"chord":"G","duration":4.44},{"time":35.46,"chord":"C","duration":4.54},{"time":40,"chord":"D","duration":2.13},{"time":42.13,"chord":"C","duration":1.39},{"time":43.52,"chord":"D","duration":0.74},{"time":44.26,"chord":"G","duration":4.44},{"time":48.7,"chord":"D","duration":4.17},{"time":52.87,"chord":"C","duration":1.67},{"time":54.54,"chord":"G","duration":2.59},{"time":57.13,"chord":"C","duration":4.26},{"time":61.39,"chord":"G","duration":8.8},{"time":70.19,"chord":"C","duration":2.78},{"time":72.96,"chord":"Am7","duration":1.76},{"time":74.72,"chord":"G","duration":2.69},{"time":77.41,"chord":"D7","duration":2.04},{"time":79.44,"chord":"G","duration":2.13},{"time":81.57,"chord":"C","duration":2.22},{"time":83.8,"chord":"G","duration":1.94},{"time":85.74,"chord":"C","duration":2.41},{"time":88.15,"chord":"G","duration":4.35},{"time":92.5,"chord":"C","duration":4.44},{"time":96.94,"chord":"D","duration":2.13},{"time":99.07,"chord":"C","duration":2.04},{"time":101.11,"chord":"G","duration":6.11},{"time":107.22,"chord":"A#dim7","duration":0.65},{"time":107.87,"chord":"G","duration":2.13},{"time":110,"chord":"C","duration":4.54},{"time":114.54,"chord":"D","duration":2.22},{"time":116.76,"chord":"C","duration":1.48},{"time":118.24,"chord":"D","duration":0.93},{"time":119.17,"chord":"D#","duration":2.13},{"time":121.3,"chord":"Gm7","duration":4.35},{"time":125.65,"chord":"Gsus4","duration":2.22},{"time":127.87,"chord":"Dsus4","duration":2.13},{"time":130,"chord":"D","duration":3.52},{"time":133.52,"chord":"Am","duration":2.78},{"time":136.3,"chord":"C","duration":3.7},{"time":140,"chord":"G","duration":2.04},{"time":142.04,"chord":"C","duration":4.07},{"time":146.11,"chord":"G","duration":8.7},{"time":154.81,"chord":"C","duration":4.35},{"time":159.17,"chord":"G","duration":2.13},{"time":161.3,"chord":"C","duration":2.22},{"time":163.52,"chord":"G","duration":2.78},{"time":166.3,"chord":"Cm","duration":0.93},{"time":167.22,"chord":"D7","duration":1.39},{"time":168.61,"chord":"G","duration":1.67},{"time":170.28,"chord":"C","duration":0.83},{"time":171.11,"chord":"Am7","duration":1.39},{"time":172.5,"chord":"C","duration":1.94},{"time":174.44,"chord":"D7","duration":1.2},{"time":175.65,"chord":"G","duration":2.22},{"time":177.87,"chord":"C","duration":2.13},{"time":180,"chord":"G","duration":2.31},{"time":182.31,"chord":"C","duration":1.94},{"time":184.26,"chord":"D7","duration":1.85},{"time":186.11,"chord":"G","duration":4.72}];
     window.YOUTUBE_VIDEO_ID = 'Tmh6r9wSU-8';
+    window.BEGINNER_META = { capo: 5, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Lady Gaga - Bloody Mary by LatinHype. AI-detected chord progression with 114 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Lady Gaga - Bloody Mary by LatinHype. AI-detected chord progression with 114 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Lady Gaga - Bloody Mary chords, LatinHype chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Lady Gaga - Bloody Mary Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Lady Gaga - Bloody Mary by LatinHype. AI-detected chord progression with 114 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Lady Gaga - Bloody Mary by LatinHype. AI-detected chord progression with 114 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/lady-gaga-bloody-mary-latinhype/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Lady Gaga - Bloody Mary Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Lady Gaga - Bloody Mary by LatinHype. AI-detected chord progression with 114 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Lady Gaga - Bloody Mary by LatinHype. AI-detected chord progression with 114 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Lady Gaga - Bloody Mary Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "LatinHype"
   },
   "url": "https://ecoliving-tips.github.io/chords/lady-gaga-bloody-mary-latinhype/",
-  "description": "Free chords for Lady Gaga - Bloody Mary by LatinHype. AI-detected chord progression with 114 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Lady Gaga - Bloody Mary by LatinHype. AI-detected chord progression with 114 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 114 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -302,8 +313,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.65,"chord":"E","duration":0.74},{"time":1.39,"chord":"Am","duration":2.59},{"time":3.98,"chord":"Dm","duration":2.87},{"time":6.85,"chord":"E","duration":0.83},{"time":7.69,"chord":"Am","duration":1.76},{"time":9.44,"chord":"B","duration":0.56},{"time":10,"chord":"Am","duration":2.41},{"time":12.41,"chord":"Em","duration":1.76},{"time":14.17,"chord":"C","duration":0.65},{"time":14.81,"chord":"F7","duration":0.74},{"time":15.56,"chord":"Dm6","duration":1.76},{"time":17.31,"chord":"Am","duration":2.59},{"time":19.91,"chord":"Em","duration":12.87},{"time":32.78,"chord":"Am","duration":0.65},{"time":33.43,"chord":"E","duration":1.39},{"time":34.81,"chord":"Am","duration":4.17},{"time":38.98,"chord":"Dm","duration":2.31},{"time":41.3,"chord":"F","duration":2.22},{"time":43.52,"chord":"Am","duration":2.5},{"time":46.02,"chord":"C","duration":2.5},{"time":48.52,"chord":"Dm","duration":2.96},{"time":51.48,"chord":"F","duration":1.57},{"time":53.06,"chord":"Esus4","duration":2.04},{"time":55.09,"chord":"E7","duration":2.96},{"time":58.06,"chord":"F","duration":1.94},{"time":60,"chord":"G","duration":0.46},{"time":60.46,"chord":"Am","duration":2.31},{"time":62.78,"chord":"G","duration":2.5},{"time":65.28,"chord":"Em","duration":2.41},{"time":67.69,"chord":"F","duration":1.76},{"time":69.44,"chord":"G","duration":0.56},{"time":70,"chord":"Am","duration":2.41},{"time":72.41,"chord":"G","duration":2.41},{"time":74.81,"chord":"Em","duration":1.2},{"time":76.02,"chord":"E","duration":1.2},{"time":77.22,"chord":"Am","duration":3.52},{"time":80.74,"chord":"Dm7","duration":0.93},{"time":81.67,"chord":"F","duration":3.33},{"time":85,"chord":"A","duration":1.85},{"time":86.85,"chord":"B","duration":1.02},{"time":87.87,"chord":"E","duration":2.13},{"time":90,"chord":"Em","duration":10},{"time":100,"chord":"Am","duration":6.3},{"time":106.3,"chord":"Dm","duration":2.13},{"time":108.43,"chord":"F","duration":2.41},{"time":110.83,"chord":"Am","duration":2.31},{"time":113.15,"chord":"C","duration":2.69},{"time":115.83,"chord":"Dm","duration":2.13},{"time":117.96,"chord":"F","duration":2.5},{"time":120.46,"chord":"E","duration":4.81},{"time":125.28,"chord":"F","duration":1.76},{"time":127.04,"chord":"G","duration":0.56},{"time":127.59,"chord":"Am","duration":2.41},{"time":130,"chord":"G","duration":2.5},{"time":132.5,"chord":"Em","duration":2.41},{"time":134.91,"chord":"F","duration":1.76},{"time":136.67,"chord":"G","duration":0.65},{"time":137.31,"chord":"Am","duration":2.31},{"time":139.63,"chord":"G","duration":2.41},{"time":142.04,"chord":"Em","duration":1.2},{"time":143.24,"chord":"E7","duration":1.11},{"time":144.35,"chord":"Am","duration":3.7},{"time":148.06,"chord":"F","duration":3.7},{"time":151.76,"chord":"A","duration":1.02},{"time":152.78,"chord":"A7","duration":2.31},{"time":155.09,"chord":"C","duration":2.41},{"time":157.5,"chord":"D7","duration":2.04},{"time":159.54,"chord":"C","duration":0.46},{"time":160,"chord":"F","duration":0.56},{"time":160.56,"chord":"E","duration":1.85},{"time":162.41,"chord":"Am","duration":0.83},{"time":163.24,"chord":"B","duration":1.48},{"time":164.72,"chord":"C","duration":0.65},{"time":165.37,"chord":"Am","duration":1.76},{"time":167.13,"chord":"D","duration":1.11},{"time":168.24,"chord":"C","duration":1.3},{"time":169.54,"chord":"F","duration":0.46},{"time":173.43,"chord":"D","duration":2.04},{"time":175.46,"chord":"F","duration":2.5},{"time":177.96,"chord":"Am","duration":2.5},{"time":180.46,"chord":"C","duration":2.69},{"time":183.15,"chord":"D","duration":1.48},{"time":184.63,"chord":"Dm","duration":0.46},{"time":185.09,"chord":"F","duration":2.69},{"time":187.78,"chord":"Esus4","duration":2.22},{"time":190,"chord":"E7","duration":2.41},{"time":192.41,"chord":"F","duration":1.85},{"time":194.26,"chord":"G","duration":0.56},{"time":194.81,"chord":"Am","duration":2.41},{"time":197.22,"chord":"G","duration":2.41},{"time":199.63,"chord":"Em","duration":2.5},{"time":202.13,"chord":"F","duration":1.76},{"time":203.89,"chord":"G","duration":0.56},{"time":204.44,"chord":"Am","duration":2.41},{"time":206.85,"chord":"G","duration":2.31},{"time":209.17,"chord":"Em","duration":1.02},{"time":210.19,"chord":"E7","duration":1.39},{"time":211.57,"chord":"F","duration":1.94},{"time":213.52,"chord":"G","duration":0.56},{"time":214.07,"chord":"Am","duration":2.31},{"time":216.39,"chord":"G","duration":2.41},{"time":218.8,"chord":"Em","duration":2.5},{"time":221.3,"chord":"F","duration":1.76},{"time":223.06,"chord":"G","duration":0.56},{"time":223.61,"chord":"Am","duration":2.41},{"time":226.02,"chord":"G","duration":2.41},{"time":228.43,"chord":"Em","duration":1.57},{"time":230,"chord":"E7","duration":0.74},{"time":230.74,"chord":"Am","duration":3.61},{"time":234.35,"chord":"Dm","duration":0.65},{"time":235,"chord":"Am","duration":0.56},{"time":235.56,"chord":"Dm","duration":1.3},{"time":236.85,"chord":"E7","duration":1.3},{"time":238.15,"chord":"Am","duration":1.85}];
     window.YOUTUBE_VIDEO_ID = '0pETBtma3w0';
+    window.BEGINNER_META = { capo: 0, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

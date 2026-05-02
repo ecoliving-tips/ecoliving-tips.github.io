@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Para la Mamá que Pelea en Silencio by Cielo en la Tierra. AI-detected chord progression with 113 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Para la Mamá que Pelea en Silencio by Cielo en la Tierra. AI-detected chord progression with 113 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Para la Mamá que Pelea en Silencio chords, Cielo en la Tierra chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Para la Mamá que Pelea en Silencio Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Para la Mamá que Pelea en Silencio by Cielo en la Tierra. AI-detected chord progression with 113 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Para la Mamá que Pelea en Silencio by Cielo en la Tierra. AI-detected chord progression with 113 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/para-la-mama-que-pelea-en-silencio-cielo-en-la-tierra/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Para la Mamá que Pelea en Silencio Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Para la Mamá que Pelea en Silencio by Cielo en la Tierra. AI-detected chord progression with 113 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Para la Mamá que Pelea en Silencio by Cielo en la Tierra. AI-detected chord progression with 113 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Para la Mamá que Pelea en Silencio Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Cielo en la Tierra"
   },
   "url": "https://ecoliving-tips.github.io/chords/para-la-mama-que-pelea-en-silencio-cielo-en-la-tierra/",
-  "description": "Free chords for Para la Mamá que Pelea en Silencio by Cielo en la Tierra. AI-detected chord progression with 113 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Para la Mamá que Pelea en Silencio by Cielo en la Tierra. AI-detected chord progression with 113 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 113 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -295,8 +306,10 @@
     <script>
     window.CHORD_DATA = [{"time":2.96,"chord":"A#","duration":7.04},{"time":10,"chord":"F","duration":8.61},{"time":18.61,"chord":"D#","duration":7.13},{"time":25.74,"chord":"A#","duration":3.8},{"time":29.54,"chord":"F","duration":3.33},{"time":32.87,"chord":"Gm","duration":3.7},{"time":36.57,"chord":"D#","duration":3.43},{"time":40,"chord":"A#","duration":3.43},{"time":43.43,"chord":"F","duration":3.43},{"time":46.85,"chord":"A#","duration":3.61},{"time":50.46,"chord":"F","duration":3.61},{"time":54.07,"chord":"Gm","duration":3.52},{"time":57.59,"chord":"D#","duration":3.43},{"time":61.02,"chord":"A#","duration":3.61},{"time":64.63,"chord":"F","duration":3.61},{"time":68.24,"chord":"Cm7","duration":3.43},{"time":71.67,"chord":"D#","duration":3.8},{"time":75.46,"chord":"Gm","duration":3.52},{"time":78.98,"chord":"Dm","duration":3.7},{"time":82.69,"chord":"D#","duration":3.52},{"time":86.2,"chord":"Fsus4","duration":2.78},{"time":88.98,"chord":"A#sus4","duration":1.02},{"time":90,"chord":"A#","duration":3.06},{"time":93.06,"chord":"F","duration":3.52},{"time":96.57,"chord":"Gm","duration":3.43},{"time":100,"chord":"D#","duration":3.52},{"time":103.52,"chord":"A#","duration":3.43},{"time":106.94,"chord":"F","duration":3.06},{"time":110,"chord":"F7","duration":0.37},{"time":110.37,"chord":"Cm7","duration":1.85},{"time":112.22,"chord":"D#","duration":2.5},{"time":114.72,"chord":"A#","duration":4.54},{"time":119.26,"chord":"F","duration":0.74},{"time":120.74,"chord":"A#","duration":7.04},{"time":127.78,"chord":"F","duration":3.43},{"time":131.2,"chord":"Cm7","duration":3.43},{"time":134.63,"chord":"Gm","duration":3.52},{"time":138.15,"chord":"D#","duration":3.33},{"time":141.48,"chord":"A#","duration":3.52},{"time":145,"chord":"Gm","duration":3.33},{"time":148.33,"chord":"Dm","duration":3.52},{"time":151.85,"chord":"D#","duration":3.43},{"time":155.28,"chord":"F","duration":2.31},{"time":157.59,"chord":"A#","duration":4.44},{"time":162.04,"chord":"F","duration":3.52},{"time":165.56,"chord":"Gm","duration":3.43},{"time":168.98,"chord":"D#","duration":3.52},{"time":172.5,"chord":"A#","duration":3.33},{"time":175.83,"chord":"F","duration":3.43},{"time":179.26,"chord":"Cm7","duration":1.67},{"time":180.93,"chord":"D#","duration":1.76},{"time":182.69,"chord":"A#","duration":3.61},{"time":186.3,"chord":"Gm","duration":3.15},{"time":189.44,"chord":"D#","duration":3.33},{"time":192.78,"chord":"A#","duration":3.52},{"time":196.3,"chord":"F","duration":2.69},{"time":198.98,"chord":"A#","duration":1.02},{"time":200,"chord":"Gm","duration":3.15},{"time":203.15,"chord":"D#","duration":3.52},{"time":206.67,"chord":"A#","duration":3.33},{"time":210,"chord":"F","duration":3.61},{"time":213.61,"chord":"Gm","duration":3.52},{"time":217.13,"chord":"D#","duration":3.15},{"time":220.28,"chord":"F7","duration":3.7},{"time":223.98,"chord":"A#","duration":3.43},{"time":227.41,"chord":"F","duration":3.43},{"time":230.83,"chord":"Gm","duration":3.33},{"time":234.17,"chord":"D#","duration":3.52},{"time":237.69,"chord":"A#","duration":3.24},{"time":240.93,"chord":"F","duration":3.43},{"time":244.35,"chord":"Cm7","duration":1.76},{"time":246.11,"chord":"D#","duration":1.76},{"time":247.87,"chord":"A#","duration":6.67},{"time":254.54,"chord":"F","duration":3.52},{"time":258.06,"chord":"Gm","duration":3.33},{"time":261.39,"chord":"D#","duration":3.52},{"time":264.91,"chord":"A#","duration":3.43},{"time":268.33,"chord":"F","duration":3.52},{"time":271.85,"chord":"Gm","duration":3.33},{"time":275.19,"chord":"D#","duration":3.52},{"time":278.7,"chord":"A#","duration":3.52},{"time":282.22,"chord":"F","duration":3.43},{"time":285.65,"chord":"Gm","duration":3.43},{"time":289.07,"chord":"D#","duration":4.63},{"time":293.7,"chord":"A#","duration":2.41},{"time":296.11,"chord":"F","duration":2.96},{"time":299.07,"chord":"A#","duration":0.93},{"time":300,"chord":"Gm","duration":2.69},{"time":302.69,"chord":"D#","duration":4.17},{"time":306.85,"chord":"A#","duration":4.07},{"time":310.93,"chord":"F","duration":3.7},{"time":314.63,"chord":"Gm","duration":3.33},{"time":317.96,"chord":"D#","duration":3.8},{"time":321.76,"chord":"A#","duration":3.52},{"time":325.28,"chord":"F","duration":3.43},{"time":328.7,"chord":"Gm","duration":3.52},{"time":332.22,"chord":"D#","duration":3.43},{"time":335.65,"chord":"A#","duration":3.52},{"time":339.17,"chord":"F","duration":3.52},{"time":342.69,"chord":"Gm","duration":3.15},{"time":345.83,"chord":"D#","duration":3.7},{"time":349.54,"chord":"A#","duration":3.33},{"time":352.87,"chord":"F","duration":3.52},{"time":356.39,"chord":"Gm","duration":3.24},{"time":359.63,"chord":"D#","duration":3.61},{"time":363.24,"chord":"A#","duration":3.24},{"time":366.48,"chord":"F","duration":3.89},{"time":370.37,"chord":"D#m","duration":5.09},{"time":375.46,"chord":"A#","duration":3.61},{"time":379.07,"chord":"F","duration":3.52},{"time":382.59,"chord":"Gm","duration":3.61},{"time":386.2,"chord":"D#","duration":8.15},{"time":394.35,"chord":"A#","duration":3.73}];
     window.YOUTUBE_VIDEO_ID = 'A4DXwjsOlJ4';
+    window.BEGINNER_META = { capo: 3, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

@@ -130,145 +130,13 @@ let capoPosition = 0;        // auto-computed capo for beginner mode
 let difficultyLevel = '';     // 'easy' | 'moderate' | 'advanced'
 
 // ---------------------------------------------------------------------------
-// Beginner mode — chord simplification & capo optimization
+// Beginner mode — delegates to ChordUtils (js/chord-utils.js)
 // ---------------------------------------------------------------------------
 
-/** Chords playable in open position without barre */
-const BEGINNER_CHORDS = new Set([
-    'C', 'D', 'E', 'F', 'G', 'A',
-    'Am', 'Dm', 'Em',
-    'A7', 'B7', 'D7', 'E7', 'G7'
-]);
-
-/** Common beginner 7th chords that should keep their quality */
-const BEGINNER_7THS = new Set(['A7', 'B7', 'D7', 'E7', 'G7']);
-
-/**
- * Simplify a chord name to its beginner-friendly equivalent.
- * Rules applied in order:
- * 1. Slash chords → root only (C/G → C)
- * 2. 9th → triad (C9 → C, Cm9 → Cm)
- * 3. m7b5 → minor
- * 4. dim → minor
- * 5. aug → major
- * 6. 6th → triad
- * 7. sus → major
- * 8. M7/maj7 → major
- * 9. m7 → minor
- * 10. 7th → keep if beginner 7th, else strip
- */
-function simplifyChord(chord) {
-    if (!chord) return chord;
-
-    // Strip slash chords → root only
-    if (chord.includes('/')) {
-        chord = chord.split('/')[0];
-    }
-
-    const match = chord.match(/^([A-G][#b]?)(.*)/);
-    if (!match) return chord;
-
-    let root = match[1];
-    let quality = match[2];
-
-    // Normalize flats for consistent lookup
-    if (FLAT_MAP[root]) root = FLAT_MAP[root];
-
-    // Power chord → major
-    if (quality === '5') return root;
-    // 11th/13th → triad
-    if (/^m?1[13]/.test(quality)) return root + (quality.startsWith('m') ? 'm' : '');
-    // 9th chords (including add9, madd9, 7#9) → triad
-    if (/m?.*9/.test(quality)) {
-        const isMinor = quality.startsWith('m') && !quality.startsWith('maj');
-        return root + (isMinor ? 'm' : '');
-    }
-    // 7sus4 → major
-    if (quality === '7sus4') return root;
-    // m7b5 → minor
-    if (quality === 'm7b5') return root + 'm';
-    // dim → minor
-    if (quality === 'dim') return root + 'm';
-    // aug → major
-    if (quality === 'aug') return root;
-    // 6th chords → triad
-    if (quality === '6') return root;
-    if (quality === 'm6') return root + 'm';
-    // sus → major
-    if (quality === 'sus4' || quality === 'sus2') return root;
-    // add2 → major
-    if (quality === 'add2') return root;
-    // M7/maj7 → major
-    if (quality === 'M7' || quality === 'maj7') return root;
-    // m7 → minor
-    if (quality === 'm7') return root + 'm';
-    // 7th variants (7, 7#5, 7b5, etc.) → keep if beginner 7th, else strip
-    if (quality.startsWith('7')) {
-        return BEGINNER_7THS.has(root + '7') ? root + '7' : root;
-    }
-
-    return root + quality;
-}
-
-/**
- * Find the capo position (0–7) that maximizes beginner-friendly chords.
- * Returns { capo, displayChords: Map<originalChord, displayChord> }
- */
-function findOptimalCapo(chords) {
-    if (!chords?.length) return { capo: 0 };
-
-    // Get unique simplified chords
-    const uniqueSimplified = [...new Set(chords.map(e => simplifyChord(e.chord)))];
-
-    let bestCapo = 0;
-    let bestScore = -1;
-
-    for (let capo = 0; capo <= 7; capo++) {
-        let score = 0;
-        const transposed = uniqueSimplified.map(c => transposeChord(c, -capo + currentTranspose));
-        for (const c of transposed) {
-            if (BEGINNER_CHORDS.has(c)) score++;
-        }
-        if (score > bestScore) {
-            bestScore = score;
-            bestCapo = capo;
-        }
-    }
-
-    return { capo: bestCapo };
-}
-
-/**
- * Compute difficulty level based on how many unique result chords
- * fall in the beginner set after simplification + capo transpose.
- */
-function computeDifficulty(chords, capo) {
-    if (!chords?.length) return 'easy';
-    const unique = [...new Set(chords.map(e => {
-        const simplified = simplifyChord(e.chord);
-        return transposeChord(simplified, -capo + currentTranspose);
-    }))];
-    const beginnerCount = unique.filter(c => BEGINNER_CHORDS.has(c)).length;
-    const ratio = beginnerCount / unique.length;
-    if (ratio >= 1) return 'easy';
-    if (ratio >= 0.7) return 'moderate';
-    return 'advanced';
-}
-
-/**
- * Get the display chord for a given raw chord, applying beginner
- * simplification + capo + user transpose as needed.
- */
-function getDisplayChord(rawChord) {
-    let chord = rawChord;
-    if (beginnerMode) {
-        chord = simplifyChord(chord);
-        chord = transposeChord(chord, -capoPosition + currentTranspose);
-    } else {
-        chord = transposeChord(chord, currentTranspose);
-    }
-    return chord;
-}
+function simplifyChord(chord) { return ChordUtils.simplifyChord(chord); }
+function findOptimalCapo(chords) { return ChordUtils.findOptimalCapo(chords, currentTranspose); }
+function computeDifficulty(chords, capo) { return ChordUtils.computeDifficulty(chords, capo, currentTranspose); }
+function getDisplayChord(rawChord) { return ChordUtils.getDisplayChord(rawChord, beginnerMode, capoPosition, currentTranspose); }
 
 /** Toggle beginner mode on/off and re-render */
 function toggleBeginnerMode(enabled) {
@@ -312,9 +180,9 @@ function updateBeginnerInfo() {
     }
 }
 
-// Note and chord constants (matching songs.js)
-const NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-const FLAT_MAP = { 'Db': 'C#', 'Eb': 'D#', 'Fb': 'E', 'Gb': 'F#', 'Ab': 'G#', 'Bb': 'A#', 'Cb': 'B' };
+// Note and chord constants — delegated to ChordUtils
+const NOTES = ChordUtils.NOTES;
+const FLAT_MAP = ChordUtils.FLAT_MAP;
 
 // ---------------------------------------------------------------------------
 // i18n helper (safe access before i18n.js loads)
@@ -1209,31 +1077,9 @@ function seekTo(time) {
 }
 
 // ---------------------------------------------------------------------------
-// Transpose
+// Transpose — delegates to ChordUtils
 // ---------------------------------------------------------------------------
-function transposeChord(chord, semitones) {
-    if (!chord || semitones === 0) return chord;
-
-    // Handle slash chords: Cm/G
-    if (chord.includes('/')) {
-        const parts = chord.split('/');
-        return transposeChord(parts[0], semitones) + '/' + transposeChord(parts[1], semitones);
-    }
-
-    const match = chord.match(/^([A-G][#b]?)(.*)/);
-    if (!match) return chord;
-
-    let root = match[1];
-    const quality = match[2];
-
-    if (FLAT_MAP[root]) root = FLAT_MAP[root];
-
-    const rootIndex = NOTES.indexOf(root);
-    if (rootIndex < 0) return chord;
-
-    const newIndex = ((rootIndex + semitones) % 12 + 12) % 12;
-    return NOTES[newIndex] + quality;
-}
+function transposeChord(chord, semitones) { return ChordUtils.transposeChord(chord, semitones); }
 
 function applyTranspose(delta) {
     const next = currentTranspose + delta;

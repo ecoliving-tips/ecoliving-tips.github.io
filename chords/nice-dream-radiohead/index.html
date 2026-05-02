@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for [Nice Dream] by Radiohead. AI-detected chord progression with 77 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for [Nice Dream] by Radiohead. AI-detected chord progression with 77 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="[Nice Dream] chords, Radiohead chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="[Nice Dream] Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for [Nice Dream] by Radiohead. AI-detected chord progression with 77 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for [Nice Dream] by Radiohead. AI-detected chord progression with 77 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/nice-dream-radiohead/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="[Nice Dream] Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for [Nice Dream] by Radiohead. AI-detected chord progression with 77 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for [Nice Dream] by Radiohead. AI-detected chord progression with 77 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>[Nice Dream] Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Radiohead"
   },
   "url": "https://ecoliving-tips.github.io/chords/nice-dream-radiohead/",
-  "description": "Free chords for [Nice Dream] by Radiohead. AI-detected chord progression with 77 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for [Nice Dream] by Radiohead. AI-detected chord progression with 77 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 77 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -305,8 +316,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.37,"chord":"C","duration":1.85},{"time":2.22,"chord":"B7","duration":2.13},{"time":4.35,"chord":"A#maj7","duration":2.04},{"time":6.39,"chord":"A","duration":2.13},{"time":8.52,"chord":"C","duration":2.04},{"time":10.56,"chord":"B7","duration":2.13},{"time":12.69,"chord":"A#","duration":1.94},{"time":14.63,"chord":"A","duration":2.41},{"time":17.04,"chord":"B7","duration":1.76},{"time":18.8,"chord":"A","duration":8.33},{"time":27.13,"chord":"D","duration":8.33},{"time":35.46,"chord":"A","duration":0.83},{"time":36.3,"chord":"Esus4","duration":3.24},{"time":39.54,"chord":"A","duration":4.26},{"time":43.8,"chord":"D","duration":8.52},{"time":52.31,"chord":"E","duration":0.93},{"time":53.24,"chord":"Bm7","duration":0.93},{"time":54.17,"chord":"E","duration":2.13},{"time":56.3,"chord":"Bm7","duration":4.26},{"time":60.56,"chord":"E7","duration":4.07},{"time":64.63,"chord":"A","duration":2.59},{"time":67.22,"chord":"B7","duration":1.57},{"time":68.8,"chord":"A","duration":2.69},{"time":71.48,"chord":"B","duration":1.48},{"time":72.96,"chord":"A","duration":4.17},{"time":77.13,"chord":"D","duration":8.7},{"time":85.83,"chord":"E7","duration":4.17},{"time":90,"chord":"A","duration":3.98},{"time":93.98,"chord":"D","duration":8.33},{"time":102.31,"chord":"Esus4","duration":1.48},{"time":103.8,"chord":"E","duration":2.59},{"time":106.39,"chord":"Bm7","duration":4.26},{"time":110.65,"chord":"E7","duration":4.17},{"time":114.81,"chord":"A","duration":4.17},{"time":118.98,"chord":"F#m","duration":3.89},{"time":122.87,"chord":"Bm7","duration":4.26},{"time":127.13,"chord":"E7","duration":4.26},{"time":131.39,"chord":"A","duration":4.17},{"time":135.56,"chord":"F#m","duration":0.83},{"time":136.39,"chord":"B","duration":1.3},{"time":137.69,"chord":"F#m","duration":1.94},{"time":139.63,"chord":"Bm","duration":4.26},{"time":143.89,"chord":"A#","duration":3.7},{"time":147.59,"chord":"Asus4","duration":3.06},{"time":150.65,"chord":"Bm","duration":1.39},{"time":152.04,"chord":"C","duration":2.04},{"time":154.07,"chord":"D","duration":0.83},{"time":154.91,"chord":"Gm","duration":1.3},{"time":156.2,"chord":"A","duration":1.02},{"time":157.22,"chord":"Asus4","duration":1.3},{"time":158.52,"chord":"Bm","duration":1.76},{"time":160.28,"chord":"C","duration":2.22},{"time":162.5,"chord":"D","duration":1.94},{"time":164.44,"chord":"A","duration":2.69},{"time":167.13,"chord":"B","duration":1.39},{"time":168.52,"chord":"C","duration":2.04},{"time":170.56,"chord":"D","duration":1.94},{"time":172.5,"chord":"A","duration":2.59},{"time":175.09,"chord":"B","duration":1.48},{"time":176.57,"chord":"C","duration":1.94},{"time":178.52,"chord":"D","duration":2.59},{"time":181.11,"chord":"Bm7","duration":3.33},{"time":184.44,"chord":"A","duration":0.56},{"time":185,"chord":"Em7","duration":3.52},{"time":188.52,"chord":"A","duration":4.54},{"time":193.06,"chord":"B7","duration":4.17},{"time":197.22,"chord":"Bm7","duration":4.35},{"time":201.57,"chord":"E7","duration":4.17},{"time":205.74,"chord":"A","duration":4.26},{"time":210,"chord":"F#m","duration":2.04},{"time":212.04,"chord":"F#m6","duration":1.57},{"time":213.61,"chord":"F#m","duration":0.74},{"time":214.35,"chord":"G","duration":3.7},{"time":218.06,"chord":"D","duration":0.46},{"time":218.52,"chord":"A#aug","duration":1.48},{"time":220,"chord":"Gm","duration":2.96},{"time":222.96,"chord":"A7","duration":1.85}];
     window.YOUTUBE_VIDEO_ID = 'jIjTFt6XmFM';
+    window.BEGINNER_META = { capo: 2, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

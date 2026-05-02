@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for (free) experimental pop type beat - cinematic  &quot;are you alive?&quot; by BLONDE. AI-detected chord progression with 53 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for (free) experimental pop type beat - cinematic  &quot;are you alive?&quot; by BLONDE. AI-detected chord progression with 53 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="(free) experimental pop type beat - cinematic  &quot;are you alive?&quot; chords, BLONDE chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="(free) experimental pop type beat - cinematic  &quot;are you alive?&quot; Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for (free) experimental pop type beat - cinematic  &quot;are you alive?&quot; by BLONDE. AI-detected chord progression with 53 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for (free) experimental pop type beat - cinematic  &quot;are you alive?&quot; by BLONDE. AI-detected chord progression with 53 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/free-experimental-pop-type-beat-cinematic-are-you-alive-blonde/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="(free) experimental pop type beat - cinematic  &quot;are you alive?&quot; Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for (free) experimental pop type beat - cinematic  &quot;are you alive?&quot; by BLONDE. AI-detected chord progression with 53 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for (free) experimental pop type beat - cinematic  &quot;are you alive?&quot; by BLONDE. AI-detected chord progression with 53 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>(free) experimental pop type beat - cinematic  &quot;are you alive?&quot; Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "BLONDE"
   },
   "url": "https://ecoliving-tips.github.io/chords/free-experimental-pop-type-beat-cinematic-are-you-alive-blonde/",
-  "description": "Free chords for (free) experimental pop type beat - cinematic  \"are you alive?\" by BLONDE. AI-detected chord progression with 53 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for (free) experimental pop type beat - cinematic  \"are you alive?\" by BLONDE. AI-detected chord progression with 53 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 53 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -289,8 +300,10 @@
     <script>
     window.CHORD_DATA = [{"time":0,"chord":"G#","duration":2.96},{"time":2.96,"chord":"Fm","duration":1.48},{"time":4.44,"chord":"Cm","duration":4.35},{"time":8.8,"chord":"G#","duration":4.07},{"time":12.87,"chord":"Cm","duration":4.35},{"time":17.22,"chord":"G#","duration":2.41},{"time":19.63,"chord":"Fm","duration":2.04},{"time":21.67,"chord":"Cm","duration":4.26},{"time":25.93,"chord":"G#","duration":2.13},{"time":28.06,"chord":"Fm","duration":2.04},{"time":30.09,"chord":"Cm","duration":4.35},{"time":34.44,"chord":"G#","duration":2.5},{"time":36.94,"chord":"Fm","duration":1.94},{"time":38.89,"chord":"Cm","duration":4.17},{"time":43.06,"chord":"G#","duration":2.22},{"time":45.28,"chord":"Fm","duration":2.41},{"time":47.69,"chord":"Cm","duration":3.98},{"time":51.67,"chord":"G#","duration":2.31},{"time":53.98,"chord":"Fm","duration":2.31},{"time":56.3,"chord":"Cm","duration":3.98},{"time":60.28,"chord":"G#","duration":2.31},{"time":62.59,"chord":"Fm","duration":2.59},{"time":65.19,"chord":"Cm","duration":3.61},{"time":68.8,"chord":"G#","duration":2.41},{"time":71.2,"chord":"Fm7","duration":1.76},{"time":72.96,"chord":"Cm","duration":4.44},{"time":77.41,"chord":"G#","duration":2.31},{"time":79.72,"chord":"Fm","duration":1.85},{"time":81.57,"chord":"Cm","duration":4.26},{"time":85.83,"chord":"G#","duration":2.22},{"time":88.06,"chord":"Fm","duration":2.13},{"time":90.19,"chord":"Cm","duration":4.26},{"time":94.44,"chord":"G#","duration":2.22},{"time":96.67,"chord":"Fm","duration":2.04},{"time":98.7,"chord":"Cm","duration":4.35},{"time":103.06,"chord":"G#","duration":2.31},{"time":105.37,"chord":"Fm","duration":2.5},{"time":107.87,"chord":"Cm","duration":3.8},{"time":111.67,"chord":"G#","duration":2.31},{"time":113.98,"chord":"Fm","duration":2.31},{"time":116.3,"chord":"Cm","duration":3.89},{"time":120.19,"chord":"G#","duration":2.22},{"time":122.41,"chord":"Fm","duration":2.5},{"time":124.91,"chord":"Cm","duration":3.89},{"time":128.8,"chord":"G#","duration":2.22},{"time":131.02,"chord":"Fm","duration":2.22},{"time":133.24,"chord":"Cm","duration":4.07},{"time":137.31,"chord":"G#","duration":2.69},{"time":140,"chord":"Fm7","duration":1.67},{"time":141.67,"chord":"Cm","duration":4.26},{"time":145.93,"chord":"G#","duration":2.04},{"time":147.96,"chord":"Fm7","duration":2.04},{"time":150,"chord":"Cm","duration":5.28}];
     window.YOUTUBE_VIDEO_ID = 'EBo5RpNk3-A';
+    window.BEGINNER_META = { capo: 3, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

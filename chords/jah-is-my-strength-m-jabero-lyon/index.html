@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Jah Is My Strength-M.Jabero Lyon by M.jabero Lyon. AI-detected chord progression with 65 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Jah Is My Strength-M.Jabero Lyon by M.jabero Lyon. AI-detected chord progression with 65 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Jah Is My Strength-M.Jabero Lyon chords, M.jabero Lyon chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Jah Is My Strength-M.Jabero Lyon Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Jah Is My Strength-M.Jabero Lyon by M.jabero Lyon. AI-detected chord progression with 65 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Jah Is My Strength-M.Jabero Lyon by M.jabero Lyon. AI-detected chord progression with 65 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/jah-is-my-strength-m-jabero-lyon/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Jah Is My Strength-M.Jabero Lyon Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Jah Is My Strength-M.Jabero Lyon by M.jabero Lyon. AI-detected chord progression with 65 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Jah Is My Strength-M.Jabero Lyon by M.jabero Lyon. AI-detected chord progression with 65 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Jah Is My Strength-M.Jabero Lyon Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "M.jabero Lyon"
   },
   "url": "https://ecoliving-tips.github.io/chords/jah-is-my-strength-m-jabero-lyon/",
-  "description": "Free chords for Jah Is My Strength-M.Jabero Lyon by M.jabero Lyon. AI-detected chord progression with 65 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Jah Is My Strength-M.Jabero Lyon by M.jabero Lyon. AI-detected chord progression with 65 chords. Advanced difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Advanced"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 65 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -293,8 +304,10 @@
     <script>
     window.CHORD_DATA = [{"time":0,"chord":"Fm","duration":3.15},{"time":3.15,"chord":"C#","duration":3.15},{"time":6.3,"chord":"D#","duration":3.06},{"time":9.35,"chord":"Cm","duration":2.96},{"time":12.31,"chord":"Fm","duration":3.52},{"time":15.83,"chord":"C#","duration":2.96},{"time":18.8,"chord":"D#","duration":3.33},{"time":22.13,"chord":"Cm","duration":2.13},{"time":24.26,"chord":"C","duration":0.93},{"time":25.19,"chord":"Fm","duration":3.24},{"time":28.43,"chord":"C#","duration":3.15},{"time":31.57,"chord":"D#","duration":3.15},{"time":34.72,"chord":"Cm","duration":2.96},{"time":37.69,"chord":"Fm","duration":2.69},{"time":40.37,"chord":"A#m","duration":0.93},{"time":41.3,"chord":"C#","duration":2.96},{"time":44.26,"chord":"D#","duration":3.06},{"time":47.31,"chord":"Cm","duration":2.69},{"time":50,"chord":"Fm","duration":3.7},{"time":53.7,"chord":"C#","duration":3.06},{"time":56.76,"chord":"D#","duration":3.24},{"time":60,"chord":"Cm7","duration":3.06},{"time":63.06,"chord":"Fm","duration":3.24},{"time":66.3,"chord":"C#","duration":3.06},{"time":69.35,"chord":"D#","duration":3.33},{"time":72.69,"chord":"Cm","duration":2.96},{"time":75.65,"chord":"Fm","duration":3.33},{"time":78.98,"chord":"C#","duration":3.15},{"time":82.13,"chord":"D#","duration":3.15},{"time":85.28,"chord":"Cm","duration":2.96},{"time":88.24,"chord":"Fm","duration":3.24},{"time":91.48,"chord":"C#","duration":3.24},{"time":94.72,"chord":"D#","duration":3.33},{"time":98.06,"chord":"Cm","duration":2.78},{"time":100.83,"chord":"Fm","duration":2.59},{"time":103.43,"chord":"A#m","duration":0.65},{"time":104.07,"chord":"C#","duration":3.06},{"time":107.13,"chord":"D#","duration":3.15},{"time":110.28,"chord":"Cm","duration":1.85},{"time":112.13,"chord":"C7","duration":1.76},{"time":113.89,"chord":"Fm","duration":3.15},{"time":117.04,"chord":"C#","duration":2.96},{"time":120,"chord":"D#","duration":3.24},{"time":123.24,"chord":"Cm","duration":2.96},{"time":126.2,"chord":"Fm","duration":3.15},{"time":129.35,"chord":"C#","duration":3.24},{"time":132.59,"chord":"D#","duration":3.24},{"time":135.83,"chord":"Cm","duration":2.87},{"time":138.7,"chord":"Fm","duration":3.43},{"time":142.13,"chord":"C#","duration":3.06},{"time":145.19,"chord":"D#","duration":3.33},{"time":148.52,"chord":"Cm","duration":2.87},{"time":151.39,"chord":"Fm","duration":3.33},{"time":154.72,"chord":"C#","duration":3.15},{"time":157.87,"chord":"D#","duration":3.15},{"time":161.02,"chord":"Cm","duration":2.96},{"time":163.98,"chord":"Fm","duration":3.33},{"time":167.31,"chord":"C#","duration":3.24},{"time":170.56,"chord":"D#","duration":3.06},{"time":173.61,"chord":"Cm","duration":3.06},{"time":176.67,"chord":"Fm","duration":3.33},{"time":180,"chord":"C#","duration":3.15},{"time":183.15,"chord":"D#","duration":3.15},{"time":186.3,"chord":"Cm","duration":2.5},{"time":188.8,"chord":"Fm","duration":1.2}];
     window.YOUTUBE_VIDEO_ID = 'YeYRbMRa-ds';
+    window.BEGINNER_META = { capo: 1, difficulty: 'advanced' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

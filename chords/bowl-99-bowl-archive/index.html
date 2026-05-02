@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for BOWL - 99% by BOWL Archive. AI-detected chord progression with 86 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for BOWL - 99% by BOWL Archive. AI-detected chord progression with 86 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="BOWL - 99% chords, BOWL Archive chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="BOWL - 99% Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for BOWL - 99% by BOWL Archive. AI-detected chord progression with 86 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for BOWL - 99% by BOWL Archive. AI-detected chord progression with 86 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/bowl-99-bowl-archive/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="BOWL - 99% Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for BOWL - 99% by BOWL Archive. AI-detected chord progression with 86 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for BOWL - 99% by BOWL Archive. AI-detected chord progression with 86 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>BOWL - 99% Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "BOWL Archive"
   },
   "url": "https://ecoliving-tips.github.io/chords/bowl-99-bowl-archive/",
-  "description": "Free chords for BOWL - 99% by BOWL Archive. AI-detected chord progression with 86 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for BOWL - 99% by BOWL Archive. AI-detected chord progression with 86 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 86 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -295,8 +306,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.65,"chord":"C","duration":2.69},{"time":3.33,"chord":"Em7","duration":1.39},{"time":4.72,"chord":"D","duration":1.3},{"time":6.02,"chord":"C","duration":2.78},{"time":8.8,"chord":"Em","duration":1.39},{"time":10.19,"chord":"D","duration":1.3},{"time":11.48,"chord":"C","duration":2.87},{"time":14.35,"chord":"Em","duration":1.48},{"time":15.83,"chord":"D","duration":1.2},{"time":17.04,"chord":"C","duration":2.96},{"time":20,"chord":"Em","duration":1.39},{"time":21.39,"chord":"D","duration":1.2},{"time":22.59,"chord":"A","duration":1.39},{"time":23.98,"chord":"Bm","duration":1.3},{"time":25.28,"chord":"C","duration":8.52},{"time":33.8,"chord":"Em","duration":5.28},{"time":39.07,"chord":"C","duration":5.74},{"time":44.81,"chord":"E","duration":2.59},{"time":47.41,"chord":"D","duration":2.59},{"time":50,"chord":"G","duration":2.87},{"time":52.87,"chord":"C","duration":2.87},{"time":55.74,"chord":"Em","duration":1.39},{"time":57.13,"chord":"D","duration":1.3},{"time":58.43,"chord":"C","duration":2.87},{"time":61.3,"chord":"Em","duration":2.78},{"time":64.07,"chord":"D","duration":2.59},{"time":66.67,"chord":"A","duration":1.39},{"time":68.06,"chord":"Bm","duration":1.3},{"time":69.35,"chord":"C","duration":8.43},{"time":77.78,"chord":"Em7","duration":1.02},{"time":78.8,"chord":"E7","duration":1.2},{"time":80,"chord":"Em","duration":0.46},{"time":80.46,"chord":"D","duration":2.78},{"time":83.24,"chord":"G","duration":2.78},{"time":86.02,"chord":"C","duration":2.96},{"time":88.98,"chord":"Em","duration":1.2},{"time":90.19,"chord":"D","duration":1.39},{"time":91.57,"chord":"C","duration":2.78},{"time":94.35,"chord":"Em","duration":2.69},{"time":97.04,"chord":"D","duration":2.96},{"time":100,"chord":"Am","duration":1.2},{"time":101.2,"chord":"Bm","duration":1.2},{"time":102.41,"chord":"C","duration":2.96},{"time":105.37,"chord":"Em","duration":5.46},{"time":110.83,"chord":"C","duration":1.3},{"time":112.13,"chord":"D","duration":1.48},{"time":113.61,"chord":"Em","duration":2.78},{"time":116.39,"chord":"C","duration":1.2},{"time":117.59,"chord":"D","duration":1.57},{"time":119.17,"chord":"Em","duration":1.11},{"time":120.28,"chord":"G","duration":1.48},{"time":121.76,"chord":"C","duration":1.3},{"time":123.06,"chord":"D","duration":1.57},{"time":124.63,"chord":"Em","duration":2.69},{"time":127.31,"chord":"C","duration":1.39},{"time":128.7,"chord":"D","duration":1.3},{"time":130,"chord":"C","duration":1.48},{"time":131.48,"chord":"D","duration":1.48},{"time":132.96,"chord":"Em","duration":2.69},{"time":135.65,"chord":"C","duration":1.3},{"time":136.94,"chord":"D","duration":1.48},{"time":138.43,"chord":"Em","duration":1.11},{"time":139.54,"chord":"G","duration":1.76},{"time":141.3,"chord":"C","duration":1.2},{"time":142.5,"chord":"D","duration":1.48},{"time":143.98,"chord":"Em","duration":2.78},{"time":146.76,"chord":"C","duration":1.2},{"time":147.96,"chord":"D","duration":1.48},{"time":149.44,"chord":"G","duration":2.78},{"time":152.22,"chord":"D","duration":2.78},{"time":155,"chord":"C","duration":2.78},{"time":157.78,"chord":"G","duration":2.78},{"time":160.56,"chord":"C","duration":2.87},{"time":163.43,"chord":"Em","duration":1.39},{"time":164.81,"chord":"D","duration":1.2},{"time":166.02,"chord":"C","duration":2.87},{"time":168.89,"chord":"Em","duration":2.69},{"time":171.57,"chord":"D","duration":2.31},{"time":173.89,"chord":"A","duration":2.04},{"time":175.93,"chord":"Bm","duration":1.2},{"time":177.13,"chord":"C","duration":2.87},{"time":180,"chord":"Em","duration":1.39},{"time":181.39,"chord":"D","duration":1.2},{"time":182.59,"chord":"A","duration":1.48},{"time":184.07,"chord":"Bm","duration":1.2},{"time":185.28,"chord":"C","duration":11.76}];
     window.YOUTUBE_VIDEO_ID = 'd9J-8kSevFI';
+    window.BEGINNER_META = { capo: 7, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

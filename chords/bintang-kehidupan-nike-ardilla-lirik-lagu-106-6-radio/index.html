@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Bintang Kehidupan - Nike Ardilla (Lirik lagu) by 106.6 Radio. AI-detected chord progression with 105 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Bintang Kehidupan - Nike Ardilla (Lirik lagu) by 106.6 Radio. AI-detected chord progression with 105 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Bintang Kehidupan - Nike Ardilla (Lirik lagu) chords, 106.6 Radio chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Bintang Kehidupan - Nike Ardilla (Lirik lagu) Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Bintang Kehidupan - Nike Ardilla (Lirik lagu) by 106.6 Radio. AI-detected chord progression with 105 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Bintang Kehidupan - Nike Ardilla (Lirik lagu) by 106.6 Radio. AI-detected chord progression with 105 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/bintang-kehidupan-nike-ardilla-lirik-lagu-106-6-radio/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Bintang Kehidupan - Nike Ardilla (Lirik lagu) Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Bintang Kehidupan - Nike Ardilla (Lirik lagu) by 106.6 Radio. AI-detected chord progression with 105 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Bintang Kehidupan - Nike Ardilla (Lirik lagu) by 106.6 Radio. AI-detected chord progression with 105 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Bintang Kehidupan - Nike Ardilla (Lirik lagu) Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "106.6 Radio"
   },
   "url": "https://ecoliving-tips.github.io/chords/bintang-kehidupan-nike-ardilla-lirik-lagu-106-6-radio/",
-  "description": "Free chords for Bintang Kehidupan - Nike Ardilla (Lirik lagu) by 106.6 Radio. AI-detected chord progression with 105 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Bintang Kehidupan - Nike Ardilla (Lirik lagu) by 106.6 Radio. AI-detected chord progression with 105 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 105 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -293,8 +304,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.56,"chord":"Em","duration":1.76},{"time":2.31,"chord":"D","duration":1.48},{"time":3.8,"chord":"C","duration":1.76},{"time":5.56,"chord":"G","duration":1.57},{"time":7.13,"chord":"Am","duration":1.67},{"time":8.8,"chord":"Em","duration":1.57},{"time":10.37,"chord":"B","duration":3.33},{"time":13.7,"chord":"Em","duration":3.24},{"time":16.94,"chord":"D","duration":3.06},{"time":20,"chord":"C","duration":3.43},{"time":23.43,"chord":"G","duration":3.33},{"time":26.76,"chord":"Am","duration":3.24},{"time":30,"chord":"B","duration":3.33},{"time":33.33,"chord":"Em","duration":1.57},{"time":34.91,"chord":"C","duration":1.67},{"time":36.57,"chord":"G","duration":3.43},{"time":40,"chord":"Am","duration":2.78},{"time":42.78,"chord":"G","duration":0.37},{"time":43.15,"chord":"C","duration":3.24},{"time":46.39,"chord":"D","duration":3.33},{"time":49.72,"chord":"Em","duration":1.67},{"time":51.39,"chord":"D","duration":1.57},{"time":52.96,"chord":"C","duration":1.67},{"time":54.63,"chord":"G","duration":1.67},{"time":56.3,"chord":"Am","duration":1.67},{"time":57.96,"chord":"Em","duration":1.67},{"time":59.63,"chord":"B","duration":3.24},{"time":62.87,"chord":"Em","duration":3.24},{"time":66.11,"chord":"D","duration":3.15},{"time":69.26,"chord":"C","duration":3.33},{"time":72.59,"chord":"G","duration":3.33},{"time":75.93,"chord":"Am","duration":3.24},{"time":79.17,"chord":"B","duration":3.24},{"time":82.41,"chord":"Em","duration":1.67},{"time":84.07,"chord":"C","duration":1.67},{"time":85.74,"chord":"G","duration":3.24},{"time":88.98,"chord":"Am","duration":3.24},{"time":92.22,"chord":"C","duration":3.33},{"time":95.56,"chord":"D","duration":3.24},{"time":98.8,"chord":"Em","duration":2.59},{"time":101.39,"chord":"D","duration":0.56},{"time":101.94,"chord":"Em","duration":2.41},{"time":104.35,"chord":"D","duration":0.93},{"time":105.28,"chord":"G","duration":3.33},{"time":108.61,"chord":"D","duration":3.24},{"time":111.85,"chord":"C","duration":3.33},{"time":115.19,"chord":"G","duration":1.57},{"time":116.76,"chord":"Am","duration":0.83},{"time":117.59,"chord":"D","duration":0.83},{"time":118.43,"chord":"G","duration":3.33},{"time":121.76,"chord":"D","duration":3.15},{"time":124.91,"chord":"C","duration":3.33},{"time":128.24,"chord":"G","duration":1.76},{"time":130,"chord":"D","duration":1.48},{"time":131.48,"chord":"C","duration":1.76},{"time":133.24,"chord":"D","duration":1.57},{"time":134.81,"chord":"Em","duration":3.24},{"time":138.06,"chord":"Bm","duration":3.33},{"time":141.39,"chord":"C","duration":3.33},{"time":144.72,"chord":"G","duration":3.24},{"time":147.96,"chord":"Am","duration":3.15},{"time":151.11,"chord":"Em","duration":3.43},{"time":154.54,"chord":"C","duration":3.24},{"time":157.78,"chord":"B","duration":6.57},{"time":164.35,"chord":"Em","duration":3.24},{"time":167.59,"chord":"D","duration":3.24},{"time":170.83,"chord":"C","duration":3.33},{"time":174.17,"chord":"G","duration":3.33},{"time":177.5,"chord":"Am","duration":3.15},{"time":180.65,"chord":"B7","duration":3.43},{"time":184.07,"chord":"Em","duration":1.48},{"time":185.56,"chord":"C","duration":1.67},{"time":187.22,"chord":"G","duration":3.43},{"time":190.65,"chord":"Am","duration":2.87},{"time":193.8,"chord":"C","duration":3.33},{"time":197.13,"chord":"D","duration":3.24},{"time":200.37,"chord":"Em","duration":2.59},{"time":202.96,"chord":"D","duration":0.65},{"time":203.61,"chord":"Em","duration":2.5},{"time":206.11,"chord":"D","duration":0.83},{"time":206.94,"chord":"G","duration":3.06},{"time":210,"chord":"D","duration":3.52},{"time":213.52,"chord":"C","duration":3.24},{"time":216.76,"chord":"G","duration":1.57},{"time":218.33,"chord":"Am","duration":0.93},{"time":219.26,"chord":"D","duration":0.74},{"time":220,"chord":"G","duration":3.24},{"time":223.24,"chord":"D","duration":3.33},{"time":226.57,"chord":"C","duration":3.43},{"time":230,"chord":"G","duration":1.48},{"time":231.48,"chord":"D","duration":1.67},{"time":233.15,"chord":"C","duration":1.57},{"time":234.72,"chord":"D","duration":1.57},{"time":236.3,"chord":"C","duration":2.59},{"time":238.89,"chord":"D","duration":0.83},{"time":239.72,"chord":"G","duration":3.24},{"time":242.96,"chord":"D","duration":3.24},{"time":246.2,"chord":"C","duration":3.33},{"time":249.54,"chord":"G","duration":1.57},{"time":251.11,"chord":"Am","duration":0.93},{"time":252.04,"chord":"D","duration":0.74},{"time":252.78,"chord":"G","duration":3.33},{"time":256.11,"chord":"D","duration":3.24},{"time":259.35,"chord":"C","duration":3.24},{"time":262.59,"chord":"G","duration":1.85}];
     window.YOUTUBE_VIDEO_ID = 'dXI4_dgfHJQ';
+    window.BEGINNER_META = { capo: 7, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

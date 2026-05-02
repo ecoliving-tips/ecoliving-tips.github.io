@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Nat King Cole - Nature Boy by TheEspath. AI-detected chord progression with 64 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Nat King Cole - Nature Boy by TheEspath. AI-detected chord progression with 64 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Nat King Cole - Nature Boy chords, TheEspath chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Nat King Cole - Nature Boy Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Nat King Cole - Nature Boy by TheEspath. AI-detected chord progression with 64 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Nat King Cole - Nature Boy by TheEspath. AI-detected chord progression with 64 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/nat-king-cole-nature-boy-theespath/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Nat King Cole - Nature Boy Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Nat King Cole - Nature Boy by TheEspath. AI-detected chord progression with 64 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Nat King Cole - Nature Boy by TheEspath. AI-detected chord progression with 64 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Nat King Cole - Nature Boy Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "TheEspath"
   },
   "url": "https://ecoliving-tips.github.io/chords/nat-king-cole-nature-boy-theespath/",
-  "description": "Free chords for Nat King Cole - Nature Boy by TheEspath. AI-detected chord progression with 64 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Nat King Cole - Nature Boy by TheEspath. AI-detected chord progression with 64 chords. Advanced difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Advanced"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 64 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -305,8 +316,10 @@
     <script>
     window.CHORD_DATA = [{"time":2.04,"chord":"D#7","duration":1.02},{"time":3.06,"chord":"A7","duration":1.39},{"time":4.44,"chord":"F#m7","duration":2.13},{"time":6.57,"chord":"D7","duration":1.39},{"time":7.96,"chord":"E7","duration":0.74},{"time":8.7,"chord":"D#","duration":1.3},{"time":10,"chord":"D#7","duration":6.11},{"time":16.11,"chord":"Dm7","duration":3.89},{"time":20,"chord":"Am","duration":0.83},{"time":20.83,"chord":"Dm","duration":1.94},{"time":22.78,"chord":"Gm","duration":1.02},{"time":23.8,"chord":"A7","duration":1.67},{"time":25.46,"chord":"Gm","duration":0.56},{"time":26.02,"chord":"Dm","duration":2.31},{"time":28.33,"chord":"A7","duration":1.85},{"time":30.19,"chord":"Gm6","duration":1.11},{"time":31.3,"chord":"Dm","duration":2.22},{"time":33.52,"chord":"Dm6","duration":1.3},{"time":34.81,"chord":"Em7b5","duration":1.11},{"time":35.93,"chord":"Dm","duration":1.48},{"time":37.41,"chord":"Gm","duration":4.17},{"time":41.57,"chord":"G#","duration":0.37},{"time":41.94,"chord":"A7","duration":5.56},{"time":47.5,"chord":"Dm","duration":4.81},{"time":52.31,"chord":"E7","duration":4.63},{"time":56.94,"chord":"A","duration":3.06},{"time":60,"chord":"A7","duration":2.59},{"time":62.59,"chord":"Dm","duration":2.5},{"time":65.09,"chord":"A7","duration":2.87},{"time":67.96,"chord":"Dm","duration":2.31},{"time":70.28,"chord":"A7","duration":3.24},{"time":73.52,"chord":"Dm","duration":2.31},{"time":75.83,"chord":"Dm6","duration":1.3},{"time":77.13,"chord":"Em7b5","duration":1.67},{"time":78.8,"chord":"Dm","duration":1.2},{"time":80,"chord":"Gm6","duration":3.43},{"time":83.43,"chord":"G","duration":1.85},{"time":85.28,"chord":"D7","duration":0.93},{"time":86.2,"chord":"A7","duration":4.44},{"time":90.65,"chord":"Dm","duration":4.17},{"time":94.81,"chord":"E7","duration":2.22},{"time":97.04,"chord":"A","duration":4.91},{"time":104.63,"chord":"Dm","duration":5.37},{"time":110,"chord":"Fmaj7","duration":4.07},{"time":114.07,"chord":"Dm","duration":2.69},{"time":116.76,"chord":"A7","duration":2.22},{"time":118.98,"chord":"Dm","duration":2.87},{"time":121.85,"chord":"A7","duration":1.2},{"time":123.06,"chord":"Gm","duration":0.74},{"time":123.8,"chord":"Dm","duration":0.83},{"time":124.63,"chord":"Aaug","duration":1.48},{"time":126.11,"chord":"Dm","duration":0.74},{"time":126.85,"chord":"Dm6","duration":1.85},{"time":128.7,"chord":"Em7b5","duration":0.74},{"time":129.44,"chord":"Dm","duration":1.85},{"time":131.3,"chord":"Gm","duration":6.57},{"time":137.87,"chord":"G#","duration":0.37},{"time":138.24,"chord":"Am","duration":1.2},{"time":139.44,"chord":"A7","duration":4.81},{"time":144.26,"chord":"Dm","duration":4.54},{"time":148.8,"chord":"E7","duration":1.2},{"time":152.96,"chord":"C#","duration":4.26},{"time":160,"chord":"Dm","duration":5.37},{"time":165.37,"chord":"G7","duration":4.69}];
     window.YOUTUBE_VIDEO_ID = 'HQerH4nRTUA';
+    window.BEGINNER_META = { capo: 0, difficulty: 'advanced' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

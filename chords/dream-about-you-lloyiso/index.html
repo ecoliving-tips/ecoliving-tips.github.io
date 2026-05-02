@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Dream About You by Lloyiso. AI-detected chord progression with 55 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Dream About You by Lloyiso. AI-detected chord progression with 55 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Dream About You chords, Lloyiso chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Dream About You Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Dream About You by Lloyiso. AI-detected chord progression with 55 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Dream About You by Lloyiso. AI-detected chord progression with 55 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/dream-about-you-lloyiso/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Dream About You Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Dream About You by Lloyiso. AI-detected chord progression with 55 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Dream About You by Lloyiso. AI-detected chord progression with 55 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Dream About You Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Lloyiso"
   },
   "url": "https://ecoliving-tips.github.io/chords/dream-about-you-lloyiso/",
-  "description": "Free chords for Dream About You by Lloyiso. AI-detected chord progression with 55 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Dream About You by Lloyiso. AI-detected chord progression with 55 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 55 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -292,8 +303,10 @@
     <script>
     window.CHORD_DATA = [{"time":5.65,"chord":"G#","duration":3.06},{"time":8.7,"chord":"C#","duration":1.3},{"time":10,"chord":"C#maj7","duration":1.76},{"time":11.76,"chord":"D#","duration":6.57},{"time":18.33,"chord":"G#","duration":2.59},{"time":20.93,"chord":"C#maj7","duration":3.15},{"time":24.07,"chord":"D#","duration":6.57},{"time":30.65,"chord":"G#","duration":2.5},{"time":33.15,"chord":"C#maj7","duration":3.24},{"time":36.39,"chord":"D#","duration":6.67},{"time":43.06,"chord":"G#","duration":2.41},{"time":45.46,"chord":"C#","duration":3.24},{"time":48.7,"chord":"D#","duration":6.57},{"time":55.28,"chord":"C#","duration":2.04},{"time":57.31,"chord":"D#","duration":0.74},{"time":58.06,"chord":"Fm","duration":2.78},{"time":60.83,"chord":"G#","duration":4.07},{"time":64.91,"chord":"D#","duration":5.09},{"time":70,"chord":"G#","duration":3.43},{"time":73.43,"chord":"C#maj7","duration":2.96},{"time":76.39,"chord":"D#","duration":6.57},{"time":82.96,"chord":"G#","duration":2.69},{"time":85.65,"chord":"C#maj7","duration":3.06},{"time":88.7,"chord":"D#","duration":6.57},{"time":95.28,"chord":"G#","duration":2.69},{"time":97.96,"chord":"C#","duration":3.15},{"time":101.11,"chord":"D#","duration":6.57},{"time":107.69,"chord":"G#","duration":2.31},{"time":110,"chord":"C#maj7","duration":3.33},{"time":113.33,"chord":"D#","duration":6.67},{"time":120,"chord":"C#","duration":1.85},{"time":121.85,"chord":"D#","duration":0.83},{"time":122.69,"chord":"Fm7","duration":2.31},{"time":125,"chord":"D#","duration":0.74},{"time":125.74,"chord":"G#","duration":4.26},{"time":130,"chord":"D#","duration":4.63},{"time":134.63,"chord":"G#","duration":3.33},{"time":137.96,"chord":"C#","duration":2.04},{"time":140,"chord":"A#m7","duration":1.02},{"time":141.02,"chord":"D#","duration":6.48},{"time":147.5,"chord":"G#","duration":2.78},{"time":150.28,"chord":"C#","duration":3.06},{"time":153.33,"chord":"D#","duration":6.02},{"time":159.35,"chord":"G#","duration":3.24},{"time":162.59,"chord":"C#","duration":3.06},{"time":165.65,"chord":"D#","duration":6.57},{"time":172.22,"chord":"G#","duration":2.59},{"time":174.81,"chord":"C#maj7","duration":3.15},{"time":177.96,"chord":"D#","duration":6.57},{"time":184.54,"chord":"C#","duration":1.94},{"time":186.48,"chord":"D#","duration":0.83},{"time":187.31,"chord":"Fm7","duration":2.41},{"time":189.72,"chord":"D#","duration":0.56},{"time":190.28,"chord":"G#","duration":3.89},{"time":194.17,"chord":"D#","duration":5.83}];
     window.YOUTUBE_VIDEO_ID = 'hfgqRzhPROg';
+    window.BEGINNER_META = { capo: 1, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

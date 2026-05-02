@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for I Grew Up Like This || by Relatone (Official Lyrics Video) by Relatone. AI-detected chord progression with 83 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for I Grew Up Like This || by Relatone (Official Lyrics Video) by Relatone. AI-detected chord progression with 83 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="I Grew Up Like This || by Relatone (Official Lyrics Video) chords, Relatone chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="I Grew Up Like This || by Relatone (Official Lyrics Video) Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for I Grew Up Like This || by Relatone (Official Lyrics Video) by Relatone. AI-detected chord progression with 83 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for I Grew Up Like This || by Relatone (Official Lyrics Video) by Relatone. AI-detected chord progression with 83 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/i-grew-up-like-this-by-relatone-official-lyrics-video/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="I Grew Up Like This || by Relatone (Official Lyrics Video) Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for I Grew Up Like This || by Relatone (Official Lyrics Video) by Relatone. AI-detected chord progression with 83 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for I Grew Up Like This || by Relatone (Official Lyrics Video) by Relatone. AI-detected chord progression with 83 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>I Grew Up Like This || by Relatone (Official Lyrics Video) Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Relatone"
   },
   "url": "https://ecoliving-tips.github.io/chords/i-grew-up-like-this-by-relatone-official-lyrics-video/",
-  "description": "Free chords for I Grew Up Like This || by Relatone (Official Lyrics Video) by Relatone. AI-detected chord progression with 83 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for I Grew Up Like This || by Relatone (Official Lyrics Video) by Relatone. AI-detected chord progression with 83 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 83 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -293,8 +304,10 @@
     <script>
     window.CHORD_DATA = [{"time":1.57,"chord":"F#m","duration":2.87},{"time":4.44,"chord":"D","duration":2.87},{"time":7.31,"chord":"A","duration":2.69},{"time":10,"chord":"E","duration":2.78},{"time":12.78,"chord":"C#","duration":0.37},{"time":13.15,"chord":"F#m","duration":3.06},{"time":16.2,"chord":"D","duration":2.96},{"time":19.17,"chord":"A","duration":2.87},{"time":22.04,"chord":"E","duration":2.04},{"time":24.07,"chord":"C#m","duration":0.83},{"time":24.91,"chord":"F#m","duration":3.06},{"time":27.96,"chord":"D","duration":2.87},{"time":30.83,"chord":"A","duration":2.78},{"time":33.61,"chord":"E","duration":2.87},{"time":36.48,"chord":"D","duration":2.96},{"time":39.44,"chord":"F#m","duration":2.59},{"time":42.04,"chord":"A","duration":3.52},{"time":45.56,"chord":"E","duration":4.44},{"time":51.3,"chord":"F#m","duration":2.78},{"time":54.07,"chord":"D","duration":3.06},{"time":57.13,"chord":"A","duration":2.87},{"time":60,"chord":"E","duration":3.06},{"time":63.06,"chord":"F#m","duration":2.69},{"time":65.74,"chord":"D","duration":3.15},{"time":68.89,"chord":"A","duration":2.87},{"time":71.76,"chord":"E","duration":2.22},{"time":73.98,"chord":"C#m","duration":0.74},{"time":74.72,"chord":"F#m","duration":2.41},{"time":77.13,"chord":"D","duration":3.52},{"time":80.65,"chord":"A","duration":2.78},{"time":83.43,"chord":"E","duration":3.06},{"time":86.48,"chord":"F#m","duration":2.87},{"time":89.35,"chord":"D","duration":2.96},{"time":92.31,"chord":"A","duration":2.78},{"time":95.09,"chord":"E","duration":3.33},{"time":98.43,"chord":"A","duration":0.56},{"time":98.98,"chord":"D","duration":1.76},{"time":100.74,"chord":"F#m","duration":3.24},{"time":103.98,"chord":"A","duration":2.87},{"time":106.85,"chord":"E","duration":3.15},{"time":111.39,"chord":"F#m","duration":2.59},{"time":113.98,"chord":"D","duration":3.24},{"time":117.22,"chord":"A","duration":2.78},{"time":120,"chord":"E","duration":3.06},{"time":123.06,"chord":"F#m","duration":2.78},{"time":125.83,"chord":"D","duration":3.15},{"time":128.98,"chord":"A","duration":2.87},{"time":131.85,"chord":"E","duration":2.96},{"time":134.81,"chord":"F#m","duration":2.78},{"time":137.59,"chord":"D","duration":3.06},{"time":140.65,"chord":"A","duration":2.78},{"time":143.43,"chord":"E","duration":3.06},{"time":146.48,"chord":"F#m","duration":1.67},{"time":148.15,"chord":"D","duration":4.17},{"time":152.31,"chord":"A","duration":2.69},{"time":155,"chord":"E","duration":3.06},{"time":158.06,"chord":"F#m","duration":2.69},{"time":160.74,"chord":"D","duration":3.24},{"time":163.98,"chord":"A","duration":2.96},{"time":166.94,"chord":"E","duration":3.06},{"time":170,"chord":"F#m","duration":2.78},{"time":172.78,"chord":"D","duration":2.96},{"time":175.74,"chord":"A","duration":2.87},{"time":178.61,"chord":"E","duration":2.96},{"time":181.57,"chord":"F#m","duration":2.87},{"time":184.44,"chord":"D","duration":2.96},{"time":187.41,"chord":"A","duration":2.96},{"time":190.37,"chord":"E","duration":5.56},{"time":195.93,"chord":"E7","duration":2.41},{"time":198.33,"chord":"Bm","duration":1.67},{"time":202.13,"chord":"F#m","duration":7.31},{"time":210.65,"chord":"D","duration":3.06},{"time":213.7,"chord":"A","duration":3.06},{"time":216.76,"chord":"E","duration":2.87},{"time":219.63,"chord":"F#m","duration":2.87},{"time":222.5,"chord":"D","duration":2.96},{"time":225.46,"chord":"A","duration":2.87},{"time":228.33,"chord":"E","duration":2.96},{"time":231.3,"chord":"F#m","duration":2.87},{"time":234.17,"chord":"D","duration":3.06},{"time":237.22,"chord":"A","duration":2.78},{"time":240,"chord":"E","duration":4.54},{"time":244.54,"chord":"F#m","duration":3.36}];
     window.YOUTUBE_VIDEO_ID = '25gZr2JN__k';
+    window.BEGINNER_META = { capo: 2, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

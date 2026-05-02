@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Child Of The King by Chip Demetri. AI-detected chord progression with 54 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Child Of The King by Chip Demetri. AI-detected chord progression with 54 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Child Of The King chords, Chip Demetri chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Child Of The King Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Child Of The King by Chip Demetri. AI-detected chord progression with 54 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Child Of The King by Chip Demetri. AI-detected chord progression with 54 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/child-of-the-king-chip-demetri/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Child Of The King Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Child Of The King by Chip Demetri. AI-detected chord progression with 54 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Child Of The King by Chip Demetri. AI-detected chord progression with 54 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Child Of The King Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Chip Demetri"
   },
   "url": "https://ecoliving-tips.github.io/chords/child-of-the-king-chip-demetri/",
-  "description": "Free chords for Child Of The King by Chip Demetri. AI-detected chord progression with 54 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Child Of The King by Chip Demetri. AI-detected chord progression with 54 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 54 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -290,8 +301,10 @@
     <script>
     window.CHORD_DATA = [{"time":0,"chord":"G","duration":2.78},{"time":2.78,"chord":"Bm","duration":0.93},{"time":3.7,"chord":"D","duration":3.52},{"time":7.22,"chord":"G","duration":3.8},{"time":11.02,"chord":"D","duration":3.89},{"time":14.91,"chord":"Em","duration":3.43},{"time":18.33,"chord":"C","duration":3.43},{"time":21.76,"chord":"G","duration":4.07},{"time":25.83,"chord":"D","duration":3.7},{"time":29.54,"chord":"Em","duration":3.8},{"time":33.33,"chord":"C","duration":3.33},{"time":36.67,"chord":"G","duration":3.98},{"time":40.65,"chord":"D","duration":3.7},{"time":44.35,"chord":"Em","duration":3.7},{"time":48.06,"chord":"C","duration":3.61},{"time":51.67,"chord":"G","duration":3.8},{"time":55.46,"chord":"D","duration":3.61},{"time":59.07,"chord":"Em","duration":3.7},{"time":62.78,"chord":"C","duration":5.46},{"time":68.24,"chord":"G","duration":3.89},{"time":72.13,"chord":"D","duration":3.7},{"time":75.83,"chord":"Em","duration":3.61},{"time":79.44,"chord":"C","duration":3.33},{"time":82.78,"chord":"G","duration":4.17},{"time":86.94,"chord":"D","duration":3.52},{"time":90.46,"chord":"Em","duration":3.7},{"time":94.17,"chord":"C","duration":3.43},{"time":97.59,"chord":"G","duration":3.98},{"time":101.57,"chord":"D","duration":3.7},{"time":105.28,"chord":"Em","duration":3.7},{"time":108.98,"chord":"C","duration":3.61},{"time":112.59,"chord":"G","duration":3.7},{"time":116.3,"chord":"D","duration":3.7},{"time":120,"chord":"Em","duration":3.8},{"time":123.8,"chord":"C","duration":3.61},{"time":127.41,"chord":"G","duration":3.61},{"time":131.02,"chord":"D","duration":3.8},{"time":134.81,"chord":"Em","duration":3.61},{"time":138.43,"chord":"C","duration":3.8},{"time":142.22,"chord":"G","duration":3.61},{"time":145.83,"chord":"D","duration":3.7},{"time":149.54,"chord":"Em","duration":3.7},{"time":153.24,"chord":"C","duration":6.76},{"time":160,"chord":"G","duration":4.35},{"time":164.35,"chord":"D","duration":3.7},{"time":168.06,"chord":"Em","duration":3.7},{"time":171.76,"chord":"C","duration":3.61},{"time":175.37,"chord":"G","duration":3.7},{"time":179.07,"chord":"D","duration":3.7},{"time":182.78,"chord":"Em","duration":3.7},{"time":186.48,"chord":"C","duration":3.52},{"time":190,"chord":"G","duration":3.24},{"time":193.24,"chord":"D","duration":4.17},{"time":197.41,"chord":"G","duration":7.59}];
     window.YOUTUBE_VIDEO_ID = '8iwau6QbtVQ';
+    window.BEGINNER_META = { capo: 7, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

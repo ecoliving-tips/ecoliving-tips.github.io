@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Yearning Heart - Rock Version by Reamped by Harvey Neri. AI-detected chord progression with 109 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Yearning Heart - Rock Version by Reamped by Harvey Neri. AI-detected chord progression with 109 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Yearning Heart - Rock Version by Reamped chords, Harvey Neri chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Yearning Heart - Rock Version by Reamped Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Yearning Heart - Rock Version by Reamped by Harvey Neri. AI-detected chord progression with 109 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Yearning Heart - Rock Version by Reamped by Harvey Neri. AI-detected chord progression with 109 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/yearning-heart-rock-version-by-reamped-harvey-neri/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Yearning Heart - Rock Version by Reamped Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Yearning Heart - Rock Version by Reamped by Harvey Neri. AI-detected chord progression with 109 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Yearning Heart - Rock Version by Reamped by Harvey Neri. AI-detected chord progression with 109 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Yearning Heart - Rock Version by Reamped Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Harvey Neri"
   },
   "url": "https://ecoliving-tips.github.io/chords/yearning-heart-rock-version-by-reamped-harvey-neri/",
-  "description": "Free chords for Yearning Heart - Rock Version by Reamped by Harvey Neri. AI-detected chord progression with 109 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Yearning Heart - Rock Version by Reamped by Harvey Neri. AI-detected chord progression with 109 chords. Advanced difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Advanced"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 109 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -302,8 +313,10 @@
     <script>
     window.CHORD_DATA = [{"time":1.57,"chord":"C#","duration":2.13},{"time":3.7,"chord":"Fm","duration":1.39},{"time":5.09,"chord":"A#m","duration":1.76},{"time":6.85,"chord":"G#","duration":1.39},{"time":8.24,"chord":"C#","duration":1.76},{"time":10,"chord":"F#","duration":1.76},{"time":11.76,"chord":"D#m","duration":1.39},{"time":13.15,"chord":"C#","duration":1.48},{"time":14.63,"chord":"G#","duration":1.57},{"time":16.2,"chord":"A#m","duration":1.67},{"time":17.87,"chord":"G#","duration":1.57},{"time":19.44,"chord":"F#","duration":3.24},{"time":22.69,"chord":"D#m","duration":2.87},{"time":25.56,"chord":"C#","duration":3.06},{"time":28.61,"chord":"A#m","duration":2.59},{"time":31.2,"chord":"C#","duration":0.83},{"time":32.04,"chord":"F#maj7","duration":1.76},{"time":33.8,"chord":"C#","duration":1.3},{"time":35.09,"chord":"D#m7","duration":1.67},{"time":36.76,"chord":"G#7","duration":1.02},{"time":37.78,"chord":"C#","duration":2.22},{"time":40,"chord":"G#","duration":1.57},{"time":41.57,"chord":"A#m","duration":1.57},{"time":43.15,"chord":"G#","duration":1.57},{"time":44.72,"chord":"F#maj7","duration":1.57},{"time":46.3,"chord":"C#","duration":1.48},{"time":47.78,"chord":"D#m7","duration":1.67},{"time":49.44,"chord":"G#7","duration":1.48},{"time":50.93,"chord":"C#","duration":1.76},{"time":52.69,"chord":"Cm","duration":1.48},{"time":54.17,"chord":"A#m","duration":1.57},{"time":55.74,"chord":"G#","duration":1.57},{"time":57.31,"chord":"F#","duration":1.76},{"time":59.07,"chord":"C#","duration":1.39},{"time":60.46,"chord":"D#m7","duration":1.94},{"time":62.41,"chord":"G#","duration":1.2},{"time":63.61,"chord":"C#","duration":1.48},{"time":65.09,"chord":"G#","duration":1.67},{"time":66.76,"chord":"A#m7","duration":1.67},{"time":68.43,"chord":"G#","duration":1.57},{"time":70,"chord":"F#","duration":1.48},{"time":71.48,"chord":"C#","duration":1.48},{"time":72.96,"chord":"D#m7","duration":1.76},{"time":74.72,"chord":"G#7","duration":1.48},{"time":76.2,"chord":"C#","duration":1.67},{"time":77.87,"chord":"G#","duration":1.57},{"time":79.44,"chord":"A#m7","duration":1.57},{"time":81.02,"chord":"G#","duration":1.57},{"time":82.59,"chord":"F#","duration":1.57},{"time":84.17,"chord":"Fm","duration":1.39},{"time":85.56,"chord":"D#m7","duration":2.04},{"time":87.59,"chord":"G#7","duration":1.2},{"time":88.8,"chord":"C#","duration":1.2},{"time":90,"chord":"D#m","duration":0.65},{"time":90.65,"chord":"Cm","duration":1.39},{"time":92.04,"chord":"A#m","duration":1.67},{"time":93.7,"chord":"G#","duration":1.57},{"time":95.28,"chord":"F#","duration":1.57},{"time":96.85,"chord":"Fm","duration":1.48},{"time":98.33,"chord":"D#m","duration":1.67},{"time":100,"chord":"G#","duration":1.57},{"time":101.57,"chord":"C#","duration":1.39},{"time":102.96,"chord":"G#","duration":1.76},{"time":104.72,"chord":"A#m7","duration":1.57},{"time":106.3,"chord":"G#","duration":1.67},{"time":107.96,"chord":"F#","duration":1.48},{"time":109.44,"chord":"C#","duration":1.57},{"time":111.02,"chord":"D#m7","duration":1.39},{"time":112.41,"chord":"G#7","duration":1.2},{"time":113.61,"chord":"C#","duration":2.04},{"time":115.65,"chord":"G#","duration":1.76},{"time":117.41,"chord":"A#m7","duration":1.39},{"time":118.8,"chord":"G#","duration":1.67},{"time":120.46,"chord":"F#","duration":1.57},{"time":122.04,"chord":"C#","duration":1.57},{"time":123.61,"chord":"D#m7","duration":1.57},{"time":125.19,"chord":"G#7","duration":1.57},{"time":126.76,"chord":"C#","duration":3.24},{"time":130,"chord":"A#m","duration":1.39},{"time":131.39,"chord":"G#","duration":1.67},{"time":133.06,"chord":"F#","duration":1.02},{"time":134.07,"chord":"C#","duration":2.31},{"time":136.39,"chord":"D#m7","duration":1.67},{"time":138.06,"chord":"G#","duration":1.3},{"time":139.35,"chord":"C#","duration":1.67},{"time":141.02,"chord":"G#","duration":1.48},{"time":142.5,"chord":"A#m","duration":1.67},{"time":144.17,"chord":"G#","duration":1.48},{"time":145.65,"chord":"F#","duration":1.67},{"time":147.31,"chord":"C#","duration":1.57},{"time":148.89,"chord":"D#m7","duration":1.85},{"time":150.74,"chord":"G#7","duration":1.3},{"time":152.04,"chord":"D","duration":1.57},{"time":153.61,"chord":"A","duration":1.57},{"time":155.19,"chord":"Bm","duration":1.67},{"time":156.85,"chord":"A","duration":1.48},{"time":158.33,"chord":"G","duration":1.67},{"time":160,"chord":"D","duration":1.48},{"time":161.48,"chord":"Em7","duration":1.76},{"time":163.24,"chord":"A7","duration":1.39},{"time":164.63,"chord":"D","duration":1.67},{"time":166.3,"chord":"A","duration":1.48},{"time":167.78,"chord":"Bm","duration":1.76},{"time":169.54,"chord":"A","duration":1.39},{"time":170.93,"chord":"G","duration":1.57},{"time":172.5,"chord":"D","duration":1.67},{"time":174.17,"chord":"Em7","duration":1.76},{"time":175.93,"chord":"A7","duration":1.76},{"time":177.69,"chord":"D","duration":1.3}];
     window.YOUTUBE_VIDEO_ID = 'vNK0thmzTKY';
+    window.BEGINNER_META = { capo: 2, difficulty: 'advanced' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

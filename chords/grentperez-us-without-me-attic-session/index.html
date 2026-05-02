@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for grentperez - Us Without Me (Attic Session) by grentperez. AI-detected chord progression with 81 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for grentperez - Us Without Me (Attic Session) by grentperez. AI-detected chord progression with 81 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="grentperez - Us Without Me (Attic Session) chords, grentperez chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="grentperez - Us Without Me (Attic Session) Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for grentperez - Us Without Me (Attic Session) by grentperez. AI-detected chord progression with 81 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for grentperez - Us Without Me (Attic Session) by grentperez. AI-detected chord progression with 81 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/grentperez-us-without-me-attic-session/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="grentperez - Us Without Me (Attic Session) Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for grentperez - Us Without Me (Attic Session) by grentperez. AI-detected chord progression with 81 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for grentperez - Us Without Me (Attic Session) by grentperez. AI-detected chord progression with 81 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>grentperez - Us Without Me (Attic Session) Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "grentperez"
   },
   "url": "https://ecoliving-tips.github.io/chords/grentperez-us-without-me-attic-session/",
-  "description": "Free chords for grentperez - Us Without Me (Attic Session) by grentperez. AI-detected chord progression with 81 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for grentperez - Us Without Me (Attic Session) by grentperez. AI-detected chord progression with 81 chords. Advanced difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Advanced"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 81 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -304,8 +315,10 @@
     <script>
     window.CHORD_DATA = [{"time":1.57,"chord":"D","duration":2.69},{"time":4.26,"chord":"C","duration":2.69},{"time":6.94,"chord":"D","duration":3.06},{"time":10,"chord":"C","duration":2.59},{"time":12.59,"chord":"D","duration":3.33},{"time":15.93,"chord":"C","duration":2.31},{"time":18.24,"chord":"D","duration":2.96},{"time":21.2,"chord":"C","duration":2.78},{"time":23.98,"chord":"Em","duration":1.67},{"time":25.65,"chord":"D#aug","duration":1.3},{"time":26.94,"chord":"G","duration":3.06},{"time":30,"chord":"C","duration":3.15},{"time":33.15,"chord":"G","duration":0.83},{"time":33.98,"chord":"C","duration":1.39},{"time":35.37,"chord":"D","duration":3.24},{"time":38.61,"chord":"C","duration":2.59},{"time":41.2,"chord":"D","duration":3.24},{"time":44.44,"chord":"C","duration":2.69},{"time":47.13,"chord":"Em","duration":1.76},{"time":48.89,"chord":"D#aug","duration":1.11},{"time":50,"chord":"G","duration":1.48},{"time":51.48,"chord":"F#m","duration":1.85},{"time":53.33,"chord":"C","duration":2.04},{"time":55.37,"chord":"G","duration":3.43},{"time":58.8,"chord":"Cmaj7","duration":2.78},{"time":61.57,"chord":"D7","duration":2.96},{"time":64.54,"chord":"Em","duration":2.87},{"time":67.41,"chord":"B","duration":2.59},{"time":70,"chord":"Cmaj7","duration":3.06},{"time":73.06,"chord":"D7","duration":2.96},{"time":76.02,"chord":"G7","duration":1.3},{"time":77.31,"chord":"Bm7","duration":1.3},{"time":78.61,"chord":"Em7","duration":1.39},{"time":80,"chord":"Em","duration":1.76},{"time":81.76,"chord":"Am7","duration":3.24},{"time":85,"chord":"Cm","duration":1.85},{"time":87.59,"chord":"D","duration":3.15},{"time":90.74,"chord":"C","duration":2.41},{"time":93.15,"chord":"D","duration":3.43},{"time":96.57,"chord":"C","duration":2.22},{"time":98.8,"chord":"D","duration":3.61},{"time":102.41,"chord":"C","duration":2.31},{"time":104.72,"chord":"Em","duration":1.85},{"time":106.57,"chord":"D#aug","duration":1.39},{"time":107.96,"chord":"G","duration":2.87},{"time":110.83,"chord":"C","duration":0.74},{"time":111.57,"chord":"G","duration":5.28},{"time":116.85,"chord":"Cmaj7","duration":2.5},{"time":119.35,"chord":"D7","duration":3.06},{"time":122.41,"chord":"Em","duration":2.78},{"time":125.19,"chord":"B7","duration":2.78},{"time":127.96,"chord":"Cmaj7","duration":2.69},{"time":130.65,"chord":"D7","duration":2.87},{"time":133.52,"chord":"G","duration":1.67},{"time":135.19,"chord":"Bm7","duration":1.2},{"time":136.39,"chord":"Em7","duration":2.87},{"time":139.26,"chord":"Am7","duration":3.06},{"time":142.31,"chord":"G#maj7","duration":2.78},{"time":145.09,"chord":"Bm","duration":2.87},{"time":147.96,"chord":"Am7","duration":2.96},{"time":150.93,"chord":"G#maj7","duration":2.5},{"time":153.43,"chord":"Gmaj7","duration":2.87},{"time":156.3,"chord":"Cmaj7","duration":2.87},{"time":159.17,"chord":"B7","duration":2.87},{"time":162.04,"chord":"Em","duration":1.48},{"time":163.52,"chord":"Bm","duration":1.11},{"time":164.63,"chord":"Am","duration":3.06},{"time":167.69,"chord":"Cmaj7","duration":2.41},{"time":170.09,"chord":"D","duration":0.74},{"time":170.83,"chord":"D7","duration":2.5},{"time":173.33,"chord":"Em","duration":2.78},{"time":176.11,"chord":"B","duration":2.87},{"time":178.98,"chord":"Cmaj7","duration":2.78},{"time":181.76,"chord":"D7","duration":2.69},{"time":184.44,"chord":"G","duration":1.85},{"time":186.3,"chord":"Bm","duration":1.3},{"time":187.59,"chord":"Em","duration":2.87},{"time":190.46,"chord":"Am","duration":3.43},{"time":193.89,"chord":"Cm","duration":2.78},{"time":196.67,"chord":"D7","duration":0.74},{"time":197.41,"chord":"G","duration":2.59}];
     window.YOUTUBE_VIDEO_ID = 'HVOxkzDE1gI';
+    window.BEGINNER_META = { capo: 7, difficulty: 'advanced' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

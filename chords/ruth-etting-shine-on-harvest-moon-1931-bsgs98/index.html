@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Ruth Etting - Shine on Harvest Moon (1931) by bsgs98. AI-detected chord progression with 69 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Ruth Etting - Shine on Harvest Moon (1931) by bsgs98. AI-detected chord progression with 69 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Ruth Etting - Shine on Harvest Moon (1931) chords, bsgs98 chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Ruth Etting - Shine on Harvest Moon (1931) Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Ruth Etting - Shine on Harvest Moon (1931) by bsgs98. AI-detected chord progression with 69 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Ruth Etting - Shine on Harvest Moon (1931) by bsgs98. AI-detected chord progression with 69 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/ruth-etting-shine-on-harvest-moon-1931-bsgs98/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Ruth Etting - Shine on Harvest Moon (1931) Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Ruth Etting - Shine on Harvest Moon (1931) by bsgs98. AI-detected chord progression with 69 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Ruth Etting - Shine on Harvest Moon (1931) by bsgs98. AI-detected chord progression with 69 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Ruth Etting - Shine on Harvest Moon (1931) Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "bsgs98"
   },
   "url": "https://ecoliving-tips.github.io/chords/ruth-etting-shine-on-harvest-moon-1931-bsgs98/",
-  "description": "Free chords for Ruth Etting - Shine on Harvest Moon (1931) by bsgs98. AI-detected chord progression with 69 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Ruth Etting - Shine on Harvest Moon (1931) by bsgs98. AI-detected chord progression with 69 chords. Advanced difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Advanced"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 69 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -301,8 +312,10 @@
     <script>
     window.CHORD_DATA = [{"time":3.24,"chord":"A#7","duration":4.63},{"time":7.87,"chord":"D#7","duration":4.72},{"time":12.59,"chord":"G#","duration":0.56},{"time":13.15,"chord":"G#7","duration":4.07},{"time":17.22,"chord":"C#","duration":5.19},{"time":22.41,"chord":"A#aug","duration":0.93},{"time":23.33,"chord":"A#7","duration":3.8},{"time":27.13,"chord":"D#7","duration":4.91},{"time":32.04,"chord":"G#","duration":4.07},{"time":36.11,"chord":"G#7","duration":0.74},{"time":36.85,"chord":"C#","duration":1.57},{"time":38.43,"chord":"F#","duration":1.2},{"time":39.63,"chord":"C#","duration":1.3},{"time":40.93,"chord":"F","duration":1.57},{"time":42.5,"chord":"A#m","duration":1.2},{"time":43.7,"chord":"F","duration":1.3},{"time":45,"chord":"A#m","duration":3.89},{"time":48.89,"chord":"F#7","duration":1.11},{"time":50,"chord":"F","duration":2.31},{"time":52.31,"chord":"A#m","duration":1.2},{"time":53.52,"chord":"F","duration":1.3},{"time":54.81,"chord":"A#m","duration":2.5},{"time":57.31,"chord":"D#","duration":2.69},{"time":60,"chord":"Am","duration":0.74},{"time":60.74,"chord":"G#","duration":2.04},{"time":62.78,"chord":"B","duration":0.65},{"time":63.43,"chord":"D#m","duration":3.52},{"time":66.94,"chord":"C#","duration":3.06},{"time":70,"chord":"A#m","duration":0.74},{"time":70.74,"chord":"C#","duration":1.11},{"time":71.85,"chord":"D#7","duration":1.39},{"time":73.24,"chord":"G#","duration":0.93},{"time":74.17,"chord":"D#7","duration":1.39},{"time":75.56,"chord":"F","duration":1.11},{"time":76.67,"chord":"A#m","duration":1.11},{"time":77.78,"chord":"D#7","duration":1.57},{"time":79.35,"chord":"G#","duration":0.65},{"time":80,"chord":"G#dim7","duration":0.65},{"time":80.65,"chord":"G#7","duration":1.39},{"time":82.04,"chord":"A#7","duration":5},{"time":87.04,"chord":"D#7","duration":5.09},{"time":92.13,"chord":"G#7","duration":4.72},{"time":96.85,"chord":"C#","duration":0.65},{"time":97.5,"chord":"D#7","duration":1.67},{"time":99.17,"chord":"C#","duration":0.83},{"time":100,"chord":"D#7","duration":0.56},{"time":100.56,"chord":"C#","duration":1.57},{"time":102.13,"chord":"A#7","duration":5},{"time":107.13,"chord":"D#7","duration":5},{"time":112.13,"chord":"G#","duration":4.72},{"time":116.85,"chord":"C#","duration":1.2},{"time":118.06,"chord":"Bm","duration":1.94},{"time":120,"chord":"C#","duration":1.2},{"time":121.2,"chord":"F","duration":1.57},{"time":122.78,"chord":"A#7","duration":5.09},{"time":127.87,"chord":"D#7","duration":4.81},{"time":132.69,"chord":"G#7","duration":4.91},{"time":137.59,"chord":"C#","duration":1.39},{"time":138.98,"chord":"D#7","duration":1.02},{"time":140,"chord":"C#","duration":0.83},{"time":140.83,"chord":"F#7","duration":0.56},{"time":141.39,"chord":"C#","duration":1.3},{"time":142.69,"chord":"Bm","duration":0.65},{"time":143.33,"chord":"A#7","duration":4.17},{"time":147.5,"chord":"D#7","duration":5.09},{"time":152.59,"chord":"G#7","duration":5},{"time":157.59,"chord":"C#","duration":1.85},{"time":159.44,"chord":"F#","duration":2.22},{"time":161.67,"chord":"C#","duration":3.61}];
     window.YOUTUBE_VIDEO_ID = 'D7Mu9fh23dY';
+    window.BEGINNER_META = { capo: 1, difficulty: 'advanced' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

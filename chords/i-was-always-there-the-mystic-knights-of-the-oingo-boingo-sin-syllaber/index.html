@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for I Was Always There - The Mystic Knights Of The Oingo Boingo by Sin Syllaber. AI-detected chord progression with 104 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for I Was Always There - The Mystic Knights Of The Oingo Boingo by Sin Syllaber. AI-detected chord progression with 104 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="I Was Always There - The Mystic Knights Of The Oingo Boingo chords, Sin Syllaber chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="I Was Always There - The Mystic Knights Of The Oingo Boingo Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for I Was Always There - The Mystic Knights Of The Oingo Boingo by Sin Syllaber. AI-detected chord progression with 104 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for I Was Always There - The Mystic Knights Of The Oingo Boingo by Sin Syllaber. AI-detected chord progression with 104 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/i-was-always-there-the-mystic-knights-of-the-oingo-boingo-sin-syllaber/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="I Was Always There - The Mystic Knights Of The Oingo Boingo Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for I Was Always There - The Mystic Knights Of The Oingo Boingo by Sin Syllaber. AI-detected chord progression with 104 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for I Was Always There - The Mystic Knights Of The Oingo Boingo by Sin Syllaber. AI-detected chord progression with 104 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>I Was Always There - The Mystic Knights Of The Oingo Boingo Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Sin Syllaber"
   },
   "url": "https://ecoliving-tips.github.io/chords/i-was-always-there-the-mystic-knights-of-the-oingo-boingo-sin-syllaber/",
-  "description": "Free chords for I Was Always There - The Mystic Knights Of The Oingo Boingo by Sin Syllaber. AI-detected chord progression with 104 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for I Was Always There - The Mystic Knights Of The Oingo Boingo by Sin Syllaber. AI-detected chord progression with 104 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 104 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -292,8 +303,10 @@
     <script>
     window.CHORD_DATA = [{"time":8.43,"chord":"C","duration":3.98},{"time":12.41,"chord":"G","duration":2.41},{"time":17.41,"chord":"C","duration":3.33},{"time":20.74,"chord":"G","duration":1.3},{"time":22.04,"chord":"C","duration":3.15},{"time":25.19,"chord":"G","duration":1.39},{"time":26.57,"chord":"C","duration":4.44},{"time":31.02,"chord":"G","duration":1.2},{"time":32.22,"chord":"C","duration":2.22},{"time":34.44,"chord":"G","duration":1.02},{"time":35.46,"chord":"C","duration":1.39},{"time":36.85,"chord":"G","duration":0.46},{"time":37.31,"chord":"D","duration":2.69},{"time":40,"chord":"A","duration":1.11},{"time":41.11,"chord":"D","duration":3.33},{"time":44.44,"chord":"A","duration":1.2},{"time":45.65,"chord":"D","duration":4.35},{"time":50,"chord":"A","duration":1.2},{"time":51.2,"chord":"D","duration":2.22},{"time":53.43,"chord":"A","duration":1.11},{"time":54.54,"chord":"D","duration":3.43},{"time":57.96,"chord":"Em","duration":0.56},{"time":58.52,"chord":"G","duration":0.46},{"time":58.98,"chord":"C","duration":3.43},{"time":62.41,"chord":"G","duration":1.2},{"time":63.61,"chord":"C","duration":4.44},{"time":68.06,"chord":"G","duration":1.2},{"time":69.26,"chord":"C","duration":2.22},{"time":71.48,"chord":"G","duration":1.2},{"time":72.69,"chord":"C","duration":4.35},{"time":77.04,"chord":"G","duration":1.2},{"time":78.24,"chord":"C","duration":3.33},{"time":81.57,"chord":"G","duration":1.2},{"time":82.78,"chord":"C","duration":3.24},{"time":86.02,"chord":"G","duration":1.2},{"time":87.22,"chord":"C","duration":2.13},{"time":89.35,"chord":"G","duration":1.02},{"time":90.37,"chord":"C","duration":1.2},{"time":91.57,"chord":"D","duration":2.31},{"time":93.89,"chord":"A","duration":1.11},{"time":95,"chord":"D","duration":3.33},{"time":98.33,"chord":"Am","duration":1.11},{"time":99.44,"chord":"D","duration":4.54},{"time":103.98,"chord":"A","duration":1.2},{"time":105.19,"chord":"D","duration":2.13},{"time":107.31,"chord":"A","duration":1.2},{"time":108.52,"chord":"D","duration":1.39},{"time":109.91,"chord":"C","duration":1.85},{"time":111.76,"chord":"G","duration":1.3},{"time":113.06,"chord":"C","duration":3.15},{"time":116.2,"chord":"G","duration":1.2},{"time":117.41,"chord":"C","duration":4.44},{"time":121.85,"chord":"G","duration":1.2},{"time":123.06,"chord":"C","duration":2.13},{"time":125.19,"chord":"G","duration":1.3},{"time":126.48,"chord":"C","duration":1.02},{"time":127.5,"chord":"G","duration":1.11},{"time":128.61,"chord":"C","duration":1.39},{"time":130,"chord":"A","duration":0.83},{"time":130.83,"chord":"D","duration":2.13},{"time":132.96,"chord":"A7","duration":1.11},{"time":134.07,"chord":"D","duration":3.33},{"time":137.41,"chord":"A7","duration":1.11},{"time":138.52,"chord":"D","duration":3.52},{"time":142.04,"chord":"A7","duration":1.57},{"time":143.61,"chord":"D","duration":2.78},{"time":146.39,"chord":"A7","duration":1.76},{"time":148.15,"chord":"D","duration":2.78},{"time":150.93,"chord":"A","duration":1.2},{"time":152.13,"chord":"D","duration":3.15},{"time":155.28,"chord":"A","duration":1.3},{"time":156.57,"chord":"D","duration":3.43},{"time":160,"chord":"A","duration":1.02},{"time":161.02,"chord":"D","duration":3.24},{"time":164.26,"chord":"A","duration":1.2},{"time":165.46,"chord":"D","duration":3.24},{"time":168.7,"chord":"A","duration":1.3},{"time":170,"chord":"D","duration":3.06},{"time":173.06,"chord":"A","duration":1.3},{"time":174.35,"chord":"D","duration":3.24},{"time":177.59,"chord":"A","duration":1.2},{"time":178.8,"chord":"D","duration":3.24},{"time":182.04,"chord":"A","duration":1.2},{"time":183.24,"chord":"D","duration":0.93},{"time":184.17,"chord":"A","duration":1.3},{"time":185.46,"chord":"D","duration":1.02},{"time":186.48,"chord":"A","duration":1.11},{"time":187.59,"chord":"D","duration":1.11},{"time":188.7,"chord":"A","duration":1.3},{"time":190,"chord":"D","duration":0.93},{"time":190.93,"chord":"A","duration":1.2},{"time":192.13,"chord":"D","duration":1.02},{"time":193.15,"chord":"A","duration":1.11},{"time":194.26,"chord":"D","duration":1.02},{"time":195.28,"chord":"A","duration":1.2},{"time":196.48,"chord":"D","duration":1.02},{"time":197.5,"chord":"A","duration":1.2},{"time":198.7,"chord":"D","duration":1.02},{"time":199.72,"chord":"A","duration":1.2},{"time":200.93,"chord":"D","duration":1.02},{"time":201.94,"chord":"A","duration":1.2},{"time":203.15,"chord":"D","duration":1.02},{"time":204.17,"chord":"A","duration":1.2},{"time":205.37,"chord":"D","duration":0.93}];
     window.YOUTUBE_VIDEO_ID = 'DzzFVf9G64s';
+    window.BEGINNER_META = { capo: 0, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

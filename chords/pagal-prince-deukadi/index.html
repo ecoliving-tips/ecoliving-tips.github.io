@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Pagal - Prince Deukadi by Prince Deukadi. AI-detected chord progression with 53 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Pagal - Prince Deukadi by Prince Deukadi. AI-detected chord progression with 53 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Pagal - Prince Deukadi chords, Prince Deukadi chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Pagal - Prince Deukadi Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Pagal - Prince Deukadi by Prince Deukadi. AI-detected chord progression with 53 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Pagal - Prince Deukadi by Prince Deukadi. AI-detected chord progression with 53 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/pagal-prince-deukadi/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Pagal - Prince Deukadi Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Pagal - Prince Deukadi by Prince Deukadi. AI-detected chord progression with 53 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Pagal - Prince Deukadi by Prince Deukadi. AI-detected chord progression with 53 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Pagal - Prince Deukadi Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Prince Deukadi"
   },
   "url": "https://ecoliving-tips.github.io/chords/pagal-prince-deukadi/",
-  "description": "Free chords for Pagal - Prince Deukadi by Prince Deukadi. AI-detected chord progression with 53 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Pagal - Prince Deukadi by Prince Deukadi. AI-detected chord progression with 53 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 53 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -288,8 +299,10 @@
     <script>
     window.CHORD_DATA = [{"time":2.59,"chord":"C","duration":3.89},{"time":6.48,"chord":"G","duration":3.98},{"time":10.46,"chord":"Cmaj7","duration":3.52},{"time":13.98,"chord":"G","duration":4.17},{"time":18.15,"chord":"Cmaj7","duration":2.78},{"time":20.93,"chord":"G","duration":4.91},{"time":25.83,"chord":"C","duration":2.78},{"time":28.61,"chord":"G","duration":5.37},{"time":33.98,"chord":"Cmaj7","duration":1.76},{"time":35.74,"chord":"C","duration":0.83},{"time":36.57,"chord":"G","duration":5.09},{"time":41.67,"chord":"Cmaj7","duration":2.78},{"time":44.44,"chord":"C","duration":0.93},{"time":45.37,"chord":"G","duration":4.07},{"time":49.44,"chord":"Cmaj7","duration":3.52},{"time":52.96,"chord":"G","duration":3.89},{"time":56.85,"chord":"Cmaj7","duration":3.61},{"time":60.46,"chord":"G","duration":4.07},{"time":64.54,"chord":"Cmaj7","duration":3.7},{"time":68.24,"chord":"G","duration":4.07},{"time":72.31,"chord":"C","duration":3.7},{"time":76.02,"chord":"G","duration":3.98},{"time":80,"chord":"C","duration":3.7},{"time":83.7,"chord":"G","duration":4.17},{"time":87.87,"chord":"C","duration":3.15},{"time":91.02,"chord":"G","duration":4.63},{"time":95.65,"chord":"C","duration":3.61},{"time":99.26,"chord":"G","duration":4.07},{"time":103.33,"chord":"Cmaj7","duration":2.87},{"time":106.2,"chord":"C","duration":0.83},{"time":107.04,"chord":"G","duration":3.98},{"time":111.02,"chord":"C","duration":1.85},{"time":112.87,"chord":"Cmaj7","duration":1.76},{"time":114.63,"chord":"G","duration":3.98},{"time":118.61,"chord":"C","duration":2.04},{"time":120.65,"chord":"Cmaj7","duration":1.39},{"time":122.04,"chord":"G","duration":4.35},{"time":126.39,"chord":"C","duration":3.61},{"time":130,"chord":"G","duration":4.26},{"time":134.26,"chord":"C","duration":3.43},{"time":137.69,"chord":"G","duration":4.44},{"time":142.13,"chord":"C","duration":3.24},{"time":145.37,"chord":"G","duration":4.44},{"time":149.81,"chord":"Cmaj7","duration":2.69},{"time":152.5,"chord":"G","duration":5},{"time":157.5,"chord":"C","duration":3.06},{"time":161.2,"chord":"G","duration":4.07},{"time":165.28,"chord":"C","duration":2.31},{"time":167.59,"chord":"G","duration":5.46},{"time":173.06,"chord":"C","duration":3.52},{"time":176.57,"chord":"G","duration":3.98},{"time":180.56,"chord":"C","duration":3.43},{"time":183.98,"chord":"G","duration":6.02}];
     window.YOUTUBE_VIDEO_ID = 'MeTS_L1lfP4';
+    window.BEGINNER_META = { capo: 0, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

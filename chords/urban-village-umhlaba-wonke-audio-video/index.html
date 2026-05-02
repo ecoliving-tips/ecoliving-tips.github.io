@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Urban Village - Umhlaba Wonke (Audio video) by Urban Village. AI-detected chord progression with 95 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Urban Village - Umhlaba Wonke (Audio video) by Urban Village. AI-detected chord progression with 95 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Urban Village - Umhlaba Wonke (Audio video) chords, Urban Village chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Urban Village - Umhlaba Wonke (Audio video) Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Urban Village - Umhlaba Wonke (Audio video) by Urban Village. AI-detected chord progression with 95 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Urban Village - Umhlaba Wonke (Audio video) by Urban Village. AI-detected chord progression with 95 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/urban-village-umhlaba-wonke-audio-video/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Urban Village - Umhlaba Wonke (Audio video) Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Urban Village - Umhlaba Wonke (Audio video) by Urban Village. AI-detected chord progression with 95 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Urban Village - Umhlaba Wonke (Audio video) by Urban Village. AI-detected chord progression with 95 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Urban Village - Umhlaba Wonke (Audio video) Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Urban Village"
   },
   "url": "https://ecoliving-tips.github.io/chords/urban-village-umhlaba-wonke-audio-video/",
-  "description": "Free chords for Urban Village - Umhlaba Wonke (Audio video) by Urban Village. AI-detected chord progression with 95 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Urban Village - Umhlaba Wonke (Audio video) by Urban Village. AI-detected chord progression with 95 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 95 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -297,8 +308,10 @@
     <script>
     window.CHORD_DATA = [{"time":0,"chord":"E","duration":1.67},{"time":1.67,"chord":"F#m7","duration":1.76},{"time":3.43,"chord":"Asus2","duration":2.96},{"time":6.39,"chord":"E","duration":1.85},{"time":8.24,"chord":"F#m7","duration":1.76},{"time":10,"chord":"Asus2","duration":2.59},{"time":12.59,"chord":"Amaj7","duration":0.65},{"time":13.24,"chord":"E","duration":1.48},{"time":14.72,"chord":"F#m7","duration":1.85},{"time":16.57,"chord":"Amaj7","duration":1.94},{"time":18.52,"chord":"Asus2","duration":1.39},{"time":19.91,"chord":"E","duration":1.67},{"time":21.57,"chord":"F#m7","duration":1.67},{"time":23.24,"chord":"A","duration":6.11},{"time":29.35,"chord":"E","duration":2.22},{"time":31.57,"chord":"F#m","duration":1.76},{"time":33.33,"chord":"A","duration":3.24},{"time":36.57,"chord":"E","duration":1.57},{"time":38.15,"chord":"F#m","duration":1.85},{"time":40,"chord":"A","duration":3.24},{"time":43.24,"chord":"E","duration":1.67},{"time":44.91,"chord":"F#sus4","duration":1.76},{"time":46.67,"chord":"A","duration":3.33},{"time":50,"chord":"E","duration":1.76},{"time":51.76,"chord":"B","duration":1.39},{"time":53.15,"chord":"A","duration":3.52},{"time":56.67,"chord":"E","duration":1.48},{"time":58.15,"chord":"F#","duration":1.85},{"time":60,"chord":"A","duration":3.33},{"time":63.33,"chord":"E","duration":1.57},{"time":64.91,"chord":"F#sus4","duration":0.65},{"time":65.56,"chord":"G","duration":1.11},{"time":66.67,"chord":"A","duration":6.85},{"time":73.52,"chord":"E","duration":1.76},{"time":75.28,"chord":"B","duration":1.57},{"time":76.85,"chord":"A","duration":3.43},{"time":80.28,"chord":"E","duration":1.67},{"time":81.94,"chord":"B","duration":1.67},{"time":83.61,"chord":"A","duration":3.33},{"time":86.94,"chord":"E","duration":1.57},{"time":88.52,"chord":"F#m","duration":1.76},{"time":90.28,"chord":"A","duration":3.24},{"time":93.52,"chord":"E","duration":1.76},{"time":95.28,"chord":"F#m7","duration":1.57},{"time":96.85,"chord":"A","duration":3.52},{"time":100.37,"chord":"E","duration":1.67},{"time":102.04,"chord":"B","duration":1.57},{"time":103.61,"chord":"A","duration":3.43},{"time":107.04,"chord":"E","duration":1.67},{"time":108.7,"chord":"F#m","duration":1.2},{"time":109.91,"chord":"B","duration":0.56},{"time":110.46,"chord":"A","duration":3.24},{"time":113.7,"chord":"E","duration":1.48},{"time":115.19,"chord":"B","duration":1.94},{"time":117.13,"chord":"A","duration":3.33},{"time":120.46,"chord":"E","duration":1.48},{"time":121.94,"chord":"F#m","duration":1.02},{"time":122.96,"chord":"B","duration":0.83},{"time":123.8,"chord":"A","duration":6.67},{"time":130.46,"chord":"E","duration":1.3},{"time":131.76,"chord":"F#m","duration":2.13},{"time":133.89,"chord":"A","duration":3.15},{"time":137.04,"chord":"E","duration":1.67},{"time":138.7,"chord":"F#","duration":1.3},{"time":140,"chord":"C#m","duration":0.65},{"time":140.65,"chord":"A","duration":3.24},{"time":143.89,"chord":"E","duration":3.33},{"time":147.22,"chord":"A","duration":3.24},{"time":150.46,"chord":"E","duration":1.67},{"time":152.13,"chord":"F#","duration":1.85},{"time":153.98,"chord":"A","duration":3.24},{"time":157.22,"chord":"E","duration":1.57},{"time":158.8,"chord":"F#sus4","duration":1.2},{"time":160,"chord":"F#","duration":0.65},{"time":160.65,"chord":"A","duration":3.33},{"time":163.98,"chord":"E","duration":1.76},{"time":165.74,"chord":"F#","duration":1.11},{"time":166.85,"chord":"C#m","duration":0.74},{"time":167.59,"chord":"A","duration":6.67},{"time":174.26,"chord":"E","duration":1.76},{"time":176.02,"chord":"B","duration":1.76},{"time":177.78,"chord":"A","duration":3.33},{"time":181.11,"chord":"E","duration":1.57},{"time":182.69,"chord":"F#m","duration":1.67},{"time":184.35,"chord":"A","duration":3.43},{"time":187.78,"chord":"E","duration":1.57},{"time":189.35,"chord":"B","duration":1.85},{"time":191.2,"chord":"A","duration":1.3},{"time":192.5,"chord":"E","duration":1.94},{"time":194.44,"chord":"F","duration":1.48},{"time":195.93,"chord":"E","duration":2.04},{"time":197.96,"chord":"F","duration":1.39},{"time":199.35,"chord":"E","duration":2.04},{"time":201.39,"chord":"F","duration":7.31},{"time":208.7,"chord":"E","duration":8.24}];
     window.YOUTUBE_VIDEO_ID = 'ZzQMN6upDAM';
+    window.BEGINNER_META = { capo: 2, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Fusion Rock Backing Track - Key of Em (Greg Howe style) by PlaySpace Backing Tracks. AI-detected chord progression with 116 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Fusion Rock Backing Track - Key of Em (Greg Howe style) by PlaySpace Backing Tracks. AI-detected chord progression with 116 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Fusion Rock Backing Track - Key of Em (Greg Howe style) chords, PlaySpace Backing Tracks chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Fusion Rock Backing Track - Key of Em (Greg Howe style) Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Fusion Rock Backing Track - Key of Em (Greg Howe style) by PlaySpace Backing Tracks. AI-detected chord progression with 116 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Fusion Rock Backing Track - Key of Em (Greg Howe style) by PlaySpace Backing Tracks. AI-detected chord progression with 116 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/fusion-rock-backing-track-key-of-em-greg-howe-style-playspace-backing-tracks/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Fusion Rock Backing Track - Key of Em (Greg Howe style) Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Fusion Rock Backing Track - Key of Em (Greg Howe style) by PlaySpace Backing Tracks. AI-detected chord progression with 116 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Fusion Rock Backing Track - Key of Em (Greg Howe style) by PlaySpace Backing Tracks. AI-detected chord progression with 116 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Fusion Rock Backing Track - Key of Em (Greg Howe style) Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "PlaySpace Backing Tracks"
   },
   "url": "https://ecoliving-tips.github.io/chords/fusion-rock-backing-track-key-of-em-greg-howe-style-playspace-backing-tracks/",
-  "description": "Free chords for Fusion Rock Backing Track - Key of Em (Greg Howe style) by PlaySpace Backing Tracks. AI-detected chord progression with 116 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Fusion Rock Backing Track - Key of Em (Greg Howe style) by PlaySpace Backing Tracks. AI-detected chord progression with 116 chords. Advanced difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Advanced"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 116 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -313,8 +324,10 @@
     <script>
     window.CHORD_DATA = [{"time":1.3,"chord":"Em","duration":2.31},{"time":10.93,"chord":"Am7","duration":4.35},{"time":15.28,"chord":"Bm7","duration":2.69},{"time":17.96,"chord":"C#m7","duration":0.83},{"time":18.8,"chord":"Cm7","duration":0.56},{"time":19.35,"chord":"Bm7","duration":0.65},{"time":25.74,"chord":"Cmaj7","duration":1.67},{"time":30,"chord":"Gmaj7","duration":0.37},{"time":30.37,"chord":"Am7","duration":2.41},{"time":32.78,"chord":"D7","duration":1.2},{"time":33.98,"chord":"B7","duration":1.3},{"time":35.28,"chord":"Gmaj7","duration":2.41},{"time":37.69,"chord":"Em7","duration":0.74},{"time":38.43,"chord":"A7","duration":1.57},{"time":50,"chord":"Am7","duration":2.5},{"time":52.5,"chord":"Bm7","duration":1.02},{"time":53.52,"chord":"B7","duration":1.3},{"time":54.81,"chord":"D","duration":4.63},{"time":59.44,"chord":"A#7","duration":0.56},{"time":60,"chord":"Am7","duration":2.31},{"time":62.31,"chord":"D7","duration":2.87},{"time":65.19,"chord":"Gmaj7","duration":2.13},{"time":67.31,"chord":"Cmaj7","duration":1.76},{"time":69.07,"chord":"Gmaj7","duration":0.46},{"time":69.54,"chord":"Am7","duration":0.46},{"time":70,"chord":"Am","duration":1.94},{"time":71.94,"chord":"Baug","duration":2.69},{"time":76.85,"chord":"Am7","duration":1.3},{"time":78.15,"chord":"D7","duration":1.3},{"time":79.44,"chord":"Gmaj7","duration":1.48},{"time":80.93,"chord":"G6","duration":0.74},{"time":81.67,"chord":"Am7","duration":1.3},{"time":82.96,"chord":"B7","duration":1.48},{"time":84.44,"chord":"Em7","duration":1.2},{"time":85.65,"chord":"Fm6","duration":0.56},{"time":86.2,"chord":"E7","duration":0.56},{"time":86.76,"chord":"Am7","duration":1.11},{"time":87.87,"chord":"D7","duration":1.11},{"time":88.98,"chord":"Gmaj7","duration":1.48},{"time":90.46,"chord":"Cmaj7","duration":1.02},{"time":91.48,"chord":"F#m7","duration":1.85},{"time":93.33,"chord":"D7","duration":0.56},{"time":93.89,"chord":"Bm7","duration":3.24},{"time":97.13,"chord":"Em7","duration":2.87},{"time":109.17,"chord":"Am7","duration":1.39},{"time":110.56,"chord":"C7","duration":0.74},{"time":111.3,"chord":"Bm7","duration":2.59},{"time":113.89,"chord":"A7","duration":0.46},{"time":114.35,"chord":"Cm7","duration":1.3},{"time":115.65,"chord":"F7","duration":0.46},{"time":116.11,"chord":"Em7","duration":3.89},{"time":121.2,"chord":"Cmaj7","duration":4.63},{"time":125.83,"chord":"Am7","duration":2.87},{"time":128.7,"chord":"F#m7b5","duration":0.74},{"time":129.44,"chord":"B7","duration":1.48},{"time":130.93,"chord":"Em7","duration":2.87},{"time":133.8,"chord":"D","duration":1.48},{"time":135.28,"chord":"A#m7","duration":0.46},{"time":135.74,"chord":"Am7","duration":2.41},{"time":138.15,"chord":"D","duration":2.5},{"time":140.65,"chord":"Gmaj7","duration":2.31},{"time":142.96,"chord":"Cmaj7","duration":2.69},{"time":145.65,"chord":"F#m7b5","duration":2.41},{"time":148.06,"chord":"B7","duration":4.81},{"time":152.87,"chord":"Em7","duration":2.31},{"time":155.19,"chord":"B7","duration":1.48},{"time":156.67,"chord":"Em7","duration":0.83},{"time":157.5,"chord":"C","duration":1.67},{"time":161.76,"chord":"Cmaj7","duration":0.83},{"time":162.59,"chord":"Am7","duration":2.69},{"time":165.28,"chord":"F#m7b5","duration":2.31},{"time":167.59,"chord":"Baug","duration":2.41},{"time":170,"chord":"G","duration":2.41},{"time":172.41,"chord":"Am7","duration":1.2},{"time":173.61,"chord":"D7","duration":1.02},{"time":174.63,"chord":"Gmaj7","duration":1.48},{"time":176.11,"chord":"Cmaj7","duration":1.3},{"time":177.41,"chord":"Fmaj7","duration":0.93},{"time":178.33,"chord":"B7","duration":1.67},{"time":180,"chord":"G","duration":1.11},{"time":181.11,"chord":"G#dim","duration":1.2},{"time":182.31,"chord":"Am7","duration":1.11},{"time":183.43,"chord":"D7","duration":1.02},{"time":184.44,"chord":"Gmaj7","duration":1.39},{"time":185.83,"chord":"Cmaj7","duration":1.39},{"time":187.22,"chord":"Fmaj7","duration":0.83},{"time":188.06,"chord":"B7","duration":1.48},{"time":189.54,"chord":"Gmaj7","duration":1.94},{"time":191.48,"chord":"Am7","duration":1.76},{"time":193.24,"chord":"D7","duration":1.2},{"time":194.44,"chord":"Gmaj7","duration":1.2},{"time":195.65,"chord":"Cmaj7","duration":1.39},{"time":197.04,"chord":"Fmaj7","duration":0.83},{"time":197.87,"chord":"B7","duration":1.48},{"time":199.35,"chord":"G","duration":0.65},{"time":200,"chord":"Em7","duration":0.74},{"time":200.74,"chord":"Fdim7","duration":1.11},{"time":201.85,"chord":"Am7","duration":1.11},{"time":202.96,"chord":"D7","duration":1.11},{"time":204.07,"chord":"Gmaj7","duration":1.3},{"time":205.37,"chord":"Cmaj7","duration":1.48},{"time":206.85,"chord":"D7","duration":0.65},{"time":207.5,"chord":"E7","duration":0.37},{"time":207.87,"chord":"Am7","duration":1.39},{"time":209.26,"chord":"B7","duration":0.74},{"time":211.67,"chord":"D","duration":4.81},{"time":216.48,"chord":"Cmaj7","duration":6.02},{"time":222.5,"chord":"Am7","duration":3.8},{"time":226.3,"chord":"D","duration":3.7},{"time":230,"chord":"Gmaj7","duration":0.74},{"time":230.74,"chord":"Bm7","duration":1.02},{"time":231.76,"chord":"D","duration":4.35},{"time":236.11,"chord":"Cmaj7","duration":4.35},{"time":240.46,"chord":"Bm7","duration":0.37},{"time":240.83,"chord":"Am7","duration":4.63},{"time":245.46,"chord":"Bm7","duration":4.54}];
     window.YOUTUBE_VIDEO_ID = 'qKEs6ppaHOE';
+    window.BEGINNER_META = { capo: 7, difficulty: 'advanced' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

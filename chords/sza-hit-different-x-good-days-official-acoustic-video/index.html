@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for SZA- Hit Different x Good Days (Official Acoustic Video) by SZA. AI-detected chord progression with 84 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for SZA- Hit Different x Good Days (Official Acoustic Video) by SZA. AI-detected chord progression with 84 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="SZA- Hit Different x Good Days (Official Acoustic Video) chords, SZA chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="SZA- Hit Different x Good Days (Official Acoustic Video) Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for SZA- Hit Different x Good Days (Official Acoustic Video) by SZA. AI-detected chord progression with 84 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for SZA- Hit Different x Good Days (Official Acoustic Video) by SZA. AI-detected chord progression with 84 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/sza-hit-different-x-good-days-official-acoustic-video/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="SZA- Hit Different x Good Days (Official Acoustic Video) Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for SZA- Hit Different x Good Days (Official Acoustic Video) by SZA. AI-detected chord progression with 84 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for SZA- Hit Different x Good Days (Official Acoustic Video) by SZA. AI-detected chord progression with 84 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>SZA- Hit Different x Good Days (Official Acoustic Video) Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "SZA"
   },
   "url": "https://ecoliving-tips.github.io/chords/sza-hit-different-x-good-days-official-acoustic-video/",
-  "description": "Free chords for SZA- Hit Different x Good Days (Official Acoustic Video) by SZA. AI-detected chord progression with 84 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for SZA- Hit Different x Good Days (Official Acoustic Video) by SZA. AI-detected chord progression with 84 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 84 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -297,8 +308,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.46,"chord":"G#maj7","duration":4.17},{"time":4.63,"chord":"D#","duration":2.31},{"time":6.94,"chord":"Cm","duration":1.57},{"time":8.52,"chord":"G#maj7","duration":3.24},{"time":11.76,"chord":"Fm7","duration":0.83},{"time":12.59,"chord":"D#","duration":3.98},{"time":16.57,"chord":"G#maj7","duration":3.43},{"time":20,"chord":"Fm7","duration":0.93},{"time":20.93,"chord":"D#maj7","duration":2.69},{"time":23.61,"chord":"D#","duration":1.11},{"time":24.72,"chord":"G#maj7","duration":4.26},{"time":28.98,"chord":"Cm7","duration":4.35},{"time":33.33,"chord":"G#maj7","duration":1.57},{"time":34.91,"chord":"G#sus2","duration":1.67},{"time":36.57,"chord":"A#7","duration":0.83},{"time":37.41,"chord":"Cm7","duration":4.35},{"time":41.76,"chord":"G#maj7","duration":4.07},{"time":45.83,"chord":"Cm7","duration":4.17},{"time":50,"chord":"G#","duration":4.07},{"time":54.07,"chord":"Cm7","duration":4.07},{"time":58.15,"chord":"G#","duration":2.5},{"time":60.65,"chord":"Gm","duration":1.48},{"time":62.13,"chord":"Cm","duration":4.26},{"time":66.39,"chord":"G#","duration":3.98},{"time":70.37,"chord":"Cm7","duration":4.17},{"time":74.54,"chord":"G#","duration":3.89},{"time":78.43,"chord":"Cm7","duration":4.63},{"time":83.06,"chord":"G#maj7","duration":3.06},{"time":86.11,"chord":"Fm7","duration":0.56},{"time":86.67,"chord":"A#","duration":1.11},{"time":87.78,"chord":"D#","duration":2.69},{"time":90.46,"chord":"G#maj7","duration":2.87},{"time":93.33,"chord":"Fm7","duration":1.02},{"time":94.35,"chord":"A#","duration":0.65},{"time":95,"chord":"D#maj7","duration":3.8},{"time":98.8,"chord":"G#maj7","duration":4.35},{"time":103.15,"chord":"Cm7","duration":4.07},{"time":107.22,"chord":"G#maj7","duration":4.07},{"time":111.3,"chord":"Cm7","duration":3.89},{"time":115.19,"chord":"G#maj7","duration":4.26},{"time":119.44,"chord":"Cm7","duration":4.26},{"time":123.7,"chord":"G#maj7","duration":3.8},{"time":127.5,"chord":"Cm7","duration":2.5},{"time":130,"chord":"Cm","duration":2.31},{"time":132.31,"chord":"G#maj7","duration":3.61},{"time":135.93,"chord":"D#","duration":4.07},{"time":140,"chord":"G#maj7","duration":4.26},{"time":144.26,"chord":"D#maj7","duration":3.98},{"time":148.24,"chord":"G#maj7","duration":4.26},{"time":152.5,"chord":"D#maj7","duration":3.8},{"time":156.3,"chord":"G#maj7","duration":4.17},{"time":160.46,"chord":"D#maj7","duration":1.67},{"time":162.13,"chord":"D#","duration":2.13},{"time":164.26,"chord":"G#maj7","duration":3.98},{"time":168.24,"chord":"D#","duration":3.98},{"time":172.22,"chord":"G#maj7","duration":3.98},{"time":176.2,"chord":"D#","duration":3.8},{"time":180,"chord":"G#maj7","duration":3.98},{"time":183.98,"chord":"D#maj7","duration":4.17},{"time":188.15,"chord":"G#maj7","duration":3.8},{"time":191.94,"chord":"Gm","duration":4.17},{"time":196.11,"chord":"G#maj7","duration":3.89},{"time":200,"chord":"D#maj7","duration":4.63},{"time":204.63,"chord":"G#maj7","duration":3.7},{"time":208.33,"chord":"D#maj7","duration":4.07},{"time":212.41,"chord":"G#maj7","duration":3.98},{"time":216.39,"chord":"D#maj7","duration":4.07},{"time":220.46,"chord":"G#maj7","duration":3.98},{"time":224.44,"chord":"D#","duration":3.98},{"time":228.43,"chord":"G#maj7","duration":1.94},{"time":230.37,"chord":"Fm","duration":2.04},{"time":232.41,"chord":"D#maj7","duration":3.98},{"time":236.39,"chord":"G#maj7","duration":4.07},{"time":240.46,"chord":"D#","duration":3.98},{"time":244.44,"chord":"G#maj7","duration":3.98},{"time":248.43,"chord":"D#","duration":3.98},{"time":252.41,"chord":"G#maj7","duration":4.17},{"time":256.57,"chord":"D#maj7","duration":3.98},{"time":260.56,"chord":"G#maj7","duration":3.8},{"time":264.35,"chord":"D#maj7","duration":4.07},{"time":268.43,"chord":"G#maj7","duration":3.7},{"time":272.13,"chord":"D#maj7","duration":3.8},{"time":275.93,"chord":"G#maj7","duration":4.07},{"time":280,"chord":"D#","duration":3.89}];
     window.YOUTUBE_VIDEO_ID = '6lOgh8torPA';
+    window.BEGINNER_META = { capo: 3, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

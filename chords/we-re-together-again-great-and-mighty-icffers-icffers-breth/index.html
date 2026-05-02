@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for We're Together Again/ Great And Mighty - Icffers by Icffers Breth. AI-detected chord progression with 106 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for We're Together Again/ Great And Mighty - Icffers by Icffers Breth. AI-detected chord progression with 106 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="We're Together Again/ Great And Mighty - Icffers chords, Icffers Breth chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="We're Together Again/ Great And Mighty - Icffers Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for We're Together Again/ Great And Mighty - Icffers by Icffers Breth. AI-detected chord progression with 106 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for We're Together Again/ Great And Mighty - Icffers by Icffers Breth. AI-detected chord progression with 106 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/we-re-together-again-great-and-mighty-icffers-icffers-breth/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="We're Together Again/ Great And Mighty - Icffers Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for We're Together Again/ Great And Mighty - Icffers by Icffers Breth. AI-detected chord progression with 106 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for We're Together Again/ Great And Mighty - Icffers by Icffers Breth. AI-detected chord progression with 106 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>We're Together Again/ Great And Mighty - Icffers Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Icffers Breth"
   },
   "url": "https://ecoliving-tips.github.io/chords/we-re-together-again-great-and-mighty-icffers-icffers-breth/",
-  "description": "Free chords for We're Together Again/ Great And Mighty - Icffers by Icffers Breth. AI-detected chord progression with 106 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for We're Together Again/ Great And Mighty - Icffers by Icffers Breth. AI-detected chord progression with 106 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 106 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -296,8 +307,10 @@
     <script>
     window.CHORD_DATA = [{"time":0,"chord":"G","duration":2.69},{"time":2.69,"chord":"C","duration":1.76},{"time":4.44,"chord":"D","duration":1.67},{"time":6.11,"chord":"C","duration":1.67},{"time":7.78,"chord":"D","duration":1.67},{"time":9.44,"chord":"C","duration":1.67},{"time":11.11,"chord":"D","duration":3.52},{"time":14.63,"chord":"G","duration":5.37},{"time":20,"chord":"C","duration":3.24},{"time":23.24,"chord":"D","duration":3.61},{"time":26.85,"chord":"G","duration":1.85},{"time":28.7,"chord":"D","duration":1.67},{"time":30.37,"chord":"G","duration":5.19},{"time":35.56,"chord":"C","duration":1.67},{"time":37.22,"chord":"D","duration":3.15},{"time":40.37,"chord":"G","duration":3.7},{"time":44.07,"chord":"Am","duration":1.94},{"time":46.02,"chord":"D","duration":1.67},{"time":47.69,"chord":"G","duration":4.35},{"time":52.04,"chord":"Em","duration":2.78},{"time":54.81,"chord":"Am","duration":1.76},{"time":56.57,"chord":"D","duration":1.57},{"time":58.15,"chord":"C","duration":1.85},{"time":60,"chord":"D","duration":1.85},{"time":61.85,"chord":"G","duration":1.2},{"time":63.06,"chord":"Em","duration":2.41},{"time":65.46,"chord":"C","duration":1.39},{"time":66.85,"chord":"D","duration":2.04},{"time":68.89,"chord":"G","duration":1.67},{"time":70.56,"chord":"D","duration":1.67},{"time":72.22,"chord":"G","duration":3.7},{"time":75.93,"chord":"C","duration":2.78},{"time":78.7,"chord":"G","duration":0.46},{"time":79.17,"chord":"D","duration":3.7},{"time":82.87,"chord":"G","duration":2.04},{"time":84.91,"chord":"D","duration":1.2},{"time":86.11,"chord":"G","duration":5.65},{"time":91.76,"chord":"C","duration":1.48},{"time":93.24,"chord":"D","duration":3.8},{"time":97.04,"chord":"G","duration":3.61},{"time":100.65,"chord":"Am","duration":1.76},{"time":102.41,"chord":"D","duration":1.76},{"time":104.17,"chord":"G","duration":4.17},{"time":108.33,"chord":"Em","duration":1.67},{"time":110,"chord":"E","duration":1.11},{"time":111.11,"chord":"Am","duration":2.13},{"time":113.24,"chord":"D","duration":1.67},{"time":114.91,"chord":"C","duration":1.76},{"time":116.67,"chord":"D","duration":1.85},{"time":118.52,"chord":"G","duration":1.2},{"time":119.72,"chord":"Em","duration":1.85},{"time":121.57,"chord":"D","duration":0.46},{"time":122.04,"chord":"C","duration":1.48},{"time":123.52,"chord":"D","duration":2.13},{"time":125.65,"chord":"G","duration":3.24},{"time":128.89,"chord":"Am","duration":2.04},{"time":130.93,"chord":"D","duration":1.85},{"time":132.78,"chord":"G","duration":5.37},{"time":138.15,"chord":"E","duration":1.85},{"time":140,"chord":"Am","duration":1.67},{"time":141.67,"chord":"D","duration":1.76},{"time":143.43,"chord":"C","duration":2.04},{"time":145.46,"chord":"D","duration":1.39},{"time":146.85,"chord":"G","duration":2.04},{"time":148.89,"chord":"Em","duration":1.67},{"time":150.56,"chord":"Am7","duration":1.67},{"time":152.22,"chord":"D","duration":1.94},{"time":154.17,"chord":"G","duration":1.76},{"time":155.93,"chord":"D","duration":1.76},{"time":157.69,"chord":"G","duration":5.28},{"time":162.96,"chord":"D","duration":1.2},{"time":164.17,"chord":"Am","duration":3.89},{"time":168.06,"chord":"D","duration":1.85},{"time":169.91,"chord":"G","duration":7.13},{"time":177.04,"chord":"C","duration":2.96},{"time":180,"chord":"G","duration":0.56},{"time":180.56,"chord":"Bm","duration":0.83},{"time":181.39,"chord":"Em","duration":0.93},{"time":182.31,"chord":"Am","duration":0.93},{"time":183.24,"chord":"D","duration":0.74},{"time":183.98,"chord":"G","duration":7.13},{"time":191.11,"chord":"D","duration":1.67},{"time":192.78,"chord":"Am","duration":1.67},{"time":194.44,"chord":"D","duration":3.7},{"time":198.15,"chord":"G","duration":5.56},{"time":203.7,"chord":"G7","duration":1.57},{"time":205.28,"chord":"C","duration":3.43},{"time":208.7,"chord":"Bm","duration":0.83},{"time":209.54,"chord":"Em","duration":1.02},{"time":210.56,"chord":"Am","duration":1.48},{"time":212.04,"chord":"G","duration":2.04},{"time":214.07,"chord":"C","duration":1.67},{"time":215.74,"chord":"B","duration":0.74},{"time":216.48,"chord":"Em","duration":1.02},{"time":217.5,"chord":"Am","duration":1.11},{"time":218.61,"chord":"D","duration":0.65},{"time":219.26,"chord":"G","duration":1.85},{"time":221.11,"chord":"C","duration":1.76},{"time":222.87,"chord":"Bm","duration":0.74},{"time":223.61,"chord":"Em","duration":0.56},{"time":224.17,"chord":"Am","duration":1.39},{"time":225.56,"chord":"D","duration":1.02},{"time":226.57,"chord":"G","duration":2.78},{"time":229.35,"chord":"F","duration":0.65},{"time":230,"chord":"C","duration":1.57},{"time":231.57,"chord":"G","duration":5.17}];
     window.YOUTUBE_VIDEO_ID = 'Muo2O1kZQXs';
+    window.BEGINNER_META = { capo: 0, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

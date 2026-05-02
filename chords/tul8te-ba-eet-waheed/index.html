@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for TUL8TE - BA'EET WAHEED by TUL8TE. AI-detected chord progression with 65 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for TUL8TE - BA'EET WAHEED by TUL8TE. AI-detected chord progression with 65 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="TUL8TE - BA'EET WAHEED chords, TUL8TE chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="TUL8TE - BA'EET WAHEED Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for TUL8TE - BA'EET WAHEED by TUL8TE. AI-detected chord progression with 65 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for TUL8TE - BA'EET WAHEED by TUL8TE. AI-detected chord progression with 65 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/tul8te-ba-eet-waheed/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="TUL8TE - BA'EET WAHEED Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for TUL8TE - BA'EET WAHEED by TUL8TE. AI-detected chord progression with 65 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for TUL8TE - BA'EET WAHEED by TUL8TE. AI-detected chord progression with 65 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>TUL8TE - BA'EET WAHEED Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "TUL8TE"
   },
   "url": "https://ecoliving-tips.github.io/chords/tul8te-ba-eet-waheed/",
-  "description": "Free chords for TUL8TE - BA'EET WAHEED by TUL8TE. AI-detected chord progression with 65 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for TUL8TE - BA'EET WAHEED by TUL8TE. AI-detected chord progression with 65 chords. Advanced difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Advanced"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 65 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -297,8 +308,10 @@
     <script>
     window.CHORD_DATA = [{"time":0,"chord":"Gm","duration":2.59},{"time":2.59,"chord":"C#m","duration":2.96},{"time":5.56,"chord":"D","duration":5.56},{"time":11.11,"chord":"F#m","duration":2.78},{"time":13.89,"chord":"E","duration":2.78},{"time":16.67,"chord":"D","duration":1.48},{"time":18.15,"chord":"B","duration":1.3},{"time":19.44,"chord":"C#","duration":2.59},{"time":22.04,"chord":"F#m","duration":2.87},{"time":24.91,"chord":"C#m","duration":2.69},{"time":27.59,"chord":"Bm","duration":1.76},{"time":29.35,"chord":"E","duration":1.76},{"time":31.11,"chord":"D","duration":2.04},{"time":33.15,"chord":"F#m","duration":2.78},{"time":35.93,"chord":"C#m","duration":2.22},{"time":38.15,"chord":"F#m","duration":0.65},{"time":38.8,"chord":"Bm7","duration":1.2},{"time":40,"chord":"E","duration":4.26},{"time":44.26,"chord":"F#m","duration":2.87},{"time":47.13,"chord":"E","duration":2.87},{"time":50,"chord":"D","duration":2.59},{"time":52.59,"chord":"E","duration":2.78},{"time":55.37,"chord":"F#m","duration":2.69},{"time":58.06,"chord":"E","duration":2.96},{"time":61.02,"chord":"D","duration":1.48},{"time":62.5,"chord":"B","duration":1.3},{"time":63.8,"chord":"C#","duration":2.96},{"time":69.35,"chord":"F#m","duration":0.65},{"time":70,"chord":"C#","duration":0.46},{"time":70.46,"chord":"F#m","duration":1.57},{"time":72.04,"chord":"E","duration":2.78},{"time":74.81,"chord":"D","duration":1.39},{"time":76.2,"chord":"B","duration":1.39},{"time":77.59,"chord":"C#","duration":2.69},{"time":80.28,"chord":"F#m","duration":2.78},{"time":83.06,"chord":"E","duration":2.87},{"time":85.93,"chord":"D","duration":1.48},{"time":87.41,"chord":"B","duration":1.2},{"time":88.61,"chord":"C#","duration":2.59},{"time":91.2,"chord":"D","duration":3.15},{"time":94.35,"chord":"C#","duration":2.59},{"time":96.94,"chord":"D","duration":1.57},{"time":98.52,"chord":"F#m","duration":1.2},{"time":99.72,"chord":"D","duration":5.46},{"time":105.19,"chord":"E","duration":2.96},{"time":108.15,"chord":"D","duration":1.2},{"time":110,"chord":"C#","duration":3.24},{"time":113.24,"chord":"F#m","duration":2.87},{"time":116.11,"chord":"C#m","duration":2.96},{"time":119.07,"chord":"Bm","duration":0.93},{"time":120,"chord":"D","duration":0.37},{"time":120.37,"chord":"E","duration":4.44},{"time":124.81,"chord":"F#m","duration":2.5},{"time":127.31,"chord":"E","duration":2.69},{"time":130,"chord":"D","duration":2.87},{"time":132.87,"chord":"C#","duration":2.87},{"time":135.74,"chord":"F#m","duration":2.69},{"time":138.43,"chord":"A","duration":2.87},{"time":141.3,"chord":"D#","duration":2.69},{"time":143.98,"chord":"D","duration":3.15},{"time":147.13,"chord":"D#","duration":2.04},{"time":149.17,"chord":"E","duration":0.83},{"time":150,"chord":"Dm","duration":2.59},{"time":152.59,"chord":"D#","duration":2.04},{"time":154.63,"chord":"D","duration":2.59}];
     window.YOUTUBE_VIDEO_ID = '1YEpPxFdInQ';
+    window.BEGINNER_META = { capo: 2, difficulty: 'advanced' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

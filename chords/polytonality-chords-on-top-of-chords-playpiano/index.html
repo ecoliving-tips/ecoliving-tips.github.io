@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Polytonality - Chords On Top Of Chords by PlayPiano. AI-detected chord progression with 83 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Polytonality - Chords On Top Of Chords by PlayPiano. AI-detected chord progression with 83 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Polytonality - Chords On Top Of Chords chords, PlayPiano chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Polytonality - Chords On Top Of Chords Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Polytonality - Chords On Top Of Chords by PlayPiano. AI-detected chord progression with 83 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Polytonality - Chords On Top Of Chords by PlayPiano. AI-detected chord progression with 83 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/polytonality-chords-on-top-of-chords-playpiano/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Polytonality - Chords On Top Of Chords Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Polytonality - Chords On Top Of Chords by PlayPiano. AI-detected chord progression with 83 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Polytonality - Chords On Top Of Chords by PlayPiano. AI-detected chord progression with 83 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Polytonality - Chords On Top Of Chords Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "PlayPiano"
   },
   "url": "https://ecoliving-tips.github.io/chords/polytonality-chords-on-top-of-chords-playpiano/",
-  "description": "Free chords for Polytonality - Chords On Top Of Chords by PlayPiano. AI-detected chord progression with 83 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Polytonality - Chords On Top Of Chords by PlayPiano. AI-detected chord progression with 83 chords. Advanced difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Advanced"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 83 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -316,8 +327,10 @@
     <script>
     window.CHORD_DATA = [{"time":10.83,"chord":"F","duration":7.78},{"time":18.61,"chord":"G","duration":2.31},{"time":20.93,"chord":"F","duration":6.48},{"time":27.41,"chord":"Dm","duration":0.74},{"time":28.15,"chord":"F","duration":1.85},{"time":30.28,"chord":"C","duration":3.89},{"time":34.17,"chord":"G#7","duration":3.43},{"time":37.59,"chord":"C#maj7","duration":2.41},{"time":40,"chord":"C#6","duration":5.09},{"time":45.09,"chord":"Gm7","duration":4.07},{"time":49.17,"chord":"C7","duration":2.69},{"time":51.85,"chord":"F#7","duration":1.2},{"time":53.06,"chord":"Dm7","duration":1.85},{"time":54.91,"chord":"G7","duration":1.11},{"time":56.02,"chord":"Cm7","duration":1.85},{"time":57.87,"chord":"C#7","duration":2.13},{"time":60,"chord":"A#maj7","duration":3.15},{"time":63.15,"chord":"C7","duration":3.15},{"time":66.3,"chord":"Am7","duration":2.31},{"time":68.61,"chord":"G#7","duration":1.39},{"time":70,"chord":"Gm7","duration":2.96},{"time":72.96,"chord":"Dm7","duration":1.57},{"time":74.54,"chord":"F#7","duration":3.33},{"time":77.87,"chord":"Gm7","duration":2.13},{"time":80,"chord":"Fm7","duration":1.2},{"time":81.2,"chord":"F#","duration":3.52},{"time":84.72,"chord":"G7","duration":6.94},{"time":91.67,"chord":"C","duration":7.13},{"time":98.8,"chord":"F","duration":1.94},{"time":100.74,"chord":"G","duration":1.2},{"time":101.94,"chord":"F#maj7","duration":8.15},{"time":110.09,"chord":"Cm","duration":0.65},{"time":110.74,"chord":"G#7","duration":4.81},{"time":115.56,"chord":"C#maj7","duration":2.59},{"time":118.15,"chord":"C#","duration":1.85},{"time":130,"chord":"C#sus2","duration":3.15},{"time":133.15,"chord":"D#","duration":2.96},{"time":137.78,"chord":"C#","duration":2.22},{"time":140,"chord":"D#","duration":6.48},{"time":149.63,"chord":"C#","duration":1.2},{"time":150.83,"chord":"D#7","duration":5.74},{"time":156.57,"chord":"G7","duration":3.15},{"time":159.72,"chord":"Gm7","duration":2.5},{"time":162.22,"chord":"F","duration":3.15},{"time":165.37,"chord":"Gm7","duration":15.19},{"time":180.56,"chord":"C7","duration":3.24},{"time":183.8,"chord":"F#7","duration":4.26},{"time":188.06,"chord":"C7","duration":1.94},{"time":190,"chord":"F#","duration":2.87},{"time":192.87,"chord":"C7","duration":4.91},{"time":197.78,"chord":"F#7","duration":2.22},{"time":200,"chord":"F#","duration":0.93},{"time":200.93,"chord":"G#","duration":0.83},{"time":201.76,"chord":"F#","duration":2.59},{"time":204.35,"chord":"F","duration":3.43},{"time":207.78,"chord":"B7","duration":3.15},{"time":210.93,"chord":"C#","duration":4.17},{"time":215.09,"chord":"A#m7","duration":2.31},{"time":217.41,"chord":"D#7","duration":2.41},{"time":219.81,"chord":"G#","duration":1.94},{"time":221.76,"chord":"C#maj7","duration":1.94},{"time":223.7,"chord":"Gm7","duration":1.94},{"time":225.65,"chord":"C7","duration":1.02},{"time":226.67,"chord":"Cm7","duration":2.69},{"time":229.35,"chord":"G#","duration":0.65},{"time":230,"chord":"F#","duration":5.09},{"time":235.09,"chord":"F","duration":2.87},{"time":237.96,"chord":"Cm7","duration":1.67},{"time":239.63,"chord":"D#m6","duration":1.02},{"time":240.65,"chord":"F","duration":1.57},{"time":242.22,"chord":"Dm7","duration":1.76},{"time":243.98,"chord":"Gsus4","duration":0.93},{"time":244.91,"chord":"A#m","duration":4.17},{"time":249.07,"chord":"C","duration":0.93},{"time":250,"chord":"C7","duration":0.74},{"time":250.74,"chord":"A#m","duration":1.85},{"time":252.59,"chord":"A#m6","duration":1.94},{"time":254.54,"chord":"A#m","duration":2.96},{"time":257.5,"chord":"F","duration":2.5},{"time":260,"chord":"A#m","duration":1.67},{"time":261.67,"chord":"C","duration":3.52},{"time":265.19,"chord":"G#7","duration":2.78},{"time":267.96,"chord":"C#","duration":2.04}];
     window.YOUTUBE_VIDEO_ID = 'ytq5LQWhyF0';
+    window.BEGINNER_META = { capo: 3, difficulty: 'advanced' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

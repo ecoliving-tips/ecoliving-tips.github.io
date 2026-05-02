@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for The Girl on My Left by The Innocence Mission. AI-detected chord progression with 49 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for The Girl on My Left by The Innocence Mission. AI-detected chord progression with 49 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="The Girl on My Left chords, The Innocence Mission chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="The Girl on My Left Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for The Girl on My Left by The Innocence Mission. AI-detected chord progression with 49 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for The Girl on My Left by The Innocence Mission. AI-detected chord progression with 49 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/the-girl-on-my-left-the-innocence-mission/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="The Girl on My Left Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for The Girl on My Left by The Innocence Mission. AI-detected chord progression with 49 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for The Girl on My Left by The Innocence Mission. AI-detected chord progression with 49 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>The Girl on My Left Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "The Innocence Mission"
   },
   "url": "https://ecoliving-tips.github.io/chords/the-girl-on-my-left-the-innocence-mission/",
-  "description": "Free chords for The Girl on My Left by The Innocence Mission. AI-detected chord progression with 49 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for The Girl on My Left by The Innocence Mission. AI-detected chord progression with 49 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 49 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -294,8 +305,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.74,"chord":"E","duration":11.11},{"time":11.85,"chord":"B7","duration":0.93},{"time":12.78,"chord":"Emaj7","duration":1.3},{"time":14.07,"chord":"E","duration":2.69},{"time":16.76,"chord":"B7","duration":0.74},{"time":17.5,"chord":"E","duration":2.5},{"time":20,"chord":"A","duration":2.22},{"time":22.22,"chord":"F#m","duration":2.22},{"time":24.44,"chord":"E","duration":1.94},{"time":26.39,"chord":"B7","duration":0.46},{"time":26.85,"chord":"Emaj7","duration":1.85},{"time":28.7,"chord":"E","duration":2.31},{"time":31.02,"chord":"Emaj7","duration":2.13},{"time":33.15,"chord":"E7","duration":0.93},{"time":34.07,"chord":"A","duration":2.22},{"time":36.3,"chord":"F#m","duration":2.69},{"time":38.98,"chord":"A","duration":2.13},{"time":41.11,"chord":"F#m","duration":2.5},{"time":43.61,"chord":"A","duration":1.85},{"time":45.46,"chord":"E","duration":5.37},{"time":50.83,"chord":"A","duration":2.22},{"time":53.06,"chord":"F#m","duration":2.31},{"time":55.37,"chord":"E","duration":14.54},{"time":69.91,"chord":"A","duration":2.22},{"time":72.13,"chord":"F#m","duration":2.31},{"time":74.44,"chord":"E","duration":0.46},{"time":74.91,"chord":"Emaj7","duration":4.07},{"time":78.98,"chord":"E","duration":2.13},{"time":81.11,"chord":"Emaj7","duration":2.96},{"time":84.07,"chord":"A","duration":2.31},{"time":86.39,"chord":"F#m","duration":2.5},{"time":88.89,"chord":"A","duration":2.22},{"time":91.11,"chord":"F#m","duration":2.5},{"time":93.61,"chord":"A","duration":1.94},{"time":95.56,"chord":"E","duration":5.19},{"time":100.74,"chord":"C#m","duration":2.41},{"time":103.15,"chord":"F#m7","duration":2.31},{"time":105.46,"chord":"C#m","duration":2.41},{"time":107.87,"chord":"F#m7","duration":2.59},{"time":110.46,"chord":"E","duration":4.72},{"time":115.19,"chord":"A","duration":1.57},{"time":116.76,"chord":"Amaj7","duration":0.83},{"time":117.59,"chord":"F#m7","duration":2.41},{"time":120,"chord":"Emaj7","duration":1.94},{"time":121.94,"chord":"E","duration":2.41},{"time":124.35,"chord":"F#m7","duration":0.74},{"time":125.09,"chord":"E","duration":1.94},{"time":127.04,"chord":"Emaj7","duration":1.94},{"time":128.98,"chord":"E","duration":10.65}];
     window.YOUTUBE_VIDEO_ID = 'WYwDlB3mB_Y';
+    window.BEGINNER_META = { capo: 2, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

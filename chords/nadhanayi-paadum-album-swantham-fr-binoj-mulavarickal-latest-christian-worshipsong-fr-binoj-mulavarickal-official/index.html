@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for നാഥനായ് പാടും|Nadhanayi Paadum |Album: Swantham| Fr.Binoj Mulavarickal| Latest Christian WorshipSong by Fr Binoj Mulavarickal Official. AI-detected chord progression with 140 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for നാഥനായ് പാടും|Nadhanayi Paadum |Album: Swantham| Fr.Binoj Mulavarickal| Latest Christian WorshipSong by Fr Binoj Mulavarickal Official. AI-detected chord progression with 140 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="നാഥനായ് പാടും|Nadhanayi Paadum |Album: Swantham| Fr.Binoj Mulavarickal| Latest Christian WorshipSong chords, Fr Binoj Mulavarickal Official chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="നാഥനായ് പാടും|Nadhanayi Paadum |Album: Swantham| Fr.Binoj Mulavarickal| Latest Christian WorshipSong Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for നാഥനായ് പാടും|Nadhanayi Paadum |Album: Swantham| Fr.Binoj Mulavarickal| Latest Christian WorshipSong by Fr Binoj Mulavarickal Official. AI-detected chord progression with 140 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for നാഥനായ് പാടും|Nadhanayi Paadum |Album: Swantham| Fr.Binoj Mulavarickal| Latest Christian WorshipSong by Fr Binoj Mulavarickal Official. AI-detected chord progression with 140 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/nadhanayi-paadum-album-swantham-fr-binoj-mulavarickal-latest-christian-worshipsong-fr-binoj-mulavarickal-official/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="നാഥനായ് പാടും|Nadhanayi Paadum |Album: Swantham| Fr.Binoj Mulavarickal| Latest Christian WorshipSong Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for നാഥനായ് പാടും|Nadhanayi Paadum |Album: Swantham| Fr.Binoj Mulavarickal| Latest Christian WorshipSong by Fr Binoj Mulavarickal Official. AI-detected chord progression with 140 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for നാഥനായ് പാടും|Nadhanayi Paadum |Album: Swantham| Fr.Binoj Mulavarickal| Latest Christian WorshipSong by Fr Binoj Mulavarickal Official. AI-detected chord progression with 140 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>നാഥനായ് പാടും|Nadhanayi Paadum |Album: Swantham| Fr.Binoj Mulavarickal| Latest Christian WorshipSong Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Fr Binoj Mulavarickal Official"
   },
   "url": "https://ecoliving-tips.github.io/chords/nadhanayi-paadum-album-swantham-fr-binoj-mulavarickal-latest-christian-worshipsong-fr-binoj-mulavarickal-official/",
-  "description": "Free chords for നാഥനായ് പാടും|Nadhanayi Paadum |Album: Swantham| Fr.Binoj Mulavarickal| Latest Christian WorshipSong by Fr Binoj Mulavarickal Official. AI-detected chord progression with 140 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for നാഥനായ് പാടും|Nadhanayi Paadum |Album: Swantham| Fr.Binoj Mulavarickal| Latest Christian WorshipSong by Fr Binoj Mulavarickal Official. AI-detected chord progression with 140 chords. Advanced difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Advanced"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 140 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -308,8 +319,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.93,"chord":"D#","duration":5.46},{"time":6.39,"chord":"G#","duration":1.76},{"time":8.15,"chord":"D#","duration":8.24},{"time":16.39,"chord":"A#sus4","duration":1.3},{"time":17.69,"chord":"D#","duration":26.2},{"time":43.89,"chord":"A#sus4","duration":2.5},{"time":46.39,"chord":"D#","duration":3.61},{"time":50,"chord":"A#sus4","duration":1.76},{"time":51.76,"chord":"D#","duration":17.5},{"time":69.26,"chord":"A#","duration":2.69},{"time":71.94,"chord":"D#","duration":8.52},{"time":80.46,"chord":"Cm","duration":1.67},{"time":82.13,"chord":"D#","duration":1.94},{"time":84.07,"chord":"A#","duration":1.39},{"time":85.46,"chord":"G#m","duration":1.39},{"time":86.85,"chord":"C#","duration":1.3},{"time":88.15,"chord":"D#","duration":10.28},{"time":98.43,"chord":"Fm","duration":1.57},{"time":100,"chord":"G#","duration":0.93},{"time":100.93,"chord":"Cm","duration":2.59},{"time":103.52,"chord":"Gm","duration":1.39},{"time":104.91,"chord":"A#","duration":1.39},{"time":106.3,"chord":"G#m","duration":0.74},{"time":107.04,"chord":"C#","duration":1.67},{"time":108.7,"chord":"D#","duration":1.67},{"time":110.37,"chord":"G#","duration":0.74},{"time":111.11,"chord":"D#","duration":4.44},{"time":115.56,"chord":"G#","duration":2.22},{"time":117.78,"chord":"D#","duration":1.3},{"time":119.07,"chord":"Cm","duration":0.93},{"time":120,"chord":"Cm7","duration":1.39},{"time":121.39,"chord":"Fm7","duration":3.06},{"time":124.44,"chord":"Cm7","duration":2.22},{"time":126.67,"chord":"Fm7","duration":2.78},{"time":129.44,"chord":"G#","duration":2.5},{"time":131.94,"chord":"D#","duration":2.59},{"time":134.54,"chord":"Fm7","duration":2.69},{"time":137.22,"chord":"D#","duration":2.59},{"time":139.81,"chord":"G#","duration":2.31},{"time":142.13,"chord":"D#","duration":2.78},{"time":144.91,"chord":"Fm","duration":1.48},{"time":146.39,"chord":"A#7","duration":1.02},{"time":147.41,"chord":"D#","duration":2.96},{"time":150.37,"chord":"A#m","duration":1.94},{"time":152.31,"chord":"Fm7","duration":2.69},{"time":155,"chord":"D#","duration":2.69},{"time":157.69,"chord":"G#","duration":2.31},{"time":160,"chord":"D#","duration":2.87},{"time":162.87,"chord":"G#m","duration":1.2},{"time":164.07,"chord":"C#","duration":1.39},{"time":165.46,"chord":"Fm7","duration":2.41},{"time":167.87,"chord":"D#","duration":5.28},{"time":173.15,"chord":"G#","duration":2.69},{"time":175.83,"chord":"A#","duration":2.31},{"time":178.15,"chord":"B","duration":1.48},{"time":179.63,"chord":"C#","duration":0.37},{"time":180,"chord":"D#","duration":12.5},{"time":192.5,"chord":"G#m","duration":1.11},{"time":193.61,"chord":"Cm","duration":1.02},{"time":194.63,"chord":"D#","duration":1.3},{"time":195.93,"chord":"A#","duration":2.78},{"time":198.7,"chord":"G#m","duration":1.3},{"time":200,"chord":"C#","duration":1.2},{"time":201.2,"chord":"D#","duration":10.46},{"time":211.67,"chord":"Fm7","duration":2.78},{"time":214.44,"chord":"G#","duration":2.41},{"time":216.85,"chord":"D#","duration":5.28},{"time":222.13,"chord":"Cm","duration":2.87},{"time":225,"chord":"G#maj7","duration":2.13},{"time":227.13,"chord":"D#","duration":3.98},{"time":231.11,"chord":"Fm","duration":1.2},{"time":232.31,"chord":"Cm","duration":2.78},{"time":235.09,"chord":"Gm","duration":1.11},{"time":236.2,"chord":"G#","duration":1.2},{"time":237.41,"chord":"D#","duration":4.54},{"time":241.94,"chord":"F#dim7","duration":1.3},{"time":243.24,"chord":"Cm6","duration":6.76},{"time":250,"chord":"D#","duration":2.69},{"time":252.69,"chord":"Cm","duration":3.24},{"time":255.93,"chord":"G#maj7","duration":2.13},{"time":258.06,"chord":"A#7","duration":1.94},{"time":260,"chord":"A#sus4","duration":1.76},{"time":261.76,"chord":"C#sus2","duration":1.2},{"time":262.96,"chord":"D#","duration":1.39},{"time":264.35,"chord":"Fm7","duration":1.3},{"time":265.65,"chord":"D#","duration":2.87},{"time":268.52,"chord":"D#6","duration":1.48},{"time":270,"chord":"G#","duration":0.83},{"time":270.83,"chord":"D#","duration":3.8},{"time":274.63,"chord":"G#","duration":1.48},{"time":276.11,"chord":"Fm7","duration":1.48},{"time":277.59,"chord":"D#","duration":5.93},{"time":283.52,"chord":"Cm","duration":2.96},{"time":286.48,"chord":"G#","duration":2.22},{"time":288.7,"chord":"A#","duration":2.78},{"time":291.48,"chord":"D#","duration":1.2},{"time":292.69,"chord":"C#","duration":1.11},{"time":293.8,"chord":"Cm","duration":5.19},{"time":298.98,"chord":"A#7","duration":1.02},{"time":300,"chord":"G#","duration":1.76},{"time":301.76,"chord":"D#sus4","duration":1.11},{"time":302.87,"chord":"G#sus2","duration":1.3},{"time":304.17,"chord":"D#","duration":2.41},{"time":306.57,"chord":"F#dim7","duration":2.5},{"time":309.07,"chord":"D#","duration":9.17},{"time":318.24,"chord":"A#","duration":3.98},{"time":322.22,"chord":"G#m","duration":1.2},{"time":323.43,"chord":"D#","duration":1.3},{"time":324.72,"chord":"G#","duration":2.69},{"time":327.41,"chord":"D#","duration":2.59},{"time":330,"chord":"Fm7","duration":2.78},{"time":332.78,"chord":"D#","duration":2.31},{"time":335.09,"chord":"G#","duration":2.59},{"time":337.69,"chord":"D#","duration":2.59},{"time":340.28,"chord":"A#","duration":0.65},{"time":340.93,"chord":"Fm7","duration":2.31},{"time":343.24,"chord":"D#","duration":2.22},{"time":345.46,"chord":"A#","duration":2.78},{"time":348.24,"chord":"Fm7","duration":1.76},{"time":350,"chord":"Fm","duration":1.3},{"time":351.3,"chord":"D#","duration":1.94},{"time":353.24,"chord":"G#","duration":2.69},{"time":355.93,"chord":"A#","duration":1.3},{"time":357.22,"chord":"D#","duration":3.61},{"time":360.83,"chord":"Fm7","duration":2.78},{"time":363.61,"chord":"D#","duration":5},{"time":368.61,"chord":"G#","duration":2.5},{"time":371.11,"chord":"A#","duration":1.48},{"time":372.59,"chord":"D#","duration":3.52},{"time":376.11,"chord":"Cm","duration":2.96},{"time":379.07,"chord":"G#","duration":0.93},{"time":380,"chord":"G#maj7","duration":1.39},{"time":381.39,"chord":"A#","duration":2.78},{"time":384.17,"chord":"D#","duration":1.11},{"time":385.28,"chord":"D#7","duration":1.2},{"time":386.48,"chord":"Cm","duration":5.19},{"time":391.67,"chord":"G#maj7","duration":0.65},{"time":392.31,"chord":"Fm6","duration":0.83},{"time":393.15,"chord":"A#7","duration":1.39},{"time":394.54,"chord":"D#","duration":10.19}];
     window.YOUTUBE_VIDEO_ID = '1Ol05tvBIyc';
+    window.BEGINNER_META = { capo: 6, difficulty: 'advanced' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

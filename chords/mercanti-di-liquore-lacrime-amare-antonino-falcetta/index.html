@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Mercanti di Liquore - Lacrime amare by Antonino Falcetta. AI-detected chord progression with 167 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Mercanti di Liquore - Lacrime amare by Antonino Falcetta. AI-detected chord progression with 167 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Mercanti di Liquore - Lacrime amare chords, Antonino Falcetta chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Mercanti di Liquore - Lacrime amare Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Mercanti di Liquore - Lacrime amare by Antonino Falcetta. AI-detected chord progression with 167 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Mercanti di Liquore - Lacrime amare by Antonino Falcetta. AI-detected chord progression with 167 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/mercanti-di-liquore-lacrime-amare-antonino-falcetta/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Mercanti di Liquore - Lacrime amare Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Mercanti di Liquore - Lacrime amare by Antonino Falcetta. AI-detected chord progression with 167 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Mercanti di Liquore - Lacrime amare by Antonino Falcetta. AI-detected chord progression with 167 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Mercanti di Liquore - Lacrime amare Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Antonino Falcetta"
   },
   "url": "https://ecoliving-tips.github.io/chords/mercanti-di-liquore-lacrime-amare-antonino-falcetta/",
-  "description": "Free chords for Mercanti di Liquore - Lacrime amare by Antonino Falcetta. AI-detected chord progression with 167 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Mercanti di Liquore - Lacrime amare by Antonino Falcetta. AI-detected chord progression with 167 chords. Advanced difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Advanced"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 167 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -311,8 +322,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.46,"chord":"Dm","duration":1.3},{"time":1.76,"chord":"Gm","duration":1.3},{"time":3.06,"chord":"A#","duration":1.2},{"time":4.26,"chord":"A7","duration":1.39},{"time":5.65,"chord":"Dm","duration":1.2},{"time":6.85,"chord":"Gm","duration":1.48},{"time":8.33,"chord":"A#","duration":1.11},{"time":9.44,"chord":"A","duration":1.48},{"time":10.93,"chord":"Dm","duration":1.48},{"time":12.41,"chord":"Gm","duration":1.3},{"time":13.7,"chord":"A#","duration":1.11},{"time":14.81,"chord":"A","duration":1.39},{"time":16.2,"chord":"Dm","duration":1.2},{"time":17.41,"chord":"Gm","duration":1.39},{"time":18.8,"chord":"A#","duration":1.2},{"time":20,"chord":"Asus4","duration":1.85},{"time":21.85,"chord":"A#","duration":1.57},{"time":23.43,"chord":"A","duration":1.39},{"time":24.81,"chord":"Dm","duration":1.48},{"time":26.3,"chord":"C","duration":1.48},{"time":27.78,"chord":"A#","duration":1.39},{"time":29.17,"chord":"C","duration":2.13},{"time":31.3,"chord":"D","duration":2.13},{"time":33.43,"chord":"Dm","duration":0.93},{"time":34.35,"chord":"A7","duration":1.48},{"time":35.83,"chord":"Dm","duration":1.11},{"time":36.94,"chord":"D6","duration":1.02},{"time":37.96,"chord":"C","duration":0.56},{"time":38.52,"chord":"G7","duration":2.41},{"time":40.93,"chord":"A7","duration":3.7},{"time":44.63,"chord":"A#","duration":1.39},{"time":46.02,"chord":"C","duration":0.56},{"time":46.57,"chord":"Dm","duration":1.76},{"time":48.33,"chord":"C","duration":1.3},{"time":49.63,"chord":"A#","duration":0.37},{"time":50,"chord":"Gm","duration":0.83},{"time":50.83,"chord":"C","duration":1.3},{"time":52.13,"chord":"F","duration":1.39},{"time":53.52,"chord":"A","duration":1.2},{"time":54.72,"chord":"Gm","duration":1.3},{"time":56.02,"chord":"A","duration":0.83},{"time":56.85,"chord":"Dm","duration":3.15},{"time":60,"chord":"A#","duration":2.13},{"time":62.13,"chord":"A7","duration":2.87},{"time":65,"chord":"Dm","duration":1.3},{"time":66.3,"chord":"A#","duration":1.11},{"time":67.41,"chord":"C","duration":1.3},{"time":68.7,"chord":"C#m7","duration":1.3},{"time":70,"chord":"Dm","duration":1.57},{"time":71.57,"chord":"A#","duration":0.83},{"time":72.41,"chord":"C","duration":1.3},{"time":73.7,"chord":"C#m","duration":1.11},{"time":74.81,"chord":"Dm","duration":1.94},{"time":76.76,"chord":"Gm6","duration":1.57},{"time":78.33,"chord":"A7","duration":1.3},{"time":79.63,"chord":"Dm","duration":1.2},{"time":80.83,"chord":"A#","duration":1.11},{"time":81.94,"chord":"C","duration":1.3},{"time":83.24,"chord":"C#m","duration":1.02},{"time":84.26,"chord":"Dm","duration":1.76},{"time":86.02,"chord":"Gm6","duration":1.76},{"time":87.78,"chord":"A7","duration":1.48},{"time":89.26,"chord":"D","duration":0.46},{"time":89.72,"chord":"Dm","duration":0.83},{"time":90.56,"chord":"Gm","duration":1.48},{"time":92.04,"chord":"A#","duration":1.2},{"time":93.24,"chord":"A","duration":1.48},{"time":94.72,"chord":"Dm","duration":1.11},{"time":95.83,"chord":"Gm","duration":2.78},{"time":98.61,"chord":"A","duration":1.39},{"time":100,"chord":"A#","duration":1.94},{"time":101.94,"chord":"A","duration":1.3},{"time":103.24,"chord":"Dm","duration":1.57},{"time":104.81,"chord":"C","duration":1.3},{"time":106.11,"chord":"A#","duration":1.39},{"time":107.5,"chord":"C","duration":1.67},{"time":109.17,"chord":"Dm","duration":0.83},{"time":110,"chord":"A","duration":0.74},{"time":110.74,"chord":"D","duration":1.94},{"time":112.69,"chord":"A7","duration":1.2},{"time":113.89,"chord":"D","duration":2.59},{"time":116.48,"chord":"C","duration":0.46},{"time":116.94,"chord":"E7","duration":1.02},{"time":117.96,"chord":"G7","duration":1.39},{"time":119.35,"chord":"A7","duration":3.61},{"time":122.96,"chord":"A#","duration":1.48},{"time":124.44,"chord":"Dm","duration":2.04},{"time":126.48,"chord":"C","duration":1.3},{"time":127.78,"chord":"A#","duration":1.2},{"time":128.98,"chord":"C","duration":1.3},{"time":130.28,"chord":"F","duration":1.39},{"time":131.67,"chord":"A","duration":1.2},{"time":132.87,"chord":"Gm","duration":1.3},{"time":134.17,"chord":"A","duration":0.65},{"time":134.81,"chord":"Dm","duration":2.87},{"time":137.69,"chord":"Dm6","duration":1.11},{"time":138.8,"chord":"A#","duration":0.74},{"time":139.54,"chord":"A#m","duration":0.46},{"time":140,"chord":"A7","duration":2.96},{"time":142.96,"chord":"Dm","duration":1.48},{"time":144.44,"chord":"A#","duration":0.83},{"time":145.28,"chord":"Dm7","duration":1.39},{"time":146.67,"chord":"A","duration":1.11},{"time":147.78,"chord":"Dm","duration":1.76},{"time":149.54,"chord":"D","duration":0.46},{"time":150,"chord":"Gm6","duration":1.11},{"time":151.11,"chord":"A7","duration":1.57},{"time":152.69,"chord":"Dm","duration":1.2},{"time":153.89,"chord":"A#","duration":1.02},{"time":154.91,"chord":"C","duration":1.39},{"time":156.3,"chord":"A","duration":0.93},{"time":157.22,"chord":"Dm","duration":1.94},{"time":159.17,"chord":"Gm6","duration":1.67},{"time":160.83,"chord":"A7","duration":1.57},{"time":162.41,"chord":"A#","duration":1.67},{"time":164.07,"chord":"A","duration":1.48},{"time":165.56,"chord":"D","duration":1.39},{"time":166.94,"chord":"C","duration":1.3},{"time":168.24,"chord":"A#","duration":1.3},{"time":169.54,"chord":"C","duration":1.57},{"time":171.11,"chord":"Dsus2","duration":0.83},{"time":171.94,"chord":"Asus4","duration":1.2},{"time":173.15,"chord":"Dm","duration":1.57},{"time":174.72,"chord":"A7","duration":1.3},{"time":176.02,"chord":"Dm","duration":2.22},{"time":178.24,"chord":"C","duration":0.65},{"time":178.89,"chord":"E7","duration":0.83},{"time":179.72,"chord":"G7","duration":1.57},{"time":181.3,"chord":"A7","duration":3.8},{"time":185.09,"chord":"Gm","duration":1.11},{"time":186.2,"chord":"C","duration":0.74},{"time":186.94,"chord":"Dm","duration":1.76},{"time":188.7,"chord":"C7","duration":1.3},{"time":190,"chord":"A#","duration":1.2},{"time":191.2,"chord":"C","duration":1.39},{"time":192.59,"chord":"F","duration":1.39},{"time":193.98,"chord":"A","duration":1.2},{"time":195.19,"chord":"Gm","duration":1.2},{"time":196.39,"chord":"A","duration":0.65},{"time":197.04,"chord":"Dm","duration":2.96},{"time":200,"chord":"Dm6","duration":1.11},{"time":201.11,"chord":"A#","duration":1.3},{"time":202.41,"chord":"A7","duration":5.83},{"time":209.54,"chord":"F#m","duration":2.13},{"time":211.67,"chord":"G#dim7","duration":2.13},{"time":213.8,"chord":"C#","duration":3.15},{"time":216.94,"chord":"F#m","duration":2.22},{"time":219.17,"chord":"D","duration":0.83},{"time":220,"chord":"F#m","duration":2.04},{"time":222.04,"chord":"D","duration":1.3},{"time":223.33,"chord":"E","duration":1.11},{"time":224.44,"chord":"C#m","duration":1.3},{"time":225.74,"chord":"F#m","duration":1.39},{"time":227.13,"chord":"D","duration":1.39},{"time":228.52,"chord":"E","duration":1.02},{"time":229.54,"chord":"C#","duration":1.3},{"time":230.83,"chord":"F#m","duration":0.93},{"time":231.76,"chord":"Bm","duration":1.3},{"time":233.06,"chord":"C#","duration":2.69},{"time":235.74,"chord":"A","duration":1.3},{"time":237.04,"chord":"D","duration":2.13},{"time":239.17,"chord":"E","duration":1.57},{"time":240.74,"chord":"C#","duration":1.57},{"time":242.31,"chord":"A","duration":1.57},{"time":243.89,"chord":"Bm","duration":1.76},{"time":245.65,"chord":"C#","duration":2.59},{"time":248.24,"chord":"C#7","duration":1.76}];
     window.YOUTUBE_VIDEO_ID = 'wKemzWlo0Tw';
+    window.BEGINNER_META = { capo: 5, difficulty: 'advanced' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

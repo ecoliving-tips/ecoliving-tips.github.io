@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for PAL PAL Refix Version by SASRA MUSIC. AI-detected chord progression with 32 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for PAL PAL Refix Version by SASRA MUSIC. AI-detected chord progression with 32 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="PAL PAL Refix Version chords, SASRA MUSIC chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="PAL PAL Refix Version Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for PAL PAL Refix Version by SASRA MUSIC. AI-detected chord progression with 32 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for PAL PAL Refix Version by SASRA MUSIC. AI-detected chord progression with 32 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/pal-pal-refix-version-sasra-music/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="PAL PAL Refix Version Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for PAL PAL Refix Version by SASRA MUSIC. AI-detected chord progression with 32 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for PAL PAL Refix Version by SASRA MUSIC. AI-detected chord progression with 32 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>PAL PAL Refix Version Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "SASRA MUSIC"
   },
   "url": "https://ecoliving-tips.github.io/chords/pal-pal-refix-version-sasra-music/",
-  "description": "Free chords for PAL PAL Refix Version by SASRA MUSIC. AI-detected chord progression with 32 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for PAL PAL Refix Version by SASRA MUSIC. AI-detected chord progression with 32 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 32 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -292,8 +303,10 @@
     <script>
     window.CHORD_DATA = [{"time":0,"chord":"D#","duration":0.65},{"time":0.65,"chord":"Fm","duration":2.22},{"time":2.87,"chord":"G#maj7","duration":2.31},{"time":5.19,"chord":"C#maj7","duration":2.22},{"time":7.41,"chord":"D#","duration":2.59},{"time":10,"chord":"Fm","duration":2.04},{"time":12.04,"chord":"G#maj7","duration":2.31},{"time":14.35,"chord":"C#maj7","duration":2.31},{"time":16.67,"chord":"D#","duration":2.31},{"time":18.98,"chord":"Fm","duration":2.22},{"time":21.2,"chord":"G#maj7","duration":2.31},{"time":23.52,"chord":"C#maj7","duration":1.48},{"time":25,"chord":"Cm","duration":3.15},{"time":28.15,"chord":"Fm","duration":1.85},{"time":30,"chord":"Cm","duration":0.56},{"time":30.56,"chord":"G#maj7","duration":2.04},{"time":32.59,"chord":"C#maj7","duration":2.13},{"time":34.72,"chord":"D#","duration":1.94},{"time":36.67,"chord":"Cm","duration":0.56},{"time":37.22,"chord":"Fm","duration":2.22},{"time":39.44,"chord":"G#maj7","duration":0.56},{"time":40,"chord":"Cm","duration":1.94},{"time":41.94,"chord":"C#","duration":1.76},{"time":43.7,"chord":"Cm","duration":2.69},{"time":46.39,"chord":"Fm","duration":2.22},{"time":48.61,"chord":"G#","duration":1.39},{"time":50,"chord":"Cm","duration":5.46},{"time":55.46,"chord":"Fm","duration":2.04},{"time":57.5,"chord":"Cm","duration":0.37},{"time":57.87,"chord":"G#","duration":2.13},{"time":60,"chord":"C#","duration":2.31},{"time":62.31,"chord":"G#","duration":2.87}];
     window.YOUTUBE_VIDEO_ID = 'mOCUosGzNn8';
+    window.BEGINNER_META = { capo: 1, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

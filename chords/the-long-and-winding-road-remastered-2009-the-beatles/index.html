@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for The Long And Winding Road (Remastered 2009) by The Beatles. AI-detected chord progression with 95 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for The Long And Winding Road (Remastered 2009) by The Beatles. AI-detected chord progression with 95 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="The Long And Winding Road (Remastered 2009) chords, The Beatles chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="The Long And Winding Road (Remastered 2009) Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for The Long And Winding Road (Remastered 2009) by The Beatles. AI-detected chord progression with 95 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for The Long And Winding Road (Remastered 2009) by The Beatles. AI-detected chord progression with 95 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/the-long-and-winding-road-remastered-2009-the-beatles/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="The Long And Winding Road (Remastered 2009) Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for The Long And Winding Road (Remastered 2009) by The Beatles. AI-detected chord progression with 95 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for The Long And Winding Road (Remastered 2009) by The Beatles. AI-detected chord progression with 95 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>The Long And Winding Road (Remastered 2009) Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "The Beatles"
   },
   "url": "https://ecoliving-tips.github.io/chords/the-long-and-winding-road-remastered-2009-the-beatles/",
-  "description": "Free chords for The Long And Winding Road (Remastered 2009) by The Beatles. AI-detected chord progression with 95 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for The Long And Winding Road (Remastered 2009) by The Beatles. AI-detected chord progression with 95 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 95 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -297,8 +308,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.74,"chord":"Cm","duration":3.15},{"time":3.89,"chord":"G#","duration":0.93},{"time":4.81,"chord":"A#7","duration":2.5},{"time":7.31,"chord":"D#","duration":2.69},{"time":10,"chord":"D#7","duration":1.2},{"time":11.2,"chord":"G#","duration":2.13},{"time":13.33,"chord":"G#maj7","duration":1.3},{"time":14.63,"chord":"G#","duration":1.76},{"time":16.39,"chord":"Gm7","duration":1.76},{"time":18.15,"chord":"Cm","duration":3.61},{"time":21.76,"chord":"Fm7","duration":1.76},{"time":23.52,"chord":"A#7","duration":1.94},{"time":25.46,"chord":"D#7","duration":3.52},{"time":28.98,"chord":"G#","duration":1.85},{"time":30.83,"chord":"D#","duration":1.67},{"time":32.5,"chord":"Cm","duration":1.67},{"time":34.17,"chord":"Cm7","duration":1.94},{"time":36.11,"chord":"Fm7","duration":1.85},{"time":37.96,"chord":"A#7","duration":1.76},{"time":39.72,"chord":"D#","duration":3.7},{"time":43.43,"chord":"Cm","duration":3.24},{"time":46.67,"chord":"G#","duration":1.76},{"time":48.43,"chord":"A#7","duration":1.67},{"time":50.09,"chord":"D#","duration":2.5},{"time":52.59,"chord":"D#7","duration":1.57},{"time":54.17,"chord":"G#","duration":5.56},{"time":59.72,"chord":"Gm7","duration":0.56},{"time":60.28,"chord":"D#","duration":1.2},{"time":61.48,"chord":"Cm","duration":3.61},{"time":65.09,"chord":"Fm7","duration":1.85},{"time":66.94,"chord":"A#7","duration":1.85},{"time":68.8,"chord":"D#7","duration":1.2},{"time":70,"chord":"D#","duration":2.5},{"time":72.5,"chord":"G#","duration":1.76},{"time":74.26,"chord":"D#","duration":1.85},{"time":76.11,"chord":"Cm","duration":3.52},{"time":79.63,"chord":"Fm7","duration":1.94},{"time":81.57,"chord":"A#7","duration":1.76},{"time":83.33,"chord":"D#","duration":5.65},{"time":88.98,"chord":"G#","duration":1.02},{"time":90,"chord":"Fm7","duration":0.65},{"time":90.65,"chord":"D#","duration":1.85},{"time":92.5,"chord":"Fm","duration":1.02},{"time":93.52,"chord":"A#7","duration":0.83},{"time":94.35,"chord":"D#","duration":1.76},{"time":96.11,"chord":"Fm","duration":1.67},{"time":97.78,"chord":"D#","duration":1.94},{"time":99.72,"chord":"Fm","duration":1.11},{"time":100.83,"chord":"A#","duration":0.65},{"time":101.48,"chord":"Cm","duration":3.33},{"time":104.81,"chord":"G#","duration":3.7},{"time":108.52,"chord":"D#","duration":2.22},{"time":110.74,"chord":"D#7","duration":1.39},{"time":112.13,"chord":"G#","duration":2.31},{"time":114.44,"chord":"G#maj7","duration":1.39},{"time":115.83,"chord":"G#","duration":1.76},{"time":117.59,"chord":"Gm7","duration":1.94},{"time":119.54,"chord":"Cm","duration":3.52},{"time":123.06,"chord":"Fm7","duration":1.94},{"time":125,"chord":"A#7","duration":2.04},{"time":127.04,"chord":"D#7","duration":2.59},{"time":129.63,"chord":"D#","duration":1.02},{"time":130.65,"chord":"G#","duration":1.76},{"time":132.41,"chord":"D#","duration":1.76},{"time":134.17,"chord":"Cm","duration":3.8},{"time":137.96,"chord":"Fm7","duration":2.04},{"time":140,"chord":"A#7","duration":1.39},{"time":141.39,"chord":"D#","duration":5.83},{"time":147.22,"chord":"Fm7","duration":1.67},{"time":148.89,"chord":"D#","duration":1.85},{"time":150.74,"chord":"Fm","duration":1.67},{"time":152.41,"chord":"D#","duration":1.85},{"time":154.26,"chord":"G#","duration":1.85},{"time":156.11,"chord":"D#","duration":1.76},{"time":157.87,"chord":"Fm","duration":1.11},{"time":158.98,"chord":"A#","duration":0.83},{"time":159.81,"chord":"Cm","duration":3.06},{"time":162.87,"chord":"G#","duration":3.61},{"time":166.48,"chord":"D#","duration":3.89},{"time":170.37,"chord":"G#","duration":5.65},{"time":176.02,"chord":"Gm","duration":0.74},{"time":176.76,"chord":"D#","duration":1.02},{"time":177.78,"chord":"Cm","duration":3.8},{"time":181.57,"chord":"Fm7","duration":1.85},{"time":183.43,"chord":"A#7","duration":1.76},{"time":185.19,"chord":"D#7","duration":3.61},{"time":188.8,"chord":"G#","duration":1.85},{"time":190.65,"chord":"D#","duration":1.76},{"time":192.41,"chord":"Cm","duration":3.8},{"time":196.2,"chord":"Fm","duration":1.85},{"time":198.06,"chord":"A#7","duration":1.94},{"time":200,"chord":"D#","duration":2.59},{"time":202.59,"chord":"Cm","duration":0.65},{"time":203.24,"chord":"G#","duration":3.61},{"time":206.85,"chord":"D#","duration":10.19}];
     window.YOUTUBE_VIDEO_ID = 'fR4HjTH_fTM';
+    window.BEGINNER_META = { capo: 3, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

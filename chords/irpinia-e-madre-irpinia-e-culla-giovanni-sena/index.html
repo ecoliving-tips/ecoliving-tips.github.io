@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Irpinia è madre IRPINIA È CULLA by Giovanni Sena. AI-detected chord progression with 130 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Irpinia è madre IRPINIA È CULLA by Giovanni Sena. AI-detected chord progression with 130 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Irpinia è madre IRPINIA È CULLA chords, Giovanni Sena chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Irpinia è madre IRPINIA È CULLA Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Irpinia è madre IRPINIA È CULLA by Giovanni Sena. AI-detected chord progression with 130 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Irpinia è madre IRPINIA È CULLA by Giovanni Sena. AI-detected chord progression with 130 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/irpinia-e-madre-irpinia-e-culla-giovanni-sena/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Irpinia è madre IRPINIA È CULLA Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Irpinia è madre IRPINIA È CULLA by Giovanni Sena. AI-detected chord progression with 130 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Irpinia è madre IRPINIA È CULLA by Giovanni Sena. AI-detected chord progression with 130 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Irpinia è madre IRPINIA È CULLA Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Giovanni Sena"
   },
   "url": "https://ecoliving-tips.github.io/chords/irpinia-e-madre-irpinia-e-culla-giovanni-sena/",
-  "description": "Free chords for Irpinia è madre IRPINIA È CULLA by Giovanni Sena. AI-detected chord progression with 130 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Irpinia è madre IRPINIA È CULLA by Giovanni Sena. AI-detected chord progression with 130 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 130 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -294,8 +305,10 @@
     <script>
     window.CHORD_DATA = [{"time":0,"chord":"Am","duration":4.17},{"time":4.17,"chord":"G","duration":3.61},{"time":7.78,"chord":"F","duration":2.22},{"time":10,"chord":"Am","duration":3.06},{"time":13.06,"chord":"Dm","duration":2.69},{"time":15.74,"chord":"Am","duration":1.85},{"time":17.59,"chord":"Em","duration":2.41},{"time":21.94,"chord":"Am","duration":2.87},{"time":24.81,"chord":"G","duration":5.19},{"time":30,"chord":"C","duration":0.37},{"time":30.37,"chord":"Am","duration":2.69},{"time":33.06,"chord":"Dm","duration":1.57},{"time":34.63,"chord":"Am","duration":1.2},{"time":35.83,"chord":"E","duration":2.78},{"time":38.61,"chord":"Am","duration":5.56},{"time":44.17,"chord":"G","duration":2.78},{"time":46.94,"chord":"Em","duration":2.78},{"time":49.72,"chord":"Am","duration":5.46},{"time":55.19,"chord":"G","duration":4.81},{"time":60,"chord":"G7","duration":0.83},{"time":60.83,"chord":"Am","duration":2.5},{"time":63.33,"chord":"Dm","duration":1.57},{"time":64.91,"chord":"Am","duration":1.3},{"time":66.2,"chord":"E","duration":2.69},{"time":68.89,"chord":"Am","duration":5.46},{"time":74.35,"chord":"G","duration":2.87},{"time":77.22,"chord":"Am","duration":5.37},{"time":82.59,"chord":"G","duration":5.65},{"time":88.24,"chord":"Am","duration":2.69},{"time":90.93,"chord":"Dm","duration":1.39},{"time":92.31,"chord":"Am","duration":1.3},{"time":93.61,"chord":"E","duration":2.69},{"time":96.3,"chord":"Am","duration":5.56},{"time":101.85,"chord":"G","duration":2.59},{"time":104.44,"chord":"Am","duration":4.26},{"time":108.7,"chord":"G","duration":1.3},{"time":110,"chord":"E","duration":1.39},{"time":111.39,"chord":"Am","duration":4.17},{"time":115.56,"chord":"G","duration":5.56},{"time":121.11,"chord":"Am","duration":2.59},{"time":123.7,"chord":"Dm","duration":1.48},{"time":125.19,"chord":"Am","duration":1.39},{"time":126.57,"chord":"E","duration":0.83},{"time":127.41,"chord":"Eaug","duration":1.76},{"time":129.17,"chord":"Am","duration":5.56},{"time":134.72,"chord":"G","duration":2.78},{"time":137.5,"chord":"F","duration":1.67},{"time":139.17,"chord":"Am","duration":1.3},{"time":140.46,"chord":"E","duration":1.48},{"time":141.94,"chord":"Am","duration":2.22},{"time":144.17,"chord":"Dm","duration":1.57},{"time":145.74,"chord":"Am","duration":1.3},{"time":147.04,"chord":"E","duration":1.67},{"time":148.7,"chord":"Am","duration":1.48},{"time":150.19,"chord":"Dm","duration":1.76},{"time":151.94,"chord":"Am","duration":2.22},{"time":154.17,"chord":"E","duration":2.78},{"time":156.94,"chord":"Am","duration":5.37},{"time":163.24,"chord":"G","duration":3.33},{"time":170,"chord":"Am","duration":0.83},{"time":170.83,"chord":"Dm","duration":1.39},{"time":172.22,"chord":"Am","duration":1.3},{"time":173.52,"chord":"E","duration":2.59},{"time":176.11,"chord":"Am","duration":5.56},{"time":181.67,"chord":"G","duration":5.56},{"time":187.22,"chord":"Am","duration":2.78},{"time":190,"chord":"Dm","duration":1.39},{"time":191.39,"chord":"Am","duration":1.3},{"time":192.69,"chord":"E","duration":2.69},{"time":195.37,"chord":"Am","duration":5.56},{"time":200.93,"chord":"G","duration":2.78},{"time":203.7,"chord":"F","duration":2.69},{"time":206.39,"chord":"E","duration":2.87},{"time":209.26,"chord":"Am","duration":0.74},{"time":212.04,"chord":"G","duration":2.59},{"time":214.63,"chord":"F","duration":1.2},{"time":215.83,"chord":"Am","duration":1.57},{"time":217.41,"chord":"Em","duration":1.3},{"time":218.7,"chord":"Am","duration":4.26},{"time":222.96,"chord":"G","duration":2.69},{"time":225.65,"chord":"F","duration":1.57},{"time":227.22,"chord":"Am","duration":1.2},{"time":228.43,"chord":"E","duration":1.57},{"time":230,"chord":"Am","duration":3.89},{"time":233.89,"chord":"G","duration":2.78},{"time":236.67,"chord":"F","duration":2.78},{"time":239.44,"chord":"E","duration":2.69},{"time":242.13,"chord":"Am","duration":2.87},{"time":245,"chord":"G","duration":2.69},{"time":247.69,"chord":"F","duration":1.48},{"time":249.17,"chord":"Am","duration":1.3},{"time":250.46,"chord":"E","duration":4.17},{"time":254.63,"chord":"Am","duration":0.65},{"time":255.28,"chord":"E","duration":0.65},{"time":255.93,"chord":"Am","duration":2.78},{"time":258.7,"chord":"G","duration":2.78},{"time":261.48,"chord":"F","duration":1.39},{"time":262.87,"chord":"Am","duration":1.3},{"time":264.17,"chord":"E","duration":1.48},{"time":265.65,"chord":"Am","duration":4.07},{"time":269.72,"chord":"G","duration":2.69},{"time":272.41,"chord":"F","duration":1.48},{"time":273.89,"chord":"Am","duration":1.3},{"time":275.19,"chord":"E","duration":1.39},{"time":276.57,"chord":"Am","duration":4.07},{"time":280.65,"chord":"G","duration":2.78},{"time":283.43,"chord":"F","duration":1.48},{"time":284.91,"chord":"Am","duration":1.3},{"time":286.2,"chord":"E","duration":1.39},{"time":287.59,"chord":"Am","duration":4.07},{"time":291.67,"chord":"G","duration":2.69},{"time":294.35,"chord":"F","duration":2.78},{"time":297.13,"chord":"Em","duration":1.3},{"time":298.43,"chord":"E","duration":1.57},{"time":300,"chord":"Am","duration":2.59},{"time":302.59,"chord":"G","duration":2.96},{"time":305.56,"chord":"F","duration":1.48},{"time":307.04,"chord":"Am","duration":2.96},{"time":310,"chord":"E","duration":4.81},{"time":317.78,"chord":"Am","duration":2.87},{"time":320.65,"chord":"G","duration":2.78},{"time":323.43,"chord":"F","duration":1.57},{"time":325,"chord":"Am","duration":1.11},{"time":326.11,"chord":"E","duration":1.39},{"time":327.5,"chord":"Am","duration":4.07},{"time":331.57,"chord":"G","duration":2.87},{"time":334.44,"chord":"F","duration":1.48},{"time":335.93,"chord":"Am","duration":1.2},{"time":337.13,"chord":"E","duration":1.39},{"time":338.52,"chord":"Am","duration":3.06}];
     window.YOUTUBE_VIDEO_ID = 'zilV36GJmco';
+    window.BEGINNER_META = { capo: 0, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

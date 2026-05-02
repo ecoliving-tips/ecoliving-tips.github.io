@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Seidhu Mudippaar - Gersson Edinbaro - New Tamil Christian Song by Gersson Edinbaro (Official). AI-detected chord progression with 129 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Seidhu Mudippaar - Gersson Edinbaro - New Tamil Christian Song by Gersson Edinbaro (Official). AI-detected chord progression with 129 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Seidhu Mudippaar - Gersson Edinbaro - New Tamil Christian Song chords, Gersson Edinbaro (Official) chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Seidhu Mudippaar - Gersson Edinbaro - New Tamil Christian Song Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Seidhu Mudippaar - Gersson Edinbaro - New Tamil Christian Song by Gersson Edinbaro (Official). AI-detected chord progression with 129 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Seidhu Mudippaar - Gersson Edinbaro - New Tamil Christian Song by Gersson Edinbaro (Official). AI-detected chord progression with 129 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/seidhu-mudippaar-gersson-edinbaro-new-tamil-christian-song-gersson-edinbaro-official/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Seidhu Mudippaar - Gersson Edinbaro - New Tamil Christian Song Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Seidhu Mudippaar - Gersson Edinbaro - New Tamil Christian Song by Gersson Edinbaro (Official). AI-detected chord progression with 129 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Seidhu Mudippaar - Gersson Edinbaro - New Tamil Christian Song by Gersson Edinbaro (Official). AI-detected chord progression with 129 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Seidhu Mudippaar - Gersson Edinbaro - New Tamil Christian Song Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Gersson Edinbaro (Official)"
   },
   "url": "https://ecoliving-tips.github.io/chords/seidhu-mudippaar-gersson-edinbaro-new-tamil-christian-song-gersson-edinbaro-official/",
-  "description": "Free chords for Seidhu Mudippaar - Gersson Edinbaro - New Tamil Christian Song by Gersson Edinbaro (Official). AI-detected chord progression with 129 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Seidhu Mudippaar - Gersson Edinbaro - New Tamil Christian Song by Gersson Edinbaro (Official). AI-detected chord progression with 129 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 129 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -292,8 +303,10 @@
     <script>
     window.CHORD_DATA = [{"time":2.04,"chord":"D#m","duration":1.76},{"time":3.8,"chord":"B","duration":2.04},{"time":5.83,"chord":"F#","duration":1.39},{"time":7.22,"chord":"A#m","duration":1.76},{"time":8.98,"chord":"D#m","duration":1.85},{"time":10.83,"chord":"B","duration":1.94},{"time":12.78,"chord":"F#","duration":1.48},{"time":14.26,"chord":"C#","duration":1.85},{"time":16.11,"chord":"D#m","duration":1.76},{"time":17.87,"chord":"B","duration":1.85},{"time":19.72,"chord":"F#","duration":1.76},{"time":21.48,"chord":"C#","duration":1.3},{"time":22.78,"chord":"F#","duration":7.59},{"time":30.37,"chord":"C#","duration":3.61},{"time":33.98,"chord":"G#","duration":1.02},{"time":35,"chord":"C#","duration":0.65},{"time":35.65,"chord":"F#","duration":8.98},{"time":44.63,"chord":"C#","duration":3.61},{"time":48.24,"chord":"G#m","duration":0.83},{"time":49.07,"chord":"C#","duration":0.93},{"time":50,"chord":"F#","duration":1.67},{"time":51.67,"chord":"B","duration":2.13},{"time":53.8,"chord":"F#","duration":1.3},{"time":55.09,"chord":"C#","duration":2.04},{"time":57.13,"chord":"F#","duration":1.57},{"time":58.7,"chord":"B","duration":1.85},{"time":60.56,"chord":"F#","duration":1.76},{"time":62.31,"chord":"C#","duration":2.04},{"time":64.35,"chord":"F#","duration":1.48},{"time":65.83,"chord":"B","duration":1.85},{"time":67.69,"chord":"F#","duration":1.67},{"time":69.35,"chord":"C#","duration":2.04},{"time":71.39,"chord":"F#","duration":1.57},{"time":72.96,"chord":"B","duration":1.85},{"time":74.81,"chord":"F#","duration":1.57},{"time":76.39,"chord":"C#","duration":1.94},{"time":78.33,"chord":"F#","duration":7.96},{"time":86.3,"chord":"C#","duration":7.04},{"time":93.33,"chord":"F#","duration":7.22},{"time":100.56,"chord":"C#","duration":7.13},{"time":107.69,"chord":"F#","duration":0.83},{"time":108.52,"chord":"B","duration":1.85},{"time":110.37,"chord":"F#","duration":1.67},{"time":112.04,"chord":"C#","duration":1.85},{"time":113.89,"chord":"F#","duration":1.67},{"time":115.56,"chord":"B","duration":2.13},{"time":117.69,"chord":"F#","duration":1.48},{"time":119.17,"chord":"C#","duration":1.85},{"time":121.02,"chord":"F#","duration":1.76},{"time":122.78,"chord":"B","duration":1.85},{"time":124.63,"chord":"F#","duration":1.76},{"time":126.39,"chord":"C#","duration":1.76},{"time":128.15,"chord":"F#","duration":1.85},{"time":130,"chord":"B","duration":1.76},{"time":131.76,"chord":"F#","duration":1.76},{"time":133.52,"chord":"C#","duration":2.22},{"time":135.74,"chord":"F#","duration":7.5},{"time":143.24,"chord":"C#","duration":7.04},{"time":150.28,"chord":"F#","duration":7.22},{"time":157.5,"chord":"C#","duration":7.04},{"time":164.54,"chord":"F#","duration":0.93},{"time":165.46,"chord":"B","duration":2.22},{"time":167.69,"chord":"F#","duration":1.2},{"time":168.89,"chord":"C#","duration":1.94},{"time":170.83,"chord":"F#","duration":1.67},{"time":172.5,"chord":"B","duration":2.5},{"time":175,"chord":"F#","duration":1.11},{"time":176.11,"chord":"C#","duration":1.76},{"time":177.87,"chord":"F#","duration":2.13},{"time":186.76,"chord":"B","duration":1.85},{"time":188.61,"chord":"F#","duration":1.48},{"time":190.09,"chord":"C#","duration":1.94},{"time":192.04,"chord":"F#","duration":8.24},{"time":200.28,"chord":"C#","duration":6.76},{"time":207.04,"chord":"F#","duration":7.22},{"time":214.26,"chord":"C#","duration":7.13},{"time":221.39,"chord":"F#","duration":0.93},{"time":222.31,"chord":"B","duration":2.13},{"time":224.44,"chord":"F#","duration":1.39},{"time":225.83,"chord":"C#","duration":1.85},{"time":227.69,"chord":"F#","duration":1.67},{"time":229.35,"chord":"B","duration":1.85},{"time":231.2,"chord":"F#","duration":1.67},{"time":232.87,"chord":"C#","duration":3.52},{"time":236.39,"chord":"B","duration":2.04},{"time":238.43,"chord":"F#","duration":1.57},{"time":240,"chord":"C#","duration":2.13},{"time":242.13,"chord":"F#","duration":1.48},{"time":243.61,"chord":"B","duration":1.85},{"time":245.46,"chord":"F#","duration":1.67},{"time":247.13,"chord":"C#","duration":1.76},{"time":248.89,"chord":"F#","duration":1.85},{"time":250.74,"chord":"D#m","duration":2.04},{"time":252.78,"chord":"B","duration":2.13},{"time":254.91,"chord":"F#","duration":1.57},{"time":256.48,"chord":"A#m","duration":1.48},{"time":257.96,"chord":"D#m","duration":2.04},{"time":260,"chord":"B","duration":1.85},{"time":261.85,"chord":"F#","duration":1.39},{"time":263.24,"chord":"C#","duration":1.85},{"time":265.09,"chord":"D#m","duration":1.85},{"time":266.94,"chord":"B","duration":1.85},{"time":268.8,"chord":"F#","duration":1.48},{"time":270.28,"chord":"C#","duration":1.85},{"time":272.13,"chord":"D#m","duration":1.85},{"time":273.98,"chord":"B","duration":1.94},{"time":275.93,"chord":"F#","duration":1.67},{"time":277.59,"chord":"C#","duration":1.57},{"time":279.17,"chord":"F#","duration":6.3},{"time":285.46,"chord":"B","duration":0.83},{"time":286.3,"chord":"C#","duration":3.7},{"time":290,"chord":"G#m","duration":0.83},{"time":290.83,"chord":"C#","duration":0.93},{"time":291.76,"chord":"F#","duration":1.67},{"time":293.43,"chord":"B","duration":1.94},{"time":295.37,"chord":"F#","duration":1.57},{"time":296.94,"chord":"C#","duration":1.85},{"time":298.8,"chord":"F#","duration":1.76},{"time":300.56,"chord":"B","duration":1.85},{"time":302.41,"chord":"F#","duration":1.48},{"time":303.89,"chord":"C#","duration":2.04},{"time":305.93,"chord":"F#","duration":1.67},{"time":307.59,"chord":"B","duration":1.85},{"time":309.44,"chord":"F#","duration":2.13},{"time":311.57,"chord":"C#","duration":1.57},{"time":313.15,"chord":"F#","duration":1.57},{"time":314.72,"chord":"B","duration":1.85},{"time":316.57,"chord":"F#","duration":1.57},{"time":318.15,"chord":"C#","duration":1.85}];
     window.YOUTUBE_VIDEO_ID = '1l9SOlYbMSk';
+    window.BEGINNER_META = { capo: 6, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

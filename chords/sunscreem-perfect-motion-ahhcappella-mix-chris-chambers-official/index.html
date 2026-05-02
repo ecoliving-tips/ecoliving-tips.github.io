@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Sunscreem – Perfect Motion (Ahhcappella Mix) by Chris Chambers (Official). AI-detected chord progression with 40 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Sunscreem – Perfect Motion (Ahhcappella Mix) by Chris Chambers (Official). AI-detected chord progression with 40 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Sunscreem – Perfect Motion (Ahhcappella Mix) chords, Chris Chambers (Official) chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Sunscreem – Perfect Motion (Ahhcappella Mix) Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Sunscreem – Perfect Motion (Ahhcappella Mix) by Chris Chambers (Official). AI-detected chord progression with 40 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Sunscreem – Perfect Motion (Ahhcappella Mix) by Chris Chambers (Official). AI-detected chord progression with 40 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/sunscreem-perfect-motion-ahhcappella-mix-chris-chambers-official/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Sunscreem – Perfect Motion (Ahhcappella Mix) Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Sunscreem – Perfect Motion (Ahhcappella Mix) by Chris Chambers (Official). AI-detected chord progression with 40 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Sunscreem – Perfect Motion (Ahhcappella Mix) by Chris Chambers (Official). AI-detected chord progression with 40 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Sunscreem – Perfect Motion (Ahhcappella Mix) Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Chris Chambers (Official)"
   },
   "url": "https://ecoliving-tips.github.io/chords/sunscreem-perfect-motion-ahhcappella-mix-chris-chambers-official/",
-  "description": "Free chords for Sunscreem – Perfect Motion (Ahhcappella Mix) by Chris Chambers (Official). AI-detected chord progression with 40 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Sunscreem – Perfect Motion (Ahhcappella Mix) by Chris Chambers (Official). AI-detected chord progression with 40 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 40 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -290,8 +301,10 @@
     <script>
     window.CHORD_DATA = [{"time":2.13,"chord":"Am","duration":3.7},{"time":5.83,"chord":"G","duration":4.17},{"time":10,"chord":"Dm","duration":3.33},{"time":13.33,"chord":"Fmaj7","duration":1.67},{"time":15,"chord":"G","duration":1.76},{"time":16.76,"chord":"Am","duration":3.61},{"time":20.37,"chord":"G","duration":3.7},{"time":24.07,"chord":"Dm","duration":3.61},{"time":27.69,"chord":"F","duration":1.76},{"time":29.44,"chord":"G","duration":1.85},{"time":31.3,"chord":"Am","duration":3.7},{"time":35,"chord":"G","duration":3.7},{"time":38.7,"chord":"Dm","duration":3.61},{"time":42.31,"chord":"F","duration":1.76},{"time":44.07,"chord":"G","duration":1.94},{"time":46.02,"chord":"Am","duration":3.98},{"time":50,"chord":"G","duration":3.52},{"time":53.52,"chord":"Dm","duration":3.52},{"time":57.04,"chord":"Fmaj7","duration":1.94},{"time":58.98,"chord":"G","duration":1.76},{"time":60.74,"chord":"Am","duration":3.89},{"time":64.63,"chord":"G","duration":3.8},{"time":68.43,"chord":"Dm","duration":3.52},{"time":71.94,"chord":"F","duration":1.76},{"time":73.7,"chord":"G","duration":1.85},{"time":75.56,"chord":"Am","duration":3.61},{"time":79.17,"chord":"G","duration":3.8},{"time":82.96,"chord":"Dm","duration":3.43},{"time":86.39,"chord":"Fmaj7","duration":1.94},{"time":88.33,"chord":"G","duration":1.67},{"time":90,"chord":"Am","duration":3.7},{"time":93.7,"chord":"G","duration":3.8},{"time":97.5,"chord":"Dm","duration":3.61},{"time":101.11,"chord":"F","duration":1.76},{"time":102.87,"chord":"G","duration":1.85},{"time":104.72,"chord":"Am","duration":3.61},{"time":108.33,"chord":"G","duration":3.8},{"time":112.13,"chord":"Dm","duration":3.61},{"time":115.74,"chord":"F","duration":1.85},{"time":117.59,"chord":"G","duration":6.2}];
     window.YOUTUBE_VIDEO_ID = '0_VV4uy6sv4';
+    window.BEGINNER_META = { capo: 0, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

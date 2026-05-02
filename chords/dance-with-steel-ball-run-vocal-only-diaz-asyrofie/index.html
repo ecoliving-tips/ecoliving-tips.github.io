@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Dance with Steel Ball Run (Vocal Only) by Diaz Asyrofie. AI-detected chord progression with 33 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Dance with Steel Ball Run (Vocal Only) by Diaz Asyrofie. AI-detected chord progression with 33 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Dance with Steel Ball Run (Vocal Only) chords, Diaz Asyrofie chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Dance with Steel Ball Run (Vocal Only) Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Dance with Steel Ball Run (Vocal Only) by Diaz Asyrofie. AI-detected chord progression with 33 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Dance with Steel Ball Run (Vocal Only) by Diaz Asyrofie. AI-detected chord progression with 33 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/dance-with-steel-ball-run-vocal-only-diaz-asyrofie/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Dance with Steel Ball Run (Vocal Only) Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Dance with Steel Ball Run (Vocal Only) by Diaz Asyrofie. AI-detected chord progression with 33 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Dance with Steel Ball Run (Vocal Only) by Diaz Asyrofie. AI-detected chord progression with 33 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Dance with Steel Ball Run (Vocal Only) Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Diaz Asyrofie"
   },
   "url": "https://ecoliving-tips.github.io/chords/dance-with-steel-ball-run-vocal-only-diaz-asyrofie/",
-  "description": "Free chords for Dance with Steel Ball Run (Vocal Only) by Diaz Asyrofie. AI-detected chord progression with 33 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Dance with Steel Ball Run (Vocal Only) by Diaz Asyrofie. AI-detected chord progression with 33 chords. Advanced difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Advanced"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 33 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -298,8 +309,10 @@
     <script>
     window.CHORD_DATA = [{"time":6.11,"chord":"D#","duration":2.5},{"time":12.96,"chord":"G","duration":1.57},{"time":34.07,"chord":"Cm","duration":1.76},{"time":69.26,"chord":"G","duration":4.44},{"time":97.59,"chord":"F","duration":4.54},{"time":130,"chord":"D#","duration":1.39},{"time":168.98,"chord":"A#","duration":4.63},{"time":176.3,"chord":"A#m","duration":3.15},{"time":179.44,"chord":"D#","duration":0.56},{"time":180,"chord":"Fm","duration":0.74},{"time":180.74,"chord":"C#","duration":0.74},{"time":181.48,"chord":"D#m","duration":2.31},{"time":183.8,"chord":"F","duration":3.8},{"time":187.59,"chord":"D","duration":2.41},{"time":194.44,"chord":"Cm","duration":2.13},{"time":196.57,"chord":"F","duration":1.85},{"time":198.43,"chord":"D#","duration":1.57},{"time":200,"chord":"F","duration":2.13},{"time":202.13,"chord":"G#","duration":1.85},{"time":203.98,"chord":"A#","duration":1.85},{"time":205.83,"chord":"Cm","duration":2.04},{"time":207.87,"chord":"F","duration":1.76},{"time":209.63,"chord":"D#","duration":2.04},{"time":211.67,"chord":"F","duration":1.57},{"time":213.24,"chord":"G#","duration":1.94},{"time":215.19,"chord":"A#","duration":0.93},{"time":216.11,"chord":"Gm","duration":1.02},{"time":217.13,"chord":"C","duration":1.76},{"time":218.89,"chord":"F","duration":1.94},{"time":220.83,"chord":"Cm","duration":1.76},{"time":222.59,"chord":"F","duration":2.78},{"time":225.37,"chord":"Cm","duration":1.67},{"time":275.65,"chord":"G","duration":4.35}];
     window.YOUTUBE_VIDEO_ID = 'ocFUttMoW9E';
+    window.BEGINNER_META = { capo: 3, difficulty: 'advanced' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

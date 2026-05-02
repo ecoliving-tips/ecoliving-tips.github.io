@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Angående Mig - Rockstar by Angående Mig. AI-detected chord progression with 72 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Angående Mig - Rockstar by Angående Mig. AI-detected chord progression with 72 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Angående Mig - Rockstar chords, Angående Mig chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Angående Mig - Rockstar Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Angående Mig - Rockstar by Angående Mig. AI-detected chord progression with 72 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Angående Mig - Rockstar by Angående Mig. AI-detected chord progression with 72 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/angaende-mig-rockstar/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Angående Mig - Rockstar Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Angående Mig - Rockstar by Angående Mig. AI-detected chord progression with 72 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Angående Mig - Rockstar by Angående Mig. AI-detected chord progression with 72 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Angående Mig - Rockstar Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Angående Mig"
   },
   "url": "https://ecoliving-tips.github.io/chords/angaende-mig-rockstar/",
-  "description": "Free chords for Angående Mig - Rockstar by Angående Mig. AI-detected chord progression with 72 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Angående Mig - Rockstar by Angående Mig. AI-detected chord progression with 72 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 72 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -305,8 +316,10 @@
     <script>
     window.CHORD_DATA = [{"time":3.7,"chord":"A#maj7","duration":6.3},{"time":10,"chord":"F","duration":1.94},{"time":11.94,"chord":"A#maj7","duration":6.57},{"time":18.52,"chord":"C","duration":1.48},{"time":20,"chord":"Dm7","duration":0.46},{"time":20.46,"chord":"A#maj7","duration":1.39},{"time":21.85,"chord":"A#sus2","duration":1.76},{"time":23.61,"chord":"A#maj7","duration":2.59},{"time":26.2,"chord":"A#sus2","duration":0.83},{"time":27.04,"chord":"Fmaj7","duration":1.85},{"time":28.89,"chord":"A#6","duration":1.11},{"time":30,"chord":"A#","duration":2.41},{"time":32.41,"chord":"A#maj7","duration":2.87},{"time":35.28,"chord":"Am","duration":1.11},{"time":36.39,"chord":"Am7","duration":1.02},{"time":37.41,"chord":"F","duration":4.54},{"time":41.94,"chord":"Fmaj7","duration":1.94},{"time":43.89,"chord":"C","duration":1.85},{"time":50.28,"chord":"Gm7","duration":6.3},{"time":56.57,"chord":"Am7","duration":2.22},{"time":58.8,"chord":"A#maj7","duration":6.2},{"time":65,"chord":"Am7","duration":2.13},{"time":67.13,"chord":"Gm7","duration":6.3},{"time":73.43,"chord":"Am7","duration":2.31},{"time":75.74,"chord":"A#maj7","duration":4.26},{"time":80,"chord":"Am7","duration":2.04},{"time":82.04,"chord":"A7","duration":1.57},{"time":83.61,"chord":"C#","duration":0.56},{"time":87.69,"chord":"F","duration":0.93},{"time":88.61,"chord":"A#","duration":0.74},{"time":89.35,"chord":"Am","duration":0.65},{"time":92.78,"chord":"A#","duration":2.69},{"time":95.46,"chord":"A#maj7","duration":3.52},{"time":98.98,"chord":"F","duration":1.76},{"time":100.74,"chord":"A#maj7","duration":6.67},{"time":107.41,"chord":"Am7","duration":2.22},{"time":109.63,"chord":"F","duration":4.44},{"time":114.07,"chord":"C","duration":3.8},{"time":120.46,"chord":"A#m","duration":1.2},{"time":121.67,"chord":"A","duration":0.83},{"time":122.5,"chord":"D","duration":1.11},{"time":123.61,"chord":"Dm","duration":1.3},{"time":124.91,"chord":"F","duration":2.04},{"time":126.94,"chord":"A","duration":3.06},{"time":130,"chord":"F","duration":4.26},{"time":134.26,"chord":"C","duration":1.02},{"time":135.28,"chord":"Gm7","duration":6.3},{"time":141.57,"chord":"Am7","duration":2.04},{"time":143.61,"chord":"A#maj7","duration":6.39},{"time":150,"chord":"A7","duration":1.2},{"time":151.2,"chord":"Am7","duration":0.83},{"time":152.04,"chord":"Gm7","duration":4.63},{"time":156.67,"chord":"Am7","duration":0.93},{"time":157.59,"chord":"Gm7","duration":0.74},{"time":158.33,"chord":"Am7","duration":2.5},{"time":160.83,"chord":"A#maj7","duration":4.81},{"time":165.65,"chord":"Am7","duration":1.39},{"time":167.04,"chord":"A7","duration":2.04},{"time":169.07,"chord":"Gsus4","duration":4.44},{"time":173.52,"chord":"Gm7","duration":1.2},{"time":174.72,"chord":"G7","duration":0.83},{"time":175.56,"chord":"Am7","duration":1.94},{"time":177.5,"chord":"A#maj7","duration":6.39},{"time":183.89,"chord":"Am7","duration":0.46},{"time":184.35,"chord":"A7","duration":0.83},{"time":185.19,"chord":"Am7","duration":1.02},{"time":186.2,"chord":"Gm7","duration":5.74},{"time":191.94,"chord":"Am7","duration":2.59},{"time":194.54,"chord":"A#maj7","duration":4.44},{"time":198.98,"chord":"Am7","duration":1.02},{"time":200,"chord":"Em","duration":0.83},{"time":200.83,"chord":"A7","duration":0.83}];
     window.YOUTUBE_VIDEO_ID = '7_qHyfMyJRY';
+    window.BEGINNER_META = { capo: 5, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

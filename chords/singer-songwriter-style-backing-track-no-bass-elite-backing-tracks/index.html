@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for SINGER/SONGWRITER STYLE BACKING TRACK! [NO BASS] by Elite Backing Tracks. AI-detected chord progression with 66 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for SINGER/SONGWRITER STYLE BACKING TRACK! [NO BASS] by Elite Backing Tracks. AI-detected chord progression with 66 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="SINGER/SONGWRITER STYLE BACKING TRACK! [NO BASS] chords, Elite Backing Tracks chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="SINGER/SONGWRITER STYLE BACKING TRACK! [NO BASS] Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for SINGER/SONGWRITER STYLE BACKING TRACK! [NO BASS] by Elite Backing Tracks. AI-detected chord progression with 66 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for SINGER/SONGWRITER STYLE BACKING TRACK! [NO BASS] by Elite Backing Tracks. AI-detected chord progression with 66 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/singer-songwriter-style-backing-track-no-bass-elite-backing-tracks/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="SINGER/SONGWRITER STYLE BACKING TRACK! [NO BASS] Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for SINGER/SONGWRITER STYLE BACKING TRACK! [NO BASS] by Elite Backing Tracks. AI-detected chord progression with 66 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for SINGER/SONGWRITER STYLE BACKING TRACK! [NO BASS] by Elite Backing Tracks. AI-detected chord progression with 66 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>SINGER/SONGWRITER STYLE BACKING TRACK! [NO BASS] Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Elite Backing Tracks"
   },
   "url": "https://ecoliving-tips.github.io/chords/singer-songwriter-style-backing-track-no-bass-elite-backing-tracks/",
-  "description": "Free chords for SINGER/SONGWRITER STYLE BACKING TRACK! [NO BASS] by Elite Backing Tracks. AI-detected chord progression with 66 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for SINGER/SONGWRITER STYLE BACKING TRACK! [NO BASS] by Elite Backing Tracks. AI-detected chord progression with 66 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 66 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -291,8 +302,10 @@
     <script>
     window.CHORD_DATA = [{"time":8.61,"chord":"D","duration":6.2},{"time":14.81,"chord":"G","duration":6.39},{"time":21.2,"chord":"D","duration":6.39},{"time":27.59,"chord":"A","duration":2.41},{"time":30,"chord":"D","duration":0.74},{"time":30.74,"chord":"A","duration":3.15},{"time":33.89,"chord":"D","duration":6.48},{"time":40.37,"chord":"G","duration":6.3},{"time":46.67,"chord":"D","duration":3.33},{"time":50,"chord":"Bm","duration":0.93},{"time":50.93,"chord":"D","duration":2.22},{"time":53.15,"chord":"A","duration":6.39},{"time":59.54,"chord":"G","duration":6.3},{"time":65.83,"chord":"D","duration":6.57},{"time":72.41,"chord":"G","duration":3.43},{"time":75.83,"chord":"Em7","duration":2.96},{"time":78.8,"chord":"A","duration":6.39},{"time":85.19,"chord":"D","duration":6.48},{"time":91.67,"chord":"G","duration":6.39},{"time":98.06,"chord":"D","duration":3.15},{"time":101.2,"chord":"A","duration":3.15},{"time":104.35,"chord":"D","duration":3.24},{"time":107.59,"chord":"A","duration":3.24},{"time":110.83,"chord":"G","duration":1.57},{"time":112.41,"chord":"D","duration":4.72},{"time":117.13,"chord":"G","duration":6.48},{"time":123.61,"chord":"D","duration":6.39},{"time":130,"chord":"A","duration":6.39},{"time":136.39,"chord":"D","duration":6.48},{"time":142.87,"chord":"G","duration":6.3},{"time":149.17,"chord":"D","duration":6.48},{"time":155.65,"chord":"A","duration":6.2},{"time":161.85,"chord":"G","duration":6.57},{"time":168.43,"chord":"D","duration":6.39},{"time":174.81,"chord":"G","duration":3.24},{"time":178.06,"chord":"Em7","duration":1.94},{"time":180,"chord":"G","duration":1.2},{"time":181.2,"chord":"A","duration":6.39},{"time":187.59,"chord":"D","duration":6.48},{"time":194.07,"chord":"G","duration":6.3},{"time":200.37,"chord":"D","duration":3.15},{"time":203.52,"chord":"A","duration":3.33},{"time":206.85,"chord":"D","duration":3.15},{"time":210,"chord":"A","duration":3.24},{"time":213.24,"chord":"D","duration":6.39},{"time":219.63,"chord":"G","duration":6.39},{"time":226.02,"chord":"D","duration":6.48},{"time":232.5,"chord":"A","duration":6.3},{"time":238.8,"chord":"D","duration":6.39},{"time":245.19,"chord":"G","duration":6.48},{"time":251.67,"chord":"D","duration":6.3},{"time":257.96,"chord":"A","duration":6.39},{"time":264.35,"chord":"G","duration":6.39},{"time":270.74,"chord":"D","duration":6.48},{"time":277.22,"chord":"G","duration":2.78},{"time":280,"chord":"Em","duration":3.61},{"time":283.61,"chord":"A","duration":6.39},{"time":290,"chord":"D","duration":4.44},{"time":294.44,"chord":"A","duration":0.83},{"time":295.28,"chord":"D","duration":1.02},{"time":296.3,"chord":"G","duration":6.57},{"time":302.87,"chord":"D","duration":3.15},{"time":306.02,"chord":"A","duration":3.15},{"time":309.17,"chord":"D","duration":3.24},{"time":312.41,"chord":"A","duration":3.15},{"time":315.56,"chord":"D","duration":12.41}];
     window.YOUTUBE_VIDEO_ID = 'NMcKklWwg6s';
+    window.BEGINNER_META = { capo: 2, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

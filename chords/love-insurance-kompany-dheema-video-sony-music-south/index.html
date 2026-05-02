@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Love Insurance Kompany - Dheema Video by Sony Music South. AI-detected chord progression with 110 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Love Insurance Kompany - Dheema Video by Sony Music South. AI-detected chord progression with 110 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Love Insurance Kompany - Dheema Video chords, Sony Music South chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Love Insurance Kompany - Dheema Video Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Love Insurance Kompany - Dheema Video by Sony Music South. AI-detected chord progression with 110 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Love Insurance Kompany - Dheema Video by Sony Music South. AI-detected chord progression with 110 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/love-insurance-kompany-dheema-video-sony-music-south/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Love Insurance Kompany - Dheema Video Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Love Insurance Kompany - Dheema Video by Sony Music South. AI-detected chord progression with 110 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Love Insurance Kompany - Dheema Video by Sony Music South. AI-detected chord progression with 110 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Love Insurance Kompany - Dheema Video Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Sony Music South"
   },
   "url": "https://ecoliving-tips.github.io/chords/love-insurance-kompany-dheema-video-sony-music-south/",
-  "description": "Free chords for Love Insurance Kompany - Dheema Video by Sony Music South. AI-detected chord progression with 110 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Love Insurance Kompany - Dheema Video by Sony Music South. AI-detected chord progression with 110 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 110 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -293,8 +304,10 @@
     <script>
     window.CHORD_DATA = [{"time":5.28,"chord":"Fm","duration":1.94},{"time":7.22,"chord":"C#","duration":1.11},{"time":8.33,"chord":"G#","duration":0.83},{"time":9.17,"chord":"D#","duration":0.83},{"time":10,"chord":"D#sus4","duration":2.59},{"time":12.59,"chord":"Fm7","duration":1.76},{"time":14.35,"chord":"C#","duration":1.85},{"time":16.2,"chord":"D#sus4","duration":3.8},{"time":20,"chord":"Fm7","duration":1.85},{"time":21.85,"chord":"C#","duration":1.57},{"time":23.43,"chord":"D#sus4","duration":2.41},{"time":25.83,"chord":"D#","duration":1.48},{"time":27.31,"chord":"Fm7","duration":1.94},{"time":29.26,"chord":"C#sus2","duration":1.85},{"time":31.11,"chord":"D#","duration":3.52},{"time":34.63,"chord":"Fm7","duration":1.85},{"time":36.48,"chord":"C#sus2","duration":1.85},{"time":38.33,"chord":"D#sus4","duration":1.85},{"time":40.19,"chord":"D#","duration":1.76},{"time":41.94,"chord":"Fm7","duration":2.22},{"time":44.17,"chord":"C#sus2","duration":1.67},{"time":45.83,"chord":"D#sus4","duration":3.33},{"time":49.17,"chord":"Fm7","duration":2.22},{"time":51.39,"chord":"C#sus2","duration":1.85},{"time":53.24,"chord":"D#sus4","duration":2.13},{"time":55.37,"chord":"D#","duration":1.48},{"time":56.85,"chord":"Fm7","duration":1.57},{"time":58.43,"chord":"C#sus2","duration":1.57},{"time":60,"chord":"C#maj7","duration":0.56},{"time":60.56,"chord":"D#","duration":3.7},{"time":64.26,"chord":"Fm7","duration":1.57},{"time":65.83,"chord":"C#sus2","duration":2.13},{"time":67.96,"chord":"D#","duration":3.43},{"time":71.39,"chord":"Fm7","duration":2.13},{"time":73.52,"chord":"C#sus2","duration":1.57},{"time":75.09,"chord":"D#sus4","duration":3.43},{"time":78.52,"chord":"Fm7","duration":2.13},{"time":80.65,"chord":"C#","duration":1.39},{"time":82.04,"chord":"G#","duration":0.56},{"time":82.59,"chord":"D#","duration":3.52},{"time":86.11,"chord":"Fm7","duration":1.76},{"time":87.87,"chord":"C#","duration":1.85},{"time":89.72,"chord":"D#","duration":3.98},{"time":93.7,"chord":"Fm7","duration":1.57},{"time":95.28,"chord":"C#","duration":1.67},{"time":96.94,"chord":"D#sus4","duration":3.89},{"time":100.83,"chord":"Fm7","duration":1.76},{"time":102.59,"chord":"C#sus2","duration":1.94},{"time":104.54,"chord":"D#sus4","duration":3.61},{"time":108.15,"chord":"Fm7","duration":1.85},{"time":110,"chord":"C#sus2","duration":1.85},{"time":111.85,"chord":"D#sus4","duration":3.61},{"time":115.46,"chord":"Fm7","duration":1.76},{"time":117.22,"chord":"C#sus2","duration":2.04},{"time":119.26,"chord":"D#sus4","duration":3.61},{"time":122.87,"chord":"Fm7","duration":1.76},{"time":124.63,"chord":"C#sus2","duration":2.04},{"time":126.67,"chord":"D#sus4","duration":3.52},{"time":130.19,"chord":"Fm7","duration":1.85},{"time":132.04,"chord":"C#sus2","duration":1.85},{"time":133.89,"chord":"D#sus4","duration":3.61},{"time":137.5,"chord":"Fm7","duration":2.04},{"time":139.54,"chord":"C#sus2","duration":1.67},{"time":141.2,"chord":"D#sus4","duration":3.8},{"time":145,"chord":"Fm7","duration":1.85},{"time":146.85,"chord":"C#sus2","duration":1.76},{"time":148.61,"chord":"D#sus4","duration":3.7},{"time":152.31,"chord":"Fm7","duration":1.94},{"time":154.26,"chord":"C#sus2","duration":1.48},{"time":155.74,"chord":"D#sus4","duration":2.59},{"time":158.33,"chord":"C#sus2","duration":0.93},{"time":159.26,"chord":"D#sus4","duration":0.46},{"time":159.72,"chord":"Fm7","duration":1.76},{"time":161.48,"chord":"C#sus2","duration":1.94},{"time":163.43,"chord":"D#sus4","duration":1.76},{"time":165.19,"chord":"D#","duration":1.76},{"time":166.94,"chord":"Fm7","duration":1.76},{"time":168.7,"chord":"C#sus2","duration":1.3},{"time":170,"chord":"C#","duration":0.56},{"time":170.56,"chord":"D#","duration":3.43},{"time":173.98,"chord":"Fm","duration":2.31},{"time":176.3,"chord":"C#","duration":0.37},{"time":176.67,"chord":"C#sus2","duration":1.2},{"time":177.87,"chord":"D#sus4","duration":2.13},{"time":180,"chord":"D#","duration":1.67},{"time":181.67,"chord":"Fm","duration":1.85},{"time":183.52,"chord":"C#sus2","duration":1.76},{"time":185.28,"chord":"D#sus4","duration":1.67},{"time":186.94,"chord":"D#","duration":2.13},{"time":189.07,"chord":"Fm7","duration":1.39},{"time":190.46,"chord":"C#","duration":2.13},{"time":192.59,"chord":"D#","duration":4.07},{"time":196.67,"chord":"Fm7","duration":1.2},{"time":197.87,"chord":"C#maj7","duration":2.13},{"time":200,"chord":"D#","duration":3.7},{"time":203.7,"chord":"Fm","duration":1.85},{"time":205.56,"chord":"C#maj7","duration":0.65},{"time":206.2,"chord":"C#sus2","duration":1.11},{"time":207.31,"chord":"D#sus4","duration":2.59},{"time":209.91,"chord":"D#","duration":0.83},{"time":210.74,"chord":"Fm7","duration":2.22},{"time":212.96,"chord":"C#","duration":1.94},{"time":214.91,"chord":"D#sus4","duration":1.85},{"time":216.76,"chord":"D#","duration":1.57},{"time":218.33,"chord":"Fm7","duration":1.67},{"time":220,"chord":"C#","duration":1.94},{"time":221.94,"chord":"D#","duration":3.89},{"time":225.83,"chord":"Fm7","duration":1.67},{"time":227.5,"chord":"C#","duration":1.85},{"time":229.35,"chord":"D#","duration":3.52}];
     window.YOUTUBE_VIDEO_ID = 'H1frBzuWqqM';
+    window.BEGINNER_META = { capo: 1, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

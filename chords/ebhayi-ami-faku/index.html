@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Ebhayi by Ami Faku. AI-detected chord progression with 88 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Ebhayi by Ami Faku. AI-detected chord progression with 88 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Ebhayi chords, Ami Faku chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Ebhayi Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Ebhayi by Ami Faku. AI-detected chord progression with 88 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Ebhayi by Ami Faku. AI-detected chord progression with 88 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/ebhayi-ami-faku/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Ebhayi Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Ebhayi by Ami Faku. AI-detected chord progression with 88 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Ebhayi by Ami Faku. AI-detected chord progression with 88 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Ebhayi Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Ami Faku"
   },
   "url": "https://ecoliving-tips.github.io/chords/ebhayi-ami-faku/",
-  "description": "Free chords for Ebhayi by Ami Faku. AI-detected chord progression with 88 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Ebhayi by Ami Faku. AI-detected chord progression with 88 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 88 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -291,8 +302,10 @@
     <script>
     window.CHORD_DATA = [{"time":7.04,"chord":"D#","duration":0.93},{"time":7.96,"chord":"C#maj7","duration":3.15},{"time":11.11,"chord":"Fm7","duration":0.74},{"time":11.85,"chord":"Cm7","duration":1.3},{"time":13.15,"chord":"C#maj7","duration":3.24},{"time":16.39,"chord":"Fm7","duration":0.65},{"time":17.04,"chord":"Cm7","duration":1.39},{"time":18.43,"chord":"C#maj7","duration":3.33},{"time":21.76,"chord":"Fm7","duration":0.83},{"time":22.59,"chord":"Cm7","duration":1.3},{"time":23.89,"chord":"C#maj7","duration":3.15},{"time":27.04,"chord":"Fm7","duration":0.74},{"time":27.78,"chord":"Cm7","duration":1.48},{"time":29.26,"chord":"C#maj7","duration":2.96},{"time":32.22,"chord":"D#","duration":2.41},{"time":34.63,"chord":"C#maj7","duration":2.69},{"time":37.31,"chord":"D#","duration":0.74},{"time":38.06,"chord":"G#","duration":1.94},{"time":40,"chord":"C#maj7","duration":2.87},{"time":42.87,"chord":"D#","duration":0.46},{"time":43.33,"chord":"G#","duration":1.76},{"time":45.09,"chord":"C#maj7","duration":3.15},{"time":48.24,"chord":"Fm7","duration":1.76},{"time":50,"chord":"G#","duration":0.83},{"time":50.83,"chord":"C#maj7","duration":2.78},{"time":53.61,"chord":"Fm7","duration":1.76},{"time":55.37,"chord":"G#maj7","duration":0.74},{"time":56.11,"chord":"C#maj7","duration":2.78},{"time":58.89,"chord":"Fm7","duration":1.85},{"time":60.74,"chord":"G#maj7","duration":0.83},{"time":61.57,"chord":"C#maj7","duration":2.78},{"time":64.35,"chord":"Fm7","duration":1.57},{"time":66.76,"chord":"C#maj7","duration":3.24},{"time":70,"chord":"Fm7","duration":0.65},{"time":70.65,"chord":"Cm7","duration":1.2},{"time":71.85,"chord":"C#maj7","duration":3.06},{"time":74.91,"chord":"Fm7","duration":1.67},{"time":76.57,"chord":"G#","duration":0.83},{"time":77.41,"chord":"C#maj7","duration":2.78},{"time":80.19,"chord":"Fm7","duration":2.31},{"time":82.5,"chord":"C#maj7","duration":2.96},{"time":85.46,"chord":"D#","duration":0.65},{"time":86.11,"chord":"G#","duration":1.76},{"time":87.87,"chord":"C#maj7","duration":2.96},{"time":90.83,"chord":"D#","duration":0.46},{"time":91.3,"chord":"G#maj7","duration":1.94},{"time":93.24,"chord":"C#maj7","duration":2.96},{"time":96.2,"chord":"Fm7","duration":2.31},{"time":98.52,"chord":"C#maj7","duration":3.15},{"time":101.67,"chord":"Fm7","duration":1.57},{"time":104.07,"chord":"C#maj7","duration":2.87},{"time":106.94,"chord":"Fm7","duration":1.85},{"time":109.44,"chord":"C#maj7","duration":3.06},{"time":112.5,"chord":"Fm7","duration":1.57},{"time":114.07,"chord":"G#","duration":0.46},{"time":114.54,"chord":"C#maj7","duration":3.24},{"time":117.78,"chord":"Fm7","duration":0.65},{"time":118.43,"chord":"Cm7","duration":0.93},{"time":119.35,"chord":"D#","duration":0.65},{"time":120,"chord":"C#maj7","duration":3.89},{"time":123.89,"chord":"D#","duration":1.3},{"time":125.19,"chord":"C#maj7","duration":3.15},{"time":128.33,"chord":"Fm7","duration":0.74},{"time":129.07,"chord":"Cm7","duration":1.67},{"time":130.74,"chord":"C#maj7","duration":3.7},{"time":134.44,"chord":"Cm7","duration":1.48},{"time":135.93,"chord":"C#maj7","duration":2.96},{"time":138.89,"chord":"Fm7","duration":1.57},{"time":140.46,"chord":"D#","duration":0.74},{"time":141.2,"chord":"C#maj7","duration":3.15},{"time":144.35,"chord":"Fm7","duration":1.48},{"time":145.83,"chord":"D#","duration":0.93},{"time":146.76,"chord":"C#maj7","duration":2.87},{"time":149.63,"chord":"Fm7","duration":2.41},{"time":152.04,"chord":"C#maj7","duration":2.96},{"time":155,"chord":"Fm7","duration":1.67},{"time":156.67,"chord":"D#","duration":0.65},{"time":157.31,"chord":"C#maj7","duration":2.69},{"time":160.28,"chord":"Fm7","duration":2.31},{"time":162.59,"chord":"C#maj7","duration":3.06},{"time":165.65,"chord":"Fm7","duration":2.31},{"time":167.96,"chord":"C#maj7","duration":3.15},{"time":171.11,"chord":"Fm7","duration":0.74},{"time":171.85,"chord":"D#","duration":1.39},{"time":173.24,"chord":"C#maj7","duration":3.06},{"time":176.3,"chord":"Fm7","duration":0.83},{"time":177.13,"chord":"Cm7","duration":1.57},{"time":178.7,"chord":"C#maj7","duration":1.3}];
     window.YOUTUBE_VIDEO_ID = 'aGYVTDBw_zs';
+    window.BEGINNER_META = { capo: 1, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

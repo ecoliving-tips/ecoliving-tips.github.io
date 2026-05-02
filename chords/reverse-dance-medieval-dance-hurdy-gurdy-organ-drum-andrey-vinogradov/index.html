@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Reverse Dance. Medieval Dance. Hurdy-Gurdy, Organ &amp; Drum by Andrey Vinogradov. AI-detected chord progression with 49 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Reverse Dance. Medieval Dance. Hurdy-Gurdy, Organ &amp; Drum by Andrey Vinogradov. AI-detected chord progression with 49 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Reverse Dance. Medieval Dance. Hurdy-Gurdy, Organ &amp; Drum chords, Andrey Vinogradov chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Reverse Dance. Medieval Dance. Hurdy-Gurdy, Organ &amp; Drum Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Reverse Dance. Medieval Dance. Hurdy-Gurdy, Organ &amp; Drum by Andrey Vinogradov. AI-detected chord progression with 49 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Reverse Dance. Medieval Dance. Hurdy-Gurdy, Organ &amp; Drum by Andrey Vinogradov. AI-detected chord progression with 49 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/reverse-dance-medieval-dance-hurdy-gurdy-organ-drum-andrey-vinogradov/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Reverse Dance. Medieval Dance. Hurdy-Gurdy, Organ &amp; Drum Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Reverse Dance. Medieval Dance. Hurdy-Gurdy, Organ &amp; Drum by Andrey Vinogradov. AI-detected chord progression with 49 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Reverse Dance. Medieval Dance. Hurdy-Gurdy, Organ &amp; Drum by Andrey Vinogradov. AI-detected chord progression with 49 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Reverse Dance. Medieval Dance. Hurdy-Gurdy, Organ &amp; Drum Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Andrey Vinogradov"
   },
   "url": "https://ecoliving-tips.github.io/chords/reverse-dance-medieval-dance-hurdy-gurdy-organ-drum-andrey-vinogradov/",
-  "description": "Free chords for Reverse Dance. Medieval Dance. Hurdy-Gurdy, Organ & Drum by Andrey Vinogradov. AI-detected chord progression with 49 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Reverse Dance. Medieval Dance. Hurdy-Gurdy, Organ & Drum by Andrey Vinogradov. AI-detected chord progression with 49 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 49 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -293,8 +304,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.65,"chord":"G","duration":3.89},{"time":4.54,"chord":"Csus4","duration":1.48},{"time":6.02,"chord":"Cm","duration":2.31},{"time":8.33,"chord":"G","duration":1.67},{"time":10,"chord":"Gsus4","duration":1.02},{"time":11.02,"chord":"Gm","duration":5.83},{"time":16.85,"chord":"Gsus4","duration":2.41},{"time":19.26,"chord":"Cm","duration":0.74},{"time":20,"chord":"Gsus2","duration":2.41},{"time":22.41,"chord":"Gsus4","duration":1.39},{"time":23.8,"chord":"Gm","duration":6.76},{"time":30.56,"chord":"Gsus4","duration":1.67},{"time":32.22,"chord":"G","duration":3.15},{"time":35.37,"chord":"Gsus2","duration":2.41},{"time":37.78,"chord":"Gm","duration":3.52},{"time":41.3,"chord":"D#","duration":1.48},{"time":42.78,"chord":"Gm","duration":10.83},{"time":53.61,"chord":"D#","duration":1.85},{"time":55.46,"chord":"Gm","duration":11.02},{"time":66.48,"chord":"C","duration":1.57},{"time":68.06,"chord":"D#","duration":1.76},{"time":69.81,"chord":"Gm","duration":9.26},{"time":79.07,"chord":"C","duration":1.57},{"time":80.65,"chord":"D#","duration":1.48},{"time":82.13,"chord":"Gm","duration":8.24},{"time":90.37,"chord":"Gsus4","duration":18.61},{"time":108.98,"chord":"G","duration":1.02},{"time":110,"chord":"Gm","duration":3.24},{"time":113.24,"chord":"D#","duration":1.67},{"time":114.91,"chord":"Gm","duration":10.93},{"time":125.83,"chord":"D#","duration":1.67},{"time":127.5,"chord":"Gm","duration":10.93},{"time":138.43,"chord":"C","duration":1.57},{"time":140,"chord":"D#","duration":1.2},{"time":141.2,"chord":"Gm","duration":10.09},{"time":151.3,"chord":"C","duration":1.3},{"time":152.59,"chord":"D#","duration":1.48},{"time":154.07,"chord":"Gm","duration":5.93},{"time":160,"chord":"G","duration":10.83},{"time":170.83,"chord":"Gsus4","duration":7.5},{"time":178.33,"chord":"G","duration":1.67},{"time":180,"chord":"Gm","duration":5.19},{"time":185.19,"chord":"D#","duration":1.76},{"time":186.94,"chord":"Gm","duration":10.83},{"time":197.78,"chord":"D#","duration":1.67},{"time":199.44,"chord":"Gm","duration":1.57},{"time":201.02,"chord":"Gsus4","duration":1.67},{"time":202.69,"chord":"Gm","duration":3.98},{"time":206.67,"chord":"G","duration":7.22}];
     window.YOUTUBE_VIDEO_ID = 'bvNZeh6f8vE';
+    window.BEGINNER_META = { capo: 3, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

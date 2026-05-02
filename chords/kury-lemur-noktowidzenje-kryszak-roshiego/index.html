@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Kury - Lemur   Noktowidzenje Kryszak Roshiego by Kury. AI-detected chord progression with 81 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Kury - Lemur   Noktowidzenje Kryszak Roshiego by Kury. AI-detected chord progression with 81 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Kury - Lemur   Noktowidzenje Kryszak Roshiego chords, Kury chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Kury - Lemur   Noktowidzenje Kryszak Roshiego Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Kury - Lemur   Noktowidzenje Kryszak Roshiego by Kury. AI-detected chord progression with 81 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Kury - Lemur   Noktowidzenje Kryszak Roshiego by Kury. AI-detected chord progression with 81 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/kury-lemur-noktowidzenje-kryszak-roshiego/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Kury - Lemur   Noktowidzenje Kryszak Roshiego Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Kury - Lemur   Noktowidzenje Kryszak Roshiego by Kury. AI-detected chord progression with 81 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Kury - Lemur   Noktowidzenje Kryszak Roshiego by Kury. AI-detected chord progression with 81 chords. Advanced difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Kury - Lemur   Noktowidzenje Kryszak Roshiego Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Kury"
   },
   "url": "https://ecoliving-tips.github.io/chords/kury-lemur-noktowidzenje-kryszak-roshiego/",
-  "description": "Free chords for Kury - Lemur   Noktowidzenje Kryszak Roshiego by Kury. AI-detected chord progression with 81 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Kury - Lemur   Noktowidzenje Kryszak Roshiego by Kury. AI-detected chord progression with 81 chords. Advanced difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Advanced"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 81 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -313,8 +324,10 @@
     <script>
     window.CHORD_DATA = [{"time":0,"chord":"G#","duration":0.93},{"time":0.93,"chord":"C#","duration":2.69},{"time":3.61,"chord":"G#","duration":0.83},{"time":4.44,"chord":"C#","duration":2.78},{"time":7.22,"chord":"G#","duration":0.74},{"time":7.96,"chord":"C#","duration":3.98},{"time":11.94,"chord":"D#m","duration":0.65},{"time":12.59,"chord":"C#","duration":0.74},{"time":13.33,"chord":"G#","duration":0.65},{"time":13.98,"chord":"C#","duration":17.59},{"time":31.57,"chord":"D#m","duration":0.65},{"time":32.22,"chord":"C#","duration":5.65},{"time":37.87,"chord":"F#","duration":0.65},{"time":38.52,"chord":"C#7","duration":1.48},{"time":40,"chord":"G#m","duration":1.39},{"time":41.39,"chord":"G","duration":1.3},{"time":42.69,"chord":"F#","duration":2.69},{"time":45.37,"chord":"B","duration":2.22},{"time":47.59,"chord":"Cm","duration":2.04},{"time":49.63,"chord":"D#m","duration":0.37},{"time":50,"chord":"B","duration":0.93},{"time":50.93,"chord":"D#m","duration":0.74},{"time":51.67,"chord":"B","duration":1.3},{"time":52.96,"chord":"G#m","duration":1.94},{"time":54.91,"chord":"E","duration":1.57},{"time":56.48,"chord":"F","duration":1.57},{"time":58.06,"chord":"G#m","duration":0.65},{"time":58.7,"chord":"C#","duration":30.74},{"time":89.44,"chord":"D#m","duration":0.56},{"time":90,"chord":"C#","duration":4.81},{"time":94.81,"chord":"B","duration":0.74},{"time":95.56,"chord":"D#m","duration":0.83},{"time":96.39,"chord":"C#","duration":1.3},{"time":97.69,"chord":"F#m","duration":1.39},{"time":99.07,"chord":"B","duration":1.39},{"time":100.46,"chord":"D#m7","duration":1.76},{"time":102.22,"chord":"G#","duration":0.83},{"time":103.06,"chord":"Caug","duration":0.93},{"time":103.98,"chord":"Fm","duration":2.78},{"time":106.76,"chord":"B","duration":0.65},{"time":107.41,"chord":"D#m","duration":0.93},{"time":108.33,"chord":"B","duration":1.2},{"time":109.54,"chord":"F","duration":0.46},{"time":110,"chord":"E","duration":1.2},{"time":111.2,"chord":"D#7","duration":0.93},{"time":112.13,"chord":"G#","duration":0.65},{"time":112.78,"chord":"C#","duration":2.31},{"time":115.09,"chord":"G#","duration":0.74},{"time":115.83,"chord":"C#","duration":1.76},{"time":117.59,"chord":"G#","duration":0.83},{"time":118.43,"chord":"C#","duration":5.46},{"time":123.89,"chord":"G#","duration":0.93},{"time":124.81,"chord":"C#","duration":10.83},{"time":135.65,"chord":"G#","duration":6.67},{"time":142.31,"chord":"B","duration":1.11},{"time":143.43,"chord":"C#","duration":1.85},{"time":145.28,"chord":"B","duration":1.2},{"time":146.48,"chord":"A#m","duration":1.67},{"time":148.15,"chord":"G#","duration":3.06},{"time":151.2,"chord":"Gm","duration":0.93},{"time":153.15,"chord":"D#","duration":20.83},{"time":290,"chord":"D","duration":10},{"time":305.83,"chord":"F","duration":5.93},{"time":335.83,"chord":"Am","duration":4.17},{"time":340,"chord":"A","duration":10},{"time":381.2,"chord":"D","duration":1.85},{"time":386.39,"chord":"Em7","duration":1.48},{"time":391.02,"chord":"Am7","duration":1.76},{"time":392.78,"chord":"G","duration":0.65},{"time":393.43,"chord":"Bm","duration":1.67},{"time":395.09,"chord":"E","duration":3.52},{"time":400,"chord":"Em","duration":1.02},{"time":401.02,"chord":"G","duration":1.76},{"time":403.43,"chord":"Em","duration":1.76},{"time":405.19,"chord":"D","duration":2.22},{"time":407.41,"chord":"C","duration":2.59},{"time":410,"chord":"Am7","duration":2.13},{"time":412.13,"chord":"F#sus4","duration":2.5},{"time":414.63,"chord":"E","duration":7.31},{"time":421.94,"chord":"D#","duration":1.02},{"time":422.96,"chord":"C#","duration":1.94}];
     window.YOUTUBE_VIDEO_ID = 'ZdSJRV4Uqw0';
+    window.BEGINNER_META = { capo: 2, difficulty: 'advanced' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

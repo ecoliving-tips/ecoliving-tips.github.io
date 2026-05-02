@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Bländverk - Ett Sjunkande Skepp by Linus Kjellin. AI-detected chord progression with 76 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Bländverk - Ett Sjunkande Skepp by Linus Kjellin. AI-detected chord progression with 76 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Bländverk - Ett Sjunkande Skepp chords, Linus Kjellin chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Bländverk - Ett Sjunkande Skepp Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Bländverk - Ett Sjunkande Skepp by Linus Kjellin. AI-detected chord progression with 76 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Bländverk - Ett Sjunkande Skepp by Linus Kjellin. AI-detected chord progression with 76 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/blandverk-ett-sjunkande-skepp-linus-kjellin/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Bländverk - Ett Sjunkande Skepp Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Bländverk - Ett Sjunkande Skepp by Linus Kjellin. AI-detected chord progression with 76 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Bländverk - Ett Sjunkande Skepp by Linus Kjellin. AI-detected chord progression with 76 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Bländverk - Ett Sjunkande Skepp Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Linus Kjellin"
   },
   "url": "https://ecoliving-tips.github.io/chords/blandverk-ett-sjunkande-skepp-linus-kjellin/",
-  "description": "Free chords for Bländverk - Ett Sjunkande Skepp by Linus Kjellin. AI-detected chord progression with 76 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Bländverk - Ett Sjunkande Skepp by Linus Kjellin. AI-detected chord progression with 76 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 76 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -289,8 +300,10 @@
     <script>
     window.CHORD_DATA = [{"time":1.39,"chord":"G#","duration":1.85},{"time":3.24,"chord":"C#","duration":0.46},{"time":3.7,"chord":"G#","duration":6.3},{"time":10,"chord":"C#","duration":0.46},{"time":10.46,"chord":"G#","duration":0.46},{"time":10.93,"chord":"D#","duration":2.41},{"time":13.33,"chord":"C#","duration":2.41},{"time":15.74,"chord":"G#","duration":1.76},{"time":17.5,"chord":"C#","duration":0.65},{"time":18.15,"chord":"G#","duration":4.07},{"time":22.22,"chord":"C#","duration":0.74},{"time":22.96,"chord":"G#","duration":4.07},{"time":27.04,"chord":"C#","duration":0.74},{"time":27.78,"chord":"G#","duration":4.07},{"time":31.85,"chord":"C#","duration":0.93},{"time":32.78,"chord":"G#","duration":3.89},{"time":36.67,"chord":"C#","duration":0.65},{"time":37.31,"chord":"G#","duration":4.07},{"time":41.39,"chord":"C#","duration":0.83},{"time":42.22,"chord":"G#","duration":3.33},{"time":45.56,"chord":"C#","duration":1.39},{"time":46.94,"chord":"G#","duration":7.22},{"time":54.17,"chord":"D#","duration":2.31},{"time":56.48,"chord":"C#","duration":2.41},{"time":58.89,"chord":"G#","duration":11.48},{"time":70.37,"chord":"C#","duration":0.65},{"time":71.02,"chord":"G#","duration":3.52},{"time":74.54,"chord":"C#","duration":1.2},{"time":75.74,"chord":"G#","duration":4.26},{"time":80,"chord":"C#","duration":0.56},{"time":80.56,"chord":"G#","duration":2.41},{"time":82.96,"chord":"D#","duration":2.22},{"time":85.19,"chord":"C#","duration":2.59},{"time":87.78,"chord":"G#","duration":4.72},{"time":92.5,"chord":"C#","duration":1.3},{"time":93.8,"chord":"D#","duration":1.2},{"time":95,"chord":"G#","duration":2.41},{"time":97.41,"chord":"C#","duration":1.11},{"time":98.52,"chord":"D#","duration":1.2},{"time":99.72,"chord":"G#","duration":2.41},{"time":102.13,"chord":"Fm","duration":1.2},{"time":103.33,"chord":"D#","duration":1.2},{"time":104.54,"chord":"C#","duration":2.31},{"time":106.85,"chord":"G#","duration":1.3},{"time":108.15,"chord":"D#","duration":1.2},{"time":109.35,"chord":"G#","duration":4.17},{"time":113.52,"chord":"C#","duration":0.65},{"time":114.17,"chord":"G#","duration":4.07},{"time":118.24,"chord":"C#","duration":0.74},{"time":118.98,"chord":"G#","duration":13.24},{"time":132.22,"chord":"C#","duration":1.11},{"time":133.33,"chord":"G#","duration":7.22},{"time":140.56,"chord":"D#","duration":2.41},{"time":142.96,"chord":"C#","duration":2.31},{"time":145.28,"chord":"G#","duration":14.72},{"time":160,"chord":"D#","duration":2.04},{"time":162.04,"chord":"C#","duration":2.41},{"time":164.44,"chord":"G#","duration":4.81},{"time":169.26,"chord":"C#","duration":1.3},{"time":170.56,"chord":"D#","duration":1.2},{"time":171.76,"chord":"G#","duration":2.41},{"time":174.17,"chord":"C#","duration":1.11},{"time":175.28,"chord":"D#","duration":1.48},{"time":176.76,"chord":"G#","duration":2.13},{"time":178.89,"chord":"Fm","duration":1.11},{"time":180,"chord":"D#","duration":1.3},{"time":181.3,"chord":"C#","duration":2.41},{"time":183.7,"chord":"G#","duration":1.3},{"time":185,"chord":"D#","duration":1.2},{"time":186.2,"chord":"G#","duration":3.43},{"time":189.63,"chord":"D#","duration":1.3},{"time":190.93,"chord":"G#","duration":3.61},{"time":194.54,"chord":"D#","duration":1.3},{"time":195.83,"chord":"G#","duration":3.43},{"time":199.26,"chord":"D#","duration":0.74},{"time":201.2,"chord":"G#","duration":9.63}];
     window.YOUTUBE_VIDEO_ID = 'KOJGjm1z_rA';
+    window.BEGINNER_META = { capo: 1, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Where We Walked - Dark Folk Instrumental [Beautiful Death] by Beautiful Death. AI-detected chord progression with 61 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Where We Walked - Dark Folk Instrumental [Beautiful Death] by Beautiful Death. AI-detected chord progression with 61 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Where We Walked - Dark Folk Instrumental [Beautiful Death] chords, Beautiful Death chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Where We Walked - Dark Folk Instrumental [Beautiful Death] Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Where We Walked - Dark Folk Instrumental [Beautiful Death] by Beautiful Death. AI-detected chord progression with 61 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Where We Walked - Dark Folk Instrumental [Beautiful Death] by Beautiful Death. AI-detected chord progression with 61 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/where-we-walked-dark-folk-instrumental-beautiful-death/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Where We Walked - Dark Folk Instrumental [Beautiful Death] Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Where We Walked - Dark Folk Instrumental [Beautiful Death] by Beautiful Death. AI-detected chord progression with 61 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Where We Walked - Dark Folk Instrumental [Beautiful Death] by Beautiful Death. AI-detected chord progression with 61 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Where We Walked - Dark Folk Instrumental [Beautiful Death] Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Beautiful Death"
   },
   "url": "https://ecoliving-tips.github.io/chords/where-we-walked-dark-folk-instrumental-beautiful-death/",
-  "description": "Free chords for Where We Walked - Dark Folk Instrumental [Beautiful Death] by Beautiful Death. AI-detected chord progression with 61 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Where We Walked - Dark Folk Instrumental [Beautiful Death] by Beautiful Death. AI-detected chord progression with 61 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 61 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -296,8 +307,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.65,"chord":"Am7","duration":20.19},{"time":20.83,"chord":"Am","duration":3.24},{"time":24.07,"chord":"Cmaj7","duration":3.61},{"time":27.69,"chord":"C","duration":6.67},{"time":34.35,"chord":"Am7","duration":12.87},{"time":47.22,"chord":"Em","duration":2.78},{"time":50,"chord":"C","duration":5.09},{"time":55.09,"chord":"Am","duration":5.83},{"time":60.93,"chord":"Cmaj7","duration":2.87},{"time":63.8,"chord":"Am7","duration":1.67},{"time":65.46,"chord":"Cmaj7","duration":4.54},{"time":70,"chord":"Am","duration":3.7},{"time":73.7,"chord":"G","duration":2.22},{"time":75.93,"chord":"Dm7","duration":1.57},{"time":77.5,"chord":"F","duration":1.67},{"time":79.17,"chord":"Am","duration":0.83},{"time":80,"chord":"Am7","duration":8.33},{"time":88.33,"chord":"Fmaj7","duration":1.11},{"time":89.44,"chord":"Am7","duration":4.54},{"time":93.98,"chord":"Dm7","duration":3.7},{"time":97.69,"chord":"Fmaj7","duration":1.57},{"time":99.26,"chord":"Am7","duration":1.39},{"time":100.65,"chord":"Fmaj7","duration":1.3},{"time":101.94,"chord":"Am7","duration":4.07},{"time":106.02,"chord":"Em","duration":1.67},{"time":107.69,"chord":"Cmaj7","duration":2.5},{"time":110.19,"chord":"Fmaj7","duration":1.39},{"time":111.57,"chord":"Cmaj7","duration":1.57},{"time":113.15,"chord":"Dm7","duration":2.13},{"time":115.28,"chord":"Fmaj7","duration":4.72},{"time":120,"chord":"Am7","duration":10},{"time":130,"chord":"C","duration":0.65},{"time":130.65,"chord":"Am7","duration":2.5},{"time":133.15,"chord":"Dm7","duration":0.83},{"time":133.98,"chord":"Fsus2","duration":0.83},{"time":134.81,"chord":"Am7","duration":3.43},{"time":138.24,"chord":"D7","duration":1.76},{"time":140,"chord":"Dm7","duration":2.13},{"time":142.13,"chord":"Fmaj7","duration":2.13},{"time":144.26,"chord":"G","duration":1.76},{"time":146.02,"chord":"Fmaj7","duration":2.96},{"time":148.98,"chord":"G","duration":1.57},{"time":150.56,"chord":"F","duration":0.83},{"time":151.39,"chord":"Am","duration":10.93},{"time":162.31,"chord":"Dm7","duration":4.35},{"time":166.67,"chord":"Fmaj7","duration":1.39},{"time":168.06,"chord":"Am","duration":1.94},{"time":170,"chord":"Cmaj7","duration":0.74},{"time":170.74,"chord":"Am7","duration":4.72},{"time":175.46,"chord":"Fmaj7","duration":4.54},{"time":180,"chord":"Dm7","duration":3.52},{"time":183.52,"chord":"Fmaj7","duration":4.54},{"time":188.06,"chord":"Am","duration":4.17},{"time":192.22,"chord":"Fmaj7","duration":4.07},{"time":196.3,"chord":"Dm7","duration":3.7},{"time":200,"chord":"Fmaj7","duration":4.63},{"time":204.63,"chord":"Am","duration":1.48},{"time":206.11,"chord":"Fmaj7","duration":3.89},{"time":210,"chord":"F","duration":2.78},{"time":212.78,"chord":"Dm7","duration":3.7},{"time":216.48,"chord":"F","duration":2.41}];
     window.YOUTUBE_VIDEO_ID = 'rnSUwGDIMBI';
+    window.BEGINNER_META = { capo: 0, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

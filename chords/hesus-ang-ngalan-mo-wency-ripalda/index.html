@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Hesus Ang Ngalan Mo by Wency Ripalda. AI-detected chord progression with 83 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Hesus Ang Ngalan Mo by Wency Ripalda. AI-detected chord progression with 83 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Hesus Ang Ngalan Mo chords, Wency Ripalda chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Hesus Ang Ngalan Mo Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Hesus Ang Ngalan Mo by Wency Ripalda. AI-detected chord progression with 83 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Hesus Ang Ngalan Mo by Wency Ripalda. AI-detected chord progression with 83 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/hesus-ang-ngalan-mo-wency-ripalda/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Hesus Ang Ngalan Mo Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Hesus Ang Ngalan Mo by Wency Ripalda. AI-detected chord progression with 83 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Hesus Ang Ngalan Mo by Wency Ripalda. AI-detected chord progression with 83 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Hesus Ang Ngalan Mo Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Wency Ripalda"
   },
   "url": "https://ecoliving-tips.github.io/chords/hesus-ang-ngalan-mo-wency-ripalda/",
-  "description": "Free chords for Hesus Ang Ngalan Mo by Wency Ripalda. AI-detected chord progression with 83 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Hesus Ang Ngalan Mo by Wency Ripalda. AI-detected chord progression with 83 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 83 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -291,8 +302,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.74,"chord":"B","duration":4.35},{"time":5.09,"chord":"A","duration":1.3},{"time":6.39,"chord":"B","duration":3.61},{"time":18.52,"chord":"E","duration":2.96},{"time":21.48,"chord":"B","duration":2.59},{"time":24.07,"chord":"A","duration":3.43},{"time":27.5,"chord":"E","duration":6.11},{"time":33.61,"chord":"B","duration":2.31},{"time":35.93,"chord":"E","duration":0.56},{"time":36.48,"chord":"A","duration":3.06},{"time":39.54,"chord":"E","duration":5.83},{"time":45.37,"chord":"B","duration":2.87},{"time":48.24,"chord":"A","duration":3.24},{"time":51.48,"chord":"E","duration":5.93},{"time":57.41,"chord":"B","duration":2.59},{"time":60,"chord":"A","duration":3.43},{"time":63.43,"chord":"E","duration":6.57},{"time":70,"chord":"B","duration":1.94},{"time":71.94,"chord":"A","duration":3.61},{"time":75.56,"chord":"E","duration":5.93},{"time":81.48,"chord":"B","duration":2.87},{"time":84.35,"chord":"A","duration":3.15},{"time":87.5,"chord":"E","duration":6.11},{"time":93.61,"chord":"F#","duration":2.78},{"time":96.39,"chord":"A","duration":3.06},{"time":99.44,"chord":"E","duration":6.11},{"time":105.56,"chord":"F#","duration":2.69},{"time":108.24,"chord":"A","duration":3.24},{"time":111.48,"chord":"E","duration":6.02},{"time":117.5,"chord":"F#","duration":2.78},{"time":120.28,"chord":"A","duration":3.24},{"time":123.52,"chord":"E","duration":5.93},{"time":129.44,"chord":"F#","duration":2.87},{"time":132.31,"chord":"A","duration":3.15},{"time":135.46,"chord":"E","duration":5.93},{"time":141.39,"chord":"D","duration":1.2},{"time":142.59,"chord":"A","duration":1.85},{"time":144.44,"chord":"E","duration":6.02},{"time":150.46,"chord":"D","duration":1.39},{"time":151.85,"chord":"A","duration":1.57},{"time":153.43,"chord":"E","duration":5.83},{"time":159.26,"chord":"D","duration":1.3},{"time":160.56,"chord":"A","duration":1.85},{"time":162.41,"chord":"E","duration":6.02},{"time":168.43,"chord":"D","duration":1.57},{"time":170,"chord":"A","duration":1.48},{"time":171.48,"chord":"E","duration":5.93},{"time":177.41,"chord":"D","duration":1.57},{"time":178.98,"chord":"A","duration":1.02},{"time":180,"chord":"Em","duration":3.33},{"time":183.33,"chord":"D","duration":1.39},{"time":184.72,"chord":"A","duration":1.39},{"time":186.11,"chord":"Em","duration":3.06},{"time":189.17,"chord":"D","duration":1.57},{"time":190.74,"chord":"A","duration":1.76},{"time":192.5,"chord":"Em","duration":2.87},{"time":195.37,"chord":"D","duration":1.57},{"time":196.94,"chord":"A","duration":1.76},{"time":198.7,"chord":"E","duration":2.69},{"time":201.39,"chord":"D","duration":1.3},{"time":202.69,"chord":"A","duration":1.76},{"time":204.44,"chord":"E","duration":6.02},{"time":210.46,"chord":"D","duration":1.39},{"time":211.85,"chord":"A","duration":1.67},{"time":213.52,"chord":"E","duration":5.93},{"time":219.44,"chord":"D","duration":1.2},{"time":220.65,"chord":"A","duration":1.76},{"time":222.41,"chord":"E","duration":6.02},{"time":228.43,"chord":"D","duration":1.57},{"time":230,"chord":"A","duration":1.48},{"time":231.48,"chord":"E","duration":6.02},{"time":237.5,"chord":"F#","duration":2.87},{"time":240.37,"chord":"A","duration":3.06},{"time":243.43,"chord":"E","duration":8.52},{"time":281.94,"chord":"D","duration":1.11},{"time":283.06,"chord":"A","duration":1.94},{"time":285,"chord":"E","duration":5.93},{"time":290.93,"chord":"D","duration":1.39},{"time":292.31,"chord":"A","duration":1.67},{"time":293.98,"chord":"E","duration":6.02},{"time":300,"chord":"F#","duration":2.96},{"time":302.96,"chord":"A","duration":2.96},{"time":305.93,"chord":"E","duration":4.07}];
     window.YOUTUBE_VIDEO_ID = 'ulOmGMjNmXo';
+    window.BEGINNER_META = { capo: 2, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

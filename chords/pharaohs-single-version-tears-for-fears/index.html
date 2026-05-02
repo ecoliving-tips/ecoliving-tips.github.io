@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Pharaohs (Single Version) by Tears for Fears. AI-detected chord progression with 47 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Pharaohs (Single Version) by Tears for Fears. AI-detected chord progression with 47 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Pharaohs (Single Version) chords, Tears for Fears chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Pharaohs (Single Version) Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Pharaohs (Single Version) by Tears for Fears. AI-detected chord progression with 47 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Pharaohs (Single Version) by Tears for Fears. AI-detected chord progression with 47 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/pharaohs-single-version-tears-for-fears/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Pharaohs (Single Version) Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Pharaohs (Single Version) by Tears for Fears. AI-detected chord progression with 47 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Pharaohs (Single Version) by Tears for Fears. AI-detected chord progression with 47 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Pharaohs (Single Version) Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Tears for Fears"
   },
   "url": "https://ecoliving-tips.github.io/chords/pharaohs-single-version-tears-for-fears/",
-  "description": "Free chords for Pharaohs (Single Version) by Tears for Fears. AI-detected chord progression with 47 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Pharaohs (Single Version) by Tears for Fears. AI-detected chord progression with 47 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 47 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -297,8 +308,10 @@
     <script>
     window.CHORD_DATA = [{"time":18.7,"chord":"D#m7","duration":1.3},{"time":20,"chord":"D#m","duration":0.65},{"time":20.65,"chord":"F#","duration":5},{"time":25.65,"chord":"B","duration":5.09},{"time":30.74,"chord":"F#","duration":5.28},{"time":36.02,"chord":"D#m","duration":4.91},{"time":40.93,"chord":"C#","duration":5.19},{"time":46.11,"chord":"B","duration":5.19},{"time":51.3,"chord":"G#m7","duration":2.87},{"time":56.57,"chord":"D#m","duration":4.72},{"time":61.3,"chord":"C#","duration":5.37},{"time":66.67,"chord":"B","duration":1.11},{"time":67.78,"chord":"Bmaj7","duration":3.89},{"time":71.67,"chord":"F#","duration":5.28},{"time":76.94,"chord":"D#sus2","duration":3.06},{"time":80,"chord":"D#m7","duration":1.2},{"time":81.2,"chord":"C#","duration":5.74},{"time":86.94,"chord":"Bsus2","duration":1.11},{"time":88.06,"chord":"Bmaj7","duration":4.07},{"time":92.13,"chord":"F#","duration":5.56},{"time":97.69,"chord":"D#m","duration":3.33},{"time":101.02,"chord":"G#m","duration":1.3},{"time":102.31,"chord":"F#","duration":5.28},{"time":107.59,"chord":"B","duration":5.28},{"time":112.87,"chord":"F#","duration":4.91},{"time":117.78,"chord":"D#m","duration":2.22},{"time":120,"chord":"G#m","duration":1.94},{"time":121.94,"chord":"D#m","duration":0.83},{"time":122.78,"chord":"C#","duration":5.19},{"time":127.96,"chord":"B","duration":4.91},{"time":132.87,"chord":"F#","duration":7.13},{"time":142.13,"chord":"B","duration":0.83},{"time":142.96,"chord":"F#","duration":5.37},{"time":148.33,"chord":"D#m","duration":4.63},{"time":152.96,"chord":"C#","duration":5.37},{"time":158.33,"chord":"B","duration":5.28},{"time":163.61,"chord":"F#","duration":5.09},{"time":168.7,"chord":"D#m","duration":5.37},{"time":174.07,"chord":"F#","duration":2.87},{"time":176.94,"chord":"F#maj7","duration":1.94},{"time":178.89,"chord":"B","duration":5.19},{"time":184.07,"chord":"F#6","duration":5.19},{"time":189.26,"chord":"D#m","duration":0.74},{"time":190,"chord":"G#m7","duration":4.26},{"time":194.26,"chord":"F#","duration":4.91},{"time":199.17,"chord":"B","duration":5.28},{"time":204.44,"chord":"F#","duration":15.09}];
     window.YOUTUBE_VIDEO_ID = 'EoIDw5Bf8Gw';
+    window.BEGINNER_META = { capo: 6, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

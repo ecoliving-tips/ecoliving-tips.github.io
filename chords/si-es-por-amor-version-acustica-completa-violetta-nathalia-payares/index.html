@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Si Es Por Amor - versión acústica completa|| Violetta by Nathalia Payares. AI-detected chord progression with 97 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Si Es Por Amor - versión acústica completa|| Violetta by Nathalia Payares. AI-detected chord progression with 97 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Si Es Por Amor - versión acústica completa|| Violetta chords, Nathalia Payares chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Si Es Por Amor - versión acústica completa|| Violetta Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Si Es Por Amor - versión acústica completa|| Violetta by Nathalia Payares. AI-detected chord progression with 97 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Si Es Por Amor - versión acústica completa|| Violetta by Nathalia Payares. AI-detected chord progression with 97 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/si-es-por-amor-version-acustica-completa-violetta-nathalia-payares/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Si Es Por Amor - versión acústica completa|| Violetta Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Si Es Por Amor - versión acústica completa|| Violetta by Nathalia Payares. AI-detected chord progression with 97 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Si Es Por Amor - versión acústica completa|| Violetta by Nathalia Payares. AI-detected chord progression with 97 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Si Es Por Amor - versión acústica completa|| Violetta Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Nathalia Payares"
   },
   "url": "https://ecoliving-tips.github.io/chords/si-es-por-amor-version-acustica-completa-violetta-nathalia-payares/",
-  "description": "Free chords for Si Es Por Amor - versión acústica completa|| Violetta by Nathalia Payares. AI-detected chord progression with 97 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Si Es Por Amor - versión acústica completa|| Violetta by Nathalia Payares. AI-detected chord progression with 97 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 97 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -298,8 +309,10 @@
     <script>
     window.CHORD_DATA = [{"time":3.43,"chord":"Am","duration":1.3},{"time":4.72,"chord":"G","duration":1.57},{"time":6.3,"chord":"C","duration":1.48},{"time":7.78,"chord":"Bm","duration":0.74},{"time":8.52,"chord":"E","duration":0.65},{"time":9.17,"chord":"Am","duration":1.48},{"time":10.65,"chord":"G","duration":1.48},{"time":12.13,"chord":"C","duration":1.76},{"time":13.89,"chord":"D","duration":1.2},{"time":15.09,"chord":"Am7","duration":1.39},{"time":16.48,"chord":"G","duration":1.67},{"time":18.15,"chord":"C","duration":1.48},{"time":19.63,"chord":"G","duration":0.37},{"time":20,"chord":"Bm7","duration":0.46},{"time":20.46,"chord":"E","duration":0.56},{"time":21.02,"chord":"Am7","duration":1.39},{"time":22.41,"chord":"G","duration":1.67},{"time":24.07,"chord":"C","duration":1.48},{"time":25.56,"chord":"G","duration":1.39},{"time":26.94,"chord":"Am7","duration":1.39},{"time":28.33,"chord":"G","duration":1.67},{"time":30,"chord":"C","duration":1.57},{"time":31.57,"chord":"Bm7","duration":0.65},{"time":32.22,"chord":"E7","duration":0.56},{"time":32.78,"chord":"Am","duration":1.57},{"time":34.35,"chord":"G","duration":1.57},{"time":35.93,"chord":"C","duration":1.85},{"time":37.78,"chord":"G","duration":1.11},{"time":38.89,"chord":"Fm","duration":1.11},{"time":40,"chord":"G","duration":1.94},{"time":41.94,"chord":"F","duration":1.02},{"time":42.96,"chord":"G","duration":1.85},{"time":44.81,"chord":"F","duration":1.39},{"time":46.2,"chord":"G","duration":2.22},{"time":48.43,"chord":"D","duration":0.56},{"time":48.98,"chord":"E","duration":1.02},{"time":50,"chord":"Em","duration":0.83},{"time":52.04,"chord":"Am","duration":1.57},{"time":53.61,"chord":"G","duration":1.48},{"time":55.09,"chord":"C","duration":1.2},{"time":56.3,"chord":"D","duration":1.11},{"time":57.41,"chord":"C","duration":0.74},{"time":58.15,"chord":"Am","duration":1.39},{"time":59.54,"chord":"G","duration":1.57},{"time":61.11,"chord":"C","duration":1.48},{"time":62.59,"chord":"G","duration":0.83},{"time":63.43,"chord":"C","duration":0.65},{"time":64.07,"chord":"Am","duration":1.39},{"time":65.46,"chord":"G","duration":1.48},{"time":66.94,"chord":"C","duration":1.39},{"time":68.33,"chord":"D","duration":1.67},{"time":70,"chord":"Am","duration":1.3},{"time":71.3,"chord":"G","duration":1.57},{"time":72.87,"chord":"C","duration":1.57},{"time":74.44,"chord":"D","duration":1.3},{"time":75.74,"chord":"Am","duration":6.3},{"time":82.04,"chord":"G","duration":1.48},{"time":83.52,"chord":"C","duration":1.57},{"time":85.09,"chord":"G","duration":0.65},{"time":85.74,"chord":"E7","duration":0.83},{"time":86.57,"chord":"Am","duration":1.48},{"time":88.06,"chord":"G","duration":1.39},{"time":89.44,"chord":"C","duration":1.85},{"time":91.3,"chord":"G","duration":1.39},{"time":92.69,"chord":"Am","duration":1.2},{"time":93.89,"chord":"G","duration":1.57},{"time":95.46,"chord":"C","duration":1.48},{"time":96.94,"chord":"Dm6","duration":0.46},{"time":97.41,"chord":"E7","duration":0.93},{"time":98.33,"chord":"Am","duration":1.67},{"time":100,"chord":"G","duration":1.3},{"time":101.3,"chord":"C","duration":1.76},{"time":103.06,"chord":"G","duration":1.3},{"time":104.35,"chord":"F","duration":1.39},{"time":105.74,"chord":"G","duration":1.57},{"time":107.31,"chord":"F","duration":1.2},{"time":108.52,"chord":"Bm7","duration":1.48},{"time":110,"chord":"F","duration":1.2},{"time":111.2,"chord":"C","duration":0.65},{"time":111.85,"chord":"G","duration":1.39},{"time":113.24,"chord":"E","duration":2.96},{"time":116.2,"chord":"Am","duration":1.48},{"time":117.69,"chord":"G","duration":1.3},{"time":118.98,"chord":"C","duration":1.48},{"time":120.46,"chord":"D","duration":1.57},{"time":122.04,"chord":"Am","duration":1.48},{"time":123.52,"chord":"G","duration":1.48},{"time":125,"chord":"C","duration":3.06},{"time":128.06,"chord":"Am","duration":1.39},{"time":129.44,"chord":"G","duration":1.67},{"time":131.11,"chord":"C","duration":1.39},{"time":132.5,"chord":"D","duration":1.48},{"time":133.98,"chord":"Am","duration":1.3},{"time":135.28,"chord":"G","duration":1.57},{"time":136.85,"chord":"C","duration":1.57},{"time":138.43,"chord":"D","duration":1.57},{"time":140,"chord":"Am7","duration":3.33}];
     window.YOUTUBE_VIDEO_ID = 'FhmwEUSM3A4';
+    window.BEGINNER_META = { capo: 0, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

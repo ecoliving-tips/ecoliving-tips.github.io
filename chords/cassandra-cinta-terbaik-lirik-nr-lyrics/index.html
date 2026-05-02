@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Cassandra - Cinta Terbaik (Lirik) by Nr Lyrics. AI-detected chord progression with 102 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Cassandra - Cinta Terbaik (Lirik) by Nr Lyrics. AI-detected chord progression with 102 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Cassandra - Cinta Terbaik (Lirik) chords, Nr Lyrics chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Cassandra - Cinta Terbaik (Lirik) Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Cassandra - Cinta Terbaik (Lirik) by Nr Lyrics. AI-detected chord progression with 102 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Cassandra - Cinta Terbaik (Lirik) by Nr Lyrics. AI-detected chord progression with 102 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/cassandra-cinta-terbaik-lirik-nr-lyrics/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Cassandra - Cinta Terbaik (Lirik) Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Cassandra - Cinta Terbaik (Lirik) by Nr Lyrics. AI-detected chord progression with 102 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Cassandra - Cinta Terbaik (Lirik) by Nr Lyrics. AI-detected chord progression with 102 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Cassandra - Cinta Terbaik (Lirik) Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Nr Lyrics"
   },
   "url": "https://ecoliving-tips.github.io/chords/cassandra-cinta-terbaik-lirik-nr-lyrics/",
-  "description": "Free chords for Cassandra - Cinta Terbaik (Lirik) by Nr Lyrics. AI-detected chord progression with 102 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Cassandra - Cinta Terbaik (Lirik) by Nr Lyrics. AI-detected chord progression with 102 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 102 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -298,8 +309,10 @@
     <script>
     window.CHORD_DATA = [{"time":0,"chord":"G#","duration":1.57},{"time":1.57,"chord":"C#sus2","duration":1.85},{"time":3.43,"chord":"G#","duration":4.72},{"time":8.15,"chord":"C#sus2","duration":1.85},{"time":10,"chord":"G#","duration":6.67},{"time":16.67,"chord":"C#","duration":3.33},{"time":20,"chord":"D#","duration":3.33},{"time":23.33,"chord":"G#","duration":1.76},{"time":25.09,"chord":"D#","duration":1.67},{"time":26.76,"chord":"Fm","duration":3.24},{"time":30,"chord":"C#","duration":3.33},{"time":33.33,"chord":"D#","duration":3.24},{"time":36.57,"chord":"G#","duration":1.76},{"time":38.33,"chord":"D#","duration":1.67},{"time":40,"chord":"Fm","duration":3.15},{"time":43.15,"chord":"A#m","duration":3.33},{"time":46.48,"chord":"D#","duration":3.06},{"time":49.54,"chord":"G#","duration":6.94},{"time":56.48,"chord":"C#maj7","duration":1.57},{"time":58.06,"chord":"D#","duration":1.94},{"time":60,"chord":"Cm","duration":1.48},{"time":61.48,"chord":"F","duration":1.57},{"time":63.06,"chord":"A#m","duration":1.67},{"time":64.72,"chord":"D#","duration":1.76},{"time":66.48,"chord":"G#","duration":3.24},{"time":69.72,"chord":"C#","duration":1.57},{"time":71.3,"chord":"D#","duration":1.76},{"time":73.06,"chord":"C7","duration":1.57},{"time":74.63,"chord":"Fm","duration":1.67},{"time":76.3,"chord":"A#m7","duration":1.76},{"time":78.06,"chord":"D#7","duration":1.48},{"time":79.54,"chord":"G#","duration":6.39},{"time":85.93,"chord":"C#","duration":3.52},{"time":89.44,"chord":"D#","duration":3.43},{"time":92.87,"chord":"G#","duration":1.76},{"time":94.63,"chord":"D#","duration":1.48},{"time":96.11,"chord":"Fm","duration":3.33},{"time":99.44,"chord":"C#","duration":3.24},{"time":102.69,"chord":"D#","duration":3.43},{"time":106.11,"chord":"G#","duration":1.57},{"time":107.69,"chord":"D#","duration":1.67},{"time":109.35,"chord":"Fm","duration":3.24},{"time":112.59,"chord":"A#m7","duration":3.43},{"time":116.02,"chord":"D#","duration":3.15},{"time":119.17,"chord":"G#","duration":6.76},{"time":125.93,"chord":"C#","duration":1.57},{"time":127.5,"chord":"D#","duration":1.76},{"time":129.26,"chord":"Cm","duration":1.67},{"time":130.93,"chord":"F","duration":1.57},{"time":132.5,"chord":"A#m","duration":1.76},{"time":134.26,"chord":"D#","duration":1.67},{"time":135.93,"chord":"G#","duration":3.24},{"time":139.17,"chord":"C#","duration":1.57},{"time":140.74,"chord":"D#","duration":1.67},{"time":142.41,"chord":"C","duration":1.67},{"time":144.07,"chord":"Fm","duration":1.76},{"time":145.83,"chord":"A#m","duration":1.57},{"time":147.41,"chord":"D#","duration":1.76},{"time":149.17,"chord":"G#","duration":1.57},{"time":150.74,"chord":"Fm","duration":1.76},{"time":152.5,"chord":"A#m","duration":1.57},{"time":154.07,"chord":"D#7","duration":1.67},{"time":155.74,"chord":"G#","duration":1.57},{"time":157.31,"chord":"Fm","duration":1.76},{"time":159.07,"chord":"A#m","duration":1.67},{"time":160.74,"chord":"D#","duration":1.48},{"time":162.22,"chord":"C#","duration":1.76},{"time":163.98,"chord":"D#","duration":1.76},{"time":165.74,"chord":"Cm","duration":1.57},{"time":167.31,"chord":"F","duration":1.67},{"time":168.98,"chord":"A#m","duration":1.76},{"time":170.74,"chord":"D#","duration":1.57},{"time":172.31,"chord":"G#","duration":3.24},{"time":175.56,"chord":"C#","duration":1.67},{"time":177.22,"chord":"D#","duration":1.67},{"time":178.89,"chord":"C","duration":1.57},{"time":180.46,"chord":"Fm","duration":1.76},{"time":182.22,"chord":"A#m","duration":1.67},{"time":183.89,"chord":"D#","duration":1.67},{"time":185.56,"chord":"G#","duration":3.24},{"time":188.8,"chord":"C#","duration":1.67},{"time":190.46,"chord":"D#","duration":1.67},{"time":192.13,"chord":"Cm","duration":1.76},{"time":193.89,"chord":"F","duration":1.57},{"time":195.46,"chord":"A#m7","duration":1.57},{"time":197.04,"chord":"D#","duration":1.76},{"time":198.8,"chord":"G#","duration":3.24},{"time":202.04,"chord":"C#","duration":1.67},{"time":203.7,"chord":"D#","duration":1.76},{"time":205.46,"chord":"C","duration":1.57},{"time":207.04,"chord":"Fm","duration":1.67},{"time":208.7,"chord":"A#m","duration":1.76},{"time":210.46,"chord":"D#","duration":1.57},{"time":212.04,"chord":"G#","duration":1.57},{"time":213.61,"chord":"Fm","duration":1.67},{"time":215.28,"chord":"A#m7","duration":1.76},{"time":217.04,"chord":"D#","duration":1.57},{"time":218.61,"chord":"G#","duration":1.39},{"time":220,"chord":"Fm","duration":1.76},{"time":221.76,"chord":"A#m7","duration":1.76},{"time":223.52,"chord":"D#","duration":1.76},{"time":225.28,"chord":"G#","duration":13.4}];
     window.YOUTUBE_VIDEO_ID = '2IFL7NjX0L0';
+    window.BEGINNER_META = { capo: 1, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

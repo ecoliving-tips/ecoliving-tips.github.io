@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Edvan - Ты ли? (Official Mood Video) by Edvan. AI-detected chord progression with 37 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Edvan - Ты ли? (Official Mood Video) by Edvan. AI-detected chord progression with 37 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Edvan - Ты ли? (Official Mood Video) chords, Edvan chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Edvan - Ты ли? (Official Mood Video) Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Edvan - Ты ли? (Official Mood Video) by Edvan. AI-detected chord progression with 37 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Edvan - Ты ли? (Official Mood Video) by Edvan. AI-detected chord progression with 37 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/edvan-official-mood-video/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Edvan - Ты ли? (Official Mood Video) Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Edvan - Ты ли? (Official Mood Video) by Edvan. AI-detected chord progression with 37 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Edvan - Ты ли? (Official Mood Video) by Edvan. AI-detected chord progression with 37 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Edvan - Ты ли? (Official Mood Video) Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Edvan"
   },
   "url": "https://ecoliving-tips.github.io/chords/edvan-official-mood-video/",
-  "description": "Free chords for Edvan - Ты ли? (Official Mood Video) by Edvan. AI-detected chord progression with 37 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Edvan - Ты ли? (Official Mood Video) by Edvan. AI-detected chord progression with 37 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 37 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -290,8 +301,10 @@
     <script>
     window.CHORD_DATA = [{"time":0.93,"chord":"Dm","duration":5.28},{"time":6.2,"chord":"Gm","duration":5.09},{"time":11.3,"chord":"Dm","duration":5.19},{"time":16.48,"chord":"Gm","duration":5.19},{"time":21.67,"chord":"Dm","duration":5.19},{"time":26.85,"chord":"Gm","duration":5.09},{"time":31.94,"chord":"Dm","duration":5.19},{"time":37.13,"chord":"Gm","duration":5.09},{"time":42.22,"chord":"Dm","duration":5.19},{"time":47.41,"chord":"Gm","duration":4.26},{"time":51.67,"chord":"A","duration":0.93},{"time":52.59,"chord":"Dm","duration":5.09},{"time":57.69,"chord":"Gm","duration":4.26},{"time":61.94,"chord":"Dm","duration":6.11},{"time":68.06,"chord":"Gm","duration":5.09},{"time":73.15,"chord":"Dm","duration":5.19},{"time":78.33,"chord":"Gm","duration":4.44},{"time":82.78,"chord":"Am","duration":0.93},{"time":83.7,"chord":"Dm","duration":5.09},{"time":88.8,"chord":"Gm","duration":4.26},{"time":93.06,"chord":"Am","duration":0.83},{"time":93.89,"chord":"Dm","duration":5.19},{"time":99.07,"chord":"Gm","duration":3.15},{"time":102.22,"chord":"D#","duration":1.02},{"time":103.24,"chord":"Dm","duration":6.2},{"time":109.44,"chord":"Gm","duration":5.09},{"time":114.54,"chord":"Dm","duration":5.19},{"time":119.72,"chord":"Gm","duration":5},{"time":124.72,"chord":"Dm","duration":5.28},{"time":130,"chord":"Gm","duration":4.54},{"time":134.54,"chord":"Dm","duration":5.83},{"time":140.37,"chord":"Gm","duration":4.26},{"time":144.63,"chord":"Dm","duration":6.02},{"time":150.65,"chord":"Gm","duration":4.81},{"time":155.46,"chord":"Dm","duration":5.56},{"time":161.02,"chord":"Gm","duration":4.26},{"time":165.28,"chord":"Dm","duration":4.17}];
     window.YOUTUBE_VIDEO_ID = 'NRpsUBPulbY';
+    window.BEGINNER_META = { capo: 5, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

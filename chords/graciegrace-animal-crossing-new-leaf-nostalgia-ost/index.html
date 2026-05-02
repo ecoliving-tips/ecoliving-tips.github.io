@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for GracieGrace - Animal Crossing: New Leaf by Nostalgia OST. AI-detected chord progression with 29 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for GracieGrace - Animal Crossing: New Leaf by Nostalgia OST. AI-detected chord progression with 29 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="GracieGrace - Animal Crossing: New Leaf chords, Nostalgia OST chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="GracieGrace - Animal Crossing: New Leaf Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for GracieGrace - Animal Crossing: New Leaf by Nostalgia OST. AI-detected chord progression with 29 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for GracieGrace - Animal Crossing: New Leaf by Nostalgia OST. AI-detected chord progression with 29 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/graciegrace-animal-crossing-new-leaf-nostalgia-ost/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="GracieGrace - Animal Crossing: New Leaf Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for GracieGrace - Animal Crossing: New Leaf by Nostalgia OST. AI-detected chord progression with 29 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for GracieGrace - Animal Crossing: New Leaf by Nostalgia OST. AI-detected chord progression with 29 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>GracieGrace - Animal Crossing: New Leaf Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Nostalgia OST"
   },
   "url": "https://ecoliving-tips.github.io/chords/graciegrace-animal-crossing-new-leaf-nostalgia-ost/",
-  "description": "Free chords for GracieGrace - Animal Crossing: New Leaf by Nostalgia OST. AI-detected chord progression with 29 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for GracieGrace - Animal Crossing: New Leaf by Nostalgia OST. AI-detected chord progression with 29 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 29 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -294,8 +305,10 @@
     <script>
     window.CHORD_DATA = [{"time":8.7,"chord":"Em7","duration":2.87},{"time":11.57,"chord":"D","duration":3.8},{"time":15.37,"chord":"Em7","duration":2.04},{"time":17.41,"chord":"G","duration":1.94},{"time":19.35,"chord":"D","duration":1.85},{"time":21.2,"chord":"D7","duration":2.04},{"time":23.24,"chord":"Em7","duration":1.76},{"time":25,"chord":"G","duration":2.13},{"time":27.13,"chord":"F#m7","duration":1.94},{"time":29.07,"chord":"F7","duration":1.85},{"time":30.93,"chord":"Em7","duration":3.8},{"time":34.72,"chord":"Am7","duration":2.96},{"time":37.69,"chord":"A7","duration":0.93},{"time":38.61,"chord":"Em7","duration":3.89},{"time":42.5,"chord":"D","duration":3.89},{"time":46.39,"chord":"Em7","duration":1.94},{"time":48.33,"chord":"G","duration":1.94},{"time":50.28,"chord":"D","duration":2.04},{"time":52.31,"chord":"D7","duration":1.85},{"time":54.17,"chord":"Em7","duration":1.76},{"time":55.93,"chord":"G","duration":2.13},{"time":58.06,"chord":"F#m","duration":1.94},{"time":60,"chord":"F7","duration":1.85},{"time":61.85,"chord":"Em7","duration":2.87},{"time":64.72,"chord":"Am7","duration":3.89},{"time":68.61,"chord":"A7","duration":1.02},{"time":69.63,"chord":"Em7","duration":3.8},{"time":73.43,"chord":"D","duration":3.89},{"time":77.31,"chord":"Em7","duration":2.31}];
     window.YOUTUBE_VIDEO_ID = '8kkGeX84Fzo';
+    window.BEGINNER_META = { capo: 0, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for Fly Me To The Moon by Juliana Chahayed. AI-detected chord progression with 36 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for Fly Me To The Moon by Juliana Chahayed. AI-detected chord progression with 36 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="Fly Me To The Moon chords, Juliana Chahayed chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="Fly Me To The Moon Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for Fly Me To The Moon by Juliana Chahayed. AI-detected chord progression with 36 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for Fly Me To The Moon by Juliana Chahayed. AI-detected chord progression with 36 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/fly-me-to-the-moon-juliana-chahayed/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="Fly Me To The Moon Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for Fly Me To The Moon by Juliana Chahayed. AI-detected chord progression with 36 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for Fly Me To The Moon by Juliana Chahayed. AI-detected chord progression with 36 chords. Moderate difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Fly Me To The Moon Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Juliana Chahayed"
   },
   "url": "https://ecoliving-tips.github.io/chords/fly-me-to-the-moon-juliana-chahayed/",
-  "description": "Free chords for Fly Me To The Moon by Juliana Chahayed. AI-detected chord progression with 36 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for Fly Me To The Moon by Juliana Chahayed. AI-detected chord progression with 36 chords. Moderate difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Intermediate"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 36 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -296,8 +307,10 @@
     <script>
     window.CHORD_DATA = [{"time":0,"chord":"F#m","duration":0.74},{"time":0.74,"chord":"A","duration":1.39},{"time":2.13,"chord":"Bm","duration":2.5},{"time":4.63,"chord":"E","duration":2.31},{"time":6.94,"chord":"A","duration":2.41},{"time":9.35,"chord":"Bm","duration":0.65},{"time":10,"chord":"D","duration":1.57},{"time":11.57,"chord":"Bm","duration":2.5},{"time":14.07,"chord":"C#7","duration":2.04},{"time":16.11,"chord":"F#m","duration":1.67},{"time":17.78,"chord":"F#7","duration":0.65},{"time":18.43,"chord":"Bm","duration":2.22},{"time":20.65,"chord":"E7","duration":2.41},{"time":23.06,"chord":"A","duration":2.04},{"time":25.09,"chord":"F#m","duration":2.41},{"time":27.5,"chord":"Bm","duration":2.04},{"time":29.54,"chord":"E7","duration":2.59},{"time":32.13,"chord":"A","duration":2.13},{"time":34.26,"chord":"C#","duration":2.22},{"time":36.48,"chord":"F#m","duration":1.94},{"time":38.43,"chord":"Bm","duration":2.69},{"time":41.11,"chord":"E7","duration":2.22},{"time":43.33,"chord":"A","duration":0.74},{"time":44.07,"chord":"Amaj7","duration":1.67},{"time":45.74,"chord":"D","duration":1.85},{"time":47.59,"chord":"Bm","duration":2.69},{"time":50.28,"chord":"F#m","duration":0.56},{"time":50.83,"chord":"C#7","duration":1.76},{"time":52.59,"chord":"F#m","duration":2.22},{"time":54.81,"chord":"B","duration":2.13},{"time":56.94,"chord":"E7","duration":2.41},{"time":59.35,"chord":"A","duration":1.85},{"time":61.2,"chord":"F#m","duration":2.5},{"time":63.7,"chord":"Bm","duration":2.59},{"time":66.3,"chord":"E","duration":2.13},{"time":68.43,"chord":"A","duration":5.19}];
     window.YOUTUBE_VIDEO_ID = 'BtddVjQfdRw';
+    window.BEGINNER_META = { capo: 2, difficulty: 'moderate' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>

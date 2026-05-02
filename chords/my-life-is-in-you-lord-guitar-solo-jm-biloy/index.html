@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="meta-description" content="Free chords for MY LIFE IS IN YOU LORD GUITAR SOLO by Jm Biloy. AI-detected chord progression with 65 chords. Guitar and keyboard chord chart with video.">
+    <meta name="description" id="meta-description" content="Free chords for MY LIFE IS IN YOU LORD GUITAR SOLO by Jm Biloy. AI-detected chord progression with 65 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="keywords" content="MY LIFE IS IN YOU LORD GUITAR SOLO chords, Jm Biloy chords, guitar chords, keyboard chords, chord progression, AI chord detection">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -12,7 +12,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" id="og-title" content="MY LIFE IS IN YOU LORD GUITAR SOLO Chords | Swaram">
-    <meta property="og:description" id="og-description" content="Free chords for MY LIFE IS IN YOU LORD GUITAR SOLO by Jm Biloy. AI-detected chord progression with 65 chords. Guitar and keyboard chord chart with video.">
+    <meta property="og:description" id="og-description" content="Free chords for MY LIFE IS IN YOU LORD GUITAR SOLO by Jm Biloy. AI-detected chord progression with 65 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta property="og:url" id="og-url" content="https://ecoliving-tips.github.io/chords/my-life-is-in-you-lord-guitar-solo-jm-biloy/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
@@ -25,7 +25,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" id="twitter-title" content="MY LIFE IS IN YOU LORD GUITAR SOLO Chords | Swaram">
-    <meta name="twitter:description" id="twitter-description" content="Free chords for MY LIFE IS IN YOU LORD GUITAR SOLO by Jm Biloy. AI-detected chord progression with 65 chords. Guitar and keyboard chord chart with video.">
+    <meta name="twitter:description" id="twitter-description" content="Free chords for MY LIFE IS IN YOU LORD GUITAR SOLO by Jm Biloy. AI-detected chord progression with 65 chords. Easy difficulty. Guitar and keyboard chord chart with video.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>MY LIFE IS IN YOU LORD GUITAR SOLO Chords | Swaram</title>
@@ -72,7 +72,8 @@
     "name": "Jm Biloy"
   },
   "url": "https://ecoliving-tips.github.io/chords/my-life-is-in-you-lord-guitar-solo-jm-biloy/",
-  "description": "Free chords for MY LIFE IS IN YOU LORD GUITAR SOLO by Jm Biloy. AI-detected chord progression with 65 chords. Guitar and keyboard chord chart with video."
+  "description": "Free chords for MY LIFE IS IN YOU LORD GUITAR SOLO by Jm Biloy. AI-detected chord progression with 65 chords. Easy difficulty. Guitar and keyboard chord chart with video.",
+  "educationalLevel": "Beginner"
 }
     </script>
 
@@ -173,6 +174,10 @@
                         <span class="meta-pill"><span class="meta-label">Chords</span> 65 detected</span>
                         <span class="meta-pill meta-pill-ai"><span class="meta-label">AI</span> Auto-detected</span>
                     </div>
+                    <div class="simplify-toggle">
+                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                    </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button id="transpose-down" class="ctrl-btn" aria-label="Transpose down">-</button>
@@ -181,6 +186,12 @@
                             <button id="transpose-reset" class="ctrl-btn ctrl-btn-text" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Beginner info (capo + difficulty) -->
+                <div class="beginner-info" id="beginner-info" style="display:none;">
+                    <span class="meta-badge beginner-capo" id="capo-display"></span>
+                    <span class="meta-badge beginner-difficulty" id="difficulty-display"></span>
                 </div>
 
                 <!-- Unique Chords Used -->
@@ -295,8 +306,10 @@
     <script>
     window.CHORD_DATA = [{"time":10.37,"chord":"G","duration":2.87},{"time":13.24,"chord":"Gmaj7","duration":0.65},{"time":13.89,"chord":"Em7","duration":3.24},{"time":17.13,"chord":"Csus2","duration":2.87},{"time":20,"chord":"G","duration":2.22},{"time":22.22,"chord":"D","duration":1.48},{"time":23.7,"chord":"G","duration":3.15},{"time":26.85,"chord":"Em7","duration":3.15},{"time":30,"chord":"C","duration":2.87},{"time":32.87,"chord":"G","duration":2.22},{"time":35.09,"chord":"D","duration":1.57},{"time":36.67,"chord":"G","duration":2.87},{"time":39.54,"chord":"D","duration":0.46},{"time":40,"chord":"Em","duration":2.78},{"time":43.06,"chord":"C","duration":3.06},{"time":46.11,"chord":"G","duration":1.85},{"time":47.96,"chord":"D","duration":1.67},{"time":49.63,"chord":"C","duration":1.39},{"time":51.02,"chord":"D","duration":1.85},{"time":52.87,"chord":"G","duration":3.15},{"time":56.02,"chord":"C","duration":1.67},{"time":57.69,"chord":"D","duration":1.48},{"time":59.17,"chord":"G","duration":3.43},{"time":62.59,"chord":"D","duration":1.57},{"time":64.17,"chord":"G","duration":1.67},{"time":65.83,"chord":"E","duration":1.57},{"time":67.41,"chord":"Am","duration":1.67},{"time":69.07,"chord":"F","duration":1.57},{"time":70.65,"chord":"Am","duration":1.67},{"time":72.31,"chord":"D","duration":3.15},{"time":75.46,"chord":"G","duration":3.24},{"time":78.7,"chord":"Em","duration":3.33},{"time":82.04,"chord":"C","duration":3.15},{"time":85.19,"chord":"G","duration":1.67},{"time":86.85,"chord":"D","duration":1.76},{"time":88.61,"chord":"G","duration":3.15},{"time":91.76,"chord":"Em","duration":3.24},{"time":95,"chord":"C","duration":0.83},{"time":95.83,"chord":"D","duration":2.31},{"time":98.15,"chord":"G","duration":1.85},{"time":100,"chord":"D","duration":1.57},{"time":101.57,"chord":"C","duration":1.48},{"time":103.06,"chord":"D","duration":1.67},{"time":104.72,"chord":"G","duration":3.24},{"time":107.96,"chord":"C","duration":1.57},{"time":109.54,"chord":"D","duration":1.39},{"time":110.93,"chord":"G","duration":3.52},{"time":114.44,"chord":"D","duration":1.76},{"time":116.2,"chord":"G","duration":1.57},{"time":117.78,"chord":"E","duration":1.48},{"time":119.26,"chord":"Am","duration":1.76},{"time":121.02,"chord":"F","duration":1.48},{"time":122.5,"chord":"Am","duration":1.67},{"time":124.17,"chord":"D","duration":3.24},{"time":127.41,"chord":"G","duration":3.33},{"time":130.74,"chord":"Em7","duration":3.15},{"time":133.89,"chord":"C","duration":3.15},{"time":137.04,"chord":"G","duration":1.67},{"time":138.7,"chord":"D","duration":1.76},{"time":140.46,"chord":"G","duration":3.15},{"time":143.61,"chord":"Em","duration":3.33},{"time":146.94,"chord":"C","duration":3.06},{"time":150,"chord":"G","duration":2.04},{"time":152.04,"chord":"D","duration":1.02},{"time":153.06,"chord":"G","duration":3.98}];
     window.YOUTUBE_VIDEO_ID = '1Nh-RL0pqtQ';
+    window.BEGINNER_META = { capo: 0, difficulty: 'easy' };
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/chord-utils.js"></script>
     <script src="/js/chord-page-player.js"></script>
     <script src="/js/chord-diagrams.js" defer></script>
     <script src="/js/i18n.js" defer></script>
