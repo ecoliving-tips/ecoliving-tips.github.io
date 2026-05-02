@@ -1511,7 +1511,7 @@ function generateChordsPage(entry, templates) {
         TWITTER_DESCRIPTION: escapeHtml(pageDesc),
         EXTRA_HEAD: '',
     });
-    page = fillPartials(page, partials, partials.donateSimple);
+    page = fillPartials(page, partials);
     page = page
         .replace(/\{\{SONG_TITLE\}\}/g, escapeHtml(title))
         .replace(/\{\{ARTIST\}\}/g, escapeHtml(artist))
