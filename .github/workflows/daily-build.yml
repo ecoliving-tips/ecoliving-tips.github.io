@@ -33,13 +33,9 @@ jobs:
           GOOGLE_INDEXING_KEY: ${{ secrets.GOOGLE_INDEXING_KEY }}
         run: echo "$GOOGLE_INDEXING_KEY" > google-indexing-key.json
 
-      - name: Submit new URLs to Google Indexing API
-        if: hashFiles('google-indexing-key.json') != ''
-        run: node submit-google-indexing.js
-
       - name: Check Google index status
         if: hashFiles('google-indexing-key.json') != ''
-        run: node check-google-index.js --new
+        run: node check-google-index.js
 
       - name: Cleanup service account key
         if: always()
@@ -54,16 +50,40 @@ jobs:
           echo "- **AI Chord Pages:** ${CHORD_COUNT}" >> $GITHUB_STEP_SUMMARY
           echo "- **Sitemap Chord URLs:** ${SITEMAP_URLS}" >> $GITHUB_STEP_SUMMARY
           echo "- **Build time:** $(date -u '+%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
-          if [ -f index-status.json ]; then
-            INDEXED=$(node -e "const r=require('./index-status.json');console.log(Object.values(r).filter(v=>v.verdict==='PASS').length)")
-            TOTAL_CHECKED=$(node -e "const r=require('./index-status.json');console.log(Object.keys(r).length)")
-            echo "- **Google indexed:** ${INDEXED} / ${TOTAL_CHECKED} checked" >> $GITHUB_STEP_SUMMARY
-          fi
           if git diff --quiet; then
             echo "- **Status:** No new changes" >> $GITHUB_STEP_SUMMARY
           else
             NEW_PAGES=$(git diff --name-only | grep "^chords/" | grep -c "index.html" || echo 0)
             echo "- **New chord pages:** ${NEW_PAGES}" >> $GITHUB_STEP_SUMMARY
+          fi
+          if [ -f index-status.json ]; then
+            node -e "
+              const r = require('./index-status.json');
+              const entries = Object.entries(r);
+              const indexed = entries.filter(([,v]) => v.verdict === 'PASS').length;
+              const notIndexed = entries.filter(([,v]) => v.verdict !== 'PASS');
+              console.log('');
+              console.log('### Google Index Status');
+              console.log('');
+              console.log('- **Indexed:** ' + indexed + ' / ' + entries.length + ' checked');
+              console.log('- **Not indexed:** ' + notIndexed.length);
+              if (notIndexed.length > 0) {
+                console.log('');
+                console.log('### Submit These URLs in GSC Today');
+                console.log('');
+                console.log('Open [Google Search Console](https://search.google.com/search-console), go to URL Inspection, paste each URL and click **Request Indexing** (quota: ~10-12/day):');
+                console.log('');
+                const batch = notIndexed.slice(0, 12);
+                batch.forEach(([url, info], i) => {
+                  console.log((i+1) + '. \`' + url + '\`');
+                  console.log('   Status: ' + (info.coverageState || 'N/A') + ' | Last crawl: ' + (info.lastCrawlTime || 'never'));
+                });
+                if (notIndexed.length > 12) {
+                  console.log('');
+                  console.log('*...and ' + (notIndexed.length - 12) + ' more. These will appear in future daily summaries.*');
+                }
+              }
+            " >> $GITHUB_STEP_SUMMARY
           fi
 
       - name: Commit and push if changed
