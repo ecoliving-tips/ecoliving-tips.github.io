@@ -15,6 +15,7 @@
 const fs = require('fs');
 const path = require('path');
 const https = require('https');
+const { execSync } = require('child_process');
 
 const BASE_URL = 'https://ecoliving-tips.github.io';
 const ROOT = __dirname;
@@ -832,10 +833,17 @@ function buildUrlset(entries) {
 }
 
 function generateSitemap(songs, categories, artists, progressionKeys, aiChordPages) {
+    const gitDateCache = {};
     function getLastmod(filePath) {
+        if (gitDateCache[filePath]) return gitDateCache[filePath];
         try {
-            const stat = fs.statSync(path.join(ROOT, filePath));
-            return stat.mtime.toISOString().split('T')[0];
+            const result = execSync(
+                `git log -1 --format=%aI -- "${filePath}"`,
+                { cwd: ROOT, encoding: 'utf-8', stdio: ['pipe', 'pipe', 'pipe'] }
+            ).trim();
+            const date = result ? result.split('T')[0] : today;
+            gitDateCache[filePath] = date;
+            return date;
         } catch {
             return today;
         }
@@ -874,25 +882,39 @@ function generateSitemap(songs, categories, artists, progressionKeys, aiChordPag
     }));
 
     // --- Segment: category pages ---
-    const categoryEntries = categories.map(cat => ({
-        loc: `${BASE_URL}/category/${slugify(cat)}/`,
-        lastmod: today,
-        changefreq: 'weekly',
-        priority: '0.7',
-    }));
+    const categoryEntries = categories.map(cat => {
+        const catSongs = songs.filter(s => s.category === cat);
+        const latestSongDate = catSongs.reduce((max, s) => {
+            const d = getLastmod(`songs/${s.file || s.id + '.md'}`);
+            return d > max ? d : max;
+        }, '2026-01-01');
+        return {
+            loc: `${BASE_URL}/category/${slugify(cat)}/`,
+            lastmod: latestSongDate,
+            changefreq: 'weekly',
+            priority: '0.7',
+        };
+    });
 
     // --- Segment: artist pages ---
-    const artistEntries = artists.map(artist => ({
-        loc: `${BASE_URL}/artist/${slugify(artist)}/`,
-        lastmod: today,
-        changefreq: 'weekly',
-        priority: '0.6',
-    }));
+    const artistEntries = artists.map(artist => {
+        const artistSongs = songs.filter(s => s.artist === artist);
+        const latestSongDate = artistSongs.reduce((max, s) => {
+            const d = getLastmod(`songs/${s.file || s.id + '.md'}`);
+            return d > max ? d : max;
+        }, '2026-01-01');
+        return {
+            loc: `${BASE_URL}/artist/${slugify(artist)}/`,
+            lastmod: latestSongDate,
+            changefreq: 'weekly',
+            priority: '0.6',
+        };
+    });
 
     // --- Segment: chord progression pages ---
     const progressionEntries = (progressionKeys || []).map(keyInfo => ({
         loc: `${BASE_URL}/chord-progressions/${progKeySlug(keyInfo.root, keyInfo.mode)}/`,
-        lastmod: today,
+        lastmod: getLastmod('chord-progressions.html'),
         changefreq: 'monthly',
         priority: '0.75',
     }));
@@ -1026,6 +1048,24 @@ function pingWebSub() {
         });
         req.write(body);
         req.end();
+    });
+}
+
+function pingSitemap() {
+    const sitemapUrl = encodeURIComponent(BASE_URL + '/sitemap.xml');
+    return new Promise((resolve) => {
+        https.get(`https://www.bing.com/ping?sitemap=${sitemapUrl}`, (res) => {
+            if (res.statusCode === 200) {
+                console.log('Sitemap ping sent to Bing (HTTP 200).');
+            } else {
+                console.log(`Sitemap ping to Bing returned HTTP ${res.statusCode} (use IndexNow instead).`);
+            }
+            res.resume();
+            resolve();
+        }).on('error', (err) => {
+            console.log(`Sitemap ping to Bing failed: ${err.message} (non-fatal).`);
+            resolve();
+        });
     });
 }
 
@@ -1478,6 +1518,7 @@ async function main() {
     generateRSSFeed(songs, aiChordPages);
     console.log(`RSS feed generated (feed.xml).`);
     await pingWebSub();
+    await pingSitemap();
 
     // Pre-render songs.html
     generateSongsPage(songs, allCategories, allArtists);
