@@ -12,7 +12,10 @@
     var videoId = window.YOUTUBE_VIDEO_ID || '';
     var beginnerMeta = window.BEGINNER_META || { capo: 0, difficulty: 'easy' };
 
-    var ytPlayer = null;
+    var ytIframe = null;        // pre-rendered <iframe> element
+    var ytCurrentTime = 0;      // last known position from infoDelivery
+    var ytPlayStart = null;     // wall-clock ms when play began (for interpolation)
+    var ytPlayBase = 0;         // ytCurrentTime value when play began
     var syncInterval = null;
     var currentTranspose = 0;
     var lastActiveIdx = -1;
@@ -143,9 +146,18 @@
     }
 
     function seekTo(time) {
-        if (ytPlayer && typeof ytPlayer.seekTo === 'function') {
-            ytPlayer.seekTo(time, true);
-        }
+        if (!ytIframe) return;
+        ytIframe.contentWindow.postMessage(
+            JSON.stringify({ event: 'command', func: 'seekTo', args: [time, true] }),
+            'https://www.youtube.com'
+        );
+    }
+
+    // ── Time interpolation ──
+
+    function getCurrentTime() {
+        if (ytPlayStart === null) return ytCurrentTime;
+        return ytPlayBase + (Date.now() - ytPlayStart) / 1000;
     }
 
     // ── Sync ──
@@ -161,8 +173,7 @@
     }
 
     function updateChordSync() {
-        if (!ytPlayer || typeof ytPlayer.getCurrentTime !== 'function') return;
-        var time = ytPlayer.getCurrentTime();
+        var time = getCurrentTime();
         var activeIdx = findActiveChordIndex(time);
         if (activeIdx === lastActiveIdx) return;
         lastActiveIdx = activeIdx;
@@ -183,79 +194,48 @@
         }
     }
 
-    function startSync() { if (!syncInterval) syncInterval = setInterval(updateChordSync, 100); }
-    function stopSync() { clearInterval(syncInterval); syncInterval = null; }
-
-    // ── YouTube IFrame API ──
-
-    function onStateChange(event) {
-        if (event.data === 1) startSync();
-        else if (event.data === 0 || event.data === 2) stopSync();
+    function startSync() {
+        ytPlayStart = Date.now();
+        ytPlayBase = ytCurrentTime;
+        if (!syncInterval) syncInterval = setInterval(updateChordSync, 100);
     }
 
-    function createYTPlayer() {
-        if (ytPlayer) return;
-        ytPlayer = new YT.Player('youtube-player', {
-            events: {
-                onReady: function () {},
-                onStateChange: onStateChange
-            }
-        });
+    function stopSync() {
+        ytCurrentTime = getCurrentTime();
+        ytPlayStart = null;
+        clearInterval(syncInterval);
+        syncInterval = null;
     }
+
+    // ── YouTube postMessage listener ──
 
     function initPlayer() {
         if (!videoId) return;
+        ytIframe = document.getElementById('youtube-player');
+        if (!ytIframe) return;
 
-        var iframe = document.getElementById('youtube-player');
-        if (!iframe) return;
+        window.addEventListener('message', function (e) {
+            if (e.source !== ytIframe.contentWindow) return;
+            var data;
+            try { data = JSON.parse(e.data); } catch (_) { return; }
 
-        function attachAPI() {
-            if (!document.getElementById('yt-iframe-api')) {
-                var tag = document.createElement('script');
-                tag.id = 'yt-iframe-api';
-                tag.src = 'https://www.youtube.com/iframe_api';
-                document.head.appendChild(tag);
-            }
-
-            // Chain with any existing onYouTubeIframeAPIReady (e.g. GA's YouTube tracking)
-            // to avoid overwriting GA's callback and causing duplicate-player conflicts
-            var prev = window.onYouTubeIframeAPIReady;
-            window.onYouTubeIframeAPIReady = function () {
-                if (typeof prev === 'function') prev();
-                createYTPlayer();
-            };
-
-            // If GA already loaded the API before we set our callback, create player now
-            if (window.YT && window.YT.Player && !ytPlayer) {
-                createYTPlayer();
-                return;
-            }
-
-            var check = setInterval(function () {
-                if (window.YT && window.YT.Player) {
-                    clearInterval(check);
-                    if (!ytPlayer) createYTPlayer();
+            if (data.event === 'infoDelivery' && data.info) {
+                if (typeof data.info.currentTime === 'number') {
+                    ytCurrentTime = data.info.currentTime;
+                    // Re-anchor interpolation to the fresh timestamp
+                    if (ytPlayStart !== null) {
+                        ytPlayStart = Date.now();
+                        ytPlayBase = ytCurrentTime;
+                    }
                 }
-            }, 200);
-            setTimeout(function () { clearInterval(check); }, 10000);
-        }
+            }
 
-        // Wait for the iframe to finish loading youtube.com content before attaching
-        // the API. Until 'load' fires, iframe.contentWindow.origin is still our domain,
-        // which causes the YT API's internal postMessage polls to fail with an origin
-        // mismatch error.
-        var attached = false;
-        iframe.addEventListener('load', function () {
-            if (attached) return;
-            attached = true;
-            attachAPI();
-        }, { once: true });
-
-        // Fallback: if the iframe was already cached and 'load' fired before our listener,
-        // proceed after a short delay (iframe.contentWindow.origin is youtube.com by then).
-        setTimeout(function () {
-            if (!attached) { attached = true; attachAPI(); }
-        }, 1500);
+            if (data.event === 'onStateChange') {
+                var state = data.info;
+                if (state === 1) startSync();
+                else if (state === 0 || state === 2) stopSync();
+            }
+        });
     }
 
     // ── Init ──
