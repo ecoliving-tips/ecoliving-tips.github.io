@@ -7,7 +7,7 @@
  *   - google-indexing-key.json with service account
  *   - Service account as Owner in Google Search Console
  *
- * Usage: node check-google-index.js              (check new + re-check not-indexed)
+ * Usage: node check-google-index.js              (smart schedule: new + stale by tier)
  *        node check-google-index.js --new         (only check never-checked URLs)
  *        node check-google-index.js --not-indexed (show only non-indexed)
  *        node check-google-index.js --summary     (counts only)
@@ -26,6 +26,17 @@ const KEY_PATH = path.join(__dirname, 'google-indexing-key.json');
 const SITEMAP_PATH = path.join(__dirname, 'sitemap.xml');
 const RESULTS_PATH = path.join(__dirname, 'index-status.json');
 const SITE_URL = 'https://ecoliving-tips.github.io/';
+const PRIORITY_PATH = path.join(__dirname, 'url-priority.json');
+
+// Re-check intervals (days) for not-indexed URLs by category
+const RECHECK_TIERS = [
+  { name: 'static-tools',     interval: 3,  match: url => /\/(chord-finder|chord-identifier|chord-progressions|songs|request|privacy-policy)\.html$/.test(url) || url === SITE_URL },
+  { name: 'progression-keys', interval: 3,  match: url => url.includes('/chord-progressions/key-of-') },
+  { name: 'category-artist',  interval: 5,  match: url => url.includes('/category/') || url.includes('/artist/') },
+  { name: 'songs-lyrics',     interval: 5,  match: url => url.includes('/songs/') || url.includes('/lyrics/') },
+];
+const CHORD_DEMAND_INTERVAL = 7;
+const CHORD_NO_DEMAND_INTERVAL = 14;
 
 // ── Helpers ──
 
@@ -67,6 +78,31 @@ function getUrlsFromSitemap() {
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// ── Smart Scheduling ──
+
+function loadUrlPriority() {
+  if (!fs.existsSync(PRIORITY_PATH)) return {};
+  try { return JSON.parse(fs.readFileSync(PRIORITY_PATH, 'utf-8')); } catch { return {}; }
+}
+
+function classifyUrl(url, urlPriority) {
+  for (const tier of RECHECK_TIERS) {
+    if (tier.match(url)) return { tierName: tier.name, intervalDays: tier.interval };
+  }
+  if (url.includes('/chords/')) {
+    const score = urlPriority[url]?.score || 0;
+    return score > 0
+      ? { tierName: 'chord-with-demand', intervalDays: CHORD_DEMAND_INTERVAL }
+      : { tierName: 'chord-no-demand', intervalDays: CHORD_NO_DEMAND_INTERVAL };
+  }
+  return { tierName: 'other', intervalDays: CHORD_NO_DEMAND_INTERVAL };
+}
+
+function isStale(checkedAt, intervalDays) {
+  if (!checkedAt) return true;
+  return (Date.now() - new Date(checkedAt).getTime()) >= intervalDays * 86400000;
 }
 
 // ── JWT Auth ──
@@ -232,20 +268,76 @@ async function main() {
     return;
   }
 
-  // Default: re-check not-indexed + check new URLs
-  // --new: only check URLs never checked before (skip all previously checked)
+  // Default: smart scheduling — new URLs always, not-indexed re-checked by tier
+  // --new: only check URLs never checked before
   // --force: re-check everything including indexed ones
   const force = process.argv.includes('--force');
   const newOnly = process.argv.includes('--new');
-  const toCheck = force
-    ? allUrls
-    : newOnly
-      ? allUrls.filter(u => !results[u])
-      : allUrls.filter(u => !results[u] || results[u].verdict !== 'PASS');
+
+  let toCheck;
+  let scheduleSummary = null;
+
+  if (force) {
+    toCheck = allUrls;
+  } else if (newOnly) {
+    toCheck = allUrls.filter(u => !results[u]);
+  } else {
+    const urlPriority = loadUrlPriority();
+    const buckets = { new: [], 'static-tools': [], 'progression-keys': [], 'category-artist': [], 'songs-lyrics': [], 'chord-with-demand': [], 'chord-no-demand': [], other: [] };
+    let skippedIndexed = 0, skippedFresh = 0;
+
+    for (const url of allUrls) {
+      const entry = results[url];
+      if (!entry) {
+        buckets.new.push(url);
+      } else if (entry.verdict === 'PASS') {
+        skippedIndexed++;
+      } else {
+        const { tierName, intervalDays } = classifyUrl(url, urlPriority);
+        if (isStale(entry.checkedAt, intervalDays)) {
+          buckets[tierName].push(url);
+        } else {
+          skippedFresh++;
+        }
+      }
+    }
+
+    toCheck = [
+      ...buckets.new,
+      ...buckets['static-tools'],
+      ...buckets['progression-keys'],
+      ...buckets['category-artist'],
+      ...buckets['songs-lyrics'],
+      ...buckets['chord-with-demand'],
+      ...buckets['chord-no-demand'],
+      ...buckets.other,
+    ];
+    scheduleSummary = { buckets, skippedIndexed, skippedFresh };
+  }
 
   console.log('Total URLs in sitemap: ' + allUrls.length);
   console.log('Already checked:       ' + Object.keys(results).length);
-  console.log('To check:              ' + toCheck.length + (newOnly ? ' (--new: unchecked only)' : ''));
+
+  if (scheduleSummary) {
+    const { buckets, skippedIndexed, skippedFresh } = scheduleSummary;
+    console.log('\n--- Smart Schedule Breakdown ---');
+    if (buckets.new.length)                  console.log('  New (never checked):      ' + buckets.new.length);
+    if (buckets['static-tools'].length)      console.log('  Stale static-tools:       ' + buckets['static-tools'].length + '  (every 3d)');
+    if (buckets['progression-keys'].length)  console.log('  Stale progression-keys:   ' + buckets['progression-keys'].length + '  (every 3d)');
+    if (buckets['category-artist'].length)   console.log('  Stale category-artist:    ' + buckets['category-artist'].length + '  (every 5d)');
+    if (buckets['songs-lyrics'].length)      console.log('  Stale songs-lyrics:       ' + buckets['songs-lyrics'].length + '  (every 5d)');
+    if (buckets['chord-with-demand'].length) console.log('  Stale chord-with-demand:  ' + buckets['chord-with-demand'].length + '  (every 7d)');
+    if (buckets['chord-no-demand'].length)   console.log('  Stale chord-no-demand:    ' + buckets['chord-no-demand'].length + '  (every 14d)');
+    if (buckets.other.length)                console.log('  Stale other:              ' + buckets.other.length + '  (every 14d)');
+    console.log('  ─────────────────────────');
+    console.log('  To check this run:        ' + toCheck.length);
+    console.log('  Skipped (already indexed): ' + skippedIndexed);
+    console.log('  Skipped (checked recently): ' + skippedFresh);
+    console.log('  Est. runtime:             ~' + Math.max(1, Math.ceil(toCheck.length * 1.2 / 60)) + ' min');
+  } else {
+    console.log('To check:              ' + toCheck.length + (newOnly ? ' (--new: unchecked only)' : force ? ' (--force: all)' : ''));
+  }
+
   console.log('(Quota: ~2000/day for URL Inspection API)\n');
 
   if (toCheck.length === 0) {
@@ -304,6 +396,16 @@ async function main() {
   console.log('Not indexed: ' + notIndexed);
   console.log('Errors:      ' + errors);
   console.log('Total done:  ' + Object.keys(results).length + '/' + allUrls.length);
+
+  if (scheduleSummary) {
+    const totalIndexed = Object.values(results).filter(v => v.verdict === 'PASS').length;
+    const totalNotIndexed = Object.values(results).filter(v => v.verdict !== 'PASS').length;
+    console.log('\n--- Overall Status ---');
+    console.log('Indexed:        ' + totalIndexed);
+    console.log('Not indexed:    ' + totalNotIndexed);
+    console.log('Unchecked:      ' + (allUrls.length - Object.keys(results).length));
+  }
+
   console.log('\nResults saved to index-status.json');
   console.log('Run with --not-indexed to see URLs needing manual submission.');
   console.log('Run with --summary for quick counts.');
