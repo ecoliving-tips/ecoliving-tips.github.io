@@ -121,5 +121,6 @@ jobs:
           else
             CHORD_COUNT=$(node -e "console.log(require('./chords/index.json').length)")
             git commit -m "chore: daily build — ${CHORD_COUNT} chord pages, sitemaps updated"
+            git pull --rebase
             git push
           fi
