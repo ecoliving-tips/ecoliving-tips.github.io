@@ -56,11 +56,13 @@ jobs:
           echo "- **AI Chord Pages:** ${CHORD_COUNT}" >> $GITHUB_STEP_SUMMARY
           echo "- **Sitemap Chord URLs:** ${SITEMAP_URLS}" >> $GITHUB_STEP_SUMMARY
           echo "- **Build time:** $(date -u '+%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
-          if git diff --quiet; then
+          NEW_PAGES=$(git ls-files --others --exclude-standard -- 'chords/' | grep -c "index\.html" || true)
+          MOD_PAGES=$(git diff --name-only -- chords/ | grep -c "index\.html" || true)
+          TOTAL_CHANGED=$((NEW_PAGES + MOD_PAGES))
+          if [ "$TOTAL_CHANGED" -eq 0 ] && git diff --quiet; then
             echo "- **Status:** No new changes" >> $GITHUB_STEP_SUMMARY
           else
-            NEW_PAGES=$(git diff --name-only | grep "^chords/" | grep -c "index.html" || echo 0)
-            echo "- **New chord pages:** ${NEW_PAGES}" >> $GITHUB_STEP_SUMMARY
+            echo "- **New chord pages:** ${TOTAL_CHANGED}" >> $GITHUB_STEP_SUMMARY
           fi
           if [ -f index-status.json ]; then
             node -e "
@@ -84,11 +86,13 @@ jobs:
                   ? JSON.parse(fs.readFileSync('url-priority.json', 'utf-8'))
                   : {};
                 const prioritize = (url) => {
-                  if (url.match(/\/(chord-finder|chord-identifier|chord-progressions|songs)\.html/)) return 10000;
-                  if (url.includes('/chord-progressions/')) return 9000;
-                  if (url.includes('/category/') || url.includes('/artist/')) return 8000;
-                  if (url.includes('/songs/') || url.includes('/lyrics/')) return 7000;
-                  return (urlPriority[url]?.score || 0);
+                  if (url.match(/\/(chord-finder|chord-identifier|chord-progressions|songs)\.html/)) return 100000;
+                  const demand = urlPriority[url]?.score || 0;
+                  const typeBonus = url.includes('/chord-progressions/') ? 0.5
+                    : (url.includes('/category/') || url.includes('/artist/')) ? 0.3
+                    : (url.includes('/songs/') || url.includes('/lyrics/')) ? 0.2
+                    : 0;
+                  return demand + typeBonus;
                 };
                 const batch = notIndexed
                   .sort(([a], [b]) => prioritize(b) - prioritize(a))
