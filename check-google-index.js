@@ -27,6 +27,7 @@ const SITEMAP_PATH = path.join(__dirname, 'sitemap.xml');
 const RESULTS_PATH = path.join(__dirname, 'index-status.json');
 const SITE_URL = 'https://ecoliving-tips.github.io/';
 const PRIORITY_PATH = path.join(__dirname, 'url-priority.json');
+const RECHECK_PATH = path.join(__dirname, 'recheck-next-run.json');
 
 // Re-check intervals (days) for not-indexed URLs by category
 const RECHECK_TIERS = [
@@ -283,8 +284,14 @@ async function main() {
     toCheck = allUrls.filter(u => !results[u]);
   } else {
     const urlPriority = loadUrlPriority();
-    const buckets = { new: [], 'static-tools': [], 'progression-keys': [], 'category-artist': [], 'songs-lyrics': [], 'chord-with-demand': [], 'chord-no-demand': [], other: [] };
+    const buckets = { recheck: [], new: [], 'static-tools': [], 'progression-keys': [], 'category-artist': [], 'songs-lyrics': [], 'chord-with-demand': [], 'chord-no-demand': [], other: [] };
     let skippedIndexed = 0, skippedFresh = 0;
+
+    let recheckUrls = [];
+    if (fs.existsSync(RECHECK_PATH)) {
+      try { recheckUrls = JSON.parse(fs.readFileSync(RECHECK_PATH, 'utf-8')); } catch {}
+    }
+    const recheckSet = new Set(recheckUrls);
 
     for (const url of allUrls) {
       const entry = results[url];
@@ -293,16 +300,21 @@ async function main() {
       } else if (entry.verdict === 'PASS') {
         skippedIndexed++;
       } else {
-        const { tierName, intervalDays } = classifyUrl(url, urlPriority);
-        if (isStale(entry.checkedAt, intervalDays)) {
-          buckets[tierName].push(url);
+        if (recheckSet.has(url)) {
+          buckets.recheck.push(url);
         } else {
-          skippedFresh++;
+          const { tierName, intervalDays } = classifyUrl(url, urlPriority);
+          if (isStale(entry.checkedAt, intervalDays)) {
+            buckets[tierName].push(url);
+          } else {
+            skippedFresh++;
+          }
         }
       }
     }
 
     toCheck = [
+      ...buckets.recheck,
       ...buckets.new,
       ...buckets['static-tools'],
       ...buckets['progression-keys'],
@@ -321,6 +333,7 @@ async function main() {
   if (scheduleSummary) {
     const { buckets, skippedIndexed, skippedFresh } = scheduleSummary;
     console.log('\n--- Smart Schedule Breakdown ---');
+    if (buckets.recheck.length)               console.log('  Recheck (submitted yesterday): ' + buckets.recheck.length);
     if (buckets.new.length)                  console.log('  New (never checked):      ' + buckets.new.length);
     if (buckets['static-tools'].length)      console.log('  Stale static-tools:       ' + buckets['static-tools'].length + '  (every 3d)');
     if (buckets['progression-keys'].length)  console.log('  Stale progression-keys:   ' + buckets['progression-keys'].length + '  (every 3d)');
@@ -333,7 +346,7 @@ async function main() {
     console.log('  To check this run:        ' + toCheck.length);
     console.log('  Skipped (already indexed): ' + skippedIndexed);
     console.log('  Skipped (checked recently): ' + skippedFresh);
-    console.log('  Est. runtime:             ~' + Math.max(1, Math.ceil(toCheck.length * 1.2 / 60)) + ' min');
+    console.log('  Est. runtime:             ~' + Math.max(1, Math.ceil(toCheck.length * 7.5 / 60)) + ' min');
   } else {
     console.log('To check:              ' + toCheck.length + (newOnly ? ' (--new: unchecked only)' : force ? ' (--force: all)' : ''));
   }

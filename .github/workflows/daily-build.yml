@@ -2,7 +2,7 @@ name: Daily Build & Index
 
 on:
   schedule:
-    - cron: '17 1 * * *'
+    - cron: '20 3 * * *'
   workflow_dispatch:
 
 permissions:
@@ -107,6 +107,10 @@ jobs:
                   console.log('');
                   console.log('*...and ' + (notIndexed.length - 12) + ' more. These will appear in future daily summaries.*');
                 }
+                // Save top 12 for next-day recheck
+                fs.writeFileSync('recheck-next-run.json', JSON.stringify(batch.map(([url]) => url), null, 2));
+              } else {
+                fs.writeFileSync('recheck-next-run.json', '[]');
               }
             " >> $GITHUB_STEP_SUMMARY
           fi
