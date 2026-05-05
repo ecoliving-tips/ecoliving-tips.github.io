@@ -52,7 +52,7 @@ jobs:
           echo "### Daily Build Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           CHORD_COUNT=$(node -e "console.log(require('./chords/index.json').length)")
-          SITEMAP_URLS=$(grep -c "<loc>" sitemap-chords.xml || echo 0)
+          SITEMAP_URLS=$(grep -c "<loc>" sitemap-chords-new.xml sitemap-chords-recent.xml sitemap-chords-archive.xml 2>/dev/null | awk -F: '{s+=$2}END{print s+0}')
           echo "- **AI Chord Pages:** ${CHORD_COUNT}" >> $GITHUB_STEP_SUMMARY
           echo "- **Sitemap Chord URLs:** ${SITEMAP_URLS}" >> $GITHUB_STEP_SUMMARY
           echo "- **Build time:** $(date -u '+%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY

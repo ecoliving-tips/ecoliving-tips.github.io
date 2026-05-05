@@ -1446,6 +1446,40 @@ body.lang-ml .lyric-line {
     flex-wrap: wrap;
 }
 
+.related-chords-section {
+    margin-top: 48px;
+    padding: 24px;
+    background: var(--card-bg, #1A1425);
+    border-radius: 12px;
+    border: 1px solid rgba(108, 60, 225, 0.15);
+}
+
+.related-chords-section h3 {
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+    color: var(--text-secondary, #b0b0b0);
+}
+
+.related-chords-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.related-chord-link {
+    padding: 10px 14px;
+    background: rgba(108, 60, 225, 0.08);
+    border-radius: 8px;
+    color: var(--text-primary, #fff);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+}
+
+.related-chord-link:hover {
+    background: rgba(108, 60, 225, 0.2);
+}
+
 /* ===== Request Page ===== */
 .request-header {
     padding: 60px 0 24px;

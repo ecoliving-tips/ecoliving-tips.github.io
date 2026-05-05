@@ -1,15 +1,15 @@
 User-agent: *
 Allow: /
 Disallow: /assets/
-Allow: /assets/*.png
-Allow: /assets/*.svg
-Allow: /css/
-Allow: /js/
-Allow: /songs/
-Allow: /lyrics/
-Allow: /category/
-Allow: /artist/
-Allow: /chords/
-Allow: /progression/
+Allow: /assets/og-image.png
+Allow: /assets/favicon.svg
+Allow: /assets/favicon.png
+Disallow: /generate.html
+
+User-agent: Bingbot
+Crawl-delay: 5
+
+User-agent: YandexBot
+Crawl-delay: 5
 
 Sitemap: https://ecoliving-tips.github.io/sitemap.xml

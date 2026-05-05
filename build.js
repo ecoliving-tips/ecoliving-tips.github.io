@@ -857,7 +857,7 @@ function generateSitemap(songs, categories, artists, progressionKeys, aiChordPag
         { loc: '/chord-finder.html', changefreq: 'weekly', priority: '0.95', file: 'chord-finder.html' },
         { loc: '/chord-identifier.html', changefreq: 'monthly', priority: '0.90', file: 'chord-identifier.html' },
         { loc: '/chord-progressions.html', changefreq: 'monthly', priority: '0.90', file: 'chord-progressions.html' },
-        { loc: '/chords/browse.html', changefreq: 'daily', priority: '0.85', file: 'chords/browse.html' },
+        { loc: '/chords/browse.html', changefreq: 'weekly', priority: '0.85', file: 'chords/browse.html' },
         { loc: '/request.html', changefreq: 'monthly', priority: '0.7', file: 'request.html' },
         { loc: '/privacy-policy.html', changefreq: 'yearly', priority: '0.3', file: 'privacy-policy.html' },
     ].map(p => ({
@@ -921,13 +921,29 @@ function generateSitemap(songs, categories, artists, progressionKeys, aiChordPag
         priority: '0.75',
     }));
 
-    // --- Segment: AI chord pages ---
-    const chordEntries = (aiChordPages || []).map(entry => ({
-        loc: `${BASE_URL}/chords/${entry.slug}/`,
-        lastmod: entry.created_at ? entry.created_at.split('T')[0] : today,
-        changefreq: 'monthly',
-        priority: '0.75',
-    }));
+    // --- Segment: AI chord pages (with age-based priority tiers) ---
+    const chordEntries = (aiChordPages || []).map(entry => {
+        const createdDate = entry.created_at ? entry.created_at.split('T')[0] : '2026-01-01';
+        const ageInDays = Math.floor((Date.now() - new Date(createdDate).getTime()) / 86400000);
+        let priority = '0.4';
+        let changefreq = 'monthly';
+        if (ageInDays <= 7) { priority = '0.8'; changefreq = 'daily'; }
+        else if (ageInDays <= 30) { priority = '0.6'; changefreq = 'weekly'; }
+        else if (ageInDays <= 90) { priority = '0.5'; changefreq = 'monthly'; }
+        return {
+            loc: `${BASE_URL}/chords/${entry.slug}/`,
+            lastmod: createdDate,
+            changefreq,
+            priority,
+        };
+    });
+
+    // Split chord entries by age for temporal sitemap segments
+    const thirtyDaysAgo = new Date(Date.now() - 30 * 86400000).toISOString().split('T')[0];
+    const ninetyDaysAgo = new Date(Date.now() - 90 * 86400000).toISOString().split('T')[0];
+    const newChordEntries = chordEntries.filter(e => e.lastmod >= thirtyDaysAgo);
+    const recentChordEntries = chordEntries.filter(e => e.lastmod < thirtyDaysAgo && e.lastmod >= ninetyDaysAgo);
+    const archiveChordEntries = chordEntries.filter(e => e.lastmod < ninetyDaysAgo);
 
     // Write individual sitemap files and collect index entries
     const segments = [
@@ -937,7 +953,9 @@ function generateSitemap(songs, categories, artists, progressionKeys, aiChordPag
         { file: 'sitemap-categories.xml', entries: categoryEntries },
         { file: 'sitemap-artists.xml', entries: artistEntries },
         { file: 'sitemap-progressions.xml', entries: progressionEntries },
-        { file: 'sitemap-chords.xml', entries: chordEntries },
+        { file: 'sitemap-chords-new.xml', entries: newChordEntries },
+        { file: 'sitemap-chords-recent.xml', entries: recentChordEntries },
+        { file: 'sitemap-chords-archive.xml', entries: archiveChordEntries },
     ];
 
     const indexEntries = [];
@@ -1418,7 +1436,7 @@ function extractVideoIdFromEntry(entry) {
 /**
  * Generate a static AI chord page at /chords/{slug}/index.html
  */
-function generateChordsPage(entry, templates) {
+function generateChordsPage(entry, templates, aiChordPages, difficultyMap) {
     const { partials, chordsPage } = templates;
     const title = entry.title || 'Unknown Song';
     const artist = entry.artist || 'Unknown Artist';
@@ -1525,6 +1543,30 @@ function generateChordsPage(entry, templates) {
         .replace('{{BEGINNER_DIFFICULTY}}', beginnerDifficulty)
         .replace('{{STRUCTURED_DATA}}', structuredData);
 
+    // Related chords — same artist first, then same difficulty, for internal link discovery
+    let relatedHtml = '';
+    if (aiChordPages && aiChordPages.length > 1 && difficultyMap) {
+        const sameArtist = aiChordPages.filter(o => o.slug !== slug && o.artist && o.artist === entry.artist);
+        const sameDifficulty = aiChordPages.filter(o => o.slug !== slug && o.artist !== entry.artist &&
+            difficultyMap.get(o.slug) === beginnerDifficulty);
+        const related = [...sameArtist.slice(0, 3), ...sameDifficulty.slice(0, 5 - Math.min(sameArtist.length, 3))].slice(0, 5);
+        if (related.length > 0) {
+            const links = related.map(r => {
+                const rTitle = escapeHtml(r.title || r.slug);
+                const rArtist = escapeHtml(r.artist || '');
+                return `<a href="/chords/${r.slug}/" class="related-chord-link">${rTitle}${rArtist ? ` — ${rArtist}` : ''}</a>`;
+            }).join('\n                    ');
+            relatedHtml = `
+        <section class="related-chords-section">
+            <h3>Related Chords</h3>
+            <div class="related-chords-grid">
+                    ${links}
+            </div>
+        </section>`;
+        }
+    }
+    page = page.replace('{{RELATED_CHORDS}}', relatedHtml);
+
     const outDir = path.join(ROOT, 'chords', slug);
     mkdirp(outDir);
     fs.writeFileSync(path.join(outDir, 'index.html'), page);
@@ -1610,8 +1652,16 @@ async function main() {
     try {
         const generatedChords = await fetchGeneratedChords();
         aiChordPages = deduplicateBySlug(generatedChords);
+
+        // Pre-compute difficulty for all entries (avoids O(n²) in related chords)
+        const difficultyMap = new Map();
         for (const entry of aiChordPages) {
-            generateChordsPage(entry, templates);
+            const chords = entry.chords?.chords || [];
+            difficultyMap.set(entry.slug, bComputeDifficulty(chords, bFindOptimalCapo(chords)));
+        }
+
+        for (const entry of aiChordPages) {
+            generateChordsPage(entry, templates, aiChordPages, difficultyMap);
         }
         console.log(`Generated ${aiChordPages.length} AI chord pages (from ${generatedChords.length} Supabase entries).`);
 
@@ -1629,6 +1679,25 @@ async function main() {
         console.log(`Generated chords/index.json with ${chordsIndex.length} entries.`);
     } catch (err) {
         console.warn(`[AI Chords] Skipped: ${err.message}`);
+    }
+
+    // Clean up orphaned chord pages (slugs removed from Supabase)
+    if (aiChordPages.length > 0) {
+        const validSlugs = new Set(aiChordPages.map(e => e.slug));
+        const chordsDir = path.join(ROOT, 'chords');
+        if (fs.existsSync(chordsDir)) {
+            const dirs = fs.readdirSync(chordsDir, { withFileTypes: true })
+                .filter(d => d.isDirectory())
+                .map(d => d.name);
+            let removed = 0;
+            for (const dir of dirs) {
+                if (!validSlugs.has(dir)) {
+                    fs.rmSync(path.join(chordsDir, dir), { recursive: true });
+                    removed++;
+                }
+            }
+            if (removed > 0) console.log(`Cleaned ${removed} orphaned chord page(s).`);
+        }
     }
 
     // Generate sitemap
