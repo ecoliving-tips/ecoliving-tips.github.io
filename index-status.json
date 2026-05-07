@@ -277,7 +277,7 @@
     "coverageState": "URL is unknown to Google",
     "lastCrawlTime": null,
     "crawledAs": "N/A",
-    "checkedAt": "2026-05-04T04:54:55.846Z"
+    "checkedAt": "2026-05-07T06:40:53.060Z"
   },
   "https://ecoliving-tips.github.io/chord-progressions/key-of-g/": {
     "verdict": "PASS",
@@ -326,7 +326,7 @@
     "coverageState": "URL is unknown to Google",
     "lastCrawlTime": null,
     "crawledAs": "N/A",
-    "checkedAt": "2026-05-04T04:55:47.447Z"
+    "checkedAt": "2026-05-07T06:41:00.586Z"
   },
   "https://ecoliving-tips.github.io/chord-progressions/key-of-d-minor/": {
     "verdict": "PASS",
@@ -340,7 +340,7 @@
     "coverageState": "URL is unknown to Google",
     "lastCrawlTime": null,
     "crawledAs": "N/A",
-    "checkedAt": "2026-05-04T04:56:02.154Z"
+    "checkedAt": "2026-05-07T06:41:08.138Z"
   },
   "https://ecoliving-tips.github.io/chord-progressions/key-of-e-minor/": {
     "verdict": "PASS",
@@ -354,49 +354,49 @@
     "coverageState": "URL is unknown to Google",
     "lastCrawlTime": null,
     "crawledAs": "N/A",
-    "checkedAt": "2026-05-04T04:56:16.891Z"
+    "checkedAt": "2026-05-07T06:41:15.681Z"
   },
   "https://ecoliving-tips.github.io/chord-progressions/key-of-gb-minor/": {
     "verdict": "NEUTRAL",
     "coverageState": "URL is unknown to Google",
     "lastCrawlTime": null,
     "crawledAs": "N/A",
-    "checkedAt": "2026-05-04T04:56:24.243Z"
+    "checkedAt": "2026-05-07T06:41:23.269Z"
   },
   "https://ecoliving-tips.github.io/chord-progressions/key-of-g-minor/": {
     "verdict": "NEUTRAL",
     "coverageState": "URL is unknown to Google",
     "lastCrawlTime": null,
     "crawledAs": "N/A",
-    "checkedAt": "2026-05-04T04:56:31.644Z"
+    "checkedAt": "2026-05-07T06:41:30.800Z"
   },
   "https://ecoliving-tips.github.io/chord-progressions/key-of-ab-minor/": {
     "verdict": "NEUTRAL",
     "coverageState": "URL is unknown to Google",
     "lastCrawlTime": null,
     "crawledAs": "N/A",
-    "checkedAt": "2026-05-04T04:56:39.002Z"
+    "checkedAt": "2026-05-07T06:41:38.321Z"
   },
   "https://ecoliving-tips.github.io/chord-progressions/key-of-a-minor/": {
     "verdict": "NEUTRAL",
     "coverageState": "URL is unknown to Google",
     "lastCrawlTime": null,
     "crawledAs": "N/A",
-    "checkedAt": "2026-05-04T04:56:46.364Z"
+    "checkedAt": "2026-05-07T06:41:45.820Z"
   },
   "https://ecoliving-tips.github.io/chord-progressions/key-of-bb-minor/": {
     "verdict": "NEUTRAL",
     "coverageState": "URL is unknown to Google",
     "lastCrawlTime": null,
     "crawledAs": "N/A",
-    "checkedAt": "2026-05-04T04:56:53.746Z"
+    "checkedAt": "2026-05-07T06:41:53.343Z"
   },
   "https://ecoliving-tips.github.io/chord-progressions/key-of-b-minor/": {
     "verdict": "NEUTRAL",
     "coverageState": "URL is unknown to Google",
     "lastCrawlTime": null,
     "crawledAs": "N/A",
-    "checkedAt": "2026-05-04T04:57:01.123Z"
+    "checkedAt": "2026-05-07T06:42:00.920Z"
   },
   "https://ecoliving-tips.github.io/chords/6enesis66-zigdgafxxk/": {
     "verdict": "NEUTRAL",
@@ -1103,7 +1103,7 @@
     "coverageState": "URL is unknown to Google",
     "lastCrawlTime": null,
     "crawledAs": "N/A",
-    "checkedAt": "2026-05-06T06:15:26.745Z"
+    "checkedAt": "2026-05-07T06:21:04.323Z"
   },
   "https://ecoliving-tips.github.io/chords/yesus-pada-mu-kuberseru-official-music-video-symphony-worship-family/": {
     "verdict": "NEUTRAL",
@@ -1124,14 +1124,14 @@
     "coverageState": "URL is unknown to Google",
     "lastCrawlTime": null,
     "crawledAs": "N/A",
-    "checkedAt": "2026-05-06T06:15:34.353Z"
+    "checkedAt": "2026-05-07T06:21:12.034Z"
   },
   "https://ecoliving-tips.github.io/chords/dengan-apa-kan-kubalas-official-music-video-symphony-worship-family/": {
     "verdict": "NEUTRAL",
     "coverageState": "URL is unknown to Google",
     "lastCrawlTime": null,
     "crawledAs": "N/A",
-    "checkedAt": "2026-05-06T06:15:41.888Z"
+    "checkedAt": "2026-05-07T06:21:19.730Z"
   },
   "https://ecoliving-tips.github.io/chords/maname-lyrics-sarah-black-ubii2b/": {
     "verdict": "NEUTRAL",
@@ -1736,11 +1736,11 @@
     "checkedAt": "2026-05-04T05:20:40.512Z"
   },
   "https://ecoliving-tips.github.io/chords/no-matter-what-happens-ilysm/": {
-    "verdict": "NEUTRAL",
-    "coverageState": "URL is unknown to Google",
-    "lastCrawlTime": null,
-    "crawledAs": "N/A",
-    "checkedAt": "2026-05-04T05:20:47.869Z"
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-05-06T11:01:53Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-05-07T06:21:27.269Z"
   },
   "https://ecoliving-tips.github.io/chords/how-we-do-it-sally-green-too-hort-official-prod-by-mofak/": {
     "verdict": "NEUTRAL",
@@ -1820,11 +1820,11 @@
     "checkedAt": "2026-05-04T05:22:09.129Z"
   },
   "https://ecoliving-tips.github.io/chords/peaches-ry-taylor/": {
-    "verdict": "NEUTRAL",
-    "coverageState": "URL is unknown to Google",
-    "lastCrawlTime": null,
-    "crawledAs": "N/A",
-    "checkedAt": "2026-05-04T05:22:16.479Z"
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-05-06T11:01:53Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-05-07T06:21:34.798Z"
   },
   "https://ecoliving-tips.github.io/chords/the-game-50-cent-hate-it-or-love-it-thegamevevo/": {
     "verdict": "NEUTRAL",
@@ -1880,7 +1880,7 @@
     "coverageState": "URL is unknown to Google",
     "lastCrawlTime": null,
     "crawledAs": "N/A",
-    "checkedAt": "2026-05-04T05:23:15.790Z"
+    "checkedAt": "2026-05-07T06:21:42.503Z"
   },
   "https://ecoliving-tips.github.io/chords/d4vd-here-with-me-acoustic-d4vdvevo/": {
     "verdict": "NEUTRAL",
@@ -1925,11 +1925,11 @@
     "checkedAt": "2026-05-04T05:24:00.545Z"
   },
   "https://ecoliving-tips.github.io/chords/manifesto-jamie-paige/": {
-    "verdict": "NEUTRAL",
-    "coverageState": "URL is unknown to Google",
-    "lastCrawlTime": null,
-    "crawledAs": "N/A",
-    "checkedAt": "2026-05-04T05:24:07.927Z"
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-05-06T10:58:17Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-05-07T06:21:50.002Z"
   },
   "https://ecoliving-tips.github.io/chords/y37HB4iy_2E/": {
     "verdict": "NEUTRAL",
@@ -1953,11 +1953,11 @@
     "checkedAt": "2026-05-04T05:24:30.105Z"
   },
   "https://ecoliving-tips.github.io/chords/canon-in-d-let-splayguitar/": {
-    "verdict": "NEUTRAL",
-    "coverageState": "URL is unknown to Google",
-    "lastCrawlTime": null,
-    "crawledAs": "N/A",
-    "checkedAt": "2026-05-04T05:24:37.455Z"
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-05-06T10:58:17Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-05-07T06:21:57.504Z"
   },
   "https://ecoliving-tips.github.io/chords/tekir-soysuz-netd-muzik/": {
     "verdict": "NEUTRAL",
@@ -2009,11 +2009,11 @@
     "checkedAt": "2026-05-04T05:25:30.051Z"
   },
   "https://ecoliving-tips.github.io/chords/fanfare-sumika/": {
-    "verdict": "NEUTRAL",
-    "coverageState": "URL is unknown to Google",
-    "lastCrawlTime": null,
-    "crawledAs": "N/A",
-    "checkedAt": "2026-05-04T05:25:37.432Z"
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-05-06T10:55:39Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-05-07T06:22:05.037Z"
   },
   "https://ecoliving-tips.github.io/chords/pahasara-centigradz-centigradz-live/": {
     "verdict": "NEUTRAL",
@@ -2233,11 +2233,11 @@
     "checkedAt": "2026-05-04T05:29:26.846Z"
   },
   "https://ecoliving-tips.github.io/chords/aurora-runaway-iamauroravevo/": {
-    "verdict": "NEUTRAL",
-    "coverageState": "URL is unknown to Google",
-    "lastCrawlTime": null,
-    "crawledAs": "N/A",
-    "checkedAt": "2026-05-04T05:29:34.315Z"
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-05-06T07:39:58Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-05-07T06:22:12.714Z"
   },
   "https://ecoliving-tips.github.io/chords/hawak-mo-ang-faith-dezi-signatures/": {
     "verdict": "NEUTRAL",
@@ -2296,11 +2296,11 @@
     "checkedAt": "2026-05-04T05:30:33.403Z"
   },
   "https://ecoliving-tips.github.io/chords/greatly-to-be-praised-planetshakers/": {
-    "verdict": "NEUTRAL",
-    "coverageState": "URL is unknown to Google",
-    "lastCrawlTime": null,
-    "crawledAs": "N/A",
-    "checkedAt": "2026-05-04T05:30:40.835Z"
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-05-06T06:54:06Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-05-07T06:22:20.237Z"
   },
   "https://ecoliving-tips.github.io/chords/at-the-gates-of-babylon-remastered-arabic-battle-music-antti-martikainen-music/": {
     "verdict": "NEUTRAL",
@@ -2324,11 +2324,11 @@
     "checkedAt": "2026-05-04T05:31:03.033Z"
   },
   "https://ecoliving-tips.github.io/chords/ama-namin-bread-of-life-gensan-wlt/": {
-    "verdict": "NEUTRAL",
-    "coverageState": "URL is unknown to Google",
-    "lastCrawlTime": null,
-    "crawledAs": "N/A",
-    "checkedAt": "2026-05-04T05:31:10.408Z"
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-05-06T06:40:45Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-05-07T06:22:27.758Z"
   },
   "https://ecoliving-tips.github.io/chords/don-moen-think-about-his-love-donmoentv/": {
     "verdict": "NEUTRAL",
@@ -11387,5 +11387,1027 @@
     "lastCrawlTime": null,
     "crawledAs": "N/A",
     "checkedAt": "2026-05-06T06:34:55.313Z"
+  },
+  "https://ecoliving-tips.github.io/chords/flower-southboi-prod-wattcher-beats-th-imma-southboi-official/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:22:35.258Z"
+  },
+  "https://ecoliving-tips.github.io/chords/o-mariyame-njan-men-aloho/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:22:42.795Z"
+  },
+  "https://ecoliving-tips.github.io/chords/guitar-auladeviolao-cover-lucas-de-oliveira/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:22:50.315Z"
+  },
+  "https://ecoliving-tips.github.io/chords/star-detective-precure-opening-1-colorful-networks/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:22:57.857Z"
+  },
+  "https://ecoliving-tips.github.io/chords/greystone-chapel-glen-sherley/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:23:05.326Z"
+  },
+  "https://ecoliving-tips.github.io/chords/sarai-mi-lugar-seguro/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:23:13.000Z"
+  },
+  "https://ecoliving-tips.github.io/chords/sharks-your-love-is-my-drug-cover-iamfamousformycovers/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:23:20.687Z"
+  },
+  "https://ecoliving-tips.github.io/chords/h2o-trend-86/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:23:28.176Z"
+  },
+  "https://ecoliving-tips.github.io/chords/ridin-on-dreams-instrumental-hololive-idol-project/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:23:35.677Z"
+  },
+  "https://ecoliving-tips.github.io/chords/glen-sherley-greystone-chapel-woodward/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:23:43.177Z"
+  },
+  "https://ecoliving-tips.github.io/chords/instrumental-hololive-idol-project/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:23:50.950Z"
+  },
+  "https://ecoliving-tips.github.io/chords/tin-y-la-farandula-x-bajo-perfil-musica-filtrada/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:23:58.443Z"
+  },
+  "https://ecoliving-tips.github.io/chords/mi-deber-kane-rodriguez/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:24:05.930Z"
+  },
+  "https://ecoliving-tips.github.io/chords/tonight-orignial-song-tyler-powers/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:24:13.431Z"
+  },
+  "https://ecoliving-tips.github.io/chords/blxckie-hold/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:24:20.928Z"
+  },
+  "https://ecoliving-tips.github.io/chords/lovegame-lady-gaga/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:24:28.449Z"
+  },
+  "https://ecoliving-tips.github.io/chords/queen-dreamers-ball-guitar-cover-massimo-li-calzi/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:24:35.975Z"
+  },
+  "https://ecoliving-tips.github.io/chords/gucci-gang-lil-pump/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:24:43.475Z"
+  },
+  "https://ecoliving-tips.github.io/chords/rex-orange-county-best-friend/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:24:50.979Z"
+  },
+  "https://ecoliving-tips.github.io/chords/musicas-amor-de-mae-homenagem-dia-das-maes-reino-em-melodia/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:24:58.468Z"
+  },
+  "https://ecoliving-tips.github.io/chords/hung-up-madonna/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:25:06.005Z"
+  },
+  "https://ecoliving-tips.github.io/chords/afro-drill-type-beat-2026-level-up-fokadrill/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:25:13.483Z"
+  },
+  "https://ecoliving-tips.github.io/chords/8-letters-why-don-t-we/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:25:20.984Z"
+  },
+  "https://ecoliving-tips.github.io/chords/money-cardi-b/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:25:28.472Z"
+  },
+  "https://ecoliving-tips.github.io/chords/pylon-after-pylon-by-bugman-marke-noredindian/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:25:36.003Z"
+  },
+  "https://ecoliving-tips.github.io/chords/2007-rickliu7/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:25:43.518Z"
+  },
+  "https://ecoliving-tips.github.io/chords/karim-yeddou-featuring-youcef-hadj-said-vu-laayun-clip-officiel-2023/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:25:51.028Z"
+  },
+  "https://ecoliving-tips.github.io/chords/axxir-mi-truhed-karim-yeddou/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:25:58.792Z"
+  },
+  "https://ecoliving-tips.github.io/chords/kenge-moj-kozma-dushi-eranda-libohova-lulet-ne-dritare-ikonat-e-muzikes-shqiptare-vizion-plus-vizion-plus-tv/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:26:06.297Z"
+  },
+  "https://ecoliving-tips.github.io/chords/migraine-jaydes/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:26:13.820Z"
+  },
+  "https://ecoliving-tips.github.io/chords/loudspeakers-questions-loudspeakersmusic/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:26:21.357Z"
+  },
+  "https://ecoliving-tips.github.io/chords/loj-worship-x-sidney-mohede-imanuel/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:26:29.055Z"
+  },
+  "https://ecoliving-tips.github.io/chords/hannah-parrott-tilt-extended-raw-dark-sounds/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:26:36.573Z"
+  },
+  "https://ecoliving-tips.github.io/chords/free-daniel-caesar-x-amy-winehouse-type-beat-despair-justben-beats/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:26:44.075Z"
+  },
+  "https://ecoliving-tips.github.io/chords/radiohead-nice-dream-live-acoustic-1209j/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:26:51.600Z"
+  },
+  "https://ecoliving-tips.github.io/chords/radiohead-poison-lake-md112-track-8-snart/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:26:59.148Z"
+  },
+  "https://ecoliving-tips.github.io/chords/fruish-i-m-here/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:27:06.646Z"
+  },
+  "https://ecoliving-tips.github.io/chords/apple-country-mindless-self-indulgence/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:27:14.162Z"
+  },
+  "https://ecoliving-tips.github.io/chords/frangipani-acoustic-kaber-vasuki-raw-tapes-01/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:27:21.738Z"
+  },
+  "https://ecoliving-tips.github.io/chords/young-n-free-stonecrossing/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:27:29.257Z"
+  },
+  "https://ecoliving-tips.github.io/chords/show-me-the-way-stonecrossing/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:27:36.848Z"
+  },
+  "https://ecoliving-tips.github.io/chords/lupe-stonecrossing/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:27:44.396Z"
+  },
+  "https://ecoliving-tips.github.io/chords/papa-crow-me-and-this-bottle-papacrowvevo/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:27:51.943Z"
+  },
+  "https://ecoliving-tips.github.io/chords/nirvana-come-as-you-are-guitar-lesson-tutorial-marty-music/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:27:59.481Z"
+  },
+  "https://ecoliving-tips.github.io/chords/of-crows-and-crowns-a-dustin-kensrue-cover-by-mr-brandon-episode-14/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:28:07.001Z"
+  },
+  "https://ecoliving-tips.github.io/chords/renaissance-man-by-april27/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:28:14.541Z"
+  },
+  "https://ecoliving-tips.github.io/chords/arlindo-cruz-sombrinha-atestado-medico-samba-e-a-nossa-cara-1997-gravadora-galeao/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:28:22.050Z"
+  },
+  "https://ecoliving-tips.github.io/chords/toinho-melodia-pretexto/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:28:29.563Z"
+  },
+  "https://ecoliving-tips.github.io/chords/cornerstone-live-hillsong-worship/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:28:37.102Z"
+  },
+  "https://ecoliving-tips.github.io/chords/zeritu-kebede-yenem-ayne-aytoal-kuchu/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:28:44.610Z"
+  },
+  "https://ecoliving-tips.github.io/chords/drake-9-outro-2016-leak-very-much-alive-unreleased/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:28:52.141Z"
+  },
+  "https://ecoliving-tips.github.io/chords/total-praise-first-dallas-choir-orchestra-first-baptist-dallas/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:28:59.670Z"
+  },
+  "https://ecoliving-tips.github.io/chords/a-ap-ferg-pool-ft-elmiene-asapfergvevo/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:29:07.151Z"
+  },
+  "https://ecoliving-tips.github.io/chords/doomed-bring-me-the-horizon/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:29:14.654Z"
+  },
+  "https://ecoliving-tips.github.io/chords/kj-288-mari-puji-raja-sorga-praise-my-soul-the-king-of-heaven-kidung-jemaat-yoshia-benedict-parasian/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:29:22.149Z"
+  },
+  "https://ecoliving-tips.github.io/chords/starru-baga-toirog-channel/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:29:29.633Z"
+  },
+  "https://ecoliving-tips.github.io/chords/the-ballad-of-harshnag-the-giant-storm-king-s-thunder-thegingervoice/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:29:37.159Z"
+  },
+  "https://ecoliving-tips.github.io/chords/citratzyklus-song-citratzyklus-lernen-mit-eselsbrucken-3-3-happyhippocampus/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:29:44.662Z"
+  },
+  "https://ecoliving-tips.github.io/chords/D1yFSaPwy6U/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:29:52.191Z"
+  },
+  "https://ecoliving-tips.github.io/chords/le-shiv-for-the-first-time/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:29:59.708Z"
+  },
+  "https://ecoliving-tips.github.io/chords/kj-246-ya-allah-yang-maha-tinggi-kidung-jemaat-yoshia-benedict-parasian/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:30:07.206Z"
+  },
+  "https://ecoliving-tips.github.io/chords/old-man-canyon-phantoms-friends-oldmancanyonvevo/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:30:14.723Z"
+  },
+  "https://ecoliving-tips.github.io/chords/lana-del-rey-white-ferrari-heartbreak-lyrics-video-2026-soulful-music-lyrics/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:30:22.272Z"
+  },
+  "https://ecoliving-tips.github.io/chords/marzuz-cam-on/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:30:29.777Z"
+  },
+  "https://ecoliving-tips.github.io/chords/lana-del-rey-love-me-wrong-ai-music-infinite-collabs/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:30:37.261Z"
+  },
+  "https://ecoliving-tips.github.io/chords/sunshine-keane/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:30:44.769Z"
+  },
+  "https://ecoliving-tips.github.io/chords/your-favorite-enemies-open-your-eyes/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:30:52.323Z"
+  },
+  "https://ecoliving-tips.github.io/chords/huomispaiva-herra-themrpatteri/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:30:59.823Z"
+  },
+  "https://ecoliving-tips.github.io/chords/pinkpantheress-stateside-zara-larsson-lyrics-creative-chaos/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:31:07.326Z"
+  },
+  "https://ecoliving-tips.github.io/chords/olivia-rodrigo-drop-dead-oliviarodrigovevo/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:31:14.816Z"
+  },
+  "https://ecoliving-tips.github.io/chords/muhoksen-allani-menneisyyden-paivat-ira-akerlund/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:31:22.308Z"
+  },
+  "https://ecoliving-tips.github.io/chords/essbee-prisia/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:31:29.837Z"
+  },
+  "https://ecoliving-tips.github.io/chords/dei-maphi-mishtii3083/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:31:37.384Z"
+  },
+  "https://ecoliving-tips.github.io/chords/7CallkB7v1M/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:31:44.889Z"
+  },
+  "https://ecoliving-tips.github.io/chords/free-sombr-x-gracie-abrams-indie-x-acoustic-type-beat-know-you-no-drums-dennydarko-beats/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:31:52.393Z"
+  },
+  "https://ecoliving-tips.github.io/chords/valentine-album-version-beautiful-south/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:31:59.915Z"
+  },
+  "https://ecoliving-tips.github.io/chords/who-am-i-release/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:32:07.412Z"
+  },
+  "https://ecoliving-tips.github.io/chords/makane-video-think-music-india/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:32:14.918Z"
+  },
+  "https://ecoliving-tips.github.io/chords/berserah-penuh-ndc-worship-gsjs-worship/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:32:22.399Z"
+  },
+  "https://ecoliving-tips.github.io/chords/searching-for-freedom-white-shadow-o-whiteshadow-o/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:32:29.908Z"
+  },
+  "https://ecoliving-tips.github.io/chords/emtee-ghetto-hero-ambitiouz-entertainment/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:32:37.413Z"
+  },
+  "https://ecoliving-tips.github.io/chords/bhai-gurpreet-singh-jalandhar-reansbai-akj-amritsar-samagam-2026-amrit-khajana/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:32:44.998Z"
+  },
+  "https://ecoliving-tips.github.io/chords/f42Cnf5aZW8/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:32:52.504Z"
+  },
+  "https://ecoliving-tips.github.io/chords/the-shade-where-flowers-grow-aggie-s-rooftop-enfant/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:33:00.014Z"
+  },
+  "https://ecoliving-tips.github.io/chords/qasim-ben-tariq-tou-suno/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:33:07.505Z"
+  },
+  "https://ecoliving-tips.github.io/chords/eminem-ft-chris-stapleton-ft-morgan-wallen-whiskey-war-scars-2026-ai-music-video-rift-tunes/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:33:14.986Z"
+  },
+  "https://ecoliving-tips.github.io/chords/coffee-stained-heart-yu-feat-hatsune-miku-jp-romaji-en-lyrics/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:33:22.495Z"
+  },
+  "https://ecoliving-tips.github.io/chords/thine-yidjen-tsrugh-karim-yeddou/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:33:30.076Z"
+  },
+  "https://ecoliving-tips.github.io/chords/fwi-lwi-agwi-fwi-kiranjit-basumatary-official-music-video-2019-kiranjit-basumatary-production/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:33:37.604Z"
+  },
+  "https://ecoliving-tips.github.io/chords/kj-356-tinggallah-dalam-yesus-kidung-jemaat-yoshia-benedict-parasian/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:33:45.101Z"
+  },
+  "https://ecoliving-tips.github.io/chords/damien-rice-cannonball-official-video/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:33:52.623Z"
+  },
+  "https://ecoliving-tips.github.io/chords/ask-m-z-bir-yalanm-s-cengiz-kurtoglu/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:34:00.131Z"
+  },
+  "https://ecoliving-tips.github.io/chords/amek-itenwi-d-karim-yeddou/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:34:07.612Z"
+  },
+  "https://ecoliving-tips.github.io/chords/ples-sa-vjetrom-kerigma-kristina-mihokovic/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:34:15.083Z"
+  },
+  "https://ecoliving-tips.github.io/chords/gigel-nicola-mult-am-pierdut-in-viata-musicmondoromania/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:34:22.568Z"
+  },
+  "https://ecoliving-tips.github.io/chords/agape-dawtnak-cbcusa-youth-department/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:34:30.093Z"
+  },
+  "https://ecoliving-tips.github.io/chords/melanie-martinez-monolith-instrumental-hq-popbeatz/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:34:37.588Z"
+  },
+  "https://ecoliving-tips.github.io/chords/radiohead-but-it-s-all-jazz-musicians-kubla/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:34:45.058Z"
+  },
+  "https://ecoliving-tips.github.io/chords/ikast-synger-sammen-en-dr-m-om-et-menneske-f-llesskaber-uden-gr-nser/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:34:52.572Z"
+  },
+  "https://ecoliving-tips.github.io/chords/shrinkhal-lazmi-shrinkhal-music/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:35:00.075Z"
+  },
+  "https://ecoliving-tips.github.io/chords/hers-x-mola-mola-sunshine-tuayp/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:35:07.647Z"
+  },
+  "https://ecoliving-tips.github.io/chords/just-a-gal-chantelle-marquez/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:35:15.153Z"
+  },
+  "https://ecoliving-tips.github.io/chords/bowkylion-work-life-imbalance-official-mv-whattheduck/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:35:22.674Z"
+  },
+  "https://ecoliving-tips.github.io/chords/stayin-alive-scary-pockets/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:35:30.190Z"
+  },
+  "https://ecoliving-tips.github.io/chords/ek-pyaar-ka-nagma-hai-saswatika-pradhan/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:35:37.702Z"
+  },
+  "https://ecoliving-tips.github.io/chords/bangkit-lagi-release/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:35:45.204Z"
+  },
+  "https://ecoliving-tips.github.io/chords/the-best-minecraft-bumblebee-song-b1tter/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:35:52.699Z"
+  },
+  "https://ecoliving-tips.github.io/chords/aleksandras-makejevas-tai-uzdaryk-mane-teveli-live-kitokie-pasikalbejimai/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:36:00.176Z"
+  },
+  "https://ecoliving-tips.github.io/chords/kya-kamaal-hai-tips-official/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:36:07.724Z"
+  },
+  "https://ecoliving-tips.github.io/chords/feels-patrick-patrikios/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:36:15.223Z"
+  },
+  "https://ecoliving-tips.github.io/chords/say-something-musical-performance-at-tedxlfhs-tedx-talks/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:36:22.723Z"
+  },
+  "https://ecoliving-tips.github.io/chords/chudi-bindiya-neelam-painkra-manish-new-nagpuri-song/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:36:30.218Z"
+  },
+  "https://ecoliving-tips.github.io/chords/the-beatles-the-beatles-let-it-be-remastered-2015-thebeatlesvevo/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:36:37.701Z"
+  },
+  "https://ecoliving-tips.github.io/chords/frieren-x-himmel-amv-a-thousand-years-the-legends/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:36:45.191Z"
+  },
+  "https://ecoliving-tips.github.io/chords/Zv4iwuUF9yg/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:36:52.691Z"
+  },
+  "https://ecoliving-tips.github.io/chords/eAxQl0taU74/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:37:00.199Z"
+  },
+  "https://ecoliving-tips.github.io/chords/4TJ-PbWFAgM/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:37:07.748Z"
+  },
+  "https://ecoliving-tips.github.io/chords/well-done-clc-worship-davao-official/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:37:15.235Z"
+  },
+  "https://ecoliving-tips.github.io/chords/sakalas-cumacenko-pasaka-be-galo-lietuvos-balsas-the-voice-of-lithuania/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:37:22.707Z"
+  },
+  "https://ecoliving-tips.github.io/chords/warouranu-peeba-official-audio/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:37:30.226Z"
+  },
+  "https://ecoliving-tips.github.io/chords/kanye-west-silver-night-dj-shoxi-ai-cover/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:37:37.752Z"
+  },
+  "https://ecoliving-tips.github.io/chords/forever-young-music-travel-love-ft-bugoy-drilon/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:37:45.251Z"
+  },
+  "https://ecoliving-tips.github.io/chords/marked-for-death-steven-seagal-salk3r/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:37:52.783Z"
+  },
+  "https://ecoliving-tips.github.io/chords/s-bab-kau-layak-lira-natalie-gsjs-worship/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:38:00.264Z"
+  },
+  "https://ecoliving-tips.github.io/chords/i-sing-praises-to-your-name-nyanyian-pujian-bagimu-gms-live-cover-yemimah-channel/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:38:07.811Z"
+  },
+  "https://ecoliving-tips.github.io/chords/serukan-nama-nya-live-jpcc-worship/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:38:15.283Z"
+  },
+  "https://ecoliving-tips.github.io/chords/elvis-sommar-anton-dahlberg/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:38:22.791Z"
+  },
+  "https://ecoliving-tips.github.io/chords/fleetwood-mac-silver-springs-live/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:38:30.279Z"
+  },
+  "https://ecoliving-tips.github.io/chords/billie-holiday-i-can-t-face-the-music-clef-records-1952-roundmidnighttv/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:38:37.807Z"
+  },
+  "https://ecoliving-tips.github.io/chords/ep30-dreaming/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:38:45.312Z"
+  },
+  "https://ecoliving-tips.github.io/chords/bejana-mu-official-lyric-video-jpcc-worship/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:38:52.815Z"
+  },
+  "https://ecoliving-tips.github.io/chords/sari-simorangkir-bersorak-sorai/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:39:00.317Z"
+  },
+  "https://ecoliving-tips.github.io/chords/lien-tadoe/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:39:07.837Z"
+  },
+  "https://ecoliving-tips.github.io/chords/destroy-me-bladee/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:39:15.346Z"
+  },
+  "https://ecoliving-tips.github.io/chords/jikustik-puisi-eclat-cover-eclat-story/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:39:22.869Z"
+  },
+  "https://ecoliving-tips.github.io/chords/sawan-aaya-hai-cover-by-arunima-sharma/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:39:30.359Z"
+  },
+  "https://ecoliving-tips.github.io/chords/gucci-aroob-khan-kaptaan-guitar-cover-jannat-khan-jannatvibes/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:39:37.865Z"
+  },
+  "https://ecoliving-tips.github.io/chords/zal-za-piotrem-s-pod-buda/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:39:45.384Z"
+  },
+  "https://ecoliving-tips.github.io/chords/dante-gebel-superclasico-20-anos-cuan-grande-es-el-oh-la-gloria/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:39:52.926Z"
+  },
+  "https://ecoliving-tips.github.io/chords/phil-wickham-heart-of-worship-singalong-4-live-philwickhamvevo/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:40:00.458Z"
+  },
+  "https://ecoliving-tips.github.io/chords/it-s-going-down-now-azumi-takahashi/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:40:07.934Z"
+  },
+  "https://ecoliving-tips.github.io/chords/holy-forever-live-bethel-music-jenn-johnson-feat-cece-winans/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:40:15.415Z"
+  },
+  "https://ecoliving-tips.github.io/chords/paresh-pahuja-dooron-dooron-live-from-the-voice-notes-concert/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:40:22.942Z"
+  },
+  "https://ecoliving-tips.github.io/chords/8CUbVwBzL_E/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:40:30.533Z"
+  },
+  "https://ecoliving-tips.github.io/chords/elevation-worship-praise-feat-tiffany-hudson-air1/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:40:38.089Z"
+  },
+  "https://ecoliving-tips.github.io/chords/ku-kan-bangkit-healing-movement-crusade-pahauman-healing-movement-ministry/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-05-07T06:40:45.591Z"
   }
 }
