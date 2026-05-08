@@ -377,6 +377,12 @@ async function main() {
 
         results[url] = { verdict, coverageState, lastCrawlTime, crawledAs, checkedAt: new Date().toISOString() };
 
+        if (verdict !== 'PASS' && recheckSet.has(url)) {
+          results[url].recommendCount = (results[url].recommendCount || 0) + 1;
+        } else if (verdict === 'PASS') {
+          delete results[url].recommendCount;
+        }
+
         const icon = verdict === 'PASS' ? 'OK' : 'NO';
         console.log('[' + (i + 1) + '/' + toCheck.length + '] ' + icon + ' | ' + coverageState + ' | ' + url);
 

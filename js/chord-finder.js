@@ -55,15 +55,22 @@ function parseYouTubeTitle(videoTitle, channelName) {
 
     // Strip common noise suffixes
     const noise = [
-        /\s*[\(\[](?:official\s*(?:music\s*)?video|official\s*audio|lyric(?:s|al)?\s*video|audio|hd|hq|full\s*song|4k|remastered|visuali[sz]er|with\s*lyrics)[\)\]]/gi,
-        /\s*\|\s*(?:official\s*(?:music\s*)?video|official\s*audio|lyric(?:s)?\s*video|audio|hd|hq|full\s*song)\s*$/gi,
+        /\s*[\(\[](?:official\s*(?:(?:music|lyric(?:s|al)?)\s*)?video\s*(?:clip)?|official\s*(?:audio|video\s*clip|visuali[sz]er)|lyric(?:s|al)?\s*video|audio|hd|hq|full\s*song|4k|remastered|visuali[sz]er|with\s*lyrics)[\)\]]/gi,
+        /\s*\|\s*(?:official\s*(?:(?:music|lyric(?:s|al)?)\s*)?video\s*(?:clip)?|official\s*(?:audio|video\s*clip|visuali[sz]er)|lyric(?:s)?\s*video|audio|hd|hq|full\s*song)\s*$/gi,
         /\s*#\w+/g,
+        /\s*[-–—]\s*(?:official\s*(?:(?:music|lyric(?:s|al)?)\s*)?video\s*(?:clip)?|official\s*(?:audio|video\s*clip|visuali[sz]er)|lyric(?:s|al)?\s*video|audio|hd|hq|4k|remastered)\s*$/gi,
+        /\s+(?:official\s+(?:(?:music|lyric(?:s|al)?)\s+)?video\s*(?:clip)?|official\s+(?:audio|video\s*clip|visuali[sz]er)|lyric(?:s|al)?\s+video)\s*$/gi,
+        /^(?:(?:official\s+(?:(?:music|lyric(?:s|al)?)\s+)?video\s*(?:clip)?\s*[-–—:]\s*)|(?:lyric(?:s|al)?\s+video\s+))/gi,
     ];
     for (const re of noise) title = title.replace(re, '');
 
     // Strip pipe-separated tags (context, album info, etc.)
     const pipeIdx = title.indexOf(' | ');
     if (pipeIdx > 0) title = title.substring(0, pipeIdx);
+    title = title.trim();
+
+    // Second pass: catch noise now exposed at end after pipe stripping
+    for (const re of [noise[3], noise[4]]) title = title.replace(re, '');
     title = title.trim();
 
     // Channel name as artist — strip YouTube's " - Topic" auto-suffix

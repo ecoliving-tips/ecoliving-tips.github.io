@@ -92,7 +92,8 @@ jobs:
                     : (url.includes('/category/') || url.includes('/artist/')) ? 0.3
                     : (url.includes('/songs/') || url.includes('/lyrics/')) ? 0.2
                     : 0;
-                  return demand + typeBonus;
+                  const penalty = (r[url]?.recommendCount || 0) >= 3 ? 100 : 0;
+                  return demand + typeBonus - penalty;
                 };
                 const batch = notIndexed
                   .sort(([a], [b]) => prioritize(b) - prioritize(a))
