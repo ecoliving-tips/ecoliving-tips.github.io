@@ -1572,6 +1572,28 @@ function generateChordsPage(entry, templates, aiChordPages, difficultyMap) {
     fs.writeFileSync(path.join(outDir, 'index.html'), page);
 }
 
+function generateChordRedirect(oldSlug, newSlug) {
+    const targetUrl = `/chords/${newSlug}/`;
+    const canonicalUrl = `${BASE_URL}/chords/${newSlug}/`;
+    const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, follow">
+<meta http-equiv="refresh" content="0;url=${targetUrl}">
+<link rel="canonical" href="${canonicalUrl}">
+<title>Redirecting...</title>
+</head>
+<body>
+<p>This page has moved. <a href="${targetUrl}">Click here</a> if not redirected.</p>
+<script>window.location.replace('${targetUrl}');</script>
+</body>
+</html>`;
+    const outDir = path.join(ROOT, 'chords', oldSlug);
+    mkdirp(outDir);
+    fs.writeFileSync(path.join(outDir, 'index.html'), html);
+}
+
 // ===== Main =====
 
 async function main() {
@@ -1681,6 +1703,23 @@ async function main() {
         console.warn(`[AI Chords] Skipped: ${err.message}`);
     }
 
+    // Generate redirect pages for renamed slugs
+    const redirectsPath = path.join(ROOT, 'chords', 'redirects.json');
+    const redirectSlugs = new Set();
+    if (aiChordPages.length > 0 && fs.existsSync(redirectsPath)) {
+        const validSlugs = new Set(aiChordPages.map(e => e.slug));
+        const redirectMap = JSON.parse(fs.readFileSync(redirectsPath, 'utf-8'));
+        let redirectCount = 0;
+        for (const [oldSlug, newSlug] of Object.entries(redirectMap)) {
+            redirectSlugs.add(oldSlug);
+            if (validSlugs.has(newSlug)) {
+                generateChordRedirect(oldSlug, newSlug);
+                redirectCount++;
+            }
+        }
+        if (redirectCount > 0) console.log(`Generated ${redirectCount} chord redirect page(s).`);
+    }
+
     // Clean up orphaned chord pages (slugs removed from Supabase)
     if (aiChordPages.length > 0) {
         const validSlugs = new Set(aiChordPages.map(e => e.slug));
@@ -1691,7 +1730,7 @@ async function main() {
                 .map(d => d.name);
             let removed = 0;
             for (const dir of dirs) {
-                if (!validSlugs.has(dir)) {
+                if (!validSlugs.has(dir) && !redirectSlugs.has(dir)) {
                     fs.rmSync(path.join(chordsDir, dir), { recursive: true });
                     removed++;
                 }
