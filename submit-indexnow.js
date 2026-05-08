@@ -18,7 +18,9 @@ const path = require('path');
 const SITEMAP_PATH = path.join(__dirname, 'sitemap.xml');
 const PROGRESS_PATH = path.join(__dirname, 'indexnow-progress.json');
 const HOST = 'ecoliving-tips.github.io';
-const KEY = '06cd40f31a5c5966384e2e2709d24bcc';
+const keyFile = fs.readdirSync(__dirname).find(f => /^[a-f0-9]{32}\.txt$/.test(f));
+if (!keyFile) throw new Error('IndexNow key file not found — expected a 32-char hex .txt file in project root');
+const KEY = keyFile.replace('.txt', '');
 const KEY_LOCATION = `https://${HOST}/${KEY}.txt`;
 const BATCH_SIZE = 10000; // IndexNow allows up to 10,000 per request
 
