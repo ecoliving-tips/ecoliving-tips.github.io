@@ -818,12 +818,20 @@ function generateProgressionPages(templates) {
 
 // ===== Sitemap Generator =====
 
+function escapeXml(str) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, '&apos;').replace(/"/g, '&quot;');
+}
+
+function isValidSitemapUrl(url) {
+    return typeof url === 'string' && url.startsWith('https://') && !url.includes(' ') && !/[<>"{}|\\^`]/.test(url);
+}
+
 function buildUrlset(entries) {
     let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
     xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
     for (const e of entries) {
         xml += `  <url>\n`;
-        xml += `    <loc>${e.loc}</loc>\n`;
+        xml += `    <loc>${escapeXml(e.loc)}</loc>\n`;
         xml += `    <lastmod>${e.lastmod}</lastmod>\n`;
         xml += `    <changefreq>${e.changefreq}</changefreq>\n`;
         xml += `    <priority>${e.priority}</priority>\n`;
@@ -961,9 +969,18 @@ function generateSitemap(songs, categories, artists, progressionKeys, aiChordPag
     const indexEntries = [];
     for (const seg of segments) {
         if (seg.entries.length === 0) continue;
-        fs.writeFileSync(path.join(ROOT, seg.file), buildUrlset(seg.entries));
+        // Filter out entries with invalid URLs
+        const validEntries = seg.entries.filter(e => {
+            if (!isValidSitemapUrl(e.loc)) {
+                console.warn(`⚠ Skipping invalid sitemap URL in ${seg.file}: ${e.loc}`);
+                return false;
+            }
+            return true;
+        });
+        if (validEntries.length === 0) continue;
+        fs.writeFileSync(path.join(ROOT, seg.file), buildUrlset(validEntries));
         // Use the most recent lastmod from the segment's entries
-        const latestMod = seg.entries.reduce((max, e) => e.lastmod > max ? e.lastmod : max, seg.entries[0].lastmod);
+        const latestMod = validEntries.reduce((max, e) => e.lastmod > max ? e.lastmod : max, validEntries[0].lastmod);
         indexEntries.push({ file: seg.file, lastmod: latestMod });
     }
 
@@ -972,12 +989,53 @@ function generateSitemap(songs, categories, artists, progressionKeys, aiChordPag
     idx += '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
     for (const entry of indexEntries) {
         idx += `  <sitemap>\n`;
-        idx += `    <loc>${BASE_URL}/${entry.file}</loc>\n`;
+        idx += `    <loc>${escapeXml(BASE_URL + '/' + entry.file)}</loc>\n`;
         idx += `    <lastmod>${entry.lastmod}</lastmod>\n`;
         idx += `  </sitemap>\n`;
     }
     idx += '</sitemapindex>\n';
     fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), idx);
+}
+
+function validateSitemaps() {
+    const sitemapFiles = fs.readdirSync(ROOT).filter(f => f.startsWith('sitemap') && f.endsWith('.xml'));
+    let allValid = true;
+    for (const file of sitemapFiles) {
+        const filePath = path.join(ROOT, file);
+        const content = fs.readFileSync(filePath, 'utf-8');
+        const errors = [];
+        if (!content.startsWith('<?xml version="1.0" encoding="UTF-8"?>')) {
+            errors.push('Missing or malformed XML declaration');
+        }
+        if (file === 'sitemap.xml') {
+            if (!content.includes('<sitemapindex')) errors.push('Missing <sitemapindex> tag');
+            if (!content.includes('</sitemapindex>')) errors.push('Missing </sitemapindex> closing tag');
+        } else {
+            if (!content.includes('<urlset')) errors.push('Missing <urlset> tag');
+            if (!content.includes('</urlset>')) errors.push('Missing </urlset> closing tag');
+        }
+        // Check for bare & (not &amp; &lt; &gt; &apos; &quot;)
+        const bareAmpersand = content.match(/&(?!amp;|lt;|gt;|apos;|quot;|#\d+;|#x[0-9a-fA-F]+;)/g);
+        if (bareAmpersand) {
+            errors.push(`Found ${bareAmpersand.length} unescaped '&' character(s)`);
+        }
+        const locUrls = content.match(/<loc>(.*?)<\/loc>/g) || [];
+        const urlCount = locUrls.length;
+        if (urlCount === 0 && file !== 'sitemap.xml') {
+            errors.push('No <loc> entries found');
+        }
+        if (errors.length > 0) {
+            console.error(`✗ ${file}: ${errors.join('; ')}`);
+            allValid = false;
+        } else {
+            console.log(`✓ ${file} — valid (${urlCount} URLs)`);
+        }
+    }
+    if (!allValid) {
+        console.error('\n✗ Sitemap validation failed! Fix errors above before deploying.');
+        process.exitCode = 1;
+    }
+    return allValid;
 }
 
 
@@ -1743,6 +1801,7 @@ async function main() {
     generateSitemap(songs, allCategories, allArtists, progressionKeys, aiChordPages);
     const totalUrls = 5 + songs.length * 2 + allCategories.length + allArtists.length + progressionKeys.length + aiChordPages.length;
     console.log(`Sitemap generated with ${totalUrls} URLs.`);
+    validateSitemaps();
 
     generateRSSFeed(songs, aiChordPages);
     console.log(`RSS feed generated (feed.xml).`);

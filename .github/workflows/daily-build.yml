@@ -23,6 +23,20 @@ jobs:
       - name: Run build
         run: node build.js
 
+      - name: Validate sitemaps
+        run: |
+          for f in sitemap*.xml; do
+            if [ ! -s "$f" ]; then
+              echo "ERROR: $f is empty or missing"
+              exit 1
+            fi
+            if ! head -1 "$f" | grep -q '<?xml'; then
+              echo "ERROR: $f missing XML declaration"
+              exit 1
+            fi
+          done
+          echo "All sitemap files present and well-formed"
+
       - name: Validate chord diagrams
         run: node test-chords.js
 
