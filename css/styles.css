@@ -1657,7 +1657,7 @@ footer {
 }
 
 .footer-logo p {
-    color: var(--text-dim);
+    color: #8A7EB0;
     font-size: 0.85rem;
 }
 
@@ -1680,7 +1680,7 @@ footer {
 
 .footer-links ul li a,
 .footer-social ul li a {
-    color: var(--text-dim);
+    color: #8A7EB0;
     font-size: 0.9rem;
     transition: var(--transition);
 }
@@ -1697,7 +1697,7 @@ footer {
 }
 
 .footer-bottom p {
-    color: var(--text-dim);
+    color: #8A7EB0;
     font-size: 0.85rem;
 }
 
