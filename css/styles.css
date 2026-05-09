@@ -164,8 +164,8 @@ h3 {
 
 .btn-secondary {
     background: transparent;
-    border: 1.5px solid var(--primary-light);
-    color: var(--primary-light);
+    border: 1.5px solid #A78BFA;
+    color: #A78BFA;
 }
 
 .btn-secondary:hover {
@@ -1096,7 +1096,7 @@ header {
 .song-card-actions .btn-secondary {
     background: transparent;
     border: 1px solid var(--border);
-    color: var(--primary-light);
+    color: #A78BFA;
 }
 
 .song-card-actions .btn-secondary:hover {

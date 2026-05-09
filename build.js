@@ -41,6 +41,16 @@ function mkdirp(dir) {
     }
 }
 
+function minifyCSS(css) {
+    return css
+        .replace(/\/\*[\s\S]*?\*\//g, '')
+        .replace(/\s+/g, ' ')
+        .replace(/\s*([{}:;,>~+])\s*/g, '$1')
+        .replace(/;}/g, '}')
+        .replace(/calc\([^)]*\)/g, m => m.replace(/(\d)([+-])(\d)/g, '$1 $2 $3'))
+        .trim();
+}
+
 // ===== Frontmatter Parser =====
 
 function parseFrontmatter(content) {
@@ -1816,6 +1826,13 @@ async function main() {
     generateChordsBrowsePage(aiChordPages);
     console.log(`Pre-rendered index.html with ${Math.min(songs.length, 3)} featured song cards + 8 recent chords.`);
     console.log(`Pre-rendered chords/browse.html with ${aiChordPages.length} chord links (A-Z directory).`);
+
+    // Minify CSS
+    const cssSource = fs.readFileSync(path.join(ROOT, 'css', 'styles.css'), 'utf-8');
+    const cssMin = minifyCSS(cssSource);
+    fs.writeFileSync(path.join(ROOT, 'css', 'styles.min.css'), cssMin);
+    const savings = ((1 - cssMin.length / cssSource.length) * 100).toFixed(1);
+    console.log(`CSS minified: ${(cssSource.length / 1024).toFixed(1)} KiB → ${(cssMin.length / 1024).toFixed(1)} KiB (${savings}% reduction).`);
 
     // Summary
     console.log('\n--- Build Summary ---');

@@ -32,7 +32,7 @@
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
 
     <title>Swaram — Free AI Chord Finder | Detect Chords for Any Song</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Manjari:wght@400;700&display=swap"
@@ -336,14 +336,14 @@
                 <p class="section-subtitle">AI-detected chords from the community</p>
                 <div class="recently-added-row" id="homepage-recent-chords">
 <!-- BUILD:RECENT_CHORDS -->
-                    <a class="recently-added-card" href="/chords/we-own-the-night-from-zombies-2-descendants-bad-boy/"><div class="ra-title">We Own the Night ( From ZOMBIES 2 )</div><div class="ra-artist">Descendants Bad boy</div></a>
-                    <a class="recently-added-card" href="/chords/benediction-may-the-peace-of-god-keith-kristyn-getty-lyrics-jonathan-kim/"><div class="ra-title">Benediction (May the Peace of God) - Keith & Kristyn Getty (LYRICS)</div><div class="ra-artist">Jonathan Kim</div></a>
-                    <a class="recently-added-card" href="/chords/jedwane-bghini-nebghik-youtube-yaqini/"><div class="ra-title">Jedwane   Bghini nebghik   YouTube</div><div class="ra-artist">نجارة الخشب Yaqini</div></a>
-                    <a class="recently-added-card" href="/chords/david/"><div class="ra-title">DAVID</div><div class="ra-artist">DAVID</div></a>
-                    <a class="recently-added-card" href="/chords/happy-mother-s-day-mahal-naming-ina-kurimao-works/"><div class="ra-title">Happy Mother's Day Mahal Naming Ina</div><div class="ra-artist">Kurimao Works</div></a>
-                    <a class="recently-added-card" href="/chords/cortis-cheese-ball-lo-fi-ver-someone-music/"><div class="ra-title">CORTIS (코르티스) 'Cheese Ball' (Lo-FI ver.)</div><div class="ra-artist">SOMEONE MUSIC</div></a>
-                    <a class="recently-added-card" href="/chords/zwo-s-prayer-for-the-nation-zwothe-keys/"><div class="ra-title">Zwo's Prayer for the nation</div><div class="ra-artist">ZWOTHE KEYS</div></a>
-                    <a class="recently-added-card" href="/chords/gajina-live-pandavaas/"><div class="ra-title">Gajina Live</div><div class="ra-artist">Pandavaas</div></a>
+                    <a class="recently-added-card" href="/chords/as-it-was-acoustic-creamy/"><div class="ra-title">As It Was - Acoustic</div><div class="ra-artist">creamy</div></a>
+                    <a class="recently-added-card" href="/chords/illevik-wild-rover/"><div class="ra-title">Illevik</div><div class="ra-artist">Wild Rover</div></a>
+                    <a class="recently-added-card" href="/chords/tata-de-amon-interpreted-by-elmer-atilano-and-musical-arrangement-by-benjie-mahasol/"><div class="ra-title">TATA DE AMON interpreted by Elmer Atilano and Musical Arrangement by Benjie Mahasol</div><div class="ra-artist">elmer atilano</div></a>
+                    <a class="recently-added-card" href="/chords/deep-chills-tilsen-stay-yours-atlast/"><div class="ra-title">Deep Chills & Tilsen - Stay Yours</div><div class="ra-artist">ATLAST</div></a>
+                    <a class="recently-added-card" href="/chords/temari-ninomae-ina-nis-ninomae-ina-nis-ch-hololive-en/"><div class="ra-title">『TEMARI』 - Ninomae Ina'nis</div><div class="ra-artist">Ninomae Ina'nis Ch. hololive-EN</div></a>
+                    <a class="recently-added-card" href="/chords/jady-way-you-are-with-jenna-norodom/"><div class="ra-title">jady - Way You Are ( with . Jenna Norodom )</div><div class="ra-artist">jady</div></a>
+                    <a class="recently-added-card" href="/chords/morituri-te-salutant-karel-kryl/"><div class="ra-title">Morituri te salutant</div><div class="ra-artist">Karel Kryl</div></a>
+                    <a class="recently-added-card" href="/chords/pantaskah-aku-by-incredible-band-cover-garapayuse/"><div class="ra-title">Pantaskah Aku by Incredible Band (cover)</div><div class="ra-artist">GaraPayuse</div></a>
 <!-- /BUILD:RECENT_CHORDS -->
                 </div>
             </div>
@@ -413,9 +413,7 @@
                 <h2 data-i18n="support_title">Support Swaram</h2>
                 <p data-i18n="support_text">We keep everything completely free. Your support helps us improve the chord finder and add more songs.</p>
                 <div class="donate-options">
-                    <div class="razorpay-donate-btn">
-                        <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_SadQoYekBnNHJC" async> </script> </form>
-                    </div>
+                    <div class="razorpay-donate-btn" id="razorpay-btn-container"></div>
                     <div class="upi-donate-option">
                         <p class="upi-label" data-i18n="or_upi">Or pay directly via UPI (India)</p>
                         <a href="#" onclick="openUPI(); return false;" class="btn donate-btn donate-btn-secondary" data-i18n="pay_upi">Pay via UPI</a>
@@ -423,6 +421,32 @@
                 </div>
             </div>
         </section>
+        <script>
+        (function () {
+            var container = document.getElementById('razorpay-btn-container');
+            if (!container) return;
+            var loaded = false;
+            function loadRazorpay() {
+                if (loaded) return;
+                loaded = true;
+                var form = document.createElement('form');
+                var s = document.createElement('script');
+                s.src = 'https://checkout.razorpay.com/v1/payment-button.js';
+                s.setAttribute('data-payment_button_id', 'pl_SadQoYekBnNHJC');
+                s.async = true;
+                form.appendChild(s);
+                container.appendChild(form);
+            }
+            if ('IntersectionObserver' in window) {
+                var obs = new IntersectionObserver(function (entries) {
+                    if (entries[0].isIntersecting) { loadRazorpay(); obs.disconnect(); }
+                }, { rootMargin: '300px' });
+                obs.observe(container);
+            } else {
+                loadRazorpay();
+            }
+        })();
+        </script>
 
         <section class="about-section">
             <div class="container">
@@ -492,8 +516,8 @@
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
-    <script src="js/songs.js"></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/songs.js" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             loadFeaturedSongs();
