@@ -1329,7 +1329,7 @@ const SUPABASE_KEY = 'sb_publishable_KJA4VzMAjt2WVEEg0JKMfg_lDrABAZK';
  */
 async function fetchGeneratedChords() {
     const columns = 'video_id,title,artist,slug,chords,created_at,youtube_title';
-    const baseUrl = `${SUPABASE_URL}/rest/v1/generated_chords?select=${columns}&slug=not.is.null&order=created_at.desc`;
+    const baseUrl = `${SUPABASE_URL}/rest/v1/generated_chords?select=${columns}&slug=not.is.null&youtube_title=not.is.null&order=created_at.desc`;
     const headers = {
         'apikey': SUPABASE_KEY,
         'Authorization': `Bearer ${SUPABASE_KEY}`,
