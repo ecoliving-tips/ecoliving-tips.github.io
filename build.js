@@ -1071,25 +1071,23 @@ function generateRSSFeed(songs, aiChordPages) {
     // Limit to newest items
     const feed = items.slice(0, MAX_ITEMS);
 
-    const escXml = (s) => (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-
     let rss = '<?xml version="1.0" encoding="UTF-8"?>\n';
     rss += '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n';
     rss += '  <channel>\n';
     rss += '    <title>Swaram — AI Chord Finder</title>\n';
-    rss += `    <link>${BASE_URL}/</link>\n`;
+    rss += `    <link>${escapeXml(BASE_URL + '/')}</link>\n`;
     rss += '    <description>Free AI-powered chord detection for any song. Latest chord pages and updates.</description>\n';
     rss += '    <language>en</language>\n';
     rss += `    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>\n`;
-    rss += `    <atom:link href="${BASE_URL}/feed.xml" rel="self" type="application/rss+xml"/>\n`;
+    rss += `    <atom:link href="${escapeXml(BASE_URL + '/feed.xml')}" rel="self" type="application/rss+xml"/>\n`;
     rss += '    <atom:link href="https://pubsubhubbub.appspot.com/" rel="hub"/>\n';
 
     for (const item of feed) {
         rss += '    <item>\n';
-        rss += `      <title>${escXml(item.title)}</title>\n`;
-        rss += `      <link>${item.link}</link>\n`;
-        rss += `      <guid>${item.link}</guid>\n`;
-        rss += `      <description>${escXml(item.description)}</description>\n`;
+        rss += `      <title>${escapeXml(item.title)}</title>\n`;
+        rss += `      <link>${escapeXml(item.link)}</link>\n`;
+        rss += `      <guid>${escapeXml(item.link)}</guid>\n`;
+        rss += `      <description>${escapeXml(item.description)}</description>\n`;
         rss += `      <pubDate>${item.pubDate}</pubDate>\n`;
         rss += '    </item>\n';
     }
