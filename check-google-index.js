@@ -278,6 +278,12 @@ async function main() {
   let toCheck;
   let scheduleSummary = null;
 
+  let recheckUrls = [];
+  if (fs.existsSync(RECHECK_PATH)) {
+    try { recheckUrls = JSON.parse(fs.readFileSync(RECHECK_PATH, 'utf-8')); } catch {}
+  }
+  const recheckSet = new Set(recheckUrls);
+
   if (force) {
     toCheck = allUrls;
   } else if (newOnly) {
@@ -286,12 +292,6 @@ async function main() {
     const urlPriority = loadUrlPriority();
     const buckets = { recheck: [], new: [], 'static-tools': [], 'progression-keys': [], 'category-artist': [], 'songs-lyrics': [], 'chord-with-demand': [], 'chord-no-demand': [], other: [] };
     let skippedIndexed = 0, skippedFresh = 0;
-
-    let recheckUrls = [];
-    if (fs.existsSync(RECHECK_PATH)) {
-      try { recheckUrls = JSON.parse(fs.readFileSync(RECHECK_PATH, 'utf-8')); } catch {}
-    }
-    const recheckSet = new Set(recheckUrls);
 
     for (const url of allUrls) {
       const entry = results[url];
