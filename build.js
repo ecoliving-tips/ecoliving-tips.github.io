@@ -852,6 +852,13 @@ function buildUrlset(entries) {
 }
 
 function generateSitemap(songs, categories, artists, progressionKeys, aiChordPages) {
+    // Clean up stale sub-sitemaps from previous builds
+    const staleSitemaps = fs.readdirSync(ROOT)
+        .filter(f => f.startsWith('sitemap-') && f.endsWith('.xml'));
+    for (const f of staleSitemaps) {
+        fs.unlinkSync(path.join(ROOT, f));
+    }
+
     const gitDateCache = {};
     function getLastmod(filePath) {
         if (gitDateCache[filePath]) return gitDateCache[filePath];
@@ -1041,6 +1048,27 @@ function validateSitemaps() {
             console.log(`✓ ${file} — valid (${urlCount} URLs)`);
         }
     }
+
+    // Cross-reference: disk files must match index references bidirectionally
+    const indexContent = fs.readFileSync(path.join(ROOT, 'sitemap.xml'), 'utf-8');
+    const referencedFiles = (indexContent.match(/<loc>[^<]+<\/loc>/g) || [])
+        .map(m => m.replace(/<\/?loc>/g, ''))
+        .map(url => url.split('/').pop());
+    const diskSubSitemaps = sitemapFiles.filter(f => f !== 'sitemap.xml');
+
+    for (const f of diskSubSitemaps) {
+        if (!referencedFiles.includes(f)) {
+            console.error(`✗ ${f} exists on disk but is NOT referenced in sitemap.xml`);
+            allValid = false;
+        }
+    }
+    for (const f of referencedFiles) {
+        if (!diskSubSitemaps.includes(f)) {
+            console.error(`✗ ${f} is referenced in sitemap.xml but does NOT exist on disk`);
+            allValid = false;
+        }
+    }
+
     if (!allValid) {
         console.error('\n✗ Sitemap validation failed! Fix errors above before deploying.');
         process.exitCode = 1;
