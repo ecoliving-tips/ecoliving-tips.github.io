@@ -143,3 +143,22 @@ jobs:
             git pull --rebase
             git push
           fi
+
+      - name: Verify sitemaps are live after deploy
+        if: success()
+        run: |
+          echo "Waiting 120s for GitHub Pages deployment..."
+          sleep 120
+          FAILED=0
+          for sitemap in sitemap.xml sitemap-pages.xml sitemap-chords-new.xml; do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" "https://ecoliving-tips.github.io/$sitemap")
+            if [ "$STATUS" != "200" ]; then
+              echo "WARNING: $sitemap returned HTTP $STATUS"
+              FAILED=1
+            else
+              echo "OK: $sitemap is live (HTTP $STATUS)"
+            fi
+          done
+          if [ "$FAILED" -eq 1 ]; then
+            echo "::warning::One or more sitemaps not accessible after deploy"
+          fi

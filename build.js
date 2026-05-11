@@ -843,8 +843,6 @@ function buildUrlset(entries) {
         xml += `  <url>\n`;
         xml += `    <loc>${escapeXml(e.loc)}</loc>\n`;
         xml += `    <lastmod>${e.lastmod}</lastmod>\n`;
-        xml += `    <changefreq>${e.changefreq}</changefreq>\n`;
-        xml += `    <priority>${e.priority}</priority>\n`;
         xml += `  </url>\n`;
     }
     xml += '</urlset>\n';
@@ -877,35 +875,29 @@ function generateSitemap(songs, categories, artists, progressionKeys, aiChordPag
 
     // --- Segment: static pages ---
     const pagesEntries = [
-        { loc: '/', changefreq: 'weekly', priority: '1.0', file: 'index.html' },
-        { loc: '/songs.html', changefreq: 'weekly', priority: '0.9', file: 'songs.html' },
-        { loc: '/chord-finder.html', changefreq: 'weekly', priority: '0.95', file: 'chord-finder.html' },
-        { loc: '/chord-identifier.html', changefreq: 'monthly', priority: '0.90', file: 'chord-identifier.html' },
-        { loc: '/chord-progressions.html', changefreq: 'monthly', priority: '0.90', file: 'chord-progressions.html' },
-        { loc: '/chords/browse.html', changefreq: 'weekly', priority: '0.85', file: 'chords/browse.html' },
-        { loc: '/request.html', changefreq: 'monthly', priority: '0.7', file: 'request.html' },
-        { loc: '/privacy-policy.html', changefreq: 'yearly', priority: '0.3', file: 'privacy-policy.html' },
+        { loc: '/', file: 'index.html' },
+        { loc: '/songs.html', file: 'songs.html' },
+        { loc: '/chord-finder.html', file: 'chord-finder.html' },
+        { loc: '/chord-identifier.html', file: 'chord-identifier.html' },
+        { loc: '/chord-progressions.html', file: 'chord-progressions.html' },
+        { loc: '/chords/browse.html', file: 'chords/browse.html' },
+        { loc: '/request.html', file: 'request.html' },
+        { loc: '/privacy-policy.html', file: 'privacy-policy.html' },
     ].map(p => ({
         loc: `${BASE_URL}${p.loc}`,
         lastmod: getLastmod(p.file),
-        changefreq: p.changefreq,
-        priority: p.priority,
     }));
 
     // --- Segment: song pages ---
     const songsEntries = songs.map(song => ({
         loc: `${BASE_URL}/songs/${song.id}/`,
         lastmod: getLastmod(`songs/${song.file || song.id + '.md'}`),
-        changefreq: 'monthly',
-        priority: '0.8',
     }));
 
     // --- Segment: lyrics pages ---
     const lyricsEntries = songs.map(song => ({
         loc: `${BASE_URL}/lyrics/${song.id}/`,
         lastmod: getLastmod(`songs/${song.file || song.id + '.md'}`),
-        changefreq: 'monthly',
-        priority: '0.7',
     }));
 
     // --- Segment: category pages ---
@@ -918,8 +910,6 @@ function generateSitemap(songs, categories, artists, progressionKeys, aiChordPag
         return {
             loc: `${BASE_URL}/category/${slugify(cat)}/`,
             lastmod: latestSongDate,
-            changefreq: 'weekly',
-            priority: '0.7',
         };
     });
 
@@ -933,8 +923,6 @@ function generateSitemap(songs, categories, artists, progressionKeys, aiChordPag
         return {
             loc: `${BASE_URL}/artist/${slugify(artist)}/`,
             lastmod: latestSongDate,
-            changefreq: 'weekly',
-            priority: '0.6',
         };
     });
 
@@ -942,24 +930,14 @@ function generateSitemap(songs, categories, artists, progressionKeys, aiChordPag
     const progressionEntries = (progressionKeys || []).map(keyInfo => ({
         loc: `${BASE_URL}/chord-progressions/${progKeySlug(keyInfo.root, keyInfo.mode)}/`,
         lastmod: getLastmod('chord-progressions.html'),
-        changefreq: 'monthly',
-        priority: '0.75',
     }));
 
-    // --- Segment: AI chord pages (with age-based priority tiers) ---
+    // --- Segment: AI chord pages ---
     const chordEntries = (aiChordPages || []).map(entry => {
         const createdDate = entry.created_at ? entry.created_at.split('T')[0] : '2026-01-01';
-        const ageInDays = Math.floor((Date.now() - new Date(createdDate).getTime()) / 86400000);
-        let priority = '0.4';
-        let changefreq = 'monthly';
-        if (ageInDays <= 7) { priority = '0.8'; changefreq = 'daily'; }
-        else if (ageInDays <= 30) { priority = '0.6'; changefreq = 'weekly'; }
-        else if (ageInDays <= 90) { priority = '0.5'; changefreq = 'monthly'; }
         return {
             loc: `${BASE_URL}/chords/${entry.slug}/`,
             lastmod: createdDate,
-            changefreq,
-            priority,
         };
     });
 

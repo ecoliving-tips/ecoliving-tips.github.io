@@ -5,7 +5,7 @@
     <link>https://ecoliving-tips.github.io/</link>
     <description>Free AI-powered chord detection for any song. Latest chord pages and updates.</description>
     <language>en</language>
-    <lastBuildDate>Mon, 11 May 2026 16:59:27 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 11 May 2026 17:24:12 GMT</lastBuildDate>
     <atom:link href="https://ecoliving-tips.github.io/feed.xml" rel="self" type="application/rss+xml"/>
     <atom:link href="https://pubsubhubbub.appspot.com/" rel="hub"/>
     <item>
@@ -14,6 +14,13 @@
       <guid>https://ecoliving-tips.github.io/chords/2022/</guid>
       <description>AI-detected chord progression for ביג תוחס-מתוך ״הנה באים ימי הקיץ״ בית צבי 2022 by אורלי טבג&apos;ה. Chords: F#, B, C#, D, A7, F#7, E, G#</description>
       <pubDate>Sun, 10 May 2026 22:50:20 GMT</pubDate>
+    </item>
+    <item>
+      <title>राम तजूँ पै गुरु न बिसारूँ। सहजो बाई — संत सरिता भजन Chords</title>
+      <link>https://ecoliving-tips.github.io/chords/K8DNrZbDueU/</link>
+      <guid>https://ecoliving-tips.github.io/chords/K8DNrZbDueU/</guid>
+      <description>AI-detected chord progression for राम तजूँ पै गुरु न बिसारूँ। सहजो बाई by संत सरिता भजन. Chords: C#, G#m, C#m, A, B, F#, Emaj7, F#m</description>
+      <pubDate>Mon, 11 May 2026 17:02:13 GMT</pubDate>
     </item>
     <item>
       <title>bladee - facetime (prod. rip) — 1sleep23 Chords</title>
@@ -350,13 +357,6 @@
       <guid>https://ecoliving-tips.github.io/chords/vaWL-CwpSYA/</guid>
       <description>AI-detected chord progression for איתי לוי - ירושלים של זהב by איתי לוי - הערוץ הרשמי. Chords: F, Fm, C#maj7, Gm7, Fm7, A#m, A#sus2, C#</description>
       <pubDate>Mon, 11 May 2026 09:53:54 GMT</pubDate>
-    </item>
-    <item>
-      <title>The Rare Auld Mountain Dew - The Dubliners - Christ Church Cathedral — The Dubliners Chords</title>
-      <link>https://ecoliving-tips.github.io/chords/the-rare-auld-mountain-dew-the-dubliners-christ-church-cathedral/</link>
-      <guid>https://ecoliving-tips.github.io/chords/the-rare-auld-mountain-dew-the-dubliners-christ-church-cathedral/</guid>
-      <description>AI-detected chord progression for The Rare Auld Mountain Dew - The Dubliners - Christ Church Cathedral by The Dubliners. Chords: G, C, D, Em</description>
-      <pubDate>Mon, 11 May 2026 09:39:26 GMT</pubDate>
     </item>
   </channel>
 </rss>
