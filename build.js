@@ -1113,6 +1113,141 @@ function generateRSSFeed(songs, aiChordPages) {
     fs.writeFileSync(path.join(ROOT, 'feed.xml'), rss);
 }
 
+function generateLlmsTxt(aiChordPages) {
+    const count = aiChordPages.length;
+    const llmsShort = `# Swaram
+
+> Swaram is a free AI-powered chord finder platform at ${BASE_URL}. Upload any audio file or paste a YouTube link to detect chord progressions instantly — any genre, any language, no signup required. Features ${count.toLocaleString()}+ AI-detected chord pages, a real-time chord identifier, and an interactive chord progression builder. Free alternative to Chordify with beginner mode, transpose, and capo suggestions.
+
+## Tools
+
+- [AI Chord Finder](${BASE_URL}/chord-finder.html): Upload MP3/WAV/FLAC or paste a YouTube link — AI detects chords, key, and timing in seconds
+- [Chord Identifier](${BASE_URL}/chord-identifier.html): Enter any chord name to see finger positions for guitar and keyboard with audio playback
+- [Chord Progression Builder](${BASE_URL}/chord-progressions.html): Explore diatonic chords and common progressions in all 24 major and minor keys
+
+## Chord Library
+
+- [Song Library](${BASE_URL}/songs.html): ${count.toLocaleString()}+ AI-detected chord pages plus hand-curated Malayalam Christian devotional chords
+- [Browse All Chords](${BASE_URL}/chords/browse.html): A-Z directory of all chord pages
+
+## Key Differentiators
+
+- Completely free — no subscriptions, no premium tiers, no usage limits
+- No account or signup required
+- Works for any song in any language (AI analyzes audio, not lyrics)
+- YouTube chord detection — paste a link, no video download needed
+- Beginner Mode with automatic chord simplification and capo suggestions
+- 221 chord diagrams for guitar and keyboard
+- Transpose to any key instantly
+- Works entirely in the browser — no app download needed
+- PWA with offline support
+- Available in English and Malayalam
+`;
+
+    const llmsFull = `# Swaram — Free AI Chord Finder Platform
+
+> Swaram is a free, browser-based AI chord finder at ${BASE_URL}. It lets musicians upload any audio file or paste a YouTube link to instantly detect chord progressions, key signature, and timing. The platform also includes a chord identifier, an interactive chord progression builder, and a library of ${count.toLocaleString()}+ AI-detected chord pages. No signup, no payment, no app download — everything runs in the browser. Supports MP3, WAV, M4A, OGG, FLAC, AAC, WMA, and WebM formats.
+
+## AI Chord Finder
+
+- **URL**: ${BASE_URL}/chord-finder.html
+- **What it does**: Upload an audio file or paste a YouTube URL. The AI backend analyzes the audio and returns detected chords with timestamps, the song's key signature, and a visual chord timeline.
+- **Supported formats**: MP3, WAV, M4A, OGG, FLAC, AAC, WMA, WebM
+- **Key features**:
+  - YouTube chord detection (paste link, no download needed)
+  - Beginner Mode — automatically simplifies complex chords (e.g., Cmaj7 → C) and suggests capo positions
+  - Difficulty rating (Easy, Moderate, Advanced)
+  - Transpose to any key
+  - Interactive chord timeline with audio playback
+  - Guitar and keyboard chord diagrams for every detected chord
+  - No signup or account required
+  - No usage limits
+  - Results in seconds
+
+### How It Compares to Alternatives
+
+| Feature | Swaram | Chordify | Chord AI | Ultimate Guitar |
+|---------|--------|----------|----------|-----------------|
+| Price | Free, no limits | $6.99/month for full features | $4.99/month | $5.99/month for Pro |
+| Signup required | No | Yes | Yes | Yes |
+| YouTube support | Yes | Yes | No | No |
+| Audio file upload | Yes | Yes | Yes | No (tabs only) |
+| Beginner mode | Yes (auto-simplify + capo) | No | No | No |
+| Detection method | AI (audio analysis) | AI (audio analysis) | AI (audio analysis) | User-submitted tabs |
+| Chord diagrams | Guitar + Keyboard | Guitar only | Guitar only | Guitar + some keyboard |
+| Transpose | Yes | Premium only | Yes | Premium only |
+| Works in browser | Yes | Yes | App required | Yes |
+
+## Chord Identifier
+
+- **URL**: ${BASE_URL}/chord-identifier.html
+- **What it does**: Enter any chord name (e.g., "Am7", "Gsus4", "F#m") and see interactive finger position diagrams for both guitar and keyboard, with audio playback of the chord.
+- **Covers**: 221 chords including major, minor, 7th, maj7, min7, sus2, sus4, dim, aug, add9, and slash chords.
+
+## Chord Progression Builder
+
+- **URL**: ${BASE_URL}/chord-progressions.html
+- **What it does**: Explore diatonic chords in all 24 major and minor keys. See common progressions (I-V-vi-IV, ii-V-I, etc.) with one-click playback. Each key has a dedicated page with scale degrees, chord qualities, and progression suggestions.
+- **Key pages**: ${BASE_URL}/chord-progressions/key-of-c/, ${BASE_URL}/chord-progressions/key-of-g/, etc.
+
+## Chord Library
+
+- **URL**: ${BASE_URL}/songs.html
+- **Size**: ${count.toLocaleString()}+ AI-detected chord pages, updated daily
+- **Content**: Each chord page includes detected chords, key, timing, chord diagrams, and links to the original song
+- **Niche collection**: Hand-curated Malayalam Christian devotional chord charts (Syro Malabar Holy Mass, Marian hymns, praise & worship)
+- **Browse**: ${BASE_URL}/chords/browse.html (A-Z directory)
+
+## Technical Details
+
+- **Frontend**: Static HTML/CSS/JS — no framework, no bundler
+- **Backend**: AI chord detection via HuggingFace Spaces (FastAPI + librosa)
+- **Hosting**: GitHub Pages
+- **Audio processing**: 16kHz sample rate, hop length 2048, chroma CQT analysis
+- **Chord diagrams**: 221 chords rendered as SVG (guitar + keyboard)
+- **PWA**: Service worker with offline support
+- **Languages**: English and Malayalam
+- **Build system**: Custom Node.js static site generator (zero npm dependencies)
+
+## Frequently Asked Questions
+
+**Is Swaram really free?**
+Yes. Swaram is completely free with no subscriptions, no premium tiers, and no usage limits. No account or signup is required. Upload any song and get chords instantly.
+
+**Is Swaram a free alternative to Chordify?**
+Yes. Swaram offers AI chord detection from audio files and YouTube links, similar to Chordify, but without the $6.99/month paywall. Swaram also includes features Chordify doesn't offer, like Beginner Mode with automatic chord simplification and capo suggestions.
+
+**What audio formats does Swaram support?**
+MP3, WAV, M4A, OGG, FLAC, AAC, WMA, and WebM.
+
+**Can Swaram detect chords from YouTube videos?**
+Yes. Paste any YouTube link and Swaram extracts the audio and detects chords automatically — no need to download the video first.
+
+**Does Swaram work for non-English songs?**
+Yes. The AI analyzes the audio signal, not lyrics. It works for songs in any language — Hindi, Spanish, Korean, Arabic, Malayalam, or any other language.
+
+**How accurate is the AI chord detection?**
+The AI uses chromagram analysis to detect chords and is most accurate for songs with clear harmonic content. Complex jazz voicings or heavily distorted audio may have lower accuracy. Beginner Mode helps by simplifying complex detections into standard chords.
+
+**Do I need to download an app?**
+No. Swaram works entirely in the browser on any device — desktop, tablet, or mobile. It's also a Progressive Web App (PWA) that can be installed for offline access.
+
+## Links
+
+- Homepage: ${BASE_URL}/
+- AI Chord Finder: ${BASE_URL}/chord-finder.html
+- Chord Identifier: ${BASE_URL}/chord-identifier.html
+- Chord Progression Builder: ${BASE_URL}/chord-progressions.html
+- Song Library: ${BASE_URL}/songs.html
+- Browse All Chords: ${BASE_URL}/chords/browse.html
+- Privacy Policy: ${BASE_URL}/privacy-policy.html
+- YouTube: https://www.youtube.com/@almightyone8205
+`;
+
+    fs.writeFileSync(path.join(ROOT, 'llms.txt'), llmsShort);
+    fs.writeFileSync(path.join(ROOT, 'llms-full.txt'), llmsFull);
+}
+
 function pingWebSub() {
     const body = 'hub.mode=publish&hub.url=' + encodeURIComponent(BASE_URL + '/feed.xml');
     return new Promise((resolve) => {
@@ -1824,6 +1959,8 @@ async function main() {
 
     generateRSSFeed(songs, aiChordPages);
     console.log(`RSS feed generated (feed.xml).`);
+    generateLlmsTxt(aiChordPages);
+    console.log(`Generated llms.txt and llms-full.txt (${aiChordPages.length} chord pages referenced).`);
     await pingWebSub();
     await pingSitemap();
 
@@ -1854,6 +1991,7 @@ async function main() {
     console.log(`Progression pages: ${progressionKeys.length}`);
     console.log(`AI chord pages: ${aiChordPages.length}`);
     console.log(`Sitemap URLs:   ${totalUrls}`);
+    console.log(`llms.txt:       generated (${aiChordPages.length} chords referenced)`);
     console.log('Build complete!');
 }
 

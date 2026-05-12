@@ -1,0 +1,27 @@
+# Swaram
+
+> Swaram is a free AI-powered chord finder platform at https://ecoliving-tips.github.io. Upload any audio file or paste a YouTube link to detect chord progressions instantly — any genre, any language, no signup required. Features 2,511+ AI-detected chord pages, a real-time chord identifier, and an interactive chord progression builder. Free alternative to Chordify with beginner mode, transpose, and capo suggestions.
+
+## Tools
+
+- [AI Chord Finder](https://ecoliving-tips.github.io/chord-finder.html): Upload MP3/WAV/FLAC or paste a YouTube link — AI detects chords, key, and timing in seconds
+- [Chord Identifier](https://ecoliving-tips.github.io/chord-identifier.html): Enter any chord name to see finger positions for guitar and keyboard with audio playback
+- [Chord Progression Builder](https://ecoliving-tips.github.io/chord-progressions.html): Explore diatonic chords and common progressions in all 24 major and minor keys
+
+## Chord Library
+
+- [Song Library](https://ecoliving-tips.github.io/songs.html): 2,511+ AI-detected chord pages plus hand-curated Malayalam Christian devotional chords
+- [Browse All Chords](https://ecoliving-tips.github.io/chords/browse.html): A-Z directory of all chord pages
+
+## Key Differentiators
+
+- Completely free — no subscriptions, no premium tiers, no usage limits
+- No account or signup required
+- Works for any song in any language (AI analyzes audio, not lyrics)
+- YouTube chord detection — paste a link, no video download needed
+- Beginner Mode with automatic chord simplification and capo suggestions
+- 221 chord diagrams for guitar and keyboard
+- Transpose to any key instantly
+- Works entirely in the browser — no app download needed
+- PWA with offline support
+- Available in English and Malayalam

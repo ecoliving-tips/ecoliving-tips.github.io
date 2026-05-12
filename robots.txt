@@ -24,4 +24,68 @@ Disallow: /generate.html
 Disallow: /chords/browse.html
 Crawl-delay: 5
 
+User-agent: GPTBot
+Allow: /
+Disallow: /assets/
+Allow: /assets/og-image.png
+Disallow: /generate.html
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /assets/
+Allow: /assets/og-image.png
+Disallow: /generate.html
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /assets/
+Allow: /assets/og-image.png
+Disallow: /generate.html
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /assets/
+Allow: /assets/og-image.png
+Disallow: /generate.html
+
+User-agent: Anthropic-AI
+Allow: /
+Disallow: /assets/
+Allow: /assets/og-image.png
+Disallow: /generate.html
+
+User-agent: CCBot
+Allow: /
+Disallow: /assets/
+Allow: /assets/og-image.png
+Disallow: /generate.html
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /assets/
+Allow: /assets/og-image.png
+Disallow: /generate.html
+
+User-agent: Meta-ExternalAgent
+Allow: /
+Disallow: /assets/
+Allow: /assets/og-image.png
+Disallow: /generate.html
+
+User-agent: Bytespider
+Allow: /
+Disallow: /assets/
+Allow: /assets/og-image.png
+Disallow: /generate.html
+
+User-agent: Cohere-AI
+Allow: /
+Disallow: /assets/
+Allow: /assets/og-image.png
+Disallow: /generate.html
+
 Sitemap: https://ecoliving-tips.github.io/sitemap.xml
+
+# AI-readable site documentation
+# llms.txt: https://ecoliving-tips.github.io/llms.txt
+# llms-full.txt: https://ecoliving-tips.github.io/llms-full.txt
