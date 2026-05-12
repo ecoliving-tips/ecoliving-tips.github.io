@@ -4,6 +4,7 @@ Allow: /assets/og-image.png
 Allow: /assets/favicon.svg
 Allow: /assets/favicon.png
 Disallow: /generate.html
+Disallow: /chords/browse.html
 
 User-agent: Bingbot
 Disallow: /assets/
@@ -11,6 +12,7 @@ Allow: /assets/og-image.png
 Allow: /assets/favicon.svg
 Allow: /assets/favicon.png
 Disallow: /generate.html
+Disallow: /chords/browse.html
 Crawl-delay: 5
 
 User-agent: YandexBot
@@ -19,6 +21,7 @@ Allow: /assets/og-image.png
 Allow: /assets/favicon.svg
 Allow: /assets/favicon.png
 Disallow: /generate.html
+Disallow: /chords/browse.html
 Crawl-delay: 5
 
 Sitemap: https://ecoliving-tips.github.io/sitemap.xml

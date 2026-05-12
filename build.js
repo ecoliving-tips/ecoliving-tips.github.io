@@ -880,7 +880,6 @@ function generateSitemap(songs, categories, artists, progressionKeys, aiChordPag
         { loc: '/chord-finder.html', file: 'chord-finder.html' },
         { loc: '/chord-identifier.html', file: 'chord-identifier.html' },
         { loc: '/chord-progressions.html', file: 'chord-progressions.html' },
-        { loc: '/chords/browse.html', file: 'chords/browse.html' },
         { loc: '/request.html', file: 'request.html' },
         { loc: '/privacy-policy.html', file: 'privacy-policy.html' },
     ].map(p => ({
@@ -1746,6 +1745,12 @@ async function main() {
     try {
         const generatedChords = await fetchGeneratedChords();
         aiChordPages = deduplicateBySlug(generatedChords);
+
+        // Filter out entries with 0 detected chords (soft 404 risk — wastes crawl budget)
+        const beforeFilter = aiChordPages.length;
+        aiChordPages = aiChordPages.filter(e => (e.chords?.chords?.length || 0) > 0);
+        const skipped = beforeFilter - aiChordPages.length;
+        if (skipped > 0) console.log(`  Skipped ${skipped} entries with 0 chords detected (soft 404 prevention).`);
 
         // Pre-compute difficulty for all entries (avoids O(n²) in related chords)
         const difficultyMap = new Map();

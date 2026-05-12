@@ -25,3 +25,4 @@ indexing-progress.json
 # Local utility scripts with credentials
 backfill-slugs.js
 .playwright-mcp/
+.claude/plans/
