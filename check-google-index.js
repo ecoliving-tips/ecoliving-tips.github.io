@@ -380,7 +380,9 @@ async function main() {
 
         if (verdict !== 'PASS' && recheckSet.has(url)) {
           results[url].recommendCount = oldRecommendCount + 1;
-          results[url].failedRecheck = new Date().toISOString();
+          if (oldRecommendCount + 1 >= 2) {
+            results[url].failedRecheck = new Date().toISOString();
+          }
         } else if (verdict === 'PASS') {
           delete results[url].recommendCount;
           delete results[url].failedRecheck;
