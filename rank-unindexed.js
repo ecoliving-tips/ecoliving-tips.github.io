@@ -15,7 +15,7 @@ const CHORDS_INDEX = path.join(__dirname, 'chords', 'index.json');
 const INDEX_STATUS = path.join(__dirname, 'index-status.json');
 const PRIORITY_FILE = path.join(__dirname, 'url-priority.json');
 const BASE_URL = 'https://ecoliving-tips.github.io';
-const CACHE_DAYS = 7;
+const CACHE_DAYS = 3;
 
 function loadJSON(file) {
   if (!fs.existsSync(file)) return null;

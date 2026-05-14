@@ -375,12 +375,15 @@ async function main() {
         const lastCrawlTime = inspection.lastCrawlTime || null;
         const crawledAs = inspection.crawledAs || 'N/A';
 
+        const oldRecommendCount = results[url]?.recommendCount || 0;
         results[url] = { verdict, coverageState, lastCrawlTime, crawledAs, checkedAt: new Date().toISOString() };
 
         if (verdict !== 'PASS' && recheckSet.has(url)) {
-          results[url].recommendCount = (results[url].recommendCount || 0) + 1;
+          results[url].recommendCount = oldRecommendCount + 1;
+          results[url].failedRecheck = new Date().toISOString();
         } else if (verdict === 'PASS') {
           delete results[url].recommendCount;
+          delete results[url].failedRecheck;
         }
 
         const icon = verdict === 'PASS' ? 'OK' : 'NO';

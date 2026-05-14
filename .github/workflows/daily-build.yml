@@ -83,7 +83,7 @@ jobs:
               const r = require('./index-status.json');
               const entries = Object.entries(r);
               const indexed = entries.filter(([,v]) => v.verdict === 'PASS').length;
-              const notIndexed = entries.filter(([,v]) => v.verdict !== 'PASS');
+              const notIndexed = entries.filter(([,v]) => v.verdict !== 'PASS' && !v.failedRecheck);
               console.log('');
               console.log('### Google Index Status');
               console.log('');
@@ -106,8 +106,7 @@ jobs:
                     : (url.includes('/category/') || url.includes('/artist/')) ? 0.3
                     : (url.includes('/songs/') || url.includes('/lyrics/')) ? 0.2
                     : 0;
-                  const penalty = (r[url]?.recommendCount || 0) >= 3 ? 100 : 0;
-                  return demand + typeBonus - penalty;
+                  return demand + typeBonus;
                 };
                 const batch = notIndexed
                   .sort(([a], [b]) => prioritize(b) - prioritize(a))
