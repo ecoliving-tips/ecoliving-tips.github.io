@@ -31,5 +31,10 @@
 
 [[redirects]]
   from = "/generate.html"
-  to = "/chord-finder.html"
+  to = "/chord-finder"
+  status = 301
+
+[[redirects]]
+  from = "/generate"
+  to = "/chord-finder"
   status = 301

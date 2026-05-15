@@ -202,7 +202,7 @@ async function loadSong(file) {
     try {
         const response = await fetch('/songs/' + file);
         if (!response.ok) {
-            document.getElementById('song-content').innerHTML = '<p>Song not found. Please check back later or <a href="request.html">request this song</a>.</p>';
+            document.getElementById('song-content').innerHTML = '<p>Song not found. Please check back later or <a href="/request">request this song</a>.</p>';
             return;
         }
         let content = await response.text();
@@ -299,7 +299,7 @@ async function loadSong(file) {
         }
     } catch (error) {
         console.error('Error loading song:', error);
-        document.getElementById('song-content').innerHTML = '<p>Error loading song. Please try again or <a href="songs.html">browse all songs</a>.</p>';
+        document.getElementById('song-content').innerHTML = '<p>Error loading song. Please try again or <a href="/songs">browse all songs</a>.</p>';
     }
 }
 

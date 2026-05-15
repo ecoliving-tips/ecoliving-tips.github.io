@@ -7,85 +7,9 @@ Disallow: /generate.html
 Disallow: /chords/browse.html
 
 User-agent: Bingbot
-Disallow: /assets/
-Allow: /assets/og-image.png
-Allow: /assets/favicon.svg
-Allow: /assets/favicon.png
-Disallow: /generate.html
-Disallow: /chords/browse.html
 Crawl-delay: 5
 
 User-agent: YandexBot
-Disallow: /assets/
-Allow: /assets/og-image.png
-Allow: /assets/favicon.svg
-Allow: /assets/favicon.png
-Disallow: /generate.html
-Disallow: /chords/browse.html
 Crawl-delay: 5
 
-User-agent: GPTBot
-Allow: /
-Disallow: /assets/
-Allow: /assets/og-image.png
-Disallow: /generate.html
-
-User-agent: ChatGPT-User
-Allow: /
-Disallow: /assets/
-Allow: /assets/og-image.png
-Disallow: /generate.html
-
-User-agent: Google-Extended
-Allow: /
-Disallow: /assets/
-Allow: /assets/og-image.png
-Disallow: /generate.html
-
-User-agent: ClaudeBot
-Allow: /
-Disallow: /assets/
-Allow: /assets/og-image.png
-Disallow: /generate.html
-
-User-agent: Anthropic-AI
-Allow: /
-Disallow: /assets/
-Allow: /assets/og-image.png
-Disallow: /generate.html
-
-User-agent: CCBot
-Allow: /
-Disallow: /assets/
-Allow: /assets/og-image.png
-Disallow: /generate.html
-
-User-agent: PerplexityBot
-Allow: /
-Disallow: /assets/
-Allow: /assets/og-image.png
-Disallow: /generate.html
-
-User-agent: Meta-ExternalAgent
-Allow: /
-Disallow: /assets/
-Allow: /assets/og-image.png
-Disallow: /generate.html
-
-User-agent: Bytespider
-Allow: /
-Disallow: /assets/
-Allow: /assets/og-image.png
-Disallow: /generate.html
-
-User-agent: Cohere-AI
-Allow: /
-Disallow: /assets/
-Allow: /assets/og-image.png
-Disallow: /generate.html
-
 Sitemap: https://swaram-app.netlify.app/sitemap.xml
-
-# AI-readable site documentation
-# llms.txt: https://swaram-app.netlify.app/llms.txt
-# llms-full.txt: https://swaram-app.netlify.app/llms-full.txt

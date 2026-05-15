@@ -1,14 +1,14 @@
 // Swaram - Service Worker for Offline Support
 
-const CACHE_NAME = 'swaram-v3';
+const CACHE_NAME = 'swaram-v4';
 const STATIC_ASSETS = [
     '/',
     '/index.html',
-    '/songs.html',
-    '/request.html',
-    '/chord-finder.html',
-    '/chord-identifier.html',
-    '/chord-progressions.html',
+    '/songs',
+    '/request',
+    '/chord-finder',
+    '/chord-identifier',
+    '/chord-progressions',
     '/js/chord-finder.js',
     '/js/chord-utils.js',
     '/js/chord-identifier.js',
@@ -74,7 +74,7 @@ self.addEventListener('fetch', event => {
         event.respondWith(
             fetch(event.request).catch(() => {
                 return caches.match(event.request).then(cached => {
-                    return cached || caches.match('/songs.html');
+                    return cached || caches.match('/songs');
                 });
             })
         );
