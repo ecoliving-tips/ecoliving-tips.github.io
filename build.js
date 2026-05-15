@@ -17,7 +17,7 @@ const path = require('path');
 const https = require('https');
 const { execSync } = require('child_process');
 
-const BASE_URL = 'https://ecoliving-tips.github.io';
+const BASE_URL = 'https://swaram.netlify.app';
 const ROOT = __dirname;
 const today = new Date().toISOString().split('T')[0];
 

@@ -84,8 +84,8 @@ Disallow: /assets/
 Allow: /assets/og-image.png
 Disallow: /generate.html
 
-Sitemap: https://ecoliving-tips.github.io/sitemap.xml
+Sitemap: https://swaram.netlify.app/sitemap.xml
 
 # AI-readable site documentation
-# llms.txt: https://ecoliving-tips.github.io/llms.txt
-# llms-full.txt: https://ecoliving-tips.github.io/llms-full.txt
+# llms.txt: https://swaram.netlify.app/llms.txt
+# llms-full.txt: https://swaram.netlify.app/llms-full.txt

@@ -2973,7 +2973,7 @@ footer {
         size: A4;
 
         @bottom-center {
-            content: "ecoliving-tips.github.io — More chords, transpose & auto-scroll online";
+            content: "swaram.netlify.app — More chords, transpose & auto-scroll online";
             font-size: 8pt;
             color: #999;
         }

@@ -231,7 +231,7 @@ async function loadSong(file) {
             const category = metadata.category || '';
             const pageTitle = `${songTitle} Chords for Keyboard & Guitar - ${artist} | Swaram`;
             const pageDesc = `Free ${songTitle} keyboard and guitar chord chart. ${artist} - Malayalam Christian ${category ? category + ' ' : ''}song with chord progression, lyrics, and video tutorial.`;
-            const pageUrl = `https://ecoliving-tips.github.io/songs/${file.replace('.md', '')}/`;
+            const pageUrl = `https://swaram.netlify.app/songs/${file.replace('.md', '')}/`;
 
             document.getElementById('song-title').textContent = songTitle;
             document.title = pageTitle;
@@ -266,7 +266,7 @@ async function loadSong(file) {
                     "isPartOf": {
                         "@type": "WebSite",
                         "name": "Swaram",
-                        "url": "https://ecoliving-tips.github.io/"
+                        "url": "https://swaram.netlify.app/"
                     }
                 });
             }

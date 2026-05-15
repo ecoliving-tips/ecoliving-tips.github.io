@@ -25,7 +25,7 @@ const path = require('path');
 const KEY_PATH = path.join(__dirname, 'google-indexing-key.json');
 const SITEMAP_PATH = path.join(__dirname, 'sitemap.xml');
 const RESULTS_PATH = path.join(__dirname, 'index-status.json');
-const SITE_URL = 'https://ecoliving-tips.github.io/';
+const SITE_URL = 'https://swaram.netlify.app/';
 const PRIORITY_PATH = path.join(__dirname, 'url-priority.json');
 const RECHECK_PATH = path.join(__dirname, 'recheck-next-run.json');
 

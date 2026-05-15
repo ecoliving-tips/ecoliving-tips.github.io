@@ -15,7 +15,7 @@ const API_TIMEOUT_MS = 300_000; // 5 minutes
 const SUPABASE_URL = 'https://jfnccekkhffonkjkmxyf.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_KJA4VzMAjt2WVEEg0JKMfg_lDrABAZK';
 const MODEL_VERSION = 'btc-v1';
-const BASE_URL = 'https://ecoliving-tips.github.io';
+const BASE_URL = 'https://swaram.netlify.app';
 
 // Lazy Supabase singleton — created on first use, reused everywhere
 let _supabaseClient = null;
