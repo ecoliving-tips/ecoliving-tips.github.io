@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
-    <loc>https://swaram.netlify.app/sitemap-pages.xml</loc>
-    <lastmod>2026-05-14</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>https://swaram.netlify.app/sitemap-songs.xml</loc>
-    <lastmod>2026-04-02</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>https://swaram.netlify.app/sitemap-lyrics.xml</loc>
-    <lastmod>2026-04-02</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>https://swaram.netlify.app/sitemap-categories.xml</loc>
-    <lastmod>2026-04-02</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>https://swaram.netlify.app/sitemap-artists.xml</loc>
-    <lastmod>2026-04-02</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>https://swaram.netlify.app/sitemap-progressions.xml</loc>
-    <lastmod>2026-05-14</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>https://swaram.netlify.app/sitemap-chords-new.xml</loc>
+    <loc>https://swaram-app.netlify.app/sitemap-pages.xml</loc>
     <lastmod>2026-05-15</lastmod>
   </sitemap>
   <sitemap>
-    <loc>https://swaram.netlify.app/sitemap-chords-recent.xml</loc>
+    <loc>https://swaram-app.netlify.app/sitemap-songs.xml</loc>
+    <lastmod>2026-04-02</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://swaram-app.netlify.app/sitemap-lyrics.xml</loc>
+    <lastmod>2026-04-02</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://swaram-app.netlify.app/sitemap-categories.xml</loc>
+    <lastmod>2026-04-02</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://swaram-app.netlify.app/sitemap-artists.xml</loc>
+    <lastmod>2026-04-02</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://swaram-app.netlify.app/sitemap-progressions.xml</loc>
+    <lastmod>2026-05-15</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://swaram-app.netlify.app/sitemap-chords-new.xml</loc>
+    <lastmod>2026-05-15</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://swaram-app.netlify.app/sitemap-chords-recent.xml</loc>
     <lastmod>2026-04-14</lastmod>
   </sitemap>
 </sitemapindex>

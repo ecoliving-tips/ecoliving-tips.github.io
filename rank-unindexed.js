@@ -14,7 +14,7 @@ const path = require('path');
 const CHORDS_INDEX = path.join(__dirname, 'chords', 'index.json');
 const INDEX_STATUS = path.join(__dirname, 'index-status.json');
 const PRIORITY_FILE = path.join(__dirname, 'url-priority.json');
-const BASE_URL = 'https://swaram.netlify.app';
+const BASE_URL = 'https://swaram-app.netlify.app';
 const CACHE_DAYS = 3;
 
 function loadJSON(file) {

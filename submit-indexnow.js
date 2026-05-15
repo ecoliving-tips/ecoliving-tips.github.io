@@ -17,7 +17,7 @@ const path = require('path');
 
 const SITEMAP_PATH = path.join(__dirname, 'sitemap.xml');
 const PROGRESS_PATH = path.join(__dirname, 'indexnow-progress.json');
-const HOST = 'swaram.netlify.app';
+const HOST = 'swaram-app.netlify.app';
 const keyFile = fs.readdirSync(__dirname).find(f => /^[a-f0-9]{32}\.txt$/.test(f));
 if (!keyFile) throw new Error('IndexNow key file not found — expected a 32-char hex .txt file in project root');
 const KEY = keyFile.replace('.txt', '');

@@ -150,7 +150,7 @@ jobs:
           sleep 120
           FAILED=0
           for sitemap in sitemap.xml sitemap-pages.xml sitemap-chords-new.xml; do
-            STATUS=$(curl -s -o /dev/null -w "%{http_code}" "https://swaram.netlify.app/$sitemap")
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" "https://swaram-app.netlify.app/$sitemap")
             if [ "$STATUS" != "200" ]; then
               echo "WARNING: $sitemap returned HTTP $STATUS"
               FAILED=1
