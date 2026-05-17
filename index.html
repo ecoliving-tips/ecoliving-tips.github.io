@@ -69,10 +69,10 @@
     })();
     </script>
 
-    <!-- Google AdSense (bot-protected: delays load to filter hit-and-run bots) -->
+    <!-- Google AdSense (interaction-gated: loads only after real user activity) -->
     <meta name="google-adsense-account" content="ca-pub-7438590583270235">
     <script>
-    if(!navigator.webdriver){setTimeout(function(){if(!document.hidden){var s=document.createElement('script');s.async=true;s.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7438590583270235';s.crossOrigin='anonymous';document.head.appendChild(s)}},1500)}
+    (function(){if(navigator.webdriver)return;if(window.__nightmare||window._phantom||window.callPhantom)return;if(document.__selenium_unwrapped||window.domAutomation||window.domAutomationController)return;var l=false;function go(){if(l||document.hidden)return;l=true;var s=document.createElement('script');s.async=true;s.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7438590583270235';s.crossOrigin='anonymous';document.head.appendChild(s)}var ev=['scroll','mousemove','click','touchstart','keydown'];function on(){ev.forEach(function(e){document.removeEventListener(e,on)});setTimeout(go,1000)}ev.forEach(function(e){document.addEventListener(e,on,{passive:true})});setTimeout(go,5000)})();
     </script>
     <meta name="google-site-verification" content="AuWjb6JxFvHwE1gtb7HD80b7lf6TAMezbsemFTU4sto" />
 
@@ -407,14 +407,14 @@
                 <p class="section-subtitle">AI-detected chords from the community</p>
                 <div class="recently-added-row" id="homepage-recent-chords">
 <!-- BUILD:RECENT_CHORDS -->
+                    <a class="recently-added-card" href="/chords/the-lion-king-2-he-lives-in-you-w-lyrics-classicdisneyluver1/"><div class="ra-title">The Lion King 2- He Lives In You w/Lyrics</div><div class="ra-artist">classicdisneyluver1</div></a>
+                    <a class="recently-added-card" href="/chords/illaan-yendhanukku-lighthouse-records/"><div class="ra-title">Illaan Yendhanukku</div><div class="ra-artist">LightHouse Records</div></a>
+                    <a class="recently-added-card" href="/chords/pavazha-malli-from-think-indie-sai-abhyankkar/"><div class="ra-title">Pavazha Malli (From "Think Indie")</div><div class="ra-artist">Sai Abhyankkar</div></a>
+                    <a class="recently-added-card" href="/chords/mujhe-rok-lo-farhan-khan-ft-sheeba-chadha-kumud-mishra-prod-by-moin-farhan-khan-music/"><div class="ra-title">MUJHE ROK LO - Farhan Khan ft. Sheeba Chadha & Kumud Mishra (Prod.By Moin)</div><div class="ra-artist">FARHAN KHAN MUSIC</div></a>
+                    <a class="recently-added-card" href="/chords/enna-solla-pogirai-piano-cover-vinesh/"><div class="ra-title">Enna Solla Pogirai Piano Cover</div><div class="ra-artist">Vinesh</div></a>
+                    <a class="recently-added-card" href="/chords/rehnuma-cherubim-a-i-music-video-hindi-christian-rock-gospel-rock-christian-song-4k/"><div class="ra-title">Rehnuma- Cherubim || A.I. Music Video ||Hindi Christian Rock ||Gospel Rock || Christian Song || 4K</div><div class="ra-artist">Cherubim </div></a>
                     <a class="recently-added-card" href="/chords/dormir-une-mage-blanche-otoge/"><div class="ra-title">Dormir - Une mage blanche</div><div class="ra-artist">otoge</div></a>
                     <a class="recently-added-card" href="/chords/forrest-nolan-thank-you-i-guess-spaboyab/"><div class="ra-title">FORREST NOLAN THANK YOU I GUESS</div><div class="ra-artist">SpaboyAb</div></a>
-                    <a class="recently-added-card" href="/chords/mera-kal-adonai/"><div class="ra-title">Mera Kal</div><div class="ra-artist">Adonai</div></a>
-                    <a class="recently-added-card" href="/chords/the-psalms-in-folk-worship-are-breathtaking-indie-folk-worship/"><div class="ra-title">The Psalms in Folk Worship are Breathtaking…</div><div class="ra-artist">Indie Folk Worship</div></a>
-                    <a class="recently-added-card" href="/chords/sempurnanya-aku-release/"><div class="ra-title">Sempurnanya Aku</div><div class="ra-artist">Release</div></a>
-                    <a class="recently-added-card" href="/chords/labrinth-zendaya-i-m-tired-from-euphoria-an-hbo-original-series-lyric-video-labrinthvevo/"><div class="ra-title">Labrinth & Zendaya - I'm Tired (From “Euphoria” An HBO Original Series – Lyric Video)</div><div class="ra-artist">LabrinthVEVO</div></a>
-                    <a class="recently-added-card" href="/chords/lamb-heaven-wildlittlewing/"><div class="ra-title">Lamb - Heaven</div><div class="ra-artist">wildlittlewing</div></a>
-                    <a class="recently-added-card" href="/chords/wake-me-up-when-september-ends-green-day-ukulele-cover-al-wood/"><div class="ra-title">Wake Me Up When September Ends (Green Day Ukulele Cover)</div><div class="ra-artist">Al Wood</div></a>
 <!-- /BUILD:RECENT_CHORDS -->
                 </div>
             </div>

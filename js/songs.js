@@ -11,6 +11,7 @@ let searchQuery = '';
 let activeCategory = '';
 let activeKey = '';
 let activeSort = 'default';
+let initialRender = true;
 
 document.addEventListener('DOMContentLoaded', function () {
     loadSongsIndex();
@@ -188,7 +189,15 @@ function applyFilters() {
         result.sort((a, b) => (a.artist || '').localeCompare(b.artist || ''));
     }
 
-    displaySongs(result);
+    const hasFilters = activeCategory || activeKey || searchQuery || activeSort !== 'default';
+    const songsGrid = document.getElementById('songs-grid');
+    const hasPreRendered = initialRender && songsGrid && songsGrid.children.length > 0;
+    if (hasPreRendered && !hasFilters) {
+        initialRender = false;
+    } else {
+        initialRender = false;
+        displaySongs(result);
+    }
 
     // Update count and no-results
     const songCount = document.getElementById('song-count');

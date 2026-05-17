@@ -46,10 +46,10 @@
         gtag('js', new Date());
         gtag('config', 'G-ZHLRN8B07Z');
     </script>
-    <!-- Google AdSense (bot-protected: delays load to filter hit-and-run bots) -->
+    <!-- Google AdSense (interaction-gated: loads only after real user activity) -->
     <meta name="google-adsense-account" content="ca-pub-7438590583270235">
     <script>
-    if(!navigator.webdriver){setTimeout(function(){if(!document.hidden){var s=document.createElement('script');s.async=true;s.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7438590583270235';s.crossOrigin='anonymous';document.head.appendChild(s)}},1500)}
+    (function(){if(navigator.webdriver)return;if(window.__nightmare||window._phantom||window.callPhantom)return;if(document.__selenium_unwrapped||window.domAutomation||window.domAutomationController)return;var l=false;function go(){if(l||document.hidden)return;l=true;var s=document.createElement('script');s.async=true;s.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7438590583270235';s.crossOrigin='anonymous';document.head.appendChild(s)}var ev=['scroll','mousemove','click','touchstart','keydown'];function on(){ev.forEach(function(e){document.removeEventListener(e,on)});setTimeout(go,1000)}ev.forEach(function(e){document.addEventListener(e,on,{passive:true})});setTimeout(go,5000)})();
     </script>
 </head>
 <body>
@@ -82,7 +82,7 @@
     <main class="container chords-browse-page">
         <section class="chords-browse-header">
             <h2>Browse All Chords</h2>
-            <p class="section-subtitle"><!-- BUILD:CHORD_COUNT -->3483<!-- /BUILD:CHORD_COUNT --> songs with AI-detected chords</p>
+            <p class="section-subtitle"><!-- BUILD:CHORD_COUNT -->3489<!-- /BUILD:CHORD_COUNT --> songs with AI-detected chords</p>
             <p class="chords-browse-cta">Can't find your song? <a href="/chord-finder.html">Try the AI Chord Finder</a> — upload any audio and get chords instantly.</p>
         </section>
 
@@ -1302,6 +1302,7 @@
                 <li><a href="/chords/engkau-di-dalamku-jpcc-worship/">Engkau di Dalamku (Official Lyric Video) - JPCC Worship</a> <span class="az-artist">— JPCC Worship</span></li>
                 <li><a href="/chords/english-teacher-graham-coxon-parasite-help-2-war-child-uk/">English Teacher & Graham Coxon – Parasite – HELP(2)</a> <span class="az-artist">— War Child UK</span></li>
                 <li><a href="/chords/enjoying-the-feeling-of-hiding-in-plain-sight-evan-crommett/">enjoying the feeling of hiding in plain sight :)</a> <span class="az-artist">— Evan Crommett</span></li>
+                <li><a href="/chords/enna-solla-pogirai-piano-cover-vinesh/">Enna Solla Pogirai Piano Cover</a> <span class="az-artist">— Vinesh</span></li>
                 <li><a href="/chords/enna-sona-arijit-singh/">Enna Sona</a> <span class="az-artist">— Arijit Singh</span></li>
                 <li><a href="/chords/ennio-morricone-novecento-olmo-e-alfredo-lm-r/">Ennio Morricone - Novecento - Olmo E Alfredo</a> <span class="az-artist">— LM R</span></li>
                 <li><a href="/chords/ennodu-nee-irundhaal-hanan-s-family/">Ennodu Nee Irundhaal ♥️✨</a> <span class="az-artist">— Hanan’s Family </span></li>
@@ -1719,6 +1720,7 @@
                 <li><a href="/chords/il-tempo-della-gioia-quella-vecchia-locanda/">Il tempo della gioia</a> <span class="az-artist">— Quella Vecchia Locanda</span></li>
                 <li><a href="/chords/ilaipaarudhal-ellaiyengilum-pastor-benz-official/">ILAIPAARUDHAL ELLAIYENGILUM</a> <span class="az-artist">— Pastor Benz official</span></li>
                 <li><a href="/chords/ilie-neagu-tu-ma-cunosti-betel-viena/">Ilie Neagu - Tu ma cunoști</a> <span class="az-artist">— Betel Viena</span></li>
+                <li><a href="/chords/illaan-yendhanukku-lighthouse-records/">Illaan Yendhanukku</a> <span class="az-artist">— LightHouse Records</span></li>
                 <li><a href="/chords/illevik-wild-rover/">Illevik</a> <span class="az-artist">— Wild Rover</span></li>
                 <li><a href="/chords/imagine-du-machst-einen-fallschirmsprung-fur-ein-10-sekunden-reel-und-bro-singt-den-falschen-song-das-lumpenpack/">Imagine du machst einen Fallschirmsprung für ein 10-Sekunden-Reel und Bro singt den falschen Song. 😭</a> <span class="az-artist">— Das Lumpenpack</span></li>
                 <li><a href="/chords/imanuel-medley-tak-sedetikpun-ruth-sihotang-feat-ici-worship-proskuneo-music/">Imanuel, medley Tak sedetikpun - Ruth Sihotang feat  ICI Worship</a> <span class="az-artist">— Proskuneo Music</span></li>
@@ -2399,6 +2401,7 @@
                 <li><a href="/chords/muhoksen-allani-menneisyyden-paivat-ira-akerlund/">Muhoksen Allani menneisyyden päivät</a> <span class="az-artist">— Ira Åkerlund</span></li>
                 <li><a href="/chords/mujhe-mere-malik-bahut-de-diya-hai-bhajan-satsang-marg-official/">Mujhe Mere Malik Bahut De Diya Hai 🙏</a> <span class="az-artist">— Bhajan Satsang Marg official</span></li>
                 <li><a href="/chords/mujhe-ram-pyare-nandlal-chhanga/">Mujhe Ram Pyare - Nandlal Chhanga</a> <span class="az-artist">— Nandlal Chhanga</span></li>
+                <li><a href="/chords/mujhe-rok-lo-farhan-khan-ft-sheeba-chadha-kumud-mishra-prod-by-moin-farhan-khan-music/">MUJHE ROK LO - Farhan Khan ft. Sheeba Chadha & Kumud Mishra (Prod.By Moin)</a> <span class="az-artist">— FARHAN KHAN MUSIC</span></li>
                 <li><a href="/chords/mujje-mulabe-o-come-and-see-psalms-46-8-9-official-live-4k-video-nakie-jullian/">Mujje Mulabe( O come and see) Psalms 46:8-9 (Official Live 4k video ) - Nakie Jullian.</a> <span class="az-artist">— Nakie Jullian</span></li>
                 <li><a href="/chords/muka-sing-jane-chaman-raat-ke-humsafar-official-musicvideo-muziekformatie-express/">MUKA SING JANE CHAMAN / RAAT KE HUMSAFAR  ( OFFICIAL MUSICVIDEO ) MUZIEKFORMATIE EXPRESS</a> <span class="az-artist">— Muziekformatie Express</span></li>
                 <li><a href="/chords/mulia-gms-live/">Mulia</a> <span class="az-artist">— GMS Live</span></li>
@@ -2706,6 +2709,7 @@
                 <li><a href="/chords/paul-partohap-404-home-not-found/">Paul Partohap - 404: HOME NOT FOUND</a> <span class="az-artist">— paul partohap</span></li>
                 <li><a href="/chords/paul-partohap-you-me/">Paul Partohap - YOU+ME</a> <span class="az-artist">— paul partohap</span></li>
                 <li><a href="/chords/paul-ema-si-daniel-darvasan-casa-pe-stanca-adventmusic/">Paul,Ema si Daniel Darvasan - Casa pe stanca</a> <span class="az-artist">— Adventmusic</span></li>
+                <li><a href="/chords/pavazha-malli-from-think-indie-sai-abhyankkar/">Pavazha Malli (From &quot;Think Indie&quot;)</a> <span class="az-artist">— Sai Abhyankkar</span></li>
                 <li><a href="/chords/peaches-ry-taylor/">Peaches</a> <span class="az-artist">— Ry Taylor</span></li>
                 <li><a href="/chords/pearl-kyoudai-natsu-no-nichi-ni-youkoso-with-lyrics-ragehq/">Pearl Kyoudai - Natsu No Nichi ni Youkoso with Lyrics</a> <span class="az-artist">— RageHQ</span></li>
                 <li><a href="/chords/pedro-guerra-maria/">Pedro Guerra - Maria</a> <span class="az-artist">— Pedro Guerra</span></li>
@@ -2862,6 +2866,7 @@
                 <li><a href="/chords/redeemer-nicole-c-mullen/">Redeemer</a> <span class="az-artist">— Nicole C. Mullen</span></li>
                 <li><a href="/chords/rehaai-mere-yeshu-tu-rehai-de-shalom-tv/">REHAAI: Mere Yeshu Tu Rehai de</a> <span class="az-artist">— Shalom. TV</span></li>
                 <li><a href="/chords/rehle-mere-kol-simran-choudhary/">REHLE MERE KOL</a> <span class="az-artist">— Simran Choudhary</span></li>
+                <li><a href="/chords/rehnuma-cherubim-a-i-music-video-hindi-christian-rock-gospel-rock-christian-song-4k/">Rehnuma- Cherubim || A.I. Music Video ||Hindi Christian Rock ||Gospel Rock || Christian Song || 4K</a> <span class="az-artist">— Cherubim </span></li>
                 <li><a href="/chords/reign-jesus-medley-our-god-reigns-reign-jesus-reign-reggie-royal-judah/">Reign Jesus Medley: Our God Reigns / Reign Jesus Reign</a> <span class="az-artist">— Reggie Royal & Judah</span></li>
                 <li><a href="/chords/rejuvenate-dobby-baum-brooklyn-girls-choir/">Rejuvenate</a> <span class="az-artist">— Dobby Baum, Brooklyn Girls Choir</span></li>
                 <li><a href="/chords/rekreation-kollision/">Rekreation</a> <span class="az-artist">— Kollision</span></li>
@@ -3334,6 +3339,7 @@
                 <li><a href="/chords/the-lament-of-a-suicidal-man-siamun/">The Lament of a Suicidal Man</a> <span class="az-artist">— Siamun</span></li>
                 <li><a href="/chords/the-lantis-bunga-maaf-lyrics-goldy-lyrics/">The Lantis - Bunga Maaf (Lyrics)</a> <span class="az-artist">— GOLDY LYRICS </span></li>
                 <li><a href="/chords/the-letter-all-roads-music/">The Letter</a> <span class="az-artist">— All Roads Music</span></li>
+                <li><a href="/chords/the-lion-king-2-he-lives-in-you-w-lyrics-classicdisneyluver1/">The Lion King 2- He Lives In You w/Lyrics</a> <span class="az-artist">— classicdisneyluver1</span></li>
                 <li><a href="/chords/the-long-and-winding-road-remastered-2009-the-beatles/">The Long And Winding Road (Remastered 2009)</a> <span class="az-artist">— The Beatles</span></li>
                 <li><a href="/chords/the-lost-hours-to-be-alone/">The Lost Hours - To Be Alone</a> <span class="az-artist">— The Lost Hours</span></li>
                 <li><a href="/chords/the-lost-hours-to-be-alone-isolation-tapes/">The Lost Hours- To Be Alone (Isolation Tapes)</a> <span class="az-artist">— The Lost Hours</span></li>

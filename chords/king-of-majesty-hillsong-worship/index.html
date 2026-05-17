@@ -55,10 +55,10 @@
         gtag('config', 'G-ZHLRN8B07Z');
     </script>
 
-    <!-- Google AdSense (bot-protected: delays load to filter hit-and-run bots) -->
+    <!-- Google AdSense (interaction-gated: loads only after real user activity) -->
     <meta name="google-adsense-account" content="ca-pub-7438590583270235">
     <script>
-    if(!navigator.webdriver){setTimeout(function(){if(!document.hidden){var s=document.createElement('script');s.async=true;s.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7438590583270235';s.crossOrigin='anonymous';document.head.appendChild(s)}},1500)}
+    (function(){if(navigator.webdriver)return;if(window.__nightmare||window._phantom||window.callPhantom)return;if(document.__selenium_unwrapped||window.domAutomation||window.domAutomationController)return;var l=false;function go(){if(l||document.hidden)return;l=true;var s=document.createElement('script');s.async=true;s.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7438590583270235';s.crossOrigin='anonymous';document.head.appendChild(s)}var ev=['scroll','mousemove','click','touchstart','keydown'];function on(){ev.forEach(function(e){document.removeEventListener(e,on)});setTimeout(go,1000)}ev.forEach(function(e){document.addEventListener(e,on,{passive:true})});setTimeout(go,5000)})();
     </script>
 
     
@@ -302,9 +302,9 @@
             <div class="related-chords-grid">
                     <a href="/chords/my-redeemer-lives-hillsong-worship/" class="related-chord-link">My Redeemer Lives  - Hillsong Worship — Hillsong Worship</a>
                     <a href="/chords/cornerstone-live-hillsong-worship/" class="related-chord-link">Cornerstone - Live — Hillsong Worship</a>
+                    <a href="/chords/pavazha-malli-from-think-indie-sai-abhyankkar/" class="related-chord-link">Pavazha Malli (From &quot;Think Indie&quot;) — Sai Abhyankkar</a>
+                    <a href="/chords/rehnuma-cherubim-a-i-music-video-hindi-christian-rock-gospel-rock-christian-song-4k/" class="related-chord-link">Rehnuma- Cherubim || A.I. Music Video ||Hindi Christian Rock ||Gospel Rock || Christian Song || 4K — Cherubim </a>
                     <a href="/chords/dormir-une-mage-blanche-otoge/" class="related-chord-link">Dormir - Une mage blanche — otoge</a>
-                    <a href="/chords/sempurnanya-aku-release/" class="related-chord-link">Sempurnanya Aku — Release</a>
-                    <a href="/chords/labrinth-zendaya-i-m-tired-from-euphoria-an-hbo-original-series-lyric-video-labrinthvevo/" class="related-chord-link">Labrinth &amp; Zendaya - I'm Tired (From “Euphoria” An HBO Original Series – Lyric Video) — LabrinthVEVO</a>
             </div>
         </section>
     </main>
