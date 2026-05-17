@@ -27,9 +27,11 @@
         gtag('config', 'G-ZHLRN8B07Z');
     </script>
 
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7438590583270235" crossorigin="anonymous"></script>
+    <!-- Google AdSense (bot-protected: delays load to filter hit-and-run bots) -->
     <meta name="google-adsense-account" content="ca-pub-7438590583270235">
+    <script>
+    if(!navigator.webdriver){setTimeout(function(){if(!document.hidden){var s=document.createElement('script');s.async=true;s.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7438590583270235';s.crossOrigin='anonymous';document.head.appendChild(s)}},1500)}
+    </script>
 
     <style>
         .error-page {
