@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" id="meta-description" content="Discover how Swaram's AI analyzes audio to detect chords automatically. Learn about chromagram analysis, machine learning, and the science of music recognition.">
+    <meta name="keywords" content="guitar chords, chord theory, music tutorial, learn chords, chord progressions">
+    <meta name="author" content="Swaram">
+    <meta name="application-name" content="Swaram">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" id="canonical-url" href="https://swaram-app.netlify.app/learn/how-ai-chord-detection-works/">
+
+    <!-- Open Graph -->
+    <meta property="og:title" id="og-title" content="How AI Chord Detection Works — The Technology Behind Swaram">
+    <meta property="og:description" id="og-description" content="Discover how Swaram's AI analyzes audio to detect chords automatically. Learn about chromagram analysis, machine learning, and the science of music recognition.">
+    <meta property="og:url" id="og-url" content="https://swaram-app.netlify.app/learn/how-ai-chord-detection-works/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Swaram">
+    <meta property="og:locale" content="en_IN">
+    <meta property="og:locale:alternate" content="ml_IN">
+    <meta property="og:image" content="https://swaram-app.netlify.app/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" id="twitter-title" content="How AI Chord Detection Works — The Technology Behind Swaram">
+    <meta name="twitter:description" id="twitter-description" content="Discover how Swaram's AI analyzes audio to detect chords automatically. Learn about chromagram analysis, machine learning, and the science of music recognition.">
+    <meta name="twitter:image" content="https://swaram-app.netlify.app/assets/og-image.png">
+
+    <title>How AI Chord Detection Works — The Technology Behind Swaram | Swaram</title>
+    <link rel="stylesheet" href="/css/styles.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Manjari:wght@400;700&display=swap"
+        as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Manjari:wght@400;700&display=swap">
+    </noscript>
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="alternate" type="application/rss+xml" title="Swaram — Latest Chords" href="/feed.xml">
+
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZHLRN8B07Z"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-ZHLRN8B07Z');
+    </script>
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7438590583270235"
+        crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-7438590583270235">
+
+    
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How AI Chord Detection Works — The Technology Behind Swaram",
+  "description": "Discover how Swaram's AI analyzes audio to detect chords automatically. Learn about chromagram analysis, machine learning, and the science of music recognition.",
+  "url": "https://swaram-app.netlify.app/learn/how-ai-chord-detection-works/",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Swaram",
+    "url": "https://swaram-app.netlify.app"
+  },
+  "mainEntityOfPage": "https://swaram-app.netlify.app/learn/how-ai-chord-detection-works/",
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://swaram-app.netlify.app"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Learn",
+        "item": "https://swaram-app.netlify.app/learn/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "How AI Chord Detection Works — The Technology Behind Swaram",
+        "item": "https://swaram-app.netlify.app/learn/how-ai-chord-detection-works/"
+      }
+    ]
+  }
+}
+    </script>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <div class="header-content">
+                    <h1><a href="/" style="color:inherit;text-decoration:none;" data-i18n="site_title">Swaram</a></h1>
+                    <p class="tagline" data-i18n="tagline">Find Chords for Any Song &mdash; Free AI Chord Finder</p>
+                </div>
+                <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </div>
+            <nav class="mobile-nav" aria-label="Main navigation">
+                <ul>
+                    <li><a href="/" data-i18n="nav_home">Home</a></li>
+                    <li><a href="/chord-finder" data-i18n="nav_generate">Chord Finder</a></li>
+                    <li><a href="/chord-identifier" data-i18n="nav_identifier">Chord Identifier</a></li>
+                    <li><a href="/chord-progressions" data-i18n="nav_progressions">Progressions</a></li>
+                    <li><a href="/learn/" data-i18n="nav_learn">Learn</a></li>
+                    <li><a href="/songs" data-i18n="nav_songs">Song Library</a></li>
+                    <li><a href="#donate" data-i18n="nav_donate">Donate</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div id="offline-banner" class="offline-banner" style="display:none;" data-i18n="offline_msg">
+            You are offline. Showing cached content.
+        </div>
+    </header>
+
+    <main>
+        <section class="learn-header">
+            <div class="container">
+                <nav class="breadcrumb" aria-label="Breadcrumb">
+                    <a href="/">Home</a> &rsaquo; <a href="/learn/">Learn</a> &rsaquo; <span>How AI Chord Detection Works — The Technology Behind Swaram</span>
+                </nav>
+                <h2>How AI Chord Detection Works — The Technology Behind Swaram</h2>
+            </div>
+        </section>
+
+        <section class="learn-content-section">
+            <div class="container">
+                <article class="learn-article">
+                    
+<h2>From Sound Waves to Chord Names</h2>
+
+<p>When you upload a song to Swaram's chord finder, something remarkable happens in seconds: raw audio — millions of data points representing air pressure changes — gets transformed into a clean sequence of chord names with precise timestamps. Here's how that works.</p>
+
+<h2>Step 1: Audio Preprocessing</h2>
+
+<p>Before any analysis begins, the audio needs preparation:</p>
+
+<p><strong>Sample Rate Conversion:</strong> Music is typically recorded at 44,100 samples per second (CD quality). Our AI downsamples to 16,000 Hz — sufficient for chord detection while dramatically reducing computation. Chord-relevant information lives in the frequency range below 8,000 Hz, so we lose nothing musically important.</p>
+
+<p><strong>Mono Conversion:</strong> Stereo audio has separate left and right channels. For chord detection, we sum these into a single mono signal. Chords exist in the harmonic content, not the spatial placement.</p>
+
+<p><strong>Duration Handling:</strong> Songs vary from 2 minutes to 10+ minutes. The system processes audio in overlapping windows (called "frames"), analyzing each independently. This means processing time scales linearly with duration.</p>
+
+<h2>Step 2: Chromagram Analysis</h2>
+
+<p>The core of chord detection is the <strong>chromagram</strong> (also called a chroma feature or pitch class profile). This is where the magic happens.</p>
+
+<h3>What Is a Chromagram?</h3>
+
+<p>A chromagram represents which of the 12 pitch classes (C, C#, D, D#, E, F, F#, G, G#, A, A#, B) are present in the audio at any given moment. It collapses all octaves into a single representation — whether a C is played at 262 Hz (middle C) or 523 Hz (an octave higher), it registers as "C."</p>
+
+<p><strong>How it's computed:</strong></p>
+<li>Take a short window of audio (about 128 milliseconds)</li>
+<li>Apply a Constant-Q Transform (CQT) — a frequency analysis specifically designed for music that mirrors how human pitch perception works</li>
+<li>Sum the energy across all octaves for each pitch class</li>
+<li>Result: a 12-dimensional vector where each value represents how strongly that note is present</li>
+
+<p>Swaram uses <strong>chroma_cqt</strong> from the librosa library, which provides higher frequency resolution in low registers (where bass notes carry chord root information) compared to standard FFT-based approaches.</p>
+
+<h3>Reading a Chromagram</h3>
+
+<p>Imagine a heatmap where:</p>
+<ul><li>X-axis = time (left to right through the song)</li>
+<li>Y-axis = the 12 pitch classes (C through B)</li>
+<li>Color intensity = how strongly that pitch is present</li>
+</ul>
+<p>When a G major chord plays (notes G, B, D), you'd see bright spots at positions G, B, and D on the Y-axis. When it changes to C major (C, E, G), the bright spots shift.</p>
+
+<h2>Step 3: Chord Template Matching</h2>
+
+<p>With the chromagram computed, the system needs to identify which chord best matches the observed pitches at each moment.</p>
+
+<h3>Chord Templates</h3>
+
+<p>Every chord has a known fingerprint — the set of notes it contains:</p>
+<ul><li><strong>C major:</strong> C, E, G → template [1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0]</li>
+<li><strong>Am (A minor):</strong> A, C, E → template [0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1] (rotated)</li>
+<li><strong>G7:</strong> G, B, D, F → template [0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1] (plus G)</li>
+</ul>
+<p>The system stores templates for major, minor, dominant 7th, minor 7th, diminished, augmented, suspended, and other chord types — across all 12 root notes.</p>
+
+<h3>Matching Process</h3>
+
+<p>For each time frame:</p>
+<li>Compare the observed chromagram vector against every chord template</li>
+<li>Calculate similarity scores (using cosine similarity or correlation)</li>
+<li>The chord with the highest match score wins</li>
+
+<p>This is conceptually simple but effective. The challenge lies in handling real-world audio where multiple instruments, vocals, and noise all contribute to the chromagram simultaneously.</p>
+
+<h2>Step 4: Key Detection</h2>
+
+<p>Knowing the overall key of a song dramatically improves chord detection accuracy.</p>
+
+<p><strong>How key detection works:</strong></p>
+<li>Sum up how much each pitch class appears across the entire song (the "global chromagram")</li>
+<li>Compare this against known major and minor key profiles (the Krumhansl-Kessler key profiles, derived from psychological studies of tonal perception)</li>
+<li>The key profile that best matches the global distribution is the detected key</li>
+
+<p><strong>Why it helps:</strong> Once we know the key, we can apply a "prior" — chords that belong to the key (diatonic chords) get a probability boost, while unlikely chords need stronger evidence. A song in C major is far more likely to contain G major than G# major.</p>
+
+<p>Swaram v4.1 uses this key information to resolve ambiguous cases. When the chromagram shows notes that could be either Am or C major (they share two notes), the key context helps decide.</p>
+
+<h2>Step 5: Temporal Smoothing</h2>
+
+<p>Raw frame-by-frame detection produces noisy results — the chord might flicker between labels on frames where the audio is transitional. Smoothing ensures musically sensible output.</p>
+
+<p><strong>Techniques used:</strong></p>
+<ul><li><strong>Minimum duration filter:</strong> A chord must persist for at least 0.5 seconds to register. Humans can't perceive chord changes faster than about 200ms.</li>
+<li><strong>Transition penalty:</strong> Changing from one chord to another incurs a "cost," preventing unnecessary micro-changes</li>
+<li><strong>Beat alignment:</strong> Chord changes preferentially align with strong beats (downbeats) rather than arbitrary moments</li>
+</ul>
+<h2>Step 6: Post-Processing</h2>
+
+<p>The final step refines the output:</p>
+
+<p><strong>Enharmonic Normalization:</strong> The system standardizes chord names — reporting "Bb" instead of "A#" based on the detected key context. In flat keys (F, Bb, Eb), flats are preferred; in sharp keys (G, D, A), sharps are preferred.</p>
+
+<p><strong>Complexity Penalty:</strong> When a simpler chord explains the audio nearly as well as a complex one, the simpler chord wins. This prevents over-detection of extended chords (e.g., reporting Cmaj9 when plain C is sufficient).</p>
+
+<p><strong>Chord Merging:</strong> If the same chord appears in consecutive segments with a tiny gap, the segments are merged into one longer chord event.</p>
+
+<h2>Accuracy and Limitations</h2>
+
+<h3>Where AI Chord Detection Excels</h3>
+<ul><li><strong>Clear recordings</strong> with prominent harmonic instruments (guitar, piano, synth)</li>
+<li><strong>Songs with standard chord vocabulary</strong> (major, minor, 7th chords)</li>
+<li><strong>Music with clear harmonic rhythm</strong> (chords change on strong beats)</li>
+</ul>
+<h3>Known Limitations</h3>
+<ul><li><strong>Dense mixes:</strong> When many instruments play different notes simultaneously, the chromagram becomes crowded</li>
+<li><strong>Extended chords:</strong> 9th, 11th, and 13th chords have many notes that can be confused with simpler chords</li>
+<li><strong>Non-standard tunings:</strong> Drop-D, open tunings, and detuned instruments shift expected frequencies</li>
+<li><strong>Heavily distorted guitar:</strong> Distortion adds harmonics that can confuse pitch detection</li>
+<li><strong>Tempo changes:</strong> Rubato (flexible timing) makes beat-aligned smoothing less effective</li>
+</ul>
+<h3>Accuracy Benchmarks</h3>
+<p>On standard evaluation datasets (like the Beatles annotations from MIREX), modern chord detection achieves 75-85% accuracy for major/minor chord vocabulary. Swaram's implementation targets practical utility over academic benchmarks — we optimize for "is this useful for a musician learning the song?" rather than "does every millisecond match a musicologist's annotation?"</p>
+
+<h2>The Technology Stack</h2>
+
+<p>Swaram's chord detection uses:</p>
+<ul><li><strong>Python</strong> with <strong>FastAPI</strong> for the backend service</li>
+<li><strong>librosa</strong> for audio analysis (chromagram computation, onset detection)</li>
+<li><strong>NumPy</strong> for efficient numerical computation</li>
+<li><strong>Custom algorithms</strong> for key detection, temporal smoothing, and chord template matching</li>
+</ul>
+<p>The service runs on HuggingFace Spaces and processes most songs in 10-30 seconds depending on duration.</p>
+
+<h2>Why AI Chord Detection Matters</h2>
+
+<p>Before AI chord detection, learning a song required:</p>
+<ul><li>Finding an existing transcription (often inaccurate or unavailable for niche songs)</li>
+<li>Training your ear over years to identify chords by sound</li>
+<li>Paying for music lessons or transcription services</li>
+</ul>
+<p>Swaram democratizes this process. Any musician — regardless of ear training experience — can get a chord chart for any song in seconds. It's especially valuable for:</p>
+<ul><li><strong>Regional and non-English music</strong> where chord charts rarely exist online</li>
+<li><strong>Obscure or independent songs</strong> that no one has transcribed</li>
+<li><strong>Live recordings and covers</strong> that differ from studio versions</li>
+<li><strong>Quick practice sessions</strong> where you just need the chords, not perfection</li>
+</ul>
+<h2>What's Next for Chord Detection AI</h2>
+
+<p>The field is evolving rapidly:</p>
+<ul><li><strong>Deep learning models</strong> (CNNs and transformers) are beginning to outperform template matching</li>
+<li><strong>Beat-synchronous detection</strong> aligns chords precisely to musical structure</li>
+<li><strong>Multi-instrument separation</strong> isolates harmonic instruments before analysis</li>
+<li><strong>Real-time detection</strong> is becoming feasible on mobile devices</li>
+</ul>
+<p>Swaram continues to improve its detection algorithms with each version, incorporating community feedback to focus on the chord types and music styles our users care about most.</p>
+
+                </article>
+
+                <div class="learn-cta">
+                    <h3>Ready to Find Chords?</h3>
+                    <p>Upload any song and get chords instantly with Swaram's free AI chord finder.</p>
+                    <a href="/chord-finder" class="btn">Try Chord Finder</a>
+                </div>
+
+                <div class="learn-nav">
+                    <a href="/learn/beginner-guitar-chords/" class="learn-related-link">8 Essential Guitar Chords Every Beginner Must Learn First</a>
+<a href="/learn/common-chord-progressions/" class="learn-related-link">Common Chord Progressions Every Musician Should Know</a>
+<a href="/learn/how-to-read-chord-charts/" class="learn-related-link">How to Read Chord Charts — A Complete Beginner's Guide</a>
+<a href="/learn/transpose-chords-guide/" class="learn-related-link">How to Transpose Chords — Change Key Without Losing the Song</a>
+                </div>
+            </div>
+        </section>
+
+    <section class="donate-section" id="donate">
+        <div class="container">
+            <h3 data-i18n="support_title">Support Swaram</h3>
+            <p data-i18n="support_text">We keep everything completely free. Your support helps us improve the chord finder and add more songs.</p>
+            <div class="donate-options">
+                <div class="upi-donate-option">
+                    <a href="#" onclick="openUPI(); return false;" class="btn btn-secondary" data-i18n="pay_upi">Pay via UPI</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3 data-i18n="site_title">Swaram</h3>
+                    <p data-i18n="tagline">Find Chords for Any Song &mdash; Free AI Chord Finder</p>
+                </div>
+                <div class="footer-links">
+                    <h4 data-i18n="footer_quick_links">Quick Links</h4>
+                    <ul>
+                        <li><a href="/" data-i18n="nav_home">Home</a></li>
+                        <li><a href="/chord-finder" data-i18n="nav_generate">Chord Finder</a></li>
+                        <li><a href="/chord-identifier" data-i18n="nav_identifier">Chord Identifier</a></li>
+                        <li><a href="/chord-progressions" data-i18n="nav_progressions">Progressions</a></li>
+                        <li><a href="/learn/" data-i18n="nav_learn">Learn</a></li>
+                        <li><a href="/songs" data-i18n="nav_songs">Song Library</a></li>
+                        <li><a href="/chords/browse">All Chords</a></li>
+                        <li><a href="/privacy-policy" data-i18n="nav_privacy">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4 data-i18n="footer_follow_us">Follow Us</h4>
+                    <ul>
+                        <li><a href="https://www.youtube.com/@almightyone8205" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-i18n="copyright">&copy; 2026 Swaram. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="/js/main.js" defer></script>
+</body>
+
+</html>

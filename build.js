@@ -297,6 +297,8 @@ function loadTemplates() {
         artistPage: read('artist-page.html'),
         progressionPage: read('progression-page.html'),
         chordsPage: read('chords-page.html'),
+        learnPage: read('learn-page.html'),
+        learnIndex: read('learn-index.html'),
     };
 }
 
@@ -849,7 +851,7 @@ function buildUrlset(entries) {
     return xml;
 }
 
-function generateSitemap(songs, categories, artists, progressionKeys, aiChordPages) {
+function generateSitemap(songs, categories, artists, progressionKeys, aiChordPages, learnArticles) {
     // Clean up stale sub-sitemaps from previous builds
     const staleSitemaps = fs.readdirSync(ROOT)
         .filter(f => f.startsWith('sitemap-') && f.endsWith('.xml'));
@@ -880,6 +882,7 @@ function generateSitemap(songs, categories, artists, progressionKeys, aiChordPag
         { loc: '/chord-finder', file: 'chord-finder.html' },
         { loc: '/chord-identifier', file: 'chord-identifier.html' },
         { loc: '/chord-progressions', file: 'chord-progressions.html' },
+        { loc: '/about', file: 'about.html' },
         { loc: '/request', file: 'request.html' },
         { loc: '/privacy-policy', file: 'privacy-policy.html' },
     ].map(p => ({
@@ -931,6 +934,15 @@ function generateSitemap(songs, categories, artists, progressionKeys, aiChordPag
         lastmod: getLastmod('chord-progressions.html'),
     }));
 
+    // --- Segment: learn/tutorial pages ---
+    const learnEntries = [{ loc: `${BASE_URL}/learn/`, lastmod: today }];
+    for (const article of (learnArticles || [])) {
+        learnEntries.push({
+            loc: `${BASE_URL}/learn/${article.slug}/`,
+            lastmod: getLastmod(`learn/${article.slug}.md`),
+        });
+    }
+
     // --- Segment: AI chord pages ---
     const chordEntries = (aiChordPages || []).map(entry => {
         const createdDate = entry.created_at ? entry.created_at.split('T')[0] : '2026-01-01';
@@ -955,6 +967,7 @@ function generateSitemap(songs, categories, artists, progressionKeys, aiChordPag
         { file: 'sitemap-categories.xml', entries: categoryEntries },
         { file: 'sitemap-artists.xml', entries: artistEntries },
         { file: 'sitemap-progressions.xml', entries: progressionEntries },
+        { file: 'sitemap-learn.xml', entries: learnEntries },
         { file: 'sitemap-chords-new.xml', entries: newChordEntries },
         { file: 'sitemap-chords-recent.xml', entries: recentChordEntries },
         { file: 'sitemap-chords-archive.xml', entries: archiveChordEntries },
@@ -1487,6 +1500,145 @@ function extractVideoIdFromEntry(entry) {
 }
 
 /**
+ * Generate educational analysis text from chord data for a song page.
+ * Returns an HTML string with key analysis, difficulty, progression patterns, and tips.
+ */
+function generateSongAnalysis(entry, uniqueChords, beginnerCapo, beginnerDifficulty) {
+    const chordEvents = entry.chords?.chords || [];
+    if (!chordEvents.length) return '';
+
+    const title = entry.title || 'This song';
+    const chordCount = chordEvents.length;
+    const uniqueCount = uniqueChords.length;
+
+    // Estimate song duration from last chord timestamp
+    const lastTime = chordEvents[chordEvents.length - 1]?.time || 0;
+    const duration = lastTime > 0 ? lastTime : null;
+    const durationStr = duration ? `${Math.floor(duration / 60)}:${String(Math.floor(duration % 60)).padStart(2, '0')}` : null;
+
+    // Detect most common chord
+    const freq = {};
+    for (const e of chordEvents) {
+        freq[e.chord] = (freq[e.chord] || 0) + 1;
+    }
+    const sorted = Object.entries(freq).sort((a, b) => b[1] - a[1]);
+    const mostCommon = sorted[0] ? sorted[0][0] : null;
+    const mostCommonPct = sorted[0] ? Math.round((sorted[0][1] / chordCount) * 100) : 0;
+
+    // Detect most common 2-chord transitions
+    const transitions = {};
+    for (let i = 0; i < chordEvents.length - 1; i++) {
+        const pair = `${chordEvents[i].chord} → ${chordEvents[i + 1].chord}`;
+        if (chordEvents[i].chord !== chordEvents[i + 1].chord) {
+            transitions[pair] = (transitions[pair] || 0) + 1;
+        }
+    }
+    const topTransitions = Object.entries(transitions).sort((a, b) => b[1] - a[1]).slice(0, 3);
+
+    // Classify chord types present
+    const hasMinor = uniqueChords.some(c => /m(?!aj)/.test(c) && !/dim/.test(c));
+    const hasSeventh = uniqueChords.some(c => /7|maj7|M7|m7/.test(c));
+    const hasSus = uniqueChords.some(c => /sus/.test(c));
+    const hasDim = uniqueChords.some(c => /dim/.test(c));
+    const hasAug = uniqueChords.some(c => /aug/.test(c));
+    const hasBarre = uniqueChords.some(c => /^(F|Bm|F#|C#|G#|Bb|Eb|Ab|Fm|Gm|Cm|Bbm)/.test(c));
+
+    // Build analysis HTML
+    let html = '<div class="song-analysis">\n';
+    html += '    <h3>Song Analysis</h3>\n';
+
+    // Key stats paragraph
+    html += '    <div class="analysis-stats">\n';
+    html += `        <p>This arrangement of <strong>${escapeHtml(title)}</strong> uses <strong>${uniqueCount} unique chord${uniqueCount !== 1 ? 's' : ''}</strong> across <strong>${chordCount} chord changes</strong>`;
+    if (durationStr) {
+        const avgChange = (duration / chordCount).toFixed(1);
+        html += `, spanning approximately ${durationStr} — averaging one chord change every ${avgChange} seconds`;
+    }
+    html += '.</p>\n';
+    html += '    </div>\n';
+
+    // Difficulty & playing tips
+    html += '    <div class="analysis-difficulty">\n';
+    const diffLabels = { easy: 'Easy (Beginner-Friendly)', moderate: 'Moderate (Intermediate)', advanced: 'Advanced' };
+    html += `        <p><strong>Difficulty:</strong> ${diffLabels[beginnerDifficulty] || 'Easy'}</p>\n`;
+
+    if (beginnerDifficulty === 'easy') {
+        html += '        <p>This song primarily uses open chords that beginners can play comfortably. A great choice for building confidence with chord transitions.</p>\n';
+    } else if (beginnerDifficulty === 'moderate') {
+        html += '        <p>This song includes some chords beyond the basic open shapes. ';
+        if (beginnerCapo > 0) {
+            html += `Using a <strong>capo on fret ${beginnerCapo}</strong> simplifies most chords to beginner-friendly shapes. `;
+        }
+        html += 'Practice the chord transitions slowly before attempting full speed.</p>\n';
+    } else {
+        html += '        <p>This song uses complex chord voicings ';
+        if (hasBarre) html += 'including barre chords ';
+        if (hasSeventh) html += 'and extended harmonies ';
+        html += 'that require intermediate to advanced technique. ';
+        if (beginnerCapo > 0) {
+            html += `Tip: A <strong>capo on fret ${beginnerCapo}</strong> can simplify some shapes. `;
+        }
+        html += 'Try Beginner Mode above for a simplified version.</p>\n';
+    }
+    html += '    </div>\n';
+
+    // Chord vocabulary
+    html += '    <div class="analysis-chords">\n';
+    html += '        <p><strong>Chord vocabulary:</strong> ';
+    const types = [];
+    if (uniqueChords.some(c => /^[A-G][#b]?$/.test(c))) types.push('major triads');
+    if (hasMinor) types.push('minor chords');
+    if (hasSeventh) types.push('seventh chords');
+    if (hasSus) types.push('suspended chords');
+    if (hasDim) types.push('diminished chords');
+    if (hasAug) types.push('augmented chords');
+    html += types.length ? `Uses ${types.join(', ')}. ` : '';
+    if (mostCommon) {
+        html += `The most frequently used chord is <strong>${escapeHtml(mostCommon)}</strong>, appearing ${mostCommonPct}% of the time`;
+        if (sorted.length > 1) {
+            html += `, followed by ${escapeHtml(sorted[1][0])} and ${sorted.length > 2 ? escapeHtml(sorted[2][0]) : ''}`;
+        }
+        html += '.</p>\n';
+    }
+    html += '    </div>\n';
+
+    // Common progressions/transitions
+    if (topTransitions.length > 0) {
+        html += '    <div class="analysis-progressions">\n';
+        html += '        <p><strong>Common transitions:</strong> The most frequent chord changes in this song are ';
+        html += topTransitions.map(([pair, count]) => `${escapeHtml(pair)} (${count}×)`).join(', ');
+        html += '. Practice these transitions individually to build muscle memory.</p>\n';
+        html += '    </div>\n';
+    }
+
+    // Playing tips
+    html += '    <div class="analysis-tips">\n';
+    html += '        <p><strong>Tips for playing:</strong> ';
+    const tips = [];
+    if (beginnerCapo > 0 && beginnerDifficulty !== 'easy') {
+        tips.push(`Use a capo on fret ${beginnerCapo} to simplify chord shapes`);
+    }
+    if (hasBarre && beginnerDifficulty !== 'easy') {
+        tips.push('Focus on barre chord technique — keep your index finger flat and close to the fret');
+    }
+    if (chordCount > 100) {
+        tips.push('Break the song into sections and master each part before playing through');
+    }
+    if (hasSeventh) {
+        tips.push('For seventh chords, ensure all notes ring clearly — lift your fingers slightly if strings are muted');
+    }
+    if (tips.length === 0) {
+        tips.push('Start by strumming each chord slowly and focus on clean transitions');
+        tips.push('Use the timeline above to practice along with the recording');
+    }
+    html += tips.join('. ') + '.</p>\n';
+    html += '    </div>\n';
+
+    html += '</div>';
+    return html;
+}
+
+/**
  * Generate a static AI chord page at /chords/{slug}/index.html
  */
 function generateChordsPage(entry, templates, aiChordPages, difficultyMap) {
@@ -1565,6 +1717,9 @@ function generateChordsPage(entry, templates, aiChordPages, difficultyMap) {
         .map(c => `<span class="chord-badge" data-original="${escapeHtml(c)}">${escapeHtml(c)}</span>`)
         .join('\n                        ');
 
+    // Song analysis (auto-generated educational content)
+    const songAnalysis = generateSongAnalysis(entry, uniqueChords, beginnerCapo, beginnerDifficulty);
+
     // Chord data as JSON for client-side player
     const chordDataJson = JSON.stringify(entry.chords?.chords || []);
 
@@ -1594,6 +1749,7 @@ function generateChordsPage(entry, templates, aiChordPages, difficultyMap) {
         .replace('{{CHORD_DATA_JSON}}', chordDataJson)
         .replace('{{BEGINNER_CAPO}}', String(beginnerCapo))
         .replace('{{BEGINNER_DIFFICULTY}}', beginnerDifficulty)
+        .replace('{{SONG_ANALYSIS}}', songAnalysis)
         .replace('{{STRUCTURED_DATA}}', structuredData);
 
     // Related chords — same artist first, then same difficulty, for internal link discovery
@@ -1645,6 +1801,177 @@ function generateChordRedirect(oldSlug, newSlug) {
     const outDir = path.join(ROOT, 'chords', oldSlug);
     mkdirp(outDir);
     fs.writeFileSync(path.join(outDir, 'index.html'), html);
+}
+
+// ===== Learn Pages Generation =====
+
+function markdownToHtml(md) {
+    let html = md
+        .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+        .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.+?)\*/g, '<em>$1</em>')
+        .replace(/`([^`]+)`/g, '<code>$1</code>');
+
+    // Code blocks
+    html = html.replace(/```([^`]*?)```/gs, (_, code) => {
+        return `<pre><code>${escapeHtml(code.trim())}</code></pre>`;
+    });
+
+    // Tables
+    html = html.replace(/^(\|.+\|)\n(\|[-| :]+\|)\n((?:\|.+\|\n?)+)/gm, (_, header, sep, body) => {
+        const headers = header.split('|').filter(c => c.trim()).map(c => `<th>${c.trim()}</th>`).join('');
+        const rows = body.trim().split('\n').map(row => {
+            const cells = row.split('|').filter(c => c.trim()).map(c => `<td>${c.trim()}</td>`).join('');
+            return `<tr>${cells}</tr>`;
+        }).join('\n');
+        return `<table><thead><tr>${headers}</tr></thead><tbody>${rows}</tbody></table>`;
+    });
+
+    // Lists
+    html = html.replace(/^- (.+)$/gm, '<li>$1</li>');
+    html = html.replace(/(<li>.*<\/li>\n?)+/g, m => `<ul>${m}</ul>`);
+    html = html.replace(/^\d+\. (.+)$/gm, '<li>$1</li>');
+
+    // Paragraphs (lines not already wrapped in HTML tags)
+    const lines = html.split('\n');
+    const result = [];
+    let inBlock = false;
+    for (const line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed) { result.push(''); continue; }
+        if (trimmed.startsWith('<h') || trimmed.startsWith('<pre') || trimmed.startsWith('<table') ||
+            trimmed.startsWith('<ul') || trimmed.startsWith('<ol') || trimmed.startsWith('<li') ||
+            trimmed.startsWith('</')) {
+            result.push(line);
+            if (trimmed.startsWith('<pre')) inBlock = true;
+            if (trimmed.includes('</pre>')) inBlock = false;
+            continue;
+        }
+        if (inBlock) { result.push(line); continue; }
+        result.push(`<p>${trimmed}</p>`);
+    }
+    return result.join('\n');
+}
+
+function generateLearnPages(templates) {
+    const learnDir = path.join(ROOT, 'learn');
+    if (!fs.existsSync(learnDir)) return [];
+
+    const mdFiles = fs.readdirSync(learnDir).filter(f => f.endsWith('.md'));
+    if (!mdFiles.length) return [];
+
+    const learnTemplate = fs.readFileSync(path.join(ROOT, 'templates', 'learn-page.html'), 'utf-8');
+    const learnIndexTemplate = fs.readFileSync(path.join(ROOT, 'templates', 'learn-index.html'), 'utf-8');
+
+    const articles = mdFiles.map(file => {
+        const raw = fs.readFileSync(path.join(learnDir, file), 'utf-8');
+        const { metadata, body } = parseFrontmatter(raw);
+        return {
+            title: metadata.title || file.replace('.md', ''),
+            description: metadata.description || '',
+            slug: metadata.slug || file.replace('.md', ''),
+            body,
+        };
+    });
+
+    // Generate individual article pages
+    for (const article of articles) {
+        const articleHtml = markdownToHtml(article.body);
+        const canonicalUrl = `${BASE_URL}/learn/${article.slug}/`;
+
+        const structuredData = JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": article.title,
+            "description": article.description,
+            "url": canonicalUrl,
+            "publisher": { "@type": "Organization", "name": "Swaram", "url": BASE_URL },
+            "mainEntityOfPage": canonicalUrl,
+            "breadcrumb": {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    { "@type": "ListItem", "position": 1, "name": "Home", "item": BASE_URL },
+                    { "@type": "ListItem", "position": 2, "name": "Learn", "item": `${BASE_URL}/learn/` },
+                    { "@type": "ListItem", "position": 3, "name": article.title, "item": canonicalUrl }
+                ]
+            }
+        }, null, 2);
+
+        const relatedHtml = articles
+            .filter(a => a.slug !== article.slug)
+            .map(a => `<a href="/learn/${a.slug}/" class="learn-related-link">${escapeHtml(a.title)}</a>`)
+            .join('\n');
+
+        let page = learnTemplate;
+        page = fillHead(page, templates.partials, {
+            TITLE: `${article.title} | Swaram`,
+            DESCRIPTION: article.description,
+            KEYWORDS: 'guitar chords, chord theory, music tutorial, learn chords, chord progressions',
+            CANONICAL_URL: canonicalUrl,
+            OG_TITLE: article.title,
+            OG_DESCRIPTION: article.description,
+            OG_URL: canonicalUrl,
+            TWITTER_TITLE: article.title,
+            TWITTER_DESCRIPTION: article.description,
+            EXTRA_HEAD: '',
+        });
+        page = fillPartials(page, templates.partials, templates.partials.donateSimple);
+        page = page
+            .replace('{{STRUCTURED_DATA}}', structuredData)
+            .replace(/\{\{ARTICLE_TITLE\}\}/g, escapeHtml(article.title))
+            .replace('{{ARTICLE_CONTENT}}', articleHtml)
+            .replace('{{RELATED_ARTICLES}}', relatedHtml);
+
+        const outDir = path.join(ROOT, 'learn', article.slug);
+        mkdirp(outDir);
+        fs.writeFileSync(path.join(outDir, 'index.html'), page);
+    }
+
+    // Generate learn index page
+    const cardsHtml = articles.map(a => `
+                <a href="/learn/${a.slug}/" class="learn-card">
+                    <h3>${escapeHtml(a.title)}</h3>
+                    <p>${escapeHtml(a.description)}</p>
+                </a>`).join('\n');
+
+    const indexStructuredData = JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Learn Music & Chords — Swaram",
+        "description": "Free guides for guitarists, pianists, and musicians. Learn chord theory, progressions, and AI chord detection.",
+        "url": `${BASE_URL}/learn/`,
+        "breadcrumb": {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": BASE_URL },
+                { "@type": "ListItem", "position": 2, "name": "Learn", "item": `${BASE_URL}/learn/` }
+            ]
+        }
+    }, null, 2);
+
+    let indexPage = learnIndexTemplate;
+    indexPage = fillHead(indexPage, templates.partials, {
+        TITLE: 'Learn Music & Chords — Free Guides | Swaram',
+        DESCRIPTION: 'Free guides for guitarists, pianists, and musicians. Learn chord theory, master progressions, transpose chords, and understand AI chord detection.',
+        KEYWORDS: 'learn guitar chords, chord theory, music tutorial, chord progressions guide, transpose chords',
+        CANONICAL_URL: `${BASE_URL}/learn/`,
+        OG_TITLE: 'Learn Music & Chords — Swaram',
+        OG_DESCRIPTION: 'Free guides for guitarists, pianists, and musicians. Learn chord theory, master progressions, and understand AI chord detection.',
+        OG_URL: `${BASE_URL}/learn/`,
+        TWITTER_TITLE: 'Learn Music & Chords — Swaram',
+        TWITTER_DESCRIPTION: 'Free guides for guitarists, pianists, and musicians.',
+        EXTRA_HEAD: '',
+    });
+    indexPage = fillPartials(indexPage, templates.partials, templates.partials.donateSimple);
+    indexPage = indexPage
+        .replace('{{STRUCTURED_DATA}}', indexStructuredData)
+        .replace('{{ARTICLE_CARDS}}', cardsHtml);
+
+    const indexDir = path.join(ROOT, 'learn');
+    fs.writeFileSync(path.join(indexDir, 'index.html'), indexPage);
+
+    return articles;
 }
 
 // ===== Main =====
@@ -1721,6 +2048,10 @@ async function main() {
     // Generate chord progression key pages
     const progressionKeys = generateProgressionPages(templates);
     console.log(`Generated ${progressionKeys.length} chord progression key pages.`);
+
+    // Generate learn/tutorial pages
+    const learnArticles = generateLearnPages(templates);
+    console.log(`Generated ${learnArticles.length} learn article pages.`);
 
     // Generate AI chord pages from Supabase
     let aiChordPages = [];
@@ -1799,8 +2130,8 @@ async function main() {
     }
 
     // Generate sitemap
-    generateSitemap(songs, allCategories, allArtists, progressionKeys, aiChordPages);
-    const totalUrls = 5 + songs.length * 2 + allCategories.length + allArtists.length + progressionKeys.length + aiChordPages.length;
+    generateSitemap(songs, allCategories, allArtists, progressionKeys, aiChordPages, learnArticles);
+    const totalUrls = 5 + songs.length * 2 + allCategories.length + allArtists.length + progressionKeys.length + aiChordPages.length + learnArticles.length + 1;
     console.log(`Sitemap generated with ${totalUrls} URLs.`);
     validateSitemaps();
 
@@ -1833,6 +2164,7 @@ async function main() {
     console.log(`Category pages: ${allCategories.length}`);
     console.log(`Artist pages:   ${allArtists.length}`);
     console.log(`Progression pages: ${progressionKeys.length}`);
+    console.log(`Learn articles: ${learnArticles.length}`);
     console.log(`AI chord pages: ${aiChordPages.length}`);
     console.log(`Sitemap URLs:   ${totalUrls}`);
     console.log('Build complete!');

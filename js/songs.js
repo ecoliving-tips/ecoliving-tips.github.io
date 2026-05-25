@@ -154,8 +154,12 @@ function populateFilters(songs) {
     if (filterBar) filterBar.style.display = '';
 }
 
+let initialRender = true;
+
 function applyFilters() {
     let result = [...songsList];
+
+    const hasFilters = activeCategory || activeKey || searchQuery || activeSort !== 'default';
 
     // Category filter
     if (activeCategory) {
@@ -188,7 +192,14 @@ function applyFilters() {
         result.sort((a, b) => (a.artist || '').localeCompare(b.artist || ''));
     }
 
-    displaySongs(result);
+    const songsGrid = document.getElementById('songs-grid');
+    const hasPreRendered = initialRender && songsGrid && songsGrid.children.length > 0;
+    if (hasPreRendered && !hasFilters) {
+        initialRender = false;
+    } else {
+        initialRender = false;
+        displaySongs(result);
+    }
 
     // Update count and no-results
     const songCount = document.getElementById('song-count');

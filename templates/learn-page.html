@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+
+<head>
+{{HEAD}}
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {{STRUCTURED_DATA}}
+    </script>
+</head>
+
+<body>
+{{HEADER}}
+
+    <main>
+        <section class="learn-header">
+            <div class="container">
+                <nav class="breadcrumb" aria-label="Breadcrumb">
+                    <a href="/">Home</a> &rsaquo; <a href="/learn/">Learn</a> &rsaquo; <span>{{ARTICLE_TITLE}}</span>
+                </nav>
+                <h2>{{ARTICLE_TITLE}}</h2>
+            </div>
+        </section>
+
+        <section class="learn-content-section">
+            <div class="container">
+                <article class="learn-article">
+                    {{ARTICLE_CONTENT}}
+                </article>
+
+                <div class="learn-cta">
+                    <h3>Ready to Find Chords?</h3>
+                    <p>Upload any song and get chords instantly with Swaram's free AI chord finder.</p>
+                    <a href="/chord-finder" class="btn">Try Chord Finder</a>
+                </div>
+
+                <div class="learn-nav">
+                    {{RELATED_ARTICLES}}
+                </div>
+            </div>
+        </section>
+
+{{DONATE}}
+    </main>
+
+{{FOOTER}}
+
+    <script src="/js/main.js" defer></script>
+</body>
+
+</html>

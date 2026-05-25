@@ -26,13 +26,13 @@
 
     // ── i18n helper ──
 
-    function t(key) {
+    function t(key, fallback) {
         try {
             if (typeof translations !== 'undefined' && typeof currentLang !== 'undefined') {
-                return translations[currentLang] && translations[currentLang][key] || key;
+                return translations[currentLang] && translations[currentLang][key] || fallback || key;
             }
         } catch (e) { /* ignore */ }
-        return key;
+        return fallback || key;
     }
 
     // ── Chord display ──

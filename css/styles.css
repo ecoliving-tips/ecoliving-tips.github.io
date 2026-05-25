@@ -2870,6 +2870,218 @@ footer {
     display: none;
 }
 
+/* ===== Learn Section Styles ===== */
+.learn-header {
+    padding: 2rem 0 1rem;
+}
+
+.learn-header h2 {
+    margin-top: 0.5rem;
+}
+
+.breadcrumb {
+    font-size: 0.85rem;
+    color: var(--text-muted, #9ca3af);
+    margin-bottom: 0.5rem;
+}
+
+.breadcrumb a {
+    color: var(--primary, #6C3CE1);
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.learn-content-section {
+    padding: 1rem 0 2rem;
+}
+
+.learn-article {
+    max-width: 800px;
+    line-height: 1.8;
+    font-size: 1.05rem;
+}
+
+.learn-article h3 {
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary, #ffffff);
+}
+
+.learn-article p {
+    margin-bottom: 1rem;
+    color: var(--text-secondary, #d1d5db);
+}
+
+.learn-article ul,
+.learn-article ol {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+    color: var(--text-secondary, #d1d5db);
+}
+
+.learn-article li {
+    margin-bottom: 0.5rem;
+    line-height: 1.7;
+}
+
+.learn-article table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+}
+
+.learn-article th,
+.learn-article td {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border, #2d2640);
+    text-align: left;
+}
+
+.learn-article th {
+    background: var(--card-bg, #1A1425);
+    color: var(--text-primary, #ffffff);
+    font-weight: 600;
+}
+
+.learn-article td {
+    color: var(--text-secondary, #d1d5db);
+}
+
+.learn-cta {
+    margin-top: 2.5rem;
+    padding: 2rem;
+    background: var(--card-bg, #1A1425);
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid var(--border, #2d2640);
+}
+
+.learn-cta h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.learn-nav {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border, #2d2640);
+}
+
+.learn-nav h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.learn-nav a {
+    display: block;
+    padding: 0.5rem 0;
+    color: var(--primary, #6C3CE1);
+    text-decoration: none;
+}
+
+.learn-nav a:hover {
+    text-decoration: underline;
+}
+
+/* Learn Index Grid */
+.learn-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.learn-card {
+    background: var(--card-bg, #1A1425);
+    border: 1px solid var(--border, #2d2640);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.learn-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary, #6C3CE1);
+}
+
+.learn-card h3 {
+    margin: 0 0 0.75rem;
+    font-size: 1.15rem;
+}
+
+.learn-card h3 a {
+    color: var(--text-primary, #ffffff);
+    text-decoration: none;
+}
+
+.learn-card h3 a:hover {
+    color: var(--primary, #6C3CE1);
+}
+
+.learn-card p {
+    color: var(--text-secondary, #d1d5db);
+    font-size: 0.95rem;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.learn-intro {
+    font-size: 1.1rem;
+    color: var(--text-secondary, #d1d5db);
+    max-width: 700px;
+    margin-top: 0.5rem;
+}
+
+/* ===== Song Analysis Section ===== */
+.song-analysis {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--card-bg, #1A1425);
+    border: 1px solid var(--border, #2d2640);
+    border-radius: 12px;
+}
+
+.song-analysis h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    color: var(--text-primary, #ffffff);
+}
+
+.song-analysis p {
+    color: var(--text-secondary, #d1d5db);
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+}
+
+.song-analysis strong {
+    color: var(--text-primary, #ffffff);
+}
+
+.analysis-stats,
+.analysis-difficulty,
+.analysis-chords,
+.analysis-progressions,
+.analysis-tips {
+    margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .learn-grid {
+        grid-template-columns: 1fr;
+    }
+    .learn-article {
+        font-size: 1rem;
+    }
+    .song-analysis {
+        padding: 1rem;
+    }
+}
+
 @media print {
     header, footer, .donate-section, .song-toolbar,
     .song-navigation, .video-container, .back-link,
