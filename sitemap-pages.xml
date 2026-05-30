@@ -2,23 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://swaram-app.netlify.app/</loc>
-    <lastmod>2026-05-15</lastmod>
+    <lastmod>2026-05-25</lastmod>
   </url>
   <url>
     <loc>https://swaram-app.netlify.app/songs</loc>
-    <lastmod>2026-05-15</lastmod>
+    <lastmod>2026-05-25</lastmod>
   </url>
   <url>
     <loc>https://swaram-app.netlify.app/chord-finder</loc>
-    <lastmod>2026-05-15</lastmod>
+    <lastmod>2026-05-25</lastmod>
   </url>
   <url>
     <loc>https://swaram-app.netlify.app/chord-identifier</loc>
-    <lastmod>2026-05-15</lastmod>
+    <lastmod>2026-05-25</lastmod>
   </url>
   <url>
     <loc>https://swaram-app.netlify.app/chord-progressions</loc>
-    <lastmod>2026-05-15</lastmod>
+    <lastmod>2026-05-25</lastmod>
   </url>
   <url>
     <loc>https://swaram-app.netlify.app/about</loc>
@@ -30,6 +30,6 @@
   </url>
   <url>
     <loc>https://swaram-app.netlify.app/privacy-policy</loc>
-    <lastmod>2026-05-15</lastmod>
+    <lastmod>2026-05-25</lastmod>
   </url>
 </urlset>

@@ -1669,6 +1669,11 @@ function generateChordsPage(entry, templates, aiChordPages, difficultyMap) {
         "url": canonicalUrl,
         "description": pageDesc,
         "educationalLevel": { easy: 'Beginner', moderate: 'Intermediate', advanced: 'Advanced' }[beginnerDifficulty] || 'Beginner',
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "Swaram",
+            "url": `${BASE_URL}/`
+        }
     };
 
     const breadcrumbObj = {
