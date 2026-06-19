@@ -2617,7 +2617,7 @@ footer {
 
 /* Chords (overview) mode */
 .current-chord-display[data-mode="chords"] .npp-diagram { display: none; }
-.current-chord-display[data-mode="chords"] .npp-card.current .npp-chord-name { font-size: 4rem; }
+.current-chord-display[data-mode="chords"] .npp-card.current .npp-chord-name { font-size: 2.5rem; }
 .current-chord-display[data-mode="chords"] .npp-card.current { min-width: auto; padding: 0.5rem 2rem; }
 
 @media (max-width: 768px) {
