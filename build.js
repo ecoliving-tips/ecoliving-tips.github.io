@@ -1639,110 +1639,6 @@ function extractVideoIdFromEntry(entry) {
     return entry.video_id || '';
 }
 
-function generateSongAnalysis(entry, uniqueChords, beginnerCapo, beginnerDifficulty) {
-    const chordEvents = entry.chords?.chords || [];
-    if (!chordEvents.length) return '';
-
-    const title = entry.title || 'This song';
-    const chordCount = chordEvents.length;
-    const uniqueCount = uniqueChords.length;
-
-    // Estimate song duration from last chord timestamp
-    const lastTime = chordEvents[chordEvents.length - 1]?.time || 0;
-    const duration = lastTime > 0 ? lastTime : null;
-    const durationStr = duration ? `${Math.floor(duration / 60)}:${String(Math.floor(duration % 60)).padStart(2, '0')}` : null;
-
-    // Detect most common chord
-    const freq = {};
-    for (const e of chordEvents) {
-        freq[e.chord] = (freq[e.chord] || 0) + 1;
-    }
-    const sorted = Object.entries(freq).sort((a, b) => b[1] - a[1]);
-    const mostCommon = sorted[0] ? sorted[0][0] : null;
-    const mostCommonPct = sorted[0] ? Math.round((sorted[0][1] / chordCount) * 100) : 0;
-
-    // Detect most common 2-chord transitions
-    const transitions = {};
-    for (let i = 0; i < chordEvents.length - 1; i++) {
-        const pair = `${chordEvents[i].chord} → ${chordEvents[i + 1].chord}`;
-        if (chordEvents[i].chord !== chordEvents[i + 1].chord) {
-            transitions[pair] = (transitions[pair] || 0) + 1;
-        }
-    }
-    const topTransitions = Object.entries(transitions).sort((a, b) => b[1] - a[1]).slice(0, 3);
-
-    // Classify chord types
-    const hasMinor = uniqueChords.some(c => /m(?!aj)/.test(c) && !/dim/.test(c));
-    const hasSeventh = uniqueChords.some(c => /7|maj7|M7|m7/.test(c));
-    const hasSus = uniqueChords.some(c => /sus/.test(c));
-    const hasDim = uniqueChords.some(c => /dim/.test(c));
-    const hasAug = uniqueChords.some(c => /aug/.test(c));
-
-    // Build analysis HTML
-    let html = '<div class="song-analysis">\n';
-    html += '    <h3>Song Analysis</h3>\n';
-
-    // Key stats paragraph
-    html += '    <div class="analysis-stats">\n';
-    html += `        <p>This arrangement uses <strong>${uniqueCount} unique chord${uniqueCount !== 1 ? 's' : ''}</strong> across <strong>${chordCount} chord changes</strong>`;
-    if (durationStr) {
-        const avgChange = (duration / chordCount).toFixed(1);
-        html += `, spanning approximately ${durationStr} — averaging one chord change every ${avgChange} seconds`;
-    }
-    html += '.</p>\n';
-    html += `        <p><strong>Most common chord:</strong> ${escapeHtml(mostCommon || 'N/A')}${mostCommonPct ? ` (${mostCommonPct}% of all changes)` : ''}.</p>\n`;
-    html += '    </div>\n';
-
-    // Difficulty assessment
-    html += '    <div class="analysis-difficulty">\n';
-    const diffText = {
-        easy: 'This song is easy to play — perfect for beginners or quick learning.',
-        moderate: 'This song has moderate difficulty — good for intermediate players.',
-        advanced: 'This song is challenging — recommended for experienced players.'
-    }[beginnerDifficulty] || 'Good for most skill levels.';
-    html += `        <p><strong>${diffText}</strong></p>\n`;
-    html += '    </div>\n';
-
-    // Chord vocabulary
-    html += '    <div class="analysis-chords">\n';
-    html += '        <p><strong>Chord vocabulary:</strong> ';
-    const types = [];
-    if (uniqueCount > 0) types.push(`${uniqueCount} unique`);
-    if (hasMinor) types.push('minor');
-    if (hasSeventh) types.push('7ths');
-    if (hasSus) types.push('suspended');
-    if (hasDim) types.push('diminished');
-    if (hasAug) types.push('augmented');
-    html += (types.length > 0 ? types.join(', ') : 'basic major/minor') + '.</p>\n';
-    html += '    </div>\n';
-
-    // Top transitions
-    if (topTransitions.length > 0) {
-        html += '    <div class="analysis-progressions">\n';
-        html += '        <p><strong>Common progressions:</strong> ';
-        html += topTransitions.map(([pair, count]) => `${pair} (${count}x)`).join(', ') + '.</p>\n';
-        html += '    </div>\n';
-    }
-
-    // Playing tips
-    html += '    <div class="analysis-tips">\n';
-    html += '        <p><strong>Pro tip:</strong> ';
-    if (beginnerCapo > 0) {
-        html += `Use capo on fret ${beginnerCapo} for easier fingering.`;
-    } else if (uniqueCount > 6) {
-        html += 'This song uses many chords — practice transitions slowly.';
-    } else if (topTransitions.length > 0) {
-        html += `Focus on the ${topTransitions[0][0]} transition first.`;
-    } else {
-        html += 'Practice at a slower tempo to lock in the rhythm.';
-    }
-    html += '</p>\n';
-    html += '    </div>\n';
-
-    html += '</div>\n';
-    return html;
-}
-
 /**
  * Generate a static AI chord page at /chords/{slug}/index.html
  */
@@ -1852,10 +1748,6 @@ function generateChordsPage(entry, templates, aiChordPages, difficultyMap) {
         .replace('{{BEGINNER_CAPO}}', String(beginnerCapo))
         .replace('{{BEGINNER_DIFFICULTY}}', beginnerDifficulty)
         .replace('{{STRUCTURED_DATA}}', structuredData);
-
-    // Auto-generated song analysis
-    const songAnalysis = generateSongAnalysis(entry, uniqueChords, beginnerCapo, beginnerDifficulty);
-    page = page.replace('{{SONG_ANALYSIS}}', songAnalysis);
 
     // Related chords — same artist first, then same difficulty, for internal link discovery
     let relatedHtml = '';

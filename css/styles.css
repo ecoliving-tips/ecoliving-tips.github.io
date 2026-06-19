@@ -2870,41 +2870,6 @@ footer {
     display: none;
 }
 
-/* Song Analysis Styling */
-.song-analysis {
-    margin-top: 2rem;
-    padding: 1.5rem;
-    background: var(--card-bg, #1A1425);
-    border: 1px solid var(--border, #2d2640);
-    border-radius: 12px;
-}
-
-.song-analysis h3 {
-    margin-top: 0;
-    margin-bottom: 1rem;
-    font-size: 1.2rem;
-    color: var(--text-primary, #ffffff);
-}
-
-.song-analysis p {
-    color: var(--text-secondary, #d1d5db);
-    line-height: 1.7;
-    margin-bottom: 0.75rem;
-    font-size: 0.95rem;
-}
-
-.song-analysis strong {
-    color: var(--text-primary, #ffffff);
-}
-
-.analysis-stats,
-.analysis-difficulty,
-.analysis-chords,
-.analysis-progressions,
-.analysis-tips {
-    margin-bottom: 0.5rem;
-}
-
 @media print {
     header, footer, .donate-section, .song-toolbar,
     .song-navigation, .video-container, .back-link,
