@@ -685,7 +685,6 @@ function showResults() {
     if (section) section.style.display = '';
 
     // Scroll so the audio/YouTube player is at the top of the viewport
-    const section = document.getElementById('results-section');
     if (section) setTimeout(() => section.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
 
     // Reset transpose display
