@@ -684,9 +684,9 @@ function showResults() {
     const section = document.getElementById('results-section');
     if (section) section.style.display = '';
 
-    // Scroll so the "Try Another Song" button is near the bottom of the viewport
-    const newBtn = document.getElementById('new-btn');
-    if (newBtn) setTimeout(() => newBtn.scrollIntoView({ behavior: 'smooth', block: 'end' }), 100);
+    // Scroll so the audio/YouTube player is at the top of the viewport
+    const section = document.getElementById('results-section');
+    if (section) setTimeout(() => section.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
 
     // Reset transpose display
     document.getElementById('transpose-value').textContent = '0';
