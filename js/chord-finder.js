@@ -684,8 +684,9 @@ function showResults() {
     const section = document.getElementById('results-section');
     if (section) section.style.display = '';
 
-    // Scroll so the audio/YouTube player is at the top of the viewport
-    if (section) setTimeout(() => section.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+    // Scroll so the full audio/YouTube player is visible at the top
+    const playerEl = (youtubeVideoId ? document.getElementById('youtube-player-container') : document.getElementById('audio-player-container')) || section;
+    if (playerEl) setTimeout(() => playerEl.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
 
     // Reset transpose display
     document.getElementById('transpose-value').textContent = '0';
