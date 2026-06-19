@@ -684,8 +684,17 @@ function showResults() {
     const section = document.getElementById('results-section');
     if (section) section.style.display = '';
 
-    // Scroll to show player at the top
-    if (section) setTimeout(() => section.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+    // Scroll to audio/YouTube player and position below sticky header
+    if (section) {
+        setTimeout(() => {
+            const playerContainer = document.getElementById('audio-player-container') || document.getElementById('youtube-player-container');
+            if (playerContainer && playerContainer.offsetParent) {
+                playerContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+                section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }, 100);
+    }
 
     // Reset transpose display
     document.getElementById('transpose-value').textContent = '0';
