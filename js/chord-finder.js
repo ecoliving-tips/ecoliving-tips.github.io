@@ -684,9 +684,9 @@ function showResults() {
     const section = document.getElementById('results-section');
     if (section) section.style.display = '';
 
-    // Scroll so the full audio/YouTube player is visible at the top
+    // Scroll to show player (accounts for sticky header on mobile)
     const playerEl = (youtubeVideoId ? document.getElementById('youtube-player-container') : document.getElementById('audio-player-container')) || section;
-    if (playerEl) setTimeout(() => playerEl.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+    if (playerEl) setTimeout(() => playerEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
 
     // Reset transpose display
     document.getElementById('transpose-value').textContent = '0';
