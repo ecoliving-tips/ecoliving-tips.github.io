@@ -127,6 +127,10 @@ let cachedCurrentChordEl = null; // Cached #current-chord element
 let audioPlayer = null;      // HTML5 Audio element
 let audioObjectUrl = null;   // Blob URL for uploaded file
 let serverWarm = false;      // Whether the HF Space is awake
+
+// Now Playing Panel state (persisted in localStorage)
+let nppMode = localStorage.getItem('swaram-npp-mode') || 'diagram';
+let nppInstrument = localStorage.getItem('swaram-npp-instrument') || 'guitar';
 let youtubeVideoId = null;   // Extracted YouTube video ID (when using URL input)
 let ytPlayer = null;         // YouTube IFrame Player instance
 let ytSyncInterval = null;   // Interval ID for YouTube chord sync
@@ -197,6 +201,7 @@ const FLAT_MAP = ChordUtils.FLAT_MAP;
 document.addEventListener('DOMContentLoaded', function () {
     setupEventListeners();
     warmUpServer();
+    initNowPlayingPanel();
 });
 
 /**
@@ -935,6 +940,8 @@ function destroyYouTubePlayer() {
 function startSync() {
     stopSync();
     lastActiveIdx = -1;
+    const panel = document.getElementById('now-playing-panel');
+    if (panel) panel.style.display = 'block';
     function tick() {
         updateChordSync();
         syncRafId = requestAnimationFrame(tick);
@@ -947,6 +954,93 @@ function stopSync() {
         cancelAnimationFrame(syncRafId);
         syncRafId = null;
     }
+    const panel = document.getElementById('now-playing-panel');
+    if (panel) panel.style.display = 'none';
+}
+
+// ---------------------------------------------------------------------------
+// Now Playing Panel — real-time chord diagrams during playback
+// ---------------------------------------------------------------------------
+function initNowPlayingPanel() {
+    const modeToggle = document.getElementById('npp-mode-toggle');
+    const instrToggle = document.getElementById('npp-instrument-toggle');
+    applyNppMode(nppMode);
+    applyNppInstrument(nppInstrument);
+
+    modeToggle?.addEventListener('click', e => {
+        const btn = e.target.closest('[data-mode]');
+        if (!btn) return;
+        nppMode = btn.dataset.mode;
+        localStorage.setItem('swaram-npp-mode', nppMode);
+        applyNppMode(nppMode);
+        if (lastActiveIdx >= 0) updateNowPlayingPanel(lastActiveIdx);
+    });
+
+    instrToggle?.addEventListener('click', e => {
+        const btn = e.target.closest('[data-instrument]');
+        if (!btn) return;
+        nppInstrument = btn.dataset.instrument;
+        localStorage.setItem('swaram-npp-instrument', nppInstrument);
+        applyNppInstrument(nppInstrument);
+        if (lastActiveIdx >= 0) updateNowPlayingPanel(lastActiveIdx);
+    });
+}
+
+function applyNppMode(mode) {
+    const panel = document.getElementById('now-playing-panel');
+    if (!panel) return;
+    panel.dataset.mode = mode;
+    panel.querySelectorAll('#npp-mode-toggle .npp-btn').forEach(btn =>
+        btn.classList.toggle('active', btn.dataset.mode === mode));
+    const instrToggle = document.getElementById('npp-instrument-toggle');
+    if (instrToggle) instrToggle.style.display = mode === 'diagram' ? 'flex' : 'none';
+}
+
+function applyNppInstrument(instrument) {
+    document.querySelectorAll('#npp-instrument-toggle .npp-btn').forEach(btn =>
+        btn.classList.toggle('active', btn.dataset.instrument === instrument));
+}
+
+function updateNowPlayingPanel(activeIdx) {
+    const panel = document.getElementById('now-playing-panel');
+    if (!panel || !chordData?.chords) return;
+    const chords = chordData.chords;
+
+    [
+        { cls: 'current', offset: 0 },
+        { cls: 'next',    offset: 1 },
+        { cls: 'next2',   offset: 2 },
+    ].forEach(({ cls, offset }) => {
+        const idx = activeIdx + offset;
+        const card = panel.querySelector(`.npp-card.${cls}`);
+        if (!card) return;
+        const nameEl = card.querySelector('.npp-chord-name');
+        const diagramEl = card.querySelector('.npp-diagram');
+
+        if (idx < 0 || idx >= chords.length) {
+            nameEl.textContent = '—';
+            if (diagramEl) diagramEl.innerHTML = '';
+            return;
+        }
+
+        const chord = getDisplayChord(chords[idx].chord);
+        nameEl.textContent = chord;
+
+        if (nppMode === 'diagram' && diagramEl) {
+            const lookupName = chord.includes('/') ? chord.split('/')[0] : chord;
+            const normalized = lookupName.replace(/[()]/g, '').replace(/maj7$/, 'M7');
+            const data = CHORD_DIAGRAMS[normalized];
+            if (data) {
+                diagramEl.innerHTML = nppInstrument === 'keyboard'
+                    ? renderKeyboardSVG(data.keys)
+                    : renderGuitarSVG(data.guitar);
+            } else {
+                diagramEl.innerHTML = '<span class="npp-no-diagram">?</span>';
+            }
+        } else if (diagramEl) {
+            diagramEl.innerHTML = '';
+        }
+    });
 }
 
 /**
@@ -990,6 +1084,9 @@ function updateChordSync() {
     // Skip DOM updates if nothing changed
     if (activeIdx === lastActiveIdx) return;
     lastActiveIdx = activeIdx;
+
+    // Update now-playing diagram panel
+    updateNowPlayingPanel(activeIdx);
 
     // Update current chord display
     if (cachedCurrentChordEl && activeIdx >= 0) {

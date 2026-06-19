@@ -2546,6 +2546,80 @@ footer {
     cursor: pointer;
 }
 
+/* ── Now Playing Panel ── */
+.now-playing-panel {
+    position: sticky;
+    bottom: 0;
+    background: rgba(15, 11, 26, 0.96);
+    border-top: 1px solid #2D2040;
+    backdrop-filter: blur(10px);
+    z-index: 200;
+    padding: 10px 16px 12px;
+}
+.npp-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.npp-title { font-size: 0.75rem; color: #9B8FC2; font-weight: 600; letter-spacing: 0.05em; }
+.npp-controls { display: flex; gap: 8px; align-items: center; }
+.npp-toggle {
+    display: flex;
+    background: #120D1E;
+    border: 1px solid #2D2040;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.npp-btn {
+    background: none;
+    border: none;
+    color: #9B8FC2;
+    padding: 4px 10px;
+    font-size: 0.72rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+}
+.npp-btn:hover { background: #1A1425; color: #F1EFFA; }
+.npp-btn.active { background: #6C3CE1; color: #fff; }
+.npp-cards {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+.npp-card {
+    background: #1A1425;
+    border: 1px solid #2D2040;
+    border-radius: 12px;
+    padding: 10px 14px;
+    text-align: center;
+    min-width: 110px;
+    transition: opacity 0.2s, border-color 0.2s;
+}
+.npp-card.current { border-color: #6C3CE1; box-shadow: 0 0 16px rgba(108,60,225,0.25); }
+.npp-card.next { opacity: 0.65; }
+.npp-card.next2 { opacity: 0.4; }
+.npp-label { font-size: 0.62rem; color: #9B8FC2; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 4px; }
+.npp-chord-name { font-size: 1rem; font-weight: 700; color: #F1EFFA; }
+.npp-diagram svg { display: block; margin: 0 auto; }
+.npp-no-diagram { color: #6B5F8A; font-size: 0.85rem; line-height: 80px; display: block; }
+
+/* Chords (overview) mode — hide diagrams, compact layout */
+.now-playing-panel[data-mode="chords"] .npp-diagram { display: none; }
+.now-playing-panel[data-mode="chords"] .npp-card { min-width: 80px; padding: 10px 20px; }
+.now-playing-panel[data-mode="chords"] .npp-chord-name { font-size: 1.4rem; }
+
+@media (max-width: 480px) {
+    .npp-card { min-width: 90px; }
+    .npp-chord-name { font-size: 0.9rem; }
+}
+
 /* Chord timeline */
 .chord-timeline-wrapper {
     overflow-x: auto;
