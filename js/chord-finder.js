@@ -802,6 +802,7 @@ function initAudioPlayer() {
         document.getElementById('play-icon').style.display = '';
         document.getElementById('pause-icon').style.display = 'none';
         if (cachedCurrentChordEl) cachedCurrentChordEl.textContent = '-';
+        updateNowPlayingPanel(-3);
         // Clear active/past highlights
         if (cachedBlocks) {
             for (let i = 0; i < cachedBlocks.length; i++) {
@@ -899,6 +900,7 @@ function onYTStateChange(event) {
         // Ended
         lastActiveIdx = -1;
         if (cachedCurrentChordEl) cachedCurrentChordEl.textContent = '-';
+        updateNowPlayingPanel(-3);
         if (cachedBlocks) {
             for (let i = 0; i < cachedBlocks.length; i++) {
                 cachedBlocks[i].classList.remove('active', 'past');
@@ -940,8 +942,6 @@ function destroyYouTubePlayer() {
 function startSync() {
     stopSync();
     lastActiveIdx = -1;
-    const panel = document.getElementById('now-playing-panel');
-    if (panel) panel.style.display = 'block';
     function tick() {
         updateChordSync();
         syncRafId = requestAnimationFrame(tick);
@@ -954,8 +954,6 @@ function stopSync() {
         cancelAnimationFrame(syncRafId);
         syncRafId = null;
     }
-    const panel = document.getElementById('now-playing-panel');
-    if (panel) panel.style.display = 'none';
 }
 
 // ---------------------------------------------------------------------------
@@ -1087,12 +1085,6 @@ function updateChordSync() {
 
     // Update now-playing diagram panel
     updateNowPlayingPanel(activeIdx);
-
-    // Update current chord display
-    if (cachedCurrentChordEl && activeIdx >= 0) {
-        const chord = getDisplayChord(chordData.chords[activeIdx].chord);
-        cachedCurrentChordEl.textContent = chord;
-    }
 
     // Highlight active block in timeline
     if (cachedBlocks) {
