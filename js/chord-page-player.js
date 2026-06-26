@@ -24,6 +24,10 @@
     var capoPosition = 0;
     var difficultyLevel = '';
 
+    // Now Playing Panel state (persisted in localStorage)
+    var nppMode = localStorage.getItem('swaram-npp-mode') || 'diagram';
+    var nppInstrument = localStorage.getItem('swaram-npp-instrument') || 'guitar';
+
     // ── i18n helper ──
 
     function t(key, fallback) {
@@ -178,6 +182,9 @@
         if (activeIdx === lastActiveIdx) return;
         lastActiveIdx = activeIdx;
 
+        // Update now-playing diagram panel
+        updateNowPlayingPanel(activeIdx);
+
         if (cachedCurrentEl && activeIdx >= 0) {
             cachedCurrentEl.textContent = getDisplayChord(chords[activeIdx].chord);
         }
@@ -219,11 +226,103 @@
         };
     }
 
+    // ── Now Playing Panel ──
+
+    function initNowPlayingPanel() {
+        var modeToggle = document.getElementById('npp-mode-toggle');
+        var instrToggle = document.getElementById('npp-instrument-toggle');
+        applyNppMode(nppMode);
+        applyNppInstrument(nppInstrument);
+
+        if (modeToggle) {
+            modeToggle.addEventListener('click', function (e) {
+                var btn = e.target.closest('[data-mode]');
+                if (!btn) return;
+                nppMode = btn.dataset.mode;
+                localStorage.setItem('swaram-npp-mode', nppMode);
+                applyNppMode(nppMode);
+                if (lastActiveIdx >= 0) updateNowPlayingPanel(lastActiveIdx);
+            });
+        }
+
+        if (instrToggle) {
+            instrToggle.addEventListener('click', function (e) {
+                var btn = e.target.closest('[data-instrument]');
+                if (!btn) return;
+                nppInstrument = btn.dataset.instrument;
+                localStorage.setItem('swaram-npp-instrument', nppInstrument);
+                applyNppInstrument(nppInstrument);
+                if (lastActiveIdx >= 0) updateNowPlayingPanel(lastActiveIdx);
+            });
+        }
+    }
+
+    function applyNppMode(mode) {
+        var panel = document.getElementById('now-playing-panel');
+        if (!panel) return;
+        panel.dataset.mode = mode;
+        var modeButtons = panel.querySelectorAll('#npp-mode-toggle .npp-btn');
+        modeButtons.forEach(function (btn) {
+            btn.classList.toggle('active', btn.dataset.mode === mode);
+        });
+        var instrToggle = document.getElementById('npp-instrument-toggle');
+        if (instrToggle) instrToggle.style.display = mode === 'diagram' ? 'flex' : 'none';
+    }
+
+    function applyNppInstrument(instrument) {
+        var instrButtons = document.querySelectorAll('#npp-instrument-toggle .npp-btn');
+        instrButtons.forEach(function (btn) {
+            btn.classList.toggle('active', btn.dataset.instrument === instrument);
+        });
+    }
+
+    function updateNowPlayingPanel(activeIdx) {
+        var panel = document.getElementById('now-playing-panel');
+        if (!panel || !chords) return;
+
+        [
+            { cls: 'current', offset: 0 },
+            { cls: 'next',    offset: 1 },
+            { cls: 'next2',   offset: 2 },
+        ].forEach(function (item) {
+            var idx = activeIdx + item.offset;
+            var card = panel.querySelector('.npp-card.' + item.cls);
+            if (!card) return;
+            var nameEl = card.querySelector('.npp-chord-name');
+            var diagramEl = card.querySelector('.npp-diagram');
+
+            if (idx < 0 || idx >= chords.length) {
+                nameEl.textContent = '—';
+                if (diagramEl) diagramEl.innerHTML = '';
+                return;
+            }
+
+            var chord = getDisplayChord(chords[idx].chord);
+            nameEl.textContent = chord;
+
+            if (nppMode === 'diagram' && diagramEl) {
+                var lookupName = chord.indexOf('/') >= 0 ? chord.split('/')[0] : chord;
+                var normalized = lookupName.replace(/[()]/g, '').replace(/maj7$/, 'M7');
+                var data = window.CHORD_DIAGRAMS && window.CHORD_DIAGRAMS[normalized];
+                if (data) {
+                    diagramEl.innerHTML = nppInstrument === 'keyboard'
+                        ? renderKeyboardSVG(data.keys)
+                        : renderGuitarSVG(data.guitar);
+                } else {
+                    diagramEl.innerHTML = '<span class="npp-no-diagram">?</span>';
+                }
+            } else if (diagramEl) {
+                diagramEl.innerHTML = '';
+            }
+        });
+    }
+
     // ── Init ──
 
     function init() {
         renderTimeline();
         initPlayer();
+        initNowPlayingPanel();
 
         // Transpose buttons
         var downBtn = document.getElementById('transpose-down');

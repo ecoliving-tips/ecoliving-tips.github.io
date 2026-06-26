@@ -222,10 +222,38 @@
                     <div id="youtube-player"></div>
                 </div>
 
-                <!-- Current chord display -->
-                <div class="current-chord-display">
-                    <div class="current-chord-label">Now Playing</div>
-                    <div class="current-chord chord-name" id="current-chord">-</div>
+                <!-- Current chord display — integrated Now Playing panel -->
+                <div class="current-chord-display" id="now-playing-panel" data-mode="diagram">
+                    <div class="current-chord-header">
+                        <div class="current-chord-label" data-i18n="gen_now_playing">Now Playing</div>
+                        <div class="npp-controls">
+                            <div class="npp-toggle" id="npp-mode-toggle" role="group" aria-label="Display mode">
+                                <button class="npp-btn active" data-mode="diagram">Diagrams</button>
+                                <button class="npp-btn" data-mode="chords">Chords</button>
+                            </div>
+                            <div class="npp-toggle" id="npp-instrument-toggle" role="group" aria-label="Instrument">
+                                <button class="npp-btn active" data-instrument="guitar">Guitar</button>
+                                <button class="npp-btn" data-instrument="keyboard">Keyboard</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="npp-cards">
+                        <div class="npp-card current">
+                            <div class="npp-diagram"></div>
+                            <div class="npp-chord-name" id="current-chord">—</div>
+                            <div class="npp-label">Now</div>
+                        </div>
+                        <div class="npp-card next">
+                            <div class="npp-diagram"></div>
+                            <div class="npp-chord-name">—</div>
+                            <div class="npp-label">Next</div>
+                        </div>
+                        <div class="npp-card next2">
+                            <div class="npp-diagram"></div>
+                            <div class="npp-chord-name">—</div>
+                            <div class="npp-label">After</div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Chord timeline (populated by chord-page-player.js) -->
@@ -312,9 +340,9 @@
         <section class="related-chords-section">
             <h3>Related Chords</h3>
             <div class="related-chords-grid">
-                    <a href="/chords/yeh-reshmi-zulfen-with-lyrics-saregama-music/" class="related-chord-link">Yeh Reshmi Zulfen with lyrics — Saregama Music</a>
-                    <a href="/chords/baatein-teri-saregama-music/" class="related-chord-link">Baatein Teri — Saregama Music</a>
-                    <a href="/chords/woh-sham-kuchh-ajeeb-thi-with-lyrics-saregama-music/" class="related-chord-link">Woh Sham Kuchh Ajeeb Thi with lyrics — Saregama Music</a>
+                    <a href="/chords/gehra-hua-lyrical-full-version-saregama-music/" class="related-chord-link">Gehra Hua - Lyrical (Full Version) — Saregama Music</a>
+                    <a href="/chords/aisa-lagta-hai-sonu-nigam-alka-yagnik-refugee-2000-saregama-music/" class="related-chord-link">Aisa Lagta Hai - Sonu Nigam - Alka Yagnik - Refugee [2000] — Saregama Music</a>
+                    <a href="/chords/baat-niklegi-to-phir-door-talak-with-lyrics-saregama-music/" class="related-chord-link">Baat Niklegi To Phir Door Talak with lyrics — Saregama Music</a>
                     <a href="/chords/4/" class="related-chord-link">Тропарь воскресный глас 4 партия бас — Библиотека церковного хора</a>
                     <a href="/chords/30/" class="related-chord-link">30. Как Иван в Атлантиду летал  — Хохлома — Роман Жарков</a>
             </div>

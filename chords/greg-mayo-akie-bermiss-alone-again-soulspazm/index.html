@@ -228,10 +228,38 @@
                     <div id="youtube-player"></div>
                 </div>
 
-                <!-- Current chord display -->
-                <div class="current-chord-display">
-                    <div class="current-chord-label">Now Playing</div>
-                    <div class="current-chord chord-name" id="current-chord">-</div>
+                <!-- Current chord display — integrated Now Playing panel -->
+                <div class="current-chord-display" id="now-playing-panel" data-mode="diagram">
+                    <div class="current-chord-header">
+                        <div class="current-chord-label" data-i18n="gen_now_playing">Now Playing</div>
+                        <div class="npp-controls">
+                            <div class="npp-toggle" id="npp-mode-toggle" role="group" aria-label="Display mode">
+                                <button class="npp-btn active" data-mode="diagram">Diagrams</button>
+                                <button class="npp-btn" data-mode="chords">Chords</button>
+                            </div>
+                            <div class="npp-toggle" id="npp-instrument-toggle" role="group" aria-label="Instrument">
+                                <button class="npp-btn active" data-instrument="guitar">Guitar</button>
+                                <button class="npp-btn" data-instrument="keyboard">Keyboard</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="npp-cards">
+                        <div class="npp-card current">
+                            <div class="npp-diagram"></div>
+                            <div class="npp-chord-name" id="current-chord">—</div>
+                            <div class="npp-label">Now</div>
+                        </div>
+                        <div class="npp-card next">
+                            <div class="npp-diagram"></div>
+                            <div class="npp-chord-name">—</div>
+                            <div class="npp-label">Next</div>
+                        </div>
+                        <div class="npp-card next2">
+                            <div class="npp-diagram"></div>
+                            <div class="npp-chord-name">—</div>
+                            <div class="npp-label">After</div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Chord timeline (populated by chord-page-player.js) -->
@@ -318,11 +346,11 @@
         <section class="related-chords-section">
             <h3>Related Chords</h3>
             <div class="related-chords-grid">
+                    <a href="/chords/1963/" class="related-chord-link">שיר הצהובים - התרנגולים (1963) — סשה ארגוב - הערוץ הרשמי 🎜</a>
                     <a href="/chords/2015/" class="related-chord-link">Віктор Павлік - Ні обіцянок, ні пробачень (акустика) 2015 — Віктор Павлік</a>
                     <a href="/chords/2022/" class="related-chord-link">ביג תוחס-מתוך ״הנה באים ימי הקיץ״ בית צבי 2022 — אורלי טבג'ה</a>
-                    <a href="/chords/adaptation-window-feryquitous/" class="related-chord-link">Adaptation Window — Feryquitous</a>
-                    <a href="/chords/gunnar-graps-valgus-taavi/" class="related-chord-link">Gunnar Graps - Valgus — Taavi</a>
-                    <a href="/chords/nguyen-van-muoi-mck-mck-nger/" class="related-chord-link">Nguyễn Văn Mười - MCK — MCK // Nger</a>
+                    <a href="/chords/que-no-me-gane-la-soledad-denisse-de-kalafe-denissedekalafe/" class="related-chord-link">Que no me gane la soledad - Denisse de Kalafe — DenisseDeKalafe</a>
+                    <a href="/chords/kafle-movie-song-jhuma-limbu-artmandu/" class="related-chord-link">Kafle [काफ्ले] Movie Song [ऊनको स्वीटर] Jhuma Limbu — ARTMANDU</a>
             </div>
         </section>
     </main>

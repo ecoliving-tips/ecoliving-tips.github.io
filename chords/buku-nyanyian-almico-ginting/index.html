@@ -114,7 +114,7 @@
   "description": "Watch and play along with AI-detected chords for BUKU NYANYIAN by Almico Ginting. 100 chords detected.",
   "thumbnailUrl": "https://img.youtube.com/vi/pqgZDbuva04/maxresdefault.jpg",
   "embedUrl": "https://www.youtube.com/embed/pqgZDbuva04",
-  "uploadDate": "2026-05-26T13:30:44.93432+00:00",
+  "uploadDate": "2026-06-23T14:21:07.997579+00:00",
   "publisher": {
     "@type": "Organization",
     "name": "Swaram",
@@ -211,10 +211,38 @@
                     <div id="youtube-player"></div>
                 </div>
 
-                <!-- Current chord display -->
-                <div class="current-chord-display">
-                    <div class="current-chord-label">Now Playing</div>
-                    <div class="current-chord chord-name" id="current-chord">-</div>
+                <!-- Current chord display — integrated Now Playing panel -->
+                <div class="current-chord-display" id="now-playing-panel" data-mode="diagram">
+                    <div class="current-chord-header">
+                        <div class="current-chord-label" data-i18n="gen_now_playing">Now Playing</div>
+                        <div class="npp-controls">
+                            <div class="npp-toggle" id="npp-mode-toggle" role="group" aria-label="Display mode">
+                                <button class="npp-btn active" data-mode="diagram">Diagrams</button>
+                                <button class="npp-btn" data-mode="chords">Chords</button>
+                            </div>
+                            <div class="npp-toggle" id="npp-instrument-toggle" role="group" aria-label="Instrument">
+                                <button class="npp-btn active" data-instrument="guitar">Guitar</button>
+                                <button class="npp-btn" data-instrument="keyboard">Keyboard</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="npp-cards">
+                        <div class="npp-card current">
+                            <div class="npp-diagram"></div>
+                            <div class="npp-chord-name" id="current-chord">—</div>
+                            <div class="npp-label">Now</div>
+                        </div>
+                        <div class="npp-card next">
+                            <div class="npp-diagram"></div>
+                            <div class="npp-chord-name">—</div>
+                            <div class="npp-label">Next</div>
+                        </div>
+                        <div class="npp-card next2">
+                            <div class="npp-diagram"></div>
+                            <div class="npp-chord-name">—</div>
+                            <div class="npp-label">After</div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Chord timeline (populated by chord-page-player.js) -->
@@ -305,7 +333,7 @@
                     <a href="/chords/30/" class="related-chord-link">30. Как Иван в Атлантиду летал  — Хохлома — Роман Жарков</a>
                     <a href="/chords/1279/" class="related-chord-link">№1279 Страх ли душу угнетает — Песнь Возрождения</a>
                     <a href="/chords/2006/" class="related-chord-link">အချစ်ဘယ်ကစ စည်သူလွင် လေးလေးဝါး (2006) — သီချင်းကောင်းကင် သီချင်းမိုးတိမ် </a>
-                    <a href="/chords/beer-by-david-la-sol-relaxing-music-s/" class="related-chord-link">Beer by:David La Sol — Relaxing Music's</a>
+                    <a href="/chords/2018/" class="related-chord-link">Ани Лорак - Нежность моя (ЖАРА 2018) — Ани Лорак</a>
             </div>
         </section>
     </main>

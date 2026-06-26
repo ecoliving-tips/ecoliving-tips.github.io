@@ -209,10 +209,38 @@
                     <div id="youtube-player"></div>
                 </div>
 
-                <!-- Current chord display -->
-                <div class="current-chord-display">
-                    <div class="current-chord-label">Now Playing</div>
-                    <div class="current-chord chord-name" id="current-chord">-</div>
+                <!-- Current chord display — integrated Now Playing panel -->
+                <div class="current-chord-display" id="now-playing-panel" data-mode="diagram">
+                    <div class="current-chord-header">
+                        <div class="current-chord-label" data-i18n="gen_now_playing">Now Playing</div>
+                        <div class="npp-controls">
+                            <div class="npp-toggle" id="npp-mode-toggle" role="group" aria-label="Display mode">
+                                <button class="npp-btn active" data-mode="diagram">Diagrams</button>
+                                <button class="npp-btn" data-mode="chords">Chords</button>
+                            </div>
+                            <div class="npp-toggle" id="npp-instrument-toggle" role="group" aria-label="Instrument">
+                                <button class="npp-btn active" data-instrument="guitar">Guitar</button>
+                                <button class="npp-btn" data-instrument="keyboard">Keyboard</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="npp-cards">
+                        <div class="npp-card current">
+                            <div class="npp-diagram"></div>
+                            <div class="npp-chord-name" id="current-chord">—</div>
+                            <div class="npp-label">Now</div>
+                        </div>
+                        <div class="npp-card next">
+                            <div class="npp-diagram"></div>
+                            <div class="npp-chord-name">—</div>
+                            <div class="npp-label">Next</div>
+                        </div>
+                        <div class="npp-card next2">
+                            <div class="npp-diagram"></div>
+                            <div class="npp-chord-name">—</div>
+                            <div class="npp-label">After</div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Chord timeline (populated by chord-page-player.js) -->
@@ -299,11 +327,11 @@
         <section class="related-chords-section">
             <h3>Related Chords</h3>
             <div class="related-chords-grid">
+                    <a href="/chords/sad-folk-x-acoustic-guitar-type-beat-backseat-jacob-vallen/" class="related-chord-link">Sad Folk x Acoustic Guitar Type Beat - “Backseat” — Jacob Vallen</a>
                     <a href="/chords/sad-lizzy-mcalpine-x-indie-guitar-type-beat-birds-jacob-vallen/" class="related-chord-link">Sad Lizzy McAlpine x Indie Guitar Type Beat - “Birds” — Jacob Vallen</a>
                     <a href="/chords/shawn-mendes-x-sad-folk-acoustic-guitar-type-beat-enough-jacob-vallen/" class="related-chord-link">Shawn Mendes x Sad Folk Acoustic Guitar Type Beat - “Enough” — Jacob Vallen</a>
-                    <a href="/chords/lizzy-mcalpine-x-acoustic-guitar-type-beat-how-it-was-jacob-vallen/" class="related-chord-link">Lizzy McAlpine x Acoustic Guitar Type Beat - “How It Was” — Jacob Vallen</a>
-                    <a href="/chords/official-audio-release-cobalt-music/" class="related-chord-link">Μιχάλης Χατζηγιάννης - Δεν Έχω Χρόνο  - Official Audio Release — Cobalt Music</a>
-                    <a href="/chords/rose-rodingpuii-ka-thlir-bang-thei-lo-cover-jr-bluesman-tea/" class="related-chord-link">ROSE RODINGPUII - KA THLIR BANG THEI LO || COVER — JR.BLUESMAN TEA</a>
+                    <a href="/chords/hold-meg-fast-smalhans/" class="related-chord-link">Hold meg fast — Smalhans</a>
+                    <a href="/chords/bhakta-raj-acharya-aba-bhanna-lai-geet-manjusha/" class="related-chord-link">Bhakta Raj Acharya - Aba Bhanna Lai — Geet Manjusha</a>
             </div>
         </section>
     </main>
