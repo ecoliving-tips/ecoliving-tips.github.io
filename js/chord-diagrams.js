@@ -157,8 +157,9 @@ const CHORD_DIAGRAMS = {};
         }
     }
 
-    // Expose for reuse by chord-progressions.js
+    // Expose for reuse by chord-progressions.js and chord-page-player.js
     if (typeof window !== 'undefined') {
+        window.CHORD_DIAGRAMS = CHORD_DIAGRAMS;
         window.SWARAM_NOTES = NOTES;
         window.SWARAM_INTERVALS = INTERVALS;
         window.SWARAM_FLAT_ALIASES = FLAT_ALIASES;
