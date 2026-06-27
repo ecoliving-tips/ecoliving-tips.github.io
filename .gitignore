@@ -24,5 +24,13 @@ indexing-progress.json
 
 # Local utility scripts with credentials
 backfill-slugs.js
+check-google-index.js
+submit-indexnow.js
+rank-unindexed.js
+index-status.json
+indexnow-progress.json
+url-priority.json
+recheck-next-run.json
 .playwright-mcp/
-.claude/plans/
+.claude/
+tools/
