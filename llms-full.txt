@@ -1,6 +1,6 @@
 # Swaram — Free AI Chord Finder Platform
 
-> Swaram is a free, browser-based AI chord finder at https://ecoliving-tips.github.io. It lets musicians upload any audio file or paste a YouTube link to instantly detect chord progressions, key signature, and timing. The platform also includes a chord identifier, an interactive chord progression builder, and a library of 13,474+ AI-detected chord pages. No signup, no payment, no app download — everything runs in the browser. Supports MP3, WAV, M4A, OGG, FLAC, AAC, WMA, and WebM formats.
+> Swaram is a free, browser-based AI chord finder at https://ecoliving-tips.github.io. It lets musicians upload any audio file or paste a YouTube link to instantly detect chord progressions, key signature, and timing. The platform also includes a chord identifier, an interactive chord progression builder, and a library of 13,480+ AI-detected chord pages. No signup, no payment, no app download — everything runs in the browser. Supports MP3, WAV, M4A, OGG, FLAC, AAC, WMA, and WebM formats.
 
 ## AI Chord Finder
 
@@ -47,7 +47,7 @@
 ## Chord Library
 
 - **URL**: https://ecoliving-tips.github.io/songs.html
-- **Size**: 13,474+ AI-detected chord pages, updated daily
+- **Size**: 13,480+ AI-detected chord pages, updated daily
 - **Content**: Each chord page includes detected chords, key, timing, chord diagrams, and links to the original song
 - **Niche collection**: Hand-curated Malayalam Christian devotional chord charts (Syro Malabar Holy Mass, Marian hymns, praise & worship)
 - **Browse**: https://ecoliving-tips.github.io/chords/browse.html (A-Z directory)
