@@ -1,0 +1,163 @@
+name: Daily Build & Index
+
+on:
+  schedule:
+    - cron: '20 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run build
+        run: node build.js
+
+      - name: Validate sitemaps
+        run: |
+          for f in sitemap*.xml; do
+            if [ ! -s "$f" ]; then
+              echo "ERROR: $f is empty or missing"
+              exit 1
+            fi
+            if ! head -1 "$f" | grep -q '<?xml'; then
+              echo "ERROR: $f missing XML declaration"
+              exit 1
+            fi
+          done
+          echo "All sitemap files present and well-formed"
+
+      - name: Validate chord diagrams
+        run: node test-chords.js
+
+      - name: Submit new URLs to IndexNow
+        run: node submit-indexnow.js
+
+      - name: Setup Google service account
+        if: env.GOOGLE_INDEXING_KEY != ''
+        env:
+          GOOGLE_INDEXING_KEY: ${{ secrets.GOOGLE_INDEXING_KEY }}
+        run: echo "$GOOGLE_INDEXING_KEY" > google-indexing-key.json
+
+      - name: Check Google index status
+        if: hashFiles('google-indexing-key.json') != ''
+        run: node check-google-index.js
+
+      - name: Cleanup service account key
+        if: always()
+        run: rm -f google-indexing-key.json
+
+      - name: Rank non-indexed URLs by search demand
+        if: hashFiles('index-status.json') != ''
+        run: node rank-unindexed.js
+
+      - name: Build summary
+        run: |
+          echo "### Daily Build Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          CHORD_COUNT=$(node -e "console.log(require('./chords/index.json').length)")
+          SITEMAP_URLS=$(grep -c "<loc>" sitemap-chords-new.xml sitemap-chords-recent.xml sitemap-chords-archive.xml 2>/dev/null | awk -F: '{s+=$2}END{print s+0}')
+          echo "- **AI Chord Pages:** ${CHORD_COUNT}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Sitemap Chord URLs:** ${SITEMAP_URLS}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Build time:** $(date -u '+%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
+          NEW_PAGES=$(git ls-files --others --exclude-standard -- 'chords/' | grep -c "index\.html" || true)
+          MOD_PAGES=$(git diff --name-only -- chords/ | grep -c "index\.html" || true)
+          TOTAL_CHANGED=$((NEW_PAGES + MOD_PAGES))
+          if [ "$TOTAL_CHANGED" -eq 0 ] && git diff --quiet; then
+            echo "- **Status:** No new changes" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "- **New chord pages:** ${TOTAL_CHANGED}" >> $GITHUB_STEP_SUMMARY
+          fi
+          if [ -f index-status.json ]; then
+            node -e "
+              const r = require('./index-status.json');
+              const entries = Object.entries(r);
+              const indexed = entries.filter(([,v]) => v.verdict === 'PASS').length;
+              const notIndexed = entries.filter(([,v]) => v.verdict !== 'PASS' && !v.failedRecheck);
+              console.log('');
+              console.log('### Google Index Status');
+              console.log('');
+              console.log('- **Indexed:** ' + indexed + ' / ' + entries.length + ' checked');
+              console.log('- **Not indexed:** ' + notIndexed.length);
+              if (notIndexed.length > 0) {
+                console.log('');
+                console.log('### Submit These URLs in GSC Today');
+                console.log('');
+                console.log('Open [Google Search Console](https://search.google.com/search-console), go to URL Inspection, paste each URL and click **Request Indexing** (quota: ~10-12/day):');
+                console.log('');
+                const fs = require('fs');
+                const urlPriority = fs.existsSync('url-priority.json')
+                  ? JSON.parse(fs.readFileSync('url-priority.json', 'utf-8'))
+                  : {};
+                const prioritize = (url) => {
+                  if (url.match(/\/(chord-finder|chord-identifier|chord-progressions|songs)\.html/)) return 100000;
+                  const demand = urlPriority[url]?.score || 0;
+                  const typeBonus = url.includes('/chord-progressions/') ? 0.5
+                    : (url.includes('/category/') || url.includes('/artist/')) ? 0.3
+                    : (url.includes('/songs/') || url.includes('/lyrics/')) ? 0.2
+                    : 0;
+                  return demand + typeBonus;
+                };
+                const batch = notIndexed
+                  .sort(([a], [b]) => prioritize(b) - prioritize(a))
+                  .slice(0, 12);
+                batch.forEach(([url, info], i) => {
+                  const demand = urlPriority[url]?.score;
+                  const tag = demand ? ' | demand: ' + demand : '';
+                  console.log((i+1) + '. \`' + url + '\`');
+                  console.log('   Status: ' + (info.coverageState || 'N/A') + tag + ' | Last crawl: ' + (info.lastCrawlTime || 'never'));
+                });
+                if (notIndexed.length > 12) {
+                  console.log('');
+                  console.log('*...and ' + (notIndexed.length - 12) + ' more. These will appear in future daily summaries.*');
+                }
+                // Save top 12 for next-day recheck
+                fs.writeFileSync('recheck-next-run.json', JSON.stringify(batch.map(([url]) => url), null, 2));
+              } else {
+                fs.writeFileSync('recheck-next-run.json', '[]');
+              }
+            " >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            CHORD_COUNT=$(node -e "console.log(require('./chords/index.json').length)")
+            git commit -m "chore: daily build — ${CHORD_COUNT} chord pages, sitemaps updated"
+            git pull --rebase
+            git push
+          fi
+
+      - name: Verify sitemaps are live after deploy
+        if: success()
+        run: |
+          echo "Waiting 120s for GitHub Pages deployment..."
+          sleep 120
+          FAILED=0
+          for sitemap in sitemap.xml sitemap-pages.xml sitemap-chords-new.xml; do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" "https://ecoliving-tips.github.io/$sitemap")
+            if [ "$STATUS" != "200" ]; then
+              echo "WARNING: $sitemap returned HTTP $STATUS"
+              FAILED=1
+            else
+              echo "OK: $sitemap is live (HTTP $STATUS)"
+            fi
+          done
+          if [ "$FAILED" -eq 1 ]; then
+            echo "::warning::One or more sitemaps not accessible after deploy"
+          fi
