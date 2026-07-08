@@ -39276,11 +39276,11 @@
     "checkedAt": "2026-06-13T08:22:58.626Z"
   },
   "https://ecoliving-tips.github.io/chords/here-s-your-perfect-madz-tunees/": {
-    "verdict": "NEUTRAL",
-    "coverageState": "URL is unknown to Google",
-    "lastCrawlTime": null,
-    "crawledAs": "N/A",
-    "checkedAt": "2026-07-06T12:05:56.182Z"
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-07T06:33:19Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-08T06:11:54.781Z"
   },
   "https://ecoliving-tips.github.io/chords/emir-uncu-gurur/": {
     "verdict": "NEUTRAL",
