@@ -1,6 +1,6 @@
 # Swaram
 
-> Swaram is a free AI-powered chord finder platform at https://ecoliving-tips.github.io. Upload any audio file or paste a YouTube link to detect chord progressions instantly — any genre, any language, no signup required. Features 19,809+ AI-detected chord pages, a real-time chord identifier, and an interactive chord progression builder. Free alternative to Chordify with beginner mode, transpose, and capo suggestions.
+> Swaram is a free AI-powered chord finder platform at https://ecoliving-tips.github.io. Upload any audio file or paste a YouTube link to detect chord progressions instantly — any genre, any language, no signup required. Features 21,085+ AI-detected chord pages, a real-time chord identifier, and an interactive chord progression builder. Free alternative to Chordify with beginner mode, transpose, and capo suggestions.
 
 ## Tools
 
@@ -10,7 +10,7 @@
 
 ## Chord Library
 
-- [Song Library](https://ecoliving-tips.github.io/songs.html): 19,809+ AI-detected chord pages plus hand-curated Malayalam Christian devotional chords
+- [Song Library](https://ecoliving-tips.github.io/songs.html): 21,085+ AI-detected chord pages plus hand-curated Malayalam Christian devotional chords
 - [Browse All Chords](https://ecoliving-tips.github.io/chords/browse.html): A-Z directory of all chord pages
 
 ## Key Differentiators
