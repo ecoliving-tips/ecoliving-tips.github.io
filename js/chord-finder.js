@@ -5,17 +5,35 @@
  * chord display, HTML5 audio playback sync, and transpose.
  */
 
+// Keep canonical URL clean by removing tracking query params.
+if (window.location.search) {
+    history.replaceState(null, '', window.location.pathname);
+}
+
 // ---------------------------------------------------------------------------
 // Configuration
 // ---------------------------------------------------------------------------
-const API_ENDPOINT = 'https://vineethwilson-swaram-chord-service.hf.space/analyze';
+const API_ENDPOINT = window.SWARAM_API_ENDPOINT || 'https://vineethwilson-swaram-chord-service.hf.space/analyze';
 const MAX_FILE_SIZE = 30 * 1024 * 1024; // 30 MB
-const MAX_DURATION_SEC = 600; // 10 minutes — protects free-tier backend
+const MAX_DURATION_SEC = 300; // 5 minutes — must match backend guardrail
 const API_TIMEOUT_MS = 300_000; // 5 minutes
+const API_RETRY_MAX = 2;
 const SUPABASE_URL = 'https://jfnccekkhffonkjkmxyf.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_KJA4VzMAjt2WVEEg0JKMfg_lDrABAZK';
 const MODEL_VERSION = 'btc-v1';
 const BASE_URL = 'https://ecoliving-tips.github.io';
+const ALLOWED_UPLOAD_EXTENSIONS = new Set(['.mp3', '.wav', '.m4a', '.ogg', '.flac', '.aac', '.wma', '.webm']);
+const ALLOWED_UPLOAD_CONTENT_TYPES = new Set([
+    'audio/mpeg',
+    'audio/wav',
+    'audio/x-wav',
+    'audio/mp4',
+    'audio/aac',
+    'audio/ogg',
+    'audio/flac',
+    'audio/webm',
+    'application/octet-stream',
+]);
 
 // Lazy Supabase singleton — created on first use, reused everywhere
 let _supabaseClient = null;
@@ -279,6 +297,25 @@ function handleFileSelect(e) {
 }
 
 function setSelectedFile(file) {
+    const lowerName = (file.name || '').toLowerCase();
+    const extMatch = lowerName.match(/\.[a-z0-9]+$/);
+    const ext = extMatch ? extMatch[0] : '';
+
+    if (!ext || !ALLOWED_UPLOAD_EXTENSIONS.has(ext)) {
+        showError('Unsupported file type. Please use MP3, WAV, M4A, OGG, FLAC, AAC, WMA, or WebM.');
+        return;
+    }
+
+    if (file.type && !ALLOWED_UPLOAD_CONTENT_TYPES.has(file.type)) {
+        showError(`Unsupported media type (${file.type}). Please upload a valid audio file.`);
+        return;
+    }
+
+    if (file.size < MIN_AUDIO_BYTES) {
+        showError('File is too small or incomplete. Please upload a valid audio file.');
+        return;
+    }
+
     if (file.size > MAX_FILE_SIZE) {
         showError(`File too large (${(file.size / 1024 / 1024).toFixed(1)}MB). Max: 30MB.`);
         return;
@@ -307,17 +344,31 @@ function clearSelectedFile() {
 // ---------------------------------------------------------------------------
 function extractVideoId(url) {
     if (!url) return null;
-    const patterns = [
-        /(?:youtube\.com\/watch\?.*v=)([A-Za-z0-9_-]{11})/,
-        /(?:youtu\.be\/)([A-Za-z0-9_-]{11})/,
-        /(?:youtube\.com\/embed\/)([A-Za-z0-9_-]{11})/,
-        /(?:youtube\.com\/shorts\/)([A-Za-z0-9_-]{11})/,
-    ];
-    for (const p of patterns) {
-        const m = url.match(p);
-        if (m) return m[1];
+    let parsed;
+    try {
+        parsed = new URL(url);
+    } catch {
+        return null;
     }
-    return null;
+
+    const host = parsed.hostname.toLowerCase();
+    const isYouTubeHost = host === 'youtube.com' || host === 'www.youtube.com' || host === 'm.youtube.com' || host === 'youtu.be';
+    if (!isYouTubeHost) return null;
+
+    const idRegex = /^[A-Za-z0-9_-]{11}$/;
+    let candidate = '';
+
+    if (host === 'youtu.be') {
+        candidate = parsed.pathname.replace(/^\//, '').split('/')[0] || '';
+    } else if (parsed.pathname.startsWith('/watch')) {
+        candidate = parsed.searchParams.get('v') || '';
+    } else if (parsed.pathname.startsWith('/embed/')) {
+        candidate = parsed.pathname.split('/')[2] || '';
+    } else if (parsed.pathname.startsWith('/shorts/')) {
+        candidate = parsed.pathname.split('/')[2] || '';
+    }
+
+    return idRegex.test(candidate) ? candidate : null;
 }
 
 function handleYouTubeUrlInput() {
@@ -645,35 +696,113 @@ async function callBackendAPI(file, youtubeUrl) {
     if (file) formData.append('file', file);
     if (youtubeUrl) formData.append('youtube_url', youtubeUrl);
 
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), API_TIMEOUT_MS);
-
-    try {
-        const resp = await fetch(API_ENDPOINT, {
-            method: 'POST',
-            body: formData,
-            signal: controller.signal,
-        });
-
-        if (!resp.ok) {
-            const errText = await resp.text().catch(() => '');
-            const err = new Error(`Server error (${resp.status}): ${errText}`);
-            // Detect server-side YouTube extraction failure → enables client-side fallback
-            if (resp.status === 502) {
-                try {
-                    const body = JSON.parse(errText);
-                    if (body.detail === 'youtube_extraction_failed') {
-                        err._youtubeExtractionFailed = true;
-                    }
-                } catch { /* not JSON */ }
-            }
-            throw err;
-        }
-
-        return await resp.json();
-    } finally {
-        clearTimeout(timeout);
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
+
+    function parseRetryAfterSeconds(resp) {
+        const h = resp.headers.get('Retry-After');
+        if (!h) return 0;
+        const sec = Number(h);
+        if (Number.isFinite(sec) && sec > 0) return sec;
+        const at = Date.parse(h);
+        if (Number.isFinite(at)) {
+            return Math.max(1, Math.ceil((at - Date.now()) / 1000));
+        }
+        return 0;
+    }
+
+    function mapFriendlyError(status, detail, retryAfterSec) {
+        if (status === 400) {
+            if (detail === 'invalid_audio_file') {
+                return 'Invalid audio file. Please upload a valid MP3/WAV/M4A/OGG/FLAC/WebM file under 5 minutes.';
+            }
+            return 'Invalid input. Please check file type, size, duration, or YouTube link and try again.';
+        }
+        if (status === 429) {
+            if (retryAfterSec > 0) {
+                return `Too many requests right now. Please wait about ${retryAfterSec} seconds and try again.`;
+            }
+            return 'Too many requests right now. Please wait a bit and try again.';
+        }
+        if (status === 502) {
+            return 'Could not fetch audio from YouTube right now. Please try again, or upload an audio file directly.';
+        }
+        if (status === 503) {
+            return 'Server is busy at the moment. Please wait and retry shortly.';
+        }
+        return 'Server error while generating chords. Please try again in a moment.';
+    }
+
+    for (let attempt = 0; attempt <= API_RETRY_MAX; attempt++) {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), API_TIMEOUT_MS);
+
+        try {
+            const resp = await fetch(API_ENDPOINT, {
+                method: 'POST',
+                body: formData,
+                signal: controller.signal,
+            });
+
+            if (resp.ok) {
+                return await resp.json();
+            }
+
+            const raw = await resp.text().catch(() => '');
+            let body = null;
+            try {
+                body = raw ? JSON.parse(raw) : null;
+            } catch {
+                body = null;
+            }
+
+            const detail = body && typeof body.detail === 'string' ? body.detail : '';
+            const retryAfterSec = parseRetryAfterSeconds(resp);
+
+            // Detect server-side YouTube extraction failure → enables client-side fallback
+            if (resp.status === 502 && detail === 'youtube_extraction_failed') {
+                const err = new Error('youtube_extraction_failed');
+                err._youtubeExtractionFailed = true;
+                throw err;
+            }
+
+            const retryable = resp.status === 429 || resp.status === 503;
+            if (retryable && attempt < API_RETRY_MAX) {
+                const baseDelayMs = retryAfterSec > 0
+                    ? retryAfterSec * 1000
+                    : 1000 * Math.pow(2, attempt);
+                await sleep(Math.min(baseDelayMs, 15_000));
+                continue;
+            }
+
+            throw new Error(mapFriendlyError(resp.status, detail, retryAfterSec));
+        } catch (err) {
+            if (err && err._youtubeExtractionFailed) {
+                throw err;
+            }
+
+            if (err && err.name === 'AbortError') {
+                if (attempt < API_RETRY_MAX) {
+                    await sleep(1000 * Math.pow(2, attempt));
+                    continue;
+                }
+                throw new Error('Request timed out. The server may be busy. Please retry in a moment.');
+            }
+
+            // Network errors in browsers are usually TypeError.
+            if (err instanceof TypeError && attempt < API_RETRY_MAX) {
+                await sleep(1000 * Math.pow(2, attempt));
+                continue;
+            }
+
+            throw err;
+        } finally {
+            clearTimeout(timeout);
+        }
+    }
+
+    throw new Error('Could not reach the chord service. Please try again shortly.');
 }
 
 // ---------------------------------------------------------------------------
@@ -748,11 +877,22 @@ function renderChordTimeline() {
         // Show original chord as subtitle when beginner mode changes the chord
         const showOriginal = beginnerMode && chordName !== originalChord;
 
-        block.innerHTML = `
-            <span class="chord-block-name">${chordName}</span>
-            ${showOriginal ? `<span class="chord-block-original">${originalChord}</span>` : ''}
-            <span class="chord-block-time">${formatTime(event.time)}</span>
-        `;
+        const chordNameEl = document.createElement('span');
+        chordNameEl.className = 'chord-block-name';
+        chordNameEl.textContent = chordName;
+        block.appendChild(chordNameEl);
+
+        if (showOriginal) {
+            const originalEl = document.createElement('span');
+            originalEl.className = 'chord-block-original';
+            originalEl.textContent = originalChord;
+            block.appendChild(originalEl);
+        }
+
+        const timeEl = document.createElement('span');
+        timeEl.className = 'chord-block-time';
+        timeEl.textContent = formatTime(event.time);
+        block.appendChild(timeEl);
 
         // Click block to seek to this chord's position
         block.addEventListener('click', () => {
@@ -1216,7 +1356,7 @@ function disableGenerateBtn(disabled) {
     const btn = document.getElementById('generate-btn');
     if (btn) {
         btn.disabled = disabled;
-        btn.textContent = disabled ? 'Listening...' : 'Find Chords';
+        btn.textContent = disabled ? 'Processing...' : 'Find Chords';
     }
 }
 

@@ -11,6 +11,9 @@
     <meta name="author" content="Swaram">
     <meta name="application-name" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://pagead2.googlesyndication.com https://cdn.jsdelivr.net https://checkout.razorpay.com https://www.youtube.com https://www.youtube-nocookie.com https://s.ytimg.com; connect-src 'self' https://jfnccekkhffonkjkmxyf.supabase.co https://www.google-analytics.com https://region1.google-analytics.com; media-src 'self' blob:; frame-src https://checkout.razorpay.com https://www.youtube.com https://www.youtube-nocookie.com; worker-src 'self' blob:; upgrade-insecure-requests">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), camera=(), browsing-topics=(), publickey-credentials-get=()">
     <link rel="canonical" href="https://ecoliving-tips.github.io/request.html">
 
     <!-- Open Graph -->
@@ -39,20 +42,9 @@
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="manifest" href="manifest.json">
-    <!-- Google Analytics (GA4) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZHLRN8B07Z"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-ZHLRN8B07Z');
-    </script>
-
-    <!-- Google AdSense (interaction-gated: loads only after real user activity) -->
+    <meta name="swaram-ga-id" content="G-ZHLRN8B07Z">
     <meta name="google-adsense-account" content="ca-pub-7438590583270235">
-    <script>
-    (function(){if(navigator.webdriver)return;if(window.__nightmare||window._phantom||window.callPhantom)return;if(document.__selenium_unwrapped||window.domAutomation||window.domAutomationController)return;var l=false;function go(){if(l||document.hidden)return;l=true;var s=document.createElement('script');s.async=true;s.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7438590583270235';s.crossOrigin='anonymous';document.head.appendChild(s)}var ev=['scroll','mousemove','click','touchstart','keydown'];function on(){ev.forEach(function(e){document.removeEventListener(e,on)});setTimeout(go,1000)}ev.forEach(function(e){document.addEventListener(e,on,{passive:true})});setTimeout(go,5000)})();
-    </script>
+    <script src="/js/head-bootstrap.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
@@ -95,6 +87,7 @@
         <section class="request-form-section">
             <div class="container">
                 <form id="request-form" class="request-form">
+                    <input type="text" name="website" id="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-10000px;opacity:0;pointer-events:none;">
                     <div class="form-group">
                         <label for="email" data-i18n="label_email">Your Email *</label>
                         <input type="email" id="email" name="email" required placeholder="Enter your email" data-i18n-placeholder="placeholder_email">
@@ -116,7 +109,7 @@
                     <h3 data-i18n="request_success_title">Request Submitted Successfully!</h3>
                     <p data-i18n="request_success_msg">Thank you! We've received your song request and will notify you via email once the chord chart is ready.
                         The most requested songs get added first.</p>
-                    <button onclick="resetForm()" class="btn" data-i18n="submit_another">Submit Another Request</button>
+                    <button id="submit-another-btn" type="button" class="btn" data-i18n="submit_another">Submit Another Request</button>
                 </div>
 
                 <div id="error-message" class="error-message" style="display: none;">
@@ -134,37 +127,11 @@
                     <div class="razorpay-donate-btn" id="razorpay-btn-container"></div>
                     <div class="upi-donate-option">
                         <p class="upi-label" data-i18n="or_upi">Or pay directly via UPI (India)</p>
-                        <a href="#" onclick="openUPI(); return false;" class="btn donate-btn donate-btn-secondary" data-i18n="pay_upi">Pay via UPI</a>
+                        <a href="#" id="upi-pay-link" class="btn donate-btn donate-btn-secondary" data-i18n="pay_upi">Pay via UPI</a>
                     </div>
                 </div>
             </div>
         </section>
-        <script>
-        (function () {
-            var container = document.getElementById('razorpay-btn-container');
-            if (!container) return;
-            var loaded = false;
-            function loadRazorpay() {
-                if (loaded) return;
-                loaded = true;
-                var form = document.createElement('form');
-                var s = document.createElement('script');
-                s.src = 'https://checkout.razorpay.com/v1/payment-button.js';
-                s.setAttribute('data-payment_button_id', 'pl_SadQoYekBnNHJC');
-                s.async = true;
-                form.appendChild(s);
-                container.appendChild(form);
-            }
-            if ('IntersectionObserver' in window) {
-                var obs = new IntersectionObserver(function (entries) {
-                    if (entries[0].isIntersecting) { loadRazorpay(); obs.disconnect(); }
-                }, { rootMargin: '300px' });
-                obs.observe(container);
-            } else {
-                loadRazorpay();
-            }
-        })();
-        </script>
     </main>
 
     <footer>
@@ -198,88 +165,9 @@
         </div>
     </footer>
 
+    <script src="js/i18n.js" defer></script>
     <script src="js/main.js" defer></script>
-    <script>
-        const SUPABASE_URL = 'https://jfnccekkhffonkjkmxyf.supabase.co';
-        const SUPABASE_KEY = 'sb_publishable_KJA4VzMAjt2WVEEg0JKMfg_lDrABAZK';
-        const UPI_ID = '7306025928@upi';
-        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-        document.getElementById('request-form').addEventListener('submit', async function (e) {
-            e.preventDefault();
-            const submitBtn = document.getElementById('submit-btn');
-            submitBtn.disabled = true;
-            submitBtn.textContent = translations[currentLang]?.submitting || 'Submitting...';
-
-            const email = document.getElementById('email').value;
-            const songTitle = document.getElementById('song-title').value;
-            const message = document.getElementById('message').value;
-
-            try {
-                const { data, error } = await supabaseClient
-                    .from('song_requests')
-                    .insert([{ email, song_title: songTitle, message, status: 'pending' }]);
-                if (error) throw error;
-                document.getElementById('request-form').style.display = 'none';
-                document.getElementById('success-message').style.display = 'block';
-            } catch (error) {
-                console.error('Error:', error);
-                document.getElementById('error-message').style.display = 'block';
-            }
-            submitBtn.disabled = false;
-            submitBtn.textContent = translations[currentLang]?.submit_request || 'Submit Request';
-        });
-
-        function resetForm() {
-            document.getElementById('request-form').reset();
-            document.getElementById('request-form').style.display = 'block';
-            document.getElementById('success-message').style.display = 'none';
-            document.getElementById('error-message').style.display = 'none';
-        }
-
-        function isMobileDevice() {
-            return navigator.maxTouchPoints > 0 && window.matchMedia('(pointer: coarse)').matches;
-        }
-
-        function openUPI() {
-            if (isMobileDevice()) {
-                window.open(`upi://pay?pa=${UPI_ID}&pn=Swaram`, '_blank');
-            } else {
-                showQRModal();
-            }
-        }
-
-        function showQRModal() {
-            if (document.getElementById('qr-modal')) {
-                document.getElementById('qr-modal').style.display = 'flex';
-                return;
-            }
-            const modal = document.createElement('div');
-            modal.id = 'qr-modal';
-            modal.className = 'qr-modal-overlay';
-            modal.innerHTML = `
-                <div class="qr-modal-content">
-                    <button class="qr-modal-close" aria-label="Close">&times;</button>
-                    <h3 data-i18n="qr_modal_title">Scan to Donate via UPI</h3>
-                    <img src="/assets/donate-qr.png" alt="UPI QR Code for donation" class="qr-modal-img">
-                    <p class="qr-modal-upi-id">UPI ID: <strong>${UPI_ID}</strong>
-                        <button class="qr-modal-copy" onclick="copyUPIId()" data-i18n="copy_upi_id">Copy</button>
-                    </p>
-                    <p class="qr-modal-hint" data-i18n="qr_modal_hint">Open any UPI app on your phone and scan this QR code</p>
-                </div>`;
-            document.body.appendChild(modal);
-            modal.querySelector('.qr-modal-close').addEventListener('click', () => modal.style.display = 'none');
-            modal.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
-            if (typeof applyTranslations === 'function') applyTranslations();
-        }
-
-        function copyUPIId() {
-            navigator.clipboard.writeText(UPI_ID).then(() => {
-                const btn = document.querySelector('.qr-modal-copy');
-                if (btn) { btn.textContent = '✓'; setTimeout(() => btn.textContent = 'Copy', 1500); }
-            });
-        }
-    </script>
+    <script src="js/request-page.js" defer></script>
 </body>
 
 </html>

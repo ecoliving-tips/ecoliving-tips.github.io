@@ -1,6 +1,8 @@
 // Swaram - Service Worker for Offline Support
 
-const CACHE_NAME = 'swaram-v3';
+const CACHE_NAME = 'swaram-v4-security';
+// Emergency switch: set true in a hotfix deploy to bypass cache usage.
+const EMERGENCY_DISABLE_CACHE = false;
 const STATIC_ASSETS = [
     '/',
     '/index.html',
@@ -27,6 +29,10 @@ const STATIC_ASSETS = [
 
 // Install: cache static assets
 self.addEventListener('install', event => {
+    if (EMERGENCY_DISABLE_CACHE) {
+        self.skipWaiting();
+        return;
+    }
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(cache => cache.addAll(STATIC_ASSETS))
@@ -37,9 +43,9 @@ self.addEventListener('install', event => {
 // Activate: clean old caches
 self.addEventListener('activate', event => {
     event.waitUntil(
-        caches.keys().then(keys =>
-            Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
-        ).then(() => self.clients.claim())
+        caches.keys()
+            .then(keys => Promise.all(keys.map(k => caches.delete(k))))
+            .then(() => self.clients.claim())
     );
 });
 
@@ -53,15 +59,25 @@ self.addEventListener('fetch', event => {
     // Skip external requests
     if (url.origin !== self.location.origin) return;
 
+    // Emergency mode: bypass all SW cache logic, use network directly.
+    if (EMERGENCY_DISABLE_CACHE) {
+        event.respondWith(fetch(event.request));
+        return;
+    }
+
     // Static assets: stale-while-revalidate (fast + always fresh on next load)
     if (url.pathname.match(/\.(css|js|json|png|svg|ico|woff2?)$/)) {
         event.respondWith(
             caches.open(CACHE_NAME).then(cache =>
                 cache.match(event.request).then(cached => {
-                    const fetched = fetch(event.request).then(response => {
-                        cache.put(event.request, response.clone());
-                        return response;
-                    });
+                    const fetched = fetch(event.request)
+                        .then(response => {
+                            if (response && response.ok) {
+                                cache.put(event.request, response.clone());
+                            }
+                            return response;
+                        })
+                        .catch(() => cached);
                     return cached || fetched;
                 })
             )
@@ -70,7 +86,7 @@ self.addEventListener('fetch', event => {
     }
 
     // HTML pages: network-only (ensures ads load), fallback to browse page offline
-    if (event.request.mode === 'navigate' || event.request.headers.get('accept').includes('text/html')) {
+    if (event.request.mode === 'navigate' || (event.request.headers.get('accept') || '').includes('text/html')) {
         event.respondWith(
             fetch(event.request).catch(() => {
                 return caches.match(event.request).then(cached => {

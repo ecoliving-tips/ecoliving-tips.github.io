@@ -12,6 +12,9 @@
     <meta name="application-name" content="Swaram">
     <meta name="ai-description" content="Swaram AI Chord Finder — upload any MP3, WAV, FLAC, or paste a YouTube link to detect chords instantly. Free alternative to Chordify with beginner mode, chord simplification, capo suggestions, transpose, and 221 chord diagrams. No signup, no limits, works for any song in any language.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://pagead2.googlesyndication.com https://cdn.jsdelivr.net https://www.youtube.com https://www.youtube-nocookie.com https://s.ytimg.com; connect-src 'self' https://jfnccekkhffonkjkmxyf.supabase.co https://vineethwilson-swaram-chord-service.hf.space https://www.youtube.com https://api.piped.private.coffee https://pipedapi.wireway.ch https://www.google-analytics.com https://region1.google-analytics.com; media-src 'self' blob:; frame-src https://www.youtube.com https://www.youtube-nocookie.com; worker-src 'self' blob:; upgrade-insecure-requests">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), camera=(), browsing-topics=(), publickey-credentials-get=()">
     <link rel="canonical" href="https://ecoliving-tips.github.io/chord-finder.html">
 
     <!-- Open Graph -->
@@ -51,29 +54,9 @@
     <link rel="manifest" href="manifest.json">
     <link rel="alternate" type="application/rss+xml" title="Swaram — Latest Chords" href="/feed.xml">
 
-    <!-- Google Analytics (GA4) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZHLRN8B07Z"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-ZHLRN8B07Z');
-    </script>
-
-    <!-- Canonical URL enforcement: strip query params like ?ref=producthunt -->
-    <script>
-    (function(){
-        if (location.search) {
-            history.replaceState(null, '', location.pathname);
-        }
-    })();
-    </script>
-
-    <!-- Google AdSense (interaction-gated: loads only after real user activity) -->
+    <meta name="swaram-ga-id" content="G-ZHLRN8B07Z">
     <meta name="google-adsense-account" content="ca-pub-7438590583270235">
-    <script>
-    (function(){if(navigator.webdriver)return;if(window.__nightmare||window._phantom||window.callPhantom)return;if(document.__selenium_unwrapped||window.domAutomation||window.domAutomationController)return;var l=false;function go(){if(l||document.hidden)return;l=true;var s=document.createElement('script');s.async=true;s.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7438590583270235';s.crossOrigin='anonymous';document.head.appendChild(s)}var ev=['scroll','mousemove','click','touchstart','keydown'];function on(){ev.forEach(function(e){document.removeEventListener(e,on)});setTimeout(go,1000)}ev.forEach(function(e){document.addEventListener(e,on,{passive:true})});setTimeout(go,5000)})();
-    </script>
+    <script src="/js/head-bootstrap.js" defer></script>
 
     <!-- Schema.org structured data -->
     <script type="application/ld+json">

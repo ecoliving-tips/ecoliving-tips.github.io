@@ -71,19 +71,73 @@ function displaySongs(songs) {
         card.className = 'song-card';
         const titleMl = song.title_ml || '';
         const artistMl = song.artist_ml || '';
-        card.innerHTML = `
-            <h3><span class="lang-en">${song.title}</span>${titleMl ? `<span class="lang-ml">${titleMl}</span>` : ''}</h3>
-            <p class="artist"><span class="lang-en">${song.artist || 'Unknown Artist'}</span>${artistMl ? `<span class="lang-ml">${artistMl}</span>` : ''}</p>
-            <div class="song-card-meta">
-                <span class="meta-badge">${song.category || 'General'}</span>
-                ${song.key ? `<span class="meta-badge meta-key">Key: ${song.key}</span>` : ''}
-                ${song.time ? `<span class="meta-badge meta-time">${song.time}</span>` : ''}
-            </div>
-            <div class="song-card-actions">
-                <a href="/songs/${song.id}/" class="btn">View Chords</a>
-                <a href="/lyrics/${song.id}/" class="btn btn-secondary">Lyrics</a>
-            </div>
-        `;
+
+        const title = document.createElement('h3');
+        const titleEn = document.createElement('span');
+        titleEn.className = 'lang-en';
+        titleEn.textContent = song.title || '';
+        title.appendChild(titleEn);
+        if (titleMl) {
+            const titleMlEl = document.createElement('span');
+            titleMlEl.className = 'lang-ml';
+            titleMlEl.textContent = titleMl;
+            title.appendChild(titleMlEl);
+        }
+        card.appendChild(title);
+
+        const artist = document.createElement('p');
+        artist.className = 'artist';
+        const artistEn = document.createElement('span');
+        artistEn.className = 'lang-en';
+        artistEn.textContent = song.artist || 'Unknown Artist';
+        artist.appendChild(artistEn);
+        if (artistMl) {
+            const artistMlEl = document.createElement('span');
+            artistMlEl.className = 'lang-ml';
+            artistMlEl.textContent = artistMl;
+            artist.appendChild(artistMlEl);
+        }
+        card.appendChild(artist);
+
+        const meta = document.createElement('div');
+        meta.className = 'song-card-meta';
+
+        const categoryBadge = document.createElement('span');
+        categoryBadge.className = 'meta-badge';
+        categoryBadge.textContent = song.category || 'General';
+        meta.appendChild(categoryBadge);
+
+        if (song.key) {
+            const keyBadge = document.createElement('span');
+            keyBadge.className = 'meta-badge meta-key';
+            keyBadge.textContent = `Key: ${song.key}`;
+            meta.appendChild(keyBadge);
+        }
+
+        if (song.time) {
+            const timeBadge = document.createElement('span');
+            timeBadge.className = 'meta-badge meta-time';
+            timeBadge.textContent = song.time;
+            meta.appendChild(timeBadge);
+        }
+        card.appendChild(meta);
+
+        const actions = document.createElement('div');
+        actions.className = 'song-card-actions';
+
+        const chordsLink = document.createElement('a');
+        chordsLink.className = 'btn';
+        chordsLink.href = `/songs/${song.id}/`;
+        chordsLink.textContent = 'View Chords';
+        actions.appendChild(chordsLink);
+
+        const lyricsLink = document.createElement('a');
+        lyricsLink.className = 'btn btn-secondary';
+        lyricsLink.href = `/lyrics/${song.id}/`;
+        lyricsLink.textContent = 'Lyrics';
+        actions.appendChild(lyricsLink);
+
+        card.appendChild(actions);
         songsGrid.appendChild(card);
     });
 }
