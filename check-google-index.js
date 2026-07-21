@@ -1,20 +1,15 @@
 /**
- * Google Search Console URL Inspection — Check Index Status
- * Checks which sitemap URLs are indexed by Google.
- * Uses only Node.js built-ins (no npm dependencies).
+ * Google Search Console URL Inspection - Incremental Checker
  *
- * Prerequisites: Same as submit-google-indexing.js
- *   - google-indexing-key.json with service account
- *   - Service account as Owner in Google Search Console
+ * Daily behavior:
+ * 1) Iterate sitemap URLs one-by-one from a saved cursor.
+ * 2) Skip URLs already resolved (indexed or crawled).
+ * 3) Stop as soon as we collect 12 unresolved, not-crawled URLs.
+ * 4) Save those 12 URLs for workflow summary/output.
  *
- * Usage: node check-google-index.js              (smart schedule: new + stale by tier)
- *        node check-google-index.js --new         (only check never-checked URLs)
- *        node check-google-index.js --not-indexed (show only non-indexed)
- *        node check-google-index.js --summary     (counts only)
- *        node check-google-index.js --force       (re-check everything)
- *
- * Results saved to index-status.json (resumable — safe to re-run).
- * Quota: ~2000 requests/day for URL Inspection API.
+ * Usage:
+ *   node check-google-index.js
+ *   node check-google-index.js --summary
  */
 
 const https = require('https');
@@ -25,21 +20,27 @@ const path = require('path');
 const KEY_PATH = path.join(__dirname, 'google-indexing-key.json');
 const SITEMAP_PATH = path.join(__dirname, 'sitemap.xml');
 const RESULTS_PATH = path.join(__dirname, 'index-status.json');
-const SITE_URL = 'https://ecoliving-tips.github.io/';
-const PRIORITY_PATH = path.join(__dirname, 'url-priority.json');
+const EXCLUDED_PATH = path.join(__dirname, 'index-excluded.json');
+const STATE_PATH = path.join(__dirname, 'index-check-state.json');
 const RECHECK_PATH = path.join(__dirname, 'recheck-next-run.json');
+const PENDING_PATH = path.join(__dirname, 'pending-index-check.json');
+const SITE_URL = 'https://ecoliving-tips.github.io/';
 
-// Re-check intervals (days) for not-indexed URLs by category
-const RECHECK_TIERS = [
-  { name: 'static-tools',     interval: 3,  match: url => /\/(chord-finder|chord-identifier|chord-progressions|songs|request|privacy-policy)\.html$/.test(url) || url === SITE_URL },
-  { name: 'progression-keys', interval: 3,  match: url => url.includes('/chord-progressions/key-of-') },
-  { name: 'category-artist',  interval: 5,  match: url => url.includes('/category/') || url.includes('/artist/') },
-  { name: 'songs-lyrics',     interval: 5,  match: url => url.includes('/songs/') || url.includes('/lyrics/') },
-];
-const CHORD_DEMAND_INTERVAL = 7;
-const CHORD_NO_DEMAND_INTERVAL = 14;
+const DAILY_TARGET = 12;
+const REQUEST_DELAY_MS = 1200;
 
-// ── Helpers ──
+function loadJson(filePath, fallback) {
+  if (!fs.existsSync(filePath)) return fallback;
+  try {
+    return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+  } catch {
+    return fallback;
+  }
+}
+
+function saveJson(filePath, data) {
+  fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+}
 
 function loadServiceAccountKey() {
   if (!fs.existsSync(KEY_PATH)) {
@@ -52,19 +53,20 @@ function loadServiceAccountKey() {
 function getUrlsFromSitemap() {
   const indexXml = fs.readFileSync(SITEMAP_PATH, 'utf-8');
   const urls = [];
+
   if (indexXml.includes('<sitemapindex')) {
     const locRegex = /<loc>(.*?)<\/loc>/g;
     let locMatch;
     while ((locMatch = locRegex.exec(indexXml)) !== null) {
       const filename = locMatch[1].split('/').pop();
       const filePath = path.join(__dirname, filename);
-      if (fs.existsSync(filePath)) {
-        const childXml = fs.readFileSync(filePath, 'utf-8');
-        const urlRegex = /<loc>(.*?)<\/loc>/g;
-        let urlMatch;
-        while ((urlMatch = urlRegex.exec(childXml)) !== null) {
-          urls.push(urlMatch[1]);
-        }
+      if (!fs.existsSync(filePath)) continue;
+
+      const childXml = fs.readFileSync(filePath, 'utf-8');
+      const urlRegex = /<loc>(.*?)<\/loc>/g;
+      let urlMatch;
+      while ((urlMatch = urlRegex.exec(childXml)) !== null) {
+        urls.push(urlMatch[1]);
       }
     }
   } else {
@@ -74,39 +76,20 @@ function getUrlsFromSitemap() {
       urls.push(match[1]);
     }
   }
+
   return urls;
 }
 
 function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-// ── Smart Scheduling ──
-
-function loadUrlPriority() {
-  if (!fs.existsSync(PRIORITY_PATH)) return {};
-  try { return JSON.parse(fs.readFileSync(PRIORITY_PATH, 'utf-8')); } catch { return {}; }
+function isResolved(entry) {
+  if (!entry) return false;
+  if (entry.verdict === 'PASS') return true;
+  const coverage = (entry.coverageState || '').toLowerCase();
+  return coverage.includes('crawled');
 }
-
-function classifyUrl(url, urlPriority) {
-  for (const tier of RECHECK_TIERS) {
-    if (tier.match(url)) return { tierName: tier.name, intervalDays: tier.interval };
-  }
-  if (url.includes('/chords/')) {
-    const score = urlPriority[url]?.score || 0;
-    return score > 0
-      ? { tierName: 'chord-with-demand', intervalDays: CHORD_DEMAND_INTERVAL }
-      : { tierName: 'chord-no-demand', intervalDays: CHORD_NO_DEMAND_INTERVAL };
-  }
-  return { tierName: 'other', intervalDays: CHORD_NO_DEMAND_INTERVAL };
-}
-
-function isStale(checkedAt, intervalDays) {
-  if (!checkedAt) return true;
-  return (Date.now() - new Date(checkedAt).getTime()) >= intervalDays * 86400000;
-}
-
-// ── JWT Auth ──
 
 function createJWT(serviceAccount) {
   const now = Math.floor(Date.now() / 1000);
@@ -126,7 +109,6 @@ function createJWT(serviceAccount) {
   const sign = crypto.createSign('RSA-SHA256');
   sign.update(signingInput);
   const signature = sign.sign(serviceAccount.private_key, 'base64url');
-
   return signingInput + '.' + signature;
 }
 
@@ -147,7 +129,9 @@ function getAccessToken(jwt) {
       },
     }, (res) => {
       let data = '';
-      res.on('data', (chunk) => { data += chunk; });
+      res.on('data', (chunk) => {
+        data += chunk;
+      });
       res.on('end', () => {
         if (res.statusCode !== 200) {
           reject(new Error('Token request failed (HTTP ' + res.statusCode + '): ' + data));
@@ -162,13 +146,8 @@ function getAccessToken(jwt) {
   });
 }
 
-// ── URL Inspection API ──
-
 function inspectUrl(url, accessToken) {
-  const body = JSON.stringify({
-    inspectionUrl: url,
-    siteUrl: SITE_URL,
-  });
+  const body = JSON.stringify({ inspectionUrl: url, siteUrl: SITE_URL });
 
   return new Promise((resolve, reject) => {
     const req = https.request({
@@ -177,12 +156,14 @@ function inspectUrl(url, accessToken) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + accessToken,
+        Authorization: 'Bearer ' + accessToken,
         'Content-Length': Buffer.byteLength(body),
       },
     }, (res) => {
       let data = '';
-      res.on('data', (chunk) => { data += chunk; });
+      res.on('data', (chunk) => {
+        data += chunk;
+      });
       res.on('end', () => {
         resolve({ statusCode: res.statusCode, body: data });
       });
@@ -192,8 +173,6 @@ function inspectUrl(url, accessToken) {
     req.end();
   });
 }
-
-// ── Token Manager (auto-refresh before expiry) ──
 
 class TokenManager {
   constructor(serviceAccount) {
@@ -214,9 +193,81 @@ class TokenManager {
   }
 }
 
-// ── Main ──
+function writePendingSummary(allUrls, excluded, batch, checkedThisRun, wrappedAround, cursor) {
+  const results = loadJson(RESULTS_PATH, {});
+  const candidates = batch.map((url) => {
+    const entry = results[url] || {};
+    return {
+      url,
+      coverageState: entry.coverageState || 'N/A',
+      lastCrawlTime: entry.lastCrawlTime || 'never',
+      verdict: entry.verdict || 'UNKNOWN',
+    };
+  });
+
+  saveJson(PENDING_PATH, {
+    generatedAt: new Date().toISOString(),
+    totalInSitemap: allUrls.length,
+    excludedCount: excluded.size,
+    checkedThisRun,
+    wrappedAround,
+    nextCursorIndex: cursor,
+    notIndexedCandidates: candidates,
+  });
+}
+
+function printSummaryOnly() {
+  const p = loadJson(PENDING_PATH, null);
+  if (!p) {
+    console.log('No pending-index-check.json found yet. Run without --summary first.');
+    return;
+  }
+
+  const candidates = Array.isArray(p.notIndexedCandidates) ? p.notIndexedCandidates : [];
+  console.log('Sitemap URLs:            ' + (p.totalInSitemap || 0));
+  console.log('Excluded (resolved):     ' + (p.excludedCount || 0));
+  console.log('Checked in last run:     ' + (p.checkedThisRun || 0));
+  console.log('Need manual submission:  ' + candidates.length);
+
+  if (candidates.length > 0) {
+    console.log('\n--- Current 12 URLs to Submit ---');
+    for (let i = 0; i < candidates.length; i++) {
+      const entry = candidates[i];
+      console.log((i + 1) + '. ' + entry.url);
+      console.log('   Status: ' + (entry.coverageState || 'N/A') + ' | Last crawl: ' + (entry.lastCrawlTime || 'never'));
+    }
+  }
+}
 
 async function main() {
+  if (process.argv.includes('--summary')) {
+    printSummaryOnly();
+    return;
+  }
+
+  const allUrls = getUrlsFromSitemap();
+  if (allUrls.length === 0) {
+    console.log('No URLs found in sitemap.xml');
+    saveJson(RECHECK_PATH, []);
+    saveJson(PENDING_PATH, {
+      generatedAt: new Date().toISOString(),
+      totalInSitemap: 0,
+      excludedCount: 0,
+      checkedThisRun: 0,
+      wrappedAround: false,
+      nextCursorIndex: 0,
+      notIndexedCandidates: [],
+    });
+    return;
+  }
+
+  const results = loadJson(RESULTS_PATH, {});
+  const excluded = new Set(loadJson(EXCLUDED_PATH, []));
+  const state = loadJson(STATE_PATH, { nextIndex: 0 });
+
+  let cursor = Number.isInteger(state.nextIndex) ? state.nextIndex : 0;
+  if (cursor < 0 || cursor >= allUrls.length) cursor = 0;
+
   const serviceAccount = loadServiceAccountKey();
   console.log('Service account: ' + serviceAccount.client_email + '\n');
 
@@ -225,214 +276,105 @@ async function main() {
   await tokenManager.getToken();
   console.log('Authenticated.\n');
 
-  // Load previous results if resuming
-  let results = {};
-  if (fs.existsSync(RESULTS_PATH)) {
-    results = JSON.parse(fs.readFileSync(RESULTS_PATH, 'utf-8'));
-  }
+  console.log('Total URLs in sitemap:   ' + allUrls.length);
+  console.log('Already excluded:        ' + excluded.size + ' (indexed or crawled)');
+  console.log('Starting cursor index:   ' + cursor);
+  console.log('Target unresolved URLs:  ' + DAILY_TARGET + '\n');
 
-  const allUrls = getUrlsFromSitemap();
+  const batch = [];
+  let inspectedCount = 0;
+  let errorCount = 0;
+  let skippedExcluded = 0;
+  let wrapped = false;
 
-  // --summary mode: just show counts from saved results
-  if (process.argv.includes('--summary')) {
-    const entries = Object.entries(results);
-    if (entries.length === 0) {
-      console.log('No results yet. Run without --summary first.');
-      return;
-    }
-    const indexed = entries.filter(([, v]) => v.verdict === 'PASS');
-    const notIndexed = entries.filter(([, v]) => v.verdict !== 'PASS');
-    console.log('Total checked:   ' + entries.length);
-    console.log('Indexed:         ' + indexed.length);
-    console.log('Not indexed:     ' + notIndexed.length);
-    if (notIndexed.length > 0) {
-      console.log('\n--- Not Indexed URLs (submit these manually in GSC) ---');
-      for (const [url, info] of notIndexed) {
-        console.log('  ' + (info.coverageState || 'N/A') + ' | ' + url);
-      }
-    }
-    return;
-  }
+  // Full cycle safety: never inspect more URLs than total in one run.
+  while (batch.length < DAILY_TARGET && inspectedCount < allUrls.length) {
+    const url = allUrls[cursor];
+    cursor = (cursor + 1) % allUrls.length;
+    if (cursor === 0) wrapped = true;
 
-  // --not-indexed mode: show non-indexed from saved results
-  if (process.argv.includes('--not-indexed')) {
-    const entries = Object.entries(results);
-    const notIndexed = entries.filter(([, v]) => v.verdict !== 'PASS');
-    console.log('Not indexed: ' + notIndexed.length + ' of ' + entries.length + ' checked\n');
-    for (const [url, info] of notIndexed) {
-      console.log(url);
-      console.log('  Status: ' + (info.coverageState || 'N/A') + ' | Last crawl: ' + (info.lastCrawlTime || 'never'));
-    }
-    if (entries.length < allUrls.length) {
-      console.log('\n(' + (allUrls.length - entries.length) + ' URLs not yet checked - run without flags to check all)');
-    }
-    return;
-  }
-
-  // Default: smart scheduling — new URLs always, not-indexed re-checked by tier
-  // --new: only check URLs never checked before
-  // --force: re-check everything including indexed ones
-  const force = process.argv.includes('--force');
-  const newOnly = process.argv.includes('--new');
-
-  let toCheck;
-  let scheduleSummary = null;
-
-  let recheckUrls = [];
-  if (fs.existsSync(RECHECK_PATH)) {
-    try { recheckUrls = JSON.parse(fs.readFileSync(RECHECK_PATH, 'utf-8')); } catch {}
-  }
-  const recheckSet = new Set(recheckUrls);
-
-  if (force) {
-    toCheck = allUrls;
-  } else if (newOnly) {
-    toCheck = allUrls.filter(u => !results[u]);
-  } else {
-    const urlPriority = loadUrlPriority();
-    const buckets = { recheck: [], new: [], 'static-tools': [], 'progression-keys': [], 'category-artist': [], 'songs-lyrics': [], 'chord-with-demand': [], 'chord-no-demand': [], other: [] };
-    let skippedIndexed = 0, skippedFresh = 0;
-
-    for (const url of allUrls) {
-      const entry = results[url];
-      if (!entry) {
-        buckets.new.push(url);
-      } else if (entry.verdict === 'PASS') {
-        skippedIndexed++;
-      } else {
-        if (recheckSet.has(url)) {
-          buckets.recheck.push(url);
-        } else {
-          const { tierName, intervalDays } = classifyUrl(url, urlPriority);
-          if (isStale(entry.checkedAt, intervalDays)) {
-            buckets[tierName].push(url);
-          } else {
-            skippedFresh++;
-          }
-        }
-      }
+    if (excluded.has(url)) {
+      skippedExcluded++;
+      continue;
     }
 
-    toCheck = [
-      ...buckets.recheck,
-      ...buckets.new,
-      ...buckets['static-tools'],
-      ...buckets['progression-keys'],
-      ...buckets['category-artist'],
-      ...buckets['songs-lyrics'],
-      ...buckets['chord-with-demand'],
-      ...buckets['chord-no-demand'],
-      ...buckets.other,
-    ];
-    scheduleSummary = { buckets, skippedIndexed, skippedFresh };
-  }
+    inspectedCount++;
 
-  console.log('Total URLs in sitemap: ' + allUrls.length);
-  console.log('Already checked:       ' + Object.keys(results).length);
-
-  if (scheduleSummary) {
-    const { buckets, skippedIndexed, skippedFresh } = scheduleSummary;
-    console.log('\n--- Smart Schedule Breakdown ---');
-    if (buckets.recheck.length)               console.log('  Recheck (submitted yesterday): ' + buckets.recheck.length);
-    if (buckets.new.length)                  console.log('  New (never checked):      ' + buckets.new.length);
-    if (buckets['static-tools'].length)      console.log('  Stale static-tools:       ' + buckets['static-tools'].length + '  (every 3d)');
-    if (buckets['progression-keys'].length)  console.log('  Stale progression-keys:   ' + buckets['progression-keys'].length + '  (every 3d)');
-    if (buckets['category-artist'].length)   console.log('  Stale category-artist:    ' + buckets['category-artist'].length + '  (every 5d)');
-    if (buckets['songs-lyrics'].length)      console.log('  Stale songs-lyrics:       ' + buckets['songs-lyrics'].length + '  (every 5d)');
-    if (buckets['chord-with-demand'].length) console.log('  Stale chord-with-demand:  ' + buckets['chord-with-demand'].length + '  (every 7d)');
-    if (buckets['chord-no-demand'].length)   console.log('  Stale chord-no-demand:    ' + buckets['chord-no-demand'].length + '  (every 14d)');
-    if (buckets.other.length)                console.log('  Stale other:              ' + buckets.other.length + '  (every 14d)');
-    console.log('  ─────────────────────────');
-    console.log('  To check this run:        ' + toCheck.length);
-    console.log('  Skipped (already indexed): ' + skippedIndexed);
-    console.log('  Skipped (checked recently): ' + skippedFresh);
-    console.log('  Est. runtime:             ~' + Math.max(1, Math.ceil(toCheck.length * 7.5 / 60)) + ' min');
-  } else {
-    console.log('To check:              ' + toCheck.length + (newOnly ? ' (--new: unchecked only)' : force ? ' (--force: all)' : ''));
-  }
-
-  console.log('(Quota: ~2000/day for URL Inspection API)\n');
-
-  if (toCheck.length === 0) {
-    console.log('All URLs checked. Use --summary or --not-indexed to view results.');
-    console.log('Use --force to re-check all. Use --new to check only unchecked URLs.');
-    return;
-  }
-
-  let indexed = 0, notIndexed = 0, errors = 0;
-
-  for (let i = 0; i < toCheck.length; i++) {
-    const url = toCheck[i];
     try {
       const token = await tokenManager.getToken();
-      const result = await inspectUrl(url, token);
+      const response = await inspectUrl(url, token);
 
-      if (result.statusCode === 200) {
-        const data = JSON.parse(result.body);
-        const inspection = data.inspectionResult?.indexStatusResult || {};
-        const verdict = inspection.verdict || 'UNKNOWN';
-        const coverageState = inspection.coverageState || 'N/A';
-        const lastCrawlTime = inspection.lastCrawlTime || null;
-        const crawledAs = inspection.crawledAs || 'N/A';
+      if (response.statusCode === 200) {
+        const payload = JSON.parse(response.body);
+        const inspection = payload.inspectionResult?.indexStatusResult || {};
+        const entry = {
+          verdict: inspection.verdict || 'UNKNOWN',
+          coverageState: inspection.coverageState || 'N/A',
+          lastCrawlTime: inspection.lastCrawlTime || null,
+          crawledAs: inspection.crawledAs || 'N/A',
+          checkedAt: new Date().toISOString(),
+        };
 
-        const oldRecommendCount = results[url]?.recommendCount || 0;
-        results[url] = { verdict, coverageState, lastCrawlTime, crawledAs, checkedAt: new Date().toISOString() };
+        results[url] = entry;
 
-        if (verdict !== 'PASS' && recheckSet.has(url)) {
-          results[url].recommendCount = oldRecommendCount + 1;
-          if (oldRecommendCount + 1 >= 2) {
-            results[url].failedRecheck = new Date().toISOString();
-          }
-        } else if (verdict === 'PASS') {
-          delete results[url].recommendCount;
-          delete results[url].failedRecheck;
+        if (isResolved(entry)) {
+          excluded.add(url);
+          console.log('[' + inspectedCount + '] SKIP  | ' + entry.coverageState + ' | ' + url);
+        } else {
+          batch.push(url);
+          console.log('[' + inspectedCount + '] KEEP  | ' + entry.coverageState + ' | ' + url);
         }
-
-        const icon = verdict === 'PASS' ? 'OK' : 'NO';
-        console.log('[' + (i + 1) + '/' + toCheck.length + '] ' + icon + ' | ' + coverageState + ' | ' + url);
-
-        if (verdict === 'PASS') indexed++;
-        else notIndexed++;
-      } else if (result.statusCode === 429) {
-        console.log('\n[' + (i + 1) + '/' + toCheck.length + '] Rate limited. Saving progress and stopping.');
-        errors++;
+      } else if (response.statusCode === 429) {
+        console.log('[' + inspectedCount + '] RATE LIMIT | saving progress and stopping.');
+        errorCount++;
         break;
       } else {
-        let msg = result.body;
-        try { msg = JSON.parse(result.body).error?.message || msg; } catch {}
-        console.log('[' + (i + 1) + '/' + toCheck.length + '] ERR (' + result.statusCode + ') | ' + url + ' - ' + msg);
-        errors++;
+        let message = response.body;
+        try {
+          message = JSON.parse(response.body).error?.message || message;
+        } catch {
+          // Keep raw message.
+        }
+        console.log('[' + inspectedCount + '] ERR (' + response.statusCode + ') | ' + url + ' - ' + message);
+        errorCount++;
       }
-    } catch (err) {
-      console.log('[' + (i + 1) + '/' + toCheck.length + '] ERR | ' + url + ' - ' + err.message);
-      errors++;
+    } catch (error) {
+      console.log('[' + inspectedCount + '] ERR | ' + url + ' - ' + error.message);
+      errorCount++;
     }
 
-    // Save progress after each URL
-    fs.writeFileSync(RESULTS_PATH, JSON.stringify(results, null, 2));
+    saveJson(RESULTS_PATH, results);
+    saveJson(EXCLUDED_PATH, Array.from(excluded));
 
-    // Small delay to avoid rate limits
-    if (i < toCheck.length - 1) await sleep(1200);
+    if (batch.length < DAILY_TARGET && inspectedCount < allUrls.length) {
+      await sleep(REQUEST_DELAY_MS);
+    }
   }
+
+  saveJson(RECHECK_PATH, batch);
+  saveJson(STATE_PATH, {
+    nextIndex: cursor,
+    checkedAt: new Date().toISOString(),
+    inspectedThisRun: inspectedCount,
+    skippedExcludedThisRun: skippedExcluded,
+    unresolvedCollected: batch.length,
+    wrappedAround: wrapped,
+  });
+
+  writePendingSummary(allUrls, excluded, batch, inspectedCount, wrapped, cursor);
 
   console.log('\n--- Summary ---');
-  console.log('Indexed:     ' + indexed);
-  console.log('Not indexed: ' + notIndexed);
-  console.log('Errors:      ' + errors);
-  console.log('Total done:  ' + Object.keys(results).length + '/' + allUrls.length);
-
-  if (scheduleSummary) {
-    const totalIndexed = Object.values(results).filter(v => v.verdict === 'PASS').length;
-    const totalNotIndexed = Object.values(results).filter(v => v.verdict !== 'PASS').length;
-    console.log('\n--- Overall Status ---');
-    console.log('Indexed:        ' + totalIndexed);
-    console.log('Not indexed:    ' + totalNotIndexed);
-    console.log('Unchecked:      ' + (allUrls.length - Object.keys(results).length));
-  }
-
-  console.log('\nResults saved to index-status.json');
-  console.log('Run with --not-indexed to see URLs needing manual submission.');
-  console.log('Run with --summary for quick counts.');
+  console.log('Inspected this run:      ' + inspectedCount);
+  console.log('Skipped (excluded):      ' + skippedExcluded);
+  console.log('Unresolved collected:    ' + batch.length + '/' + DAILY_TARGET);
+  console.log('Errors:                  ' + errorCount);
+  console.log('Next cursor index:       ' + cursor);
+  console.log('Total excluded:          ' + excluded.size);
+  console.log('Saved batch file:        recheck-next-run.json');
+  console.log('Saved summary file:      pending-index-check.json');
 }
 
-main().catch(err => { console.error('Fatal error:', err.message); process.exit(1); });
+main().catch((error) => {
+  console.error('Fatal error:', error.message);
+  process.exit(1);
+});

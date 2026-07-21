@@ -57,10 +57,6 @@ jobs:
         if: always()
         run: rm -f google-indexing-key.json
 
-      - name: Rank non-indexed URLs by search demand
-        if: hashFiles('index-status.json') != ''
-        run: node rank-unindexed.js
-
       - name: Build summary
         run: |
           echo "### Daily Build Summary" >> $GITHUB_STEP_SUMMARY
@@ -78,53 +74,27 @@ jobs:
           else
             echo "- **New chord pages:** ${TOTAL_CHANGED}" >> $GITHUB_STEP_SUMMARY
           fi
-          if [ -f index-status.json ]; then
+          if [ -f pending-index-check.json ]; then
             node -e "
-              const r = require('./index-status.json');
-              const entries = Object.entries(r);
-              const indexed = entries.filter(([,v]) => v.verdict === 'PASS').length;
-              const notIndexed = entries.filter(([,v]) => v.verdict !== 'PASS' && !v.failedRecheck);
+              const p = require('./pending-index-check.json');
+              const candidates = Array.isArray(p.notIndexedCandidates) ? p.notIndexedCandidates : [];
               console.log('');
-              console.log('### Google Index Status');
+              console.log('### Google Index Spot Check');
               console.log('');
-              console.log('- **Indexed:** ' + indexed + ' / ' + entries.length + ' checked');
-              console.log('- **Not indexed:** ' + notIndexed.length);
-              if (notIndexed.length > 0) {
+              console.log('- **Sitemap URLs:** ' + (p.totalInSitemap || 0));
+              console.log('- **Excluded (indexed/crawled):** ' + (p.excludedCount || 0));
+              console.log('- **Checked this run:** ' + (p.checkedThisRun || 0));
+              console.log('- **Need manual submission:** ' + candidates.length);
+              if (candidates.length > 0) {
                 console.log('');
                 console.log('### Submit These URLs in GSC Today');
                 console.log('');
                 console.log('Open [Google Search Console](https://search.google.com/search-console), go to URL Inspection, paste each URL and click **Request Indexing** (quota: ~10-12/day):');
                 console.log('');
-                const fs = require('fs');
-                const urlPriority = fs.existsSync('url-priority.json')
-                  ? JSON.parse(fs.readFileSync('url-priority.json', 'utf-8'))
-                  : {};
-                const prioritize = (url) => {
-                  if (url.match(/\/(chord-finder|chord-identifier|chord-progressions|songs)\.html/)) return 100000;
-                  const demand = urlPriority[url]?.score || 0;
-                  const typeBonus = url.includes('/chord-progressions/') ? 0.5
-                    : (url.includes('/category/') || url.includes('/artist/')) ? 0.3
-                    : (url.includes('/songs/') || url.includes('/lyrics/')) ? 0.2
-                    : 0;
-                  return demand + typeBonus;
-                };
-                const batch = notIndexed
-                  .sort(([a], [b]) => prioritize(b) - prioritize(a))
-                  .slice(0, 12);
-                batch.forEach(([url, info], i) => {
-                  const demand = urlPriority[url]?.score;
-                  const tag = demand ? ' | demand: ' + demand : '';
-                  console.log((i+1) + '. \`' + url + '\`');
-                  console.log('   Status: ' + (info.coverageState || 'N/A') + tag + ' | Last crawl: ' + (info.lastCrawlTime || 'never'));
+                candidates.forEach((entry, i) => {
+                  console.log((i+1) + '. \`' + entry.url + '\`');
+                  console.log('   Status: ' + (entry.coverageState || 'N/A') + ' | Last crawl: ' + (entry.lastCrawlTime || 'never'));
                 });
-                if (notIndexed.length > 12) {
-                  console.log('');
-                  console.log('*...and ' + (notIndexed.length - 12) + ' more. These will appear in future daily summaries.*');
-                }
-                // Save top 12 for next-day recheck
-                fs.writeFileSync('recheck-next-run.json', JSON.stringify(batch.map(([url]) => url), null, 2));
-              } else {
-                fs.writeFileSync('recheck-next-run.json', '[]');
               }
             " >> $GITHUB_STEP_SUMMARY
           fi
