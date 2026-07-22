@@ -46,14 +46,50 @@
         if (!adsClient || shouldSkipAdsLoad()) return;
 
         let loaded = false;
+        let waitingForVisible = false;
+
+        function renderPendingAdSlots() {
+            if (!window.adsbygoogle || !Array.isArray(window.adsbygoogle)) return;
+
+            document.querySelectorAll('ins.adsbygoogle').forEach((slot) => {
+                if (slot.getAttribute('data-adsbygoogle-status')) return;
+                try {
+                    window.adsbygoogle.push({});
+                } catch {
+                    // Ignore slot-level render failures to avoid breaking page scripts.
+                }
+            });
+        }
+
+        function onVisible() {
+            waitingForVisible = false;
+            loadAds();
+        }
+
         function loadAds() {
-            if (loaded || document.hidden) return;
+            if (loaded) return;
+            if (document.hidden) {
+                if (!waitingForVisible) {
+                    waitingForVisible = true;
+                    document.addEventListener('visibilitychange', onVisible, { once: true });
+                }
+                return;
+            }
+
             loaded = true;
             loadScriptOnce(
                 'swaram-adsense-loader',
                 `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${encodeURIComponent(adsClient)}`,
                 { crossorigin: 'anonymous' }
             );
+
+            const loader = document.getElementById('swaram-adsense-loader');
+            if (loader) {
+                loader.addEventListener('load', renderPendingAdSlots, { once: true });
+            }
+
+            // Fallback trigger for browsers where script load event timing is inconsistent.
+            setTimeout(renderPendingAdSlots, 1500);
         }
 
         const events = ['scroll', 'mousemove', 'click', 'touchstart', 'keydown'];

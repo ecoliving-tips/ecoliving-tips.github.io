@@ -5,11 +5,6 @@
  * chord display, HTML5 audio playback sync, and transpose.
  */
 
-// Keep canonical URL clean by removing tracking query params.
-if (window.location.search) {
-    history.replaceState(null, '', window.location.pathname);
-}
-
 // ---------------------------------------------------------------------------
 // Configuration
 // ---------------------------------------------------------------------------
