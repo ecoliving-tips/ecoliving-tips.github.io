@@ -17,16 +17,24 @@ const SUPABASE_URL = 'https://jfnccekkhffonkjkmxyf.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_KJA4VzMAjt2WVEEg0JKMfg_lDrABAZK';
 const MODEL_VERSION = 'btc-v1';
 const BASE_URL = 'https://ecoliving-tips.github.io';
-const ALLOWED_UPLOAD_EXTENSIONS = new Set(['.mp3', '.wav', '.m4a', '.ogg', '.flac', '.aac', '.wma', '.webm']);
+const ALLOWED_UPLOAD_EXTENSIONS = new Set(['.mp3', '.wav', '.m4a', '.mp4', '.ogg', '.opus', '.flac', '.aac', '.wma', '.webm']);
 const ALLOWED_UPLOAD_CONTENT_TYPES = new Set([
     'audio/mpeg',
+    'audio/mp3',
     'audio/wav',
     'audio/x-wav',
     'audio/mp4',
+    'audio/m4a',
+    'audio/x-m4a',
     'audio/aac',
+    'audio/x-aac',
     'audio/ogg',
     'audio/flac',
+    'audio/x-flac',
+    'audio/opus',
     'audio/webm',
+    'video/mp4',
+    'video/webm',
     'application/octet-stream',
 ]);
 
@@ -295,13 +303,14 @@ function setSelectedFile(file) {
     const lowerName = (file.name || '').toLowerCase();
     const extMatch = lowerName.match(/\.[a-z0-9]+$/);
     const ext = extMatch ? extMatch[0] : '';
+    const normalizedType = (file.type || '').split(';', 1)[0].trim().toLowerCase();
 
-    if (!ext || !ALLOWED_UPLOAD_EXTENSIONS.has(ext)) {
-        showError('Unsupported file type. Please use MP3, WAV, M4A, OGG, FLAC, AAC, WMA, or WebM.');
+    if (ext && !ALLOWED_UPLOAD_EXTENSIONS.has(ext)) {
+        showError('Unsupported file type. Please use MP3, WAV, M4A, MP4, OGG, OPUS, FLAC, AAC, WMA, or WebM.');
         return;
     }
 
-    if (file.type && !ALLOWED_UPLOAD_CONTENT_TYPES.has(file.type)) {
+    if (normalizedType && !ALLOWED_UPLOAD_CONTENT_TYPES.has(normalizedType)) {
         showError(`Unsupported media type (${file.type}). Please upload a valid audio file.`);
         return;
     }
@@ -339,21 +348,29 @@ function clearSelectedFile() {
 // ---------------------------------------------------------------------------
 function extractVideoId(url) {
     if (!url) return null;
+    const raw = url.trim();
+    const idRegex = /^[A-Za-z0-9_-]{11}$/;
+    if (idRegex.test(raw)) return raw;
+
     let parsed;
     try {
-        parsed = new URL(url);
+        parsed = new URL(raw);
     } catch {
         return null;
     }
 
     const host = parsed.hostname.toLowerCase();
-    const isYouTubeHost = host === 'youtube.com' || host === 'www.youtube.com' || host === 'm.youtube.com' || host === 'youtu.be';
+    const isYouTubeHost = host === 'youtube.com'
+        || host === 'www.youtube.com'
+        || host === 'm.youtube.com'
+        || host === 'music.youtube.com'
+        || host === 'youtu.be'
+        || host === 'www.youtu.be';
     if (!isYouTubeHost) return null;
 
-    const idRegex = /^[A-Za-z0-9_-]{11}$/;
     let candidate = '';
 
-    if (host === 'youtu.be') {
+    if (host === 'youtu.be' || host === 'www.youtu.be') {
         candidate = parsed.pathname.replace(/^\//, '').split('/')[0] || '';
     } else if (parsed.pathname.startsWith('/watch')) {
         candidate = parsed.searchParams.get('v') || '';
@@ -710,7 +727,7 @@ async function callBackendAPI(file, youtubeUrl) {
     function mapFriendlyError(status, detail, retryAfterSec) {
         if (status === 400) {
             if (detail === 'invalid_audio_file') {
-                return 'Invalid audio file. Please upload a valid MP3/WAV/M4A/OGG/FLAC/WebM file under 5 minutes.';
+                return 'Invalid audio file. Please upload a valid MP3/WAV/M4A/MP4/OGG/OPUS/FLAC/WebM file under 5 minutes.';
             }
             return 'Invalid input. Please check file type, size, duration, or YouTube link and try again.';
         }
