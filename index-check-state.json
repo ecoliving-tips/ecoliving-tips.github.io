@@ -1,8 +1,8 @@
 {
-  "nextIndex": 0,
-  "checkedAt": null,
-  "inspectedThisRun": 0,
+  "nextIndex": 68,
+  "checkedAt": "2026-07-23T06:24:38.516Z",
+  "inspectedThisRun": 68,
   "skippedExcludedThisRun": 0,
-  "unresolvedCollected": 0,
+  "unresolvedCollected": 12,
   "wrappedAround": false
 }

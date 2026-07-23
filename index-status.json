@@ -1,1 +1,478 @@
-{}
+{
+  "https://ecoliving-tips.github.io/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-22T23:18:49Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:16:21.441Z"
+  },
+  "https://ecoliving-tips.github.io/songs.html": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-14T01:58:35Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:16:28.800Z"
+  },
+  "https://ecoliving-tips.github.io/chord-finder.html": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-23T04:30:47Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:16:36.232Z"
+  },
+  "https://ecoliving-tips.github.io/chord-identifier.html": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-19T18:32:50Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:16:43.597Z"
+  },
+  "https://ecoliving-tips.github.io/chord-progressions.html": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-19T18:32:50Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:16:51.064Z"
+  },
+  "https://ecoliving-tips.github.io/request.html": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-21T08:26:27Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:16:58.397Z"
+  },
+  "https://ecoliving-tips.github.io/privacy-policy.html": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-05-30T14:54:03Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:17:05.818Z"
+  },
+  "https://ecoliving-tips.github.io/songs/anna-pesaha/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-10T03:39:32Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:17:13.161Z"
+  },
+  "https://ecoliving-tips.github.io/songs/krooshakum-meshayil/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-22T18:25:05Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:17:20.540Z"
+  },
+  "https://ecoliving-tips.github.io/songs/va-va-eeshoye/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-12T18:43:56Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:17:28.014Z"
+  },
+  "https://ecoliving-tips.github.io/songs/uruki-uruki-theernnidam/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-18T14:56:23Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:17:35.359Z"
+  },
+  "https://ecoliving-tips.github.io/songs/kurishil-marichavane/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-21T08:59:34Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:17:42.818Z"
+  },
+  "https://ecoliving-tips.github.io/songs/kalvari-kunninmel/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-09T16:37:02Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:17:50.154Z"
+  },
+  "https://ecoliving-tips.github.io/songs/thalathil-vellameduthu/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-19T03:08:43Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:17:57.502Z"
+  },
+  "https://ecoliving-tips.github.io/songs/gagultha-malayil-ninnum/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-18T15:26:07Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:18:04.848Z"
+  },
+  "https://ecoliving-tips.github.io/lyrics/anna-pesaha/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-17T06:29:24Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:18:12.301Z"
+  },
+  "https://ecoliving-tips.github.io/lyrics/krooshakum-meshayil/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-17T03:35:47Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:18:19.767Z"
+  },
+  "https://ecoliving-tips.github.io/lyrics/va-va-eeshoye/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-09T19:42:29Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:18:27.176Z"
+  },
+  "https://ecoliving-tips.github.io/lyrics/uruki-uruki-theernnidam/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-04-20T03:44:57Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:18:34.526Z"
+  },
+  "https://ecoliving-tips.github.io/lyrics/kurishil-marichavane/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-11T08:02:59Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:18:41.890Z"
+  },
+  "https://ecoliving-tips.github.io/lyrics/kalvari-kunninmel/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-10T06:53:13Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:18:49.461Z"
+  },
+  "https://ecoliving-tips.github.io/lyrics/thalathil-vellameduthu/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-17T17:05:06Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:18:56.867Z"
+  },
+  "https://ecoliving-tips.github.io/lyrics/gagultha-malayil-ninnum/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-11T14:08:01Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:19:04.251Z"
+  },
+  "https://ecoliving-tips.github.io/category/holy-mass/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-11T15:21:43Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:19:11.653Z"
+  },
+  "https://ecoliving-tips.github.io/category/holy-communion/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-04-25T03:51:33Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:19:19.093Z"
+  },
+  "https://ecoliving-tips.github.io/category/holy-week/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-11T08:02:01Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:19:26.436Z"
+  },
+  "https://ecoliving-tips.github.io/artist/traditional-syro-malabar/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-16T10:15:09Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:19:33.756Z"
+  },
+  "https://ecoliving-tips.github.io/artist/fr-binoj-mulavarickal/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-09T10:16:54Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:19:41.151Z"
+  },
+  "https://ecoliving-tips.github.io/artist/kester/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-09T23:17:07Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:19:48.595Z"
+  },
+  "https://ecoliving-tips.github.io/artist/way-of-the-cross/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-10T06:27:34Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:19:55.921Z"
+  },
+  "https://ecoliving-tips.github.io/artist/fr-vipin-kurishuthara-cmi/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-11T15:06:58Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:20:03.308Z"
+  },
+  "https://ecoliving-tips.github.io/artist/jollee-abraham/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-22T11:48:51Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:20:10.680Z"
+  },
+  "https://ecoliving-tips.github.io/chord-progressions/key-of-c/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-05-08T12:38:48Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:20:18.054Z"
+  },
+  "https://ecoliving-tips.github.io/chord-progressions/key-of-db/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-21T08:29:33Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:20:25.766Z"
+  },
+  "https://ecoliving-tips.github.io/chord-progressions/key-of-d/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-04-06T07:00:45Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:20:33.221Z"
+  },
+  "https://ecoliving-tips.github.io/chord-progressions/key-of-eb/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-21T08:30:27Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:20:40.638Z"
+  },
+  "https://ecoliving-tips.github.io/chord-progressions/key-of-e/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-05-02T07:58:16Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:20:48.455Z"
+  },
+  "https://ecoliving-tips.github.io/chord-progressions/key-of-f/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-05-03T07:48:25Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:20:56.015Z"
+  },
+  "https://ecoliving-tips.github.io/chord-progressions/key-of-gb/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-22T11:52:36Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:21:03.423Z"
+  },
+  "https://ecoliving-tips.github.io/chord-progressions/key-of-g/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-05-08T12:44:10Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:21:10.792Z"
+  },
+  "https://ecoliving-tips.github.io/chord-progressions/key-of-ab/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-21T08:27:53Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:21:18.155Z"
+  },
+  "https://ecoliving-tips.github.io/chord-progressions/key-of-a/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-11T08:02:59Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:21:25.537Z"
+  },
+  "https://ecoliving-tips.github.io/chord-progressions/key-of-bb/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-05-03T07:48:25Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:21:32.937Z"
+  },
+  "https://ecoliving-tips.github.io/chord-progressions/key-of-b/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-22T20:51:14Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:21:40.453Z"
+  },
+  "https://ecoliving-tips.github.io/chord-progressions/key-of-c-minor/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-16T18:40:39Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:21:47.855Z"
+  },
+  "https://ecoliving-tips.github.io/chord-progressions/key-of-db-minor/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-23T03:42:22Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:21:55.406Z"
+  },
+  "https://ecoliving-tips.github.io/chord-progressions/key-of-d-minor/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-05-03T07:50:39Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:22:02.797Z"
+  },
+  "https://ecoliving-tips.github.io/chord-progressions/key-of-eb-minor/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-23T03:47:24Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:22:10.174Z"
+  },
+  "https://ecoliving-tips.github.io/chord-progressions/key-of-e-minor/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-05-03T07:49:31Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:22:17.576Z"
+  },
+  "https://ecoliving-tips.github.io/chord-progressions/key-of-f-minor/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-23T03:56:15Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:22:24.956Z"
+  },
+  "https://ecoliving-tips.github.io/chord-progressions/key-of-gb-minor/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-23T03:49:56Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:22:32.428Z"
+  },
+  "https://ecoliving-tips.github.io/chord-progressions/key-of-g-minor/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-23T04:13:53Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:22:39.866Z"
+  },
+  "https://ecoliving-tips.github.io/chord-progressions/key-of-ab-minor/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-23T04:13:53Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:22:47.451Z"
+  },
+  "https://ecoliving-tips.github.io/chord-progressions/key-of-a-minor/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-23T04:13:53Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:22:54.864Z"
+  },
+  "https://ecoliving-tips.github.io/chord-progressions/key-of-bb-minor/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-23T04:15:15Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:23:02.240Z"
+  },
+  "https://ecoliving-tips.github.io/chord-progressions/key-of-b-minor/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-07-23T04:15:15Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-07-23T06:23:09.619Z"
+  },
+  "https://ecoliving-tips.github.io/chords/2/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-07-23T06:23:17.094Z"
+  },
+  "https://ecoliving-tips.github.io/chords/5/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-07-23T06:23:24.555Z"
+  },
+  "https://ecoliving-tips.github.io/chords/60/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-07-23T06:23:32.009Z"
+  },
+  "https://ecoliving-tips.github.io/chords/1963/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-07-23T06:23:39.461Z"
+  },
+  "https://ecoliving-tips.github.io/chords/1969/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-07-23T06:23:46.774Z"
+  },
+  "https://ecoliving-tips.github.io/chords/2024/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-07-23T06:23:54.125Z"
+  },
+  "https://ecoliving-tips.github.io/chords/2025/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-07-23T06:24:01.529Z"
+  },
+  "https://ecoliving-tips.github.io/chords/heart-of-worship-the-worship-initiative/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-07-23T06:24:08.927Z"
+  },
+  "https://ecoliving-tips.github.io/chords/kise-hor-banere-beh-jana-kaka-bhaniawala-usandhu/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-07-23T06:24:16.383Z"
+  },
+  "https://ecoliving-tips.github.io/chords/anak-lumapit-ka-lang-sa-akin-slepyer-music/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-07-23T06:24:23.801Z"
+  },
+  "https://ecoliving-tips.github.io/chords/tv-kadokawaanime/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-07-23T06:24:31.115Z"
+  },
+  "https://ecoliving-tips.github.io/chords/jesus-lover-of-my-soul-rockhestra-version-xunqz-rockhestra/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-07-23T06:24:38.515Z"
+  }
+}
