@@ -94,7 +94,7 @@ jobs:
                 console.log('');
                 console.log('### Submit These URLs in GSC Today');
                 console.log('');
-                console.log('Open [Google Search Console](https://search.google.com/search-console), go to URL Inspection, paste each URL and click **Request Indexing** (quota: ~10-12/day):');
+                console.log('Open [Google Search Console](https://search.google.com/search-console), go to URL Inspection, paste each URL and click **Request Indexing** (quota: 11/day):');
                 console.log('');
                 candidates.forEach((entry, i) => {
                   console.log((i+1) + '. \`' + entry.url + '\`');

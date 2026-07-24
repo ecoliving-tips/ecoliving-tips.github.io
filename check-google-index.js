@@ -4,8 +4,9 @@
  * Daily behavior:
  * 1) Iterate sitemap URLs one-by-one from a saved cursor.
  * 2) Skip URLs already resolved (indexed or crawled).
- * 3) Stop as soon as we collect 12 unresolved, not-crawled URLs.
- * 4) Save those 12 URLs for workflow summary/output.
+ * 3) Re-check unresolved URLs from yesterday first.
+ * 4) Fill remaining slots from sitemap cursor order.
+ * 5) Stop as soon as we collect 11 unresolved, not-crawled URLs.
  *
  * Usage:
  *   node check-google-index.js
@@ -26,7 +27,7 @@ const RECHECK_PATH = path.join(__dirname, 'recheck-next-run.json');
 const PENDING_PATH = path.join(__dirname, 'pending-index-check.json');
 const SITE_URL = 'https://ecoliving-tips.github.io/';
 
-const DAILY_TARGET = 12;
+const DAILY_TARGET = 11;
 const REQUEST_DELAY_MS = 1200;
 
 function loadJson(filePath, fallback) {
@@ -89,6 +90,18 @@ function isResolved(entry) {
   if (entry.verdict === 'PASS') return true;
   const coverage = (entry.coverageState || '').toLowerCase();
   return coverage.includes('crawled');
+}
+
+function uniqueUrls(urls) {
+  const out = [];
+  const seen = new Set();
+  for (const url of urls) {
+    if (typeof url !== 'string') continue;
+    if (seen.has(url)) continue;
+    seen.add(url);
+    out.push(url);
+  }
+  return out;
 }
 
 function createJWT(serviceAccount) {
@@ -230,7 +243,7 @@ function printSummaryOnly() {
   console.log('Need manual submission:  ' + candidates.length);
 
   if (candidates.length > 0) {
-    console.log('\n--- Current 12 URLs to Submit ---');
+    console.log('\n--- Current 11 URLs to Submit ---');
     for (let i = 0; i < candidates.length; i++) {
       const entry = candidates[i];
       console.log((i + 1) + '. ' + entry.url);
@@ -263,6 +276,7 @@ async function main() {
 
   const results = loadJson(RESULTS_PATH, {});
   const excluded = new Set(loadJson(EXCLUDED_PATH, []));
+  const unresolvedFromYesterday = uniqueUrls(loadJson(RECHECK_PATH, []));
   const state = loadJson(STATE_PATH, { nextIndex: 0 });
 
   let cursor = Number.isInteger(state.nextIndex) ? state.nextIndex : 0;
@@ -278,26 +292,21 @@ async function main() {
 
   console.log('Total URLs in sitemap:   ' + allUrls.length);
   console.log('Already excluded:        ' + excluded.size + ' (indexed or crawled)');
+  console.log('Carry-over unresolved:   ' + unresolvedFromYesterday.length);
   console.log('Starting cursor index:   ' + cursor);
   console.log('Target unresolved URLs:  ' + DAILY_TARGET + '\n');
 
   const batch = [];
+  const batchSet = new Set();
   let inspectedCount = 0;
   let errorCount = 0;
   let skippedExcluded = 0;
   let wrapped = false;
+  let recheckedFromYesterday = 0;
+  let checkedFromCursor = 0;
+  let rateLimited = false;
 
-  // Full cycle safety: never inspect more URLs than total in one run.
-  while (batch.length < DAILY_TARGET && inspectedCount < allUrls.length) {
-    const url = allUrls[cursor];
-    cursor = (cursor + 1) % allUrls.length;
-    if (cursor === 0) wrapped = true;
-
-    if (excluded.has(url)) {
-      skippedExcluded++;
-      continue;
-    }
-
+  async function inspectAndRecord(url, sourceLabel) {
     inspectedCount++;
 
     try {
@@ -319,15 +328,16 @@ async function main() {
 
         if (isResolved(entry)) {
           excluded.add(url);
-          console.log('[' + inspectedCount + '] SKIP  | ' + entry.coverageState + ' | ' + url);
-        } else {
+          console.log('[' + inspectedCount + '] SKIP  | ' + sourceLabel + ' | ' + entry.coverageState + ' | ' + url);
+        } else if (!batchSet.has(url) && batch.length < DAILY_TARGET) {
           batch.push(url);
-          console.log('[' + inspectedCount + '] KEEP  | ' + entry.coverageState + ' | ' + url);
+          batchSet.add(url);
+          console.log('[' + inspectedCount + '] KEEP  | ' + sourceLabel + ' | ' + entry.coverageState + ' | ' + url);
         }
       } else if (response.statusCode === 429) {
         console.log('[' + inspectedCount + '] RATE LIMIT | saving progress and stopping.');
         errorCount++;
-        break;
+        rateLimited = true;
       } else {
         let message = response.body;
         try {
@@ -335,18 +345,51 @@ async function main() {
         } catch {
           // Keep raw message.
         }
-        console.log('[' + inspectedCount + '] ERR (' + response.statusCode + ') | ' + url + ' - ' + message);
+        console.log('[' + inspectedCount + '] ERR (' + response.statusCode + ') | ' + sourceLabel + ' | ' + url + ' - ' + message);
         errorCount++;
       }
     } catch (error) {
-      console.log('[' + inspectedCount + '] ERR | ' + url + ' - ' + error.message);
+      console.log('[' + inspectedCount + '] ERR | ' + sourceLabel + ' | ' + url + ' - ' + error.message);
       errorCount++;
     }
 
     saveJson(RESULTS_PATH, results);
     saveJson(EXCLUDED_PATH, Array.from(excluded));
+  }
 
-    if (batch.length < DAILY_TARGET && inspectedCount < allUrls.length) {
+  // Phase 1: Re-check unresolved carry-over from yesterday, in order.
+  for (const url of unresolvedFromYesterday) {
+    if (batch.length >= DAILY_TARGET || rateLimited) break;
+    if (excluded.has(url)) {
+      skippedExcluded++;
+      continue;
+    }
+
+    recheckedFromYesterday++;
+    await inspectAndRecord(url, 'recheck');
+
+    if (batch.length < DAILY_TARGET && !rateLimited) {
+      await sleep(REQUEST_DELAY_MS);
+    }
+  }
+
+  // Phase 2: Fill remaining slots by walking sitemap cursor one-by-one.
+  let scannedFromCursor = 0;
+  while (batch.length < DAILY_TARGET && checkedFromCursor < allUrls.length && !rateLimited) {
+    const url = allUrls[cursor];
+    cursor = (cursor + 1) % allUrls.length;
+    if (cursor === 0) wrapped = true;
+
+    if (excluded.has(url) || batchSet.has(url)) {
+      skippedExcluded++;
+      continue;
+    }
+
+    checkedFromCursor++;
+    scannedFromCursor++;
+    await inspectAndRecord(url, 'cursor');
+
+    if (batch.length < DAILY_TARGET && checkedFromCursor < allUrls.length && !rateLimited) {
       await sleep(REQUEST_DELAY_MS);
     }
   }
@@ -356,6 +399,8 @@ async function main() {
     nextIndex: cursor,
     checkedAt: new Date().toISOString(),
     inspectedThisRun: inspectedCount,
+    recheckedFromYesterday,
+    checkedFromCursor,
     skippedExcludedThisRun: skippedExcluded,
     unresolvedCollected: batch.length,
     wrappedAround: wrapped,
@@ -365,6 +410,8 @@ async function main() {
 
   console.log('\n--- Summary ---');
   console.log('Inspected this run:      ' + inspectedCount);
+  console.log('Rechecked carry-over:    ' + recheckedFromYesterday);
+  console.log('Checked from cursor:     ' + checkedFromCursor);
   console.log('Skipped (excluded):      ' + skippedExcluded);
   console.log('Unresolved collected:    ' + batch.length + '/' + DAILY_TARGET);
   console.log('Errors:                  ' + errorCount);
