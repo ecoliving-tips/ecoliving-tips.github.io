@@ -1,23 +1,11 @@
 {
-  "generatedAt": "2026-07-24T06:11:14.306Z",
-  "totalInSitemap": 24790,
-  "excludedCount": 56,
-  "checkedThisRun": 12,
+  "generatedAt": "2026-07-25T06:03:13.535Z",
+  "totalInSitemap": 10954,
+  "excludedCount": 65,
+  "checkedThisRun": 21,
   "wrappedAround": false,
-  "nextCursorIndex": 80,
+  "nextCursorIndex": 90,
   "notIndexedCandidates": [
-    {
-      "url": "https://ecoliving-tips.github.io/chords/ni-una-sola-palabra-milagro/",
-      "coverageState": "URL is unknown to Google",
-      "lastCrawlTime": "never",
-      "verdict": "NEUTRAL"
-    },
-    {
-      "url": "https://ecoliving-tips.github.io/chords/most-dramatic-music-climb-together-by-audiomachine-hdsoundi/",
-      "coverageState": "URL is unknown to Google",
-      "lastCrawlTime": "never",
-      "verdict": "NEUTRAL"
-    },
     {
       "url": "https://ecoliving-tips.github.io/chords/free-skillibeng-type-beat-x-dancehall-type-beat-scar-madenka/",
       "coverageState": "URL is unknown to Google",
@@ -25,49 +13,61 @@
       "verdict": "NEUTRAL"
     },
     {
-      "url": "https://ecoliving-tips.github.io/chords/the-true-leader-audio-song-t-series-tamil/",
+      "url": "https://ecoliving-tips.github.io/chords/the-weeknd-blinding-lights-theweekndvevo/",
       "coverageState": "URL is unknown to Google",
       "lastCrawlTime": "never",
       "verdict": "NEUTRAL"
     },
     {
-      "url": "https://ecoliving-tips.github.io/chords/cuan-bello-es-el-senor-iglesia-lakewood-letra-jose-centeno/",
+      "url": "https://ecoliving-tips.github.io/chords/walau-gunung-tak-berpindah-sr-tone-studio/",
       "coverageState": "URL is unknown to Google",
       "lastCrawlTime": "never",
       "verdict": "NEUTRAL"
     },
     {
-      "url": "https://ecoliving-tips.github.io/chords/aspirin-wilmah/",
+      "url": "https://ecoliving-tips.github.io/chords/how-to-pretend-lucy-bedroque/",
       "coverageState": "URL is unknown to Google",
       "lastCrawlTime": "never",
       "verdict": "NEUTRAL"
     },
     {
-      "url": "https://ecoliving-tips.github.io/chords/Mm3T8iOeObs/",
+      "url": "https://ecoliving-tips.github.io/chords/how-great-thou-art-jesus-image/",
       "coverageState": "URL is unknown to Google",
       "lastCrawlTime": "never",
       "verdict": "NEUTRAL"
     },
     {
-      "url": "https://ecoliving-tips.github.io/chords/marble-sounds-photographs-zealrecords/",
+      "url": "https://ecoliving-tips.github.io/chords/this-is-jesus-holy-redeemer-church/",
       "coverageState": "URL is unknown to Google",
       "lastCrawlTime": "never",
       "verdict": "NEUTRAL"
     },
     {
-      "url": "https://ecoliving-tips.github.io/chords/max-mcnown-famous-to-you/",
+      "url": "https://ecoliving-tips.github.io/chords/seberkas-sinar-nike-ardilla-lirik-musiklopedia/",
       "coverageState": "URL is unknown to Google",
       "lastCrawlTime": "never",
       "verdict": "NEUTRAL"
     },
     {
-      "url": "https://ecoliving-tips.github.io/chords/traces-marble-sounds/",
+      "url": "https://ecoliving-tips.github.io/chords/universal-energy-space-energy-1977-emi-french-vortex/",
       "coverageState": "URL is unknown to Google",
       "lastCrawlTime": "never",
       "verdict": "NEUTRAL"
     },
     {
-      "url": "https://ecoliving-tips.github.io/chords/padayatra-rajath-rajesh/",
+      "url": "https://ecoliving-tips.github.io/chords/7-8-post-rock-drumless-track-for-drummers-herd-vulnerability-drumless-practice-loops/",
+      "coverageState": "URL is unknown to Google",
+      "lastCrawlTime": "never",
+      "verdict": "NEUTRAL"
+    },
+    {
+      "url": "https://ecoliving-tips.github.io/chords/kecaplah-dan-lihatlah-glady-febe-tuwoh/",
+      "coverageState": "URL is unknown to Google",
+      "lastCrawlTime": "never",
+      "verdict": "NEUTRAL"
+    },
+    {
+      "url": "https://ecoliving-tips.github.io/chords/on-your-knees-goodnight-goodbye/",
       "coverageState": "URL is unknown to Google",
       "lastCrawlTime": "never",
       "verdict": "NEUTRAL"
