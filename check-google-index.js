@@ -4,7 +4,7 @@
  * Daily behavior:
  * 1) Iterate sitemap URLs one-by-one from a saved cursor.
  * 2) Skip URLs already resolved (indexed or crawled).
- * 3) Re-check unresolved URLs from yesterday first.
+ * 3) Re-check unresolved backlog (oldest first) before checking new cursor URLs.
  * 4) Fill remaining slots from sitemap cursor order.
  * 5) Stop as soon as we collect 11 unresolved, not-crawled URLs.
  *
@@ -102,6 +102,20 @@ function uniqueUrls(urls) {
     out.push(url);
   }
   return out;
+}
+
+function getUnresolvedBacklog(results, excluded) {
+  const unresolved = [];
+
+  for (const [url, entry] of Object.entries(results)) {
+    if (excluded.has(url)) continue;
+    if (isResolved(entry)) continue;
+    const checkedAt = entry?.checkedAt ? Date.parse(entry.checkedAt) : Number.POSITIVE_INFINITY;
+    unresolved.push({ url, checkedAt });
+  }
+
+  unresolved.sort((a, b) => a.checkedAt - b.checkedAt);
+  return unresolved.map((item) => item.url);
 }
 
 function createJWT(serviceAccount) {
@@ -277,6 +291,8 @@ async function main() {
   const results = loadJson(RESULTS_PATH, {});
   const excluded = new Set(loadJson(EXCLUDED_PATH, []));
   const unresolvedFromYesterday = uniqueUrls(loadJson(RECHECK_PATH, []));
+  const unresolvedBacklog = getUnresolvedBacklog(results, excluded);
+  const carryOverQueue = uniqueUrls([...unresolvedBacklog, ...unresolvedFromYesterday]);
   const state = loadJson(STATE_PATH, { nextIndex: 0 });
 
   let cursor = Number.isInteger(state.nextIndex) ? state.nextIndex : 0;
@@ -292,7 +308,8 @@ async function main() {
 
   console.log('Total URLs in sitemap:   ' + allUrls.length);
   console.log('Already excluded:        ' + excluded.size + ' (indexed or crawled)');
-  console.log('Carry-over unresolved:   ' + unresolvedFromYesterday.length);
+  console.log('Unresolved backlog:      ' + unresolvedBacklog.length);
+  console.log('Carry-over queue size:   ' + carryOverQueue.length);
   console.log('Starting cursor index:   ' + cursor);
   console.log('Target unresolved URLs:  ' + DAILY_TARGET + '\n');
 
@@ -357,8 +374,8 @@ async function main() {
     saveJson(EXCLUDED_PATH, Array.from(excluded));
   }
 
-  // Phase 1: Re-check unresolved carry-over from yesterday, in order.
-  for (const url of unresolvedFromYesterday) {
+  // Phase 1: Re-check unresolved carry-over queue in order.
+  for (const url of carryOverQueue) {
     if (batch.length >= DAILY_TARGET || rateLimited) break;
     if (excluded.has(url)) {
       skippedExcluded++;
@@ -374,7 +391,6 @@ async function main() {
   }
 
   // Phase 2: Fill remaining slots by walking sitemap cursor one-by-one.
-  let scannedFromCursor = 0;
   while (batch.length < DAILY_TARGET && checkedFromCursor < allUrls.length && !rateLimited) {
     const url = allUrls[cursor];
     cursor = (cursor + 1) % allUrls.length;
@@ -386,7 +402,6 @@ async function main() {
     }
 
     checkedFromCursor++;
-    scannedFromCursor++;
     await inspectAndRecord(url, 'cursor');
 
     if (batch.length < DAILY_TARGET && checkedFromCursor < allUrls.length && !rateLimited) {
