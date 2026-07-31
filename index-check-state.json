@@ -1,9 +1,9 @@
 {
-  "nextIndex": 122,
-  "checkedAt": "2026-07-30T06:08:56.209Z",
-  "inspectedThisRun": 20,
+  "nextIndex": 130,
+  "checkedAt": "2026-07-31T06:33:18.260Z",
+  "inspectedThisRun": 19,
   "recheckedFromYesterday": 11,
-  "checkedFromCursor": 9,
+  "checkedFromCursor": 8,
   "skippedExcludedThisRun": 0,
   "unresolvedCollected": 11,
   "wrappedAround": false
