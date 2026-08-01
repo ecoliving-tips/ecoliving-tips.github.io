@@ -312,8 +312,8 @@ function setQualityNote(mode) {
 function setStep(id, state) {
     const el = document.getElementById(id);
     if (!el) return;
-    el.classList.remove('active', 'done');
-    if (state) el.classList.add(state);
+    el.classList.remove('active', 'completed', 'done');
+    if (state) el.classList.add(state === 'done' ? 'completed' : state);
 }
 
 function setProgressBar(pct) {
@@ -341,6 +341,7 @@ function resetVocalRemover() {
     hideSection('error-section');
     setProgressBar(0);
     ['step-reading', 'step-separating', 'step-done'].forEach(id => setStep(id, ''));
+
     prevBlobUrls.forEach(u => URL.revokeObjectURL(u));
     prevBlobUrls = [];
     resetStemCards();
