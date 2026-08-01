@@ -118,12 +118,12 @@ async function handleSeparate() {
         setStep('step-reading', 'done');
         setStep('step-separating', 'active');
 
-        // Fake progress from 10->85 over 10 min (typical Demucs CPU time)
+        // Fake progress: calibrated to ~0.8x song duration; reaches 85% in ~3-4 min
         fakeProgressTimer = setInterval(() => {
             const bar = document.getElementById('progress-bar');
             if (!bar) return;
             const cur = parseFloat(bar.style.width) || 10;
-            if (cur < 85) bar.style.width = (cur + 0.125) + '%';
+            if (cur < 85) bar.style.width = (cur + 0.35) + '%';
         }, 1000);
 
         let apiData = null;

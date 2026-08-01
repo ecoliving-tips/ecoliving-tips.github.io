@@ -112,7 +112,7 @@
     "vr_desc": "Upload any stereo audio file — vocals are separated from the instrumental in seconds, entirely in your browser.",
     "vr_button": "Separate Stems",
     "vr_step_reading": "Uploading & validating file...",
-    "vr_step_separating": "Separating with AI \u2014 this may take 5\u201310 minutes...",
+    "vr_step_separating": "Separating with AI \u2014 typically 2\u20135 minutes depending on song length...",
     "vr_step_done": "Done! All stems are ready.",
     "vr_error_mono": "Stereo audio required. This file appears to be mono — vocal removal needs separate left and right channels.",
     "vr_error_too_long": "Audio too long. Please use files under 10 minutes.",
