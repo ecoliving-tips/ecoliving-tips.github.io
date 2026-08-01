@@ -28,4 +28,9 @@
     <loc>https://ecoliving-tips.github.io/privacy-policy.html</loc>
     <lastmod>2026-05-17</lastmod>
   </url>
+  <url>
+    <loc>https://ecoliving-tips.github.io/vocal-remover.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <priority>0.90</priority>
+  </url>
 </urlset>

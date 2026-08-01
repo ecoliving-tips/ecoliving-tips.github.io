@@ -1,6 +1,6 @@
 // Swaram - Service Worker for Offline Support
 
-const CACHE_NAME = 'swaram-v4-security';
+const CACHE_NAME = 'swaram-v5-security';
 // Emergency switch: set true in a hotfix deploy to bypass cache usage.
 const EMERGENCY_DISABLE_CACHE = false;
 const STATIC_ASSETS = [
@@ -11,6 +11,8 @@ const STATIC_ASSETS = [
     '/chord-finder.html',
     '/chord-identifier.html',
     '/chord-progressions.html',
+    '/vocal-remover.html',
+    '/js/vocal-remover.js',
     '/js/chord-finder.js',
     '/js/chord-utils.js',
     '/js/chord-identifier.js',
