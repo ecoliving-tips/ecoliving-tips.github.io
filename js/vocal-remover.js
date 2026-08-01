@@ -24,6 +24,9 @@ const ALLOWED_UPLOAD_CONTENT_TYPES = new Set([
 let selectedFile = null;
 let prevBlobUrls = [];
 let fakeProgressTimer = null;
+let selectedFileDuration = null;
+let elapsedTimer = null;
+let separationStartTime = null;
 
 // ---------------------------------------------------------------------------
 // Init
@@ -79,6 +82,12 @@ function setSelectedFile(file) {
         return;
     }
     selectedFile = file;
+    selectedFileDuration = null;
+    const _probeUrl = URL.createObjectURL(file);
+    const _probe = new Audio();
+    _probe.onloadedmetadata = () => { selectedFileDuration = isFinite(_probe.duration) ? _probe.duration : null; URL.revokeObjectURL(_probeUrl); };
+    _probe.onerror = () => URL.revokeObjectURL(_probeUrl);
+    _probe.src = _probeUrl;
     const nameEl = document.getElementById('file-name');
     const selectedEl = document.getElementById('selected-file');
     if (nameEl) nameEl.textContent = file.name;
@@ -118,12 +127,17 @@ async function handleSeparate() {
         setStep('step-reading', 'done');
         setStep('step-separating', 'active');
 
-        // Fake progress: calibrated to ~0.8x song duration; reaches 85% in ~3-4 min
+        separationStartTime = Date.now();
+        const estSec = selectedFileDuration ? Math.round(selectedFileDuration * 0.72 + 30) : null;
+        startElapsedTimer(estSec);
+
+        // Rate calibrated to reach ~85% near the estimated completion time
+        const progressRate = estSec ? (75 / estSec) : 0.35;
         fakeProgressTimer = setInterval(() => {
             const bar = document.getElementById('progress-bar');
             if (!bar) return;
             const cur = parseFloat(bar.style.width) || 10;
-            if (cur < 85) bar.style.width = (cur + 0.35) + '%';
+            if (cur < 85) bar.style.width = (cur + progressRate) + '%';
         }, 1000);
 
         let apiData = null;
@@ -137,6 +151,7 @@ async function handleSeparate() {
 
         clearInterval(fakeProgressTimer);
         fakeProgressTimer = null;
+        stopElapsedTimer();
         setProgressBar(90);
         setStep('step-separating', 'done');
 
@@ -177,6 +192,7 @@ async function handleSeparate() {
     } catch (err) {
         clearInterval(fakeProgressTimer);
         fakeProgressTimer = null;
+        stopElapsedTimer();
         hideSection('progress-section');
         showError(err.message || 'Something went wrong. Please try a different file.');
     }
@@ -321,6 +337,26 @@ function setProgressBar(pct) {
     if (bar) bar.style.width = pct + '%';
 }
 
+function startElapsedTimer(estimatedSec) {
+    const timerEl = document.getElementById('sep-timer');
+    if (!timerEl) return;
+    function fmtSec(s) {
+        return `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+    }
+    function update() {
+        const elapsed = (Date.now() - separationStartTime) / 1000;
+        timerEl.textContent = estimatedSec
+            ? `${fmtSec(elapsed)} / ~${fmtSec(estimatedSec)}`
+            : fmtSec(elapsed);
+    }
+    update();
+    elapsedTimer = setInterval(update, 1000);
+}
+
+function stopElapsedTimer() {
+    if (elapsedTimer) { clearInterval(elapsedTimer); elapsedTimer = null; }
+}
+
 function showSection(id) { const el = document.getElementById(id); if (el) el.style.display = ''; }
 function hideSection(id) { const el = document.getElementById(id); if (el) el.style.display = 'none'; }
 
@@ -336,6 +372,9 @@ function hideError() { hideSection('error-section'); }
 function resetVocalRemover() {
     clearSelectedFile();
     if (fakeProgressTimer) { clearInterval(fakeProgressTimer); fakeProgressTimer = null; }
+    stopElapsedTimer();
+    const sepTimer = document.getElementById('sep-timer');
+    if (sepTimer) sepTimer.textContent = '';
     hideSection('progress-section');
     hideSection('results-section');
     hideSection('error-section');

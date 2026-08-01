@@ -304,7 +304,10 @@
                         </div>
                         <div class="progress-step" id="step-separating">
                             <div class="step-indicator"></div>
-                            <span data-i18n="vr_step_separating">Separating with AI — typically 2–5 minutes depending on song length...</span>
+                            <div>
+                                <span data-i18n="vr_step_separating">Separating with AI…</span>
+                                <span id="sep-timer" class="sep-timer"></span>
+                            </div>
                         </div>
                         <div class="progress-step" id="step-done">
                             <div class="step-indicator"></div>
@@ -348,7 +351,7 @@
                             </div>
                         </div>
                         <audio class="stem-audio" id="audio-original" controls preload="none"></audio>
-                        <a class="btn stem-download-btn" id="download-original" data-i18n="vr_download_original">Download Original</a>
+                        <a class="btn btn-secondary stem-download-btn" id="download-original" data-i18n="vr_download_original">Download Original</a>
                     </div>
 
                     <!-- Vocal Remover section -->
@@ -374,7 +377,7 @@
                                     </div>
                                 </div>
                                 <audio class="stem-audio" id="audio-instrumental" controls preload="none"></audio>
-                                <a class="btn stem-download-btn" id="download-instrumental" data-i18n="vr_download">Download MP3</a>
+                                <a class="btn btn-secondary stem-download-btn" id="download-instrumental" data-i18n="vr_download">Download MP3</a>
                             </div>
                             <div class="stem-card" id="stem-card-vocals">
                                 <div class="stem-card-header">
@@ -392,7 +395,7 @@
                                     </div>
                                 </div>
                                 <audio class="stem-audio" id="audio-vocals" controls preload="none"></audio>
-                                <a class="btn stem-download-btn" id="download-vocals" data-i18n="vr_download">Download MP3</a>
+                                <a class="btn btn-secondary stem-download-btn" id="download-vocals" data-i18n="vr_download">Download MP3</a>
                             </div>
                         </div>
                     </div>
@@ -423,7 +426,7 @@
                                     </div>
                                 </div>
                                 <audio class="stem-audio" id="audio-drums" controls preload="none"></audio>
-                                <a class="btn stem-download-btn" id="download-drums" data-i18n="vr_download">Download MP3</a>
+                                <a class="btn btn-secondary stem-download-btn" id="download-drums" data-i18n="vr_download">Download MP3</a>
                             </div>
                             <div class="stem-card" id="stem-card-bass">
                                 <div class="stem-card-header">
@@ -438,7 +441,7 @@
                                     </div>
                                 </div>
                                 <audio class="stem-audio" id="audio-bass" controls preload="none"></audio>
-                                <a class="btn stem-download-btn" id="download-bass" data-i18n="vr_download">Download MP3</a>
+                                <a class="btn btn-secondary stem-download-btn" id="download-bass" data-i18n="vr_download">Download MP3</a>
                             </div>
                             <div class="stem-card" id="stem-card-other">
                                 <div class="stem-card-header">
@@ -454,7 +457,7 @@
                                     </div>
                                 </div>
                                 <audio class="stem-audio" id="audio-other" controls preload="none"></audio>
-                                <a class="btn stem-download-btn" id="download-other" data-i18n="vr_download">Download MP3</a>
+                                <a class="btn btn-secondary stem-download-btn" id="download-other" data-i18n="vr_download">Download MP3</a>
                             </div>
                         </div>
                     </div>

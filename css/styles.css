@@ -2250,6 +2250,14 @@ footer {
     animation: fadeIn 0.4s ease;
 }
 
+.sep-timer {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--primary-light);
+    font-variant-numeric: tabular-nums;
+    margin-top: 0.2rem;
+}
+
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
