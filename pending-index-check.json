@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-07-31T06:33:18.261Z",
-  "totalInSitemap": 27817,
-  "excludedCount": 119,
-  "checkedThisRun": 19,
+  "generatedAt": "2026-08-01T06:17:22.591Z",
+  "totalInSitemap": 28353,
+  "excludedCount": 124,
+  "checkedThisRun": 16,
   "wrappedAround": false,
-  "nextCursorIndex": 130,
+  "nextCursorIndex": 135,
   "notIndexedCandidates": [
     {
       "url": "https://ecoliving-tips.github.io/chords/free-skillibeng-type-beat-x-dancehall-type-beat-scar-madenka/",
@@ -31,43 +31,43 @@
       "verdict": "NEUTRAL"
     },
     {
-      "url": "https://ecoliving-tips.github.io/chords/starky-is-this-how-it-ends-coffin-achemicalreaction/",
-      "coverageState": "URL is unknown to Google",
-      "lastCrawlTime": "never",
-      "verdict": "NEUTRAL"
-    },
-    {
-      "url": "https://ecoliving-tips.github.io/chords/lucy-in-the-sky-with-diamonds-remastered-2009-the-beatles/",
-      "coverageState": "URL is unknown to Google",
-      "lastCrawlTime": "never",
-      "verdict": "NEUTRAL"
-    },
-    {
-      "url": "https://ecoliving-tips.github.io/chords/cary-brothers-blue-eyes-as-heard-in-the-film-garden-state/",
-      "coverageState": "URL is unknown to Google",
-      "lastCrawlTime": "never",
-      "verdict": "NEUTRAL"
-    },
-    {
-      "url": "https://ecoliving-tips.github.io/chords/vita-alvia-i-love-mama-mantu-bilang-pa-mantu-cmp-label/",
-      "coverageState": "URL is unknown to Google",
-      "lastCrawlTime": "never",
-      "verdict": "NEUTRAL"
-    },
-    {
       "url": "https://ecoliving-tips.github.io/chords/dalangin-by-augmented-7th-music-pre-release-performance-for-sa-panahon-sa-kalisdanan-fb-live-official-augmented-seventh-music/",
       "coverageState": "URL is unknown to Google",
       "lastCrawlTime": "never",
       "verdict": "NEUTRAL"
     },
     {
-      "url": "https://ecoliving-tips.github.io/chords/khalil-fong-warnermusichk/",
+      "url": "https://ecoliving-tips.github.io/chords/made-for-two-albeit/",
       "coverageState": "URL is unknown to Google",
       "lastCrawlTime": "never",
       "verdict": "NEUTRAL"
     },
     {
-      "url": "https://ecoliving-tips.github.io/chords/made-for-two-albeit/",
+      "url": "https://ecoliving-tips.github.io/chords/ulysses-franz-ferdinand/",
+      "coverageState": "URL is unknown to Google",
+      "lastCrawlTime": "never",
+      "verdict": "NEUTRAL"
+    },
+    {
+      "url": "https://ecoliving-tips.github.io/chords/eylul-aksam-pilli-bebek/",
+      "coverageState": "URL is unknown to Google",
+      "lastCrawlTime": "never",
+      "verdict": "NEUTRAL"
+    },
+    {
+      "url": "https://ecoliving-tips.github.io/chords/he-venido-a-pedirte-perdon-juan-gabriel-letra-donato-alfredo-mendoza-vargas/",
+      "coverageState": "URL is unknown to Google",
+      "lastCrawlTime": "never",
+      "verdict": "NEUTRAL"
+    },
+    {
+      "url": "https://ecoliving-tips.github.io/chords/zaferlerim-demir-demirkan/",
+      "coverageState": "URL is unknown to Google",
+      "lastCrawlTime": "never",
+      "verdict": "NEUTRAL"
+    },
+    {
+      "url": "https://ecoliving-tips.github.io/chords/he-venido-a-pedirte-perdon-juan-gabriel-herbert-orjuela/",
       "coverageState": "URL is unknown to Google",
       "lastCrawlTime": "never",
       "verdict": "NEUTRAL"
