@@ -326,24 +326,23 @@
         <section class="generate-results" id="results-section" style="display:none;">
             <div class="container">
                 <div class="stem-results">
-                    <!-- Vocals stem card -->
-                    <div class="stem-card" id="stem-card-vocals">
+                    <!-- Original upload card -->
+                    <div class="stem-card" id="stem-card-original">
                         <div class="stem-card-header">
                             <div class="stem-icon">
                                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
-                                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-                                    <line x1="12" y1="19" x2="12" y2="23"/>
-                                    <line x1="8" y1="23" x2="16" y2="23"/>
+                                    <path d="M9 18V5l12-2v13"/>
+                                    <circle cx="6" cy="18" r="3"/>
+                                    <circle cx="18" cy="16" r="3"/>
                                 </svg>
                             </div>
                             <div>
-                                <h3 class="stem-title" data-i18n="vr_stem_vocals">Vocals</h3>
-                                <p class="stem-desc" data-i18n="vr_stem_vocals_desc">Center channel — vocals louder, instruments present</p>
+                                <h3 class="stem-title" data-i18n="vr_stem_original">Original</h3>
+                                <p class="stem-desc" data-i18n="vr_stem_original_desc">Your uploaded file — for comparison</p>
                             </div>
                         </div>
-                        <audio class="stem-audio" id="audio-vocals" controls preload="none"></audio>
-                        <a class="btn stem-download-btn" id="download-vocals" download="vocals.wav" data-i18n="vr_download">Download WAV</a>
+                        <audio class="stem-audio" id="audio-original" controls preload="none"></audio>
+                        <a class="btn stem-download-btn" id="download-original" data-i18n="vr_download">Download Original</a>
                     </div>
 
                     <!-- Instrumental stem card -->

@@ -128,7 +128,7 @@ async function handleRemove() {
         setStep('step-separating', 'active');
         setProgressBar(60);
 
-        const { vocalsBuffer, instrumentalBuffer } = separateStems(audioBuffer);
+        const { instrumentalBuffer } = separateStems(audioBuffer);
 
         setProgressBar(85);
 
@@ -136,13 +136,12 @@ async function handleRemove() {
         prevBlobUrls.forEach(u => URL.revokeObjectURL(u));
         prevBlobUrls = [];
 
-        const vocalsBlob = audioBufferToWav(vocalsBuffer);
+        const originalUrl = URL.createObjectURL(selectedFile);
         const instrumentalBlob = audioBufferToWav(instrumentalBuffer);
-        const vocalsUrl = URL.createObjectURL(vocalsBlob);
         const instrumentalUrl = URL.createObjectURL(instrumentalBlob);
-        prevBlobUrls.push(vocalsUrl, instrumentalUrl);
+        prevBlobUrls.push(originalUrl, instrumentalUrl);
 
-        wireResults(vocalsUrl, instrumentalUrl, selectedFile.name);
+        wireResults(originalUrl, instrumentalUrl, selectedFile.name);
 
         setStep('step-separating', 'done');
         setStep('step-done', 'done');
@@ -170,28 +169,22 @@ function separateStems(audioBuffer) {
     const len = audioBuffer.length;
     const sr = audioBuffer.sampleRate;
 
-    const vocalsData = new Float32Array(len);
     const instrL = new Float32Array(len);
     const instrR = new Float32Array(len);
 
     for (let i = 0; i < len; i++) {
         const center = (left[i] + right[i]) * 0.5;
-        vocalsData[i] = center;
         // Multiply by 2 to restore amplitude lost by the mid-side split
         instrL[i] = (left[i] - center) * 2;
         instrR[i] = (right[i] - center) * 2;
     }
 
-    const offlineCtx = new OfflineAudioContext(1, len, sr);
-    const vocalsBuffer = offlineCtx.createBuffer(1, len, sr);
-    vocalsBuffer.copyToChannel(vocalsData, 0);
-
-    const offlineCtx2 = new OfflineAudioContext(2, len, sr);
-    const instrumentalBuffer = offlineCtx2.createBuffer(2, len, sr);
+    const offlineCtx = new OfflineAudioContext(2, len, sr);
+    const instrumentalBuffer = offlineCtx.createBuffer(2, len, sr);
     instrumentalBuffer.copyToChannel(instrL, 0);
     instrumentalBuffer.copyToChannel(instrR, 1);
 
-    return { vocalsBuffer, instrumentalBuffer };
+    return { instrumentalBuffer };
 }
 
 // ---------------------------------------------------------------------------
@@ -238,13 +231,14 @@ function audioBufferToWav(buffer) {
 // ---------------------------------------------------------------------------
 // UI helpers
 // ---------------------------------------------------------------------------
-function wireResults(vocalsUrl, instrumentalUrl, originalName) {
+function wireResults(originalUrl, instrumentalUrl, originalName) {
     const base = originalName.replace(/\.[^.]+$/, '');
+    const ext = (originalName.match(/\.[^.]+$/) || ['.mp3'])[0];
 
-    const audioVocals = document.getElementById('audio-vocals');
-    const dlVocals = document.getElementById('download-vocals');
-    if (audioVocals) audioVocals.src = vocalsUrl;
-    if (dlVocals) { dlVocals.href = vocalsUrl; dlVocals.download = base + '-vocals.wav'; }
+    const audioOrig = document.getElementById('audio-original');
+    const dlOrig = document.getElementById('download-original');
+    if (audioOrig) audioOrig.src = originalUrl;
+    if (dlOrig) { dlOrig.href = originalUrl; dlOrig.download = originalName; }
 
     const audioInstr = document.getElementById('audio-instrumental');
     const dlInstr = document.getElementById('download-instrumental');
@@ -294,8 +288,8 @@ function resetVocalRemover() {
     ['step-reading', 'step-separating', 'step-done'].forEach(id => setStep(id, ''));
     prevBlobUrls.forEach(u => URL.revokeObjectURL(u));
     prevBlobUrls = [];
-    const audioVocals = document.getElementById('audio-vocals');
+    const audioOrig = document.getElementById('audio-original');
     const audioInstr = document.getElementById('audio-instrumental');
-    if (audioVocals) audioVocals.src = '';
+    if (audioOrig) audioOrig.src = '';
     if (audioInstr) audioInstr.src = '';
 }
