@@ -128,7 +128,8 @@ async function handleSeparate() {
         setStep('step-separating', 'active');
 
         separationStartTime = Date.now();
-        const estSec = selectedFileDuration ? Math.round(selectedFileDuration * 0.72 + 30) : null;
+        // 1× song duration slightly over-estimates (~0.82× actual), so it always finishes early
+        const estSec = selectedFileDuration ? Math.round(selectedFileDuration) : null;
         startElapsedTimer(estSec);
 
         // Rate calibrated to reach ~85% near the estimated completion time
