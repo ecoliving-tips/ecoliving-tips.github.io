@@ -177,8 +177,9 @@ function separateStems(audioBuffer) {
     for (let i = 0; i < len; i++) {
         const center = (left[i] + right[i]) * 0.5;
         vocalsData[i] = center;
-        instrL[i] = left[i] - center;
-        instrR[i] = right[i] - center;
+        // Multiply by 2 to restore amplitude lost by the mid-side split
+        instrL[i] = (left[i] - center) * 2;
+        instrR[i] = (right[i] - center) * 2;
     }
 
     const offlineCtx = new OfflineAudioContext(1, len, sr);

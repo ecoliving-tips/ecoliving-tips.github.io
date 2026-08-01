@@ -48,6 +48,66 @@
     <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
     <link rel="manifest" href="manifest.json">
 
+    <style>
+    .stem-results {
+        display: grid;
+        gap: 1.5rem;
+        margin: 2rem 0;
+    }
+    @media (min-width: 768px) {
+        .stem-results { grid-template-columns: 1fr 1fr; }
+    }
+    .stem-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .stem-card-header {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.875rem;
+    }
+    .stem-icon {
+        color: var(--primary);
+        flex-shrink: 0;
+        margin-top: 2px;
+    }
+    .stem-title {
+        font-size: 1.05rem;
+        font-weight: 600;
+        margin: 0 0 0.2rem;
+        color: var(--text);
+    }
+    .stem-desc {
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        margin: 0;
+    }
+    .stem-audio {
+        display: block;
+        width: 100%;
+        border-radius: var(--radius-sm);
+        accent-color: var(--primary);
+    }
+    .stem-download-btn {
+        display: block;
+        text-align: center;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .stem-quality-note {
+        text-align: center;
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        font-style: italic;
+        margin-top: 0.5rem;
+    }
+    </style>
+
     <meta name="swaram-ga-id" content="G-ZHLRN8B07Z">
     <meta name="google-adsense-account" content="ca-pub-7438590583270235">
     <script src="/js/head-bootstrap.js" defer></script>
@@ -279,7 +339,7 @@
                             </div>
                             <div>
                                 <h3 class="stem-title" data-i18n="vr_stem_vocals">Vocals</h3>
-                                <p class="stem-desc" data-i18n="vr_stem_vocals_desc">Isolated center channel</p>
+                                <p class="stem-desc" data-i18n="vr_stem_vocals_desc">Center channel — vocals louder, instruments present</p>
                             </div>
                         </div>
                         <audio class="stem-audio" id="audio-vocals" controls preload="none"></audio>
