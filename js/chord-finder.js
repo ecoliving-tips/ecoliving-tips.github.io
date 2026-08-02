@@ -423,20 +423,6 @@ async function _downloadAudioBlob(url) {
     }
 }
 
-/**
- * Duration guard — throws a _noRetry error if duration exceeds limit.
- */
-function _checkDuration(durationSec) {
-    if (durationSec && durationSec > MAX_DURATION_SEC) {
-        const mins = Math.floor(MAX_DURATION_SEC / 60);
-        const err = new Error(
-            `This video is too long. Please use videos under ${mins} minutes for best results.`
-        );
-        err._noRetry = true;
-        throw err;
-    }
-}
-
 // -- Tier 1: Piped API (with retry for transient 500s) -----------------------
 async function _tryPiped(videoId) {
     for (let i = 0; i < PIPED_INSTANCES.length; i++) {
@@ -458,8 +444,6 @@ async function _tryPiped(videoId) {
                 const data = await resp.json();
 
                 if (!data.audioStreams?.length) throw new Error('No audio streams');
-                _checkDuration(data.duration);
-
                 // Prefer itag 140 (M4A 128kbps), fallback to highest bitrate ≤160kbps
                 let stream = data.audioStreams.find(s => s.itag === 140);
                 if (!stream) {
@@ -514,11 +498,34 @@ function getAudioDuration(file) {
         const url = URL.createObjectURL(file);
         const audio = new Audio();
         audio.preload = 'metadata';
-        const cleanup = () => { URL.revokeObjectURL(url); audio.src = ''; };
-        audio.onloadedmetadata = () => { resolve(audio.duration); cleanup(); };
-        audio.onerror = () => { resolve(null); cleanup(); };
+        let settled = false;
+        const cleanup = () => {
+            URL.revokeObjectURL(url);
+            audio.removeAttribute('src');
+            audio.load();
+        };
+        const finish = (duration) => {
+            if (settled) return;
+            settled = true;
+            resolve(Number.isFinite(duration) && duration > 0 ? duration : null);
+            cleanup();
+        };
+        audio.onloadedmetadata = () => {
+            // Some formats briefly report Infinity/NaN before settling.
+            if (Number.isFinite(audio.duration) && audio.duration > 0) {
+                finish(audio.duration);
+                return;
+            }
+            setTimeout(() => finish(audio.duration), 250);
+        };
+        audio.ondurationchange = () => {
+            if (Number.isFinite(audio.duration) && audio.duration > 0) {
+                finish(audio.duration);
+            }
+        };
+        audio.onerror = () => { finish(null); };
         // Safety timeout — some formats may not fire events
-        setTimeout(() => { resolve(null); cleanup(); }, 5000);
+        setTimeout(() => { finish(null); }, 5000);
         audio.src = url;
     });
 }
@@ -533,20 +540,6 @@ async function handleGenerate() {
     if (!selectedFile && !videoId) {
         showError('Please upload an audio file or paste a YouTube link.');
         return;
-    }
-
-    // Duration check for uploaded files — don't waste time uploading overly long audio
-    if (selectedFile && !videoId) {
-        try {
-            const dur = await getAudioDuration(selectedFile);
-            if (dur && dur > MAX_DURATION_SEC) {
-                const mins = Math.floor(MAX_DURATION_SEC / 60);
-                showError(
-                    `This audio is too long. Please use files under ${mins} minutes for best results.`
-                );
-                return;
-            }
-        } catch { /* can't read duration — let backend handle it */ }
     }
 
     // Reset UI
@@ -727,7 +720,7 @@ async function callBackendAPI(file, youtubeUrl) {
     function mapFriendlyError(status, detail, retryAfterSec) {
         if (status === 400) {
             if (detail === 'invalid_audio_file') {
-                return 'Invalid audio file. Please upload a valid MP3/WAV/M4A/MP4/OGG/OPUS/FLAC/WebM file under 5 minutes.';
+                return 'Invalid audio file. Please upload a valid MP3/WAV/M4A/MP4/OGG/OPUS/FLAC/WebM file.';
             }
             return 'Invalid input. Please check file type, size, duration, or YouTube link and try again.';
         }
