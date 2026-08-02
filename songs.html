@@ -391,7 +391,7 @@
     <script src="js/songs.js" defer></script>
     <script src="js/browse-chords.js" defer></script>
     <script>
-    fetch('/chords/index.json').then(r => r.json()).then(function(entries) {
+    fetch('/chords/recent.json').then(r => r.json()).then(function(entries) {
         const row = document.getElementById('recently-added-row');
         if (!row) return;
         const recent = entries

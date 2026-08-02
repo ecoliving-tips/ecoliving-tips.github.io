@@ -1911,6 +1911,14 @@ async function main() {
         chordsIndex.sort((a, b) => a.t.localeCompare(b.t));
         fs.writeFileSync(path.join(ROOT, 'chords', 'index.json'), JSON.stringify(chordsIndex));
         console.log(`Generated chords/index.json with ${chordsIndex.length} entries.`);
+
+        // Lightweight index for recently-added widget (~3KB vs 5MB full index)
+        const recentJson = [...chordsIndex]
+            .sort((a, b) => (b.dt > a.dt ? 1 : b.dt < a.dt ? -1 : 0))
+            .slice(0, 50)
+            .map(({ t, a, s }) => ({ t, a, s }));
+        fs.writeFileSync(path.join(ROOT, 'chords', 'recent.json'), JSON.stringify(recentJson));
+        console.log(`Generated chords/recent.json with ${recentJson.length} entries.`);
     } catch (err) {
         console.warn(`[AI Chords] Skipped: ${err.message}`);
     }
