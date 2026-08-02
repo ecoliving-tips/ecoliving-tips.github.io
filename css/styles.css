@@ -4714,3 +4714,9 @@ footer {
     }
 }
 
+/* Reserve space before ad loads to prevent CLS */
+.ad-container {
+    min-height: 100px;
+    contain: layout;
+}
+
