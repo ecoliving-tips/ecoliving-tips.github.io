@@ -1406,7 +1406,8 @@ function generateHomepageRecentChords(aiChordPages) {
     fs.writeFileSync(indexHtmlPath, html);
 }
 
-function generateChordsBrowsePage(aiChordPages) {
+function generateChordsBrowsePage(aiChordPages) { // eslint-disable-line no-unused-vars
+    return; // browse.html is now a static redirect; no longer pre-rendered
     const browsePath = path.join(ROOT, 'chords', 'browse.html');
     if (!fs.existsSync(browsePath)) return;
     let html = fs.readFileSync(browsePath, 'utf-8');
@@ -1979,7 +1980,6 @@ async function main() {
     // Pre-render homepage featured songs + recent chords
     generateHomepageFeaturedSongs(songs);
     generateHomepageRecentChords(aiChordPages);
-    generateChordsBrowsePage(aiChordPages);
     console.log(`Pre-rendered index.html with ${Math.min(songs.length, 3)} featured song cards + 8 recent chords.`);
     console.log(`Pre-rendered chords/browse.html with ${aiChordPages.length} chord links (A-Z directory).`);
 
