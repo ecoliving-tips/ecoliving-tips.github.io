@@ -4720,3 +4720,9 @@ footer {
     contain: layout;
 }
 
+@media (max-width: 768px) {
+    .ad-container {
+        min-height: 250px;
+    }
+}
+
