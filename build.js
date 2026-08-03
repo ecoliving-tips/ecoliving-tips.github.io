@@ -74,6 +74,13 @@ function parseFrontmatter(content) {
 function formatChordContentHTML(content) {
     let html = '';
     const lines = content.split('\n');
+    let sectionCount = 0;
+    // Injected after 2nd section (e.g. after Chorus) — slot separate from the post-content unit
+    const MID_AD = '<div class="ad-container" style="text-align:center;margin:1.5rem auto;max-width:728px;">'
+        + '<ins class="adsbygoogle" style="display:block;text-align:center;"'
+        + ' data-ad-layout="in-article" data-ad-format="fluid"'
+        + ' data-ad-client="ca-pub-7438590583270235" data-ad-slot="3762874972"></ins>'
+        + '<script>(adsbygoogle=window.adsbygoogle||[]).push({});<\/script></div>\n';
 
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i].trim();
@@ -86,6 +93,8 @@ function formatChordContentHTML(content) {
         const sectionMatch = line.match(/^\{(.+)\}$/);
         if (sectionMatch) {
             html += `<h3 class="section-label">${escapeHtml(sectionMatch[1])}</h3>\n`;
+            sectionCount++;
+            if (sectionCount === 2) html += MID_AD;
             continue;
         }
 
