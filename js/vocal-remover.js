@@ -358,7 +358,17 @@ function stopElapsedTimer() {
     if (elapsedTimer) { clearInterval(elapsedTimer); elapsedTimer = null; }
 }
 
-function showSection(id) { const el = document.getElementById(id); if (el) el.style.display = ''; }
+function showSection(id) {
+    const el = document.getElementById(id);
+    if (el) el.style.display = '';
+    // Push loading screen ad once when progress-section becomes visible
+    if (id === 'progress-section') {
+        const adSlot = el && el.querySelector('ins.adsbygoogle');
+        if (adSlot && !adSlot.getAttribute('data-adsbygoogle-status')) {
+            (window.adsbygoogle = window.adsbygoogle || []).push({});
+        }
+    }
+}
 function hideSection(id) { const el = document.getElementById(id); if (el) el.style.display = 'none'; }
 
 function showError(msg) {

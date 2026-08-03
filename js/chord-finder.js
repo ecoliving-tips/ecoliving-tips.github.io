@@ -1301,7 +1301,14 @@ function applyTranspose(delta) {
 // ---------------------------------------------------------------------------
 function showProgress() {
     const section = document.getElementById('progress-section');
-    if (section) section.style.display = '';
+    if (section) {
+        section.style.display = '';
+        // Push once when section first becomes visible
+        const adSlot = section.querySelector('ins.adsbygoogle');
+        if (adSlot && !adSlot.getAttribute('data-adsbygoogle-status')) {
+            (window.adsbygoogle = window.adsbygoogle || []).push({});
+        }
+    }
     ['step-analyze', 'step-done'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.classList.remove('active', 'completed');
