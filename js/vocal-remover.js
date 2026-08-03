@@ -361,11 +361,13 @@ function stopElapsedTimer() {
 function showSection(id) {
     const el = document.getElementById(id);
     if (el) el.style.display = '';
-    // Push loading screen ad once when progress-section becomes visible
+    // Push loading screen ad once when progress-section becomes visible; rAF ensures layout is computed first
     if (id === 'progress-section') {
         const adSlot = el && el.querySelector('ins.adsbygoogle');
         if (adSlot && !adSlot.getAttribute('data-adsbygoogle-status')) {
-            (window.adsbygoogle = window.adsbygoogle || []).push({});
+            requestAnimationFrame(function() {
+                (window.adsbygoogle = window.adsbygoogle || []).push({});
+            });
         }
     }
 }
