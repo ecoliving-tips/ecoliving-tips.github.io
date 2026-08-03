@@ -1303,10 +1303,17 @@ function showProgress() {
     const section = document.getElementById('progress-section');
     if (section) {
         section.style.display = '';
-        // Force synchronous reflow so browser computes container dimensions before AdSense measures availableWidth
-        const adSlot = section.querySelector('ins.adsbygoogle');
-        if (adSlot && !adSlot.getAttribute('data-adsbygoogle-status')) {
-            void adSlot.offsetWidth;
+        // Inject ins element after section is visible — push() on display:none causes availableWidth=0
+        const adContainer = section.querySelector('.loading-ad-container');
+        if (adContainer && !adContainer.querySelector('ins')) {
+            const ins = document.createElement('ins');
+            ins.className = 'adsbygoogle';
+            ins.style.display = 'block';
+            ins.setAttribute('data-ad-client', 'ca-pub-7438590583270235');
+            ins.setAttribute('data-ad-slot', '7291819152');
+            ins.setAttribute('data-ad-format', 'auto');
+            ins.setAttribute('data-full-width-responsive', 'true');
+            adContainer.appendChild(ins);
             (window.adsbygoogle = window.adsbygoogle || []).push({});
         }
     }
