@@ -1389,13 +1389,21 @@ function generateHomepageRecentChords(aiChordPages) {
         .sort((a, b) => (b.created_at || '').localeCompare(a.created_at || ''));
     const recent = sorted.slice(0, 8);
 
-    const cards = recent.map(entry => {
+    const IN_FEED_AD = `                    <div class="recently-added-card" style="padding:0;overflow:hidden;">`
+        + `<ins class="adsbygoogle" style="display:block" data-ad-format="fluid"`
+        + ` data-ad-layout-key="-dw-26-o-69+rj" data-ad-client="ca-pub-7438590583270235"`
+        + ` data-ad-slot="6173198662"></ins>`
+        + `<script>(adsbygoogle = window.adsbygoogle || []).push({});</` + `script></div>`;
+
+    const cards = recent.map((entry, i) => {
         const title = (entry.title || entry.slug).replace(/</g, '&lt;');
         const artist = (entry.artist || '').replace(/</g, '&lt;');
-        return `                    <a class="recently-added-card" href="/chords/${entry.slug}/">`
+        const card = `                    <a class="recently-added-card" href="/chords/${entry.slug}/">`
             + `<div class="ra-title">${title}</div>`
             + (artist ? `<div class="ra-artist">${artist}</div>` : '')
             + `</a>`;
+        // Inject in-feed ad as 5th card (after index 3)
+        return i === 3 ? card + '\n' + IN_FEED_AD : card;
     }).join('\n');
 
     html = html.replace(
