@@ -80,7 +80,7 @@ If ranking or ad revenue drops after changes:
 - sitemap.xml and child sitemaps
 - index-status.json
 - index-excluded.json
-- pending-index-check.json
+- index-check-state.json
 - Optional GSC URL export CSV
 
 ## Success Metrics

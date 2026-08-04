@@ -30,7 +30,6 @@ rank-unindexed.js
 index-status.json
 indexnow-progress.json
 url-priority.json
-recheck-next-run.json
 .playwright-mcp/
 .claude/
 tools/

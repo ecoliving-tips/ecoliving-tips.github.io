@@ -1657,6 +1657,25 @@ function extractVideoIdFromEntry(entry) {
     return entry.video_id || '';
 }
 
+function compareRelatedEntries(a, b) {
+    const slugCmp = (a.slug || '').localeCompare(b.slug || '');
+    if (slugCmp !== 0) return slugCmp;
+
+    const titleCmp = (a.title || '').localeCompare(b.title || '');
+    if (titleCmp !== 0) return titleCmp;
+
+    return (a.artist || '').localeCompare(b.artist || '');
+}
+
+function selectStableRelatedEntries(entries, currentSlug, limit) {
+    if (!entries || entries.length === 0 || limit <= 0) return [];
+
+    const sorted = [...entries].sort(compareRelatedEntries);
+    const pivotIndex = sorted.findIndex(item => (item.slug || '').localeCompare(currentSlug) > 0);
+    const startIndex = pivotIndex >= 0 ? pivotIndex : 0;
+    return [...sorted.slice(startIndex), ...sorted.slice(0, startIndex)].slice(0, limit);
+}
+
 /**
  * Generate a static AI chord page at /chords/{slug}/index.html
  */
@@ -1773,7 +1792,13 @@ function generateChordsPage(entry, templates, aiChordPages, difficultyMap) {
         const sameArtist = aiChordPages.filter(o => o.slug !== slug && o.artist && o.artist === entry.artist);
         const sameDifficulty = aiChordPages.filter(o => o.slug !== slug && o.artist !== entry.artist &&
             difficultyMap.get(o.slug) === beginnerDifficulty);
-        const related = [...sameArtist.slice(0, 3), ...sameDifficulty.slice(0, 5 - Math.min(sameArtist.length, 3))].slice(0, 5);
+        const stableArtistMatches = selectStableRelatedEntries(sameArtist, slug, 3);
+        const stableDifficultyMatches = selectStableRelatedEntries(
+            sameDifficulty,
+            slug,
+            5 - Math.min(stableArtistMatches.length, 3)
+        );
+        const related = [...stableArtistMatches, ...stableDifficultyMatches].slice(0, 5);
         if (related.length > 0) {
             const links = related.map(r => {
                 const rTitle = escapeHtml(r.title || r.slug);
