@@ -79,29 +79,11 @@ jobs:
           else
             echo "- **New chord pages:** ${TOTAL_CHANGED}" >> $GITHUB_STEP_SUMMARY
           fi
-          if [ -f pending-index-check.json ]; then
-            node -e "
-              const p = require('./pending-index-check.json');
-              const candidates = Array.isArray(p.notIndexedCandidates) ? p.notIndexedCandidates : [];
-              console.log('');
-              console.log('### Google Index Spot Check');
-              console.log('');
-              console.log('- **Sitemap URLs:** ' + (p.totalInSitemap || 0));
-              console.log('- **Excluded (indexed/crawled):** ' + (p.excludedCount || 0));
-              console.log('- **Checked this run:** ' + (p.checkedThisRun || 0));
-              console.log('- **Need manual submission:** ' + candidates.length);
-              if (candidates.length > 0) {
-                console.log('');
-                console.log('### Submit These URLs in GSC Today');
-                console.log('');
-                console.log('Open [Google Search Console](https://search.google.com/search-console), go to URL Inspection, paste each URL and click **Request Indexing** (quota: 11/day):');
-                console.log('');
-                candidates.forEach((entry, i) => {
-                  console.log((i+1) + '. \`' + entry.url + '\`');
-                  console.log('   Status: ' + (entry.coverageState || 'N/A') + ' | Last crawl: ' + (entry.lastCrawlTime || 'never'));
-                });
-              }
-            " >> $GITHUB_STEP_SUMMARY
+          if [ -f index-check-state.json ]; then
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### Google Index Spot Check" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            node check-google-index.js --summary >> $GITHUB_STEP_SUMMARY
           fi
 
       - name: Commit and push if changed
