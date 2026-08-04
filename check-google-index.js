@@ -1,12 +1,14 @@
 /**
- * Google Search Console URL Inspection - Incremental Checker
+ * GSC Daily URL Selector (simple cursor + exclusion)
  *
- * Daily behavior:
- * 1) Iterate sitemap URLs one-by-one from a saved cursor.
- * 2) Skip URLs already resolved (indexed or crawled).
- * 3) Re-check unresolved backlog (oldest first) before checking new cursor URLs.
- * 4) Fill remaining slots from sitemap cursor order.
- * 5) Stop as soon as we collect 11 unresolved, not-crawled URLs.
+ * Behavior:
+ * 1) Walk sitemap URLs in strict order from saved cursor.
+ * 2) Inspect each URL with GSC URL Inspection API.
+ * 3) If URL is indexed/crawled, add it to exclusion and skip it.
+ * 4) Collect next 11 unresolved URLs for manual submission.
+ * 5) Save only cursor + exclusion updates.
+ *
+ * No recheck queue. No pending workflow.
  *
  * Usage:
  *   node check-google-index.js
@@ -20,13 +22,10 @@ const path = require('path');
 
 const KEY_PATH = path.join(__dirname, 'google-indexing-key.json');
 const SITEMAP_PATH = path.join(__dirname, 'sitemap.xml');
-const RESULTS_PATH = path.join(__dirname, 'index-status.json');
-const EXCLUDED_PATH = path.join(__dirname, 'index-excluded.json');
 const STATE_PATH = path.join(__dirname, 'index-check-state.json');
-const RECHECK_PATH = path.join(__dirname, 'recheck-next-run.json');
-const PENDING_PATH = path.join(__dirname, 'pending-index-check.json');
+const EXCLUDED_PATH = path.join(__dirname, 'index-excluded.json');
+const RESULTS_PATH = path.join(__dirname, 'index-status.json');
 const SITE_URL = 'https://ecoliving-tips.github.io/';
-
 const DAILY_TARGET = 11;
 const REQUEST_DELAY_MS = 1200;
 
@@ -43,15 +42,20 @@ function saveJson(filePath, data) {
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
 }
 
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 function loadServiceAccountKey() {
   if (!fs.existsSync(KEY_PATH)) {
-    console.error('ERROR: google-indexing-key.json not found.');
-    process.exit(1);
+    throw new Error('google-indexing-key.json not found.');
   }
   return JSON.parse(fs.readFileSync(KEY_PATH, 'utf-8'));
 }
 
 function getUrlsFromSitemap() {
+  if (!fs.existsSync(SITEMAP_PATH)) return [];
+
   const indexXml = fs.readFileSync(SITEMAP_PATH, 'utf-8');
   const urls = [];
 
@@ -78,18 +82,7 @@ function getUrlsFromSitemap() {
     }
   }
 
-  return urls;
-}
-
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-function isResolved(entry) {
-  if (!entry) return false;
-  if (entry.verdict === 'PASS') return true;
-  const coverage = (entry.coverageState || '').toLowerCase();
-  return coverage.includes('crawled');
+  return uniqueUrls(urls);
 }
 
 function uniqueUrls(urls) {
@@ -104,18 +97,11 @@ function uniqueUrls(urls) {
   return out;
 }
 
-function getUnresolvedBacklog(results, excluded) {
-  const unresolved = [];
-
-  for (const [url, entry] of Object.entries(results)) {
-    if (excluded.has(url)) continue;
-    if (isResolved(entry)) continue;
-    const checkedAt = entry?.checkedAt ? Date.parse(entry.checkedAt) : Number.POSITIVE_INFINITY;
-    unresolved.push({ url, checkedAt });
-  }
-
-  unresolved.sort((a, b) => a.checkedAt - b.checkedAt);
-  return unresolved.map((item) => item.url);
+function isResolved(entry) {
+  if (!entry) return false;
+  if (entry.verdict === 'PASS') return true;
+  const coverage = (entry.coverageState || '').toLowerCase();
+  return coverage.includes('crawled');
 }
 
 function createJWT(serviceAccount) {
@@ -220,220 +206,146 @@ class TokenManager {
   }
 }
 
-function writePendingSummary(allUrls, excluded, batch, checkedThisRun, wrappedAround, cursor) {
-  const results = loadJson(RESULTS_PATH, {});
-  const candidates = batch.map((url) => {
-    const entry = results[url] || {};
-    return {
-      url,
-      coverageState: entry.coverageState || 'N/A',
-      lastCrawlTime: entry.lastCrawlTime || 'never',
-      verdict: entry.verdict || 'UNKNOWN',
-    };
-  });
-
-  saveJson(PENDING_PATH, {
-    generatedAt: new Date().toISOString(),
-    totalInSitemap: allUrls.length,
-    excludedCount: excluded.size,
-    checkedThisRun,
-    wrappedAround,
-    nextCursorIndex: cursor,
-    notIndexedCandidates: candidates,
-  });
+function normalizeCursor(cursor, total) {
+  if (total <= 0) return 0;
+  const n = Number.isInteger(cursor) ? cursor : Number.parseInt(cursor, 10);
+  if (!Number.isFinite(n)) return 0;
+  return ((n % total) + total) % total;
 }
 
-function printSummaryOnly() {
-  const p = loadJson(PENDING_PATH, null);
-  if (!p) {
-    console.log('No pending-index-check.json found yet. Run without --summary first.');
+function printBatch(batch, startIndex, nextIndex, total, wrappedAround) {
+  console.log('Total sitemap URLs:      ' + total);
+  console.log('Start cursor index:      ' + startIndex);
+  console.log('Next cursor index:       ' + nextIndex);
+  console.log('Batch size:              ' + batch.length);
+  console.log('Wrapped around:          ' + (wrappedAround ? 'yes' : 'no'));
+
+  if (batch.length === 0) {
+    console.log('\nNo URLs available in sitemap.');
     return;
   }
 
-  const candidates = Array.isArray(p.notIndexedCandidates) ? p.notIndexedCandidates : [];
-  console.log('Sitemap URLs:            ' + (p.totalInSitemap || 0));
-  console.log('Excluded (resolved):     ' + (p.excludedCount || 0));
-  console.log('Checked in last run:     ' + (p.checkedThisRun || 0));
-  console.log('Need manual submission:  ' + candidates.length);
-
-  if (candidates.length > 0) {
-    console.log('\n--- Current 11 URLs to Submit ---');
-    for (let i = 0; i < candidates.length; i++) {
-      const entry = candidates[i];
-      console.log((i + 1) + '. ' + entry.url);
-      console.log('   Status: ' + (entry.coverageState || 'N/A') + ' | Last crawl: ' + (entry.lastCrawlTime || 'never'));
-    }
+  console.log('\n--- 11 URLs for GSC Submission ---');
+  for (let i = 0; i < batch.length; i++) {
+    console.log((i + 1) + '. ' + batch[i]);
   }
 }
 
 async function main() {
-  if (process.argv.includes('--summary')) {
-    printSummaryOnly();
-    return;
-  }
-
+  const summaryOnly = process.argv.includes('--summary');
   const allUrls = getUrlsFromSitemap();
+  const excluded = new Set(loadJson(EXCLUDED_PATH, []));
+  const results = loadJson(RESULTS_PATH, {});
+  const state = loadJson(STATE_PATH, { nextIndex: 0 });
+  const startIndex = normalizeCursor(state.nextIndex, allUrls.length || 1);
+
   if (allUrls.length === 0) {
     console.log('No URLs found in sitemap.xml');
-    saveJson(RECHECK_PATH, []);
-    saveJson(PENDING_PATH, {
-      generatedAt: new Date().toISOString(),
-      totalInSitemap: 0,
-      excludedCount: 0,
-      checkedThisRun: 0,
-      wrappedAround: false,
-      nextCursorIndex: 0,
-      notIndexedCandidates: [],
+    saveJson(STATE_PATH, {
+      nextIndex: 0,
+      updatedAt: new Date().toISOString(),
+      totalUrls: 0,
+      batchSize: 0,
     });
     return;
   }
 
-  const results = loadJson(RESULTS_PATH, {});
-  const excluded = new Set(loadJson(EXCLUDED_PATH, []));
-  const unresolvedFromYesterday = uniqueUrls(loadJson(RECHECK_PATH, []));
-  const unresolvedBacklog = getUnresolvedBacklog(results, excluded);
-  const carryOverQueue = uniqueUrls([...unresolvedBacklog, ...unresolvedFromYesterday]);
-  const state = loadJson(STATE_PATH, { nextIndex: 0 });
-
-  let cursor = Number.isInteger(state.nextIndex) ? state.nextIndex : 0;
-  if (cursor < 0 || cursor >= allUrls.length) cursor = 0;
+  if (summaryOnly) {
+    console.log('Summary mode does not call GSC API.');
+    console.log('Current cursor index:    ' + startIndex);
+    console.log('Excluded URLs:           ' + excluded.size);
+    console.log('Run without --summary to generate a fresh checked batch.');
+    return;
+  }
 
   const serviceAccount = loadServiceAccountKey();
-  console.log('Service account: ' + serviceAccount.client_email + '\n');
-
-  console.log('Authenticating...');
   const tokenManager = new TokenManager(serviceAccount);
   await tokenManager.getToken();
-  console.log('Authenticated.\n');
-
-  console.log('Total URLs in sitemap:   ' + allUrls.length);
-  console.log('Already excluded:        ' + excluded.size + ' (indexed or crawled)');
-  console.log('Unresolved backlog:      ' + unresolvedBacklog.length);
-  console.log('Carry-over queue size:   ' + carryOverQueue.length);
-  console.log('Starting cursor index:   ' + cursor);
-  console.log('Target unresolved URLs:  ' + DAILY_TARGET + '\n');
 
   const batch = [];
-  const batchSet = new Set();
-  let inspectedCount = 0;
-  let errorCount = 0;
+  let cursor = startIndex;
+  let scanned = 0;
+  let wrappedAround = false;
+  let resolvedAdded = 0;
   let skippedExcluded = 0;
-  let wrapped = false;
-  let recheckedFromYesterday = 0;
-  let checkedFromCursor = 0;
-  let rateLimited = false;
+  let errorCount = 0;
 
-  async function inspectAndRecord(url, sourceLabel) {
-    inspectedCount++;
+  while (batch.length < DAILY_TARGET && scanned < allUrls.length) {
+    const url = allUrls[cursor];
+    cursor = (cursor + 1) % allUrls.length;
+    if (cursor === 0) wrappedAround = true;
+    scanned++;
+
+    if (excluded.has(url)) {
+      skippedExcluded++;
+      continue;
+    }
 
     try {
       const token = await tokenManager.getToken();
       const response = await inspectUrl(url, token);
 
-      if (response.statusCode === 200) {
-        const payload = JSON.parse(response.body);
-        const inspection = payload.inspectionResult?.indexStatusResult || {};
-        const entry = {
-          verdict: inspection.verdict || 'UNKNOWN',
-          coverageState: inspection.coverageState || 'N/A',
-          lastCrawlTime: inspection.lastCrawlTime || null,
-          crawledAs: inspection.crawledAs || 'N/A',
-          checkedAt: new Date().toISOString(),
-        };
-
-        results[url] = entry;
-
-        if (isResolved(entry)) {
-          excluded.add(url);
-          console.log('[' + inspectedCount + '] SKIP  | ' + sourceLabel + ' | ' + entry.coverageState + ' | ' + url);
-        } else if (!batchSet.has(url) && batch.length < DAILY_TARGET) {
-          batch.push(url);
-          batchSet.add(url);
-          console.log('[' + inspectedCount + '] KEEP  | ' + sourceLabel + ' | ' + entry.coverageState + ' | ' + url);
-        }
-      } else if (response.statusCode === 429) {
-        console.log('[' + inspectedCount + '] RATE LIMIT | saving progress and stopping.');
-        errorCount++;
-        rateLimited = true;
-      } else {
+      if (response.statusCode !== 200) {
         let message = response.body;
         try {
           message = JSON.parse(response.body).error?.message || message;
         } catch {
           // Keep raw message.
         }
-        console.log('[' + inspectedCount + '] ERR (' + response.statusCode + ') | ' + sourceLabel + ' | ' + url + ' - ' + message);
+        console.log('ERR (' + response.statusCode + ') | ' + url + ' - ' + message);
         errorCount++;
+        break;
+      }
+
+      const payload = JSON.parse(response.body);
+      const inspection = payload.inspectionResult?.indexStatusResult || {};
+      const entry = {
+        verdict: inspection.verdict || 'UNKNOWN',
+        coverageState: inspection.coverageState || 'N/A',
+        lastCrawlTime: inspection.lastCrawlTime || null,
+        crawledAs: inspection.crawledAs || 'N/A',
+        checkedAt: new Date().toISOString(),
+      };
+      results[url] = entry;
+
+      if (isResolved(entry)) {
+        excluded.add(url);
+        resolvedAdded++;
+        console.log('SKIP  | resolved | ' + entry.coverageState + ' | ' + url);
+      } else {
+        batch.push(url);
+        console.log('KEEP  | unresolved | ' + entry.coverageState + ' | ' + url);
+      }
+
+      saveJson(RESULTS_PATH, results);
+      saveJson(EXCLUDED_PATH, Array.from(excluded));
+
+      if (batch.length < DAILY_TARGET) {
+        await sleep(REQUEST_DELAY_MS);
       }
     } catch (error) {
-      console.log('[' + inspectedCount + '] ERR | ' + sourceLabel + ' | ' + url + ' - ' + error.message);
+      console.log('ERR | ' + url + ' - ' + error.message);
       errorCount++;
-    }
-
-    saveJson(RESULTS_PATH, results);
-    saveJson(EXCLUDED_PATH, Array.from(excluded));
-  }
-
-  // Phase 1: Re-check unresolved carry-over queue in order.
-  for (const url of carryOverQueue) {
-    if (batch.length >= DAILY_TARGET || rateLimited) break;
-    if (excluded.has(url)) {
-      skippedExcluded++;
-      continue;
-    }
-
-    recheckedFromYesterday++;
-    await inspectAndRecord(url, 'recheck');
-
-    if (batch.length < DAILY_TARGET && !rateLimited) {
-      await sleep(REQUEST_DELAY_MS);
+      break;
     }
   }
 
-  // Phase 2: Fill remaining slots by walking sitemap cursor one-by-one.
-  while (batch.length < DAILY_TARGET && checkedFromCursor < allUrls.length && !rateLimited) {
-    const url = allUrls[cursor];
-    cursor = (cursor + 1) % allUrls.length;
-    if (cursor === 0) wrapped = true;
+  printBatch(batch, startIndex, cursor, allUrls.length, wrappedAround);
 
-    if (excluded.has(url) || batchSet.has(url)) {
-      skippedExcluded++;
-      continue;
-    }
-
-    checkedFromCursor++;
-    await inspectAndRecord(url, 'cursor');
-
-    if (batch.length < DAILY_TARGET && checkedFromCursor < allUrls.length && !rateLimited) {
-      await sleep(REQUEST_DELAY_MS);
-    }
-  }
-
-  saveJson(RECHECK_PATH, batch);
   saveJson(STATE_PATH, {
     nextIndex: cursor,
-    checkedAt: new Date().toISOString(),
-    inspectedThisRun: inspectedCount,
-    recheckedFromYesterday,
-    checkedFromCursor,
-    skippedExcludedThisRun: skippedExcluded,
-    unresolvedCollected: batch.length,
-    wrappedAround: wrapped,
+    updatedAt: new Date().toISOString(),
+    totalUrls: allUrls.length,
+    batchSize: batch.length,
+    scannedThisRun: scanned,
+    skippedExcluded,
+    resolvedAddedToExclusion: resolvedAdded,
+    errors: errorCount,
+    wrappedAround,
   });
 
-  writePendingSummary(allUrls, excluded, batch, inspectedCount, wrapped, cursor);
-
-  console.log('\n--- Summary ---');
-  console.log('Inspected this run:      ' + inspectedCount);
-  console.log('Rechecked carry-over:    ' + recheckedFromYesterday);
-  console.log('Checked from cursor:     ' + checkedFromCursor);
-  console.log('Skipped (excluded):      ' + skippedExcluded);
-  console.log('Unresolved collected:    ' + batch.length + '/' + DAILY_TARGET);
-  console.log('Errors:                  ' + errorCount);
-  console.log('Next cursor index:       ' + cursor);
-  console.log('Total excluded:          ' + excluded.size);
-  console.log('Saved batch file:        recheck-next-run.json');
-  console.log('Saved summary file:      pending-index-check.json');
+  console.log('\nSaved cursor state:      index-check-state.json');
+  console.log('Updated exclusion file:  index-excluded.json');
 }
 
 main().catch((error) => {

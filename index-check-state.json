@@ -1,10 +1,7 @@
 {
-  "nextIndex": 146,
-  "checkedAt": "2026-08-04T06:14:11.132Z",
-  "inspectedThisRun": 11,
-  "recheckedFromYesterday": 11,
-  "checkedFromCursor": 0,
-  "skippedExcludedThisRun": 0,
-  "unresolvedCollected": 11,
+  "nextIndex": 157,
+  "updatedAt": "2026-08-04T08:33:06.362Z",
+  "totalUrls": 29889,
+  "batchSize": 11,
   "wrappedAround": false
 }
