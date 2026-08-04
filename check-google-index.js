@@ -231,6 +231,49 @@ function printBatch(batch, startIndex, nextIndex, total, wrappedAround) {
   }
 }
 
+function getPreviewBatch(allUrls, excluded, startIndex, size) {
+  const batch = [];
+  if (allUrls.length === 0 || size <= 0) {
+    return { batch, nextIndex: 0, wrappedAround: false, scanned: 0 };
+  }
+
+  let cursor = startIndex;
+  let scanned = 0;
+  let wrappedAround = false;
+
+  while (batch.length < size && scanned < allUrls.length) {
+    const url = allUrls[cursor];
+    cursor = (cursor + 1) % allUrls.length;
+    if (cursor === 0) wrappedAround = true;
+    scanned++;
+
+    if (excluded.has(url)) {
+      continue;
+    }
+
+    batch.push(url);
+  }
+
+  return { batch, nextIndex: cursor, wrappedAround, scanned };
+}
+
+function printSummaryBatch(batch, results) {
+  if (batch.length === 0) {
+    console.log('\nNo unresolved URLs found from current cursor.');
+    return;
+  }
+
+  console.log('\n--- 11 URLs for GSC Submission (Preview) ---');
+  for (let i = 0; i < batch.length; i++) {
+    const url = batch[i];
+    const entry = results[url] || {};
+    const coverageState = entry.coverageState || 'N/A';
+    const lastCrawlTime = entry.lastCrawlTime || 'never';
+    console.log((i + 1) + '. ' + url);
+    console.log('   Status: ' + coverageState + ' | Last crawl: ' + lastCrawlTime);
+  }
+}
+
 async function main() {
   const summaryOnly = process.argv.includes('--summary');
   const allUrls = getUrlsFromSitemap();
@@ -254,7 +297,11 @@ async function main() {
     console.log('Summary mode does not call GSC API.');
     console.log('Current cursor index:    ' + startIndex);
     console.log('Excluded URLs:           ' + excluded.size);
-    console.log('Run without --summary to generate a fresh checked batch.');
+    const preview = getPreviewBatch(allUrls, excluded, startIndex, DAILY_TARGET);
+    console.log('Scanned for preview:     ' + preview.scanned);
+    console.log('Preview next index:      ' + preview.nextIndex);
+    console.log('Wrapped around:          ' + (preview.wrappedAround ? 'yes' : 'no'));
+    printSummaryBatch(preview.batch, results);
     return;
   }
 
