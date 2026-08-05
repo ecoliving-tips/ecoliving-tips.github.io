@@ -27,6 +27,7 @@ let fakeProgressTimer = null;
 let selectedFileDuration = null;
 let elapsedTimer = null;
 let separationStartTime = null;
+let isSeparating = false;
 
 // ---------------------------------------------------------------------------
 // Init
@@ -109,7 +110,10 @@ function clearSelectedFile() {
 // Main handler
 // ---------------------------------------------------------------------------
 async function handleSeparate() {
+    if (isSeparating) return;
     if (!selectedFile) { showError('Please upload an audio file first.'); return; }
+    isSeparating = true;
+    setBusyState(true);
     hideError();
     showSection('progress-section');
     hideSection('results-section');
@@ -196,6 +200,9 @@ async function handleSeparate() {
         stopElapsedTimer();
         hideSection('progress-section');
         showError(err.message || 'Something went wrong. Please try a different file.');
+    } finally {
+        isSeparating = false;
+        setBusyState(false);
     }
 }
 
@@ -388,8 +395,17 @@ function showError(msg) {
 
 function hideError() { hideSection('error-section'); }
 
+function setBusyState(isBusy) {
+    const removeBtn = document.getElementById('remove-btn');
+    const fileInput = document.getElementById('file-input');
+    if (removeBtn) removeBtn.disabled = isBusy;
+    if (fileInput) fileInput.disabled = isBusy;
+}
+
 function resetVocalRemover() {
     clearSelectedFile();
+    isSeparating = false;
+    setBusyState(false);
     if (fakeProgressTimer) { clearInterval(fakeProgressTimer); fakeProgressTimer = null; }
     stopElapsedTimer();
     const sepTimer = document.getElementById('sep-timer');
