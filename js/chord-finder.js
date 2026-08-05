@@ -1424,9 +1424,13 @@ function _lsCacheSet(videoId, data) {
     try { localStorage.setItem(_lsCacheKey(videoId), JSON.stringify({ ts: Date.now(), data })); } catch { /* storage full */ }
 }
 
+// Supabase reads resume after the billing cycle resets on Aug 16 2026
+const SUPABASE_READ_RESUME_DATE = new Date('2026-08-16T00:00:00Z');
+
 async function checkChordCache(videoId) {
     const local = _lsCacheGet(videoId);
     if (local) { console.log(`[Cache] localStorage hit for ${videoId}`); return local; }
+    if (Date.now() < SUPABASE_READ_RESUME_DATE.getTime()) return null; // egress pause
     try {
         const sb = getSupabase();
         if (!sb) return null;
