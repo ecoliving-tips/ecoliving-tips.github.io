@@ -5,7 +5,15 @@
     window.__swaramAdsLoaderInitialized = true;
 
     const ADS_CLIENT = 'ca-pub-7438590583270235';
+    const MIN_DWELL_MS = 7000;
+    const PRIMARY_ONLY_WAIT_MS = 15000;
+    const MIN_SCROLL_PX = 220;
+
+    const startedAt = Date.now();
     let loaded = false;
+    let hasPrimarySignal = false;
+    let hasMeaningfulScroll = false;
+    let gateTimer = null;
 
     function isLikelyAutomation() {
         const ua = (navigator.userAgent || '').toLowerCase();
@@ -50,16 +58,76 @@
         }
     }
 
-    function cleanupListeners() {
-        window.removeEventListener('pointerdown', onHumanSignal, true);
-        window.removeEventListener('keydown', onHumanSignal, true);
-        window.removeEventListener('touchstart', onHumanSignal, true);
-        window.removeEventListener('scroll', onHumanSignal, true);
+    function elapsedMs() {
+        return Date.now() - startedAt;
     }
 
-    function onHumanSignal() {
+    function clearGateTimer() {
+        if (!gateTimer) return;
+        clearTimeout(gateTimer);
+        gateTimer = null;
+    }
+
+    function cleanupListeners() {
+        clearGateTimer();
+        window.removeEventListener('pointerdown', onPrimarySignal, true);
+        window.removeEventListener('keydown', onPrimarySignal, true);
+        window.removeEventListener('touchstart', onPrimarySignal, true);
+        window.removeEventListener('scroll', onScrollSignal, true);
+        document.removeEventListener('visibilitychange', onVisibilityChange, true);
+    }
+
+    function maybeLoadAds() {
+        if (loaded || isLikelyAutomation()) {
+            cleanupListeners();
+            return;
+        }
+
+        if (!hasPrimarySignal) return;
+        if (document.visibilityState !== 'visible') return;
+
+        const elapsed = elapsedMs();
+        if (elapsed < MIN_DWELL_MS) {
+            if (!gateTimer) {
+                gateTimer = setTimeout(function () {
+                    gateTimer = null;
+                    maybeLoadAds();
+                }, MIN_DWELL_MS - elapsed);
+            }
+            return;
+        }
+
+        // Stronger protection: require either meaningful scroll or extra dwell time.
+        if (!hasMeaningfulScroll && elapsed < PRIMARY_ONLY_WAIT_MS) {
+            if (!gateTimer) {
+                gateTimer = setTimeout(function () {
+                    gateTimer = null;
+                    maybeLoadAds();
+                }, PRIMARY_ONLY_WAIT_MS - elapsed);
+            }
+            return;
+        }
+
         cleanupListeners();
         injectAdSenseScript();
+    }
+
+    function onPrimarySignal() {
+        hasPrimarySignal = true;
+        maybeLoadAds();
+    }
+
+    function onScrollSignal() {
+        if (window.scrollY >= MIN_SCROLL_PX) {
+            hasMeaningfulScroll = true;
+            maybeLoadAds();
+        }
+    }
+
+    function onVisibilityChange() {
+        if (document.visibilityState === 'visible') {
+            maybeLoadAds();
+        }
     }
 
     // Optional manual override for debugging: ?ads=force
@@ -68,8 +136,9 @@
         return;
     }
 
-    window.addEventListener('pointerdown', onHumanSignal, { once: true, passive: true, capture: true });
-    window.addEventListener('keydown', onHumanSignal, { once: true, passive: true, capture: true });
-    window.addEventListener('touchstart', onHumanSignal, { once: true, passive: true, capture: true });
-    window.addEventListener('scroll', onHumanSignal, { once: true, passive: true, capture: true });
+    window.addEventListener('pointerdown', onPrimarySignal, { passive: true, capture: true });
+    window.addEventListener('keydown', onPrimarySignal, { passive: true, capture: true });
+    window.addEventListener('touchstart', onPrimarySignal, { passive: true, capture: true });
+    window.addEventListener('scroll', onScrollSignal, { passive: true, capture: true });
+    document.addEventListener('visibilitychange', onVisibilityChange, { capture: true });
 })();
