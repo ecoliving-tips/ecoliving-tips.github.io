@@ -1402,7 +1402,7 @@ function generateHomepageRecentChords(aiChordPages) {
         + `<ins class="adsbygoogle" style="display:block" data-ad-format="fluid"`
         + ` data-ad-layout-key="-dw-26-o-69+rj" data-ad-client="ca-pub-7438590583270235"`
         + ` data-ad-slot="6173198662"></ins>`
-        + `<script>(adsbygoogle = window.adsbygoogle || []).push({});</` + `script></div>`;
+        + `<script>(function(){var s=document.currentScript;var ins=s&&s.previousElementSibling;var w=ins&&ins.parentElement?ins.parentElement.clientWidth:0;if(w>=250){(adsbygoogle=window.adsbygoogle||[]).push({});}else if(ins){ins.style.display='none';}})();</` + `script></div>`;
 
     const cards = recent.map((entry, i) => {
         const title = (entry.title || entry.slug).replace(/</g, '&lt;');
