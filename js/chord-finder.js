@@ -15,8 +15,8 @@ const API_TIMEOUT_MS = 300_000; // 5 minutes
 const API_RETRY_MAX = 2;
 const SUPABASE_URL = 'https://jfnccekkhffonkjkmxyf.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_KJA4VzMAjt2WVEEg0JKMfg_lDrABAZK';
-const MODEL_VERSION = 'btc-v1';
 const BASE_URL = 'https://ecoliving-tips.github.io';
+const CHORD_CACHE_TTL_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
 const ALLOWED_UPLOAD_EXTENSIONS = new Set(['.mp3', '.wav', '.m4a', '.mp4', '.ogg', '.opus', '.flac', '.aac', '.wma', '.webm']);
 const ALLOWED_UPLOAD_CONTENT_TYPES = new Set([
     'audio/mpeg',
@@ -677,9 +677,6 @@ async function handleGenerate() {
 
         setProgressStep('done');
         showResults();
-
-        // Silent analytics
-        logChordFinderUsage(fileToUpload, result);
 
     } catch (err) {
         console.error('Generate failed:', err);
@@ -1409,26 +1406,27 @@ function resetGenerator() {
 }
 
 // ---------------------------------------------------------------------------
-// Analytics — silent fire-and-forget logging to Supabase
+// Chord cache — localStorage (zero-egress) + Supabase fallback
 // ---------------------------------------------------------------------------
-function logChordFinderUsage(file, result) {
+function _lsCacheKey(videoId) { return `swaram-cc-${videoId}`; }
+
+function _lsCacheGet(videoId) {
     try {
-        const sb = getSupabase();
-        if (!sb || !file) return;
-        sb.from('chord_finder_logs').insert([{
-            file_name: file.name,
-            file_size_kb: Math.round(file.size / 1024),
-            detected_key: result.key || null,
-            chord_count: result.chords?.length || 0,
-            processing_time_ms: result.processing_time_ms || null,
-        }]).then(() => {}).catch(() => {});
-    } catch { /* never disrupt user flow */ }
+        const raw = localStorage.getItem(_lsCacheKey(videoId));
+        if (!raw) return null;
+        const { ts, data } = JSON.parse(raw);
+        if (Date.now() - ts > CHORD_CACHE_TTL_MS) { localStorage.removeItem(_lsCacheKey(videoId)); return null; }
+        return data;
+    } catch { return null; }
 }
 
-// ---------------------------------------------------------------------------
-// Chord cache — Supabase-backed, keyed by YouTube video_id
-// ---------------------------------------------------------------------------
+function _lsCacheSet(videoId, data) {
+    try { localStorage.setItem(_lsCacheKey(videoId), JSON.stringify({ ts: Date.now(), data })); } catch { /* storage full */ }
+}
+
 async function checkChordCache(videoId) {
+    const local = _lsCacheGet(videoId);
+    if (local) { console.log(`[Cache] localStorage hit for ${videoId}`); return local; }
     try {
         const sb = getSupabase();
         if (!sb) return null;
@@ -1438,7 +1436,8 @@ async function checkChordCache(videoId) {
             .eq('video_id', videoId)
             .maybeSingle();
         if (error || !data?.chords?.chords?.length) return null;
-        console.log(`[Cache] Hit for ${videoId}`);
+        console.log(`[Cache] Supabase hit for ${videoId}`);
+        _lsCacheSet(videoId, data.chords); // warm localStorage so next hit skips Supabase
         return data.chords;
     } catch {
         return null;
@@ -1446,16 +1445,12 @@ async function checkChordCache(videoId) {
 }
 
 function storeChordCache(videoId, result, metadata) {
+    _lsCacheSet(videoId, result);
     try {
         const sb = getSupabase();
         if (!sb) return;
-        const row = {
-            video_id: videoId,
-            chords: result,
-            model_version: MODEL_VERSION,
-            processing_time_ms: result.processing_time_ms || null,
-        };
-        // Enrich with parsed metadata for SEO page generation
+        // Only store columns the build pipeline reads; skip processing_time_ms / model_version
+        const row = { video_id: videoId, chords: result };
         if (metadata) {
             row.title = metadata.title || null;
             row.artist = metadata.artist || null;
