@@ -1496,11 +1496,6 @@ const SUPABASE_KEY = 'sb_publishable_KJA4VzMAjt2WVEEg0JKMfg_lDrABAZK';
  * Uses Range header pagination to get beyond the 1000-row default limit.
  */
 async function fetchGeneratedChords() {
-    // Supabase reads resume after billing cycle resets on Aug 16 2026
-    if (Date.now() < new Date('2026-08-16T00:00:00Z').getTime()) {
-        console.log('[Supabase] Egress pause active until 2026-08-16 — skipping chord fetch.');
-        return [];
-    }
     const columns = 'video_id,title,artist,slug,chords,created_at,youtube_title';
     const baseUrl = `${SUPABASE_URL}/rest/v1/generated_chords?select=${columns}&slug=not.is.null&youtube_title=not.is.null&order=created_at.desc`;
     const headers = {
