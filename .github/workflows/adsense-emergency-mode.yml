@@ -1,0 +1,44 @@
+name: AdSense Emergency Mode
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'AdSense mode to deploy'
+        required: true
+        type: choice
+        options:
+          - normal
+          - emergency
+        default: normal
+
+concurrency:
+  group: adsense-emergency-mode
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  set-mode:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Set AdSense mode
+        run: |
+          node scripts/set-adsense-mode.js "${{ inputs.mode }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add js/adsense-loader.js
+          if git diff --cached --quiet; then
+            echo "AdSense mode is already ${{ inputs.mode }}"
+          else
+            git commit -m "chore: set AdSense mode to ${{ inputs.mode }}"
+            git push
+          fi

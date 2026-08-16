@@ -21,24 +21,6 @@ const BASE_URL = 'https://ecoliving-tips.github.io';
 const ROOT = __dirname;
 const today = new Date().toISOString().split('T')[0];
 
-const ADSENSE_MODE = String(process.env.ADSENSE_EMERGENCY_MODE || '').trim().toLowerCase() === 'on'
-    ? 'emergency'
-    : 'normal';
-
-function configureAdSenseLoader() {
-    const loaderPath = path.join(ROOT, 'js', 'adsense-loader.js');
-    const loader = fs.readFileSync(loaderPath, 'utf8');
-    const configuredLoader = loader.replace(
-        /const ADSENSE_MODE = '[^']*'; \/\/ BUILD: ADSENSE_EMERGENCY_MODE/,
-        `const ADSENSE_MODE = '${ADSENSE_MODE}'; // BUILD: ADSENSE_EMERGENCY_MODE`
-    );
-    if (configuredLoader === loader) {
-        throw new Error('Could not configure AdSense loader: build marker is missing');
-    }
-    fs.writeFileSync(loaderPath, configuredLoader);
-    console.log(`AdSense loader mode: ${ADSENSE_MODE}`);
-}
-
 // ===== Utilities =====
 
 function slugify(text) {
@@ -1864,7 +1846,6 @@ function generateChordRedirect(oldSlug, newSlug) {
 // ===== Main =====
 
 async function main() {
-    configureAdSenseLoader();
     console.log('Swaram Build - Starting...\n');
 
     // Load templates

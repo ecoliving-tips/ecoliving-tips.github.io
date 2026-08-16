@@ -39,15 +39,14 @@ This runbook covers security incidents for the static frontend on GitHub Pages a
 3. Block repeat abusive IP/device signatures backend-side.
 
 ## Emergency AdSense Mode
-If a suspicious traffic wave returns, use the GitHub repository variable `ADSENSE_EMERGENCY_MODE`:
+If a suspicious traffic wave returns, use the **AdSense Emergency Mode** workflow after confirming the issue from your GA4 email alert:
 
-1. Open **Settings -> Secrets and variables -> Actions -> Variables**.
-2. Set `ADSENSE_EMERGENCY_MODE` to `on`.
-3. Run the **Daily Build & Index** workflow manually and wait for the Pages deployment.
-4. Emergency mode loads AdSense only after a primary interaction, 100px of scrolling, and 3 seconds of visible dwell time. The `?ads=force` debug override is disabled.
-5. After traffic normalizes, set the variable to `off` (or delete it) and run the workflow again to restore normal revenue mode.
+1. Open **Actions -> AdSense Emergency Mode -> Run workflow**.
+2. Select `emergency` as the mode and run it. The workflow commits only `js/adsense-loader.js` and pushes the change for GitHub Pages to deploy.
+3. Emergency mode loads AdSense only after a primary interaction, 100px of scrolling, and 3 seconds of visible dwell time. The `?ads=force` debug override is disabled.
+4. After traffic normalizes, run the same workflow with `normal` to restore revenue mode.
 
-Any value other than `on` uses normal mode, so an unset variable is safe by default.
+This manual workflow does not require GA4 variables, Telegram credentials, or other notification secrets. The daily build and `build.js` do not control this switch.
 
 ## Verification After Recovery
 1. Open critical pages and confirm script execution is expected.
