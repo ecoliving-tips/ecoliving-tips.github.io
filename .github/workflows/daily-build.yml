@@ -26,6 +26,8 @@ jobs:
           node-version: '20'
 
       - name: Run build
+        env:
+          ADSENSE_EMERGENCY_MODE: ${{ vars.ADSENSE_EMERGENCY_MODE || 'off' }}
         run: node build.js
 
       - name: Validate sitemaps

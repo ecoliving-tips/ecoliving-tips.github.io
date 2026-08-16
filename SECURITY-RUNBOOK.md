@@ -38,6 +38,17 @@ This runbook covers security incidents for the static frontend on GitHub Pages a
 2. Tighten backend abuse scoring rules for suspicious patterns.
 3. Block repeat abusive IP/device signatures backend-side.
 
+## Emergency AdSense Mode
+If a suspicious traffic wave returns, use the GitHub repository variable `ADSENSE_EMERGENCY_MODE`:
+
+1. Open **Settings -> Secrets and variables -> Actions -> Variables**.
+2. Set `ADSENSE_EMERGENCY_MODE` to `on`.
+3. Run the **Daily Build & Index** workflow manually and wait for the Pages deployment.
+4. Emergency mode loads AdSense only after a primary interaction, 100px of scrolling, and 3 seconds of visible dwell time. The `?ads=force` debug override is disabled.
+5. After traffic normalizes, set the variable to `off` (or delete it) and run the workflow again to restore normal revenue mode.
+
+Any value other than `on` uses normal mode, so an unset variable is safe by default.
+
 ## Verification After Recovery
 1. Open critical pages and confirm script execution is expected.
 2. Confirm no unauthorized `<script>` or external origin changes in key pages.
