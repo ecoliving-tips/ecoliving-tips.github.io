@@ -1,10 +1,10 @@
 {
-  "nextIndex": 70,
-  "updatedAt": "2026-08-16T04:09:54.188Z",
-  "totalUrls": 18925,
+  "nextIndex": 81,
+  "updatedAt": "2026-08-17T04:21:27.553Z",
+  "totalUrls": 35497,
   "batchSize": 11,
-  "scannedThisRun": 59,
-  "skippedExcluded": 48,
+  "scannedThisRun": 11,
+  "skippedExcluded": 0,
   "resolvedAddedToExclusion": 0,
   "errors": 0,
   "wrappedAround": false
