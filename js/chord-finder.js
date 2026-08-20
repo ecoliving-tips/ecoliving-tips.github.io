@@ -1302,7 +1302,7 @@ function showProgress() {
         section.style.display = '';
         // Inject ins element after section is visible — push() on display:none causes availableWidth=0
         const adContainer = section.querySelector('.loading-ad-container');
-        if (adContainer && !adContainer.querySelector('ins')) {
+        if (window.__swaramAdsReady && adContainer && !adContainer.querySelector('ins')) {
             const ins = document.createElement('ins');
             ins.className = 'adsbygoogle';
             ins.style.display = 'block';

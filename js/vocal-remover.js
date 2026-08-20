@@ -364,7 +364,7 @@ function showSection(id) {
     // Inject ins element after section is visible — push() on display:none causes availableWidth=0
     if (id === 'progress-section') {
         const adContainer = el && el.querySelector('.loading-ad-container');
-        if (adContainer && !adContainer.querySelector('ins')) {
+        if (window.__swaramAdsReady && adContainer && !adContainer.querySelector('ins')) {
             const ins = document.createElement('ins');
             ins.className = 'adsbygoogle';
             ins.style.display = 'block';

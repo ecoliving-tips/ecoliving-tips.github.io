@@ -6,6 +6,8 @@
 
     const ADS_CLIENT = 'ca-pub-7438590583270235';
     const ADSENSE_MODE = 'emergency'; // BUILD: ADSENSE_EMERGENCY_MODE
+    window.__swaramAdsEmergency = ADSENSE_MODE === 'emergency';
+    window.__swaramAdsReady = false;
     const EMERGENCY_DWELL_MS = 3000;
     const EMERGENCY_SCROLL_PX = 100;
     let loaded = false;
@@ -35,6 +37,7 @@
     function injectAdSenseScript() {
         if (loaded || isLikelyAutomation()) return;
         loaded = true;
+        window.__swaramAdsReady = true;
 
         function appendScript() {
             if (document.getElementById('swaram-adsense-loader')) return;
