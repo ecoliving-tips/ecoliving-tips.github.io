@@ -8,13 +8,9 @@
     const ADSENSE_MODE = 'emergency'; // BUILD: ADSENSE_EMERGENCY_MODE
     window.__swaramAdsEmergency = ADSENSE_MODE === 'emergency';
     window.__swaramAdsReady = false;
-    const EMERGENCY_DWELL_MS = 3000;
-    const EMERGENCY_SCROLL_PX = 100;
     let loaded = false;
-    let hasPrimarySignal = false;
-    let hasMeaningfulScroll = false;
-    let emergencyStartedAt = 0;
-    let emergencyTimer = null;
+
+    if (ADSENSE_MODE === 'emergency') return;
 
     function isLikelyAutomation() {
         const ua = (navigator.userAgent || '').toLowerCase();
@@ -65,15 +61,6 @@
         window.removeEventListener('keydown', onHumanSignal, true);
         window.removeEventListener('touchstart', onHumanSignal, true);
         window.removeEventListener('scroll', onHumanSignal, true);
-        window.removeEventListener('pointerdown', onEmergencyPrimarySignal, true);
-        window.removeEventListener('keydown', onEmergencyPrimarySignal, true);
-        window.removeEventListener('touchstart', onEmergencyPrimarySignal, true);
-        window.removeEventListener('scroll', onEmergencyScrollSignal, true);
-        document.removeEventListener('visibilitychange', onEmergencyVisibilityChange, true);
-        if (emergencyTimer) {
-            clearTimeout(emergencyTimer);
-            emergencyTimer = null;
-        }
     }
 
     function onHumanSignal() {
@@ -81,57 +68,9 @@
         injectAdSenseScript();
     }
 
-    function maybeLoadEmergencyAds() {
-        if (loaded || isLikelyAutomation()) {
-            cleanupListeners();
-            return;
-        }
-        if (!hasPrimarySignal || !hasMeaningfulScroll || document.visibilityState !== 'visible') return;
-
-        const remainingMs = EMERGENCY_DWELL_MS - (Date.now() - emergencyStartedAt);
-        if (remainingMs > 0) {
-            if (!emergencyTimer) {
-                emergencyTimer = setTimeout(function () {
-                    emergencyTimer = null;
-                    maybeLoadEmergencyAds();
-                }, remainingMs);
-            }
-            return;
-        }
-
-        cleanupListeners();
-        injectAdSenseScript();
-    }
-
-    function onEmergencyPrimarySignal() {
-        if (!hasPrimarySignal) {
-            hasPrimarySignal = true;
-            emergencyStartedAt = Date.now();
-        }
-        maybeLoadEmergencyAds();
-    }
-
-    function onEmergencyScrollSignal() {
-        hasMeaningfulScroll = window.scrollY >= EMERGENCY_SCROLL_PX;
-        maybeLoadEmergencyAds();
-    }
-
-    function onEmergencyVisibilityChange() {
-        maybeLoadEmergencyAds();
-    }
-
     // Optional manual override for debugging: ?ads=force
-    if (ADSENSE_MODE !== 'emergency' && new URLSearchParams(window.location.search).get('ads') === 'force') {
+    if (new URLSearchParams(window.location.search).get('ads') === 'force') {
         injectAdSenseScript();
-        return;
-    }
-
-    if (ADSENSE_MODE === 'emergency') {
-        window.addEventListener('pointerdown', onEmergencyPrimarySignal, { passive: true, capture: true });
-        window.addEventListener('keydown', onEmergencyPrimarySignal, { passive: true, capture: true });
-        window.addEventListener('touchstart', onEmergencyPrimarySignal, { passive: true, capture: true });
-        window.addEventListener('scroll', onEmergencyScrollSignal, { passive: true, capture: true });
-        document.addEventListener('visibilitychange', onEmergencyVisibilityChange, { capture: true });
         return;
     }
 
