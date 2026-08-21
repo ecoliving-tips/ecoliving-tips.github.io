@@ -7,14 +7,16 @@ const CONFIG = {
   // Change to 'main' after pushing the workflow to main.
   githubBranch: 'feature/unified-song-library',
 
+  // GA4 active users are an alert signal, not proof of invalid AdSense traffic.
+  // Two consecutive high readings activate the global emergency safeguard.
   autoTriggerEmergency: true,
 
-  // Active users are summed across these countries.
-  monitoredCountries: ['Singapore', 'Vietnam'],
+  // Singapore is the country currently showing the suspicious spike.
+  monitoredCountries: ['Singapore'],
   combinedTrafficThreshold: 50,
 
   // Restore normal mode only after traffic falls this low.
-  recoveryThreshold: 20,
+  recoveryThreshold: 15,
 
   // Consecutive readings prevent reacting to one transient sample.
   requiredHighReadings: 2,
@@ -126,6 +128,7 @@ function checkSingaporeTraffic() {
       );
 
       if (
+        CONFIG.autoTriggerEmergency &&
         currentMode === 'emergency' &&
         confirmedLowReadings >= CONFIG.requiredLowReadings
       ) {
@@ -223,10 +226,10 @@ function sendTrafficAlert(users, breakdown) {
   );
 
   const subject =
-    `[URGENT] Singapore + Vietnam GA4 traffic: ${users} active users`;
+    `[ALERT] Monitored GA4 traffic: ${users} active users`;
 
   const body = [
-    'URGENT GA4 TRAFFIC ALERT',
+    'GA4 TRAFFIC ALERT',
     '',
     `Combined monitored traffic: ${users} active users`,
     ...countryLines,
@@ -235,12 +238,11 @@ function sendTrafficAlert(users, breakdown) {
     `Recovery threshold: ${CONFIG.recoveryThreshold}`,
     `Time: ${new Date().toISOString()}`,
     '',
-    'Emergency AdSense mode will be activated automatically after',
-    `${CONFIG.requiredHighReadings} consecutive high readings.`,
+    'Automatic global AdSense emergency mode is disabled.',
+    'Review the traffic evidence before using the manual emergency action.',
     '',
     'Check AdSense immediately:',
     '- Singapore impressions',
-    '- Vietnam impressions',
     '- CTR',
     '- RPM',
     '- Referrers',

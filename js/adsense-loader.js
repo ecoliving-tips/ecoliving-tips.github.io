@@ -6,6 +6,9 @@
 
     const ADS_CLIENT = 'ca-pub-7438590583270235';
     const ADSENSE_MODE = 'emergency'; // BUILD: ADSENSE_EMERGENCY_MODE
+    const BLOCKED_AD_COUNTRIES = new Set(['SG']);
+    const GEO_CACHE_KEY = 'swaram-ads-country';
+    const GEO_CACHE_TTL = 24 * 60 * 60 * 1000;
     window.__swaramAdsEmergency = ADSENSE_MODE === 'emergency';
     window.__swaramAdsReady = false;
     let loaded = false;
@@ -30,6 +33,32 @@
         );
     }
 
+    async function isAdCountryAllowed() {
+        try {
+            const cached = JSON.parse(localStorage.getItem(GEO_CACHE_KEY) || 'null');
+            if (cached && cached.expires > Date.now()) {
+                return !BLOCKED_AD_COUNTRIES.has(cached.country);
+            }
+
+            const response = await fetch('https://ipwho.is/', {
+                cache: 'no-store',
+                credentials: 'omit'
+            });
+            if (!response.ok) return true;
+            const data = await response.json();
+            const country = typeof data.country_code === 'string' ? data.country_code.toUpperCase() : '';
+            if (country) {
+                localStorage.setItem(GEO_CACHE_KEY, JSON.stringify({
+                    country: country,
+                    expires: Date.now() + GEO_CACHE_TTL
+                }));
+            }
+            return !BLOCKED_AD_COUNTRIES.has(country);
+        } catch (error) {
+            return true;
+        }
+    }
+
     function renderAdSlots() {
         document.querySelectorAll('[data-swaram-ad-slot]').forEach(function (container) {
             if (container.querySelector('.adsbygoogle')) return;
@@ -45,8 +74,9 @@
         });
     }
 
-    function injectAdSenseScript() {
+    async function injectAdSenseScript() {
         if (loaded || isLikelyAutomation()) return;
+        if (!await isAdCountryAllowed()) return;
         loaded = true;
         window.__swaramAdsReady = true;
 
