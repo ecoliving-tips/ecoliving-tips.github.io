@@ -5,7 +5,7 @@
     window.__swaramAdsLoaderInitialized = true;
 
     const ADS_CLIENT = 'ca-pub-7438590583270235';
-    const ADSENSE_MODE = 'normal'; // BUILD: ADSENSE_EMERGENCY_MODE
+    const ADSENSE_MODE = 'emergency'; // BUILD: ADSENSE_EMERGENCY_MODE
     const BLOCKED_AD_COUNTRIES = new Set(['SG']);
     const EMERGENCY_ALLOWED_COUNTRIES = new Set([
         'US', 'GB', 'CA', 'AU', 'DE', 'NL', 'SE', 'FR',
