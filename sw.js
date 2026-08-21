@@ -1,6 +1,6 @@
 // Swaram - Service Worker for Offline Support
 
-const CACHE_NAME = 'swaram-v5-security';
+const CACHE_NAME = 'swaram-v6-adsense-mode';
 // Emergency switch: set true in a hotfix deploy to bypass cache usage.
 const EMERGENCY_DISABLE_CACHE = false;
 const STATIC_ASSETS = [
@@ -64,6 +64,16 @@ self.addEventListener('fetch', event => {
     // Emergency mode: bypass all SW cache logic, use network directly.
     if (EMERGENCY_DISABLE_CACHE) {
         event.respondWith(fetch(event.request));
+        return;
+    }
+
+    if (url.pathname === '/js/adsense-loader.js') {
+        event.respondWith(
+            fetch(event.request, { cache: 'no-store' }).catch(() => new Response('', {
+                status: 503,
+                statusText: 'AdSense loader unavailable'
+            }))
+        );
         return;
     }
 
