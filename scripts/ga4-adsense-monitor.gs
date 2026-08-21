@@ -8,9 +8,9 @@ const CONFIG = {
   githubBranch: 'feature/unified-song-library',
 
   // GA4 active users are an alert signal, not proof of invalid AdSense traffic.
-  // Two consecutive high readings activate the global emergency safeguard.
+  // Two consecutive high readings activate the emergency country allowlist.
   // Normal mode already suppresses AdSense for Singapore; this threshold
-  // controls when traffic elsewhere also receives the global safeguard.
+  // controls when the stricter country allowlist is activated.
   autoTriggerEmergency: true,
 
   // Singapore is the country currently showing the suspicious spike.
@@ -243,7 +243,7 @@ function sendTrafficAlert(users, breakdown) {
     `Recovery threshold: ${CONFIG.recoveryThreshold}`,
     `Time: ${new Date().toISOString()}`,
     '',
-    'Automatic global AdSense emergency mode is enabled.',
+    'Automatic AdSense emergency country allowlist is enabled.',
     'It activates after the configured consecutive high readings.',
     '',
     'Check AdSense immediately:',

@@ -7,6 +7,10 @@
     const ADS_CLIENT = 'ca-pub-7438590583270235';
     const ADSENSE_MODE = 'emergency'; // BUILD: ADSENSE_EMERGENCY_MODE
     const BLOCKED_AD_COUNTRIES = new Set(['SG']);
+    const EMERGENCY_ALLOWED_COUNTRIES = new Set([
+        'US', 'GB', 'CA', 'AU', 'DE', 'NL', 'SE', 'FR',
+        'ME', 'CH', 'AT', 'LC', 'NZ', 'IT'
+    ]);
     const GEO_PROVIDERS = [
         { url: 'https://ipwho.is/', getCountry: data => data.country_code },
         { url: 'https://ipapi.co/json/', getCountry: data => data.country_code },
@@ -18,15 +22,6 @@
     window.__swaramAdsEmergency = ADSENSE_MODE === 'emergency';
     window.__swaramAdsReady = false;
     let loaded = false;
-
-    if (ADSENSE_MODE === 'emergency') {
-        document.querySelectorAll(
-            'meta[name="google-adsense-account"], [data-swaram-ad-slot], .adsbygoogle, script[src*="adsbygoogle"]'
-        ).forEach(function (element) {
-            element.remove();
-        });
-        return;
-    }
 
     function isLikelyAutomation() {
         const ua = (navigator.userAgent || '').toLowerCase();
@@ -73,6 +68,9 @@
                     country: normalizedCountry,
                     expires: Date.now() + GEO_CACHE_TTL
                 }));
+                if (ADSENSE_MODE === 'emergency') {
+                    return EMERGENCY_ALLOWED_COUNTRIES.has(normalizedCountry);
+                }
                 return !BLOCKED_AD_COUNTRIES.has(normalizedCountry);
             } catch (error) {
                 // Try the next provider before failing closed.
@@ -80,6 +78,16 @@
         }
 
         return false;
+    }
+
+    function cleanupEmergencyAds() {
+        document.querySelectorAll(
+            'meta[name="google-adsense-account"], .adsbygoogle, script[src*="adsbygoogle"], #swaram-adsense-loader'
+        ).forEach(function (element) {
+            element.remove();
+        });
+        window.adsbygoogle = [];
+        window.__swaramAdsReady = false;
     }
 
     function renderAdSlots() {
@@ -135,6 +143,12 @@
     function onHumanSignal() {
         cleanupListeners();
         injectAdSenseScript();
+    }
+
+    if (ADSENSE_MODE === 'emergency') {
+        cleanupEmergencyAds();
+        injectAdSenseScript();
+        return;
     }
 
     // Optional manual override for debugging: ?ads=force
