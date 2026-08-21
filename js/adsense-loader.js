@@ -5,24 +5,17 @@
     window.__swaramAdsLoaderInitialized = true;
 
     const ADS_CLIENT = 'ca-pub-7438590583270235';
-    const ADSENSE_MODE = 'emergency'; // BUILD: ADSENSE_EMERGENCY_MODE
     const BLOCKED_AD_COUNTRIES = new Set(['SG']);
-    const EMERGENCY_ALLOWED_COUNTRIES = new Set([
-        'US', 'GB', 'CA', 'AU', 'DE', 'NL', 'SE', 'FR',
-        'ME', 'CH', 'AT', 'LC', 'NZ', 'IT'
-    ]);
     const GEO_PROVIDERS = [
         { url: 'https://ipwho.is/', getCountry: data => data.country_code },
-        { url: 'https://ipapi.co/json/', getCountry: data => data.country_code },
+        { url: 'https://api.ipapi.is/', getCountry: data => data.cc },
         { url: 'https://ipinfo.io/json', getCountry: data => data.country },
-        { url: 'https://free.freeipapi.com/api/json', getCountry: data => data.countryCode }
+        { url: 'https://free.freeipapi.com/api/json', getCountry: data => data.countryCode },
+        { url: 'https://api.country.is/', getCountry: data => data.country }
     ];
-    const GEO_CACHE_KEY = 'swaram-ads-country-v2';
-    const GEO_CACHE_TTL = 24 * 60 * 60 * 1000;
-    window.__swaramAdsEmergency = ADSENSE_MODE === 'emergency';
     window.__swaramAdsReady = false;
     let loaded = false;
-    let emergencyObserver = null;
+    let blockedAdsObserver = null;
 
     function isLikelyAutomation() {
         const ua = (navigator.userAgent || '').toLowerCase();
@@ -34,69 +27,46 @@
             document.__selenium_unwrapped ||
             window.domAutomation ||
             window.domAutomationController ||
-            ua.includes('headlesschrome') ||
-            ua.includes('phantomjs') ||
-            ua.includes('playwright') ||
-            ua.includes('selenium') ||
-            ua.includes('puppeteer')
+            /headlesschrome|phantomjs|playwright|selenium|puppeteer|nightmare|curl|wget|python-requests|httpclient|okhttp|bot|crawler|spider|slurp|bingpreview|facebookexternalhit|twitterbot|linkedinbot|whatsapp/i.test(ua)
         );
     }
 
     async function isAdCountryAllowed() {
-        let cached = null;
-        try {
-            cached = JSON.parse(localStorage.getItem(GEO_CACHE_KEY) || 'null');
-        } catch (error) {
-            localStorage.removeItem(GEO_CACHE_KEY);
-        }
-
-        if (
-            cached &&
-            typeof cached.country === 'string' &&
-            /^[A-Za-z]{2}$/.test(cached.country) &&
-            cached.expires > Date.now()
-        ) {
-            const normalizedCountry = cached.country.toUpperCase();
-            if (ADSENSE_MODE === 'emergency') {
-                return EMERGENCY_ALLOWED_COUNTRIES.has(normalizedCountry);
-            }
-            return !BLOCKED_AD_COUNTRIES.has(normalizedCountry);
-        }
-
-        for (const provider of GEO_PROVIDERS) {
+        const results = await Promise.all(GEO_PROVIDERS.map(async provider => {
             try {
                 const controller = new AbortController();
                 const timeout = setTimeout(() => controller.abort(), 5000);
-                const response = await fetch(provider.url, {
-                    cache: 'no-store',
-                    credentials: 'omit',
-                    signal: controller.signal
-                });
-                clearTimeout(timeout);
-                if (!response.ok) continue;
+                try {
+                    const response = await fetch(provider.url, {
+                        cache: 'no-store',
+                        credentials: 'omit',
+                        signal: controller.signal
+                    });
+                    if (!response.ok) return null;
 
-                const data = await response.json();
-                const country = provider.getCountry(data);
-                if (typeof country !== 'string' || !/^[A-Za-z]{2}$/.test(country)) continue;
-
-                const normalizedCountry = country.toUpperCase();
-                localStorage.setItem(GEO_CACHE_KEY, JSON.stringify({
-                    country: normalizedCountry,
-                    expires: Date.now() + GEO_CACHE_TTL
-                }));
-                if (ADSENSE_MODE === 'emergency') {
-                    return EMERGENCY_ALLOWED_COUNTRIES.has(normalizedCountry);
+                    const data = await response.json();
+                    const country = provider.getCountry(data);
+                    if (typeof country !== 'string' || !/^[A-Za-z]{2}$/.test(country)) return null;
+                    return country.toUpperCase();
+                } finally {
+                    clearTimeout(timeout);
                 }
-                return !BLOCKED_AD_COUNTRIES.has(normalizedCountry);
             } catch (error) {
-                // Try the next provider before failing closed.
+                return null;
             }
+        }));
+
+        const countries = results.filter(Boolean);
+        if (!countries.length) return false;
+
+        if (countries.some(country => BLOCKED_AD_COUNTRIES.has(country))) {
+            return false;
         }
 
-        return false;
+        return true;
     }
 
-    function cleanupEmergencyAds(removeContainers) {
+    function cleanupAds(removeContainers) {
         document.querySelectorAll(
             'meta[name="google-adsense-account"], .adsbygoogle, script[src*="adsbygoogle"], #swaram-adsense-loader, iframe[src*="googleads"], iframe[src*="doubleclick"]'
         ).forEach(function (element) {
@@ -111,13 +81,13 @@
         window.__swaramAdsReady = false;
     }
 
-    function blockEmergencyAds() {
-        cleanupEmergencyAds(true);
-        if (emergencyObserver || !window.MutationObserver) return;
-        emergencyObserver = new MutationObserver(function () {
-            cleanupEmergencyAds(true);
+    function blockAds() {
+        cleanupAds(true);
+        if (blockedAdsObserver || !window.MutationObserver) return;
+        blockedAdsObserver = new MutationObserver(function () {
+            cleanupAds(true);
         });
-        emergencyObserver.observe(document.documentElement, {
+        blockedAdsObserver.observe(document.documentElement, {
             childList: true,
             subtree: true
         });
@@ -141,7 +111,7 @@
     async function injectAdSenseScript() {
         if (loaded || isLikelyAutomation()) return;
         if (!await isAdCountryAllowed()) {
-            if (ADSENSE_MODE === 'emergency') blockEmergencyAds();
+            blockAds();
             return;
         }
         loaded = true;
@@ -181,18 +151,7 @@
         injectAdSenseScript();
     }
 
-    if (ADSENSE_MODE === 'emergency') {
-        cleanupEmergencyAds(false);
-        injectAdSenseScript();
-        return;
-    }
-
-    // Optional manual override for debugging: ?ads=force
-    if (new URLSearchParams(window.location.search).get('ads') === 'force') {
-        injectAdSenseScript();
-        return;
-    }
-
+    cleanupAds(false);
     window.addEventListener('pointerdown', onHumanSignal, { once: true, passive: true, capture: true });
     window.addEventListener('keydown', onHumanSignal, { once: true, passive: true, capture: true });
     window.addEventListener('touchstart', onHumanSignal, { once: true, passive: true, capture: true });
