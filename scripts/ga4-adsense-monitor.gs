@@ -9,11 +9,16 @@ const CONFIG = {
 
   // GA4 active users are an alert signal, not proof of invalid AdSense traffic.
   // Two consecutive high readings activate the global emergency safeguard.
+  // Normal mode already suppresses AdSense for Singapore; this threshold
+  // controls when traffic elsewhere also receives the global safeguard.
   autoTriggerEmergency: true,
 
   // Singapore is the country currently showing the suspicious spike.
   monitoredCountries: ['Singapore'],
-  combinedTrafficThreshold: 50,
+  // GA4 active users are a signal, not an AdSense safety limit. With the
+  // five-minute trigger, 100 users in two readings means roughly 10 minutes
+  // of sustained traffic before global emergency mode activates.
+  combinedTrafficThreshold: 100,
 
   // Restore normal mode only after traffic falls this low.
   recoveryThreshold: 15,
@@ -238,8 +243,8 @@ function sendTrafficAlert(users, breakdown) {
     `Recovery threshold: ${CONFIG.recoveryThreshold}`,
     `Time: ${new Date().toISOString()}`,
     '',
-    'Automatic global AdSense emergency mode is disabled.',
-    'Review the traffic evidence before using the manual emergency action.',
+    'Automatic global AdSense emergency mode is enabled.',
+    'It activates after the configured consecutive high readings.',
     '',
     'Check AdSense immediately:',
     '- Singapore impressions',

@@ -7,13 +7,26 @@
     const ADS_CLIENT = 'ca-pub-7438590583270235';
     const ADSENSE_MODE = 'emergency'; // BUILD: ADSENSE_EMERGENCY_MODE
     const BLOCKED_AD_COUNTRIES = new Set(['SG']);
+    const GEO_PROVIDERS = [
+        { url: 'https://ipwho.is/', getCountry: data => data.country_code },
+        { url: 'https://ipapi.co/json/', getCountry: data => data.country_code },
+        { url: 'https://ipinfo.io/json', getCountry: data => data.country },
+        { url: 'https://free.freeipapi.com/api/json', getCountry: data => data.countryCode }
+    ];
     const GEO_CACHE_KEY = 'swaram-ads-country';
     const GEO_CACHE_TTL = 24 * 60 * 60 * 1000;
     window.__swaramAdsEmergency = ADSENSE_MODE === 'emergency';
     window.__swaramAdsReady = false;
     let loaded = false;
 
-    if (ADSENSE_MODE === 'emergency') return;
+    if (ADSENSE_MODE === 'emergency') {
+        document.querySelectorAll(
+            'meta[name="google-adsense-account"], [data-swaram-ad-slot], .adsbygoogle, script[src*="adsbygoogle"]'
+        ).forEach(function (element) {
+            element.remove();
+        });
+        return;
+    }
 
     function isLikelyAutomation() {
         const ua = (navigator.userAgent || '').toLowerCase();
@@ -34,29 +47,39 @@
     }
 
     async function isAdCountryAllowed() {
-        try {
-            const cached = JSON.parse(localStorage.getItem(GEO_CACHE_KEY) || 'null');
-            if (cached && cached.expires > Date.now()) {
-                return !BLOCKED_AD_COUNTRIES.has(cached.country);
-            }
+        const cached = JSON.parse(localStorage.getItem(GEO_CACHE_KEY) || 'null');
+        if (cached && cached.expires > Date.now()) {
+            return !BLOCKED_AD_COUNTRIES.has(cached.country);
+        }
 
-            const response = await fetch('https://ipwho.is/', {
-                cache: 'no-store',
-                credentials: 'omit'
-            });
-            if (!response.ok) return true;
-            const data = await response.json();
-            const country = typeof data.country_code === 'string' ? data.country_code.toUpperCase() : '';
-            if (country) {
+        for (const provider of GEO_PROVIDERS) {
+            try {
+                const controller = new AbortController();
+                const timeout = setTimeout(() => controller.abort(), 5000);
+                const response = await fetch(provider.url, {
+                    cache: 'no-store',
+                    credentials: 'omit',
+                    signal: controller.signal
+                });
+                clearTimeout(timeout);
+                if (!response.ok) continue;
+
+                const data = await response.json();
+                const country = provider.getCountry(data);
+                if (typeof country !== 'string' || !/^[A-Za-z]{2}$/.test(country)) continue;
+
+                const normalizedCountry = country.toUpperCase();
                 localStorage.setItem(GEO_CACHE_KEY, JSON.stringify({
-                    country: country,
+                    country: normalizedCountry,
                     expires: Date.now() + GEO_CACHE_TTL
                 }));
+                return !BLOCKED_AD_COUNTRIES.has(normalizedCountry);
+            } catch (error) {
+                // Try the next provider before failing closed.
             }
-            return !BLOCKED_AD_COUNTRIES.has(country);
-        } catch (error) {
-            return true;
         }
+
+        return false;
     }
 
     function renderAdSlots() {
