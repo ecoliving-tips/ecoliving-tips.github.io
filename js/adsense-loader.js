@@ -17,11 +17,12 @@
         { url: 'https://ipinfo.io/json', getCountry: data => data.country },
         { url: 'https://free.freeipapi.com/api/json', getCountry: data => data.countryCode }
     ];
-    const GEO_CACHE_KEY = 'swaram-ads-country';
+    const GEO_CACHE_KEY = 'swaram-ads-country-v2';
     const GEO_CACHE_TTL = 24 * 60 * 60 * 1000;
     window.__swaramAdsEmergency = ADSENSE_MODE === 'emergency';
     window.__swaramAdsReady = false;
     let loaded = false;
+    let emergencyObserver = null;
 
     function isLikelyAutomation() {
         const ua = (navigator.userAgent || '').toLowerCase();
@@ -42,9 +43,24 @@
     }
 
     async function isAdCountryAllowed() {
-        const cached = JSON.parse(localStorage.getItem(GEO_CACHE_KEY) || 'null');
-        if (cached && cached.expires > Date.now()) {
-            return !BLOCKED_AD_COUNTRIES.has(cached.country);
+        let cached = null;
+        try {
+            cached = JSON.parse(localStorage.getItem(GEO_CACHE_KEY) || 'null');
+        } catch (error) {
+            localStorage.removeItem(GEO_CACHE_KEY);
+        }
+
+        if (
+            cached &&
+            typeof cached.country === 'string' &&
+            /^[A-Za-z]{2}$/.test(cached.country) &&
+            cached.expires > Date.now()
+        ) {
+            const normalizedCountry = cached.country.toUpperCase();
+            if (ADSENSE_MODE === 'emergency') {
+                return EMERGENCY_ALLOWED_COUNTRIES.has(normalizedCountry);
+            }
+            return !BLOCKED_AD_COUNTRIES.has(normalizedCountry);
         }
 
         for (const provider of GEO_PROVIDERS) {
@@ -80,14 +96,31 @@
         return false;
     }
 
-    function cleanupEmergencyAds() {
+    function cleanupEmergencyAds(removeContainers) {
         document.querySelectorAll(
-            'meta[name="google-adsense-account"], .adsbygoogle, script[src*="adsbygoogle"], #swaram-adsense-loader'
+            'meta[name="google-adsense-account"], .adsbygoogle, script[src*="adsbygoogle"], #swaram-adsense-loader, iframe[src*="googleads"], iframe[src*="doubleclick"]'
         ).forEach(function (element) {
             element.remove();
         });
+        if (removeContainers) {
+            document.querySelectorAll('[data-swaram-ad-slot]').forEach(function (element) {
+                element.remove();
+            });
+        }
         window.adsbygoogle = [];
         window.__swaramAdsReady = false;
+    }
+
+    function blockEmergencyAds() {
+        cleanupEmergencyAds(true);
+        if (emergencyObserver || !window.MutationObserver) return;
+        emergencyObserver = new MutationObserver(function () {
+            cleanupEmergencyAds(true);
+        });
+        emergencyObserver.observe(document.documentElement, {
+            childList: true,
+            subtree: true
+        });
     }
 
     function renderAdSlots() {
@@ -107,7 +140,10 @@
 
     async function injectAdSenseScript() {
         if (loaded || isLikelyAutomation()) return;
-        if (!await isAdCountryAllowed()) return;
+        if (!await isAdCountryAllowed()) {
+            if (ADSENSE_MODE === 'emergency') blockEmergencyAds();
+            return;
+        }
         loaded = true;
         window.__swaramAdsReady = true;
 
@@ -146,7 +182,7 @@
     }
 
     if (ADSENSE_MODE === 'emergency') {
-        cleanupEmergencyAds();
+        cleanupEmergencyAds(false);
         injectAdSenseScript();
         return;
     }
