@@ -5,7 +5,7 @@
     window.__swaramAdsLoaderInitialized = true;
 
     const ADS_CLIENT = 'ca-pub-7438590583270235';
-    const ADSENSE_MODE = 'emergency'; // BUILD: ADSENSE_EMERGENCY_MODE
+    const ADSENSE_MODE = 'normal'; // BUILD: ADSENSE_EMERGENCY_MODE
     window.__swaramAdsEmergency = ADSENSE_MODE === 'emergency';
     window.__swaramAdsReady = false;
     let loaded = false;
