@@ -76,11 +76,7 @@ function formatChordContentHTML(content) {
     const lines = content.split('\n');
     let sectionCount = 0;
     // Injected after 2nd section (e.g. after Chorus) — slot separate from the post-content unit
-    const MID_AD = '<div class="ad-container" style="text-align:center;margin:1.5rem auto;max-width:728px;">'
-        + '<ins class="adsbygoogle" style="display:block;text-align:center;"'
-        + ' data-ad-layout="in-article" data-ad-format="fluid"'
-        + ' data-ad-client="ca-pub-7438590583270235" data-ad-slot="3762874972"></ins>'
-        + '<script>(adsbygoogle=window.adsbygoogle||[]).push({});<\/script></div>\n';
+    const MID_AD = '<div class="ad-container" data-swaram-ad-layout="in-article" data-swaram-ad-format="fluid" data-swaram-ad-slot="3762874972" style="text-align:center;margin:1.5rem auto;max-width:728px;"></div>\n';
 
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i].trim();
@@ -1398,11 +1394,7 @@ function generateHomepageRecentChords(aiChordPages) {
         .sort((a, b) => (b.created_at || '').localeCompare(a.created_at || ''));
     const recent = sorted.slice(0, 8);
 
-    const IN_FEED_AD = `                    <div class="recently-added-card" style="padding:0;overflow:hidden;">`
-        + `<ins class="adsbygoogle" style="display:block" data-ad-format="fluid"`
-        + ` data-ad-layout-key="-dw-26-o-69+rj" data-ad-client="ca-pub-7438590583270235"`
-        + ` data-ad-slot="6173198662"></ins>`
-        + `<script>(function(){var s=document.currentScript;var ins=s&&s.previousElementSibling;var w=ins&&ins.parentElement?ins.parentElement.clientWidth:0;if(w>=250){(adsbygoogle=window.adsbygoogle||[]).push({});}else if(ins){ins.style.display='none';}})();</` + `script></div>`;
+    const IN_FEED_AD = `                    <div class="recently-added-card" data-swaram-ad-format="fluid" data-swaram-ad-layout-key="-dw-26-o-69+rj" data-swaram-ad-slot="6173198662" style="padding:0;overflow:hidden;"></div>`;
 
     const cards = recent.map((entry, i) => {
         const title = (entry.title || entry.slug).replace(/</g, '&lt;');

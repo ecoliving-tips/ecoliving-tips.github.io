@@ -30,6 +30,21 @@
         );
     }
 
+    function renderAdSlots() {
+        document.querySelectorAll('[data-swaram-ad-slot]').forEach(function (container) {
+            if (container.querySelector('.adsbygoogle')) return;
+            const ad = document.createElement('ins');
+            ad.className = 'adsbygoogle';
+            ad.style.display = 'block';
+            ad.dataset.adClient = ADS_CLIENT;
+            ad.dataset.adSlot = container.dataset.swaramAdSlot;
+            if (container.dataset.swaramAdLayout) ad.dataset.adLayout = container.dataset.swaramAdLayout;
+            if (container.dataset.swaramAdFormat) ad.dataset.adFormat = container.dataset.swaramAdFormat;
+            container.appendChild(ad);
+            (window.adsbygoogle = window.adsbygoogle || []).push({});
+        });
+    }
+
     function injectAdSenseScript() {
         if (loaded || isLikelyAutomation()) return;
         loaded = true;
@@ -37,6 +52,7 @@
 
         function appendScript() {
             if (document.getElementById('swaram-adsense-loader')) return;
+            renderAdSlots();
             const script = document.createElement('script');
             script.id = 'swaram-adsense-loader';
             script.async = true;

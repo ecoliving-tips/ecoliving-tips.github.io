@@ -1,0 +1,46 @@
+name: Refresh AdSense Page Markup
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: adsense-page-refresh
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  refresh-pages:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Rewrite generated pages only
+        run: node scripts/update-adsense-pages.js
+
+      - name: Verify no inline AdSense execution remains
+        run: |
+          if grep -R -n --include='*.html' --exclude-dir=templates 'adsbygoogle' .; then
+            echo 'Inline AdSense markup remains in generated pages.'
+            exit 1
+          fi
+
+      - name: Commit page changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -- '*.html'
+          if git diff --cached --quiet; then
+            echo 'No generated page changes needed.'
+          else
+            git commit -m 'chore: refresh pages for centralized AdSense loading'
+            git push
+          fi
