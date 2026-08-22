@@ -6,14 +6,15 @@
 
     const ADS_CLIENT = 'ca-pub-7438590583270235';
     const BLOCKED_AD_COUNTRIES = new Set(['SG']);
-    const GEO_CACHE_KEY = 'swaram-ads-country-v1';
-    const GEO_CACHE_TTL_MS = 30 * 60 * 1000;
+    const GEO_CACHE_KEY = 'swaram-ads-country-v2';
+    const GEO_CACHE_TTL_MS = 24 * 60 * 60 * 1000;
     const GEO_PROVIDERS = [
         { url: 'https://ipwho.is/', getCountry: data => data.country_code },
         { url: 'https://api.ipapi.is/', getCountry: data => data.cc },
         { url: 'https://ipinfo.io/json', getCountry: data => data.country },
         { url: 'https://free.freeipapi.com/api/json', getCountry: data => data.countryCode },
-        { url: 'https://api.country.is/', getCountry: data => data.country }
+        { url: 'https://api.country.is/', getCountry: data => data.country },
+        { url: 'https://api.ip.sb/geoip', getCountry: data => data.country_code }
     ];
     window.__swaramAdsReady = false;
     let loaded = false;
@@ -33,10 +34,11 @@
         );
     }
 
-    function getCachedCountries() {
+    function getCachedCountries(includeExpired) {
         try {
-            const cached = JSON.parse(sessionStorage.getItem(GEO_CACHE_KEY) || 'null');
-            if (!cached || Date.now() - cached.timestamp > GEO_CACHE_TTL_MS) return null;
+            const cached = JSON.parse(localStorage.getItem(GEO_CACHE_KEY) || 'null');
+            if (!cached || typeof cached.timestamp !== 'number') return null;
+            if (!includeExpired && Date.now() - cached.timestamp > GEO_CACHE_TTL_MS) return null;
             if (!Array.isArray(cached.countries) || !cached.countries.length) return null;
             if (!cached.countries.every(country => typeof country === 'string' && /^[A-Z]{2}$/.test(country))) return null;
             return cached.countries;
@@ -47,7 +49,7 @@
 
     function cacheCountries(countries) {
         try {
-            sessionStorage.setItem(GEO_CACHE_KEY, JSON.stringify({
+            localStorage.setItem(GEO_CACHE_KEY, JSON.stringify({
                 timestamp: Date.now(),
                 countries
             }));
@@ -57,7 +59,7 @@
 
     async function isAdCountryAllowed() {
         const cachedCountries = getCachedCountries();
-        if (cachedCountries) return !cachedCountries.some(country => BLOCKED_AD_COUNTRIES.has(country));
+        if (cachedCountries) return !isBlockedCountry(cachedCountries);
 
         const results = await Promise.all(GEO_PROVIDERS.map(async provider => {
             try {
@@ -84,14 +86,18 @@
         }));
 
         const countries = results.filter(Boolean);
-        if (!countries.length) return false;
+        if (!countries.length) {
+            const staleCountries = getCachedCountries(true);
+            if (staleCountries) return !isBlockedCountry(staleCountries);
+            return true;
+        }
         cacheCountries(countries);
 
-        if (countries.some(country => BLOCKED_AD_COUNTRIES.has(country))) {
-            return false;
-        }
+        return !isBlockedCountry(countries);
+    }
 
-        return true;
+    function isBlockedCountry(countries) {
+        return countries.some(country => BLOCKED_AD_COUNTRIES.has(country));
     }
 
     function cleanupAds(removeContainers) {
