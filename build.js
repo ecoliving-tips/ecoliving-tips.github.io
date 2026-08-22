@@ -1505,8 +1505,7 @@ async function fetchGeneratedChords() {
                 headers: { ...headers, 'Range': `${from}-${from + pageSize - 1}` }
             });
             if (resp.status === 400) {
-                console.warn('[Supabase] Metadata columns not found — run the schema migration SQL first.');
-                return [];
+                throw new Error('Supabase metadata columns are unavailable; run the schema migration SQL first');
             }
             if (!resp.ok && resp.status !== 206) {
                 throw new Error(`Supabase returned HTTP ${resp.status} while fetching generated chords`);
@@ -1531,8 +1530,7 @@ async function fetchGeneratedChords() {
         console.log(`[Supabase] Fetched ${allData.length} generated chord entries with metadata.`);
         return allData;
     } catch (err) {
-        console.warn(`[Supabase] Error fetching generated chords: ${err.message}`);
-        return [];
+        throw new Error(`Supabase fetch failed: ${err.message}`);
     }
 }
 
@@ -1967,7 +1965,7 @@ async function main() {
         fs.writeFileSync(path.join(ROOT, 'chords', 'recent.json'), JSON.stringify(recentJson));
         console.log(`Generated chords/recent.json with ${recentJson.length} entries.`);
     } catch (err) {
-        console.warn(`[AI Chords] Skipped: ${err.message}`);
+        throw new Error(`AI chord page generation aborted: ${err.message}`);
     }
 
     // Generate redirect pages for renamed slugs
