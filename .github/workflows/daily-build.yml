@@ -45,6 +45,14 @@ jobs:
       - name: Validate chord diagrams
         run: node test-chords.js
 
+      - name: Prevent generated chord page deletions
+        run: |
+          DELETED=$(git status --short -- 'chords/*/index.html' | awk '$1 ~ /D/ {count++} END {print count+0}')
+          if [ "$DELETED" -gt 0 ]; then
+            echo "ERROR: build deleted ${DELETED} generated chord page(s); refusing to publish"
+            exit 1
+          fi
+
       - name: Submit new URLs to IndexNow
         run: node submit-indexnow.js
 

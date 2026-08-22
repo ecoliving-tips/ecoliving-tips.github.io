@@ -1499,6 +1499,7 @@ async function fetchGeneratedChords() {
         let allData = [];
         let from = 0;
         const pageSize = 1000;
+        let expectedTotal = null;
         while (true) {
             const resp = await fetch(baseUrl, {
                 headers: { ...headers, 'Range': `${from}-${from + pageSize - 1}` }
@@ -1508,13 +1509,24 @@ async function fetchGeneratedChords() {
                 return [];
             }
             if (!resp.ok && resp.status !== 206) {
-                console.warn(`[Supabase] Failed to fetch generated chords: HTTP ${resp.status}`);
-                return allData;
+                throw new Error(`Supabase returned HTTP ${resp.status} while fetching generated chords`);
+            }
+            const contentRange = resp.headers.get('content-range');
+            const rangeMatch = contentRange && contentRange.match(/\/([0-9]+)$/);
+            if (!rangeMatch) throw new Error('Supabase response did not include a complete Content-Range');
+            const responseTotal = Number(rangeMatch[1]);
+            if (expectedTotal === null) {
+                expectedTotal = responseTotal;
+            } else if (expectedTotal !== responseTotal) {
+                throw new Error(`Supabase Content-Range total changed from ${expectedTotal} to ${responseTotal}`);
             }
             const data = await resp.json();
             allData = allData.concat(data);
             if (data.length < pageSize) break;
             from += pageSize;
+        }
+        if (expectedTotal !== allData.length) {
+            throw new Error(`Supabase fetch incomplete: received ${allData.length} of ${expectedTotal} entries`);
         }
         console.log(`[Supabase] Fetched ${allData.length} generated chord entries with metadata.`);
         return allData;
@@ -1975,8 +1987,8 @@ async function main() {
         if (redirectCount > 0) console.log(`Generated ${redirectCount} chord redirect page(s).`);
     }
 
-    // Clean up orphaned chord pages (slugs removed from Supabase)
-    if (aiChordPages.length > 0) {
+    // Deletion is opt-in so a changed or incomplete source inventory cannot remove SEO URLs.
+    if (process.env.ALLOW_CHORD_PAGE_CLEANUP === 'true' && aiChordPages.length > 0) {
         const validSlugs = new Set(aiChordPages.map(e => e.slug));
         const chordsDir = path.join(ROOT, 'chords');
         if (fs.existsSync(chordsDir)) {
