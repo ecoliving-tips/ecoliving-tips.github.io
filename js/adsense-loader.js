@@ -6,6 +6,8 @@
 
     const ADS_CLIENT = 'ca-pub-7438590583270235';
     const BLOCKED_AD_COUNTRIES = new Set(['SG']);
+    const GEO_CACHE_KEY = 'swaram-ads-country-v1';
+    const GEO_CACHE_TTL_MS = 30 * 60 * 1000;
     const GEO_PROVIDERS = [
         { url: 'https://ipwho.is/', getCountry: data => data.country_code },
         { url: 'https://api.ipapi.is/', getCountry: data => data.cc },
@@ -31,7 +33,32 @@
         );
     }
 
+    function getCachedCountries() {
+        try {
+            const cached = JSON.parse(sessionStorage.getItem(GEO_CACHE_KEY) || 'null');
+            if (!cached || Date.now() - cached.timestamp > GEO_CACHE_TTL_MS) return null;
+            if (!Array.isArray(cached.countries) || !cached.countries.length) return null;
+            if (!cached.countries.every(country => typeof country === 'string' && /^[A-Z]{2}$/.test(country))) return null;
+            return cached.countries;
+        } catch (error) {
+            return null;
+        }
+    }
+
+    function cacheCountries(countries) {
+        try {
+            sessionStorage.setItem(GEO_CACHE_KEY, JSON.stringify({
+                timestamp: Date.now(),
+                countries
+            }));
+        } catch (error) {
+        }
+    }
+
     async function isAdCountryAllowed() {
+        const cachedCountries = getCachedCountries();
+        if (cachedCountries) return !cachedCountries.some(country => BLOCKED_AD_COUNTRIES.has(country));
+
         const results = await Promise.all(GEO_PROVIDERS.map(async provider => {
             try {
                 const controller = new AbortController();
@@ -58,6 +85,7 @@
 
         const countries = results.filter(Boolean);
         if (!countries.length) return false;
+        cacheCountries(countries);
 
         if (countries.some(country => BLOCKED_AD_COUNTRIES.has(country))) {
             return false;
