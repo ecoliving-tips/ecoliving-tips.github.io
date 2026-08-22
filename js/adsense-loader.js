@@ -96,6 +96,10 @@
     function renderAdSlots() {
         document.querySelectorAll('[data-swaram-ad-slot]').forEach(function (container) {
             if (container.querySelector('.adsbygoogle')) return;
+            if (
+                container.dataset.swaramAdFormat === 'fluid' &&
+                container.getBoundingClientRect().width < 250
+            ) return;
             const ad = document.createElement('ins');
             ad.className = 'adsbygoogle';
             ad.style.display = 'block';
