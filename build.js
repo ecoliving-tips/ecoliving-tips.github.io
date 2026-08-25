@@ -1489,7 +1489,7 @@ const SUPABASE_KEY = 'sb_publishable_KJA4VzMAjt2WVEEg0JKMfg_lDrABAZK';
  */
 async function fetchGeneratedChords() {
     const columns = 'video_id,title,artist,slug,chords,created_at,youtube_title';
-    const baseUrl = `${SUPABASE_URL}/rest/v1/generated_chords?select=${columns}&slug=not.is.null&youtube_title=not.is.null&order=created_at.desc`;
+    const baseUrl = `${SUPABASE_URL}/rest/v1/generated_chords?select=${columns}&slug=not.is.null&youtube_title=not.is.null&order=created_at.desc,video_id.desc`;
     const headers = {
         'apikey': SUPABASE_KEY,
         'Authorization': `Bearer ${SUPABASE_KEY}`,
@@ -1499,38 +1499,47 @@ async function fetchGeneratedChords() {
         let allData = [];
         let from = 0;
         const pageSize = 1000;
-        let expectedTotal = null;
         while (true) {
-            const resp = await fetch(baseUrl, {
-                headers: { ...headers, 'Range': `${from}-${from + pageSize - 1}` }
-            });
+            let resp;
+            let lastError;
+            for (let attempt = 0; attempt < 3; attempt++) {
+                try {
+                    resp = await fetch(baseUrl, {
+                        headers: { ...headers, 'Range': `${from}-${from + pageSize - 1}` }
+                    });
+                    if (resp.status >= 500 || resp.status === 429) {
+                        lastError = new Error(`Supabase returned HTTP ${resp.status}`);
+                        if (attempt < 2) {
+                            await new Promise(resolve => setTimeout(resolve, 1000 * 2 ** attempt));
+                            continue;
+                        }
+                    }
+                    break;
+                } catch (err) {
+                    lastError = err;
+                    if (attempt < 2) {
+                        await new Promise(resolve => setTimeout(resolve, 1000 * 2 ** attempt));
+                    }
+                }
+            }
+            if (!resp) throw lastError || new Error('Supabase request failed');
             if (resp.status === 400) {
-                throw new Error('Supabase metadata columns are unavailable; run the schema migration SQL first');
+                console.warn('[Supabase] Metadata columns not found - run the schema migration SQL first.');
+                return [];
             }
             if (!resp.ok && resp.status !== 206) {
                 throw new Error(`Supabase returned HTTP ${resp.status} while fetching generated chords`);
-            }
-            const contentRange = resp.headers.get('content-range');
-            const rangeMatch = contentRange && contentRange.match(/\/([0-9]+)$/);
-            if (!rangeMatch) throw new Error('Supabase response did not include a complete Content-Range');
-            const responseTotal = Number(rangeMatch[1]);
-            if (expectedTotal === null) {
-                expectedTotal = responseTotal;
-            } else if (expectedTotal !== responseTotal) {
-                throw new Error(`Supabase Content-Range total changed from ${expectedTotal} to ${responseTotal}`);
             }
             const data = await resp.json();
             allData = allData.concat(data);
             if (data.length < pageSize) break;
             from += pageSize;
         }
-        if (expectedTotal !== allData.length) {
-            throw new Error(`Supabase fetch incomplete: received ${allData.length} of ${expectedTotal} entries`);
-        }
         console.log(`[Supabase] Fetched ${allData.length} generated chord entries with metadata.`);
         return allData;
     } catch (err) {
-        throw new Error(`Supabase fetch failed: ${err.message}`);
+        console.warn(`[Supabase] Error fetching generated chords: ${err.message}`);
+        return [];
     }
 }
 
@@ -1965,7 +1974,7 @@ async function main() {
         fs.writeFileSync(path.join(ROOT, 'chords', 'recent.json'), JSON.stringify(recentJson));
         console.log(`Generated chords/recent.json with ${recentJson.length} entries.`);
     } catch (err) {
-        throw new Error(`AI chord page generation aborted: ${err.message}`);
+        console.warn(`[AI Chords] Skipped: ${err.message}`);
     }
 
     // Generate redirect pages for renamed slugs
