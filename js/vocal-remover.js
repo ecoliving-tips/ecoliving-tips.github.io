@@ -28,6 +28,12 @@ let selectedFileDuration = null;
 let elapsedTimer = null;
 let separationStartTime = null;
 
+function trackAnalyticsEvent(name, parameters = {}) {
+    if (typeof window.gtag === 'function') {
+        window.gtag('event', name, parameters);
+    }
+}
+
 // ---------------------------------------------------------------------------
 // Init
 // ---------------------------------------------------------------------------
@@ -82,6 +88,10 @@ function setSelectedFile(file) {
         return;
     }
     selectedFile = file;
+    trackAnalyticsEvent('audio_file_selected', {
+        feature: 'vocal_remover',
+        file_extension: ext || 'unknown',
+    });
     selectedFileDuration = null;
     const _probeUrl = URL.createObjectURL(file);
     const _probe = new Audio();
@@ -110,6 +120,9 @@ function clearSelectedFile() {
 // ---------------------------------------------------------------------------
 async function handleSeparate() {
     if (!selectedFile) { showError('Please upload an audio file first.'); return; }
+    trackAnalyticsEvent('vocal_separation_started', {
+        file_extension: selectedFile.name.match(/\.([a-z0-9]+)$/i)?.[1]?.toLowerCase() || 'unknown',
+    });
     hideError();
     showSection('progress-section');
     hideSection('results-section');
@@ -184,6 +197,10 @@ async function handleSeparate() {
 
         setProgressBar(100);
         setStep('step-done', 'done');
+        trackAnalyticsEvent('vocal_separation_completed', {
+            mode: usedFallback ? 'fallback' : 'ai',
+            stem_count: usedFallback ? 1 : 5,
+        });
 
         setTimeout(() => {
             hideSection('progress-section');
@@ -194,6 +211,10 @@ async function handleSeparate() {
         clearInterval(fakeProgressTimer);
         fakeProgressTimer = null;
         stopElapsedTimer();
+        trackAnalyticsEvent('vocal_separation_failed', {
+            file_extension: selectedFile?.name.match(/\.([a-z0-9]+)$/i)?.[1]?.toLowerCase() || 'unknown',
+            error_type: 'separation',
+        });
         hideSection('progress-section');
         showError(err.message || 'Something went wrong. Please try a different file.');
     }
@@ -295,7 +316,11 @@ function wireCard(key, url, downloadName) {
     const audio = document.getElementById(`audio-${key}`);
     const dl = document.getElementById(`download-${key}`);
     if (audio) audio.src = url;
-    if (dl) { dl.href = url; if (downloadName) dl.download = downloadName; }
+    if (dl) {
+        dl.href = url;
+        if (downloadName) dl.download = downloadName;
+        dl.onclick = () => trackAnalyticsEvent('stem_downloaded', { stem: key });
+    }
 }
 
 function resetStemCards() {

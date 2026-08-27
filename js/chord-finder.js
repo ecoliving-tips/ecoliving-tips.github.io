@@ -156,6 +156,12 @@ let youtubeVideoId = null;   // Extracted YouTube video ID (when using URL input
 let ytPlayer = null;         // YouTube IFrame Player instance
 let ytSyncInterval = null;   // Interval ID for YouTube chord sync
 
+function trackAnalyticsEvent(name, parameters = {}) {
+    if (typeof window.gtag === 'function') {
+        window.gtag('event', name, parameters);
+    }
+}
+
 // Beginner mode state
 let beginnerMode = false;
 let capoPosition = 0;        // auto-computed capo for beginner mode
@@ -325,6 +331,10 @@ function setSelectedFile(file) {
         return;
     }
     selectedFile = file;
+    trackAnalyticsEvent('audio_file_selected', {
+        feature: 'chord_finder',
+        file_extension: ext || 'unknown',
+    });
     const nameEl = document.getElementById('file-name');
     const selectedEl = document.getElementById('selected-file');
     if (nameEl) nameEl.textContent = file.name;
@@ -547,6 +557,9 @@ async function handleGenerate() {
     hideResults();
     showProgress();
     disableGenerateBtn(true);
+    trackAnalyticsEvent('chord_analysis_started', {
+        source: videoId ? 'youtube' : 'file',
+    });
 
     try {
         let fileToUpload = selectedFile;
@@ -680,6 +693,10 @@ async function handleGenerate() {
 
     } catch (err) {
         console.error('Generate failed:', err);
+        trackAnalyticsEvent('chord_analysis_failed', {
+            source: videoId ? 'youtube' : 'file',
+            error_type: err?._youtubeExtractionFailed ? 'youtube_extraction' : 'analysis',
+        });
         hideProgress();
         showError(err.message || 'An error occurred while generating chords.');
     } finally {
@@ -814,6 +831,10 @@ function showResults() {
     hideProgress();
     const section = document.getElementById('results-section');
     if (section) section.style.display = '';
+    trackAnalyticsEvent('chord_analysis_completed', {
+        source: youtubeVideoId ? 'youtube' : 'file',
+        chord_count: Array.isArray(chordData?.chords) ? chordData.chords.length : 0,
+    });
 
     // Scroll to audio/YouTube player and position below sticky header
     if (section) {
