@@ -4974,9 +4974,10 @@ footer {
 
 footer .footer-content {
     display: grid;
-    grid-template-columns: minmax(220px, 1.4fr) repeat(2, minmax(150px, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 32px;
     align-items: start;
+    text-align: center;
 }
 
 footer .footer-logo h3 {
@@ -4986,6 +4987,8 @@ footer .footer-logo h3 {
 
 footer .footer-logo p {
     max-width: 28ch;
+    margin-right: auto;
+    margin-left: auto;
     color: var(--text-dim);
     line-height: 1.5;
 }
@@ -5010,6 +5013,7 @@ footer .footer-social ul li a {
     display: inline-flex;
     min-height: 32px;
     align-items: center;
+    justify-content: center;
     color: var(--text-dim);
     font-size: 0.82rem;
 }
