@@ -5274,6 +5274,32 @@ footer {
     }
 }
 
+@media (max-width: 768px), (max-width: 1600px) and (max-resolution: 0.9dppx) {
+    .recently-added-row {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        overflow: visible;
+        scroll-snap-type: none;
+        padding-bottom: 0;
+    }
+
+    .recently-added-card {
+        min-width: 0;
+        width: auto;
+    }
+
+    .hero-preview-sequence {
+        flex-wrap: wrap;
+        overflow: visible;
+    }
+
+    .hero-preview-sequence span {
+        flex: 1 1 calc(33.333% - 4px);
+        min-width: 0;
+    }
+}
+
 ::selection {
     color: var(--bg);
     background: var(--primary);
@@ -8019,6 +8045,23 @@ html::-webkit-scrollbar-thumb:hover {
     .progressions-header h1,
     .progressions-header h2 {
         font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 1600px) and (max-resolution: 0.9dppx) {
+    .hero-layout {
+        grid-template-columns: 1fr;
+        gap: 36px;
+    }
+
+    .hero-preview-sequence {
+        flex-wrap: wrap;
+        overflow: visible;
+    }
+
+    .hero-preview-sequence span {
+        flex: 1 1 calc(33.333% - 4px);
+        min-width: 0;
     }
 }
 
