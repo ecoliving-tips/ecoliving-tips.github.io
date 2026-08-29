@@ -1,11 +1,11 @@
 {
-  "nextIndex": 1,
-  "updatedAt": "2026-08-28T15:31:57.107Z",
-  "totalUrls": 56,
-  "batchSize": 0,
-  "scannedThisRun": 56,
-  "skippedExcluded": 56,
+  "nextIndex": 67,
+  "updatedAt": "2026-08-29T10:32:52.844Z",
+  "totalUrls": 41986,
+  "batchSize": 11,
+  "scannedThisRun": 66,
+  "skippedExcluded": 55,
   "resolvedAddedToExclusion": 0,
   "errors": 0,
-  "wrappedAround": true
+  "wrappedAround": false
 }

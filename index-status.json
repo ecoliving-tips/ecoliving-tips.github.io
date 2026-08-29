@@ -1383,28 +1383,28 @@
     "coverageState": "URL is unknown to Google",
     "lastCrawlTime": null,
     "crawledAs": "N/A",
-    "checkedAt": "2026-08-16T04:08:38.646Z"
+    "checkedAt": "2026-08-29T10:31:52.413Z"
   },
   "https://ecoliving-tips.github.io/chords/1968/": {
     "verdict": "NEUTRAL",
     "coverageState": "URL is unknown to Google",
     "lastCrawlTime": null,
     "crawledAs": "N/A",
-    "checkedAt": "2026-08-16T04:08:46.205Z"
+    "checkedAt": "2026-08-29T10:31:59.972Z"
   },
   "https://ecoliving-tips.github.io/chords/1996/": {
     "verdict": "NEUTRAL",
     "coverageState": "URL is unknown to Google",
     "lastCrawlTime": null,
     "crawledAs": "N/A",
-    "checkedAt": "2026-08-16T04:08:53.760Z"
+    "checkedAt": "2026-08-29T10:32:07.551Z"
   },
   "https://ecoliving-tips.github.io/chords/2026/": {
     "verdict": "NEUTRAL",
     "coverageState": "URL is unknown to Google",
     "lastCrawlTime": null,
     "crawledAs": "N/A",
-    "checkedAt": "2026-08-16T04:09:01.324Z"
+    "checkedAt": "2026-08-29T10:32:15.131Z"
   },
   "https://ecoliving-tips.github.io/chords/zetod-os-via-live-viljandi-folk-music-festival/": {
     "verdict": "NEUTRAL",
@@ -2147,5 +2147,54 @@
     "lastCrawlTime": null,
     "crawledAs": "N/A",
     "checkedAt": "2026-08-27T14:38:13.715Z"
+  },
+  "https://ecoliving-tips.github.io/chords/7/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-08-29T10:31:37.252Z"
+  },
+  "https://ecoliving-tips.github.io/chords/15/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-08-29T10:31:44.825Z"
+  },
+  "https://ecoliving-tips.github.io/chords/aku-terkesima-adera/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-08-29T10:32:22.700Z"
+  },
+  "https://ecoliving-tips.github.io/chords/f5pZrtY1olA/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-08-29T10:32:30.268Z"
+  },
+  "https://ecoliving-tips.github.io/chords/shout-to-the-lord-gateway-worship/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-08-29T10:32:37.946Z"
+  },
+  "https://ecoliving-tips.github.io/chords/official-mv-jingle-scooter-2025-estravella-gemintang-scooter-smapa/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-08-29T10:32:45.506Z"
+  },
+  "https://ecoliving-tips.github.io/chords/spirit-psalm-2026-ordinary-time-22-gospel-acclamation-ocp-worship-resources/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-08-29T10:32:52.842Z"
   }
 }

@@ -2,7 +2,7 @@
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
     <loc>https://ecoliving-tips.github.io/sitemap-pages.xml</loc>
-    <lastmod>2026-08-27</lastmod>
+    <lastmod>2026-08-28</lastmod>
   </sitemap>
   <sitemap>
     <loc>https://ecoliving-tips.github.io/sitemap-songs.xml</loc>
@@ -23,5 +23,17 @@
   <sitemap>
     <loc>https://ecoliving-tips.github.io/sitemap-progressions.xml</loc>
     <lastmod>2026-08-21</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://ecoliving-tips.github.io/sitemap-chords-new.xml</loc>
+    <lastmod>2026-08-29</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://ecoliving-tips.github.io/sitemap-chords-recent.xml</loc>
+    <lastmod>2026-07-29</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://ecoliving-tips.github.io/sitemap-chords-archive.xml</loc>
+    <lastmod>2026-05-30</lastmod>
   </sitemap>
 </sitemapindex>
