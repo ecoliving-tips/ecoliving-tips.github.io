@@ -196,7 +196,7 @@
 
     function startListening() {
         if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-            setStatus('ci_no_mic', 'Microphone not supported in this browser.');
+            setStatus('Microphone not supported in this browser.');
             return;
         }
 
@@ -215,7 +215,7 @@
                 micIconOff.style.display = 'none';
                 micIconOn.style.display = '';
                 micBtn.classList.add('listening');
-                setStatus('ci_listening', 'Listening... play a chord');
+                setStatus('Listening... play a chord');
                 volumeMeter.style.display = '';
                 resultArea.style.display = '';
 
@@ -234,9 +234,9 @@
             .catch(function (err) {
                 console.error('Mic error:', err);
                 if (err.name === 'NotAllowedError') {
-                    setStatus('ci_mic_denied', 'Microphone access denied. Please allow mic access and try again.');
+                    setStatus('Microphone access denied. Please allow mic access and try again.');
                 } else {
-                    setStatus('ci_mic_error', 'Could not access microphone. Check your settings.');
+                    setStatus('Could not access microphone. Check your settings.');
                 }
             });
     }
@@ -260,13 +260,12 @@
         micIconOff.style.display = '';
         micIconOn.style.display = 'none';
         micBtn.classList.remove('listening');
-        setStatus('ci_tap_to_start', 'Tap to start listening');
+        setStatus('Tap to start listening');
         volumeMeter.style.display = 'none';
     }
 
-    function setStatus(i18nKey, fallback) {
-        micStatus.textContent = fallback;
-        micStatus.setAttribute('data-i18n', i18nKey);
+    function setStatus(text) {
+        micStatus.textContent = text;
     }
 
     // ── Analysis loop (volume at 60fps, chords throttled to ~7fps) ──

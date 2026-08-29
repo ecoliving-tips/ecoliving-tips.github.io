@@ -367,7 +367,7 @@
         progression.forEach(function (chord, idx) {
             html += '<div class="progression-chord" data-index="' + idx + '">' +
                 '<span class="prog-chord-degree">' + chord.degree + '</span>' +
-                '<span class="prog-chord-name">' + chord.displayName + '</span>' +
+                '<button type="button" class="prog-chord-name" title="Show ' + chord.displayName + ' diagram">' + chord.displayName + '</button>' +
                 '<button class="prog-chord-remove" data-index="' + idx + '" title="Remove">&times;</button>' +
                 '</div>';
             if (idx < progression.length - 1) {

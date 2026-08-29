@@ -157,25 +157,37 @@ function populateFilters(songs) {
     const categories = [...new Set(songs.map(s => s.category).filter(Boolean))];
     chipsContainer.innerHTML = '';
 
-    const allChip = document.createElement('span');
+    const allChip = document.createElement('button');
+    allChip.type = 'button';
     allChip.className = 'filter-chip active';
+    allChip.setAttribute('aria-pressed', 'true');
     allChip.textContent = 'All';
     allChip.addEventListener('click', () => {
         activeCategory = '';
-        chipsContainer.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+        chipsContainer.querySelectorAll('.filter-chip').forEach(c => {
+            c.classList.remove('active');
+            c.setAttribute('aria-pressed', 'false');
+        });
         allChip.classList.add('active');
+        allChip.setAttribute('aria-pressed', 'true');
         applyFilters();
     });
     chipsContainer.appendChild(allChip);
 
     categories.forEach(cat => {
-        const chip = document.createElement('span');
+        const chip = document.createElement('button');
+        chip.type = 'button';
         chip.className = 'filter-chip';
+        chip.setAttribute('aria-pressed', 'false');
         chip.textContent = cat;
         chip.addEventListener('click', () => {
             activeCategory = cat;
-            chipsContainer.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+            chipsContainer.querySelectorAll('.filter-chip').forEach(c => {
+                c.classList.remove('active');
+                c.setAttribute('aria-pressed', 'false');
+            });
             chip.classList.add('active');
+            chip.setAttribute('aria-pressed', 'true');
             applyFilters();
         });
         chipsContainer.appendChild(chip);

@@ -127,13 +127,21 @@
         });
     }
 
-    function renderAdSlots() {
-        document.querySelectorAll('[data-swaram-ad-slot]').forEach(function (container) {
-            if (container.querySelector('.adsbygoogle')) return;
-            if (
-                container.dataset.swaramAdFormat === 'fluid' &&
-                container.getBoundingClientRect().width < 250
-            ) return;
+    function hasAdRenderSpace(container) {
+        const style = window.getComputedStyle(container);
+        return style.display !== 'none' &&
+            style.visibility !== 'hidden' &&
+            container.getBoundingClientRect().width > 0;
+    }
+
+    function renderAdSlot(container) {
+        if (container.querySelector('.adsbygoogle')) return true;
+        if (!hasAdRenderSpace(container)) return false;
+        if (
+            container.dataset.swaramAdFormat === 'fluid' &&
+            container.getBoundingClientRect().width < 250
+        ) return false;
+
             const ad = document.createElement('ins');
             ad.className = 'adsbygoogle';
             ad.style.display = 'block';
@@ -143,6 +151,24 @@
             if (container.dataset.swaramAdFormat) ad.dataset.adFormat = container.dataset.swaramAdFormat;
             container.appendChild(ad);
             (window.adsbygoogle = window.adsbygoogle || []).push({});
+        return true;
+    }
+
+    function renderAdSlots() {
+        document.querySelectorAll('[data-swaram-ad-slot]').forEach(renderAdSlot);
+    }
+
+    function observeAdSlots() {
+        if (!window.IntersectionObserver) return;
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                if (renderAdSlot(entry.target)) observer.unobserve(entry.target);
+            });
+        }, { rootMargin: '200px' });
+
+        document.querySelectorAll('[data-swaram-ad-slot]').forEach(function (container) {
+            if (!container.querySelector('.adsbygoogle')) observer.observe(container);
         });
     }
 
@@ -158,6 +184,7 @@
         function appendScript() {
             if (document.getElementById('swaram-adsense-loader')) return;
             renderAdSlots();
+            observeAdSlots();
             const script = document.createElement('script');
             script.id = 'swaram-adsense-loader';
             script.async = true;

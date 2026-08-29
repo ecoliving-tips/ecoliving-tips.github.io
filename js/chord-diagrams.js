@@ -182,6 +182,19 @@ const PIANO_KEYS = [
     { note: "B", type: "white" }
 ];
 
+const DIAGRAM_COLORS = {
+    primary: 'var(--primary)',
+    primaryLight: 'var(--primary-light)',
+    accent: 'var(--accent)',
+    naturalKey: 'var(--bg-card-hover)',
+    accidentalKey: 'var(--bg)',
+    accidentalBorder: 'var(--text-dim)',
+    background: 'var(--bg)',
+    text: 'var(--text)',
+    muted: 'var(--text-dim)',
+    border: 'var(--border)'
+};
+
 function renderGuitarSVG(data) {
     const { frets, startFret, barre } = data;
     const w = 120, h = 160;
@@ -191,24 +204,24 @@ function renderGuitarSVG(data) {
 
     // Fret position label
     if (startFret > 0) {
-        svg += `<text x="${startX - 14}" y="${startY + fretSpacing - 4}" fill="#9B8FC2" font-size="11" text-anchor="middle">${startFret}</text>`;
+        svg += `<text x="${startX - 14}" y="${startY + fretSpacing - 4}" fill="${DIAGRAM_COLORS.muted}" font-size="11" text-anchor="middle">${startFret}</text>`;
     }
 
     // Nut (thick line at top if open position)
     if (startFret === 0) {
-        svg += `<rect x="${startX}" y="${startY - 2}" width="${stringSpacing * 5}" height="4" fill="#F1EFFA" rx="1"/>`;
+        svg += `<rect x="${startX}" y="${startY - 2}" width="${stringSpacing * 5}" height="4" fill="${DIAGRAM_COLORS.primary}" rx="1"/>`;
     }
 
     // Fret lines
     for (let f = 0; f <= 4; f++) {
         const y = startY + f * fretSpacing;
-        svg += `<line x1="${startX}" y1="${y}" x2="${startX + stringSpacing * 5}" y2="${y}" stroke="#6B5F8A" stroke-width="1"/>`;
+        svg += `<line x1="${startX}" y1="${y}" x2="${startX + stringSpacing * 5}" y2="${y}" stroke="${DIAGRAM_COLORS.border}" stroke-width="1"/>`;
     }
 
     // String lines
     for (let s = 0; s < 6; s++) {
         const x = startX + s * stringSpacing;
-        svg += `<line x1="${x}" y1="${startY}" x2="${x}" y2="${startY + fretSpacing * 4}" stroke="#9B8FC2" stroke-width="1"/>`;
+        svg += `<line x1="${x}" y1="${startY}" x2="${x}" y2="${startY + fretSpacing * 4}" stroke="${DIAGRAM_COLORS.muted}" stroke-width="1"/>`;
     }
 
     // Barre
@@ -219,7 +232,7 @@ function renderGuitarSVG(data) {
         if (barreStrings.length >= 2) {
             const x1 = startX + barreStrings[0] * stringSpacing;
             const x2 = startX + barreStrings[barreStrings.length - 1] * stringSpacing;
-            svg += `<rect x="${x1 - 4}" y="${barreY - 5}" width="${x2 - x1 + 8}" height="10" rx="5" fill="#8B5CF6"/>`;
+            svg += `<rect x="${x1 - 4}" y="${barreY - 5}" width="${x2 - x1 + 8}" height="10" rx="5" fill="${DIAGRAM_COLORS.primary}"/>`;
         }
     }
 
@@ -227,14 +240,14 @@ function renderGuitarSVG(data) {
     frets.forEach((fret, string) => {
         const x = startX + string * stringSpacing;
         if (fret === -1) {
-            svg += `<text x="${x}" y="${startY - 8}" fill="#EC4899" font-size="12" text-anchor="middle">x</text>`;
+            svg += `<text x="${x}" y="${startY - 8}" fill="${DIAGRAM_COLORS.accent}" font-size="12" text-anchor="middle">x</text>`;
         } else if (fret === 0) {
-            svg += `<circle cx="${x}" cy="${startY - 10}" r="4" fill="none" stroke="#8B5CF6" stroke-width="1.5"/>`;
+            svg += `<circle cx="${x}" cy="${startY - 10}" r="4" fill="none" stroke="${DIAGRAM_COLORS.primary}" stroke-width="1.5"/>`;
         } else {
             const relativeFret = fret - (startFret > 0 ? startFret - 1 : 0);
             const y = startY + (relativeFret - 0.5) * fretSpacing;
             if (!barre || fret !== barre) {
-                svg += `<circle cx="${x}" cy="${y}" r="6" fill="#8B5CF6"/>`;
+                svg += `<circle cx="${x}" cy="${y}" r="6" fill="${DIAGRAM_COLORS.primary}"/>`;
             }
         }
     });
@@ -243,7 +256,7 @@ function renderGuitarSVG(data) {
     const labels = ['E','A','D','G','B','e'];
     labels.forEach((label, i) => {
         const x = startX + i * stringSpacing;
-        svg += `<text x="${x}" y="${startY + fretSpacing * 4 + 16}" fill="#6B5F8A" font-size="9" text-anchor="middle">${label}</text>`;
+        svg += `<text x="${x}" y="${startY + fretSpacing * 4 + 16}" fill="${DIAGRAM_COLORS.muted}" font-size="9" text-anchor="middle">${label}</text>`;
     });
 
     svg += '</svg>';
@@ -265,9 +278,9 @@ function renderKeyboardSVG(activeKeys) {
     whiteKeys.forEach((key, i) => {
         const x = startX + i * whiteW;
         const active = isActive(key.note);
-        svg += `<rect x="${x}" y="${startY}" width="${whiteW - 1}" height="${whiteH}" rx="2" fill="${active ? '#8B5CF6' : '#F1EFFA'}" stroke="#6B5F8A" stroke-width="1"/>`;
+        svg += `<rect x="${x}" y="${startY}" width="${whiteW - 1}" height="${whiteH}" rx="2" fill="${active ? DIAGRAM_COLORS.primary : DIAGRAM_COLORS.naturalKey}" stroke="${DIAGRAM_COLORS.border}" stroke-width="1"/>`;
         if (active) {
-            svg += `<text x="${x + whiteW / 2 - 0.5}" y="${startY + whiteH - 6}" fill="#fff" font-size="9" text-anchor="middle" font-weight="600">${key.note}</text>`;
+            svg += `<text x="${x + whiteW / 2 - 0.5}" y="${startY + whiteH - 6}" fill="${DIAGRAM_COLORS.background}" font-size="9" text-anchor="middle" font-weight="600">${key.note}</text>`;
         }
     });
 
@@ -277,9 +290,9 @@ function renderKeyboardSVG(activeKeys) {
     blackPositions.forEach((pos, i) => {
         const x = startX + pos * whiteW + whiteW * 0.65;
         const active = isActive(blackNotes[i]);
-        svg += `<rect x="${x}" y="${startY}" width="${blackW}" height="${blackH}" rx="2" fill="${active ? '#EC4899' : '#1A1425'}" stroke="#6B5F8A" stroke-width="0.5"/>`;
+        svg += `<rect x="${x}" y="${startY}" width="${blackW}" height="${blackH}" rx="2" fill="${active ? DIAGRAM_COLORS.accent : DIAGRAM_COLORS.accidentalKey}" stroke="${active ? DIAGRAM_COLORS.accent : DIAGRAM_COLORS.accidentalBorder}" stroke-width="1"/>`;
         if (active) {
-            svg += `<text x="${x + blackW / 2}" y="${startY + blackH - 5}" fill="#fff" font-size="7" text-anchor="middle" font-weight="600">${blackNotes[i]}</text>`;
+            svg += `<text x="${x + blackW / 2}" y="${startY + blackH - 5}" fill="${DIAGRAM_COLORS.background}" font-size="7" text-anchor="middle" font-weight="600">${blackNotes[i]}</text>`;
         }
     });
 
@@ -386,7 +399,7 @@ function showChordDiagram(chordName, anchorEl) {
                 <h4>${chordName}</h4>
                 <button class="tooltip-close" onclick="closeChordDiagram()">&times;</button>
             </div>
-            <p style="padding:1.5em;color:#9B8FC2;text-align:center;">No diagram available for this chord</p>
+            <p style="padding:1.5em;color:var(--text-muted);text-align:center;">No diagram available for this chord</p>
         `;
         document.body.appendChild(overlay);
         document.body.appendChild(tooltip);
@@ -425,7 +438,7 @@ function showChordDiagram(chordName, anchorEl) {
 
     const guitarPanel = guitarData
         ? renderGuitarSVG(guitarData)
-        : '<p style="padding:1em;color:#9B8FC2;text-align:center;">No guitar diagram</p>';
+        : '<p style="padding:1em;color:var(--text-muted);text-align:center;">No guitar diagram</p>';
 
     tooltip.innerHTML = `
         <div class="tooltip-header">

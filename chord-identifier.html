@@ -36,11 +36,11 @@
     <link rel="stylesheet" href="css/styles.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Manjari:wght@400;700&display=swap"
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
         as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
         <link rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Manjari:wght@400;700&display=swap">
+            href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap">
     </noscript>
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
     <link rel="icon" type="image/png" href="assets/favicon.png">
@@ -145,13 +145,14 @@
 </head>
 
 <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <!-- SYNC: header from templates/partials/header.html -->
     <header>
         <div class="container">
             <div class="header-top">
                 <div class="header-content">
-                    <h1><a href="/" style="color:inherit;text-decoration:none;" data-i18n="site_title">Swaram</a></h1>
-                    <p class="tagline" data-i18n="tagline">Find Chords for Any Song &mdash; Free AI Chord Finder</p>
+                    <div class="header-brand"><a href="/" class="site-brand" style="color:inherit;text-decoration:none;">Swaram</a></div>
+                    <p class="tagline">Find Chords for Any Song &mdash; Free AI Chord Finder</p>
                 </div>
                 <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
                     <span class="hamburger-line"></span>
@@ -161,25 +162,25 @@
             </div>
             <nav class="mobile-nav" aria-label="Main navigation">
                 <ul>
-                    <li><a href="/chord-finder.html" data-i18n="nav_generate">Chord Finder</a></li>
-                    <li><a href="/vocal-remover.html" data-i18n="nav_vocal_remover">Vocal Remover</a></li>
-                    <li><a href="/chord-identifier.html" data-i18n="nav_identifier">Chord Identifier (Mic)</a></li>
-                    <li><a href="/chord-progressions.html" data-i18n="nav_progressions">Progressions</a></li>
-                    <li><a href="/songs.html" data-i18n="nav_songs">Song Library</a></li>
+                    <li><a href="/chord-finder.html">Chord Finder</a></li>
+                    <li><a href="/vocal-remover.html">Vocal Remover</a></li>
+                    <li><a href="/chord-identifier.html">Chord Identifier (Mic)</a></li>
+                    <li><a href="/chord-progressions.html">Progressions</a></li>
+                    <li><a href="/songs.html">Song Library</a></li>
                 </ul>
             </nav>
         </div>
-        <div id="offline-banner" class="offline-banner" style="display:none;" data-i18n="offline_msg">
+        <div id="offline-banner" class="offline-banner" style="display:none;">
             You are offline. Showing cached content.
         </div>
     </header>
 
-    <main>
+    <main id="main-content" tabindex="-1">
         <!-- Hero -->
         <section class="generate-header">
             <div class="container">
-                <h1 data-i18n="ci_title">What Chord Am I Playing?</h1>
-                <p data-i18n="ci_desc">Play a chord on your guitar or piano — we'll identify it instantly.</p>
+                <h1>What Chord Am I Playing?</h1>
+                <p>Play a chord on your guitar or piano — we'll identify it instantly.</p>
                 <p>Want full-song analysis instead of single-chord detection? Use our <a href="/chord-finder.html" title="Chord finder and chord analyzer from audio">chord finder and chord analyzer</a>, or explore the <a href="/songs.html" title="Song chord finder library">song chord finder library</a>.</p>
             </div>
         </section>
@@ -204,7 +205,7 @@
                                 <line x1="8" y1="23" x2="16" y2="23" stroke="currentColor" stroke-width="1.5"/>
                             </svg>
                         </button>
-                        <p class="mic-status" id="mic-status" data-i18n="ci_tap_to_start">Tap to start listening</p>
+                        <p class="mic-status" id="mic-status" role="status" aria-live="polite">Tap to start listening</p>
                     </div>
 
                     <!-- Volume meter -->
@@ -212,12 +213,12 @@
                         <div class="volume-bar-bg">
                             <div class="volume-bar-fill" id="volume-fill"></div>
                         </div>
-                        <span class="volume-label" data-i18n="ci_volume">Volume</span>
+                        <span class="volume-label">Volume</span>
                     </div>
 
                     <!-- Detected chord display -->
                     <div class="identifier-result" id="result-area" style="display:none;">
-                        <div class="identifier-chord-name" id="detected-chord">-</div>
+                        <div class="identifier-chord-name" id="detected-chord" aria-live="polite" aria-atomic="true">-</div>
                         <div class="identifier-chord-full" id="detected-chord-full"></div>
                         <div class="identifier-notes" id="detected-notes"></div>
                         <div class="identifier-confidence">
@@ -231,8 +232,8 @@
                     <!-- Chord diagrams (guitar + keyboard) -->
                     <div class="identifier-diagrams" id="diagram-area" style="display:none;">
                         <div class="identifier-diagram-tabs">
-                            <button type="button" class="identifier-tab active" data-tab="guitar" data-i18n="ci_guitar">Guitar</button>
-                            <button type="button" class="identifier-tab" data-tab="keyboard" data-i18n="ci_keyboard">Keyboard</button>
+                            <button type="button" class="identifier-tab active" data-tab="guitar">Guitar</button>
+                            <button type="button" class="identifier-tab" data-tab="keyboard">Keyboard</button>
                         </div>
                         <div class="identifier-diagram-content" id="diagram-guitar"></div>
                         <div class="identifier-diagram-content" id="diagram-keyboard" style="display:none;"></div>
@@ -241,7 +242,7 @@
                     <!-- Chord progression tracker -->
                     <div class="identifier-history" id="history-area" style="display:none;">
                         <div class="history-header">
-                            <h4 data-i18n="ci_history">Chord Progression</h4>
+                            <h4>Chord Progression</h4>
                             <div class="history-actions">
                                 <button type="button" class="history-action-btn" id="copy-progression-btn" title="Copy progression">
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
@@ -257,12 +258,10 @@
             </div>
         </section>
 
-        <div class="ad-container" data-swaram-ad-format="auto" data-swaram-ad-slot="3762874972" style="text-align:center; margin: 2rem auto; max-width: 728px;"></div>
-
         <!-- How It Works -->
         <section class="how-it-works-section">
             <div class="container">
-                <h2 data-i18n="ci_how_title">How the Chord Identifier Works</h2>
+                <h2>How the Chord Identifier Works</h2>
                 <div class="features-grid">
                     <article class="feature-card">
                         <div class="feature-icon">
@@ -271,8 +270,8 @@
                                 <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
                             </svg>
                         </div>
-                        <h3 data-i18n="ci_step1_title">Play a Chord</h3>
-                        <p data-i18n="ci_step1_desc">Tap the microphone button and play a chord on your guitar, piano, or ukulele.</p>
+                        <h3>Play a Chord</h3>
+                        <p>Tap the microphone button and play a chord on your guitar, piano, or ukulele.</p>
                     </article>
                     <article class="feature-card">
                         <div class="feature-icon">
@@ -280,8 +279,8 @@
                                 <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
                             </svg>
                         </div>
-                        <h3 data-i18n="ci_step2_title">Instant Detection</h3>
-                        <p data-i18n="ci_step2_desc">Our audio engine analyzes frequencies in real-time and matches them to chord patterns.</p>
+                        <h3>Instant Detection</h3>
+                        <p>Our audio engine analyzes frequencies in real-time and matches them to chord patterns.</p>
                     </article>
                     <article class="feature-card">
                         <div class="feature-icon">
@@ -289,38 +288,40 @@
                                 <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
                             </svg>
                         </div>
-                        <h3 data-i18n="ci_step3_title">See Name & Diagrams</h3>
-                        <p data-i18n="ci_step3_desc">Get the chord name, notes, and guitar/keyboard diagrams — all in your browser, nothing uploaded.</p>
+                        <h3>See Name & Diagrams</h3>
+                        <p>Get the chord name, notes, and guitar/keyboard diagrams — all in your browser, nothing uploaded.</p>
                     </article>
                 </div>
             </div>
         </section>
 
+        <div class="ad-container" data-swaram-ad-format="auto" data-swaram-ad-slot="3762874972" style="text-align:center; margin: 2rem auto; max-width: 728px;"></div>
+
         <!-- Why Section -->
         <section class="how-it-works-section">
             <div class="container">
-                <h2 data-i18n="ci_why_title">Why Use Our Chord Identifier?</h2>
+                <h2>Why Use Our Chord Identifier?</h2>
                 <div class="features-grid">
                     <article class="feature-card">
                         <div class="feature-icon">
                             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                         </div>
-                        <h3 data-i18n="ci_why_private_title">100% Private</h3>
-                        <p data-i18n="ci_why_private_desc">All processing happens in your browser. No audio is uploaded or stored — your mic data never leaves your device.</p>
+                        <h3>100% Private</h3>
+                        <p>All processing happens in your browser. No audio is uploaded or stored — your mic data never leaves your device.</p>
                     </article>
                     <article class="feature-card">
                         <div class="feature-icon">
                             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
                         </div>
-                        <h3 data-i18n="ci_why_instant_title">Real-Time Results</h3>
-                        <p data-i18n="ci_why_instant_desc">No waiting, no uploads. Play a chord and see the result in milliseconds. Perfect for practice sessions.</p>
+                        <h3>Real-Time Results</h3>
+                        <p>No waiting, no uploads. Play a chord and see the result in milliseconds. Perfect for practice sessions.</p>
                     </article>
                     <article class="feature-card">
                         <div class="feature-icon">
                             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
                         </div>
-                        <h3 data-i18n="ci_why_any_title">Any Instrument</h3>
-                        <p data-i18n="ci_why_any_desc">Guitar, piano, ukulele, keyboard, mandolin — works with any pitched instrument. 221 chords recognized.</p>
+                        <h3>Any Instrument</h3>
+                        <p>Guitar, piano, ukulele, keyboard, mandolin — works with any pitched instrument. 221 chords recognized.</p>
                     </article>
                 </div>
             </div>
@@ -329,10 +330,10 @@
         <!-- CTA to Chord Finder -->
         <section class="about-section">
             <div class="container">
-                <h2 data-i18n="ci_cta_title">Want Chords for a Full Song?</h2>
+                <h2>Want Chords for a Full Song?</h2>
                 <div class="about-content">
-                    <p data-i18n="ci_cta_desc">Upload any audio file and our AI will detect all the chords and progressions for the entire song — with a playable timeline.</p>
-                    <a href="/chord-finder.html" class="btn" data-i18n="ci_cta_btn" style="display:inline-block;margin-top:1rem;">Try Chord Finder</a>
+                    <p>Upload any audio file and our AI will detect all the chords and progressions for the entire song — with a playable timeline.</p>
+                    <a href="/chord-finder.html" class="btn" style="display:inline-block;margin-top:1rem;">Try Chord Finder</a>
                 </div>
             </div>
         </section>
@@ -340,24 +341,24 @@
         <!-- FAQ Section -->
         <section class="faq-section">
             <div class="container">
-                <h2 data-i18n="faq_title">Frequently Asked Questions</h2>
+                <h2>Frequently Asked Questions</h2>
                 <div class="faq-grid">
-                    <div class="faq-item">
-                        <h3 data-i18n="ci_faq_q1">How does the chord identifier work?</h3>
-                        <p data-i18n="ci_faq_a1">Play a chord on your instrument near your device's microphone. The tool listens in real-time, detects pitch frequencies, identifies the notes, and matches them to known chord patterns to show you the chord name and diagrams.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3 data-i18n="ci_faq_q2">What instruments does it work with?</h3>
-                        <p data-i18n="ci_faq_a2">Any pitched instrument — guitar, piano, ukulele, keyboard, mandolin, banjo, and more. Works best with a single instrument playing a clear chord in a quiet environment.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3 data-i18n="ci_faq_q3">Does it record my audio?</h3>
-                        <p data-i18n="ci_faq_a3">No. All audio processing happens locally in your browser using the Web Audio API. No audio data is sent to any server. Your privacy is fully protected.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3 data-i18n="ci_faq_q4">How many chords can it recognize?</h3>
-                        <p data-i18n="ci_faq_a4">The chord identifier recognizes 221 chords across all 12 keys, including major, minor, 7th, major 7th, minor 7th, sus2, sus4, diminished, augmented, 6th, 9th, and half-diminished chords.</p>
-                    </div>
+                    <details class="faq-item">
+                        <summary><h3>How does the chord identifier work?</h3></summary>
+                        <p>Play a chord on your instrument near your device's microphone. The tool listens in real-time, detects pitch frequencies, identifies the notes, and matches them to known chord patterns to show you the chord name and diagrams.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary><h3>What instruments does it work with?</h3></summary>
+                        <p>Any pitched instrument — guitar, piano, ukulele, keyboard, mandolin, banjo, and more. Works best with a single instrument playing a clear chord in a quiet environment.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary><h3>Does it record my audio?</h3></summary>
+                        <p>No. All audio processing happens locally in your browser using the Web Audio API. No audio data is sent to any server. Your privacy is fully protected.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary><h3>How many chords can it recognize?</h3></summary>
+                        <p>The chord identifier recognizes 221 chords across all 12 keys, including major, minor, 7th, major 7th, minor 7th, sus2, sus4, diminished, augmented, 6th, 9th, and half-diminished chords.</p>
+                    </details>
                 </div>
             </div>
         </section>
@@ -368,13 +369,13 @@
         <!-- SYNC: donate from templates/partials/donate.html -->
         <section class="donate-section" id="donate">
             <div class="container">
-                <h3 data-i18n="support_title">Support Swaram</h3>
-                <p data-i18n="support_text">We keep everything completely free. Your support helps us improve the chord finder and add more songs.</p>
+                <h3>Support Swaram</h3>
+                <p>We keep everything completely free. Your support helps us improve the chord finder and add more songs.</p>
                 <div class="donate-options">
                     <div class="razorpay-donate-btn" id="razorpay-btn-container"></div>
                     <div class="upi-donate-option">
-                        <p class="upi-label" data-i18n="or_upi">Or pay directly via UPI (India)</p>
-                        <a href="#" onclick="openUPI(); return false;" class="btn donate-btn donate-btn-secondary" data-i18n="pay_upi">Pay via UPI</a>
+                        <p class="upi-label">Or pay directly via UPI (India)</p>
+                        <a href="#" onclick="openUPI(); return false;" class="btn donate-btn donate-btn-secondary">Pay via UPI</a>
                     </div>
                 </div>
             </div>
@@ -413,28 +414,28 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <h3 data-i18n="site_title">Swaram</h3>
-                    <p data-i18n="tagline">Find Chords for Any Song &mdash; Free AI Chord Finder</p>
+                    <h3>Swaram</h3>
+                    <p>Find Chords for Any Song &mdash; Free AI Chord Finder</p>
                 </div>
                 <div class="footer-links">
-                    <h4 data-i18n="footer_quick_links">Quick Links</h4>
+                    <h4>Quick Links</h4>
                     <ul>
-                        <li><a href="/chord-finder.html" data-i18n="nav_generate">Chord Finder</a></li>
-                        <li><a href="/chord-identifier.html" data-i18n="nav_identifier">Chord Identifier (Mic)</a></li>
-                        <li><a href="/chord-progressions.html" data-i18n="nav_progressions">Progressions</a></li>
-                        <li><a href="/songs.html" data-i18n="nav_songs">Song Library</a></li>
-                        <li><a href="/privacy-policy.html" data-i18n="nav_privacy">Privacy Policy</a></li>
+                        <li><a href="/chord-finder.html">Chord Finder</a></li>
+                        <li><a href="/chord-identifier.html">Chord Identifier (Mic)</a></li>
+                        <li><a href="/chord-progressions.html">Progressions</a></li>
+                        <li><a href="/songs.html">Song Library</a></li>
+                        <li><a href="/privacy-policy.html">Privacy Policy</a></li>
                     </ul>
                 </div>
                 <div class="footer-social">
-                    <h4 data-i18n="footer_follow_us">Follow Us</h4>
+                    <h4>Follow Us</h4>
                     <ul>
                         <li><a href="https://www.youtube.com/@almightyone8205" target="_blank" rel="noopener noreferrer">YouTube</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p data-i18n="copyright">&copy; 2026 Swaram. All Rights Reserved.</p>
+                <p>&copy; 2026 Swaram. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
@@ -443,13 +444,13 @@
     <div id="upi-modal" class="qr-modal-overlay" style="display:none;" onclick="if(event.target===this)closeUPI()">
         <div class="qr-modal-content">
             <button class="qr-modal-close" onclick="closeUPI()" aria-label="Close">&times;</button>
-            <h3 data-i18n="qr_modal_title">Scan to Donate via UPI</h3>
+            <h3>Scan to Donate via UPI</h3>
             <img src="assets/donate-qr.png" alt="UPI QR Code" class="qr-modal-img">
             <p class="qr-modal-upi-id">UPI ID: <strong>7306025928@upi</strong>
                 <button class="qr-modal-copy" onclick="navigator.clipboard.writeText('7306025928@upi').then(()=>{this.textContent='✓';setTimeout(()=>this.textContent='Copy',1500)})"
-                    data-i18n="copy_upi_id">Copy</button>
+                   >Copy</button>
             </p>
-            <p class="qr-modal-hint" data-i18n="qr_modal_hint">Open any UPI app on your phone and scan this QR code</p>
+            <p class="qr-modal-hint">Open any UPI app on your phone and scan this QR code</p>
         </div>
     </div>
 

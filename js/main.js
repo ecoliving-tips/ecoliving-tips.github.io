@@ -41,8 +41,24 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    document.querySelectorAll('.skip-link').forEach(link => {
+        link.addEventListener('click', function(event) {
+            const targetId = this.getAttribute('href');
+            const target = targetId ? document.getElementById(targetId.slice(1)) : null;
+            if (!target) return;
+
+            event.preventDefault();
+            target.focus({ preventScroll: true });
+            const behavior = window.matchMedia &&
+                window.matchMedia('(prefers-reduced-motion: reduce)').matches
+                ? 'auto'
+                : 'smooth';
+            target.scrollIntoView({ behavior, block: 'start' });
+        });
+    });
+
+    // Smooth scrolling for regular anchor links
+    document.querySelectorAll('a[href^="#"]:not(.skip-link)').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             const targetId = this.getAttribute('href');
             if (targetId === '#') return;
@@ -113,12 +129,12 @@ function showQRModal() {
     modal.innerHTML = `
         <div class="qr-modal-content">
             <button class="qr-modal-close" aria-label="Close">&times;</button>
-            <h3 data-i18n="qr_modal_title">Scan to Donate via UPI</h3>
+            <h3>Scan to Donate via UPI</h3>
             <img src="/assets/donate-qr.png" alt="UPI QR Code for donation" class="qr-modal-img">
             <p class="qr-modal-upi-id">UPI ID: <strong>${UPI_ID}</strong>
-                <button class="qr-modal-copy" onclick="copyUPIId()" data-i18n="copy_upi_id">Copy</button>
+                <button class="qr-modal-copy" onclick="copyUPIId()">Copy</button>
             </p>
-            <p class="qr-modal-hint" data-i18n="qr_modal_hint">Open any UPI app on your phone and scan this QR code</p>
+            <p class="qr-modal-hint">Open any UPI app on your phone and scan this QR code</p>
         </div>`;
     document.body.appendChild(modal);
     modal.querySelector('.qr-modal-close').addEventListener('click', () => modal.style.display = 'none');
@@ -201,8 +217,8 @@ function shareSong(platform) {
         banner.id = 'pwa-install-banner';
         banner.className = 'pwa-install-banner';
         banner.innerHTML =
-            '<span class="pwa-text" data-i18n="pwa_install_text">Install Swaram for quick access — works offline too!</span>' +
-            '<button class="pwa-install-btn" data-i18n="pwa_install_btn">Install</button>' +
+            '<span class="pwa-text">Install Swaram for quick access — works offline too!</span>' +
+            '<button class="pwa-install-btn">Install</button>' +
             '<button class="pwa-dismiss" aria-label="Dismiss">&times;</button>';
         document.body.appendChild(banner);
 

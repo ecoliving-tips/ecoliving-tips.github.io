@@ -41,6 +41,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const uploadArea = document.getElementById('upload-area');
     if (uploadArea) {
         uploadArea.addEventListener('click', () => document.getElementById('file-input')?.click());
+        uploadArea.addEventListener('keydown', (event) => {
+            if (event.key !== 'Enter' && event.key !== ' ') return;
+            event.preventDefault();
+            document.getElementById('file-input')?.click();
+        });
         uploadArea.addEventListener('dragover', (e) => { e.preventDefault(); uploadArea.classList.add('drag-over'); });
         uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('drag-over'));
         uploadArea.addEventListener('drop', handleFileDrop);
@@ -356,6 +361,15 @@ function setStep(id, state) {
     if (!el) return;
     el.classList.remove('active', 'completed', 'done');
     if (state) el.classList.add(state === 'done' ? 'completed' : state);
+
+    const status = document.getElementById('progress-status');
+    if (status && state) {
+        const label = [...el.querySelectorAll('span')].find(span => !span.classList.contains('sep-timer'));
+        const text = label ? label.textContent.trim() : '';
+        status.textContent = state === 'done' && id !== 'step-done'
+            ? text + ' Complete'
+            : text;
+    }
 }
 
 function setProgressBar(pct) {
@@ -419,6 +433,8 @@ function resetVocalRemover() {
     stopElapsedTimer();
     const sepTimer = document.getElementById('sep-timer');
     if (sepTimer) sepTimer.textContent = '';
+    const progressStatus = document.getElementById('progress-status');
+    if (progressStatus) progressStatus.textContent = '';
     hideSection('progress-section');
     hideSection('results-section');
     hideSection('error-section');

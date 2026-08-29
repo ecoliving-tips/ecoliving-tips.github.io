@@ -1,6 +1,6 @@
 // Swaram - Service Worker for Offline Support
 
-const CACHE_NAME = 'swaram-v7-adsense-filter';
+const CACHE_NAME = 'swaram-v10-english-ui';
 const STATIC_ASSETS = [
     '/',
     '/index.html',
@@ -10,20 +10,30 @@ const STATIC_ASSETS = [
     '/chord-identifier.html',
     '/chord-progressions.html',
     '/vocal-remover.html',
+    '/css/styles.min.css',
+    '/js/request-page.js',
+    '/js/browse-chords.js',
     '/js/vocal-remover.js',
     '/js/chord-finder.js',
     '/js/chord-utils.js',
     '/js/chord-identifier.js',
     '/js/chord-progressions.js',
+    '/js/chord-page-player.js',
     '/css/styles.css',
     '/js/main.js',
     '/js/songs.js',
-    '/js/i18n.js',
     '/js/chord-diagrams.js',
-    '/i18n/translations.json',
     '/songs/index.json',
+    '/chords/index.json',
+    '/chords/recent.json',
     '/assets/favicon.svg',
     '/assets/favicon.png',
+    '/assets/favicon-192.png',
+    '/assets/favicon-512.png',
+    '/assets/apple-touch-icon.png',
+    '/assets/og-image.png',
+    '/assets/donate-qr.png',
+    '/favicon.ico',
     '/manifest.json'
 ];
 
@@ -40,7 +50,9 @@ self.addEventListener('install', event => {
 self.addEventListener('activate', event => {
     event.waitUntil(
         caches.keys()
-            .then(keys => Promise.all(keys.map(k => caches.delete(k))))
+            .then(keys => Promise.all(
+                keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
+            ))
             .then(() => self.clients.claim())
     );
 });

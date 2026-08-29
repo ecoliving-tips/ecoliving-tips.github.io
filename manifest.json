@@ -4,8 +4,8 @@
   "description": "Free AI chord finder — upload any song and get chords instantly. Works for any genre, any language.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0F0B1A",
-  "theme_color": "#6C3CE1",
+  "background_color": "#0C1116",
+  "theme_color": "#2E7D73",
   "orientation": "portrait-primary",
   "icons": [
     {

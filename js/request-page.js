@@ -11,13 +11,6 @@
 
     const formFirstSeenAt = Date.now();
 
-    function getTranslatedText(key, fallback) {
-        if (typeof translations === 'undefined' || typeof currentLang === 'undefined') {
-            return fallback;
-        }
-        return translations[currentLang]?.[key] || fallback;
-    }
-
     function shouldThrottleSubmit() {
         try {
             const last = Number(sessionStorage.getItem('swaram-last-request-submit-at') || '0');
@@ -57,7 +50,7 @@
             if (!btn) return;
             btn.textContent = '\u2713';
             setTimeout(() => {
-                btn.textContent = getTranslatedText('copy_upi_id', 'Copy');
+                btn.textContent = 'Copy';
             }, 1500);
         }).catch(() => {});
     }
@@ -82,8 +75,7 @@
         closeBtn.innerHTML = '&times;';
 
         const title = document.createElement('h3');
-        title.setAttribute('data-i18n', 'qr_modal_title');
-        title.textContent = getTranslatedText('qr_modal_title', 'Scan to Donate via UPI');
+        title.textContent = 'Scan to Donate via UPI';
 
         const image = document.createElement('img');
         image.src = '/assets/donate-qr.png';
@@ -101,16 +93,14 @@
         const copyBtn = document.createElement('button');
         copyBtn.className = 'qr-modal-copy';
         copyBtn.type = 'button';
-        copyBtn.setAttribute('data-i18n', 'copy_upi_id');
-        copyBtn.textContent = getTranslatedText('copy_upi_id', 'Copy');
+        copyBtn.textContent = 'Copy';
         copyBtn.addEventListener('click', copyUPIId);
         upiLine.appendChild(document.createTextNode(' '));
         upiLine.appendChild(copyBtn);
 
         const hint = document.createElement('p');
         hint.className = 'qr-modal-hint';
-        hint.setAttribute('data-i18n', 'qr_modal_hint');
-        hint.textContent = getTranslatedText('qr_modal_hint', 'Open any UPI app on your phone and scan this QR code');
+        hint.textContent = 'Open any UPI app on your phone and scan this QR code';
 
         content.appendChild(closeBtn);
         content.appendChild(title);
@@ -182,20 +172,20 @@
         if (!submitBtn || !form) return;
 
         submitBtn.disabled = true;
-        submitBtn.textContent = getTranslatedText('submitting', 'Submitting...');
+        submitBtn.textContent = 'Submitting...';
 
         const honeypot = document.getElementById('website')?.value || '';
         if (honeypot.trim()) {
             if (errorMessage) errorMessage.style.display = 'block';
             submitBtn.disabled = false;
-            submitBtn.textContent = getTranslatedText('submit_request', 'Submit Request');
+            submitBtn.textContent = 'Submit Request';
             return;
         }
 
         if ((Date.now() - formFirstSeenAt) < REQUEST_MIN_FILL_MS || shouldThrottleSubmit()) {
             if (errorMessage) errorMessage.style.display = 'block';
             submitBtn.disabled = false;
-            submitBtn.textContent = getTranslatedText('submit_request', 'Submit Request');
+            submitBtn.textContent = 'Submit Request';
             return;
         }
 
@@ -206,7 +196,7 @@
         if (!email || !songTitle) {
             if (errorMessage) errorMessage.style.display = 'block';
             submitBtn.disabled = false;
-            submitBtn.textContent = getTranslatedText('submit_request', 'Submit Request');
+            submitBtn.textContent = 'Submit Request';
             return;
         }
 
@@ -226,7 +216,7 @@
         }
 
         submitBtn.disabled = false;
-        submitBtn.textContent = getTranslatedText('submit_request', 'Submit Request');
+        submitBtn.textContent = 'Submit Request';
     }
 
     function initRequestPage() {

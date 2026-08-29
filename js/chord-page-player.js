@@ -28,17 +28,6 @@
     var nppMode = localStorage.getItem('swaram-npp-mode') || 'diagram';
     var nppInstrument = localStorage.getItem('swaram-npp-instrument') || 'guitar';
 
-    // ── i18n helper ──
-
-    function t(key, fallback) {
-        try {
-            if (typeof translations !== 'undefined' && typeof currentLang !== 'undefined') {
-                return translations[currentLang] && translations[currentLang][key] || fallback || key;
-            }
-        } catch (e) { /* ignore */ }
-        return fallback || key;
-    }
-
     // ── Chord display ──
 
     function getDisplayChord(raw) {
@@ -100,11 +89,11 @@
         var diffEl = document.getElementById('difficulty-display');
         if (capoEl) {
             capoEl.textContent = capoPosition > 0
-                ? t('gen_capo_prefix', 'Capo') + ' ' + capoPosition
-                : t('gen_no_capo', 'No Capo');
+                ? 'Capo ' + capoPosition
+                : 'No Capo';
         }
         if (diffEl) {
-            var labels = { easy: t('gen_difficulty_easy', 'Easy'), moderate: t('gen_difficulty_moderate', 'Moderate'), advanced: t('gen_difficulty_advanced', 'Advanced') };
+            var labels = { easy: 'Easy', moderate: 'Moderate', advanced: 'Advanced' };
             diffEl.textContent = labels[difficultyLevel] || difficultyLevel;
             diffEl.className = 'meta-badge beginner-difficulty difficulty-' + difficultyLevel;
         }

@@ -251,6 +251,11 @@ function setupEventListeners() {
     const uploadArea = document.getElementById('upload-area');
     if (uploadArea) {
         uploadArea.addEventListener('click', () => document.getElementById('file-input')?.click());
+        uploadArea.addEventListener('keydown', (event) => {
+            if (event.key !== 'Enter' && event.key !== ' ') return;
+            event.preventDefault();
+            document.getElementById('file-input')?.click();
+        });
         uploadArea.addEventListener('dragover', (e) => { e.preventDefault(); uploadArea.classList.add('drag-over'); });
         uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('drag-over'));
         uploadArea.addEventListener('drop', handleFileDrop);

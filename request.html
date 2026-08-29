@@ -35,7 +35,7 @@
     <link rel="stylesheet" href="css/styles.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Manjari:wght@400;700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
         rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
     <link rel="icon" type="image/png" href="assets/favicon.png">
@@ -56,12 +56,13 @@
 </head>
 
 <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <header>
         <div class="container">
             <div class="header-top">
                 <div class="header-content">
-                    <h1><a href="/" style="color:inherit;text-decoration:none;" data-i18n="site_title">Swaram</a></h1>
-                    <p class="tagline" data-i18n="tagline">Find Chords for Any Song — Free AI Chord Finder</p>
+                    <div class="header-brand"><a href="/" class="site-brand" style="color:inherit;text-decoration:none;">Swaram</a></div>
+                    <p class="tagline">Find Chords for Any Song — Free AI Chord Finder</p>
                 </div>
                 <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
                     <span class="hamburger-line"></span>
@@ -71,21 +72,21 @@
             </div>
             <nav class="mobile-nav" aria-label="Main navigation">
                 <ul>
-                    <li><a href="/chord-finder.html" data-i18n="nav_generate">Chord Finder</a></li>
-                    <li><a href="/vocal-remover.html" data-i18n="nav_vocal_remover">Vocal Remover</a></li>
-                    <li><a href="/chord-identifier.html" data-i18n="nav_identifier">Chord Identifier (Mic)</a></li>
-                    <li><a href="/chord-progressions.html" data-i18n="nav_progressions">Progressions</a></li>
-                    <li><a href="/songs.html" data-i18n="nav_songs">Song Library</a></li>
+                    <li><a href="/chord-finder.html">Chord Finder</a></li>
+                    <li><a href="/vocal-remover.html">Vocal Remover</a></li>
+                    <li><a href="/chord-identifier.html">Chord Identifier (Mic)</a></li>
+                    <li><a href="/chord-progressions.html">Progressions</a></li>
+                    <li><a href="/songs.html">Song Library</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <main>
+    <main id="main-content" tabindex="-1">
         <section class="request-header">
             <div class="container">
-                <h2 data-i18n="request_title">Request a Song</h2>
-                <p data-i18n="request_desc">Can't find the chord chart you're looking for? Tell us the song name and we'll work on adding it to
+                <h1>Request a Song</h1>
+                <p>Can't find the chord chart you're looking for? Tell us the song name and we'll work on adding it to
                     our free collection. We prioritize the most requested songs from our community.</p>
             </div>
         </section>
@@ -95,45 +96,45 @@
                 <form id="request-form" class="request-form">
                     <input type="text" name="website" id="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-10000px;opacity:0;pointer-events:none;">
                     <div class="form-group">
-                        <label for="email" data-i18n="label_email">Your Email *</label>
-                        <input type="email" id="email" name="email" required placeholder="Enter your email" data-i18n-placeholder="placeholder_email">
+                        <label for="email">Your Email *</label>
+                        <input type="email" id="email" name="email" required placeholder="Enter your email">
                     </div>
                     <div class="form-group">
-                        <label for="song-title" data-i18n="label_song_title">Song Title *</label>
+                        <label for="song-title">Song Title *</label>
                         <input type="text" id="song-title" name="song_title" required
-                            placeholder="e.g. Anna Pesaha Thirunalil" data-i18n-placeholder="placeholder_song">
+                            placeholder="e.g. Anna Pesaha Thirunalil">
                     </div>
                     <div class="form-group">
-                        <label for="message" data-i18n="label_details">Additional Details (Optional)</label>
+                        <label for="message">Additional Details (Optional)</label>
                         <textarea id="message" name="message" rows="4"
-                            placeholder="Artist name, YouTube link, or any other details that help us find the correct song..." data-i18n-placeholder="placeholder_details"></textarea>
+                            placeholder="Artist name, YouTube link, or any other details that help us find the correct song..."></textarea>
                     </div>
-                    <button type="submit" class="btn" id="submit-btn" data-i18n="submit_request">Submit Request</button>
+                    <button type="submit" class="btn" id="submit-btn">Submit Request</button>
                 </form>
 
-                <div id="success-message" class="success-message" style="display: none;">
-                    <h3 data-i18n="request_success_title">Request Submitted Successfully!</h3>
-                    <p data-i18n="request_success_msg">Thank you! We've received your song request and will notify you via email once the chord chart is ready.
+                <div id="success-message" class="success-message" role="status" aria-live="polite" style="display: none;">
+                    <h3>Request Submitted Successfully!</h3>
+                    <p>Thank you! We've received your song request and will notify you via email once the chord chart is ready.
                         The most requested songs get added first.</p>
-                    <button id="submit-another-btn" type="button" class="btn" data-i18n="submit_another">Submit Another Request</button>
+                    <button id="submit-another-btn" type="button" class="btn">Submit Another Request</button>
                 </div>
 
-                <div id="error-message" class="error-message" style="display: none;">
-                    <h3 data-i18n="request_error_title">Something Went Wrong</h3>
-                    <p data-i18n="request_error_msg">We couldn't submit your request. Please check your connection and try again.</p>
+                <div id="error-message" class="error-message" role="alert" style="display: none;">
+                    <h3>Something Went Wrong</h3>
+                    <p>We couldn't submit your request. Please check your connection and try again.</p>
                 </div>
             </div>
         </section>
 
         <section class="donate-section" id="donate">
             <div class="container">
-                <h3 data-i18n="support_title">Support Swaram</h3>
-                <p data-i18n="support_text">We keep everything completely free. Your support helps us improve the chord finder and add more songs.</p>
+                <h3>Support Swaram</h3>
+                <p>We keep everything completely free. Your support helps us improve the chord finder and add more songs.</p>
                 <div class="donate-options">
                     <div class="razorpay-donate-btn" id="razorpay-btn-container"></div>
                     <div class="upi-donate-option">
-                        <p class="upi-label" data-i18n="or_upi">Or pay directly via UPI (India)</p>
-                        <a href="#" id="upi-pay-link" class="btn donate-btn donate-btn-secondary" data-i18n="pay_upi">Pay via UPI</a>
+                        <p class="upi-label">Or pay directly via UPI (India)</p>
+                        <a href="#" id="upi-pay-link" class="btn donate-btn donate-btn-secondary">Pay via UPI</a>
                     </div>
                 </div>
             </div>
@@ -144,33 +145,32 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <h3 data-i18n="site_title">Swaram</h3>
-                    <p data-i18n="tagline">Find Chords for Any Song — Free AI Chord Finder</p>
+                    <h3>Swaram</h3>
+                    <p>Find Chords for Any Song — Free AI Chord Finder</p>
                 </div>
                 <div class="footer-links">
-                    <h4 data-i18n="footer_quick_links">Quick Links</h4>
+                    <h4>Quick Links</h4>
                     <ul>
-                        <li><a href="/chord-finder.html" data-i18n="nav_generate">Chord Finder</a></li>
-                        <li><a href="/chord-identifier.html" data-i18n="nav_identifier">Chord Identifier (Mic)</a></li>
-                        <li><a href="/chord-progressions.html" data-i18n="nav_progressions">Progressions</a></li>
-                        <li><a href="/songs.html" data-i18n="nav_songs">Song Library</a></li>
-                        <li><a href="/privacy-policy.html" data-i18n="nav_privacy">Privacy Policy</a></li>
+                        <li><a href="/chord-finder.html">Chord Finder</a></li>
+                        <li><a href="/chord-identifier.html">Chord Identifier (Mic)</a></li>
+                        <li><a href="/chord-progressions.html">Progressions</a></li>
+                        <li><a href="/songs.html">Song Library</a></li>
+                        <li><a href="/privacy-policy.html">Privacy Policy</a></li>
                     </ul>
                 </div>
                 <div class="footer-social">
-                    <h4 data-i18n="footer_follow_us">Follow Us</h4>
+                    <h4>Follow Us</h4>
                     <ul>
                         <li><a href="https://www.youtube.com/@almightyone8205" target="_blank" rel="noopener noreferrer">YouTube</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p data-i18n="copyright">&copy; 2026 Swaram. All Rights Reserved.</p>
+                <p>&copy; 2026 Swaram. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
 
-    <script src="js/i18n.js" defer></script>
     <script src="js/main.js" defer></script>
     <script src="js/request-page.js" defer></script>
 </body>

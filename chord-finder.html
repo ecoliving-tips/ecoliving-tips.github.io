@@ -40,11 +40,11 @@
     <link rel="stylesheet" href="css/styles.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Manjari:wght@400;700&display=swap"
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
         as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
         <link rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Manjari:wght@400;700&display=swap">
+            href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap">
     </noscript>
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
     <link rel="icon" type="image/png" href="assets/favicon.png">
@@ -231,13 +231,14 @@
 </head>
 
 <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <!-- SYNC: header from templates/partials/header.html -->
     <header>
         <div class="container">
             <div class="header-top">
                 <div class="header-content">
-                    <h1><a href="/" style="color:inherit;text-decoration:none;" data-i18n="site_title">Swaram</a></h1>
-                    <p class="tagline" data-i18n="tagline">Find Chords for Any Song &mdash; Free AI Chord Finder</p>
+                    <div class="header-brand"><a href="/" class="site-brand" style="color:inherit;text-decoration:none;">Swaram</a></div>
+                    <p class="tagline">Find Chords for Any Song &mdash; Free AI Chord Finder</p>
                 </div>
                 <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
                     <span class="hamburger-line"></span>
@@ -247,25 +248,25 @@
             </div>
             <nav class="mobile-nav" aria-label="Main navigation">
                 <ul>
-                    <li><a href="/chord-finder.html" data-i18n="nav_generate">Chord Finder</a></li>
-                    <li><a href="/vocal-remover.html" data-i18n="nav_vocal_remover">Vocal Remover</a></li>
-                    <li><a href="/chord-identifier.html" data-i18n="nav_identifier">Chord Identifier (Mic)</a></li>
-                    <li><a href="/chord-progressions.html" data-i18n="nav_progressions">Progressions</a></li>
-                    <li><a href="/songs.html" data-i18n="nav_songs">Song Library</a></li>
+                    <li><a href="/chord-finder.html">Chord Finder</a></li>
+                    <li><a href="/vocal-remover.html">Vocal Remover</a></li>
+                    <li><a href="/chord-identifier.html">Chord Identifier (Mic)</a></li>
+                    <li><a href="/chord-progressions.html">Progressions</a></li>
+                    <li><a href="/songs.html">Song Library</a></li>
                 </ul>
             </nav>
         </div>
-        <div id="offline-banner" class="offline-banner" style="display:none;" data-i18n="offline_msg">
+        <div id="offline-banner" class="offline-banner" style="display:none;">
             You are offline. Showing cached content.
         </div>
     </header>
 
-    <main>
+    <main id="main-content" tabindex="-1">
         <!-- Input Section -->
         <section class="generate-header">
             <div class="container">
-                <h1 data-i18n="gen_title">AI Chord Finder — Detect Chords from Audio, MP3 & YouTube</h1>
-                <p data-i18n="gen_desc">Upload any audio file or paste a YouTube link — get chords instantly.</p>
+                <h1>AI Chord Finder — Detect Chords from Audio, MP3 & YouTube</h1>
+                <p>Upload any audio file or paste a YouTube link — get chords instantly.</p>
                 <p>Looking for a quick single-chord check? Try our <a href="/chord-identifier.html" title="Chord identifier by sound">chord identifier by sound</a>. Want to remove vocals or isolate instruments? Use our <a href="/vocal-remover.html" title="Vocal remover and stem separator">vocal remover and stem separator</a>. Need ready pages by song? Open the <a href="/songs.html" title="Song chord finder library">song chord finder library</a>.</p>
             </div>
         </section>
@@ -275,8 +276,8 @@
                 <div class="generate-form">
                     <!-- File upload -->
                     <div class="form-group">
-                        <label data-i18n="gen_upload_label">Drop an audio file</label>
-                        <div class="upload-area" id="upload-area">
+                        <label id="upload-label" for="file-input">Drop an audio file</label>
+                        <div class="upload-area" id="upload-area" role="button" tabindex="0" aria-labelledby="upload-label" aria-controls="file-input">
                             <div class="upload-icon">
                                 <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -284,8 +285,8 @@
                                     <line x1="12" y1="3" x2="12" y2="15"/>
                                 </svg>
                             </div>
-                            <p class="upload-text" data-i18n="gen_upload_text">Drag & drop your audio here, or tap to browse</p>
-                            <p class="upload-hint" data-i18n="gen_upload_hint">MP3, WAV, M4A, MP4, OGG, OPUS, FLAC — up to 30 MB</p>
+                            <p class="upload-text">Drag & drop your audio here, or tap to browse</p>
+                            <p class="upload-hint">MP3, WAV, M4A, MP4, OGG, OPUS, FLAC — up to 30 MB</p>
                             <input type="file" id="file-input" accept=".mp3,.wav,.m4a,.mp4,.ogg,.opus,.flac,.aac,.wma,.webm" hidden>
                         </div>
                         <div class="selected-file" id="selected-file" style="display:none;">
@@ -296,23 +297,23 @@
 
                     <!-- Or divider -->
                     <div class="input-divider">
-                        <span data-i18n="gen_or_divider">or</span>
+                        <span>or</span>
                     </div>
 
                     <!-- YouTube URL input -->
                     <div class="form-group">
-                        <label data-i18n="gen_url_label">Paste a YouTube link</label>
+                        <label>Paste a YouTube link</label>
                         <div class="youtube-url-group">
                             <svg class="youtube-url-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
                             </svg>
-                            <input type="url" class="youtube-url-input" id="youtube-url" data-i18n-placeholder="gen_url_placeholder" placeholder="https://youtube.com/watch?v=..." autocomplete="off" spellcheck="false">
+                            <input type="url" class="youtube-url-input" id="youtube-url" placeholder="https://youtube.com/watch?v=..." autocomplete="off" spellcheck="false">
                             <button type="button" class="youtube-url-clear" id="youtube-url-clear" aria-label="Clear URL" style="display:none;">&times;</button>
                         </div>
-                        <div class="youtube-fetch-status" id="youtube-fetch-status" style="display:none;"></div>
+                        <div class="youtube-fetch-status" id="youtube-fetch-status" role="status" style="display:none;"></div>
                     </div>
 
-                    <button type="button" class="btn generate-btn" id="generate-btn" data-i18n="gen_button">
+                    <button type="button" class="btn generate-btn" id="generate-btn">
                         Find Chords
                     </button>
                 </div>
@@ -320,22 +321,22 @@
         </section>
 
         <!-- Progress Section -->
-        <section class="generate-progress" id="progress-section" style="display:none;">
+        <section class="generate-progress" id="progress-section" role="status" aria-live="polite" style="display:none;">
             <div class="container">
                 <div class="progress-card">
                     <div class="progress-steps">
                         <div class="progress-step" id="step-youtube-fetch" style="display:none;">
                             <div class="step-indicator"></div>
-                            <span data-i18n="gen_url_fetching">Fetching audio from YouTube...</span>
+                            <span>Fetching audio from YouTube...</span>
                         </div>
                         <div class="progress-step" id="step-analyze">
                             <div class="step-indicator"></div>
-                            <span data-i18n="gen_step_analyze">Our AI is transcribing the chords for you...</span>
-                            <div class="warmup-hint" id="warmup-hint" style="display:none" data-i18n="gen_warmup">Server is waking up — first request takes a bit longer...</div>
+                            <span>Our AI is transcribing the chords for you...</span>
+                            <div class="warmup-hint" id="warmup-hint" style="display:none">Server is waking up — first request takes a bit longer...</div>
                         </div>
                         <div class="progress-step" id="step-done">
                             <div class="step-indicator"></div>
-                            <span data-i18n="gen_step_done">Chords ready! Let's play.</span>
+                            <span>Chords ready! Let's play.</span>
                         </div>
                     </div>
                     <div class="progress-bar-container">
@@ -348,12 +349,12 @@
         </section>
 
         <!-- Error Section -->
-        <section class="generate-error" id="error-section" style="display:none;">
+        <section class="generate-error" id="error-section" role="alert" style="display:none;">
             <div class="container">
                 <div class="error-card">
-                    <h3 data-i18n="gen_error_title">Oops!</h3>
-                    <p id="error-message" data-i18n="gen_error_msg">Something broke while figuring out the chords. Give it another shot.</p>
-                    <button type="button" class="btn" onclick="resetGenerator()" data-i18n="gen_try_again">Try Again</button>
+                    <h3>Oops!</h3>
+                    <p id="error-message">Something broke while figuring out the chords. Give it another shot.</p>
+                    <button type="button" class="btn" onclick="resetGenerator()">Try Again</button>
                 </div>
             </div>
         </section>
@@ -385,17 +386,18 @@
                 </div>
 
                 <!-- Mode toggle & Transpose controls -->
+                <div class="song-practice-surface">
                 <div class="song-toolbar">
                     <div class="simplify-toggle">
-                        <button type="button" class="simplify-tab active" id="mode-original" data-i18n="gen_mode_original">Original</button>
-                        <button type="button" class="simplify-tab" id="mode-beginner" data-i18n="gen_mode_beginner">Beginner</button>
+                        <button type="button" class="simplify-tab active" id="mode-original">Original</button>
+                        <button type="button" class="simplify-tab" id="mode-beginner">Beginner</button>
                     </div>
                     <div class="song-controls">
                         <div class="transpose-controls">
                             <button type="button" class="ctrl-btn" id="transpose-down" aria-label="Transpose down">-</button>
-                            <span class="transpose-display"><span data-i18n="transpose">Transpose:</span> <strong id="transpose-value">0</strong></span>
+                            <span class="transpose-display"><span>Transpose:</span> <strong id="transpose-value">0</strong></span>
                             <button type="button" class="ctrl-btn" id="transpose-up" aria-label="Transpose up">+</button>
-                            <button type="button" class="ctrl-btn ctrl-btn-text" id="transpose-reset" data-i18n="reset" aria-label="Reset transpose">Reset</button>
+                            <button type="button" class="ctrl-btn ctrl-btn-text" id="transpose-reset" aria-label="Reset transpose">Reset</button>
                         </div>
                     </div>
                 </div>
@@ -409,7 +411,7 @@
                 <!-- Current chord display — integrated Now Playing panel -->
                 <div class="current-chord-display" id="now-playing-panel" data-mode="diagram">
                     <div class="current-chord-header">
-                        <div class="current-chord-label" data-i18n="gen_now_playing">Now Playing</div>
+                        <div class="current-chord-label">Now Playing</div>
                         <div class="npp-controls">
                             <div class="npp-toggle" id="npp-mode-toggle" role="group" aria-label="Display mode">
                                 <button class="npp-btn active" data-mode="diagram">Diagrams</button>
@@ -446,73 +448,74 @@
                         <!-- Chord blocks inserted by JS -->
                     </div>
                 </div>
+                </div>
 
                 <!-- Actions -->
                 <div class="generate-actions">
-                    <button type="button" class="btn" id="new-btn" onclick="resetGenerator()" data-i18n="gen_new">Try Another Song</button>
+                    <button type="button" class="btn" id="new-btn" onclick="resetGenerator()">Try Another Song</button>
                 </div>
             </div>
 
         </section>
 
-        <!-- Ad: after chord results -->
-        <div class="ad-container" data-swaram-ad-layout="in-article" data-swaram-ad-format="fluid" data-swaram-ad-slot="3762874972" style="text-align:center; margin: 2rem auto; max-width: 728px;"></div>
-
         <!-- How It Works -->
         <section class="how-it-works-section">
             <div class="container">
-                <h2 data-i18n="how_title">How It Works</h2>
+                <h2>How It Works</h2>
                 <div class="features-grid">
                     <article class="feature-card">
                         <div class="feature-icon">
                             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
                         </div>
-                        <h3 data-i18n="how_step1_title">Paste Link or Upload</h3>
-                        <p data-i18n="how_step1_desc">Paste a YouTube link or drop any audio file — MP3, WAV, M4A, OGG, or FLAC up to 30 MB.</p>
+                        <h3>Paste Link or Upload</h3>
+                        <p>Paste a YouTube link or drop any audio file — MP3, WAV, M4A, OGG, or FLAC up to 30 MB.</p>
                     </article>
                     <article class="feature-card">
                         <div class="feature-icon">
                             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                         </div>
-                        <h3 data-i18n="how_step2_title">AI Detects Chords</h3>
-                        <p data-i18n="how_step2_desc">Our AI analyzes the audio and identifies chords and progressions in seconds.</p>
+                        <h3>AI Detects Chords</h3>
+                        <p>Our AI analyzes the audio and identifies chords and progressions in seconds.</p>
                     </article>
                     <article class="feature-card">
                         <div class="feature-icon">
                             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
                         </div>
-                        <h3 data-i18n="how_step3_title">Play Along</h3>
-                        <p data-i18n="how_step3_desc">Follow the chord timeline synced with audio playback. Transpose to any key.</p>
+                        <h3>Play Along</h3>
+                        <p>Follow the chord timeline synced with audio playback. Transpose to any key.</p>
                     </article>
                 </div>
             </div>
         </section>
 
+        <!-- Ad: between explanatory sections, away from result controls -->
+        <div class="ad-container" data-swaram-ad-layout="in-article" data-swaram-ad-format="fluid" data-swaram-ad-slot="3762874972" style="text-align:center; margin: 2rem auto; max-width: 728px;"></div>
+
         <!-- Why Use Our Chord Finder -->
         <section class="how-it-works-section">
             <div class="container">
-                <h2 data-i18n="cf_why_title">Why Use Our Chord Finder?</h2>
+                <h2>Why Use Our Chord Finder?</h2>
                 <div class="features-grid">
                     <article class="feature-card">
                         <div class="feature-icon">
                             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                         </div>
-                        <h3 data-i18n="cf_why_free_title">100% Free, No Signup</h3>
-                        <p data-i18n="cf_why_free_desc">No account needed, no usage limits, no hidden fees. Upload any song and get chords instantly.</p>
+                        <h3>100% Free, No Signup</h3>
+                        <p>No account needed, no usage limits, no hidden fees. Upload any song and get chords instantly.</p>
                     </article>
                     <article class="feature-card">
                         <div class="feature-icon">
                             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
                         </div>
-                        <h3 data-i18n="cf_why_any_title">Works for Any Song</h3>
-                        <p data-i18n="cf_why_any_desc">Pop, rock, jazz, classical, worship, Bollywood — our AI handles any genre and any language.</p>
+                        <h3>Works for Any Song</h3>
+                        <p>Pop, rock, jazz, classical, worship, Bollywood — our AI handles any genre and any language.</p>
                     </article>
                     <article class="feature-card">
                         <div class="feature-icon">
                             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
                         </div>
-                        <h3 data-i18n="cf_why_beginner_title">Beginner-Friendly</h3>
-                        <p data-i18n="cf_why_beginner_desc">Toggle Beginner Mode to auto-simplify complex chords into easy open chords with smart capo suggestions. Perfect for new guitar players.</p>
+                        <h3>Beginner-Friendly</h3>
+                        <p>Toggle Beginner Mode to auto-simplify complex chords into easy open chords with smart capo suggestions. Perfect for new guitar players.</p>
                     </article>
                 </div>
             </div>
@@ -521,9 +524,9 @@
         <!-- Supported Formats -->
         <section class="about-section">
             <div class="container">
-                <h2 data-i18n="cf_formats_title">Supported Audio Formats</h2>
+                <h2>Supported Audio Formats</h2>
                 <div class="about-content">
-                    <p data-i18n="cf_formats_desc">Upload audio files in MP3, WAV, M4A, OGG, FLAC, AAC, WMA, or WebM format — up to 30 MB. You can also paste any YouTube link to find chords directly — no need to download the video first. For best chord detection results, use high-quality recordings with clear instrumentation. Our AI chord finder works with studio tracks, live recordings, and acoustic performances alike.</p>
+                    <p>Upload audio files in MP3, WAV, M4A, OGG, FLAC, AAC, WMA, or WebM format — up to 30 MB. You can also paste any YouTube link to find chords directly — no need to download the video first. For best chord detection results, use high-quality recordings with clear instrumentation. Our AI chord finder works with studio tracks, live recordings, and acoustic performances alike.</p>
                 </div>
             </div>
         </section>
@@ -531,16 +534,22 @@
         <!-- SEO content: How to use each input method -->
         <section class="about-section">
             <div class="container">
-                <h2 data-i18n="cf_seo_title">How to Find Chords for Any Song</h2>
+                <h2>How to Find Chords for Any Song</h2>
                 <div class="about-content">
-                    <h3 data-i18n="cf_seo_mp3_title">Convert MP3 to Chords</h3>
-                    <p data-i18n="cf_seo_mp3_desc">Have an MP3 file on your device? Just drag and drop it into the upload area above. Swaram's AI analyzes the audio and extracts the chord progression in seconds. Works with any MP3 — studio recordings, live performances, or practice sessions.</p>
+                    <details class="seo-disclosure">
+                        <summary><h3>Convert MP3 to Chords</h3></summary>
+                    <p>Have an MP3 file on your device? Just drag and drop it into the upload area above. Swaram's AI analyzes the audio and extracts the chord progression in seconds. Works with any MP3 — studio recordings, live performances, or practice sessions.</p>
+                    </details>
 
-                    <h3 data-i18n="cf_seo_yt_title">Find Chords from a YouTube Video</h3>
-                    <p data-i18n="cf_seo_yt_desc">Copy the URL of any YouTube video and paste it into the input field. Swaram automatically extracts the audio from the video and detects every chord. No need to download the video or install browser extensions — just paste the link and play along.</p>
+                    <details class="seo-disclosure">
+                        <summary><h3>Find Chords from a YouTube Video</h3></summary>
+                    <p>Copy the URL of any YouTube video and paste it into the input field. Swaram automatically extracts the audio from the video and detects every chord. No need to download the video or install browser extensions — just paste the link and play along.</p>
+                    </details>
 
-                    <h3 data-i18n="cf_seo_audio_title">Audio to Chords — Any Format Supported</h3>
-                    <p data-i18n="cf_seo_audio_desc">Beyond MP3, Swaram supports WAV, M4A, OGG, FLAC, AAC, WMA, and WebM audio files. Whether you recorded a song on your phone or have a high-quality FLAC file, our AI chord finder handles it all — any song, any genre, any language.</p>
+                    <details class="seo-disclosure">
+                        <summary><h3>Audio to Chords — Any Format Supported</h3></summary>
+                    <p>Beyond MP3, Swaram supports WAV, M4A, OGG, FLAC, AAC, WMA, and WebM audio files. Whether you recorded a song on your phone or have a high-quality FLAC file, our AI chord finder handles it all — any song, any genre, any language.</p>
+                    </details>
                 </div>
             </div>
         </section>
@@ -548,48 +557,48 @@
         <!-- FAQ Section (visible, matches JSON-LD) -->
         <section class="faq-section">
             <div class="container">
-                <h2 data-i18n="faq_title">Frequently Asked Questions</h2>
+                <h2>Frequently Asked Questions</h2>
                 <div class="faq-grid">
-                    <div class="faq-item">
-                        <h3 data-i18n="cf_faq_q1">How does the AI chord finder work?</h3>
-                        <p data-i18n="cf_faq_a1">Upload an audio file (MP3, WAV, M4A, OGG, or FLAC) and our AI analyzes the harmonic content to detect chords and progressions. Results include a playable chord timeline synced with your audio.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3 data-i18n="cf_faq_q2">What audio formats are supported?</h3>
-                        <p data-i18n="cf_faq_a2">Swaram supports MP3, WAV, M4A, OGG, FLAC, AAC, WMA, and WebM audio files up to 30 MB. For best results, use high-quality audio recordings.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3 data-i18n="cf_faq_q3">Can I find chords for any song?</h3>
-                        <p data-i18n="cf_faq_a3">Yes! Our AI chord finder works with any genre and any language — pop, rock, jazz, classical, worship, Bollywood, and more. Just upload an audio file and get chords instantly.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3 data-i18n="cf_faq_q4">How accurate is the AI chord detection?</h3>
-                        <p data-i18n="cf_faq_a4">Our AI uses advanced harmonic analysis to detect chords with good accuracy. Results work best with clear recordings. You can transpose the detected chords to any key with one click.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3 data-i18n="cf_faq_q5">Can I find chords from a YouTube video?</h3>
-                        <p data-i18n="cf_faq_a5">Yes! Just paste any YouTube link and Swaram will automatically extract the audio and detect chords. No need to download the song first — it works directly from the YouTube URL.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3 data-i18n="cf_faq_q6">Is the chord finder really free?</h3>
-                        <p data-i18n="cf_faq_a6">Yes, Swaram is 100% free with no signup required. Upload audio files or paste YouTube links as many times as you want — no usage limits, no hidden fees.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3 data-i18n="cf_faq_q7">Do I need to download a YouTube video to find chords?</h3>
-                        <p data-i18n="cf_faq_a7">No. Simply paste the YouTube URL into Swaram's chord finder and it extracts the audio automatically. No downloads, no extra software needed.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3 data-i18n="cf_faq_q8">Is Swaram a free alternative to Chordify?</h3>
-                        <p data-i18n="cf_faq_a8">Yes! Swaram is a completely free alternative to Chordify with no signup or subscription required. Upload MP3 files or paste YouTube links to detect chords instantly — unlimited uses, no paywall, and it works for any song in any language.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3 data-i18n="cf_faq_q9">What is the best free chord finder in 2026?</h3>
-                        <p data-i18n="cf_faq_a9">Swaram is one of the best free chord finders available in 2026. It uses AI to detect chords from any audio file or YouTube link with no signup, no usage limits, and no subscription. It includes Beginner Mode with automatic chord simplification, capo suggestions, transpose, and 221 interactive chord diagrams — all completely free.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3 data-i18n="cf_faq_q10">Can Swaram detect chords from YouTube videos for free?</h3>
-                        <p data-i18n="cf_faq_a10">Yes, Swaram can detect chords from any YouTube video completely free. Just paste the YouTube URL, and the AI extracts the audio and identifies chords, key, and timing automatically. No video download required, no account needed, and there are no daily limits.</p>
-                    </div>
+                    <details class="faq-item">
+                        <summary><h3>How does the AI chord finder work?</h3></summary>
+                        <p>Upload an audio file (MP3, WAV, M4A, OGG, or FLAC) and our AI analyzes the harmonic content to detect chords and progressions. Results include a playable chord timeline synced with your audio.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary><h3>What audio formats are supported?</h3></summary>
+                        <p>Swaram supports MP3, WAV, M4A, OGG, FLAC, AAC, WMA, and WebM audio files up to 30 MB. For best results, use high-quality audio recordings.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary><h3>Can I find chords for any song?</h3></summary>
+                        <p>Yes! Our AI chord finder works with any genre and any language — pop, rock, jazz, classical, worship, Bollywood, and more. Just upload an audio file and get chords instantly.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary><h3>How accurate is the AI chord detection?</h3></summary>
+                        <p>Our AI uses advanced harmonic analysis to detect chords with good accuracy. Results work best with clear recordings. You can transpose the detected chords to any key with one click.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary><h3>Can I find chords from a YouTube video?</h3></summary>
+                        <p>Yes! Just paste any YouTube link and Swaram will automatically extract the audio and detect chords. No need to download the song first — it works directly from the YouTube URL.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary><h3>Is the chord finder really free?</h3></summary>
+                        <p>Yes, Swaram is 100% free with no signup required. Upload audio files or paste YouTube links as many times as you want — no usage limits, no hidden fees.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary><h3>Do I need to download a YouTube video to find chords?</h3></summary>
+                        <p>No. Simply paste the YouTube URL into Swaram's chord finder and it extracts the audio automatically. No downloads, no extra software needed.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary><h3>Is Swaram a free alternative to Chordify?</h3></summary>
+                        <p>Yes! Swaram is a completely free alternative to Chordify with no signup or subscription required. Upload MP3 files or paste YouTube links to detect chords instantly — unlimited uses, no paywall, and it works for any song in any language.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary><h3>What is the best free chord finder in 2026?</h3></summary>
+                        <p>Swaram is one of the best free chord finders available in 2026. It uses AI to detect chords from any audio file or YouTube link with no signup, no usage limits, and no subscription. It includes Beginner Mode with automatic chord simplification, capo suggestions, transpose, and 221 interactive chord diagrams — all completely free.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary><h3>Can Swaram detect chords from YouTube videos for free?</h3></summary>
+                        <p>Yes, Swaram can detect chords from any YouTube video completely free. Just paste the YouTube URL, and the AI extracts the audio and identifies chords, key, and timing automatically. No video download required, no account needed, and there are no daily limits.</p>
+                    </details>
                 </div>
             </div>
         </section>
@@ -600,13 +609,13 @@
         <!-- SYNC: donate from templates/partials/donate.html -->
         <section class="donate-section" id="donate">
             <div class="container">
-                <h3 data-i18n="support_title">Support Swaram</h3>
-                <p data-i18n="support_text">We keep everything completely free. Your support helps us improve the chord finder and add more songs.</p>
+                <h3>Support Swaram</h3>
+                <p>We keep everything completely free. Your support helps us improve the chord finder and add more songs.</p>
                 <div class="donate-options">
                     <div class="razorpay-donate-btn" id="razorpay-btn-container"></div>
                     <div class="upi-donate-option">
-                        <p class="upi-label" data-i18n="or_upi">Or pay directly via UPI (India)</p>
-                        <a href="#" onclick="openUPI(); return false;" class="btn donate-btn donate-btn-secondary" data-i18n="pay_upi">Pay via UPI</a>
+                        <p class="upi-label">Or pay directly via UPI (India)</p>
+                        <a href="#" onclick="openUPI(); return false;" class="btn donate-btn donate-btn-secondary">Pay via UPI</a>
                     </div>
                 </div>
             </div>
@@ -644,28 +653,28 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <h3 data-i18n="site_title">Swaram</h3>
-                    <p data-i18n="tagline">Find Chords for Any Song &mdash; Free AI Chord Finder</p>
+                    <h3>Swaram</h3>
+                    <p>Find Chords for Any Song &mdash; Free AI Chord Finder</p>
                 </div>
                 <div class="footer-links">
-                    <h4 data-i18n="footer_quick_links">Quick Links</h4>
+                    <h4>Quick Links</h4>
                     <ul>
-                        <li><a href="/chord-finder.html" data-i18n="nav_generate">Chord Finder</a></li>
-                        <li><a href="/chord-identifier.html" data-i18n="nav_identifier">Chord Identifier (Mic)</a></li>
-                        <li><a href="/chord-progressions.html" data-i18n="nav_progressions">Progressions</a></li>
-                        <li><a href="/songs.html" data-i18n="nav_songs">Song Library</a></li>
-                        <li><a href="/privacy-policy.html" data-i18n="nav_privacy">Privacy Policy</a></li>
+                        <li><a href="/chord-finder.html">Chord Finder</a></li>
+                        <li><a href="/chord-identifier.html">Chord Identifier (Mic)</a></li>
+                        <li><a href="/chord-progressions.html">Progressions</a></li>
+                        <li><a href="/songs.html">Song Library</a></li>
+                        <li><a href="/privacy-policy.html">Privacy Policy</a></li>
                     </ul>
                 </div>
                 <div class="footer-social">
-                    <h4 data-i18n="footer_follow_us">Follow Us</h4>
+                    <h4>Follow Us</h4>
                     <ul>
                         <li><a href="https://www.youtube.com/@almightyone8205" target="_blank" rel="noopener noreferrer">YouTube</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p data-i18n="copyright">&copy; 2026 Swaram. All Rights Reserved.</p>
+                <p>&copy; 2026 Swaram. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
@@ -674,13 +683,13 @@
     <div id="upi-modal" class="qr-modal-overlay" style="display:none;" onclick="if(event.target===this)closeUPI()">
         <div class="qr-modal-content">
             <button class="qr-modal-close" onclick="closeUPI()" aria-label="Close">&times;</button>
-            <h3 data-i18n="qr_modal_title">Scan to Donate via UPI</h3>
+            <h3>Scan to Donate via UPI</h3>
             <img src="assets/donate-qr.png" alt="UPI QR Code" class="qr-modal-img">
             <p class="qr-modal-upi-id">UPI ID: <strong>7306025928@upi</strong>
                 <button class="qr-modal-copy" onclick="navigator.clipboard.writeText('7306025928@upi').then(()=>{this.textContent='✓';setTimeout(()=>this.textContent='Copy',1500)})"
-                    data-i18n="copy_upi_id">Copy</button>
+                   >Copy</button>
             </p>
-            <p class="qr-modal-hint" data-i18n="qr_modal_hint">Open any UPI app on your phone and scan this QR code</p>
+            <p class="qr-modal-hint">Open any UPI app on your phone and scan this QR code</p>
         </div>
     </div>
 
