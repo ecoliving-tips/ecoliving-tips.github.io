@@ -148,7 +148,12 @@
             ad.dataset.adClient = ADS_CLIENT;
             ad.dataset.adSlot = container.dataset.swaramAdSlot;
             if (container.dataset.swaramAdLayout) ad.dataset.adLayout = container.dataset.swaramAdLayout;
+            if (container.dataset.swaramAdLayoutKey) ad.dataset.adLayoutKey = container.dataset.swaramAdLayoutKey;
             if (container.dataset.swaramAdFormat) ad.dataset.adFormat = container.dataset.swaramAdFormat;
+            if (container.dataset.swaramAdFullWidthResponsive) {
+                ad.dataset.fullWidthResponsive = container.dataset.swaramAdFullWidthResponsive;
+            }
+            if (container.dataset.swaramAdLayout === 'in-article') ad.style.textAlign = 'center';
             container.appendChild(ad);
             (window.adsbygoogle = window.adsbygoogle || []).push({});
         return true;
