@@ -5254,6 +5254,26 @@ footer {
     z-index: 1;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    width: 100%;
+    flex: 1 0 auto;
+}
+
+footer {
+    flex-shrink: 0;
+}
+
+@media (max-width: 1600px) and (max-resolution: 0.9dppx) {
+    .container {
+        max-width: 100% !important;
+    }
+}
+
 ::selection {
     color: var(--bg);
     background: var(--primary);
@@ -7841,29 +7861,87 @@ html::-webkit-scrollbar-thumb:hover {
     .donate-section,
     .about-section,
     .faq-section {
-        text-align: left;
+        text-align: center;
     }
 
     .donate-section {
-        text-align: left;
+        text-align: center;
     }
 
     .donate-section > .container > p {
         max-width: 62ch;
-        margin-left: 0;
-        margin-right: 0;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .donate-options {
-        align-items: flex-start;
-        justify-content: flex-start;
-        flex-direction: row;
-        gap: 32px;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 24px;
     }
 
     .upi-donate-option {
-        text-align: left;
+        text-align: center;
     }
+}
+
+.how-it-works-section,
+.features-section,
+.featured-songs,
+.recently-added-home,
+.malayalam-section,
+.donate-section,
+.about-section,
+.faq-section,
+.search-section,
+.prog-cta-section,
+.keywords-section {
+    text-align: center;
+}
+
+.how-it-works-section h2,
+.features-section h2,
+.featured-songs h2,
+.recently-added-home h2,
+.malayalam-section h2,
+.donate-section h2,
+.about-section h2,
+.faq-section h2,
+.search-section h2,
+.prog-cta-section h2,
+.keywords-section h2 {
+    text-align: center !important;
+}
+
+.section-intro,
+.section-subtitle,
+.how-it-works-section > .container > p,
+.features-section > .container > p,
+.about-section .about-content,
+.malayalam-section .about-content,
+.donate-section > .container > p {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
+}
+
+.feature-card,
+.song-card,
+.recently-added-card,
+.faq-item,
+.keywords-section a {
+    text-align: center !important;
+}
+
+.malayalam-section .songs-cta {
+    justify-content: center;
+}
+
+.donate-options,
+.upi-donate-option {
+    align-items: center;
+    text-align: center;
 }
 
 .related-chords-section {
