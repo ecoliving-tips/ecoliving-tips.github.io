@@ -39,6 +39,7 @@
 html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
+    touch-action: pan-x pan-y pinch-zoom;
 }
 
 body {
@@ -4330,7 +4331,11 @@ footer {
 }
 
 .recently-added-row::-webkit-scrollbar {
-    height: 4px;
+    height: 2px;
+}
+
+.recently-added-row {
+    scrollbar-width: thin;
 }
 
 .recently-added-row::-webkit-scrollbar-track {
@@ -4386,6 +4391,12 @@ footer {
 
 .recently-added-card .ra-meta {
     margin-top: auto;
+}
+
+.recently-added-card[data-swaram-ad-slot].ad-slot-unfilled,
+.recently-added-card[data-swaram-ad-slot]:has(> .adsbygoogle[data-ad-status="unfilled"]),
+.recently-added-card[data-swaram-ad-slot]:has(> .adsbygoogle[data-ad-status="unfill-optimized"]) {
+    display: none !important;
 }
 
 /* A-Z Letter Bar */
@@ -7959,9 +7970,15 @@ html::-webkit-scrollbar-thumb:hover {
 .feature-card,
 .song-card,
 .recently-added-card,
-.faq-item,
 .keywords-section a {
     text-align: center !important;
+}
+
+.faq-item,
+.faq-item summary,
+.faq-item summary h3,
+.faq-item > p {
+    text-align: left !important;
 }
 
 .malayalam-section .songs-cta {
@@ -8050,6 +8067,56 @@ html::-webkit-scrollbar-thumb:hover {
     .progressions-header h2 {
         font-size: 1.8rem;
     }
+}
+
+.prog-hero,
+.prog-palette-section,
+.prog-presets-section,
+.prog-timeline-section,
+.prog-how-section,
+.prog-faq-section,
+.prog-keys-section {
+    text-align: center;
+}
+
+.prog-hero h1,
+.prog-hero h2,
+.prog-palette-section h3,
+.prog-presets-section h3,
+.prog-timeline-section h3,
+.prog-how-section h2,
+.prog-faq-section h2,
+.prog-keys-section h2,
+.prog-keys-section h4 {
+    text-align: center !important;
+}
+
+.prog-hero p,
+.prog-palette-section .section-hint,
+.prog-timeline-section .section-hint {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.prog-hero .key-selector-wrap {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.prog-keys-section .keys-column {
+    text-align: center;
+}
+
+.prog-keys-section .key-links {
+    text-align: left;
+}
+
+.prog-faq-section .faq-item,
+.prog-faq-section .faq-item summary,
+.prog-faq-section .faq-item summary h3,
+.prog-faq-section .faq-item > p {
+    text-align: left !important;
 }
 
 @media (max-width: 1600px) and (max-resolution: 0.9dppx) {

@@ -155,6 +155,16 @@
             }
             if (container.dataset.swaramAdLayout === 'in-article') ad.style.textAlign = 'center';
             container.appendChild(ad);
+            if (container.dataset.swaramAdLayoutKey && window.MutationObserver) {
+                const adStatusObserver = new MutationObserver(function () {
+                    const status = ad.dataset.adStatus;
+                    if (status === 'unfilled' || status === 'unfill-optimized') {
+                        container.classList.add('ad-slot-unfilled');
+                        adStatusObserver.disconnect();
+                    }
+                });
+                adStatusObserver.observe(ad, { attributes: true, attributeFilter: ['data-ad-status'] });
+            }
             (window.adsbygoogle = window.adsbygoogle || []).push({});
         return true;
     }
