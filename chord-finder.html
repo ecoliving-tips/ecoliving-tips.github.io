@@ -362,6 +362,31 @@
         <!-- Results Section -->
         <section class="generate-results" id="results-section" style="display:none;">
             <div class="container">
+                <div class="analysis-summary" id="analysis-summary" role="status" aria-live="polite" hidden>
+                    <div class="analysis-summary-header">
+                        <strong class="analysis-summary-status" id="analysis-summary-status">Analysis complete</strong>
+                        <span class="analysis-summary-source" id="analysis-summary-source"></span>
+                    </div>
+                    <dl class="analysis-summary-stats">
+                        <div class="analysis-summary-stat">
+                            <dt>Detected chord events</dt>
+                            <dd id="analysis-chord-count">-</dd>
+                        </div>
+                        <div class="analysis-summary-stat" id="analysis-key-stat" hidden>
+                            <dt>Detected key</dt>
+                            <dd id="analysis-key">-</dd>
+                        </div>
+                        <div class="analysis-summary-stat" id="analysis-duration-stat" hidden>
+                            <dt>Source duration</dt>
+                            <dd id="analysis-duration">-</dd>
+                        </div>
+                        <div class="analysis-summary-stat">
+                            <dt>Analysis time</dt>
+                            <dd id="analysis-elapsed">-</dd>
+                        </div>
+                    </dl>
+                </div>
+
                 <!-- Audio player -->
                 <div id="audio-player-container" class="audio-player-container" style="display:none;">
                     <audio id="audio-player" preload="auto" playsinline webkit-playsinline></audio>

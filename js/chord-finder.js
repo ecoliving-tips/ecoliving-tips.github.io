@@ -148,6 +148,7 @@ let cachedCurrentChordEl = null; // Cached #current-chord element
 let audioPlayer = null;      // HTML5 Audio element
 let audioObjectUrl = null;   // Blob URL for uploaded file
 let serverWarm = false;      // Whether the HF Space is awake
+let analysisStartedAt = null;
 
 // Now Playing Panel state (persisted in localStorage)
 let nppMode = localStorage.getItem('swaram-npp-mode') || 'diagram';
@@ -557,6 +558,8 @@ async function handleGenerate() {
         return;
     }
 
+    analysisStartedAt = getCurrentTimestamp();
+
     // Reset UI
     hideError();
     hideResults();
@@ -832,14 +835,89 @@ async function callBackendAPI(file, youtubeUrl) {
 // ---------------------------------------------------------------------------
 // Display results
 // ---------------------------------------------------------------------------
+function getCurrentTimestamp() {
+    return typeof performance !== 'undefined' && typeof performance.now === 'function'
+        ? performance.now()
+        : Date.now();
+}
+
+function getDetectedKey(data) {
+    const candidates = [data?.key, data?.detected_key, data?.detectedKey, data?.tonality, data?.tonic];
+    const detectedKey = candidates.find(value => typeof value === 'string' && value.trim());
+    return detectedKey ? detectedKey.trim() : '';
+}
+
+function formatAnalysisElapsed(milliseconds) {
+    if (!Number.isFinite(milliseconds) || milliseconds < 0) return '';
+    if (milliseconds < 1000) return '<1 s';
+    const seconds = milliseconds / 1000;
+    return seconds < 10 ? `${seconds.toFixed(1)} s` : `${Math.round(seconds)} s`;
+}
+
+function updateAnalysisDuration(seconds) {
+    const stat = document.getElementById('analysis-duration-stat');
+    const value = document.getElementById('analysis-duration');
+    if (!stat || !value) return;
+
+    if (!Number.isFinite(seconds) || seconds <= 0) {
+        stat.hidden = true;
+        return;
+    }
+
+    value.textContent = formatTime(seconds);
+    stat.hidden = false;
+}
+
+function updateAnalysisSummary() {
+    const chordCount = Array.isArray(chordData?.chords) ? chordData.chords.length : 0;
+    const detectedKey = getDetectedKey(chordData);
+    const elapsedMilliseconds = analysisStartedAt === null
+        ? null
+        : Math.max(0, getCurrentTimestamp() - analysisStartedAt);
+    const summary = document.getElementById('analysis-summary');
+
+    if (summary) summary.hidden = false;
+
+    const status = document.getElementById('analysis-summary-status');
+    if (status) status.textContent = 'Analysis complete';
+
+    const source = document.getElementById('analysis-summary-source');
+    if (source) {
+        source.textContent = youtubeVideoId
+            ? 'Source: YouTube video'
+            : `Source: ${selectedFile?.name || 'Uploaded audio'}`;
+    }
+
+    const chordCountEl = document.getElementById('analysis-chord-count');
+    if (chordCountEl) chordCountEl.textContent = String(chordCount);
+
+    const keyStat = document.getElementById('analysis-key-stat');
+    const keyEl = document.getElementById('analysis-key');
+    if (keyStat && keyEl) {
+        keyStat.hidden = !detectedKey;
+        keyEl.textContent = detectedKey || '-';
+    }
+
+    const elapsedEl = document.getElementById('analysis-elapsed');
+    if (elapsedEl) elapsedEl.textContent = formatAnalysisElapsed(elapsedMilliseconds) || '-';
+
+    return { chordCount, detectedKey, elapsedMilliseconds };
+}
+
 function showResults() {
     hideProgress();
     const section = document.getElementById('results-section');
     if (section) section.style.display = '';
-    trackAnalyticsEvent('chord_analysis_completed', {
+    const summary = updateAnalysisSummary();
+    const completionParameters = {
         source: youtubeVideoId ? 'youtube' : 'file',
-        chord_count: Array.isArray(chordData?.chords) ? chordData.chords.length : 0,
-    });
+        chord_count: summary.chordCount,
+        has_detected_key: Boolean(summary.detectedKey),
+    };
+    if (summary.elapsedMilliseconds !== null) {
+        completionParameters.analysis_duration_ms = Math.round(summary.elapsedMilliseconds);
+    }
+    trackAnalyticsEvent('chord_analysis_completed', completionParameters);
 
     // Scroll to audio/YouTube player and position below sticky header
     if (section) {
@@ -870,6 +948,8 @@ function showResults() {
 function hideResults() {
     const section = document.getElementById('results-section');
     if (section) section.style.display = 'none';
+    const summary = document.getElementById('analysis-summary');
+    if (summary) summary.hidden = true;
     stopSync();
     if (audioObjectUrl) {
         URL.revokeObjectURL(audioObjectUrl);
@@ -955,6 +1035,7 @@ function initAudioPlayer() {
 
     audioPlayer.onloadedmetadata = () => {
         document.getElementById('audio-duration').textContent = formatTime(audioPlayer.duration);
+        updateAnalysisDuration(audioPlayer.duration);
     };
 
     audioPlayer.ontimeupdate = () => {
@@ -1047,6 +1128,7 @@ function initYouTubePlayer(videoId) {
             videoId: videoId,
             playerVars: { autoplay: 0, modestbranding: 1, rel: 0, playsinline: 1, origin: window.location.origin },
             events: {
+                onReady: (event) => updateAnalysisDuration(event.target.getDuration()),
                 onStateChange: onYTStateChange,
             },
         });
@@ -1418,6 +1500,7 @@ function resetGenerator() {
     beginnerMode = false;
     capoPosition = 0;
     difficultyLevel = '';
+    analysisStartedAt = null;
     clearSelectedFile();
     clearYouTubeUrl();
     document.getElementById('current-chord').textContent = '-';

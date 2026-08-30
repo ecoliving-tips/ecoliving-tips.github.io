@@ -20,6 +20,8 @@ const { execSync } = require('child_process');
 const BASE_URL = 'https://ecoliving-tips.github.io';
 const ROOT = __dirname;
 const today = new Date().toISOString().split('T')[0];
+const META_TITLE_MAX_LENGTH = 65;
+const META_DESCRIPTION_MAX_LENGTH = 160;
 
 // ===== Utilities =====
 
@@ -33,6 +35,59 @@ function slugify(text) {
 
 function escapeHtml(str) {
     return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function cleanMetadataText(value, fallback) {
+    const text = String(value ?? '')
+        .replace(/[\u0000-\u001F\u007F\u200B-\u200F\uFEFF]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+    return text || fallback;
+}
+
+function truncateMetadataText(text, maxLength) {
+    if (text.length <= maxLength) return text;
+    if (maxLength <= 3) return text.slice(0, maxLength);
+    return `${text.slice(0, maxLength - 3).trimEnd()}...`;
+}
+
+function formatChordPageTitle(title, artist) {
+    const safeTitle = cleanMetadataText(title, 'Unknown Song');
+    const safeArtist = cleanMetadataText(artist, 'Unknown Artist');
+    const connector = ' Chords by ';
+    const suffix = ' | Swaram';
+    const fullTitle = `${safeTitle}${connector}${safeArtist}${suffix}`;
+
+    if (fullTitle.length <= META_TITLE_MAX_LENGTH) return fullTitle;
+
+    const availableCoreLength = META_TITLE_MAX_LENGTH - connector.length - suffix.length;
+    const artistLength = Math.min(safeArtist.length, Math.max(18, Math.floor(availableCoreLength * 0.35)));
+    const titleLength = Math.max(1, availableCoreLength - artistLength);
+    return `${truncateMetadataText(safeTitle, titleLength)}${connector}${truncateMetadataText(safeArtist, artistLength)}${suffix}`;
+}
+
+function formatChordPageDescription(title, artist) {
+    const safeTitle = cleanMetadataText(title, 'Unknown Song');
+    const safeArtist = cleanMetadataText(artist, 'Unknown Artist');
+    const prefix = 'Free ';
+    const connector = ' chords by ';
+    const suffix = '. AI-detected guitar and keyboard chords with a play-along timeline and diagrams. No signup.';
+    const description = `${prefix}${safeTitle}${connector}${safeArtist}${suffix}`;
+
+    if (description.length <= META_DESCRIPTION_MAX_LENGTH) return description;
+
+    const availableNameLength = META_DESCRIPTION_MAX_LENGTH - prefix.length - connector.length - suffix.length;
+    const artistLength = Math.min(safeArtist.length, Math.max(12, Math.floor(availableNameLength * 0.35)));
+    const titleLength = Math.max(1, availableNameLength - artistLength);
+    return `${prefix}${truncateMetadataText(safeTitle, titleLength)}${connector}${truncateMetadataText(safeArtist, artistLength)}${suffix}`;
+}
+
+function formatChordPageSummary(title, artist, chordCount, hasVideo) {
+    const safeTitle = cleanMetadataText(title, 'Unknown Song');
+    const safeArtist = cleanMetadataText(artist, 'Unknown Artist');
+    const eventLabel = chordCount === 1 ? 'chord event' : 'chord events';
+    const videoSuffix = hasVideo ? ' with a synchronized source video' : '';
+    return `${safeTitle} by ${safeArtist} has ${chordCount} AI-detected ${eventLabel} for guitar and keyboard practice${videoSuffix}.`;
 }
 
 function mkdirp(dir) {
@@ -1694,6 +1749,8 @@ function generateChordsPage(entry, templates, aiChordPages, difficultyMap) {
     const { partials, chordsPage } = templates;
     const title = entry.title || 'Unknown Song';
     const artist = entry.artist || 'Unknown Artist';
+    const metadataTitle = cleanMetadataText(title, 'Unknown Song');
+    const metadataArtist = cleanMetadataText(artist, 'Unknown Artist');
     const slug = entry.slug;
     const videoId = extractVideoIdFromEntry(entry);
     const canonicalUrl = `${BASE_URL}/chords/${slug}/`;
@@ -1703,18 +1760,18 @@ function generateChordsPage(entry, templates, aiChordPages, difficultyMap) {
     const chordEvents = entry.chords?.chords || [];
     const beginnerCapo = bFindOptimalCapo(chordEvents);
     const beginnerDifficulty = bComputeDifficulty(chordEvents, beginnerCapo);
-    const diffLabel = { easy: 'Easy', moderate: 'Moderate', advanced: 'Advanced' }[beginnerDifficulty] || 'Easy';
 
-    const pageTitle = `${title} Chords | Swaram`;
-    const pageDesc = `Free chords for ${title} by ${artist}. AI-detected chord progression with ${chordCount} chords. ${diffLabel} difficulty. Guitar and keyboard chord chart with video.`;
-    const keywords = `${title} chords, ${artist} chords, guitar chords, keyboard chords, chord progression, AI chord detection`;
+    const pageTitle = formatChordPageTitle(metadataTitle, metadataArtist);
+    const pageDesc = formatChordPageDescription(metadataTitle, metadataArtist);
+    const chordPageSummary = formatChordPageSummary(metadataTitle, metadataArtist, chordCount, Boolean(videoId));
+    const keywords = `${metadataTitle} chords, ${metadataArtist} chords, guitar chords, keyboard chords, chord progression, AI chord detection`;
 
     // Structured data
     const sdObj = {
         "@context": "https://schema.org",
         "@type": "MusicComposition",
-        "name": title,
-        "composer": { "@type": "Person", "name": artist },
+        "name": metadataTitle,
+        "composer": { "@type": "Person", "name": metadataArtist },
         "url": canonicalUrl,
         "description": pageDesc,
         "educationalLevel": { easy: 'Beginner', moderate: 'Intermediate', advanced: 'Advanced' }[beginnerDifficulty] || 'Beginner',
@@ -1726,7 +1783,7 @@ function generateChordsPage(entry, templates, aiChordPages, difficultyMap) {
         "itemListElement": [
             { "@type": "ListItem", "position": 1, "name": "Home", "item": `${BASE_URL}/` },
             { "@type": "ListItem", "position": 2, "name": "Song Library", "item": `${BASE_URL}/songs.html` },
-            { "@type": "ListItem", "position": 3, "name": `${title} Chords`, "item": canonicalUrl }
+            { "@type": "ListItem", "position": 3, "name": `${metadataTitle} Chords`, "item": canonicalUrl }
         ]
     };
 
@@ -1736,8 +1793,8 @@ function generateChordsPage(entry, templates, aiChordPages, difficultyMap) {
         const videoObj = {
             "@context": "https://schema.org",
             "@type": "VideoObject",
-            "name": `${title} - AI-Detected Chords`,
-            "description": `Watch and play along with AI-detected chords for ${title} by ${artist}. ${chordCount} chords detected.`,
+            "name": `${metadataTitle} - AI-Detected Chords`,
+            "description": `Watch and play along with AI-detected chords for ${metadataTitle} by ${metadataArtist}. ${chordCount} chords detected.`,
             "thumbnailUrl": `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`,
             "embedUrl": `https://www.youtube.com/embed/${videoId}`,
             "uploadDate": entry.created_at ? entry.created_at.replace(/ /, 'T').replace(/\+00$/, '+00:00') : "2026-01-01T00:00:00+05:30",
@@ -1787,6 +1844,7 @@ function generateChordsPage(entry, templates, aiChordPages, difficultyMap) {
     page = page
         .replace(/\{\{SONG_TITLE\}\}/g, escapeHtml(title))
         .replace(/\{\{ARTIST\}\}/g, escapeHtml(artist))
+        .replace('{{PAGE_SUMMARY}}', escapeHtml(chordPageSummary))
         .replace(/\{\{KEY\}\}/g, '')
         .replace('{{META_BAR}}', metaBar)
         .replace('{{CHORDS_USED}}', chordsUsedHtml)
@@ -2056,4 +2114,14 @@ async function main() {
     console.log('Build complete!');
 }
 
-main().catch(err => { console.error(err); process.exit(1); });
+if (require.main === module) {
+    main().catch(err => { console.error(err); process.exit(1); });
+}
+
+module.exports = {
+    cleanMetadataText,
+    formatChordPageDescription,
+    formatChordPageSummary,
+    formatChordPageTitle,
+    truncateMetadataText,
+};
