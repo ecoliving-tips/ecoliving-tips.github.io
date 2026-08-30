@@ -7499,6 +7499,21 @@ footer {
     isolation: isolate;
 }
 
+.google-auto-placed {
+    box-sizing: border-box;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+}
+
+.google-auto-placed > ins.adsbygoogle {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+}
+
 .song-card-actions .btn-secondary,
 .song-card-actions .btn-secondary:hover {
     color: var(--text) !important;
@@ -7977,6 +7992,13 @@ html::-webkit-scrollbar-thumb:hover {
 .faq-item summary,
 .faq-item summary h3,
 .faq-item > p {
+    text-align: left !important;
+}
+
+.seo-disclosure,
+.seo-disclosure summary,
+.seo-disclosure summary h3,
+.seo-disclosure > p {
     text-align: left !important;
 }
 
