@@ -1,7 +1,3 @@
-const LOCKED_VIEWPORT_CONTENT = 'width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes';
-const viewportMeta = document.querySelector('meta[name="viewport"]');
-if (viewportMeta) viewportMeta.setAttribute('content', LOCKED_VIEWPORT_CONTENT);
-
 document.addEventListener('DOMContentLoaded', function() {
     // Mobile menu toggle
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
