@@ -1,6 +1,6 @@
 // Swaram - Service Worker for Offline Support
 
-const CACHE_NAME = 'swaram-v18-english-ui';
+const CACHE_NAME = 'swaram-v19-btc-inference';
 const STATIC_ASSETS = [
     '/',
     '/index.html',

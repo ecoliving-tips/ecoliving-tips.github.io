@@ -17,6 +17,7 @@ const SUPABASE_URL = 'https://jfnccekkhffonkjkmxyf.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_KJA4VzMAjt2WVEEg0JKMfg_lDrABAZK';
 const BASE_URL = 'https://ecoliving-tips.github.io';
 const CHORD_CACHE_TTL_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
+const CHORD_CACHE_VERSION = 'btc-overlap-v1';
 const ALLOWED_UPLOAD_EXTENSIONS = new Set(['.mp3', '.wav', '.m4a', '.mp4', '.ogg', '.opus', '.flac', '.aac', '.wma', '.webm']);
 const ALLOWED_UPLOAD_CONTENT_TYPES = new Set([
     'audio/mpeg',
@@ -1523,14 +1524,25 @@ function _lsCacheGet(videoId) {
     try {
         const raw = localStorage.getItem(_lsCacheKey(videoId));
         if (!raw) return null;
-        const { ts, data } = JSON.parse(raw);
+        const cached = JSON.parse(raw);
+        if (cached.version !== CHORD_CACHE_VERSION) {
+            localStorage.removeItem(_lsCacheKey(videoId));
+            return null;
+        }
+        const { ts, data } = cached;
         if (Date.now() - ts > CHORD_CACHE_TTL_MS) { localStorage.removeItem(_lsCacheKey(videoId)); return null; }
         return data;
     } catch { return null; }
 }
 
 function _lsCacheSet(videoId, data) {
-    try { localStorage.setItem(_lsCacheKey(videoId), JSON.stringify({ ts: Date.now(), data })); } catch { /* storage full */ }
+    try {
+        localStorage.setItem(_lsCacheKey(videoId), JSON.stringify({
+            version: CHORD_CACHE_VERSION,
+            ts: Date.now(),
+            data,
+        }));
+    } catch { /* storage full */ }
 }
 
 async function checkChordCache(videoId) {
@@ -1544,7 +1556,9 @@ async function checkChordCache(videoId) {
             .select('chords')
             .eq('video_id', videoId)
             .maybeSingle();
-        if (error || !data?.chords?.chords?.length) return null;
+        if (error
+            || data?.chords?._cache_version !== CHORD_CACHE_VERSION
+            || !data?.chords?.chords?.length) return null;
         console.log(`[Cache] Supabase hit for ${videoId}`);
         _lsCacheSet(videoId, data.chords); // warm localStorage so next hit skips Supabase
         return data.chords;
@@ -1554,12 +1568,13 @@ async function checkChordCache(videoId) {
 }
 
 function storeChordCache(videoId, result, metadata) {
-    _lsCacheSet(videoId, result);
+    const cacheData = { ...result, _cache_version: CHORD_CACHE_VERSION };
+    _lsCacheSet(videoId, cacheData);
     try {
         const sb = getSupabase();
         if (!sb) return;
-        // Only store columns the build pipeline reads; skip processing_time_ms / model_version
-        const row = { video_id: videoId, chords: result };
+        // Keep the analysis generation inside JSON so no database migration is needed.
+        const row = { video_id: videoId, chords: cacheData };
         if (metadata) {
             row.title = metadata.title || null;
             row.artist = metadata.artist || null;
