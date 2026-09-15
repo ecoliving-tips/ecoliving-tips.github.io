@@ -9,8 +9,6 @@
 // Configuration
 // ---------------------------------------------------------------------------
 const API_ENDPOINT = window.SWARAM_API_ENDPOINT || 'https://vineethwilson-swaram-chord-service.hf.space/analyze';
-const YOUTUBE_WORKER_ENDPOINT = window.SWARAM_YOUTUBE_WORKER_ENDPOINT
-    || 'https://swaram-yt-extract-serverless.vineethwilson15.workers.dev/extract';
 const MAX_FILE_SIZE = 30 * 1024 * 1024; // 30 MB
 const MAX_DURATION_SEC = 300; // 5 minutes — must match backend guardrail
 const API_TIMEOUT_MS = 300_000; // 5 minutes
@@ -124,7 +122,8 @@ function generateSlug(title, artist, videoId) {
 }
 
 // ---------------------------------------------------------------------------
-// YouTube audio extraction — client-side fallback cascade (Piped → Cobalt).
+// YouTube audio extraction — client-side fallback cascade (Piped → Cobalt)
+// Used when server-side extraction fails (e.g., Piped 500 on specific videos).
 // Runs from the user's browser IP — avoids cloud IP blocking by YouTube.
 // ---------------------------------------------------------------------------
 const PIPED_INSTANCES = [
@@ -508,14 +507,6 @@ async function fetchYouTubeAudio(videoId) {
     );
 }
 
-async function fetchWorkerAudio(videoId) {
-    const workerUrl = `${YOUTUBE_WORKER_ENDPOINT}?video_id=${encodeURIComponent(videoId)}`;
-    const blob = await _downloadAudioBlob(workerUrl);
-    const mime = blob.type || 'audio/mp4';
-    const ext = mime.includes('webm') || mime.includes('ogg') ? '.webm' : '.m4a';
-    return { blob, title: videoId, ext };
-}
-
 // ---------------------------------------------------------------------------
 // Audio duration check (client-side, via HTML5 Audio)
 // ---------------------------------------------------------------------------
@@ -596,40 +587,32 @@ async function handleGenerate() {
             }
         }
 
-        // Try the browser Worker first, then preserve the existing backend and
-        // browser-side Piped fallbacks.
+        // If YouTube URL provided, send to backend (server-side extraction).
+        // Falls back to client-side extraction if server returns 502.
         if (!fileToUpload && videoId) {
-            const ytStep = document.getElementById('step-youtube-fetch');
-            if (ytStep) ytStep.style.display = '';
-            setProgressStep('youtube-fetch');
+            setProgressStep('analyze');
 
-            const status = document.getElementById('youtube-fetch-status');
-            if (status) {
-                status.style.display = '';
-                status.textContent = 'Fetching audio from YouTube (this may take a moment)...';
-                status.classList.remove('error');
+            let warmupTimer = null;
+            if (!serverWarm) {
+                warmupTimer = setTimeout(() => {
+                    const hint = document.getElementById('warmup-hint');
+                    if (hint) hint.style.display = '';
+                }, 15000);
             }
 
             try {
-                const { blob, title, ext } = await fetchWorkerAudio(videoId);
-                fileToUpload = new File([blob], `${title}${ext}`, { type: blob.type });
-                if (status) status.style.display = 'none';
-                setProgressStep('analyze');
-                result = await callBackendAPI(fileToUpload, null);
+                result = await callBackendAPI(null, ytUrl);
                 serverWarm = true;
-            } catch (workerErr) {
-                console.warn('[YouTube] Worker failed, restoring existing backend flow:', workerErr.message);
-
-                try {
-                    setProgressStep('analyze');
-                    result = await callBackendAPI(null, ytUrl);
-                    serverWarm = true;
-                    if (status) status.style.display = 'none';
-                } catch (serverErr) {
-                    if (!serverErr._youtubeExtractionFailed) throw serverErr;
-
-                    console.log('[YouTube] Server-side failed, trying existing client-side extraction...');
+            } catch (serverErr) {
+                if (serverErr._youtubeExtractionFailed) {
+                    // Server couldn't reach YouTube — fall back to client-side extraction
+                    // This runs from the user's browser IP (not blocked by YouTube)
+                    console.log('[YouTube] Server-side failed, trying client-side...');
+                    const ytStep = document.getElementById('step-youtube-fetch');
+                    if (ytStep) ytStep.style.display = '';
                     setProgressStep('youtube-fetch');
+
+                    const status = document.getElementById('youtube-fetch-status');
                     if (status) {
                         status.style.display = '';
                         status.textContent = 'Fetching audio from your browser (this may take a moment)...';
@@ -641,6 +624,7 @@ async function handleGenerate() {
                         fileToUpload = new File([blob], `${title}${ext}`, { type: blob.type });
                         if (status) status.style.display = 'none';
                     } catch (clientErr) {
+                        // Both server and client failed — show helpful error
                         if (status) {
                             status.textContent = 'Could not fetch audio from YouTube. Please download the audio and upload it instead.';
                             status.classList.add('error');
@@ -648,10 +632,17 @@ async function handleGenerate() {
                         throw clientErr;
                     }
 
+                    // Now send the downloaded file to backend for analysis
                     setProgressStep('analyze');
                     result = await callBackendAPI(fileToUpload, null);
                     serverWarm = true;
+                } else {
+                    throw serverErr;
                 }
+            } finally {
+                if (warmupTimer) clearTimeout(warmupTimer);
+                const hint = document.getElementById('warmup-hint');
+                if (hint) hint.style.display = 'none';
             }
         }
 
