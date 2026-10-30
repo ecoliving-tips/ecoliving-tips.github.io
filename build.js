@@ -1552,19 +1552,19 @@ async function fetchGeneratedChords() {
     try {
         let allData = [];
         let from = 0;
-        // Avoid expensive exact counts and oversized JSON responses timing out.
-        const pageSize = 250;
+        // Avoid oversized JSON responses timing out on the Supabase instance.
+        const pageSize = 50;
         while (true) {
             let resp;
             let lastError;
-            for (let attempt = 0; attempt < 3; attempt++) {
+            for (let attempt = 0; attempt < 5; attempt++) {
                 try {
                     resp = await fetch(baseUrl, {
                         headers: { ...headers, 'Range': `${from}-${from + pageSize - 1}` }
                     });
                     if (resp.status >= 500 || resp.status === 429) {
                         lastError = new Error(`Supabase returned HTTP ${resp.status}`);
-                        if (attempt < 2) {
+                        if (attempt < 4) {
                             await new Promise(resolve => setTimeout(resolve, 1000 * 2 ** attempt));
                             continue;
                         }
@@ -1572,7 +1572,7 @@ async function fetchGeneratedChords() {
                     break;
                 } catch (err) {
                     lastError = err;
-                    if (attempt < 2) {
+                    if (attempt < 4) {
                         await new Promise(resolve => setTimeout(resolve, 1000 * 2 ** attempt));
                     }
                 }
