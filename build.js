@@ -1579,11 +1579,13 @@ async function fetchGeneratedChords() {
             }
             if (!resp) throw lastError || new Error('Supabase request failed');
             if (resp.status === 400) {
-                console.warn('[Supabase] Metadata columns not found - run the schema migration SQL first.');
-                return [];
+                const details = await resp.text();
+                console.warn(`[Supabase] Request rejected with HTTP 400: ${details.slice(0, 500)}`);
+                return null;
             }
             if (!resp.ok && resp.status !== 206) {
-                throw new Error(`Supabase returned HTTP ${resp.status} while fetching generated chords`);
+                const details = await resp.text();
+                throw new Error(`Supabase returned HTTP ${resp.status} while fetching generated chords: ${details.slice(0, 500)}`);
             }
             const data = await resp.json();
             allData = allData.concat(data);
@@ -1594,6 +1596,29 @@ async function fetchGeneratedChords() {
         return allData;
     } catch (err) {
         console.warn(`[Supabase] Error fetching generated chords: ${err.message}`);
+        return null;
+    }
+}
+
+/**
+ * Convert the last generated index into the metadata shape used by derived
+ * pages when Supabase is temporarily unavailable. Existing HTML pages remain
+ * untouched; this only keeps their links in generated site artifacts.
+ */
+function loadExistingChordIndex() {
+    const indexPath = path.join(ROOT, 'chords', 'index.json');
+    try {
+        const entries = JSON.parse(fs.readFileSync(indexPath, 'utf-8'));
+        if (!Array.isArray(entries)) return [];
+        return entries.map(entry => ({
+            title: entry.t || '',
+            artist: entry.a || '',
+            slug: entry.s || '',
+            created_at: entry.dt || '',
+            chords: { chords: [] },
+        })).filter(entry => entry.slug);
+    } catch (err) {
+        console.warn(`[AI Chords] Could not load existing chord index: ${err.message}`);
         return [];
     }
 }
@@ -1991,46 +2016,57 @@ async function main() {
     let aiChordPages = [];
     try {
         const generatedChords = await fetchGeneratedChords();
-        aiChordPages = deduplicateBySlug(generatedChords);
+        const supabaseAvailable = generatedChords !== null;
+        aiChordPages = supabaseAvailable
+            ? deduplicateBySlug(generatedChords)
+            : loadExistingChordIndex();
 
-        // Filter out entries with 0 detected chords (soft 404 risk — wastes crawl budget)
-        const beforeFilter = aiChordPages.length;
-        aiChordPages = aiChordPages.filter(e => (e.chords?.chords?.length || 0) > 0);
-        const skipped = beforeFilter - aiChordPages.length;
-        if (skipped > 0) console.log(`  Skipped ${skipped} entries with 0 chords detected (soft 404 prevention).`);
-
-        // Pre-compute difficulty for all entries (avoids O(n²) in related chords)
-        const difficultyMap = new Map();
-        for (const entry of aiChordPages) {
-            const chords = entry.chords?.chords || [];
-            difficultyMap.set(entry.slug, bComputeDifficulty(chords, bFindOptimalCapo(chords)));
+        if (!supabaseAvailable) {
+            console.warn(`[AI Chords] Supabase unavailable; preserving ${aiChordPages.length} existing chord entries.`);
         }
 
-        for (const entry of aiChordPages) {
-            generateChordsPage(entry, templates, aiChordPages, difficultyMap);
+        if (supabaseAvailable) {
+            // Filter out entries with 0 detected chords (soft 404 risk — wastes crawl budget)
+            const beforeFilter = aiChordPages.length;
+            aiChordPages = aiChordPages.filter(e => (e.chords?.chords?.length || 0) > 0);
+            const skipped = beforeFilter - aiChordPages.length;
+            if (skipped > 0) console.log(`  Skipped ${skipped} entries with 0 chords detected (soft 404 prevention).`);
         }
-        console.log(`Generated ${aiChordPages.length} AI chord pages (from ${generatedChords.length} Supabase entries).`);
 
-        // Generate chords/index.json for the browse page
-        const chordsIndex = aiChordPages.map(entry => ({
-            t: entry.title || 'Unknown Song',
-            a: entry.artist || '',
-            s: entry.slug,
-            d: bComputeDifficulty(entry.chords?.chords || [], bFindOptimalCapo(entry.chords?.chords || [])),
-            c: bFindOptimalCapo(entry.chords?.chords || []),
-            dt: entry.created_at || ''
-        }));
-        chordsIndex.sort((a, b) => a.t.localeCompare(b.t));
-        fs.writeFileSync(path.join(ROOT, 'chords', 'index.json'), JSON.stringify(chordsIndex));
-        console.log(`Generated chords/index.json with ${chordsIndex.length} entries.`);
+        if (supabaseAvailable) {
+            // Pre-compute difficulty for all entries (avoids O(n²) in related chords)
+            const difficultyMap = new Map();
+            for (const entry of aiChordPages) {
+                const chords = entry.chords?.chords || [];
+                difficultyMap.set(entry.slug, bComputeDifficulty(chords, bFindOptimalCapo(chords)));
+            }
 
-        // Lightweight index for recently-added widget (~3KB vs 5MB full index)
-        const recentJson = [...chordsIndex]
-            .sort((a, b) => (b.dt > a.dt ? 1 : b.dt < a.dt ? -1 : 0))
-            .slice(0, 50)
-            .map(({ t, a, s }) => ({ t, a, s }));
-        fs.writeFileSync(path.join(ROOT, 'chords', 'recent.json'), JSON.stringify(recentJson));
-        console.log(`Generated chords/recent.json with ${recentJson.length} entries.`);
+            for (const entry of aiChordPages) {
+                generateChordsPage(entry, templates, aiChordPages, difficultyMap);
+            }
+            console.log(`Generated ${aiChordPages.length} AI chord pages (from ${generatedChords.length} Supabase entries).`);
+
+            // Generate chords/index.json for the browse page
+            const chordsIndex = aiChordPages.map(entry => ({
+                t: entry.title || 'Unknown Song',
+                a: entry.artist || '',
+                s: entry.slug,
+                d: bComputeDifficulty(entry.chords?.chords || [], bFindOptimalCapo(entry.chords?.chords || [])),
+                c: bFindOptimalCapo(entry.chords?.chords || []),
+                dt: entry.created_at || ''
+            }));
+            chordsIndex.sort((a, b) => a.t.localeCompare(b.t));
+            fs.writeFileSync(path.join(ROOT, 'chords', 'index.json'), JSON.stringify(chordsIndex));
+            console.log(`Generated chords/index.json with ${chordsIndex.length} entries.`);
+
+            // Lightweight index for recently-added widget (~3KB vs 5MB full index)
+            const recentJson = [...chordsIndex]
+                .sort((a, b) => (b.dt > a.dt ? 1 : b.dt < a.dt ? -1 : 0))
+                .slice(0, 50)
+                .map(({ t, a, s }) => ({ t, a, s }));
+            fs.writeFileSync(path.join(ROOT, 'chords', 'recent.json'), JSON.stringify(recentJson));
+            console.log(`Generated chords/recent.json with ${recentJson.length} entries.`);
+        }
     } catch (err) {
         console.warn(`[AI Chords] Skipped: ${err.message}`);
     }
