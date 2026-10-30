@@ -1548,12 +1548,12 @@ async function fetchGeneratedChords() {
     const headers = {
         'apikey': SUPABASE_KEY,
         'Authorization': `Bearer ${SUPABASE_KEY}`,
-        'Prefer': 'count=exact',
     };
     try {
         let allData = [];
         let from = 0;
-        const pageSize = 1000;
+        // Avoid expensive exact counts and oversized JSON responses timing out.
+        const pageSize = 250;
         while (true) {
             let resp;
             let lastError;
