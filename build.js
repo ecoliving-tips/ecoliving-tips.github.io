@@ -1758,19 +1758,51 @@ function compareRelatedEntries(a, b) {
     return (a.artist || '').localeCompare(b.artist || '');
 }
 
-function selectStableRelatedEntries(entries, currentSlug, limit) {
+function selectStableRelatedEntries(entries, currentSlug, limit, excludedArtist = '') {
     if (!entries || entries.length === 0 || limit <= 0) return [];
 
-    const sorted = [...entries].sort(compareRelatedEntries);
-    const pivotIndex = sorted.findIndex(item => (item.slug || '').localeCompare(currentSlug) > 0);
-    const startIndex = pivotIndex >= 0 ? pivotIndex : 0;
-    return [...sorted.slice(startIndex), ...sorted.slice(0, startIndex)].slice(0, limit);
+    let low = 0;
+    let high = entries.length;
+    while (low < high) {
+        const middle = Math.floor((low + high) / 2);
+        if ((entries[middle].slug || '').localeCompare(currentSlug) > 0) high = middle;
+        else low = middle + 1;
+    }
+
+    const related = [];
+    for (let offset = 0; offset < entries.length && related.length < limit; offset++) {
+        const entry = entries[(low + offset) % entries.length];
+        if (entry.slug !== currentSlug && entry.artist !== excludedArtist) related.push(entry);
+    }
+    return related;
+}
+
+function buildRelatedIndex(entries, difficultyMap) {
+    const byArtist = new Map();
+    const byDifficulty = new Map();
+
+    for (const entry of entries) {
+        if (entry.artist) {
+            if (!byArtist.has(entry.artist)) byArtist.set(entry.artist, []);
+            byArtist.get(entry.artist).push(entry);
+        }
+
+        const difficulty = difficultyMap.get(entry.slug);
+        if (!byDifficulty.has(difficulty)) byDifficulty.set(difficulty, []);
+        byDifficulty.get(difficulty).push(entry);
+    }
+
+    for (const group of [...byArtist.values(), ...byDifficulty.values()]) {
+        group.sort(compareRelatedEntries);
+    }
+
+    return { byArtist, byDifficulty };
 }
 
 /**
  * Generate a static AI chord page at /chords/{slug}/index.html
  */
-function generateChordsPage(entry, templates, aiChordPages, difficultyMap) {
+function generateChordsPage(entry, templates, relatedIndex, difficultyMap) {
     const { partials, chordsPage } = templates;
     const title = entry.title || 'Unknown Song';
     const artist = entry.artist || 'Unknown Artist';
@@ -1882,15 +1914,15 @@ function generateChordsPage(entry, templates, aiChordPages, difficultyMap) {
 
     // Related chords — same artist first, then same difficulty, for internal link discovery
     let relatedHtml = '';
-    if (aiChordPages && aiChordPages.length > 1 && difficultyMap) {
-        const sameArtist = aiChordPages.filter(o => o.slug !== slug && o.artist && o.artist === entry.artist);
-        const sameDifficulty = aiChordPages.filter(o => o.slug !== slug && o.artist !== entry.artist &&
-            difficultyMap.get(o.slug) === beginnerDifficulty);
+    if (relatedIndex && difficultyMap) {
+        const sameArtist = relatedIndex.byArtist.get(entry.artist) || [];
+        const sameDifficulty = relatedIndex.byDifficulty.get(beginnerDifficulty) || [];
         const stableArtistMatches = selectStableRelatedEntries(sameArtist, slug, 3);
         const stableDifficultyMatches = selectStableRelatedEntries(
             sameDifficulty,
             slug,
-            5 - Math.min(stableArtistMatches.length, 3)
+            5 - Math.min(stableArtistMatches.length, 3),
+            entry.artist
         );
         const related = [...stableArtistMatches, ...stableDifficultyMatches].slice(0, 5);
         if (related.length > 0) {
@@ -2040,9 +2072,10 @@ async function main() {
                 const chords = entry.chords?.chords || [];
                 difficultyMap.set(entry.slug, bComputeDifficulty(chords, bFindOptimalCapo(chords)));
             }
+            const relatedIndex = buildRelatedIndex(aiChordPages, difficultyMap);
 
             for (const entry of aiChordPages) {
-                generateChordsPage(entry, templates, aiChordPages, difficultyMap);
+                generateChordsPage(entry, templates, relatedIndex, difficultyMap);
             }
             console.log(`Generated ${aiChordPages.length} AI chord pages (from ${generatedChords.length} Supabase entries).`);
 
