@@ -19,6 +19,13 @@
     var cachedBlocks = null;
     var cachedCurrentEl = null;
 
+    // Progress bar under the current chord (time left until the next chord)
+    var progressEl = null;
+    var progressFillEl = null;
+    var progressRafId = null;
+    var lastProgressPct = -1;
+    var lastProgressEnding = false;
+
     // Beginner mode state
     var beginnerMode = false;
     var capoPosition = 0;
@@ -190,14 +197,91 @@
         }
     }
 
-    function startSync() { if (!syncInterval) syncInterval = setInterval(updateChordSync, 100); }
-    function stopSync() { clearInterval(syncInterval); syncInterval = null; }
+    // ── Progress bar (how long the current chord lasts) ──
+
+    // The bar lives inside the "Now" card. It is created here (not in the page
+    // HTML) so the generated /chords/ pages don't need to be rebuilt.
+    function ensureProgressBar() {
+        if (progressFillEl && progressFillEl.isConnected) return;
+        progressEl = document.getElementById('npp-progress');
+        if (!progressEl) {
+            var nameEl = document.querySelector('.npp-card.current .npp-chord-name');
+            if (!nameEl || !nameEl.parentNode) return;
+            progressEl = document.createElement('div');
+            progressEl.className = 'npp-progress';
+            progressEl.id = 'npp-progress';
+            progressEl.setAttribute('role', 'progressbar');
+            progressEl.setAttribute('aria-label', 'Time left on this chord');
+            progressEl.setAttribute('aria-valuemin', '0');
+            progressEl.setAttribute('aria-valuemax', '100');
+            progressEl.setAttribute('aria-valuenow', '0');
+            progressEl.innerHTML = '<div class="npp-progress-fill" id="npp-progress-fill"></div>';
+            nameEl.parentNode.insertBefore(progressEl, nameEl.nextSibling);
+        }
+        progressFillEl = progressEl.querySelector('.npp-progress-fill');
+        lastProgressPct = -1;
+        lastProgressEnding = false;
+    }
+
+    // Fills from the chord's start to the next chord's start; turns amber near
+    // the end ("get ready"). Pass activeIdx < 0 to reset it.
+    function updateChordProgress(activeIdx, time) {
+        ensureProgressBar();
+        if (!progressFillEl) return;
+
+        var pct = 0;
+        var ending = false;
+        var c = activeIdx >= 0 ? chords[activeIdx] : null;
+        if (c) {
+            var next = chords[activeIdx + 1];
+            // Chord lasts until the next one starts (the last one: its own duration)
+            var end = next ? next.time : c.time + (c.duration || 0);
+            var len = end - c.time;
+            if (len > 0) {
+                pct = Math.min(1, Math.max(0, (time - c.time) / len));
+                ending = pct > 0.75 || (end - time) < 0.6;
+            }
+        }
+
+        // Avoid redundant style writes (this runs ~60x/s)
+        var rounded = Math.round(pct * 1000) / 1000;
+        if (rounded !== lastProgressPct) {
+            lastProgressPct = rounded;
+            progressFillEl.style.transform = 'scaleX(' + rounded + ')';
+            progressEl.setAttribute('aria-valuenow', String(Math.round(rounded * 100)));
+        }
+        if (ending !== lastProgressEnding) {
+            lastProgressEnding = ending;
+            progressFillEl.classList.toggle('ending', ending);
+        }
+    }
+
+    // The chord sync below polls every 100 ms; the bar gets its own
+    // requestAnimationFrame loop so it moves smoothly.
+    function progressTick() {
+        if (ytPlayer && typeof ytPlayer.getCurrentTime === 'function' && chords.length) {
+            var time = ytPlayer.getCurrentTime();
+            updateChordProgress(findActiveChordIndex(time), time);
+        }
+        progressRafId = requestAnimationFrame(progressTick);
+    }
+
+    function startSync() {
+        if (!syncInterval) syncInterval = setInterval(updateChordSync, 100);
+        if (!progressRafId) progressRafId = requestAnimationFrame(progressTick);
+    }
+    function stopSync() {
+        clearInterval(syncInterval);
+        syncInterval = null;
+        if (progressRafId) { cancelAnimationFrame(progressRafId); progressRafId = null; }
+    }
 
     // ── YouTube IFrame API ──
 
     function onStateChange(event) {
         if (event.data === 1) startSync();
         else if (event.data === 0 || event.data === 2) stopSync();
+        if (event.data === 0) updateChordProgress(-1, 0); // ended: reset the bar
     }
 
     function initPlayer() {
@@ -312,6 +396,7 @@
         renderTimeline();
         initPlayer();
         initNowPlayingPanel();
+        ensureProgressBar();
 
         // Transpose buttons
         var downBtn = document.getElementById('transpose-down');

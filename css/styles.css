@@ -8285,3 +8285,33 @@ html::-webkit-scrollbar-thumb:hover {
     }
 }
 
+
+/* Current-chord progress bar: shows how long until the next chord */
+.npp-progress {
+    width: 100%;
+    max-width: 140px;
+    height: 6px;
+    margin: 8px auto 2px;
+    border-radius: 999px;
+    background: rgba(154, 170, 189, 0.22);
+    overflow: hidden;
+}
+
+.npp-progress-fill {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--primary);
+    transform: scaleX(0);
+    transform-origin: left center;
+    will-change: transform;
+    transition: background-color 0.15s ease;
+}
+
+.npp-progress-fill.ending {
+    background: var(--accent, #F2BD67);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .npp-progress-fill { transition: none; }
+}

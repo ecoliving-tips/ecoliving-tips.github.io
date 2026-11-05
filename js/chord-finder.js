@@ -1065,6 +1065,7 @@ function initAudioPlayer() {
         document.getElementById('pause-icon').style.display = 'none';
         if (cachedCurrentChordEl) cachedCurrentChordEl.textContent = '-';
         updateNowPlayingPanel(-3);
+        updateChordProgress(-1, 0);
         // Clear active/past highlights
         if (cachedBlocks) {
             for (let i = 0; i < cachedBlocks.length; i++) {
@@ -1164,6 +1165,7 @@ function onYTStateChange(event) {
         lastActiveIdx = -1;
         if (cachedCurrentChordEl) cachedCurrentChordEl.textContent = '-';
         updateNowPlayingPanel(-3);
+        updateChordProgress(-1, 0);
         if (cachedBlocks) {
             for (let i = 0; i < cachedBlocks.length; i++) {
                 cachedBlocks[i].classList.remove('active', 'past');
@@ -1329,6 +1331,52 @@ function findActiveChordIndex(time) {
     return -1;
 }
 
+/**
+ * Progress bar under the current chord. Fills left to right from the chord's
+ * start until the next chord begins; turns amber near the end ("get ready").
+ * Pass activeIdx < 0 to reset it.
+ */
+let cachedProgressEl = null;
+let cachedProgressFillEl = null;
+let lastProgressPct = -1;
+let lastProgressEnding = false;
+
+function updateChordProgress(activeIdx, time) {
+    if (!cachedProgressFillEl || !cachedProgressFillEl.isConnected) {
+        cachedProgressEl = document.getElementById('npp-progress');
+        cachedProgressFillEl = document.getElementById('npp-progress-fill');
+    }
+    if (!cachedProgressFillEl) return;
+
+    let pct = 0;
+    let ending = false;
+    const chords = chordData?.chords;
+    if (activeIdx >= 0 && chords?.[activeIdx]) {
+        const c = chords[activeIdx];
+        const next = chords[activeIdx + 1];
+        // Chord lasts until the next one starts (the last one: its own duration)
+        const end = next ? next.time : c.time + (c.duration || 0);
+        const len = end - c.time;
+        if (len > 0) {
+            pct = Math.min(1, Math.max(0, (time - c.time) / len));
+            // Last 25% of the chord, or the last 0.6 s for long chords
+            ending = pct > 0.75 || (end - time) < 0.6;
+        }
+    }
+
+    // Avoid redundant style writes (rAF runs ~60x/s)
+    const rounded = Math.round(pct * 1000) / 1000;
+    if (rounded !== lastProgressPct) {
+        lastProgressPct = rounded;
+        cachedProgressFillEl.style.transform = 'scaleX(' + rounded + ')';
+        if (cachedProgressEl) cachedProgressEl.setAttribute('aria-valuenow', String(Math.round(rounded * 100)));
+    }
+    if (ending !== lastProgressEnding) {
+        lastProgressEnding = ending;
+        cachedProgressFillEl.classList.toggle('ending', ending);
+    }
+}
+
 function updateChordSync() {
     if (!chordData?.chords?.length) return;
     let time;
@@ -1341,6 +1389,9 @@ function updateChordSync() {
     }
 
     const activeIdx = findActiveChordIndex(time);
+
+    // Progress bar: how much of the current chord is left (runs every frame)
+    updateChordProgress(activeIdx, time);
 
     // Skip DOM updates if nothing changed
     if (activeIdx === lastActiveIdx) return;
