@@ -8289,10 +8289,6 @@ html::-webkit-scrollbar-thumb:hover {
     position: relative;
 }
 
-.npp-card.current.has-chord-trace.is-tracing {
-    border-color: rgba(134, 216, 202, 0.24);
-}
-
 .npp-chord-trace {
     position: absolute;
     inset: 0;
@@ -8303,10 +8299,10 @@ html::-webkit-scrollbar-thumb:hover {
     pointer-events: none;
 }
 
-.npp-chord-trace rect {
+.npp-chord-trace line {
     vector-effect: non-scaling-stroke;
     stroke: var(--primary);
-    stroke-width: 2.5px;
+    stroke-width: 3px;
     stroke-linecap: round;
     transition: stroke-dashoffset 0.1s linear;
 }
@@ -8314,9 +8310,5 @@ html::-webkit-scrollbar-thumb:hover {
 @media (prefers-reduced-motion: reduce) {
     .npp-chord-trace {
         display: none;
-    }
-
-    .npp-card.current.has-chord-trace.is-tracing {
-        border-color: rgba(134, 216, 202, 0.7);
     }
 }

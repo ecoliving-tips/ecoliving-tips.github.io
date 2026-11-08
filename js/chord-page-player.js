@@ -178,7 +178,7 @@
         trace.classList.add('npp-chord-trace');
         trace.setAttribute('aria-hidden', 'true');
         trace.setAttribute('focusable', 'false');
-        var path = document.createElementNS(svgNamespace, 'rect');
+        var path = document.createElementNS(svgNamespace, 'line');
         path.setAttribute('fill', 'none');
         path.setAttribute('pathLength', '1000');
         path.setAttribute('stroke-dasharray', '1000');
@@ -195,13 +195,11 @@
             var height = chordTraceCard.clientHeight;
             var style = window.getComputedStyle(chordTraceCard);
             var inset = (parseFloat(style.borderTopWidth) || 1) / 2 + 0.5;
-            var radius = Math.max(0, (parseFloat(style.borderTopLeftRadius) || 8) - inset);
             trace.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
-            path.setAttribute('x', String(inset));
-            path.setAttribute('y', String(inset));
-            path.setAttribute('width', String(Math.max(0, width - inset * 2)));
-            path.setAttribute('height', String(Math.max(0, height - inset * 2)));
-            path.setAttribute('rx', String(radius));
+            path.setAttribute('x1', String(inset));
+            path.setAttribute('y1', String(height - inset));
+            path.setAttribute('x2', String(Math.max(inset, width - inset)));
+            path.setAttribute('y2', String(height - inset));
         };
 
         if (typeof ResizeObserver === 'function') {
@@ -219,7 +217,6 @@
         var current = activeIdx >= 0 ? chords[activeIdx] : null;
         var next = activeIdx >= 0 ? chords[activeIdx + 1] : null;
         var progress = 0;
-        var isTracing = false;
 
         if (current && Number.isFinite(current.time) && Number.isFinite(time)) {
                 var end = next && Number.isFinite(next.time)
@@ -227,12 +224,10 @@
                     : current.time + (Number(current.duration) || 0);
                 var duration = end - current.time;
                 if (duration > 0) {
-                    isTracing = true;
                     progress = Math.min(1, Math.max(0, (time - current.time) / duration));
                 }
         }
 
-        chordTraceCard.classList.toggle('is-tracing', isTracing);
         var rounded = Math.round(progress * 1000) / 1000;
         if (rounded !== lastChordTraceProgress) {
                 lastChordTraceProgress = rounded;
