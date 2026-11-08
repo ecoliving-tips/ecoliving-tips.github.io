@@ -1,6 +1,6 @@
 // Swaram - Service Worker for Offline Support
 
-const CACHE_NAME = 'swaram-v21-karaoke-balanced';
+const CACHE_NAME = 'swaram-v22-library-on-demand';
 const STATIC_ASSETS = [
     '/',
     '/index.html',
@@ -25,7 +25,6 @@ const STATIC_ASSETS = [
     '/js/songs.js',
     '/js/chord-diagrams.js',
     '/songs/index.json',
-    '/chords/index.json',
     '/chords/recent.json',
     '/assets/favicon.svg',
     '/assets/favicon.png',

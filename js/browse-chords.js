@@ -3,7 +3,6 @@
 
     const container    = document.getElementById('chords-container');
     const recentSec    = document.getElementById('recently-added-section');
-    const letterBar    = document.getElementById('az-letter-bar');
     const searchInput  = document.getElementById('ai-search-input');
     const countEl      = document.getElementById('ai-chord-count');
     const noResults    = document.getElementById('browse-no-results');
@@ -12,18 +11,11 @@
     if (!container || !searchInput) return;
 
     let allEntries   = [];
-    let grouped      = {};
     let activeFilter = 'all';
-    let activeLetter = null;
     let fetchPromise = null;
+    let loaded       = false;
 
-    const LETTERS            = ['#', ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')];
     const MAX_SEARCH_RESULTS = 200;
-
-    function getFirstLetter(title) {
-        const ch = (title || '').trim().charAt(0).toUpperCase();
-        return /[A-Z]/.test(ch) ? ch : '#';
-    }
 
     function makeCard(entry) {
         const card = document.createElement('a');
@@ -51,29 +43,6 @@
         return card;
     }
 
-    function renderLetterBar() {
-        letterBar.innerHTML = '';
-        LETTERS.forEach(function (letter) {
-            const btn = document.createElement('button');
-            const has = !!grouped[letter];
-            btn.className = 'az-letter-btn' + (has ? '' : ' disabled');
-            btn.textContent = letter;
-            btn.setAttribute('data-letter', letter);
-            if (has) {
-                btn.addEventListener('click', function () {
-                    document.querySelectorAll('.az-letter-btn').forEach(function (b) { b.classList.remove('active'); });
-                    btn.classList.add('active');
-                    activeLetter = letter;
-                    searchInput.value = '';
-                    applyFilters();
-                    container.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                });
-            }
-            letterBar.appendChild(btn);
-        });
-        letterBar.style.display = 'flex';
-    }
-
     function renderSearchResults(entries) {
         container.innerHTML = '';
         if (!entries.length) {
@@ -99,39 +68,9 @@
         noResults.style.display = 'none';
     }
 
-    function renderLetterView(letter) {
-        container.innerHTML = '';
-        const entries = (grouped[letter] || []).filter(function (e) {
-            return activeFilter === 'all' || e.d === activeFilter;
-        });
-        if (!entries.length) {
-            container.style.display = 'none';
-            noResults.style.display = 'block';
-            return;
-        }
-        const frag    = document.createDocumentFragment();
-        const group   = document.createElement('div');
-        group.className = 'letter-group';
-        group.id        = 'letter-' + letter;
-        const heading   = document.createElement('h3');
-        heading.className = 'letter-heading';
-        heading.textContent = letter;
-        group.appendChild(heading);
-        const grid = document.createElement('div');
-        grid.className = 'chord-browse-grid';
-        entries.forEach(function (e) { grid.appendChild(makeCard(e)); });
-        group.appendChild(grid);
-        frag.appendChild(group);
-        container.appendChild(frag);
-        container.style.display = 'block';
-        noResults.style.display = 'none';
-    }
-
     function applyFilters() {
         const query = (searchInput.value || '').trim().toLowerCase();
-        if (query) {
-            activeLetter = null;
-            document.querySelectorAll('.az-letter-btn').forEach(function (b) { b.classList.remove('active'); });
+        if (query || activeFilter !== 'all') {
             let filtered = allEntries;
             if (activeFilter !== 'all') { filtered = filtered.filter(function (e) { return e.d === activeFilter; }); }
             filtered = filtered.filter(function (e) {
@@ -140,10 +79,6 @@
             recentSec.style.display = 'none';
             if (curatedSec) { curatedSec.style.display = 'none'; }
             renderSearchResults(filtered);
-        } else if (activeLetter) {
-            recentSec.style.display = '';
-            if (curatedSec) { curatedSec.style.display = ''; }
-            renderLetterView(activeLetter);
         } else {
             container.style.display = 'none';
             container.innerHTML = '';
@@ -155,38 +90,56 @@
 
     function initData(data) {
         allEntries = data;
-        grouped    = {};
-        data.forEach(function (e) {
-            const l = getFirstLetter(e.t);
-            if (!grouped[l]) { grouped[l] = []; }
-            grouped[l].push(e);
-        });
+        loaded = true;
         if (countEl) { countEl.textContent = data.length; }
-        renderLetterBar();
+        const note = document.getElementById('catalog-load-note');
+        if (note) note.hidden = true;
         applyFilters();
     }
 
-    function ensureLoaded(then) {
-        if (allEntries.length) { if (then) { then(); } return; }
+    function ensureLoaded() {
+        if (loaded) { applyFilters(); return; }
         if (!fetchPromise) {
             container.style.display = 'block';
+            container.setAttribute('role', 'status');
+            noResults.style.display = 'none';
             container.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:2rem 0;">Loading chord library\u2026</p>';
             fetchPromise = fetch('/chords/index.json')
-                .then(function (r) { return r.json(); })
+                .then(function (r) {
+                    if (!r.ok) throw new Error('Chord catalog returned HTTP ' + r.status);
+                    return r.json();
+                })
+                .then(function (data) {
+                    if (!Array.isArray(data) || !data.every(function (entry) {
+                        return entry && typeof entry.t === 'string'
+                            && typeof entry.s === 'string' && /^[a-zA-Z0-9_-]+$/.test(entry.s)
+                            && (entry.a == null || typeof entry.a === 'string');
+                    })) throw new Error('Chord catalog has an invalid format');
+                    return data;
+                })
                 .then(function (data) { initData(data); })
-                .catch(function () {
-                    container.innerHTML = '<p style="color:var(--text-muted);text-align:center;">Unable to load chord library.</p>';
+                .catch(function (error) {
+                    console.error('[Chord library]', error);
+                    fetchPromise = null;
+                    container.style.display = 'block';
+                    container.innerHTML = '<p>Unable to load song search. <a href="/library/">Browse the song directory instead</a>.</p>';
+                    const retry = document.createElement('button');
+                    retry.type = 'button';
+                    retry.className = 'btn btn-secondary';
+                    retry.textContent = 'Retry search';
+                    retry.addEventListener('click', ensureLoaded);
+                    container.appendChild(retry);
                 });
         }
-        if (then) { fetchPromise.then(then); }
     }
-
-    searchInput.addEventListener('focus', function () { ensureLoaded(); }, { once: true });
 
     var debounceTimer;
     searchInput.addEventListener('input', function () {
         clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(function () { ensureLoaded(applyFilters); }, 300);
+        debounceTimer = setTimeout(function () {
+            if (!searchInput.value.trim() && activeFilter === 'all') applyFilters();
+            else ensureLoaded();
+        }, 300);
     });
 
     document.querySelectorAll('.difficulty-chip').forEach(function (chip) {
@@ -194,16 +147,8 @@
             document.querySelectorAll('.difficulty-chip').forEach(function (c) { c.classList.remove('active'); });
             chip.classList.add('active');
             activeFilter = chip.dataset.difficulty;
-            ensureLoaded(applyFilters);
+            if (activeFilter === 'all' && !searchInput.value.trim()) applyFilters();
+            else ensureLoaded();
         });
     });
-
-    // Lazy-load when AI library section scrolls near viewport
-    var aiSection = document.getElementById('ai-library-section');
-    if (aiSection && 'IntersectionObserver' in window) {
-        var obs = new IntersectionObserver(function (entries) {
-            if (entries[0].isIntersecting) { obs.disconnect(); ensureLoaded(); }
-        }, { rootMargin: '300px' });
-        obs.observe(aiSection);
-    }
 })();

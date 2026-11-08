@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{{HEAD}}
+    <script type="application/ld+json">{{STRUCTURED_DATA}}</script>
+</head>
+<body>
+{{HEADER}}
+    <main id="main-content" tabindex="-1">
+        <section class="songs-header">
+            <div class="container">
+                <a href="/songs.html" class="back-link">Back to song search</a>
+                <h1>{{LIBRARY_HEADING}}</h1>
+                <p>{{LIBRARY_DESCRIPTION}}</p>
+            </div>
+        </section>
+        <section class="songs-section">
+            <div class="container">
+                <nav class="category-link-list" aria-label="Browse song titles">{{LETTER_LINKS}}</nav>
+                {{LIBRARY_CONTENT}}
+            </div>
+        </section>
+    </main>
+{{FOOTER}}
+    <script src="/js/main.js" defer></script>
+</body>
+</html>

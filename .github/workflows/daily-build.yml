@@ -28,6 +28,9 @@ jobs:
       - name: Run build
         run: node build.js
 
+      - name: Validate crawlable chord library
+        run: node --test scripts/test-chord-library.js
+
       - name: Validate sitemaps
         run: |
           for f in sitemap*.xml; do

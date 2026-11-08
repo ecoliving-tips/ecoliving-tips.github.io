@@ -252,7 +252,7 @@
             <div class="container">
                 <hr class="section-divider">
                 <h2>AI Chord Library</h2>
-                <p style="color:var(--text-muted); margin-bottom: 1.5rem;">AI-detected chord pages for hundreds of songs. Search, filter by difficulty, or browse A-Z.</p>
+                <p style="color:var(--text-muted); margin-bottom: 1.5rem;">Search AI-detected chord pages by title or artist, or <a href="/library/">browse the song directory</a> without downloading the full catalog.</p>
 
                 <div class="search-box" style="margin-bottom: 1rem;">
                     <input type="text" id="ai-search-input" placeholder="Search AI chord pages by title or artist..." aria-label="Search AI chords">
@@ -264,6 +264,7 @@
                     <button class="difficulty-chip" data-difficulty="moderate">Moderate</button>
                     <button class="difficulty-chip" data-difficulty="advanced">Advanced</button>
                 </div>
+                <p id="catalog-load-note">Typing a search or choosing a difficulty loads the full catalog. For lighter browsing, use the directory links below.</p>
 
                 <div id="recently-added-section" class="recently-added-section">
                     <h3>Recently Added</h3>
@@ -280,7 +281,35 @@
 <a class="recently-added-card" href="/chords/andreas-gartner-spielt-l-amour-toujours-von-gigi-d-agostino-cornelia-schunemann/"><div class="ra-title">Andreas Gärtner spielt: L'Amour toujours von Gigi d'Agostino</div><div class="ra-artist">Cornelia Schünemann</div></a>
 </div>
 </div>
-<div id="az-letter-bar" class="az-letter-bar"></div>
+<nav id="az-letter-bar" class="az-letter-bar" style="display:flex;" aria-label="Browse song titles">
+    <a class="az-letter-btn" href="/library/other/">#</a>
+    <a class="az-letter-btn" href="/library/a/">A</a>
+    <a class="az-letter-btn" href="/library/b/">B</a>
+    <a class="az-letter-btn" href="/library/c/">C</a>
+    <a class="az-letter-btn" href="/library/d/">D</a>
+    <a class="az-letter-btn" href="/library/e/">E</a>
+    <a class="az-letter-btn" href="/library/f/">F</a>
+    <a class="az-letter-btn" href="/library/g/">G</a>
+    <a class="az-letter-btn" href="/library/h/">H</a>
+    <a class="az-letter-btn" href="/library/i/">I</a>
+    <a class="az-letter-btn" href="/library/j/">J</a>
+    <a class="az-letter-btn" href="/library/k/">K</a>
+    <a class="az-letter-btn" href="/library/l/">L</a>
+    <a class="az-letter-btn" href="/library/m/">M</a>
+    <a class="az-letter-btn" href="/library/n/">N</a>
+    <a class="az-letter-btn" href="/library/o/">O</a>
+    <a class="az-letter-btn" href="/library/p/">P</a>
+    <a class="az-letter-btn" href="/library/q/">Q</a>
+    <a class="az-letter-btn" href="/library/r/">R</a>
+    <a class="az-letter-btn" href="/library/s/">S</a>
+    <a class="az-letter-btn" href="/library/t/">T</a>
+    <a class="az-letter-btn" href="/library/u/">U</a>
+    <a class="az-letter-btn" href="/library/v/">V</a>
+    <a class="az-letter-btn" href="/library/w/">W</a>
+    <a class="az-letter-btn" href="/library/x/">X</a>
+    <a class="az-letter-btn" href="/library/y/">Y</a>
+    <a class="az-letter-btn" href="/library/z/">Z</a>
+</nav>
 
                 <div id="chords-container"></div>
 

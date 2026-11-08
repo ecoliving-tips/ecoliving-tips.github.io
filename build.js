@@ -357,6 +357,7 @@ function loadTemplates() {
         artistPage: read('artist-page.html'),
         progressionPage: read('progression-page.html'),
         chordsPage: read('chords-page.html'),
+        libraryPage: read('library-page.html'),
     };
 }
 
@@ -909,7 +910,7 @@ function buildUrlset(entries) {
     return xml;
 }
 
-function generateSitemap(songs, categories, artists, progressionKeys, aiChordPages) {
+function generateSitemap(songs, categories, artists, progressionKeys, aiChordPages, libraryPages) {
     // Clean up stale sub-sitemaps from previous builds
     const staleSitemaps = fs.readdirSync(ROOT)
         .filter(f => f.startsWith('sitemap-') && f.endsWith('.xml'));
@@ -1016,6 +1017,7 @@ function generateSitemap(songs, categories, artists, progressionKeys, aiChordPag
         { file: 'sitemap-categories.xml', entries: categoryEntries },
         { file: 'sitemap-artists.xml', entries: artistEntries },
         { file: 'sitemap-progressions.xml', entries: progressionEntries },
+        { file: 'sitemap-library.xml', entries: libraryPages || [] },
         { file: 'sitemap-chords-new.xml', entries: newChordEntries },
         { file: 'sitemap-chords-recent.xml', entries: recentChordEntries },
         { file: 'sitemap-chords-archive.xml', entries: archiveChordEntries },
@@ -1376,8 +1378,8 @@ function pingSitemap() {
 
 // ===== Songs Page Pre-renderer =====
 
-function generateSongsPage(songs, allCategories, allArtists, aiChordPages) {
-    const songsHtmlPath = path.join(ROOT, 'songs.html');
+function generateSongsPage(songs, allCategories, allArtists, aiChordPages, libraryPages, outputRoot = ROOT) {
+    const songsHtmlPath = path.join(outputRoot, 'songs.html');
     let html = fs.readFileSync(songsHtmlPath, 'utf-8');
 
     // Pre-render song cards (replace content between songs-grid tags)
@@ -1426,10 +1428,24 @@ function generateSongsPage(songs, allCategories, allArtists, aiChordPages) {
                 + `</a>`;
         }).join('\n');
         html = html.replace(
-            /(<div id="recently-added-row" class="recently-added-row">)[\s\S]*?(<\/div>\s*<\/div>\s*<div id="az-letter-bar")/,
-            `$1\n${recentCards}\n</div>\n</div>\n<div id="az-letter-bar"`
+            /(<div id="recently-added-row" class="recently-added-row">)[\s\S]*?(<\/div>\s*<\/div>\s*<nav id="az-letter-bar")/,
+            `$1\n${recentCards}\n</div>\n</div>\n<nav id="az-letter-bar"`
         );
     }
+
+    const letterLinks = (libraryPages || [])
+        .map(page => new URL(page.loc).pathname)
+        .filter(urlPath => /^\/library\/[a-z]+\/$/.test(urlPath))
+        .sort()
+        .map(urlPath => {
+            const slug = urlPath.split('/')[2];
+            const letter = slug === 'other' ? '#' : slug.toUpperCase();
+            return `<a class="az-letter-btn" href="${urlPath}">${letter}</a>`;
+        }).join('\n');
+    html = html.replace(
+        /(<nav id="az-letter-bar"[^>]*>)[\s\S]*?(<\/nav>)/,
+        (_, open, close) => `${open}\n${letterLinks || '<a href="/library/">Song directory</a>'}\n${close}`
+    );
 
     fs.writeFileSync(songsHtmlPath, html);
 }
@@ -1481,6 +1497,124 @@ function generateHomepageRecentChords(aiChordPages) {
     );
 
     fs.writeFileSync(indexHtmlPath, html);
+}
+
+function generateChordLibrary(entries, templates, outputRoot = ROOT) {
+    const pageSize = 200;
+    const groups = new Map();
+    const slugs = new Set();
+    for (const entry of entries) {
+        const slug = entry.slug || entry.s;
+        if (typeof slug !== 'string' || !/^[a-zA-Z0-9_-]+$/.test(slug)) {
+            throw new Error('Chord library entry has an invalid slug');
+        }
+        if (slugs.has(slug)) continue;
+        slugs.add(slug);
+        const title = cleanMetadataText(entry.title ?? entry.t, 'Unknown Song');
+        const artist = cleanMetadataText(entry.artist ?? entry.a, '');
+        const initial = title.charAt(0).toUpperCase();
+        const letter = /^[A-Z]$/.test(initial) ? initial : '#';
+        if (!groups.has(letter)) groups.set(letter, []);
+        groups.get(letter).push({ slug, title, artist });
+    }
+    const letters = [...groups.keys()].sort();
+    const letterPath = letter => `/library/${letter === '#' ? 'other' : letter.toLowerCase()}/`;
+    const pagePath = (letter, page) => `${letterPath(letter)}${page === 1 ? '' : `page/${page}/`}`;
+    const letterLabel = letter => letter === '#' ? 'Numbers and other titles' : letter;
+    const letterLinks = letters.map(letter =>
+        `<a href="${letterPath(letter)}" class="category-tag">${letterLabel(letter)}</a>`
+    ).join('\n');
+    const pages = [];
+
+    function writePage(urlPath, heading, description, content, items) {
+        const canonicalUrl = BASE_URL + urlPath;
+        const title = `${heading} | Swaram`;
+        let html = fillHead(templates.libraryPage, templates.partials, {
+            TITLE: escapeHtml(title),
+            DESCRIPTION: escapeHtml(description),
+            KEYWORDS: 'song chord library, guitar chords, keyboard chords',
+            CANONICAL_URL: canonicalUrl,
+            OG_TITLE: escapeHtml(title),
+            OG_DESCRIPTION: escapeHtml(description),
+            OG_URL: canonicalUrl,
+            TWITTER_TITLE: escapeHtml(title),
+            TWITTER_DESCRIPTION: escapeHtml(description),
+            EXTRA_HEAD: '',
+        });
+        html = fillPartials(html, templates.partials);
+        const structuredData = {
+            '@context': 'https://schema.org',
+            '@type': 'CollectionPage',
+            name: heading,
+            description,
+            url: canonicalUrl,
+            mainEntity: {
+                '@type': 'ItemList',
+                numberOfItems: items.length,
+                itemListElement: items.map((item, index) => ({
+                    '@type': 'ListItem',
+                    position: index + 1,
+                    name: item.title,
+                    url: BASE_URL + item.url,
+                })),
+            },
+        };
+        const replacements = {
+            LIBRARY_HEADING: escapeHtml(heading),
+            LIBRARY_DESCRIPTION: escapeHtml(description),
+            LETTER_LINKS: letterLinks,
+            LIBRARY_CONTENT: content,
+            STRUCTURED_DATA: JSON.stringify(structuredData).replace(/</g, '\\u003c'),
+        };
+        for (const [token, value] of Object.entries(replacements)) {
+            html = html.replace(`{{${token}}}`, () => value);
+        }
+        const outDir = path.join(outputRoot, ...urlPath.split('/').filter(Boolean));
+        mkdirp(outDir);
+        const file = path.join(outDir, 'index.html');
+        // Preserve timestamps when the directory content has not changed.
+        if (!fs.existsSync(file) || fs.readFileSync(file, 'utf-8') !== html) {
+            fs.writeFileSync(file, html);
+        }
+        pages.push({ loc: canonicalUrl, lastmod: fs.statSync(file).mtime.toISOString().split('T')[0] });
+    }
+
+    let hubContent = '';
+    for (const letter of letters) {
+        const songs = groups.get(letter);
+        songs.sort((a, b) => a.title.localeCompare(b.title, 'en') || a.slug.localeCompare(b.slug, 'en'));
+        const count = Math.ceil(songs.length / pageSize);
+        const pagination = currentPage => {
+            const links = [];
+            for (let page = 1; page <= count; page++) {
+                links.push(page === currentPage
+                    ? `<span class="category-tag" aria-current="page">Page ${page}</span>`
+                    : `<a class="category-tag" href="${pagePath(letter, page)}">Page ${page}</a>`);
+            }
+            return `<nav class="category-link-list" aria-label="${letterLabel(letter)} pages">${links.join('\n')}</nav>`;
+        };
+        hubContent += `<section><h2>${letterLabel(letter)} <small>(${songs.length} songs)</small></h2>${pagination(0)}</section>\n`;
+        for (let page = 1; page <= count; page++) {
+            const slice = songs.slice((page - 1) * pageSize, page * pageSize);
+            const cards = slice.map(song =>
+                `<a class="chord-browse-card" href="/chords/${song.slug}/"><div class="cb-info">`
+                + `<div class="cb-title">${escapeHtml(song.title)}</div>`
+                + (song.artist ? `<div class="cb-artist">${escapeHtml(song.artist)}</div>` : '')
+                + '</div></a>'
+            ).join('\n');
+            const heading = `${letterLabel(letter)} Song Chords - Page ${page}`;
+            const description = `Browse ${letterLabel(letter)} song titles, page ${page} of ${count}. Showing ${(page - 1) * pageSize + 1}-${Math.min(page * pageSize, songs.length)} of ${songs.length} guitar and keyboard chord charts.`;
+            const content = '<p><a href="/library/">All song titles</a></p>'
+                + pagination(page) + `<div class="chord-browse-grid">${cards}</div>` + pagination(page);
+            writePage(pagePath(letter, page), heading, description, content,
+                slice.map(song => ({ title: song.title, url: `/chords/${song.slug}/` })));
+        }
+    }
+    writePage('/library/', 'Song Chord Directory',
+        `Browse ${slugs.size} AI-detected song chord charts by title. Open guitar and keyboard chord pages without loading the full search catalog.`,
+        hubContent || '<p>No chord charts are available yet. <a href="/chord-finder.html">Try the chord finder</a>.</p>',
+        letters.map(letter => ({ title: letterLabel(letter), url: letterPath(letter) })));
+    return pages;
 }
 
 function generateChordsBrowsePage(aiChordPages) { // eslint-disable-line no-unused-vars
@@ -2154,8 +2288,10 @@ async function main() {
     }
 
     // Generate sitemap
-    generateSitemap(songs, allCategories, allArtists, progressionKeys, aiChordPages);
-    const totalUrls = 5 + songs.length * 2 + allCategories.length + allArtists.length + progressionKeys.length + aiChordPages.length;
+    const libraryPages = generateChordLibrary(aiChordPages, templates);
+    console.log(`Generated ${libraryPages.length} crawlable chord library pages.`);
+    generateSitemap(songs, allCategories, allArtists, progressionKeys, aiChordPages, libraryPages);
+    const totalUrls = 8 + songs.length * 2 + allCategories.length + allArtists.length + progressionKeys.length + aiChordPages.length + libraryPages.length;
     console.log(`Sitemap generated with ${totalUrls} URLs.`);
     validateSitemaps();
 
@@ -2167,7 +2303,7 @@ async function main() {
     await pingSitemap();
 
     // Pre-render songs.html
-    generateSongsPage(songs, allCategories, allArtists, aiChordPages);
+    generateSongsPage(songs, allCategories, allArtists, aiChordPages, libraryPages);
     console.log('Pre-rendered songs.html with song cards, browse tags, and count.');
 
     // Pre-render homepage featured songs + recent chords
@@ -2201,6 +2337,9 @@ if (require.main === module) {
 }
 
 module.exports = {
+    generateChordLibrary,
+    generateSongsPage,
+    loadTemplates,
     generateLlmsTxt,
     minifyCSS,
     cleanMetadataText,
