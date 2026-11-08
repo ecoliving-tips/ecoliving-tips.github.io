@@ -1485,19 +1485,7 @@ function showProgress() {
     const section = document.getElementById('progress-section');
     if (section) {
         section.style.display = '';
-        // Inject ins element after section is visible — push() on display:none causes availableWidth=0
-        const adContainer = section.querySelector('.loading-ad-container');
-        if (window.__swaramAdsReady && adContainer && !adContainer.querySelector('ins')) {
-            const ins = document.createElement('ins');
-            ins.className = 'adsbygoogle';
-            ins.style.display = 'block';
-            ins.setAttribute('data-ad-client', 'ca-pub-7438590583270235');
-            ins.setAttribute('data-ad-slot', '7291819152');
-            ins.setAttribute('data-ad-format', 'auto');
-            ins.setAttribute('data-full-width-responsive', 'true');
-            adContainer.appendChild(ins);
-            (window.adsbygoogle = window.adsbygoogle || []).push({});
-        }
+        window.dispatchEvent(new Event('swaram:ads-visibility-changed'));
     }
     ['step-analyze', 'step-done'].forEach(id => {
         const el = document.getElementById(id);

@@ -31,6 +31,9 @@ jobs:
       - name: Validate crawlable chord library
         run: node --test scripts/test-chord-library.js
 
+      - name: Validate AdSense loading protections
+        run: node --test scripts/test-adsense-loader.js
+
       - name: Validate sitemaps
         run: |
           for f in sitemap*.xml; do

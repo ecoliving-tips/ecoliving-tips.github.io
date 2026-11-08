@@ -7497,29 +7497,14 @@ footer {
     display: block;
     width: min(100%, 728px);
     min-width: 0;
-    min-height: 90px;
+    min-height: 290px;
     margin: 48px auto !important;
     padding: 28px 16px 12px;
-    overflow: hidden;
+    overflow: visible;
     border-top: 1px solid rgba(173, 190, 201, 0.18);
     border-bottom: 1px solid rgba(173, 190, 201, 0.18);
     background: rgba(16, 23, 30, 0.3);
     isolation: isolate;
-}
-
-.google-auto-placed {
-    box-sizing: border-box;
-    width: 100% !important;
-    max-width: 100% !important;
-    overflow: hidden !important;
-}
-
-.google-auto-placed > ins.adsbygoogle {
-    display: block !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    margin-right: 0 !important;
-    margin-left: 0 !important;
 }
 
 .song-card-actions .btn-secondary,
@@ -7584,7 +7569,8 @@ footer {
     }
 }
 
-.ad-container::before {
+.ad-container::before,
+.recently-added-card[data-swaram-ad-slot]::before {
     content: 'Advertisements';
     position: absolute;
     top: 8px;
@@ -7608,14 +7594,34 @@ footer {
 .loading-ad-container {
     width: 100%;
     min-width: 0;
-    min-height: 90px;
-    overflow: hidden;
+    min-height: 140px;
+    overflow: visible;
+}
+
+.recently-added-card[data-swaram-ad-slot] {
+    position: relative;
+    flex: 0 0 280px;
+    grid-column: 1 / -1;
+    min-height: 290px;
+    padding: 28px 12px 12px;
+    overflow: visible;
+}
+
+.recently-added-card[data-swaram-ad-slot]:hover {
+    background: var(--bg-card);
+    border-color: var(--border);
+    box-shadow: none;
+    transform: none;
+}
+
+.ad-container[data-swaram-ad-slot].ad-slot-unfilled {
+    display: none;
 }
 
 @media (max-width: 768px) {
     .ad-container {
         width: calc(100% - 32px);
-        min-height: 100px;
+        min-height: 290px;
         margin: 40px auto !important;
         padding-right: 10px;
         padding-left: 10px;
@@ -7623,6 +7629,10 @@ footer {
 
     .ad-container::before {
         left: 10px;
+    }
+
+    .loading-ad-container {
+        min-height: 140px;
     }
 }
 

@@ -1478,7 +1478,7 @@ function generateHomepageRecentChords(aiChordPages) {
         .sort((a, b) => (b.created_at || '').localeCompare(a.created_at || ''));
     const recent = sorted.slice(0, 8);
 
-    const IN_FEED_AD = `                    <div class="recently-added-card" data-swaram-ad-format="fluid" data-swaram-ad-layout-key="-dw-26-o-69+rj" data-swaram-ad-slot="6173198662" style="padding:0;overflow:hidden;"></div>`;
+    const IN_FEED_AD = `                    <div class="recently-added-card" data-swaram-ad-format="fluid" data-swaram-ad-layout-key="-dw-26-o-69+rj" data-swaram-ad-slot="6173198662"></div>`;
 
     const cards = recent.map((entry, i) => {
         const title = (entry.title || entry.slug).replace(/</g, '&lt;');

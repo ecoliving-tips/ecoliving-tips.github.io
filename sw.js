@@ -1,6 +1,6 @@
 // Swaram - Service Worker for Offline Support
 
-const CACHE_NAME = 'swaram-v22-library-on-demand';
+const CACHE_NAME = 'swaram-v23-ads-viewability';
 const STATIC_ASSETS = [
     '/',
     '/index.html',
