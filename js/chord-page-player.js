@@ -18,6 +18,11 @@
     var lastActiveIdx = -1;
     var cachedBlocks = null;
     var cachedCurrentEl = null;
+    var chordProgressEl = null;
+    var chordProgressFillEl = null;
+    var chordCountdownEl = null;
+    var lastChordProgress = -1;
+    var lastChordCountdown = '';
 
     // Beginner mode state
     var beginnerMode = false;
@@ -149,6 +154,7 @@
     function seekTo(time) {
         if (ytPlayer && typeof ytPlayer.seekTo === 'function') {
             ytPlayer.seekTo(time, true);
+            updateChordProgress(findActiveChordIndex(time), time);
         }
     }
 
@@ -164,10 +170,84 @@
         return result;
     }
 
+    function ensureChordTimer() {
+        if (chordProgressFillEl && chordProgressFillEl.isConnected && chordCountdownEl && chordCountdownEl.isConnected) return;
+        var currentCard = document.querySelector('.npp-card.current');
+        var chordName = currentCard && currentCard.querySelector('.npp-chord-name');
+        if (!currentCard || !chordName) return;
+
+        chordProgressEl = document.createElement('div');
+        chordProgressEl.className = 'npp-progress';
+        chordProgressEl.setAttribute('role', 'progressbar');
+        chordProgressEl.setAttribute('aria-label', 'Elapsed progress through current chord');
+        chordProgressEl.setAttribute('aria-valuemin', '0');
+        chordProgressEl.setAttribute('aria-valuemax', '100');
+        chordProgressEl.setAttribute('aria-valuenow', '0');
+        chordProgressFillEl = document.createElement('div');
+        chordProgressFillEl.className = 'npp-progress-fill';
+        chordProgressEl.appendChild(chordProgressFillEl);
+
+        chordCountdownEl = document.createElement('div');
+        chordCountdownEl.className = 'npp-countdown';
+        chordCountdownEl.setAttribute('role', 'timer');
+        chordCountdownEl.setAttribute('aria-label', 'Chord countdown');
+        chordCountdownEl.textContent = 'Play to see the chord countdown';
+
+        chordName.parentNode.insertBefore(chordProgressEl, chordName.nextSibling);
+        chordProgressEl.parentNode.insertBefore(chordCountdownEl, chordProgressEl.nextSibling);
+    }
+
+    function formatChordCountdown(seconds) {
+        var minutes = Math.floor(seconds / 60);
+        var remainder = seconds % 60;
+        return minutes + ':' + String(remainder).padStart(2, '0');
+    }
+
+    function updateChordProgress(activeIdx, time, playbackEnded) {
+        ensureChordTimer();
+        if (!chordProgressFillEl || !chordCountdownEl) return;
+
+        var current = activeIdx >= 0 ? chords[activeIdx] : null;
+        var next = activeIdx >= 0 ? chords[activeIdx + 1] : null;
+        var progress = 0;
+        var ending = false;
+        var countdown = playbackEnded ? 'Playback ended' : 'Waiting for the first chord';
+
+        if (current && Number.isFinite(current.time) && Number.isFinite(time)) {
+            var end = next && Number.isFinite(next.time)
+                ? next.time
+                : current.time + (Number(current.duration) || 0);
+            var duration = end - current.time;
+            if (duration > 0) {
+                var remaining = Math.max(0, end - time);
+                progress = Math.min(1, Math.max(0, (time - current.time) / duration));
+                ending = progress >= 0.75 || remaining <= 0.6;
+                countdown = next
+                    ? 'Next chord in ' + formatChordCountdown(Math.ceil(remaining))
+                    : 'Chord ends in ' + formatChordCountdown(Math.ceil(remaining));
+            } else {
+                countdown = next ? 'Next chord is coming up' : 'Final detected chord';
+            }
+        }
+
+        var rounded = Math.round(progress * 1000) / 1000;
+        if (rounded !== lastChordProgress) {
+            lastChordProgress = rounded;
+            chordProgressFillEl.style.transform = 'scaleX(' + rounded + ')';
+            chordProgressEl.setAttribute('aria-valuenow', String(Math.round(rounded * 100)));
+        }
+        chordProgressFillEl.classList.toggle('is-ending', ending);
+        if (countdown !== lastChordCountdown) {
+            lastChordCountdown = countdown;
+            chordCountdownEl.textContent = countdown;
+        }
+    }
+
     function updateChordSync() {
         if (!ytPlayer || typeof ytPlayer.getCurrentTime !== 'function') return;
         var time = ytPlayer.getCurrentTime();
         var activeIdx = findActiveChordIndex(time);
+        updateChordProgress(activeIdx, time);
         if (activeIdx === lastActiveIdx) return;
         lastActiveIdx = activeIdx;
 
@@ -198,6 +278,7 @@
     function onStateChange(event) {
         if (event.data === 1) startSync();
         else if (event.data === 0 || event.data === 2) stopSync();
+        if (event.data === 0) updateChordProgress(-1, 0, true);
     }
 
     function initPlayer() {
@@ -312,6 +393,7 @@
         renderTimeline();
         initPlayer();
         initNowPlayingPanel();
+        ensureChordTimer();
 
         // Transpose buttons
         var downBtn = document.getElementById('transpose-down');

@@ -146,6 +146,11 @@ let syncRafId = null;        // requestAnimationFrame ID for chord sync
 let lastActiveIdx = -1;      // Last highlighted chord index (avoids redundant DOM updates)
 let cachedBlocks = null;     // Cached NodeList of .chord-block elements
 let cachedCurrentChordEl = null; // Cached #current-chord element
+let chordProgressEl = null;
+let chordProgressFillEl = null;
+let chordCountdownEl = null;
+let lastChordProgress = -1;
+let lastChordCountdown = '';
 let audioPlayer = null;      // HTML5 Audio element
 let audioObjectUrl = null;   // Blob URL for uploaded file
 let serverWarm = false;      // Whether the HF Space is awake
@@ -952,6 +957,7 @@ function hideResults() {
     const summary = document.getElementById('analysis-summary');
     if (summary) summary.hidden = true;
     stopSync();
+    updateChordProgress(-1, 0);
     if (audioObjectUrl) {
         URL.revokeObjectURL(audioObjectUrl);
         audioObjectUrl = null;
@@ -1065,6 +1071,7 @@ function initAudioPlayer() {
         document.getElementById('pause-icon').style.display = 'none';
         if (cachedCurrentChordEl) cachedCurrentChordEl.textContent = '-';
         updateNowPlayingPanel(-3);
+        updateChordProgress(-1, 0, true);
         // Clear active/past highlights
         if (cachedBlocks) {
             for (let i = 0; i < cachedBlocks.length; i++) {
@@ -1164,6 +1171,7 @@ function onYTStateChange(event) {
         lastActiveIdx = -1;
         if (cachedCurrentChordEl) cachedCurrentChordEl.textContent = '-';
         updateNowPlayingPanel(-3);
+        updateChordProgress(-1, 0, true);
         if (cachedBlocks) {
             for (let i = 0; i < cachedBlocks.length; i++) {
                 cachedBlocks[i].classList.remove('active', 'past');
@@ -1225,6 +1233,7 @@ function stopSync() {
 function initNowPlayingPanel() {
     const modeToggle = document.getElementById('npp-mode-toggle');
     const instrToggle = document.getElementById('npp-instrument-toggle');
+    ensureChordTimer();
     applyNppMode(nppMode);
     applyNppInstrument(nppInstrument);
 
@@ -1329,6 +1338,79 @@ function findActiveChordIndex(time) {
     return -1;
 }
 
+function ensureChordTimer() {
+    if (chordProgressFillEl?.isConnected && chordCountdownEl?.isConnected) return;
+    const currentCard = document.querySelector('.npp-card.current');
+    const chordName = currentCard?.querySelector('.npp-chord-name');
+    if (!currentCard || !chordName) return;
+
+    chordProgressEl = document.createElement('div');
+    chordProgressEl.className = 'npp-progress';
+    chordProgressEl.setAttribute('role', 'progressbar');
+    chordProgressEl.setAttribute('aria-label', 'Elapsed progress through current chord');
+    chordProgressEl.setAttribute('aria-valuemin', '0');
+    chordProgressEl.setAttribute('aria-valuemax', '100');
+    chordProgressEl.setAttribute('aria-valuenow', '0');
+    chordProgressFillEl = document.createElement('div');
+    chordProgressFillEl.className = 'npp-progress-fill';
+    chordProgressEl.appendChild(chordProgressFillEl);
+
+    chordCountdownEl = document.createElement('div');
+    chordCountdownEl.className = 'npp-countdown';
+    chordCountdownEl.setAttribute('role', 'timer');
+    chordCountdownEl.setAttribute('aria-label', 'Chord countdown');
+    chordCountdownEl.textContent = 'Play to see the chord countdown';
+
+    chordName.after(chordProgressEl, chordCountdownEl);
+}
+
+function formatChordCountdown(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const remainder = seconds % 60;
+    return `${minutes}:${String(remainder).padStart(2, '0')}`;
+}
+
+function updateChordProgress(activeIdx, time, playbackEnded = false) {
+    ensureChordTimer();
+    if (!chordProgressFillEl || !chordCountdownEl) return;
+
+    const chords = chordData?.chords;
+    const current = activeIdx >= 0 ? chords?.[activeIdx] : null;
+    const next = activeIdx >= 0 ? chords?.[activeIdx + 1] : null;
+    let progress = 0;
+    let ending = false;
+    let countdown = playbackEnded ? 'Playback ended' : 'Waiting for the first chord';
+
+    if (current && Number.isFinite(current.time) && Number.isFinite(time)) {
+        const end = next && Number.isFinite(next.time)
+            ? next.time
+            : current.time + (Number(current.duration) || 0);
+        const duration = end - current.time;
+        if (duration > 0) {
+            const remaining = Math.max(0, end - time);
+            progress = Math.min(1, Math.max(0, (time - current.time) / duration));
+            ending = progress >= 0.75 || remaining <= 0.6;
+            countdown = next
+                ? `Next chord in ${formatChordCountdown(Math.ceil(remaining))}`
+                : `Chord ends in ${formatChordCountdown(Math.ceil(remaining))}`;
+        } else {
+            countdown = next ? 'Next chord is coming up' : 'Final detected chord';
+        }
+    }
+
+    const rounded = Math.round(progress * 1000) / 1000;
+    if (rounded !== lastChordProgress) {
+        lastChordProgress = rounded;
+        chordProgressFillEl.style.transform = `scaleX(${rounded})`;
+        chordProgressEl.setAttribute('aria-valuenow', String(Math.round(rounded * 100)));
+    }
+    chordProgressFillEl.classList.toggle('is-ending', ending);
+    if (countdown !== lastChordCountdown) {
+        lastChordCountdown = countdown;
+        chordCountdownEl.textContent = countdown;
+    }
+}
+
 function updateChordSync() {
     if (!chordData?.chords?.length) return;
     let time;
@@ -1341,6 +1423,7 @@ function updateChordSync() {
     }
 
     const activeIdx = findActiveChordIndex(time);
+    updateChordProgress(activeIdx, time);
 
     // Skip DOM updates if nothing changed
     if (activeIdx === lastActiveIdx) return;

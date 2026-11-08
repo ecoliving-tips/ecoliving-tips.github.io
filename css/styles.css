@@ -8285,3 +8285,40 @@ html::-webkit-scrollbar-thumb:hover {
     }
 }
 
+.npp-progress {
+    width: 100%;
+    height: 6px;
+    margin-top: 10px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(154, 170, 189, 0.22);
+}
+
+.npp-progress-fill {
+    width: 100%;
+    height: 100%;
+    transform: scaleX(0);
+    transform-origin: left center;
+    border-radius: inherit;
+    background: var(--primary);
+    transition: background-color 0.18s ease;
+}
+
+.npp-progress-fill.is-ending {
+    background: var(--accent);
+}
+
+.npp-countdown {
+    min-height: 1.4em;
+    margin-top: 5px;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .npp-progress-fill {
+        transition: none;
+    }
+}
