@@ -1250,7 +1250,7 @@ function generateLlmsTxt(aiChordPages) {
 
 - **URL**: ${BASE_URL}/vocal-remover.html
 - **What it does**: Removes vocals from an uploaded song to create an audio-only instrumental backing track for karaoke and singing practice.
-- **AI processing**: Fine-tuned Demucs htdemucs_ft on a shared free Hugging Face CPU server. Audio is uploaded; processing can take many minutes. There is no instant browser fallback or separate stem download.
+- **AI processing**: Single-model Demucs htdemucs with 25% overlap balances speed and quality on a shared free Hugging Face CPU server. Audio is uploaded; processing can take several minutes or longer depending on song length and load. There is no instant browser fallback or separate stem download.
 - **Player**: Synchronized original and karaoke playback, independent mute and volume, waveform, seeking, and optional start/end trimming.
 - **Formats and limits**: MP3, WAV, M4A, OGG, FLAC, AAC, WebM; 30 MB and 8 minutes. Browser decoding support varies.
 - **Download**: Karaoke only, 24-bit PCM WAV. Trimming happens locally. No signup or payment; rate and server capacity limits apply.

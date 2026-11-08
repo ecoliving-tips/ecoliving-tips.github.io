@@ -61,13 +61,13 @@
         "@type": "FAQPage",
         "mainEntity": [
             { "@type": "Question", "name": "How do I remove vocals from a song?",
-              "acceptedAnswer": { "@type": "Answer", "text": "Upload an audio file and select Make karaoke track. Swaram uses the fine-tuned Demucs AI model on its server to remove vocals and return an instrumental backing track. Preview, optionally trim, and download it as WAV." } },
+              "acceptedAnswer": { "@type": "Answer", "text": "Upload an audio file and select Make karaoke track. Swaram uses the Demucs AI model on its server to remove vocals and return an instrumental backing track. Preview, optionally trim, and download it as WAV." } },
             { "@type": "Question", "name": "Is this online vocal remover free?",
               "acceptedAnswer": { "@type": "Answer", "text": "Yes. There is no signup or paid subscription. Uploads are limited to 30 MB and 8 minutes, and the shared free server has rate and capacity limits." } },
             { "@type": "Question", "name": "What audio formats can I upload?",
               "acceptedAnswer": { "@type": "Answer", "text": "Upload MP3, WAV, M4A, OGG, FLAC, AAC, or WebM audio up to 30 MB and 8 minutes. Playback support also depends on your browser. The karaoke download is a 24-bit PCM WAV file, not MP3." } },
             { "@type": "Question", "name": "How long does AI vocal removal take?",
-              "acceptedAnswer": { "@type": "Answer", "text": "The fine-tuned model runs on a shared free CPU server, not a GPU. Processing can take many minutes or tens of minutes for longer songs. The elapsed timer is not a completion estimate. Keep the tab open; if the server is busy, try again later." } },
+              "acceptedAnswer": { "@type": "Answer", "text": "A single Demucs model balances speed and quality on a shared free CPU server, not a GPU. Processing time depends on song length and server load and can still take several minutes or longer. The elapsed timer is not a completion estimate. Keep the tab open; if the server is busy, try again later." } },
             { "@type": "Question", "name": "Will it remove every voice perfectly?",
               "acceptedAnswer": { "@type": "Answer", "text": "No vocal remover guarantees perfect results. Reverb, backing vocals, distorted audio, and live recordings may leave vocal traces or affect instruments. Start with a clean stereo recording and preview the result before downloading. AI separation works independently of the song's language." } },
             { "@type": "Question", "name": "Can I compare and trim my karaoke track?",
@@ -142,7 +142,7 @@
                         </div>
                     </div>
                     <button type="button" class="btn generate-btn" id="remove-btn">Make karaoke track</button>
-                    <p class="karaoke-note">Quality-first AI processing on a free CPU server can take many minutes. Keep this tab open. Your audio is uploaded for processing; preview and trimming stay on your device. <a href="/privacy-policy.html">Privacy details</a>.</p>
+                    <p class="karaoke-note">AI processing balances speed and quality on a free CPU server and can take several minutes or longer. Keep this tab open. Your audio is uploaded for processing; preview and trimming stay on your device. <a href="/privacy-policy.html">Privacy details</a>.</p>
                     <noscript><p>Enable JavaScript to upload audio and use the karaoke player.</p></noscript>
                 </div>
             </div>
@@ -154,7 +154,7 @@
                     <p id="progress-status" role="status" aria-live="polite">Reading your audio...</p>
                     <div class="karaoke-progress" aria-hidden="true"></div>
                     <p id="sep-timer" class="karaoke-note">0:00 elapsed</p>
-                    <p class="karaoke-note">This animation indicates activity, not a measured percentage. Longer songs may take tens of minutes.</p>
+                    <p class="karaoke-note">This animation indicates activity, not a measured percentage. Processing time depends on song length and server load.</p>
                     <button class="btn btn-secondary" type="button" id="cancel-btn">Stop waiting</button>
                     <p class="karaoke-note">Stopping here does not guarantee the server job is cancelled.</p>
                 </div>
@@ -211,7 +211,7 @@
                 <h2>How to remove vocals and make a karaoke track</h2>
                 <div class="features-grid">
                     <article class="feature-card"><h3>1. Upload your song</h3><p>Choose a clean recording you have permission to process. MP3 works, but WAV or FLAC avoids adding input compression artifacts. Stereo recordings are a good starting point.</p></article>
-                    <article class="feature-card"><h3>2. Let AI remove the vocals</h3><p>The fine-tuned Demucs model separates singing from accompaniment on our CPU server. We return just the instrumental backing track, keeping drums, bass, and melodies together.</p></article>
+                    <article class="feature-card"><h3>2. Let AI remove the vocals</h3><p>A single Demucs model separates singing from accompaniment on our CPU server, balancing speed and quality. We return just the instrumental backing track, keeping drums, bass, and melodies together.</p></article>
                     <article class="feature-card"><h3>3. Preview, trim, and download</h3><p>Compare the original with your karaoke audio using synchronized playback. Select a verse or the full song and download a WAV backing track for practice.</p></article>
                 </div>
             </div>
@@ -231,10 +231,10 @@
             <div class="container">
                 <h2>Vocal remover and karaoke maker FAQ</h2>
                 <div class="faq-grid">
-                    <details class="faq-item"><summary><h3>How do I remove vocals from a song?</h3></summary><p>Upload an audio file and select Make karaoke track. Swaram uses the fine-tuned Demucs AI model on its server to remove vocals and return an instrumental backing track. Preview, optionally trim, and download it as WAV.</p></details>
+                    <details class="faq-item"><summary><h3>How do I remove vocals from a song?</h3></summary><p>Upload an audio file and select Make karaoke track. Swaram uses the Demucs AI model on its server to remove vocals and return an instrumental backing track. Preview, optionally trim, and download it as WAV.</p></details>
                     <details class="faq-item"><summary><h3>Is this online vocal remover free?</h3></summary><p>Yes. There is no signup or paid subscription. Uploads are limited to 30 MB and 8 minutes, and the shared free server has rate and capacity limits.</p></details>
                     <details class="faq-item"><summary><h3>What audio formats can I upload?</h3></summary><p>Upload MP3, WAV, M4A, OGG, FLAC, AAC, or WebM audio up to 30 MB and 8 minutes. Playback support also depends on your browser. The karaoke download is a 24-bit PCM WAV file, not MP3.</p></details>
-                    <details class="faq-item"><summary><h3>How long does AI vocal removal take?</h3></summary><p>The fine-tuned model runs on a shared free CPU server, not a GPU. Processing can take many minutes or tens of minutes for longer songs. The elapsed timer is not a completion estimate. Keep the tab open; if the server is busy, try again later.</p></details>
+                    <details class="faq-item"><summary><h3>How long does AI vocal removal take?</h3></summary><p>A single Demucs model balances speed and quality on a shared free CPU server, not a GPU. Processing time depends on song length and server load and can still take several minutes or longer. The elapsed timer is not a completion estimate. Keep the tab open; if the server is busy, try again later.</p></details>
                     <details class="faq-item"><summary><h3>Will it remove every voice perfectly?</h3></summary><p>No vocal remover guarantees perfect results. Reverb, backing vocals, distorted audio, and live recordings may leave vocal traces or affect instruments. Start with a clean stereo recording and preview the result before downloading. AI separation works independently of the song's language.</p></details>
                     <details class="faq-item"><summary><h3>Can I compare and trim my karaoke track?</h3></summary><p>Yes. Original and karaoke audio share one playback clock. Mute or adjust either track independently, seek through the waveform, and set start and end times in seconds. Downloads contain only the selected karaoke audio, regardless of your preview mix.</p></details>
                     <details class="faq-item"><summary><h3>Is my audio uploaded to a server?</h3></summary><p>Yes. Vocal removal uploads your audio to our Hugging Face-hosted backend. Temporary input and output files are deleted after processing or failure. Preview and trimming happen locally in your browser. Only upload audio you have permission to process.</p></details>
