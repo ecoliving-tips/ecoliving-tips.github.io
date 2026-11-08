@@ -1,121 +1,37 @@
 <!DOCTYPE html>
 <html lang="en-IN">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Free vocal remover and music stem separator. Upload any MP3 or audio file — AI splits it into vocals, drums, bass, and instruments. Remove vocals for karaoke or isolate any stem. No signup required.">
-    <meta name="keywords"
-        content="vocal remover, remove vocals from song, music stem separator, audio stem separator, isolate vocals, isolate drums, isolate bass, split audio tracks, karaoke maker, stem splitter, vocal remover online free, instrumental maker, acapella extractor, audio source separation">
+    <title>Free Vocal Remover Online &amp; Karaoke Maker | Swaram</title>
+    <meta name="description" content="Remove vocals from a song with free AI vocal removal. Make a karaoke backing track, compare original and instrumental audio, trim, and download WAV. No signup.">
     <meta name="author" content="Swaram">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://ecoliving-tips.github.io/vocal-remover.html">
-
-    <!-- Open Graph -->
-    <meta property="og:title" content="Free Vocal Remover &amp; Stem Separator — Isolate Vocals, Drums &amp; Bass | Swaram">
-    <meta property="og:description"
-        content="Remove vocals and separate any song into 4 individual stems — vocals, drums, bass, and instruments. Free AI-powered tool, no signup required.">
+    <meta property="og:title" content="Free Vocal Remover Online &amp; Karaoke Maker | Swaram">
+    <meta property="og:description" content="Turn your song into a karaoke backing track with AI. Compare original and instrumental audio, trim your selection, and download lossless WAV. Free, no signup.">
     <meta property="og:url" content="https://ecoliving-tips.github.io/vocal-remover.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Swaram">
     <meta property="og:locale" content="en_IN">
-    <meta property="og:locale:alternate" content="ml_IN">
     <meta property="og:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-
-    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Free Vocal Remover &amp; Stem Separator — Isolate Vocals, Drums &amp; Bass | Swaram">
-    <meta name="twitter:description"
-        content="Remove vocals or separate any song into 4 stems — vocals, drums, bass, instruments. Free, no signup.">
+    <meta name="twitter:title" content="Free Vocal Remover Online &amp; Karaoke Maker | Swaram">
+    <meta name="twitter:description" content="Remove vocals from songs, preview your karaoke backing track, trim, and download WAV. Free AI vocal remover with no signup.">
     <meta name="twitter:image" content="https://ecoliving-tips.github.io/assets/og-image.png">
-
-    <title>Free Vocal Remover &amp; Stem Separator — Isolate Vocals, Drums &amp; Bass | Swaram</title>
     <link rel="stylesheet" href="css/styles.min.css">
+    <link rel="stylesheet" href="css/karaoke.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
-        as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap">
-    </noscript>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"></noscript>
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
     <link rel="manifest" href="manifest.json">
-
-    <style>
-    .stem-results {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-        margin: 2rem 0;
-    }
-    .stem-card {
-        background: var(--bg-card);
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        padding: 1.5rem;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
-    .stem-card-disabled {
-        opacity: 0.4;
-        pointer-events: none;
-    }
-    .stem-card-header {
-        display: flex;
-        align-items: flex-start;
-        gap: 0.875rem;
-    }
-    .stem-icon { color: var(--primary); flex-shrink: 0; margin-top: 2px; }
-    .stem-title { font-size: 1.05rem; font-weight: 600; margin: 0 0 0.2rem; color: var(--text); }
-    .stem-desc { font-size: 0.82rem; color: var(--text-muted); margin: 0; }
-    .stem-audio {
-        display: block;
-        width: 100%;
-        border-radius: var(--radius-sm);
-        accent-color: var(--primary);
-    }
-    .stem-download-btn {
-        display: block;
-        text-align: center;
-        width: 100%;
-        box-sizing: border-box;
-    }
-    .stem-section { display: flex; flex-direction: column; gap: 1rem; }
-    .stem-section-label {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        font-size: 0.78rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        color: var(--text-muted);
-        border-bottom: 1px solid var(--border);
-        padding-bottom: 0.5rem;
-        margin: 0;
-    }
-    .stem-tracks-grid { display: grid; gap: 1rem; grid-template-columns: 1fr; }
-    @media (min-width: 640px) {
-        .stem-tracks-grid { grid-template-columns: 1fr 1fr; }
-    }
-    .stem-quality-note {
-        text-align: center;
-        font-size: 0.82rem;
-        color: var(--text-muted);
-        font-style: italic;
-        margin-top: 0.5rem;
-    }
-    </style>
-
-    <!-- Google Analytics (GA4) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZHLRN8B07Z"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -123,112 +39,57 @@
         gtag('js', new Date());
         gtag('config', 'G-ZHLRN8B07Z');
     </script>
-
     <meta name="google-adsense-account" content="ca-pub-7438590583270235">
     <script src="/js/adsense-loader.js" defer></script>
-
-    <!-- Schema.org structured data -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        "name": "Swaram Vocal Remover & Stem Separator",
-        "description": "Free vocal remover and 4-stem music separator. Upload any audio file to isolate vocals, drums, bass, and instruments using AI-powered Demucs separation.",
+        "name": "Swaram Vocal Remover and Karaoke Maker",
+        "description": "Free AI vocal remover to make karaoke backing tracks from audio files, with synchronized comparison, trimming, and WAV download.",
         "url": "https://ecoliving-tips.github.io/vocal-remover.html",
         "applicationCategory": "MusicApplication",
         "operatingSystem": "Web",
-        "featureList": "Vocal removal, Karaoke track, Drum isolation, Bass isolation, Instrument separation, 4-stem AI separation, MP3 download",
+        "featureList": ["AI vocal removal", "Karaoke backing tracks", "Synchronized original and instrumental playback", "Independent mute and volume controls", "Audio trimming", "24-bit WAV download"],
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-        "isPartOf": {
-            "@type": "WebSite",
-            "name": "Swaram",
-            "url": "https://ecoliving-tips.github.io/"
-        }
+        "isPartOf": { "@type": "WebSite", "name": "Swaram", "url": "https://ecoliving-tips.github.io/" }
     }
     </script>
-
-    <!-- FAQ structured data -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "How does the vocal remover work?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Upload a stereo audio file and the tool uses phase cancellation to separate the center channel (vocals) from the side channels (instruments). It processes entirely in your browser using the Web Audio API — no audio is uploaded to any server."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "What audio formats are supported?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "The vocal remover supports MP3, WAV, M4A, OGG, FLAC, AAC, and WebM audio files up to 30 MB."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Is this vocal remover really free?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Yes, completely free with no signup required. The tool runs entirely in your browser — no account, no upload limits, no hidden fees."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Does it work with any song?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "It works best with commercially-produced stereo recordings where the lead vocals are panned to the center. It may not work well with mono recordings, live recordings with heavy reverb, or songs where instruments are also centered."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Is my audio uploaded to a server?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "No. All processing happens locally in your browser using the Web Audio API. Your audio file never leaves your device. Your privacy is fully protected."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "What format are the output files?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "The vocals and instrumental tracks are exported as standard WAV files (16-bit PCM), which you can play in any media player or import into a DAW."
-                }
-            }
+            { "@type": "Question", "name": "How do I remove vocals from a song?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Upload an audio file and select Make karaoke track. Swaram uses the fine-tuned Demucs AI model on its server to remove vocals and return an instrumental backing track. Preview, optionally trim, and download it as WAV." } },
+            { "@type": "Question", "name": "Is this online vocal remover free?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Yes. There is no signup or paid subscription. Uploads are limited to 30 MB and 8 minutes, and the shared free server has rate and capacity limits." } },
+            { "@type": "Question", "name": "What audio formats can I upload?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Upload MP3, WAV, M4A, OGG, FLAC, AAC, or WebM audio up to 30 MB and 8 minutes. Playback support also depends on your browser. The karaoke download is a 24-bit PCM WAV file, not MP3." } },
+            { "@type": "Question", "name": "How long does AI vocal removal take?",
+              "acceptedAnswer": { "@type": "Answer", "text": "The fine-tuned model runs on a shared free CPU server, not a GPU. Processing can take many minutes or tens of minutes for longer songs. The elapsed timer is not a completion estimate. Keep the tab open; if the server is busy, try again later." } },
+            { "@type": "Question", "name": "Will it remove every voice perfectly?",
+              "acceptedAnswer": { "@type": "Answer", "text": "No vocal remover guarantees perfect results. Reverb, backing vocals, distorted audio, and live recordings may leave vocal traces or affect instruments. Start with a clean stereo recording and preview the result before downloading. AI separation works independently of the song's language." } },
+            { "@type": "Question", "name": "Can I compare and trim my karaoke track?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Yes. Original and karaoke audio share one playback clock. Mute or adjust either track independently, seek through the waveform, and set start and end times in seconds. Downloads contain only the selected karaoke audio, regardless of your preview mix." } },
+            { "@type": "Question", "name": "Is my audio uploaded to a server?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Yes. Vocal removal uploads your audio to our Hugging Face-hosted backend. Temporary input and output files are deleted after processing or failure. Preview and trimming happen locally in your browser. Only upload audio you have permission to process." } },
+            { "@type": "Question", "name": "Does the karaoke maker add lyrics or separate stems?",
+              "acceptedAnswer": { "@type": "Answer", "text": "No. This tool creates an audio-only instrumental backing track. It does not generate lyric videos or offer separate vocal, drum, or bass downloads. You are responsible for obtaining any rights needed for publishing or performing the result." } }
         ]
     }
     </script>
-
-    <!-- BreadcrumbList structured data -->
     <script type="application/ld+json">
     {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
+        "@context": "https://schema.org", "@type": "BreadcrumbList",
         "itemListElement": [
-            {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": "https://ecoliving-tips.github.io/"
-            },
-            {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Stem Separator",
-                "item": "https://ecoliving-tips.github.io/vocal-remover.html"
-            }
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://ecoliving-tips.github.io/" },
+            { "@type": "ListItem", "position": 2, "name": "Vocal Remover and Karaoke Maker", "item": "https://ecoliving-tips.github.io/vocal-remover.html" }
         ]
     }
     </script>
 </head>
-
-<body>
+<body class="karaoke-page">
     <a class="skip-link" href="#main-content">Skip to main content</a>
     <!-- SYNC: header from templates/partials/header.html -->
     <header>
@@ -239,456 +100,173 @@
                     <p class="tagline">Find Chords for Any Song &mdash; Free AI Chord Finder</p>
                 </div>
                 <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span><span class="hamburger-line"></span><span class="hamburger-line"></span>
                 </button>
             </div>
             <nav class="mobile-nav" aria-label="Main navigation">
                 <ul>
                     <li><a href="/chord-finder.html">Chord Finder</a></li>
-                    <li><a href="/vocal-remover.html">Vocal Remover</a></li>
+                    <li><a href="/vocal-remover.html" aria-current="page">Vocal Remover</a></li>
                     <li><a href="/chord-identifier.html">Chord Identifier (Mic)</a></li>
                     <li><a href="/chord-progressions.html">Progressions</a></li>
                     <li><a href="/songs.html">Song Library</a></li>
                 </ul>
             </nav>
         </div>
-        <div id="offline-banner" class="offline-banner" style="display:none;">
-            You are offline. Showing cached content.
-        </div>
+        <div id="offline-banner" class="offline-banner" style="display:none;">You are offline. Showing cached content. AI vocal removal requires an internet connection.</div>
     </header>
-
     <main id="main-content" tabindex="-1">
-        <!-- Hero -->
         <section class="generate-header">
             <div class="container">
-                <h1>Free Vocal Remover &amp; Stem Separator — Isolate Vocals, Drums &amp; Bass</h1>
-                <p>Upload any song — AI splits it into vocals, drums, bass, and instruments. Remove vocals for karaoke or download each stem separately.</p>
-                <p>Want to find the chords in a song too? Try our <a href="/chord-finder.html" title="AI chord finder from audio">AI Chord Finder</a>.</p>
+                <h1>Free Vocal Remover Online &amp; Karaoke Maker</h1>
+                <p>Remove vocals from a song and make an instrumental backing track for singing practice, covers, or rehearsal.</p>
+                <p class="karaoke-benefits">AI vocal removal &middot; No signup &middot; Lossless WAV &middot; Preview and trim</p>
             </div>
         </section>
-
-        <!-- Upload Section -->
-        <section class="generate-input-section">
+        <section class="generate-input-section" aria-label="Upload your song">
             <div class="container">
                 <div class="generate-form">
                     <div class="form-group">
-                        <label id="upload-label" for="file-input">Drop an audio file</label>
-                        <div class="upload-area" id="upload-area" role="button" tabindex="0" aria-labelledby="upload-label" aria-controls="file-input">
-                            <div class="upload-icon">
-                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                                    <polyline points="17 8 12 3 7 8"/>
-                                    <line x1="12" y1="3" x2="12" y2="15"/>
-                                </svg>
+                        <label id="upload-label" for="file-input">Choose a song for karaoke</label>
+                        <div class="upload-area" id="upload-area" role="button" tabindex="0" aria-labelledby="upload-label" aria-describedby="upload-hint" aria-controls="file-input">
+                            <div class="upload-icon" aria-hidden="true">
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
                             </div>
-                            <p class="upload-text">Drag &amp; drop your audio here, or tap to browse</p>
-                            <p class="upload-hint">MP3, WAV, M4A, OGG, FLAC — up to 30 MB &mdash; stereo files work best</p>
-                            <input type="file" id="file-input" accept=".mp3,.wav,.m4a,.ogg,.flac,.aac,.webm" hidden>
+                            <p class="upload-text">Drop your audio here, or tap to browse</p>
+                            <p class="upload-hint" id="upload-hint">MP3, WAV, M4A, OGG, FLAC, AAC, WebM &mdash; up to 30 MB and 8 minutes</p>
                         </div>
-                        <div class="selected-file" id="selected-file" style="display:none;">
+                        <input type="file" id="file-input" accept=".mp3,.wav,.m4a,.ogg,.flac,.aac,.webm" hidden>
+                        <div class="selected-file" id="selected-file" hidden>
                             <span class="file-name" id="file-name"></span>
-                            <button type="button" class="file-remove" id="file-remove" aria-label="Remove file">&times;</button>
+                            <button type="button" class="file-remove" id="file-remove" aria-label="Remove selected file">&times;</button>
                         </div>
                     </div>
-
-                    <button type="button" class="btn generate-btn" id="remove-btn">
-                        Separate Stems
-                    </button>
+                    <button type="button" class="btn generate-btn" id="remove-btn">Make karaoke track</button>
+                    <p class="karaoke-note">Quality-first AI processing on a free CPU server can take many minutes. Keep this tab open. Your audio is uploaded for processing; preview and trimming stay on your device. <a href="/privacy-policy.html">Privacy details</a>.</p>
+                    <noscript><p>Enable JavaScript to upload audio and use the karaoke player.</p></noscript>
                 </div>
             </div>
         </section>
-
-        <!-- Progress Section -->
-        <section class="generate-progress" id="progress-section" style="display:none;">
+        <section class="generate-progress" id="progress-section" hidden>
             <div class="container">
                 <div class="progress-card">
-                    <div class="sr-only" id="progress-status" role="status" aria-live="polite" aria-atomic="true"></div>
-                    <div class="progress-steps">
-                        <div class="progress-step" id="step-reading">
-                            <div class="step-indicator"></div>
-                            <span>Uploading &amp; validating file...</span>
-                        </div>
-                        <div class="progress-step" id="step-separating">
-                            <div class="step-indicator"></div>
-                            <div>
-                                <span>Separating with AI…</span>
-                                <span id="sep-timer" class="sep-timer"></span>
-                            </div>
-                        </div>
-                        <div class="progress-step" id="step-done">
-                            <div class="step-indicator"></div>
-                            <span>Done! All stems are ready.</span>
-                        </div>
-                    </div>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" id="progress-bar"></div>
-                    </div>
+                    <h2>Making your backing track</h2>
+                    <p id="progress-status" role="status" aria-live="polite">Reading your audio...</p>
+                    <div class="karaoke-progress" aria-hidden="true"></div>
+                    <p id="sep-timer" class="karaoke-note">0:00 elapsed</p>
+                    <p class="karaoke-note">This animation indicates activity, not a measured percentage. Longer songs may take tens of minutes.</p>
+                    <button class="btn btn-secondary" type="button" id="cancel-btn">Stop waiting</button>
+                    <p class="karaoke-note">Stopping here does not guarantee the server job is cancelled.</p>
                 </div>
-                <!-- Ad injected by showSection() after section is visible -->
-                <div class="loading-ad-container" style="text-align:center; margin: 2rem auto 0; max-width: 728px;"></div>
             </div>
         </section>
-
-        <!-- Error Section -->
-        <section class="generate-error" id="error-section" role="alert" style="display:none;">
+        <section class="generate-error" id="error-section" role="alert" hidden>
+            <div class="container"><div class="error-card"><h2>Could not make your karaoke track</h2><p id="error-message"></p><p>Choose another file or retry using the button above.</p></div></div>
+        </section>
+        <p class="container karaoke-note" id="result-status" role="status" aria-live="polite"></p>
+        <section class="generate-results" id="results-section" hidden>
             <div class="container">
-                <div class="error-card">
-                    <h3>Oops!</h3>
-                    <p id="error-message"></p>
-                    <button type="button" class="btn" onclick="resetVocalRemover()">Try Again</button>
+                <div class="karaoke-player" id="player">
+                    <div class="karaoke-player-top"><h2>Your karaoke backing track</h2><span class="karaoke-ready">Ready to sing</span></div>
+                    <canvas class="karaoke-waveform" id="waveform" role="img" aria-label="Original waveform above, karaoke waveform below. Use the seek slider to navigate."></canvas>
+                    <div class="karaoke-wave-labels"><span>Top: Original &middot; Bottom: Karaoke</span><span>Amber line: playhead</span></div>
+                    <div class="karaoke-transport">
+                        <button type="button" class="btn" id="play-btn">Play comparison</button>
+                        <span id="playback-time" aria-live="off">0:00 / 0:00</span>
+                    </div>
+                    <label class="sr-only" for="seek">Seek through the song</label>
+                    <input class="karaoke-seek" id="seek" type="range" min="0" max="1" step="0.01" value="0">
+                    <div class="karaoke-mixer">
+                        <div class="karaoke-track">
+                            <h3>Original song</h3>
+                            <label><input type="checkbox" id="mute-original" checked> Mute original</label>
+                            <label for="volume-original">Original volume</label>
+                            <input type="range" id="volume-original" min="0" max="1" step="0.01" value="1">
+                        </div>
+                        <div class="karaoke-track">
+                            <h3>Karaoke instrumental</h3>
+                            <label><input type="checkbox" id="mute-instrumental"> Mute karaoke</label>
+                            <label for="volume-instrumental">Karaoke volume</label>
+                            <input type="range" id="volume-instrumental" min="0" max="1" step="0.01" value="1">
+                        </div>
+                    </div>
+                    <p class="karaoke-note">Both tracks play in sync. Unmute both to blend, or mute either for an A/B comparison. Preview volume does not change your download.</p>
+                    <fieldset class="karaoke-trim">
+                        <legend>Trim before downloading (optional)</legend>
+                        <div class="karaoke-trim-fields">
+                            <label for="trim-start">Start (seconds)<input type="number" id="trim-start" min="0" step="0.01" value="0" required aria-describedby="trim-error"></label>
+                            <label for="trim-end">End (seconds)<input type="number" id="trim-end" min="0" step="0.01" value="1" required aria-describedby="trim-error"></label>
+                            <button type="button" class="btn btn-secondary" id="reset-trim">Use full song</button>
+                        </div>
+                        <p class="karaoke-trim-error" id="trim-error" role="alert"></p>
+                        <p class="karaoke-note" id="trim-duration"></p>
+                    </fieldset>
+                    <button type="button" class="btn" id="download-instrumental">Download karaoke WAV</button>
+                    <p class="karaoke-note">24-bit PCM WAV &mdash; no additional lossy encoding. AI may leave traces of vocals or alter some instruments; listen before using your track.</p>
                 </div>
             </div>
         </section>
-
-        <!-- Results Section -->
-        <section class="generate-results" id="results-section" style="display:none;">
-            <div class="container">
-                <div class="stem-results">
-
-                    <!-- Original — full-width reference -->
-                    <div class="stem-card" id="stem-card-original">
-                        <div class="stem-card-header">
-                            <div class="stem-icon">
-                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                    <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="stem-title">Original</h3>
-                                <p class="stem-desc">Your upload — for comparison</p>
-                            </div>
-                        </div>
-                        <audio class="stem-audio" id="audio-original" controls preload="none"></audio>
-                        <a class="btn btn-secondary stem-download-btn" id="download-original">Download Original</a>
-                    </div>
-
-                    <!-- Vocal Remover section -->
-                    <div class="stem-section">
-                        <h3 class="stem-section-label">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
-                                <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-                            </svg>
-                            Vocal Remover
-                        </h3>
-                        <div class="stem-tracks-grid">
-                            <div class="stem-card" id="stem-card-instrumental">
-                                <div class="stem-card-header">
-                                    <div class="stem-icon">
-                                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                            <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <h3 class="stem-title">Instrumental (Karaoke)</h3>
-                                        <p class="stem-desc">Vocals removed — karaoke track</p>
-                                    </div>
-                                </div>
-                                <audio class="stem-audio" id="audio-instrumental" controls preload="none"></audio>
-                                <a class="btn btn-secondary stem-download-btn" id="download-instrumental">Download MP3</a>
-                            </div>
-                            <div class="stem-card" id="stem-card-vocals">
-                                <div class="stem-card-header">
-                                    <div class="stem-icon">
-                                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
-                                            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-                                            <line x1="12" y1="19" x2="12" y2="23"/>
-                                            <line x1="8" y1="23" x2="16" y2="23"/>
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <h3 class="stem-title">Vocals</h3>
-                                        <p class="stem-desc">Isolated lead vocals</p>
-                                    </div>
-                                </div>
-                                <audio class="stem-audio" id="audio-vocals" controls preload="none"></audio>
-                                <a class="btn btn-secondary stem-download-btn" id="download-vocals">Download MP3</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Individual Stems section -->
-                    <div class="stem-section">
-                        <h3 class="stem-section-label">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                <rect x="3" y="3" width="18" height="4" rx="1"/>
-                                <rect x="3" y="10" width="18" height="4" rx="1"/>
-                                <rect x="3" y="17" width="18" height="4" rx="1"/>
-                            </svg>
-                            Individual Stems
-                        </h3>
-                        <div class="stem-tracks-grid">
-                            <div class="stem-card" id="stem-card-drums">
-                                <div class="stem-card-header">
-                                    <div class="stem-icon">
-                                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                            <ellipse cx="12" cy="6" rx="10" ry="4"/>
-                                            <path d="M2 6v12c0 2.21 4.48 4 10 4s10-1.79 10-4V6"/>
-                                            <path d="M2 12c0 2.21 4.48 4 10 4s10-1.79 10-4"/>
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <h3 class="stem-title">Drums</h3>
-                                        <p class="stem-desc">Isolated drum tracks</p>
-                                    </div>
-                                </div>
-                                <audio class="stem-audio" id="audio-drums" controls preload="none"></audio>
-                                <a class="btn btn-secondary stem-download-btn" id="download-drums">Download MP3</a>
-                            </div>
-                            <div class="stem-card" id="stem-card-bass">
-                                <div class="stem-card-header">
-                                    <div class="stem-icon">
-                                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                            <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <h3 class="stem-title">Bass</h3>
-                                        <p class="stem-desc">Isolated bass lines</p>
-                                    </div>
-                                </div>
-                                <audio class="stem-audio" id="audio-bass" controls preload="none"></audio>
-                                <a class="btn btn-secondary stem-download-btn" id="download-bass">Download MP3</a>
-                            </div>
-                            <div class="stem-card" id="stem-card-other">
-                                <div class="stem-card-header">
-                                    <div class="stem-icon">
-                                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                            <circle cx="12" cy="12" r="3"/>
-                                            <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <h3 class="stem-title">Other Instruments</h3>
-                                        <p class="stem-desc">Remaining melodies &amp; instruments</p>
-                                    </div>
-                                </div>
-                                <audio class="stem-audio" id="audio-other" controls preload="none"></audio>
-                                <a class="btn btn-secondary stem-download-btn" id="download-other">Download MP3</a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <p class="stem-quality-note" id="quality-note">
-                    AI-powered 4-stem separation using Demucs — works on any stereo recording.
-                </p>
-
-                <div style="text-align:center; margin-top: 1.5rem;">
-                    <button type="button" class="btn" onclick="resetVocalRemover()"
-                        style="background:var(--bg-surface);border:1px solid var(--border);color:var(--text);">Try Another File</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- How It Works -->
         <section class="how-it-works-section">
             <div class="container">
-                <h2>How the Stem Separator Works</h2>
+                <h2>How to remove vocals and make a karaoke track</h2>
                 <div class="features-grid">
-                    <article class="feature-card">
-                        <div class="feature-icon">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                                <polyline points="17 8 12 3 7 8"/>
-                                <line x1="12" y1="3" x2="12" y2="15"/>
-                            </svg>
-                        </div>
-                        <h3>Upload Your Audio</h3>
-                        <p>Drop any MP3, WAV, M4A, OGG, or FLAC file up to 30 MB. Works with any genre or language.</p>
-                    </article>
-                    <article class="feature-card">
-                        <div class="feature-icon">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-                            </svg>
-                        </div>
-                        <h3>AI Separates Stems</h3>
-                        <p>Our server runs Demucs — Meta’s state-of-the-art source separation AI — to split the audio into 4 clean stems.</p>
-                    </article>
-                    <article class="feature-card">
-                        <div class="feature-icon">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                                <polyline points="7 10 12 15 17 10"/>
-                                <line x1="12" y1="15" x2="12" y2="3"/>
-                            </svg>
-                        </div>
-                        <h3>Download Each Stem</h3>
-                        <p>Play back vocals, drums, bass, instruments, and the karaoke track — download any stem as an MP3 file.</p>
-                    </article>
+                    <article class="feature-card"><h3>1. Upload your song</h3><p>Choose a clean recording you have permission to process. MP3 works, but WAV or FLAC avoids adding input compression artifacts. Stereo recordings are a good starting point.</p></article>
+                    <article class="feature-card"><h3>2. Let AI remove the vocals</h3><p>The fine-tuned Demucs model separates singing from accompaniment on our CPU server. We return just the instrumental backing track, keeping drums, bass, and melodies together.</p></article>
+                    <article class="feature-card"><h3>3. Preview, trim, and download</h3><p>Compare the original with your karaoke audio using synchronized playback. Select a verse or the full song and download a WAV backing track for practice.</p></article>
                 </div>
             </div>
         </section>
-
-        <!-- Why Section -->
-        <section class="how-it-works-section">
-            <div class="container">
-                <h2>Why Use Swaram Stem Separator?</h2>
-                <div class="features-grid">
-                    <article class="feature-card">
-                        <div class="feature-icon">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                        </div>
-                        <h3>State-of-the-Art AI</h3>
-                        <p>Powered by Meta’s Demucs htdemucs — the same model used in professional DAW plugins. Works on any genre, any language, stereo or mono.</p>
-                    </article>
-                    <article class="feature-card">
-                        <div class="feature-icon">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="4" rx="1"/><rect x="3" y="10" width="18" height="4" rx="1"/><rect x="3" y="17" width="18" height="4" rx="1"/></svg>
-                        </div>
-                        <h3>4 Stems + Karaoke</h3>
-                        <p>One upload gives you vocals, drums, bass, other instruments, and a karaoke (instrumental) track — all downloadable as MP3.</p>
-                    </article>
-                    <article class="feature-card">
-                        <div class="feature-icon">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                        </div>
-                        <h3>Completely Free</h3>
-                        <p>No account, no subscription, no daily limits. Separate stems from as many songs as you like — always free.</p>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA to Chord Finder -->
         <section class="about-section">
             <div class="container">
-                <h2>Want to Find the Chords Too?</h2>
+                <h2>Make instrumental backing tracks for the music you love</h2>
                 <div class="about-content">
-                    <p>After removing vocals, use our AI Chord Finder to detect all the chords and progressions in the song — with a playable timeline synced to the audio.</p>
-                    <a href="/chord-finder.html" class="btn" style="display:inline-block;margin-top:1rem;">Try AI Chord Finder</a>
+                    <p>Practice singing without the original lead voice, rehearse a cover, or learn a melody over its accompaniment. Swaram's AI vocal remover works independently of language, including English, Malayalam, Hindi, and Tamil songs.</p>
+                    <p>This is an audio-only karaoke maker, not a lyric-video generator or a multitrack stem splitter. Removal quality depends on the recording. Heavy reverb, backing singers, and live mixes can be harder to separate.</p>
+                    <p>Need guitar or keyboard accompaniment too? Use our <a href="/chord-finder.html">AI Chord Finder</a>, explore <a href="/chord-progressions.html">chord progressions</a>, or browse the <a href="/songs.html">song chord library</a>.</p>
                 </div>
             </div>
         </section>
-
-        <div class="ad-container" data-swaram-ad-layout="in-article" data-swaram-ad-format="fluid" data-swaram-ad-slot="7510548297" style="text-align:center; margin: 2rem auto; max-width: 728px;"></div>
-
-        <!-- FAQ Section -->
+        <div class="ad-container" data-swaram-ad-layout="in-article" data-swaram-ad-format="fluid" data-swaram-ad-slot="7510548297" style="text-align:center; margin:2rem auto; max-width:728px;"></div>
         <section class="faq-section">
             <div class="container">
-                <h2>Frequently Asked Questions</h2>
+                <h2>Vocal remover and karaoke maker FAQ</h2>
                 <div class="faq-grid">
-                    <details class="faq-item">
-                        <summary><h3>How does the stem separator work?</h3></summary>
-                        <p>Your audio is sent to our server running Demucs htdemucs — Meta’s state-of-the-art hybrid transformer model. It separates the mix into 4 independent stems (vocals, drums, bass, other) which are returned as downloadable MP3 files.</p>
-                    </details>
-                    <details class="faq-item">
-                        <summary><h3>How long does it take?</h3></summary>
-                        <p>Typically 5–10 minutes for a 3–4 minute song on our CPU server. The quality is significantly better than instant browser-based tools. A progress bar shows live status while you wait.</p>
-                    </details>
-                    <details class="faq-item">
-                        <summary><h3>Can I isolate just the drums or bass?</h3></summary>
-                        <p>Yes — Demucs separates all 4 stems at once (vocals, drums, bass, other instruments), so you can download whichever stem you need. You also get a pre-mixed karaoke track (drums + bass + other combined).</p>
-                    </details>
-                    <details class="faq-item">
-                        <summary><h3>What audio formats are supported?</h3></summary>
-                        <p>MP3, WAV, M4A, OGG, FLAC, AAC, and WebM files up to 30 MB. Maximum audio length is 5 minutes. All stems are returned as MP3 files (192 kbps).</p>
-                    </details>
-                    <details class="faq-item">
-                        <summary><h3>Can I use the stems for covers or remixes?</h3></summary>
-                        <p>Stems can be used for personal practice, cover recordings, and remixes. Ensure you have appropriate rights before using in any public or commercial release.</p>
-                    </details>
+                    <details class="faq-item"><summary><h3>How do I remove vocals from a song?</h3></summary><p>Upload an audio file and select Make karaoke track. Swaram uses the fine-tuned Demucs AI model on its server to remove vocals and return an instrumental backing track. Preview, optionally trim, and download it as WAV.</p></details>
+                    <details class="faq-item"><summary><h3>Is this online vocal remover free?</h3></summary><p>Yes. There is no signup or paid subscription. Uploads are limited to 30 MB and 8 minutes, and the shared free server has rate and capacity limits.</p></details>
+                    <details class="faq-item"><summary><h3>What audio formats can I upload?</h3></summary><p>Upload MP3, WAV, M4A, OGG, FLAC, AAC, or WebM audio up to 30 MB and 8 minutes. Playback support also depends on your browser. The karaoke download is a 24-bit PCM WAV file, not MP3.</p></details>
+                    <details class="faq-item"><summary><h3>How long does AI vocal removal take?</h3></summary><p>The fine-tuned model runs on a shared free CPU server, not a GPU. Processing can take many minutes or tens of minutes for longer songs. The elapsed timer is not a completion estimate. Keep the tab open; if the server is busy, try again later.</p></details>
+                    <details class="faq-item"><summary><h3>Will it remove every voice perfectly?</h3></summary><p>No vocal remover guarantees perfect results. Reverb, backing vocals, distorted audio, and live recordings may leave vocal traces or affect instruments. Start with a clean stereo recording and preview the result before downloading. AI separation works independently of the song's language.</p></details>
+                    <details class="faq-item"><summary><h3>Can I compare and trim my karaoke track?</h3></summary><p>Yes. Original and karaoke audio share one playback clock. Mute or adjust either track independently, seek through the waveform, and set start and end times in seconds. Downloads contain only the selected karaoke audio, regardless of your preview mix.</p></details>
+                    <details class="faq-item"><summary><h3>Is my audio uploaded to a server?</h3></summary><p>Yes. Vocal removal uploads your audio to our Hugging Face-hosted backend. Temporary input and output files are deleted after processing or failure. Preview and trimming happen locally in your browser. Only upload audio you have permission to process.</p></details>
+                    <details class="faq-item"><summary><h3>Does the karaoke maker add lyrics or separate stems?</h3></summary><p>No. This tool creates an audio-only instrumental backing track. It does not generate lyric videos or offer separate vocal, drum, or bass downloads. You are responsible for obtaining any rights needed for publishing or performing the result.</p></details>
                 </div>
             </div>
         </section>
-
-        <!-- Donate section -->
-        <!-- SYNC: donate from templates/partials/donate.html -->
-        <section class="donate-section" id="donate">
-            <div class="container">
-                <h3>Support Swaram</h3>
-                <p>We keep everything completely free. Your support helps us improve the chord finder and add more songs.</p>
-                <div class="donate-options">
-                    <div class="razorpay-donate-btn" id="razorpay-btn-container"></div>
-                    <div class="upi-donate-option">
-                        <p class="upi-label">Or pay directly via UPI (India)</p>
-                        <a href="#" onclick="openUPI(); return false;" class="btn donate-btn donate-btn-secondary">Pay via UPI</a>
-                    </div>
-                </div>
-            </div>
+        <section class="donate-section">
+            <div class="container"><h3>Support Swaram</h3><p>Help keep our music tools free.</p><a href="/#donate" class="btn">Support the project</a></div>
         </section>
-        <script>
-        (function () {
-            var container = document.getElementById('razorpay-btn-container');
-            if (!container) return;
-            var loaded = false;
-            function loadRazorpay() {
-                if (loaded) return;
-                loaded = true;
-                var form = document.createElement('form');
-                var s = document.createElement('script');
-                s.src = 'https://checkout.razorpay.com/v1/payment-button.js';
-                s.setAttribute('data-payment_button_id', 'pl_SadQoYekBnNHJC');
-                s.async = true;
-                form.appendChild(s);
-                container.appendChild(form);
-            }
-            if ('IntersectionObserver' in window) {
-                var obs = new IntersectionObserver(function (entries) {
-                    if (entries[0].isIntersecting) { loadRazorpay(); obs.disconnect(); }
-                }, { rootMargin: '300px' });
-                obs.observe(container);
-            } else {
-                loadRazorpay();
-            }
-        })();
-        </script>
-
     </main>
-
-    <!-- SYNC: footer from templates/partials/footer.html -->
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-logo">
-                    <h3>Swaram</h3>
-                    <p>Find Chords for Any Song &mdash; Free AI Chord Finder</p>
-                </div>
+                <div class="footer-logo"><h3>Swaram</h3><p>Find Chords for Any Song &mdash; Free AI Chord Finder</p></div>
                 <div class="footer-links">
                     <h4>Quick Links</h4>
                     <ul>
                         <li><a href="/chord-finder.html">Chord Finder</a></li>
-                        <li><a href="/vocal-remover.html">Vocal Remover</a></li>
+                        <li><a href="/vocal-remover.html">Vocal Remover &amp; Karaoke Maker</a></li>
                         <li><a href="/chord-identifier.html">Chord Identifier (Mic)</a></li>
                         <li><a href="/chord-progressions.html">Progressions</a></li>
                         <li><a href="/songs.html">Song Library</a></li>
                         <li><a href="/privacy-policy.html">Privacy Policy</a></li>
                     </ul>
                 </div>
-                <div class="footer-social">
-                    <h4>Follow Us</h4>
-                    <ul>
-                        <li><a href="https://www.youtube.com/@almightyone8205" target="_blank" rel="noopener noreferrer">YouTube</a></li>
-                    </ul>
-                </div>
+                <div class="footer-social"><h4>Follow Us</h4><ul><li><a href="https://www.youtube.com/@almightyone8205" target="_blank" rel="noopener noreferrer">YouTube</a></li></ul></div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 Swaram. All Rights Reserved.</p>
-            </div>
+            <div class="footer-bottom"><p>&copy; 2026 Swaram. All Rights Reserved.</p></div>
         </div>
     </footer>
-
-    <!-- UPI modal -->
-    <div id="upi-modal" class="qr-modal-overlay" style="display:none;" onclick="if(event.target===this)closeUPI()">
-        <div class="qr-modal-content">
-            <button class="qr-modal-close" onclick="closeUPI()" aria-label="Close">&times;</button>
-            <h3>Scan to Donate via UPI</h3>
-            <img src="assets/donate-qr.png" alt="UPI QR Code" class="qr-modal-img">
-            <p class="qr-modal-upi-id">UPI ID: <strong>7306025928@upi</strong>
-                <button class="qr-modal-copy" onclick="navigator.clipboard.writeText('7306025928@upi').then(()=>{this.textContent='✓';setTimeout(()=>this.textContent='Copy',1500)})"
-                   >Copy</button>
-            </p>
-            <p class="qr-modal-hint">Open any UPI app on your phone and scan this QR code</p>
-        </div>
-    </div>
-
     <script src="js/main.js" defer></script>
     <script src="js/vocal-remover.js" defer></script>
 </body>
-
 </html>

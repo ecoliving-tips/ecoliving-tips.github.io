@@ -5,6 +5,7 @@
 ## Tools
 
 - [AI Chord Finder](https://ecoliving-tips.github.io/chord-finder.html): Upload MP3/WAV/FLAC or paste a YouTube link — AI detects chords, key, and timing in seconds
+- [Free Vocal Remover and Karaoke Maker](https://ecoliving-tips.github.io/vocal-remover.html): Remove vocals with server-side AI, compare original and karaoke audio in sync, trim, and download 24-bit WAV. No signup; 30 MB and 8-minute upload limits; shared free CPU capacity limits apply.
 - [Chord Identifier](https://ecoliving-tips.github.io/chord-identifier.html): Enter any chord name to see finger positions for guitar and keyboard with audio playback
 - [Chord Progression Builder](https://ecoliving-tips.github.io/chord-progressions.html): Explore diatonic chords and common progressions in all 24 major and minor keys
 

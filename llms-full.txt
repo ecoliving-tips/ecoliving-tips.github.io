@@ -38,6 +38,16 @@
 - **What it does**: Enter any chord name (e.g., "Am7", "Gsus4", "F#m") and see interactive finger position diagrams for both guitar and keyboard, with audio playback of the chord.
 - **Covers**: 221 chords including major, minor, 7th, maj7, min7, sus2, sus4, dim, aug, add9, and slash chords.
 
+## Free Vocal Remover and Karaoke Maker
+
+- **URL**: https://ecoliving-tips.github.io/vocal-remover.html
+- **What it does**: Removes vocals from an uploaded song to create an audio-only instrumental backing track for karaoke and singing practice.
+- **AI processing**: Fine-tuned Demucs htdemucs_ft on a shared free Hugging Face CPU server. Audio is uploaded; processing can take many minutes. There is no instant browser fallback or separate stem download.
+- **Player**: Synchronized original and karaoke playback, independent mute and volume, waveform, seeking, and optional start/end trimming.
+- **Formats and limits**: MP3, WAV, M4A, OGG, FLAC, AAC, WebM; 30 MB and 8 minutes. Browser decoding support varies.
+- **Download**: Karaoke only, 24-bit PCM WAV. Trimming happens locally. No signup or payment; rate and server capacity limits apply.
+- **Quality**: Results depend on the recording; vocal traces and instrumental artifacts can remain. No guarantee of perfect removal.
+
 ## Chord Progression Builder
 
 - **URL**: https://ecoliving-tips.github.io/chord-progressions.html
@@ -90,6 +100,7 @@ No. Swaram works entirely in the browser on any device — desktop, tablet, or m
 
 - Homepage: https://ecoliving-tips.github.io/
 - AI Chord Finder: https://ecoliving-tips.github.io/chord-finder.html
+- Vocal Remover and Karaoke Maker: https://ecoliving-tips.github.io/vocal-remover.html
 - Chord Identifier: https://ecoliving-tips.github.io/chord-identifier.html
 - Chord Progression Builder: https://ecoliving-tips.github.io/chord-progressions.html
 - Song Library: https://ecoliving-tips.github.io/songs.html

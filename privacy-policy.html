@@ -72,7 +72,7 @@
             <div class="container">
                 <h1>Privacy Policy</h1>
                 <div class="privacy-content">
-                    <p>Last Updated: March 23, 2026</p>
+                    <p>Last Updated: November 8, 2026</p>
 
                     <h3>Introduction</h3>
                     <p>Swaram ("we," "our," or "us") operates the website at ecoliving-tips.github.io. We respect your privacy and are committed to protecting your personal information. This Privacy Policy explains what data we collect, how we use it, and your rights regarding your data when you use our website — including our AI Chord Finder, Chord Identifier, Chord Progressions tools, and song chord library.</p>
@@ -81,7 +81,7 @@
                     <p>We collect the following types of information:</p>
                     <ul>
                         <li><strong>Song Request Data:</strong> When you submit a song request, we collect your email address, the song title, and any optional message you provide. This is stored in our database to help us prioritize which songs to add and notify you when the chord chart is ready.</li>
-                        <li><strong>Audio File Uploads:</strong> When you use our AI Chord Finder, you upload an audio file for analysis. The file is processed on our server to detect chords and is not permanently stored after analysis is complete.</li>
+                        <li><strong>Audio File Uploads:</strong> Our AI Chord Finder and Vocal Remover upload audio to our Hugging Face-hosted backend for chord analysis or karaoke creation. Temporary karaoke input and output files are deleted after processing or failure. Karaoke comparison, trimming, and download preparation happen locally in your browser. We do not send audio or filenames to Google Analytics; karaoke events record actions, file extensions, processing time, and whether a download was trimmed.</li>
                         <li><strong>Automatically Collected Data:</strong> Like most websites, we automatically receive technical information such as your IP address, browser type, device type, and pages visited. This helps us understand how our site is used and improve it.</li>
                         <li><strong>Cookies:</strong> We use cookies through Google Analytics, Google AdSense, and YouTube embeds. These are explained in detail below.</li>
                     </ul>
@@ -125,6 +125,7 @@
                     <ul>
                         <li><strong>Google:</strong> Through Analytics for website usage data, through AdSense for advertising, and through YouTube for embedded video functionality.</li>
                         <li><strong>Supabase:</strong> For storing song request data.</li>
+                        <li><strong>Hugging Face:</strong> For hosting our audio-processing backend. Audio uploads and connection information pass through its infrastructure, subject to <a href="https://huggingface.co/privacy" target="_blank" rel="noopener">Hugging Face's Privacy Policy</a>.</li>
                         <li><strong>Law enforcement:</strong> If required by law or to protect our legal rights.</li>
                     </ul>
 

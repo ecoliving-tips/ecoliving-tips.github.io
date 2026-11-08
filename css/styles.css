@@ -5188,7 +5188,7 @@ body:has(#mic-btn) .generate-header .container::before {
 }
 
 body:has(#remove-btn) .generate-header .container::before {
-    content: 'STEM SEPARATION';
+    content: 'AI KARAOKE MAKER';
 }
 
 body:has(#generate-btn) .generate-header .container::before {

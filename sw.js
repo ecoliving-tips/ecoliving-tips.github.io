@@ -1,6 +1,6 @@
 // Swaram - Service Worker for Offline Support
 
-const CACHE_NAME = 'swaram-v19-btc-inference';
+const CACHE_NAME = 'swaram-v20-karaoke';
 const STATIC_ASSETS = [
     '/',
     '/index.html',
@@ -14,6 +14,7 @@ const STATIC_ASSETS = [
     '/js/request-page.js',
     '/js/browse-chords.js',
     '/js/vocal-remover.js',
+    '/css/karaoke.css',
     '/js/chord-finder.js',
     '/js/chord-utils.js',
     '/js/chord-identifier.js',

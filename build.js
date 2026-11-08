@@ -938,6 +938,7 @@ function generateSitemap(songs, categories, artists, progressionKeys, aiChordPag
         { loc: '/', file: 'index.html' },
         { loc: '/songs.html', file: 'songs.html' },
         { loc: '/chord-finder.html', file: 'chord-finder.html' },
+        { loc: '/vocal-remover.html', file: 'vocal-remover.html' },
         { loc: '/chord-identifier.html', file: 'chord-identifier.html' },
         { loc: '/chord-progressions.html', file: 'chord-progressions.html' },
         { loc: '/request.html', file: 'request.html' },
@@ -1182,6 +1183,7 @@ function generateLlmsTxt(aiChordPages) {
 ## Tools
 
 - [AI Chord Finder](${BASE_URL}/chord-finder.html): Upload MP3/WAV/FLAC or paste a YouTube link — AI detects chords, key, and timing in seconds
+- [Free Vocal Remover and Karaoke Maker](${BASE_URL}/vocal-remover.html): Remove vocals with server-side AI, compare original and karaoke audio in sync, trim, and download 24-bit WAV. No signup; 30 MB and 8-minute upload limits; shared free CPU capacity limits apply.
 - [Chord Identifier](${BASE_URL}/chord-identifier.html): Enter any chord name to see finger positions for guitar and keyboard with audio playback
 - [Chord Progression Builder](${BASE_URL}/chord-progressions.html): Explore diatonic chords and common progressions in all 24 major and minor keys
 
@@ -1244,6 +1246,16 @@ function generateLlmsTxt(aiChordPages) {
 - **What it does**: Enter any chord name (e.g., "Am7", "Gsus4", "F#m") and see interactive finger position diagrams for both guitar and keyboard, with audio playback of the chord.
 - **Covers**: 221 chords including major, minor, 7th, maj7, min7, sus2, sus4, dim, aug, add9, and slash chords.
 
+## Free Vocal Remover and Karaoke Maker
+
+- **URL**: ${BASE_URL}/vocal-remover.html
+- **What it does**: Removes vocals from an uploaded song to create an audio-only instrumental backing track for karaoke and singing practice.
+- **AI processing**: Fine-tuned Demucs htdemucs_ft on a shared free Hugging Face CPU server. Audio is uploaded; processing can take many minutes. There is no instant browser fallback or separate stem download.
+- **Player**: Synchronized original and karaoke playback, independent mute and volume, waveform, seeking, and optional start/end trimming.
+- **Formats and limits**: MP3, WAV, M4A, OGG, FLAC, AAC, WebM; 30 MB and 8 minutes. Browser decoding support varies.
+- **Download**: Karaoke only, 24-bit PCM WAV. Trimming happens locally. No signup or payment; rate and server capacity limits apply.
+- **Quality**: Results depend on the recording; vocal traces and instrumental artifacts can remain. No guarantee of perfect removal.
+
 ## Chord Progression Builder
 
 - **URL**: ${BASE_URL}/chord-progressions.html
@@ -1296,6 +1308,7 @@ No. Swaram works entirely in the browser on any device — desktop, tablet, or m
 
 - Homepage: ${BASE_URL}/
 - AI Chord Finder: ${BASE_URL}/chord-finder.html
+- Vocal Remover and Karaoke Maker: ${BASE_URL}/vocal-remover.html
 - Chord Identifier: ${BASE_URL}/chord-identifier.html
 - Chord Progression Builder: ${BASE_URL}/chord-progressions.html
 - Song Library: ${BASE_URL}/songs.html
@@ -2188,6 +2201,8 @@ if (require.main === module) {
 }
 
 module.exports = {
+    generateLlmsTxt,
+    minifyCSS,
     cleanMetadataText,
     formatChordPageDescription,
     formatChordPageSummary,
