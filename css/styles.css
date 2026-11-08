@@ -8285,40 +8285,38 @@ html::-webkit-scrollbar-thumb:hover {
     }
 }
 
-.npp-progress {
-    width: 100%;
-    height: 6px;
-    margin-top: 10px;
-    overflow: hidden;
-    border-radius: 999px;
-    background: rgba(154, 170, 189, 0.22);
+.npp-card.current.has-chord-trace {
+    position: relative;
 }
 
-.npp-progress-fill {
+.npp-card.current.has-chord-trace.is-tracing {
+    border-color: rgba(134, 216, 202, 0.24);
+}
+
+.npp-chord-trace {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
     width: 100%;
     height: 100%;
-    transform: scaleX(0);
-    transform-origin: left center;
-    border-radius: inherit;
-    background: var(--primary);
-    transition: background-color 0.18s ease;
+    overflow: visible;
+    pointer-events: none;
 }
 
-.npp-progress-fill.is-ending {
-    background: var(--accent);
-}
-
-.npp-countdown {
-    min-height: 1.4em;
-    margin-top: 5px;
-    color: var(--text-muted);
-    font-size: 0.75rem;
-    font-variant-numeric: tabular-nums;
-    text-align: center;
+.npp-chord-trace rect {
+    vector-effect: non-scaling-stroke;
+    stroke: var(--primary);
+    stroke-width: 2.5px;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.1s linear;
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .npp-progress-fill {
-        transition: none;
+    .npp-chord-trace {
+        display: none;
+    }
+
+    .npp-card.current.has-chord-trace.is-tracing {
+        border-color: rgba(134, 216, 202, 0.7);
     }
 }

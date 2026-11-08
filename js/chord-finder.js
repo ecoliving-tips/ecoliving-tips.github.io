@@ -146,11 +146,9 @@ let syncRafId = null;        // requestAnimationFrame ID for chord sync
 let lastActiveIdx = -1;      // Last highlighted chord index (avoids redundant DOM updates)
 let cachedBlocks = null;     // Cached NodeList of .chord-block elements
 let cachedCurrentChordEl = null; // Cached #current-chord element
-let chordProgressEl = null;
-let chordProgressFillEl = null;
-let chordCountdownEl = null;
-let lastChordProgress = -1;
-let lastChordCountdown = '';
+let chordTraceCard = null;
+let chordTracePath = null;
+let lastChordTraceProgress = -1;
 let audioPlayer = null;      // HTML5 Audio element
 let audioObjectUrl = null;   // Blob URL for uploaded file
 let serverWarm = false;      // Whether the HF Space is awake
@@ -957,7 +955,7 @@ function hideResults() {
     const summary = document.getElementById('analysis-summary');
     if (summary) summary.hidden = true;
     stopSync();
-    updateChordProgress(-1, 0);
+    updateChordTrace(-1, 0);
     if (audioObjectUrl) {
         URL.revokeObjectURL(audioObjectUrl);
         audioObjectUrl = null;
@@ -1071,7 +1069,7 @@ function initAudioPlayer() {
         document.getElementById('pause-icon').style.display = 'none';
         if (cachedCurrentChordEl) cachedCurrentChordEl.textContent = '-';
         updateNowPlayingPanel(-3);
-        updateChordProgress(-1, 0, true);
+        updateChordTrace(-1, 0);
         // Clear active/past highlights
         if (cachedBlocks) {
             for (let i = 0; i < cachedBlocks.length; i++) {
@@ -1171,7 +1169,7 @@ function onYTStateChange(event) {
         lastActiveIdx = -1;
         if (cachedCurrentChordEl) cachedCurrentChordEl.textContent = '-';
         updateNowPlayingPanel(-3);
-        updateChordProgress(-1, 0, true);
+        updateChordTrace(-1, 0);
         if (cachedBlocks) {
             for (let i = 0; i < cachedBlocks.length; i++) {
                 cachedBlocks[i].classList.remove('active', 'past');
@@ -1233,7 +1231,7 @@ function stopSync() {
 function initNowPlayingPanel() {
     const modeToggle = document.getElementById('npp-mode-toggle');
     const instrToggle = document.getElementById('npp-instrument-toggle');
-    ensureChordTimer();
+    ensureChordTrace();
     applyNppMode(nppMode);
     applyNppInstrument(nppInstrument);
 
@@ -1338,48 +1336,59 @@ function findActiveChordIndex(time) {
     return -1;
 }
 
-function ensureChordTimer() {
-    if (chordProgressFillEl?.isConnected && chordCountdownEl?.isConnected) return;
+function ensureChordTrace() {
+    if (chordTracePath?.isConnected) return;
     const currentCard = document.querySelector('.npp-card.current');
-    const chordName = currentCard?.querySelector('.npp-chord-name');
-    if (!currentCard || !chordName) return;
+    if (!currentCard) return;
 
-    chordProgressEl = document.createElement('div');
-    chordProgressEl.className = 'npp-progress';
-    chordProgressEl.setAttribute('role', 'progressbar');
-    chordProgressEl.setAttribute('aria-label', 'Elapsed progress through current chord');
-    chordProgressEl.setAttribute('aria-valuemin', '0');
-    chordProgressEl.setAttribute('aria-valuemax', '100');
-    chordProgressEl.setAttribute('aria-valuenow', '0');
-    chordProgressFillEl = document.createElement('div');
-    chordProgressFillEl.className = 'npp-progress-fill';
-    chordProgressEl.appendChild(chordProgressFillEl);
+    const svgNamespace = 'http://www.w3.org/2000/svg';
+    const trace = document.createElementNS(svgNamespace, 'svg');
+    trace.classList.add('npp-chord-trace');
+    trace.setAttribute('aria-hidden', 'true');
+    trace.setAttribute('focusable', 'false');
+    const path = document.createElementNS(svgNamespace, 'rect');
+    path.setAttribute('fill', 'none');
+    path.setAttribute('pathLength', '1000');
+    path.setAttribute('stroke-dasharray', '1000');
+    path.setAttribute('stroke-dashoffset', '1000');
+    trace.appendChild(path);
+    currentCard.appendChild(trace);
+    currentCard.classList.add('has-chord-trace');
+    chordTraceCard = currentCard;
+    chordTracePath = path;
 
-    chordCountdownEl = document.createElement('div');
-    chordCountdownEl.className = 'npp-countdown';
-    chordCountdownEl.setAttribute('role', 'timer');
-    chordCountdownEl.setAttribute('aria-label', 'Chord countdown');
-    chordCountdownEl.textContent = 'Play to see the chord countdown';
+    const updateGeometry = () => {
+        if (!chordTraceCard?.isConnected || !chordTracePath?.isConnected) return;
+        const width = chordTraceCard.clientWidth;
+        const height = chordTraceCard.clientHeight;
+        const style = getComputedStyle(chordTraceCard);
+        const inset = (parseFloat(style.borderTopWidth) || 1) / 2 + 0.5;
+        const radius = Math.max(0, (parseFloat(style.borderTopLeftRadius) || 8) - inset);
+        trace.setAttribute('viewBox', `0 0 ${width} ${height}`);
+        path.setAttribute('x', String(inset));
+        path.setAttribute('y', String(inset));
+        path.setAttribute('width', String(Math.max(0, width - inset * 2)));
+        path.setAttribute('height', String(Math.max(0, height - inset * 2)));
+        path.setAttribute('rx', String(radius));
+    };
 
-    chordName.after(chordProgressEl, chordCountdownEl);
+    if (typeof ResizeObserver === 'function') {
+        new ResizeObserver(updateGeometry).observe(currentCard);
+    } else {
+        window.addEventListener('resize', updateGeometry);
+    }
+    updateGeometry();
 }
 
-function formatChordCountdown(seconds) {
-    const minutes = Math.floor(seconds / 60);
-    const remainder = seconds % 60;
-    return `${minutes}:${String(remainder).padStart(2, '0')}`;
-}
-
-function updateChordProgress(activeIdx, time, playbackEnded = false) {
-    ensureChordTimer();
-    if (!chordProgressFillEl || !chordCountdownEl) return;
+function updateChordTrace(activeIdx, time) {
+    ensureChordTrace();
+    if (!chordTracePath) return;
 
     const chords = chordData?.chords;
     const current = activeIdx >= 0 ? chords?.[activeIdx] : null;
     const next = activeIdx >= 0 ? chords?.[activeIdx + 1] : null;
     let progress = 0;
-    let ending = false;
-    let countdown = playbackEnded ? 'Playback ended' : 'Waiting for the first chord';
+    let isTracing = false;
 
     if (current && Number.isFinite(current.time) && Number.isFinite(time)) {
         const end = next && Number.isFinite(next.time)
@@ -1387,27 +1396,16 @@ function updateChordProgress(activeIdx, time, playbackEnded = false) {
             : current.time + (Number(current.duration) || 0);
         const duration = end - current.time;
         if (duration > 0) {
-            const remaining = Math.max(0, end - time);
+            isTracing = true;
             progress = Math.min(1, Math.max(0, (time - current.time) / duration));
-            ending = progress >= 0.75 || remaining <= 0.6;
-            countdown = next
-                ? `Next chord in ${formatChordCountdown(Math.ceil(remaining))}`
-                : `Chord ends in ${formatChordCountdown(Math.ceil(remaining))}`;
-        } else {
-            countdown = next ? 'Next chord is coming up' : 'Final detected chord';
         }
     }
 
+    chordTraceCard.classList.toggle('is-tracing', isTracing);
     const rounded = Math.round(progress * 1000) / 1000;
-    if (rounded !== lastChordProgress) {
-        lastChordProgress = rounded;
-        chordProgressFillEl.style.transform = `scaleX(${rounded})`;
-        chordProgressEl.setAttribute('aria-valuenow', String(Math.round(rounded * 100)));
-    }
-    chordProgressFillEl.classList.toggle('is-ending', ending);
-    if (countdown !== lastChordCountdown) {
-        lastChordCountdown = countdown;
-        chordCountdownEl.textContent = countdown;
+    if (rounded !== lastChordTraceProgress) {
+        lastChordTraceProgress = rounded;
+        chordTracePath.setAttribute('stroke-dashoffset', String(1000 * (1 - rounded)));
     }
 }
 
@@ -1423,7 +1421,7 @@ function updateChordSync() {
     }
 
     const activeIdx = findActiveChordIndex(time);
-    updateChordProgress(activeIdx, time);
+    updateChordTrace(activeIdx, time);
 
     // Skip DOM updates if nothing changed
     if (activeIdx === lastActiveIdx) return;
