@@ -3519,5 +3519,159 @@
     "lastCrawlTime": null,
     "crawledAs": "N/A",
     "checkedAt": "2026-11-12T04:44:21.774Z"
+  },
+  "https://ecoliving-tips.github.io/library/a/page/20/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-11-12T11:59:27Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-11-16T16:23:03.223Z"
+  },
+  "https://ecoliving-tips.github.io/library/a/page/21/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-11-12T12:02:45Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-11-16T16:23:10.784Z"
+  },
+  "https://ecoliving-tips.github.io/library/a/page/22/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-11-12T12:07:47Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-11-16T16:23:18.354Z"
+  },
+  "https://ecoliving-tips.github.io/library/b/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-11-12T12:22:33Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-11-16T16:23:25.929Z"
+  },
+  "https://ecoliving-tips.github.io/library/b/page/2/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-11-12T12:26:25Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-11-16T16:23:33.539Z"
+  },
+  "https://ecoliving-tips.github.io/library/b/page/3/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-11-12T12:26:25Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-11-16T16:23:41.103Z"
+  },
+  "https://ecoliving-tips.github.io/library/b/page/4/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-11-12T12:25:17Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-11-16T16:23:48.709Z"
+  },
+  "https://ecoliving-tips.github.io/library/b/page/5/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-11-12T12:27:38Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-11-16T16:23:56.261Z"
+  },
+  "https://ecoliving-tips.github.io/library/b/page/6/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-11-12T12:47:44Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-11-16T16:24:03.813Z"
+  },
+  "https://ecoliving-tips.github.io/library/b/page/7/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-11-12T12:47:04Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-11-16T16:24:11.387Z"
+  },
+  "https://ecoliving-tips.github.io/library/b/page/8/": {
+    "verdict": "PASS",
+    "coverageState": "Submitted and indexed",
+    "lastCrawlTime": "2026-11-12T12:45:28Z",
+    "crawledAs": "MOBILE",
+    "checkedAt": "2026-11-16T16:24:18.963Z"
+  },
+  "https://ecoliving-tips.github.io/library/b/page/9/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-11-16T16:24:26.547Z"
+  },
+  "https://ecoliving-tips.github.io/library/b/page/10/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-11-16T16:24:34.116Z"
+  },
+  "https://ecoliving-tips.github.io/library/b/page/11/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-11-16T16:24:41.685Z"
+  },
+  "https://ecoliving-tips.github.io/library/b/page/12/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-11-16T16:24:49.250Z"
+  },
+  "https://ecoliving-tips.github.io/library/b/page/13/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-11-16T16:24:56.803Z"
+  },
+  "https://ecoliving-tips.github.io/library/b/page/14/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-11-16T16:25:04.441Z"
+  },
+  "https://ecoliving-tips.github.io/library/b/page/15/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-11-16T16:25:12.007Z"
+  },
+  "https://ecoliving-tips.github.io/library/b/page/16/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-11-16T16:25:19.543Z"
+  },
+  "https://ecoliving-tips.github.io/library/b/page/17/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-11-16T16:25:27.087Z"
+  },
+  "https://ecoliving-tips.github.io/library/c/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-11-16T16:25:34.666Z"
+  },
+  "https://ecoliving-tips.github.io/library/c/page/2/": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL is unknown to Google",
+    "lastCrawlTime": null,
+    "crawledAs": "N/A",
+    "checkedAt": "2026-11-16T16:25:42.189Z"
   }
 }
